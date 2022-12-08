@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// I am alive!!!
 public class Waypoint : MonoBehaviour {
     private readonly int tileSpacing = 10;
 
