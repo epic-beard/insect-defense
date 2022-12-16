@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /WebGL Builds/
 /[Ll]ogs/
+/Packages/
 /[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
@@ -71,3 +72,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+#app.config
+app.config
