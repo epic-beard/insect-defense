@@ -1,0 +1,100 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefenseTest\\InsectDefenseTest.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefense.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefense.csproj",
+        "projectName": "InsectDefense",
+        "projectPath": "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefense.csproj",
+        "frameworks": {
+          "net471": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net471": {}
+      }
+    },
+    "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefenseTest\\InsectDefenseTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefenseTest\\InsectDefenseTest.csproj",
+        "projectName": "InsectDefenseTest",
+        "projectPath": "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefenseTest\\InsectDefenseTest.csproj",
+        "packagesPath": "C:\\Users\\Eric\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefenseTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Eric\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefense.csproj": {
+                "projectPath": "C:\\Users\\Eric\\Unity3D\\Insect Defense\\InsectDefense.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.2.8, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.2.8, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.1.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
