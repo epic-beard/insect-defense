@@ -2,23 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// I am alive!!!
 public class Waypoint : MonoBehaviour {
-    private readonly int tileSpacing = 10;
+    public enum Direction {
+        UP = 0,
+        RIGHT = 1,
+        DOWN = 2,
+        LEFT = 3
+    }
+    public static readonly int TileSpacing = 10;
 
-    [SerializeField] List<Vector2Int> exits;
-    [SerializeField] List<Vector2Int> entrances;
-    void Start() {
-        
+    public List<Direction> exits = new();
+
+    // Populated by the PathManager
+    public List<Waypoint> nextWaypoints = new();
+    public List<Waypoint> prevWaypoints = new();
+
+    public Waypoint GetNextWaypoint() {
+        return GetRandomWaypoint(nextWaypoints);
     }
 
-    void Update() {
-        
+    public Waypoint GetPrevWaypoint() {
+        return GetRandomWaypoint(prevWaypoints);
     }
 
+    private Waypoint GetRandomWaypoint(List<Waypoint> waypoints) {
+        int n = nextWaypoints.Count;
+        return nextWaypoints[Random.Range(0, n) % waypoints.Count];
+    }
+
+    // Finds the coordinates in tiles.
     public Vector2Int GetCoordinates() {
-        int x = Mathf.RoundToInt(transform.position.x / tileSpacing);
-        int y = Mathf.RoundToInt(transform.position.y / tileSpacing);
+        int x = Mathf.RoundToInt(transform.position.x / TileSpacing);
+        int y = Mathf.RoundToInt(transform.position.y / TileSpacing);
         return new Vector2Int(x, y);
     }
 }
