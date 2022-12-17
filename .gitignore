@@ -75,3 +75,7 @@ crashlytics-build.properties
 
 # app.config
 app.config
+
+# Testin ignores
+InsectDefenseTest/bin
+InsectDefenseTest/obj
