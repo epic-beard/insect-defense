@@ -22,6 +22,14 @@ public static class TowerData
         SPITTING_ANT_TOWER,
     }
 
+    public enum TowerAbility {
+        ANTI_AIR,
+        CAMO_SIGHT,
+        CRIPPLE,
+        SLOW,
+        STUN,
+    }
+
     struct TowerInfo {
         public Dictionary<Stat, float> startingStats;
         public static Ability[][] abilities;
@@ -52,6 +60,8 @@ public class Ability {
     string name;
     string description;
     TowerData.Mode mode;
+    int upgradePath;  // This should be 0-2.
+    int upgradeLevel;  // This shoudl be 0-4.
     float cost;
     AttributeModifier[] attributeModifiers;
 }
