@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// I am alive!!!
 public class Waypoint : MonoBehaviour {
     public enum Direction {
         UP = 0,
@@ -10,39 +9,31 @@ public class Waypoint : MonoBehaviour {
         DOWN = 2,
         LEFT = 3
     }
+    public static readonly int TileSpacing = 10;
 
-    private readonly int tileSpacing = 10;
+    public List<Direction> exits = new();
 
-    [SerializeField] public List<Direction> exits = new();
-    //[SerializeField] List<Vector2Int> entrances;
-    private void Start() {
-        
-    }
-
-    private void Update() {
-        
-    }
-
+    // Populated by the PathManager
     public List<Waypoint> nextWaypoints = new();
     public List<Waypoint> prevWaypoints = new();
 
+    public Waypoint GetNextWaypoint() {
+        return GetRandomWaypoint(nextWaypoints);
+    }
+
+    public Waypoint GetPrevWaypoint() {
+        return GetRandomWaypoint(prevWaypoints);
+    }
+
+    private Waypoint GetRandomWaypoint(List<Waypoint> waypoints) {
+        int n = nextWaypoints.Count;
+        return nextWaypoints[Random.Range(0, n) % waypoints.Count];
+    }
+
+    // Finds the coordinates in tiles.
     public Vector2Int GetCoordinates() {
-        int x = Mathf.RoundToInt(transform.position.x / tileSpacing);
-        int y = Mathf.RoundToInt(transform.position.y / tileSpacing);
+        int x = Mathf.RoundToInt(transform.position.x / TileSpacing);
+        int y = Mathf.RoundToInt(transform.position.y / TileSpacing);
         return new Vector2Int(x, y);
-    }
-
-    public int GetRotationSteps() {
-        return Mathf.RoundToInt(transform.rotation.eulerAngles.z / 90);
-    }
-
-    public Vector2Int DirectionToVec(Direction dir) {
-        return dir switch {
-            Direction.UP => new Vector2Int(0, 1),
-            Direction.RIGHT => new Vector2Int(1, 0),
-            Direction.DOWN => new Vector2Int(0, -1),
-            Direction.LEFT => new Vector2Int(-1, 0),
-            _ => new Vector2Int(0, 0),
-        };
     }
 }
