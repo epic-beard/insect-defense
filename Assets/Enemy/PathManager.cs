@@ -14,24 +14,30 @@ public class PathManager : MonoBehaviour {
     void PopulateWaypoints(Waypoint[] waypoints) {
         // Get the extents of the tile grid.
         var coords = waypoints.ToList().Select(w => w.GetCoordinates());
-        int maxX = coords.Select(c => c.x).Max();
-        int maxY = coords.Select(c => c.y).Max();
+        int minX = coords.Select(c => c.x).Min();
+        int maxX = coords.Select(c => c.x).Max() - minX;
+        int minY = coords.Select(c => c.y).Min();
+        int maxY = coords.Select(c => c.y).Max() - minY;
 
+        Vector2Int coordOffset = new(minX, minY);
         // Arrange the Waypoints into a grid.
-        Waypoint[,] grid = new Waypoint[maxX, maxY];
+        Waypoint[,] grid = new Waypoint[maxX + 1, maxY + 1];
         foreach (var waypoint in waypoints) {
-            Vector2Int coord = waypoint.GetCoordinates();
+            Vector2Int coord = waypoint.GetCoordinates() - coordOffset;
             grid[coord.x, coord.y] = waypoint;
         }
 
         // Loop through each waypoint, finding its neigbhors and setting the
         // next/prev_waypoints according to the Directions in exits.
         foreach (var waypoint in waypoints) {
-            Vector2Int coord = waypoint.GetCoordinates();
+            Vector2Int coord = waypoint.GetCoordinates() - coordOffset;
             foreach (var exit in waypoint.exits) {
-                Waypoint.Direction dir = GetRotatedDirection(transform, exit);
+                Waypoint.Direction dir = GetRotatedDirection(waypoint.transform, exit);
+                Debug.Log(dir);
                 Waypoint? neighbor = GetNeigbhor(dir, coord, grid);
                 if (neighbor == null) continue;
+                Debug.Log("Center: " + waypoint.transform.position);
+                Debug.Log("Neighbor: " + neighbor.transform.position);
                 neighbor.prevWaypoints.Add(waypoint);
                 waypoint.nextWaypoints.Add(neighbor);
             }
