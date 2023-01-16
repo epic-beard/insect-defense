@@ -1,3 +1,4 @@
+#nullable enable
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class SpittingAntTower : Tower {
   public float SlowPercentage { get; private set; }
   public float StunLength { get; private set; }
   public float AcidDPS { get; private set; }
+
+  private Enemy? enemy;
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
     switch (ability) {
@@ -44,24 +47,27 @@ public class SpittingAntTower : Tower {
   void Update() {
     // Getting the enemy this way is a short term measure.
     Targeting targeting = new();
-    Enemy? enemy = targeting.findTarget();
-
-    if (ContinuousAttack) {
-      // Turn on continuous attack.
+    enemy = targeting.findTarget();
+    if (enemy == null) {
+      // Turn off particle systems.
     } else {
-      // Turn on AoE attack.
+      if (ContinuousAttack) {
+        // Turn on continuous attack.
+      } else {
+        // Turn on AoE attack.
+      }
     }
   }
 
-  public float getOnHitDamage() {
+  public float GetOnHitDamage() {
     return attributes[TowerData.Stat.DAMAGE];
   }
 
-  public float getDamageOverTime() {
+  public float GetDamageOverTime() {
     return attributes[TowerData.Stat.DAMAGE_OVER_TIME];
   }
 
-  public float getArmorTear() {
+  public float GetArmorTear() {
     return attributes[TowerData.Stat.ARMOR_TEAR];
   }
 }

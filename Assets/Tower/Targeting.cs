@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Targeting {
 
-  public Enemy findTarget() {
+  public Enemy? findTarget() {
     return new Enemy();
   }
 }

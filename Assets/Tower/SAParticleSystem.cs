@@ -12,17 +12,17 @@ public class SAParticleSystem : MonoBehaviour {
   }
 
   private void OnParticleCollision(GameObject other) {
-    float onHitDamage = origin.getOnHitDamage();
-    float damageOverTime = origin.getDamageOverTime();
+    float onHitDamage = origin.GetOnHitDamage();
+    float damageOverTime = origin.GetDamageOverTime();
     Enemy enemy = other.GetComponentInChildren<Enemy>();
 
     // Armor tear effects.
-    if (origin.AcidStun && enemy.TearArmor(origin.getArmorTear()) == 0.0f) {
+    if (origin.AcidStun && enemy.TearArmor(origin.GetArmorTear()) == 0.0f) {
       // Stun the enemy.
     }
     if (origin.TearBonusDamage && enemy.GetArmor() == 0.0f) {
-      onHitDamage *= origin.getArmorTear();
-      damageOverTime *= origin.getArmorTear();
+      onHitDamage *= origin.GetArmorTear();
+      damageOverTime *= origin.GetArmorTear();
     }
 
     // DoT effects.
