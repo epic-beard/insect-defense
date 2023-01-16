@@ -1,3 +1,4 @@
+#nullable enable
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,17 +18,17 @@ public class Waypoint : MonoBehaviour {
     public List<Waypoint> nextWaypoints = new();
     public List<Waypoint> prevWaypoints = new();
 
-    public Waypoint GetNextWaypoint() {
+    public Waypoint? GetNextWaypoint() {
         return GetRandomWaypoint(nextWaypoints);
     }
 
-    public Waypoint GetPrevWaypoint() {
+    public Waypoint? GetPrevWaypoint() {
         return GetRandomWaypoint(prevWaypoints);
     }
 
-    private Waypoint GetRandomWaypoint(List<Waypoint> waypoints) {
-        int n = nextWaypoints.Count;
-        return nextWaypoints[Random.Range(0, n) % waypoints.Count];
+    private Waypoint? GetRandomWaypoint(List<Waypoint> waypoints) {
+        if (waypoints.Count == 0) return null;
+        return waypoints[Random.Range(0, waypoints.Count - 1)];
     }
 
     // Finds the coordinates in tiles.
