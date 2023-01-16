@@ -69,12 +69,14 @@ public class SpittingAntTower : Tower {
     Enemy enemy = other.GetComponentInChildren<Enemy>();
 
     // Armor tear effects.
-    if (AcidStun && enemy.TearArmor(ArmorTear) == 0.0f) {
-      // Stun the enemy.
-    }
-    if (TearBonusDamage && enemy.GetArmor() == 0.0f) {
-      onHitDamage *= ArmorTear;
-      acidStacks *= ArmorTear;
+    if (enemy.TearArmor(ArmorTear) == 0.0f) {
+      if (AcidStun) {
+        // Stun the enemy.
+      }
+      if (TearBonusDamage) {
+        onHitDamage *= ArmorTear;
+        acidStacks *= ArmorTear;
+      }
     }
 
     // DoT effects.
@@ -88,6 +90,6 @@ public class SpittingAntTower : Tower {
       }
     }
 
-    enemy.damageEnemy(onHitDamage);
+    enemy.DamageEnemy(onHitDamage);
   }
 }
