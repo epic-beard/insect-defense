@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using System.Diagnostics;
+using UnityEngine;
 
 public static class TowerData {
   public enum Stat {
@@ -69,7 +70,14 @@ public class Ability {
   public TowerData.Mode Mode { get; private set; }
   public SpecialAbilityEnum SpecialAbility { get; private set; }
   public AttributeModifier[] AttributeModifiers { get; private set; }
-  public int UpgradePath { get; private set; }  // This should be 0-2.
+  private int upgradePath;
+  public int UpgradePath {
+    get { return upgradePath; }
+    set {
+      if (0 <= value && value <= 2) upgradePath = value;
+      else UnityEngine.Debug.Log("Access attempt to upgrade paths out of bounds.");
+    }
+  }
 
   string name;
   string description;

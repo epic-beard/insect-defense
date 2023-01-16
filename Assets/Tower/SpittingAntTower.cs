@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Ability;
+using static UnityEngine.UI.Image;
 
 public class SpittingAntTower : Tower {
   [SerializeField] ParticleSystem splash;
@@ -18,6 +19,11 @@ public class SpittingAntTower : Tower {
   public float AcidDPS { get; private set; }
 
   private Enemy? enemy;
+  private Targeting targeting;
+
+  private void Start() {
+    targeting = new();
+  }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
     switch (ability) {
@@ -45,9 +51,7 @@ public class SpittingAntTower : Tower {
   }
 
   void Update() {
-    // Getting the enemy this way is a short term measure.
-    Targeting targeting = new();
-    enemy = targeting.findTarget();
+    enemy = targeting.FindTarget();
     if (enemy == null) {
       // Turn off particle systems.
     } else {
@@ -59,15 +63,31 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  public float GetOnHitDamage() {
-    return attributes[TowerData.Stat.DAMAGE];
-  }
+  private void OnParticleCollision(GameObject other) {
+    float onHitDamage = Damage;
+    float acidStacks = DamageOverTime;
+    Enemy enemy = other.GetComponentInChildren<Enemy>();
 
-  public float GetDamageOverTime() {
-    return attributes[TowerData.Stat.DAMAGE_OVER_TIME];
-  }
+    // Armor tear effects.
+    if (AcidStun && enemy.TearArmor(ArmorTear) == 0.0f) {
+      // Stun the enemy.
+    }
+    if (TearBonusDamage && enemy.GetArmor() == 0.0f) {
+      onHitDamage *= ArmorTear;
+      acidStacks *= ArmorTear;
+    }
 
-  public float GetArmorTear() {
-    return attributes[TowerData.Stat.ARMOR_TEAR];
+    // DoT effects.
+    if (enemy.AddAcidStacks(acidStacks)) {
+      if (DotSlow) {
+        // Apply a slow to the enemy unless the enemy is already slowed.
+      }
+      if (DotExplosion) {
+        // Trigger an explosion.
+        // Reset acid stacks to 0.
+      }
+    }
+
+    enemy.damageEnemy(onHitDamage);
   }
 }

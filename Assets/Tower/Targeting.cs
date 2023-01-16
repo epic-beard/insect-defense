@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Targeting {
 
-  public Enemy? findTarget() {
-    return new Enemy();
+  public Enemy? FindTarget() {
+    GameObject gameObject = new();
+    return gameObject.AddComponent<Enemy>();
   }
 }
