@@ -56,7 +56,7 @@ public class WaypointTest
         Assert.That(waypoint.GetCoordinates(), Is.EqualTo(new Vector2Int(1,2)));
     }
 
-    // Creates and returns a Waypoint at location v.
+    // Creates and returns a Waypoint.
     Waypoint GetWaypoint() {
         GameObject gameObject = new();
         return gameObject.AddComponent<Waypoint>();
