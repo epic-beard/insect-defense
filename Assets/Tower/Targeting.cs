@@ -37,10 +37,10 @@ public class Targeting {
     // TODO - These two need additional infrastructure to do properly.
     { Priority.FIRST, (enemy1, enemy2) => 0 },
     { Priority.LAST, (enemy1, enemy2) => 0 },
-    { Priority.LEASTARMOR, (enemy1, enemy2) => CompareFloats(enemy2.GetArmor(), enemy1.GetArmor()) },
-    { Priority.LEASTHP, (enemy1, enemy2) => CompareFloats(enemy2.GetHP(), enemy1.GetHP()) },
-    { Priority.MOSTARMOR, (enemy1, enemy2) => CompareFloats(enemy1.GetArmor(), enemy2.GetArmor()) },
-    { Priority.MOSTHP, (enemy1, enemy2) => CompareFloats(enemy1.GetHP(), enemy2.GetHP()) },
+    { Priority.LEASTARMOR, (enemy1, enemy2) => CompareFloats(enemy1.GetArmor(), enemy2.GetArmor()) },
+    { Priority.LEASTHP, (enemy1, enemy2) => CompareFloats(enemy1.GetHP(), enemy2.GetHP()) },
+    { Priority.MOSTARMOR, (enemy1, enemy2) => CompareFloats(enemy2.GetArmor(), enemy1.GetArmor()) },
+    { Priority.MOSTHP, (enemy1, enemy2) => CompareFloats(enemy2.GetHP(), enemy1.GetHP()) },
   };
 
   public Priority priority;
@@ -86,6 +86,6 @@ public class Targeting {
   //  return -1 if first is less than second.
   // Note that this algorithm will never produce a result describing equality. This is intentional.
   public static int CompareFloats(float first, float second) {
-    return (first > second) ? -1 : 1;
+    return (first > second) ? 1 : -1;
   }
 }

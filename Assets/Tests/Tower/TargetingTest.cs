@@ -158,6 +158,40 @@ public class TargetingTest {
     Assert.That(target, Is.EqualTo(null));
   }
 
+  //    --- Test the floating point comparison ---
+  // Should return 1.
+  [Test]
+  public void FloatComparisonTestFirstGreater() {
+    float first = 100.0f;
+    float second = 10.0f;
+
+    float result = Targeting.CompareFloats(first, second);
+    Assert.That(result, Is.EqualTo(1));
+  }
+
+  // Should return -1.
+  [Test]
+  public void FloatComparisonTestFirstLesser() {
+    float first = 1.0f;
+    float second = 10.0f;
+
+    float result = Targeting.CompareFloats(first, second);
+    Assert.That(result, Is.EqualTo(-1));
+  }
+
+  // Should always return -1.
+  [Test]
+  public void FloatComparisonTestFirstEqualToSecond() {
+    float first = 1.0f;
+    float second = 1.0f;
+
+    float result = Targeting.CompareFloats(first, second);
+    Assert.That(result, Is.EqualTo(-1));
+
+    result = Targeting.CompareFloats(second, first);
+    Assert.That(result, Is.EqualTo(-1));
+  }
+
   // Create an Enemy and set various properties for testing.
   Enemy CreateEnemy(float armor, float hp, bool isFlier, bool isCamo, Vector3 position) {
     GameObject gameObject = new();
