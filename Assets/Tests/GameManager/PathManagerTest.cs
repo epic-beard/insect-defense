@@ -74,6 +74,22 @@ public class PathManagerTest {
     Assert.That(waypointRight.prevWaypoints, Is.EquivalentTo(new List<Waypoint>() { waypointCenter }));
   }
 
+  [Test]
+  public void GetDistanceToEndWorks() {
+    Waypoint waypoint0 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint1 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint2 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint3 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint4 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint5 = GetWaypoint(Vector3.zero);
+    waypoint0.nextWaypoints.Add(waypoint1);
+    waypoint1.nextWaypoints.Add(waypoint2);
+    waypoint2.nextWaypoints.Add(waypoint3);
+    waypoint3.nextWaypoints.Add(waypoint4);
+    waypoint1.nextWaypoints.Add(waypoint5);
+
+  }
+
   // Creates and returns a Waypoint at location v.
   Waypoint GetWaypoint(Vector3 v) {
     GameObject gameObject = new();
