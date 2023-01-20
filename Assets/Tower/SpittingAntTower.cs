@@ -6,8 +6,8 @@ using static Ability;
 using static UnityEngine.UI.Image;
 
 public class SpittingAntTower : Tower {
-  [SerializeField] ParticleSystem splash;
-  [SerializeField] ParticleSystem beam;
+  [SerializeField] ParticleSystem splash = new();
+  [SerializeField] ParticleSystem beam = new();
 
   public bool AcidStun { get; private set; }
   public bool TearBonusDamage { get; private set; }
@@ -19,7 +19,7 @@ public class SpittingAntTower : Tower {
   public float AcidDPS { get; private set; }
 
   private Enemy? enemy;
-  private Targeting targeting;
+  private Targeting targeting = new();
 
   private void Start() {
     targeting = new();
@@ -51,7 +51,7 @@ public class SpittingAntTower : Tower {
   }
 
   void Update() {
-    enemy = targeting.FindTarget();
+    enemy = targeting.FindTarget(enemy, FindObjectsOfType<Enemy>(), transform.position, Range);
     if (enemy == null) {
       // Turn off particle systems.
     } else {

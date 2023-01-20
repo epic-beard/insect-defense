@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour {
+  public float armor = 0.0f;
+  public float hp = 0.0f;
+  public Vector3 position = Vector3.zero;
+  public bool isFlying = false;
+  public bool isCamo = false;
 
-  public void damageEnemy(float damage) {
+  public void DamageEnemy(float damage) {
     // Mark damage this enemy has taken.
   }
 
@@ -14,7 +20,7 @@ public class Enemy : MonoBehaviour {
   }
 
   public float GetArmor() {
-    return 0.0f;
+    return armor;
   }
 
   // Returns true if stacks are at max.
@@ -24,5 +30,21 @@ public class Enemy : MonoBehaviour {
 
   public bool IsAcidDOTMax() {
     return true;
+  }
+
+  public float GetHP() {
+    return hp;
+  }
+
+  public bool IsCamo() {
+    return isCamo;
+  }
+
+  public bool IsFlying() {
+    return isFlying;
+  }
+
+  public Vector3 getPosition() {
+    return position;
   }
 }
