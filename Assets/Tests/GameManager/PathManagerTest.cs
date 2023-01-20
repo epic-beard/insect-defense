@@ -13,9 +13,9 @@ public class PathManagerTest {
   // Tests that all directions are handled correctly.
   [Test]
   public void PopulateWaypointsWorks() {
-    Waypoint waypointUp = GetWaypoint(Vector3.up * tileSpacing);
+    Waypoint waypointUp = GetWaypoint(Vector3.forward * tileSpacing);
     Waypoint waypointRight = GetWaypoint(Vector3.right * tileSpacing);
-    Waypoint waypointDown = GetWaypoint(Vector3.down * tileSpacing);
+    Waypoint waypointDown = GetWaypoint(Vector3.back * tileSpacing);
     Waypoint waypointLeft = GetWaypoint(Vector3.left * tileSpacing);
     Waypoint waypointCenter = GetWaypoint(Vector3.zero * tileSpacing);
 
@@ -58,12 +58,12 @@ public class PathManagerTest {
   // Tests that rotation of Waypoints is handled correctly.
   [Test]
   public void PopulateWaypointsRotation() {
-    Waypoint waypointUp = GetWaypoint(Vector3.up * tileSpacing);
+    Waypoint waypointUp = GetWaypoint(Vector3.forward * tileSpacing);
     Waypoint waypointRight = GetWaypoint(Vector3.right * tileSpacing);
     Waypoint waypointCenter = GetWaypoint(Vector3.zero * tileSpacing);
 
     waypointCenter.exits = new List<Waypoint.Direction>() { Waypoint.Direction.UP };
-    waypointCenter.transform.Rotate(-270 * Vector3.forward);
+    waypointCenter.transform.Rotate(-270 * Vector3.up);
 
     PathManager pathManager = new GameObject().AddComponent<PathManager>();
     object[] args = { new Waypoint[] { waypointUp, waypointRight, waypointCenter } };

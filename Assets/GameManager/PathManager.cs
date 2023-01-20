@@ -6,12 +6,17 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour {
 
-  void Start() {
-    PopulateWaypoints(GetComponents<Waypoint>());
+  void Awake() {
+    PopulateWaypoints(FindObjectsOfType<Waypoint>());
   }
 
   // Populates the next/prev_waypoints lists in Waypoint.
   void PopulateWaypoints(Waypoint[] waypoints) {
+    if (waypoints.Length == 0) {
+      Debug.Log("[ERROR] No waypoints found");
+      return;
+    }
+
     // Get the extents of the tile grid.
     var coords = waypoints.ToList().Select(w => w.GetCoordinates());
     int minX = coords.Select(c => c.x).Min();
@@ -33,11 +38,8 @@ public class PathManager : MonoBehaviour {
       Vector2Int coord = waypoint.GetCoordinates() - coordOffset;
       foreach (var exit in waypoint.exits) {
         Waypoint.Direction dir = GetRotatedDirection(waypoint.transform, exit);
-        Debug.Log(dir);
         Waypoint? neighbor = GetNeigbhor(dir, coord, grid);
         if (neighbor == null) continue;
-        Debug.Log("Center: " + waypoint.transform.position);
-        Debug.Log("Neighbor: " + neighbor.transform.position);
         neighbor.prevWaypoints.Add(waypoint);
         waypoint.nextWaypoints.Add(neighbor);
       }
@@ -62,7 +64,7 @@ public class PathManager : MonoBehaviour {
 
   // Rotates a Direction by the 90 degree steps of the z rotation of the transform.
   private Waypoint.Direction GetRotatedDirection(Transform transform, Waypoint.Direction dir) {
-    int steps = Mathf.RoundToInt(transform.rotation.eulerAngles.z / 90);
+    int steps = Mathf.RoundToInt(transform.rotation.eulerAngles.y / 90);
     return (Waypoint.Direction)(((int)dir + steps) % 4);
   }
 }
