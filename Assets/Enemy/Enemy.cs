@@ -71,5 +71,6 @@ public class Enemy : MonoBehaviour {
     FinishPath();
   }
 
+  // TODO nnewsom: Implement this when needed.
   private void FinishPath() { }
 }

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour {
 
+  // Manager classes will perform their setup at Awake so down stream classes
+  // can reliably depend on them at Start.
   void Awake() {
     PopulateWaypoints(FindObjectsOfType<Waypoint>());
   }
