@@ -33,11 +33,8 @@ public class PathManager : MonoBehaviour {
       Vector2Int coord = waypoint.GetCoordinates() - coordOffset;
       foreach (var exit in waypoint.exits) {
         Waypoint.Direction dir = GetRotatedDirection(waypoint.transform, exit);
-        Debug.Log(dir);
         Waypoint? neighbor = GetNeigbhor(dir, coord, grid);
         if (neighbor == null) continue;
-        Debug.Log("Center: " + waypoint.transform.position);
-        Debug.Log("Neighbor: " + neighbor.transform.position);
         neighbor.prevWaypoints.Add(waypoint);
         waypoint.nextWaypoints.Add(neighbor);
       }

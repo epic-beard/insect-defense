@@ -40,7 +40,7 @@ public class SpittingAntTower : Tower {
         DotExplosion = true;
         break;
       case SpecialAbilityEnum.SA_3_3_CAMO_SIGHT:
-        towerAbilities.Add(TowerData.TowerAbility.CAMO_SIGHT);
+        towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = true;
         break;
       case SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE:
         ContinuousAttack = true;
@@ -51,7 +51,13 @@ public class SpittingAntTower : Tower {
   }
 
   void Update() {
-    enemy = targeting.FindTarget(enemy, FindObjectsOfType<Enemy>(), transform.position, Range);
+    enemy = targeting.FindTarget(
+      enemy,  // oldTarget
+      FindObjectsOfType<Enemy>(),  // enemies
+      transform.position,  // towerPosition
+      Range,  // towerRange
+      towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],  // camoSight
+      towerAbilities[TowerData.TowerAbility.ANTI_AIR]);  // antiAir
     if (enemy == null) {
       // Turn off particle systems.
     } else {

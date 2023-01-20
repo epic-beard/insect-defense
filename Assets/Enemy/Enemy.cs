@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
   public float armor = 0.0f;
   public float hp = 0.0f;
   public Vector3 position = Vector3.zero;
-  public bool isFlying = false;
+  public bool isFlier = false;
   public bool isCamo = false;
 
   public void DamageEnemy(float damage) {
@@ -40,8 +40,8 @@ public class Enemy : MonoBehaviour {
     return isCamo;
   }
 
-  public bool IsFlying() {
-    return isFlying;
+  public bool IsFlier() {
+    return isFlier;
   }
 
   public Vector3 getPosition() {
