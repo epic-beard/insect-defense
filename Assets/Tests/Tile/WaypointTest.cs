@@ -50,7 +50,7 @@ public class WaypointTest {
   [Test]
   public void GetCoordinatesWorks() {
     Waypoint waypoint = GetWaypoint();
-    waypoint.transform.position = new Vector3(10, 20, 0);
+    waypoint.transform.position = new Vector3(10, 0, 20);
 
     Assert.That(waypoint.GetCoordinates(), Is.EqualTo(new Vector2Int(1, 2)));
   }

@@ -13,9 +13,9 @@ public class PathManagerTest {
   // Tests that all directions are handled correctly.
   [Test]
   public void PopulateWaypointsWorks() {
-    Waypoint waypointUp = GetWaypoint(Vector3.up * tileSpacing);
+    Waypoint waypointUp = GetWaypoint(Vector3.forward * tileSpacing);
     Waypoint waypointRight = GetWaypoint(Vector3.right * tileSpacing);
-    Waypoint waypointDown = GetWaypoint(Vector3.down * tileSpacing);
+    Waypoint waypointDown = GetWaypoint(Vector3.back * tileSpacing);
     Waypoint waypointLeft = GetWaypoint(Vector3.left * tileSpacing);
     Waypoint waypointCenter = GetWaypoint(Vector3.zero * tileSpacing);
 
@@ -58,12 +58,12 @@ public class PathManagerTest {
   // Tests that rotation of Waypoints is handled correctly.
   [Test]
   public void PopulateWaypointsRotation() {
-    Waypoint waypointUp = GetWaypoint(Vector3.up * tileSpacing);
+    Waypoint waypointUp = GetWaypoint(Vector3.forward * tileSpacing);
     Waypoint waypointRight = GetWaypoint(Vector3.right * tileSpacing);
     Waypoint waypointCenter = GetWaypoint(Vector3.zero * tileSpacing);
 
     waypointCenter.exits = new List<Waypoint.Direction>() { Waypoint.Direction.UP };
-    waypointCenter.transform.Rotate(-270 * Vector3.forward);
+    waypointCenter.transform.Rotate(-270 * Vector3.up);
 
     PathManager pathManager = new GameObject().AddComponent<PathManager>();
     object[] args = { new Waypoint[] { waypointUp, waypointRight, waypointCenter } };
@@ -72,6 +72,22 @@ public class PathManagerTest {
     Assert.That(waypointCenter.nextWaypoints, Is.EquivalentTo(new List<Waypoint>() { waypointRight }));
     Assert.That(waypointUp.prevWaypoints, Is.EquivalentTo(new List<Waypoint>()));
     Assert.That(waypointRight.prevWaypoints, Is.EquivalentTo(new List<Waypoint>() { waypointCenter }));
+  }
+
+  [Test]
+  public void GetDistanceToEndWorks() {
+    Waypoint waypoint0 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint1 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint2 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint3 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint4 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint5 = GetWaypoint(Vector3.zero);
+    waypoint0.nextWaypoints.Add(waypoint1);
+    waypoint1.nextWaypoints.Add(waypoint2);
+    waypoint2.nextWaypoints.Add(waypoint3);
+    waypoint3.nextWaypoints.Add(waypoint4);
+    waypoint1.nextWaypoints.Add(waypoint5);
+
   }
 
   // Creates and returns a Waypoint at location v.
