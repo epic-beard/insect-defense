@@ -206,9 +206,10 @@ public class TargetingTest {
 
   // Create a Targeting script with the appropriate behavior and priority.
   Targeting CreateTargeting(Targeting.Behavior behavior, Targeting.Priority priority) {
-    Targeting targeting = new();
-    targeting.behavior = behavior;
-    targeting.priority = priority;
+    Targeting targeting = new() {
+      behavior = behavior,
+      priority = priority
+    };
     return targeting;
   }
 }
