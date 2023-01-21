@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour {
 
-  // Manager classes will perform their setup at Awake so down stream classes
-  // can reliably depend on them at Start.
+  // Manager classes perform setup on Awake so downstream classes can
+  // depend on them at Start.
   void Awake() {
     PopulateWaypoints(FindObjectsOfType<Waypoint>());
   }
 
-  // Populates the next/prev_waypoints lists in Waypoint.
+  // Populates the next/prev_waypoints lists and the DistanceToEnd in Waypoint
   void PopulateWaypoints(Waypoint[] waypoints) {
     if (waypoints.Length == 0) {
       Debug.Log("[ERROR] No waypoints found");
@@ -46,6 +46,8 @@ public class PathManager : MonoBehaviour {
         waypoint.nextWaypoints.Add(neighbor);
       }
     }
+
+    GetDistanceToEnd(waypoints);
   }
 
   // Gets the neigbhor in the dir Direcion if it is a valid grid location,
@@ -68,5 +70,21 @@ public class PathManager : MonoBehaviour {
   private Waypoint.Direction GetRotatedDirection(Transform transform, Waypoint.Direction dir) {
     int steps = Mathf.RoundToInt(transform.rotation.eulerAngles.y / 90);
     return (Waypoint.Direction)(((int)dir + steps) % 4);
+  }
+  private void GetDistanceToEnd(Waypoint[] waypoints) {
+    foreach (Waypoint waypoint in waypoints) {
+      GetDistanceToEnd(waypoint);
+    }
+  }
+
+  private float GetDistanceToEnd(Waypoint waypoint) {
+    if (waypoint.nextWaypoints.Count == 0) return 0.0f;
+    if (waypoint.DistanceToEnd != 0) return waypoint.DistanceToEnd;
+
+    waypoint.DistanceToEnd = waypoint.nextWaypoints
+      .Select(w => GetDistanceToEnd(w) + Vector3.Distance(waypoint.transform.position, w.transform.position))
+      .Min();
+
+    return waypoint.DistanceToEnd;
   }
 }

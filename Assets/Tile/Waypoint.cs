@@ -17,6 +17,7 @@ public class Waypoint : MonoBehaviour {
   // Populated by the PathManager
   public List<Waypoint> nextWaypoints = new();
   public List<Waypoint> prevWaypoints = new();
+  public float DistanceToEnd = 0.0f;
 
   public Waypoint? GetNextWaypoint() {
     return GetRandomWaypoint(nextWaypoints);
