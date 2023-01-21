@@ -49,9 +49,9 @@ public class Targeting {
   public Enemy? FindTarget(Enemy? oldTarget, Enemy[] enemies, Vector3 towerPosition, float towerRange, bool camoSight, bool antiAir) {
     // Ensure all enemies are viable targets.
     List<Enemy> targets = enemies.ToList()
-        .Where(e => Vector3.Distance(towerPosition, e.getPosition()) < towerRange)
-        .Where(e => e.IsFlier() ? antiAir : true)
-        .Where(e => e.IsCamo() ? camoSight : true)
+        .Where(e => Vector3.Distance(towerPosition, e.GetPosition()) < towerRange)
+        .Where(e => !e.IsFlier() || antiAir)
+        .Where(e => !e.IsCamo() || camoSight)
         .ToList();
     // This is a working copy to avoid extra work later in the case of no enemies found with the behavior filter.
     List<Enemy> workingTargets = new();
@@ -59,9 +59,9 @@ public class Targeting {
     // Ensure the old target is within range of the tower.
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
-        && (Vector3.Distance(towerPosition, oldTarget.getPosition()) < towerRange)
-        && (oldTarget.IsCamo() ? camoSight : true)
-        && (oldTarget.IsFlier() ? antiAir : true)) {
+        && (Vector3.Distance(towerPosition, oldTarget.GetPosition()) < towerRange)
+        && (!oldTarget.IsCamo() || camoSight)
+        && (!oldTarget.IsFlier() || antiAir)) {
       return oldTarget;
     }
 
