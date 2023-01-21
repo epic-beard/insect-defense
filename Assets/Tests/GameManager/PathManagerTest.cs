@@ -74,20 +74,31 @@ public class PathManagerTest {
     Assert.That(waypointRight.prevWaypoints, Is.EquivalentTo(new List<Waypoint>() { waypointCenter }));
   }
 
+  // Tests the case where there are two starts and two ends.
   [Test]
   public void GetDistanceToEndWorks() {
     Waypoint waypoint0 = GetWaypoint(Vector3.zero);
-    Waypoint waypoint1 = GetWaypoint(Vector3.zero);
-    Waypoint waypoint2 = GetWaypoint(Vector3.zero);
-    Waypoint waypoint3 = GetWaypoint(Vector3.zero);
-    Waypoint waypoint4 = GetWaypoint(Vector3.zero);
-    Waypoint waypoint5 = GetWaypoint(Vector3.zero);
+    Waypoint waypoint1 = GetWaypoint(waypoint0.transform.position + Vector3.down);
+    Waypoint waypoint2 = GetWaypoint(waypoint1.transform.position + Vector3.left);
+    Waypoint waypoint3 = GetWaypoint(waypoint2.transform.position + Vector3.left);
+    Waypoint waypoint4 = GetWaypoint(waypoint1.transform.position + Vector3.right);
+    Waypoint waypoint5 = GetWaypoint(waypoint1.transform.position + Vector3.down);
     waypoint0.nextWaypoints.Add(waypoint1);
     waypoint1.nextWaypoints.Add(waypoint2);
     waypoint2.nextWaypoints.Add(waypoint3);
-    waypoint3.nextWaypoints.Add(waypoint4);
-    waypoint1.nextWaypoints.Add(waypoint5);
+    waypoint1.nextWaypoints.Add(waypoint4);
+    waypoint5.nextWaypoints.Add(waypoint1);
 
+    PathManager pathManager = new GameObject().AddComponent<PathManager>();
+    InvokeGetDistanceToEnd(pathManager, new Waypoint[] { 
+      waypoint0, waypoint1, waypoint2, waypoint3, waypoint4, waypoint5 });
+
+    Assert.That(waypoint0.DistanceToEnd, Is.EqualTo(2));
+    Assert.That(waypoint1.DistanceToEnd, Is.EqualTo(1));
+    Assert.That(waypoint2.DistanceToEnd, Is.EqualTo(1));
+    Assert.That(waypoint3.DistanceToEnd, Is.EqualTo(0));
+    Assert.That(waypoint4.DistanceToEnd, Is.EqualTo(0));
+    Assert.That(waypoint5.DistanceToEnd, Is.EqualTo(2));
   }
 
   // Creates and returns a Waypoint at location v.
@@ -105,5 +116,15 @@ public class PathManagerTest {
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
     populateWaypoints.Invoke(pathManager, args);
+  }
+
+  void InvokeGetDistanceToEnd(PathManager pathManager, Waypoint[] waypoints) {
+    object[] args = { waypoints };
+    Type[] argTypes = { typeof(Waypoint[]) };
+    MethodInfo getDistanceToEnd = typeof(PathManager).GetMethod(
+      "GetDistanceToEnd",
+       BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    getDistanceToEnd.Invoke(pathManager, args);
   }
 }
