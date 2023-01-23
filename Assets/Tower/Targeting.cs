@@ -34,9 +34,8 @@ public class Targeting {
     { Behavior.STUBBORN, (enemy) => true },  // This has an entry in case of stubborn fail-through.
   };
   readonly Dictionary<Priority, Comparison<Enemy>> priorityPredicates = new() {
-    // TODO - These two need additional infrastructure to do properly.
-    { Priority.FIRST, (enemy1, enemy2) => 0 },
-    { Priority.LAST, (enemy1, enemy2) => 0 },
+    { Priority.FIRST, (enemy1, enemy2) => CompareFloats(enemy1.GetDistanceToEnd(), enemy2.GetDistanceToEnd()) },
+    { Priority.LAST, (enemy1, enemy2) => CompareFloats(enemy2.GetDistanceToEnd(), enemy1.GetDistanceToEnd()) },
     { Priority.LEASTARMOR, (enemy1, enemy2) => CompareFloats(enemy1.GetArmor(), enemy2.GetArmor()) },
     { Priority.LEASTHP, (enemy1, enemy2) => CompareFloats(enemy1.GetHP(), enemy2.GetHP()) },
     { Priority.MOSTARMOR, (enemy1, enemy2) => CompareFloats(enemy2.GetArmor(), enemy1.GetArmor()) },

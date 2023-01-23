@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour {
   public bool isFlier = false;
   public float hp = 0.0f;
   public float armor = 0.0f;
-  public Vector3 position = Vector3.zero;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -89,9 +88,14 @@ public class Enemy : MonoBehaviour {
   }
 
   public Vector3 GetPosition() {
-    return position;
+    return transform.position;
+  }
+
+  public float GetDistanceToEnd() {
+    return Vector3.Distance(transform.position, NextWaypoint.transform.position) + NextWaypoint.DistanceToEnd;
   }
 
   // TODO nnewsom: Implement
   private void FinishPath() { }
+
 }

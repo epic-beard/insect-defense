@@ -1,10 +1,8 @@
 #nullable enable
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class TargetingTest {
   readonly float TOWER_RANGE = 10.0f;
@@ -94,8 +92,41 @@ public class TargetingTest {
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, true, false);
     Assert.That(target, Is.EqualTo(nonCamo));
   }
-  
+
   //    --- Priority tests ---
+
+  // Test both the first and last priority. The setup for this test was nontrivial and integrating them together
+  // was trivial, so this test does both.
+  [Test]
+  public void FirstAndLast() {
+    Waypoint waypoint1 = CreateWaypoint(Vector3.right);
+    Waypoint waypoint2 = CreateWaypoint(waypoint1.transform.position + Vector3.right);
+    Waypoint waypoint3 = CreateWaypoint(waypoint2.transform.position + Vector3.right);
+    Waypoint waypoint4 = CreateWaypoint(waypoint3.transform.position + Vector3.right);
+    waypoint1.nextWaypoints = new() { waypoint2 };
+    waypoint2.nextWaypoints = new() { waypoint3 };
+    waypoint3.nextWaypoints = new() { waypoint4 };
+
+    PathManager pathManager = new GameObject().AddComponent<PathManager>();
+    InvokeGetDistanceToEnd(pathManager, new Waypoint[] {
+      waypoint1, waypoint2, waypoint3, waypoint4 });
+
+    Enemy first = CreateEnemy(0.0f, 0.0f, false, false, waypoint3.transform.position + Vector3.left * 0.5f);
+    Enemy last = CreateEnemy(0.0f, 0.0f, false, false, waypoint2.transform.position + Vector3.left * 0.25f);
+    first.NextWaypoint = waypoint3;
+    last.NextWaypoint = waypoint2;
+    Enemy[] enemies = new Enemy[] { first, last };
+    Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.FIRST);
+
+    Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
+    Assert.That(target, Is.EqualTo(first));
+
+    targeting.priority = Targeting.Priority.LAST;
+
+    target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
+    Assert.That(target, Is.EqualTo(last));
+  }
+
   // Should return the enemy with the lowest armor value, leastArmor
   [Test]
   public void LeastArmor() {
@@ -200,7 +231,7 @@ public class TargetingTest {
     enemy.hp = hp;
     enemy.isFlier = isFlier;
     enemy.isCamo = isCamo;
-    enemy.position = position;
+    enemy.transform.position = position;
     return enemy;
   }
 
@@ -211,5 +242,21 @@ public class TargetingTest {
       priority = priority
     };
     return targeting;
+  }
+
+  Waypoint CreateWaypoint(Vector3 position) {
+    GameObject gameObject = new();
+    gameObject.transform.position = position;
+    return gameObject.AddComponent<Waypoint>();
+  }
+
+  void InvokeGetDistanceToEnd(PathManager pathManager, Waypoint[] waypoints) {
+    object[] args = { waypoints };
+    Type[] argTypes = { typeof(Waypoint[]) };
+    MethodInfo getDistanceToEnd = typeof(PathManager).GetMethod(
+      "GetDistanceToEnd",
+       BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    getDistanceToEnd.Invoke(pathManager, args);
   }
 }
