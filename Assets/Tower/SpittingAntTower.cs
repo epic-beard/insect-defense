@@ -52,12 +52,12 @@ public class SpittingAntTower : Tower {
 
   void Update() {
     enemy = targeting.FindTarget(
-      enemy,  // oldTarget
-      FindObjectsOfType<Enemy>(),  // enemies
-      transform.position,  // towerPosition
-      Range,  // towerRange
-      towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],  // camoSight
-      towerAbilities[TowerData.TowerAbility.ANTI_AIR]);  // antiAir
+      oldTarget: enemy,
+      enemies: FindObjectsOfType<Enemy>(),
+      towerPosition: transform.position,
+      towerRange: Range,
+      camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
+      antiAir: towerAbilities[TowerData.TowerAbility.ANTI_AIR]);
     if (enemy == null) {
       // Turn off particle systems.
     } else {
