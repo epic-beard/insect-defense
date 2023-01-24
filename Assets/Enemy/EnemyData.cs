@@ -32,6 +32,10 @@ public class EnemyData {
   public int nu;
 
   public EnemyProperties properties;
+  // Once enabled the Enemy will start a spawner coroutine if spawner is not null.
+  // The Spawner object contains all the information for starting this coroutine.
   public Spawner? spawner;
+  // On death the Enemy will spawn a given number of child Enemies.
+  // The Carrier object contains all the information required for spawning.
   public Carrier? carrier;
 }
