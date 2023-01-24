@@ -6,6 +6,10 @@ public class Enemy : MonoBehaviour {
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
   public float Speed = 10;
+  public bool isCamo = false;
+  public bool isFlier = false;
+  public float hp = 0.0f;
+  public float armor = 0.0f;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -31,7 +35,7 @@ public class Enemy : MonoBehaviour {
 
   // TODO: Complete this method
   public float GetArmor() {
-    return 0.0f;
+    return armor;
   }
 
   // TODO: Complete this method
@@ -71,6 +75,27 @@ public class Enemy : MonoBehaviour {
     FinishPath();
   }
 
+  public bool IsFlier() {
+    return isFlier;
+  }
+
+  public bool IsCamo() {
+    return isCamo;
+  }
+
+  public float GetHP() {
+    return hp;
+  }
+
+  public Vector3 GetPosition() {
+    return transform.position;
+  }
+
+  public float GetDistanceToEnd() {
+    return Vector3.Distance(transform.position, NextWaypoint.transform.position) + NextWaypoint.DistanceToEnd;
+  }
+
   // TODO nnewsom: Implement
   private void FinishPath() { }
+
 }

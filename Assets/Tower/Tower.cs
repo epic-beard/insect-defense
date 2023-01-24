@@ -11,9 +11,14 @@ public class Tower : MonoBehaviour {
   public float ArmorPierce { get { return attributes[TowerData.Stat.ATTACK_SPEED]; } }
   public float ArmorTear { get { return attributes[TowerData.Stat.ARMOR_TEAR]; } }
   public float DamageOverTime { get { return attributes[TowerData.Stat.DAMAGE_OVER_TIME]; } }
-  protected List<TowerData.TowerAbility> towerAbilities;
-  int[] upgradeLevels;  // Each entry in this array should be 0-4.
+  protected Dictionary<TowerData.TowerAbility, bool> towerAbilities = new() {
+    { TowerData.TowerAbility.ANTI_AIR, false },
+    { TowerData.TowerAbility.CAMO_SIGHT, false },
+    { TowerData.TowerAbility.CRIPPLE, false }
+  };
+  int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
 
+  // TODO: Add an enforcement mechanic to make sure the player can get at most 9 upgrades.
   public void Upgrade(Ability ability) {
     if (ability.Mode == TowerData.Mode.SPECIAL) {
       SpecialAbilityUpgrade(ability.SpecialAbility);

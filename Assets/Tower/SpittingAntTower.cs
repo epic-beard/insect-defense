@@ -6,8 +6,8 @@ using static Ability;
 using static UnityEngine.UI.Image;
 
 public class SpittingAntTower : Tower {
-  [SerializeField] ParticleSystem splash;
-  [SerializeField] ParticleSystem beam;
+  [SerializeField] ParticleSystem splash = new();
+  [SerializeField] ParticleSystem beam = new();
 
   public bool AcidStun { get; private set; }
   public bool TearBonusDamage { get; private set; }
@@ -19,7 +19,7 @@ public class SpittingAntTower : Tower {
   public float AcidDPS { get; private set; }
 
   private Enemy? enemy;
-  private Targeting targeting;
+  private Targeting targeting = new();
 
   private void Start() {
     targeting = new();
@@ -40,7 +40,7 @@ public class SpittingAntTower : Tower {
         DotExplosion = true;
         break;
       case SpecialAbilityEnum.SA_3_3_CAMO_SIGHT:
-        towerAbilities.Add(TowerData.TowerAbility.CAMO_SIGHT);
+        towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = true;
         break;
       case SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE:
         ContinuousAttack = true;
@@ -51,7 +51,13 @@ public class SpittingAntTower : Tower {
   }
 
   void Update() {
-    enemy = targeting.FindTarget();
+    enemy = targeting.FindTarget(
+      oldTarget: enemy,
+      enemies: FindObjectsOfType<Enemy>(),
+      towerPosition: transform.position,
+      towerRange: Range,
+      camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
+      antiAir: towerAbilities[TowerData.TowerAbility.ANTI_AIR]);
     if (enemy == null) {
       // Turn off particle systems.
     } else {
