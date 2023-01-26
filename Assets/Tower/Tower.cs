@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour {
-  protected Dictionary<TowerData.Stat, float> attributes;
+  protected Dictionary<TowerData.Stat, float> attributes = new() {
+    { TowerData.Stat.DAMAGE, 0.0f },
+    { TowerData.Stat.RANGE, 0.0f },
+    { TowerData.Stat.AREA_OF_EFFECT, 0.0f },
+    { TowerData.Stat.ATTACK_SPEED, 0.0f },
+    { TowerData.Stat.ARMOR_PIERCE, 0.0f },
+    { TowerData.Stat.ARMOR_TEAR, 0.0f },
+    { TowerData.Stat.DAMAGE_OVER_TIME, 0.0f },
+  };
   public float Damage { get { return attributes[TowerData.Stat.DAMAGE]; } }
   public float Range { get { return attributes[TowerData.Stat.RANGE]; } }
   public float AreaOfEffect { get { return attributes[TowerData.Stat.AREA_OF_EFFECT]; } }
   public float AttackSpeed { get { return attributes[TowerData.Stat.ATTACK_SPEED]; } }
-  public float ArmorPierce { get { return attributes[TowerData.Stat.ATTACK_SPEED]; } }
+  public float ArmorPierce { get { return attributes[TowerData.Stat.ARMOR_PIERCE]; } }
   public float ArmorTear { get { return attributes[TowerData.Stat.ARMOR_TEAR]; } }
   public float DamageOverTime { get { return attributes[TowerData.Stat.DAMAGE_OVER_TIME]; } }
+
   protected Dictionary<TowerData.TowerAbility, bool> towerAbilities = new() {
     { TowerData.TowerAbility.ANTI_AIR, false },
     { TowerData.TowerAbility.CAMO_SIGHT, false },
