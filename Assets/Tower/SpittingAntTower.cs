@@ -6,6 +6,7 @@ using static Ability;
 using static UnityEngine.UI.Image;
 
 public class SpittingAntTower : Tower {
+  [SerializeField] Transform upperMesh;
   [SerializeField] ParticleSystem splash = new();
   [SerializeField] ParticleSystem beam = new();
 
@@ -22,7 +23,14 @@ public class SpittingAntTower : Tower {
   private Targeting targeting = new();
 
   private void Start() {
-    targeting = new();
+    // TODO: The user should be able to set the default for each tower type.
+    targeting = new() {
+      behavior = Targeting.Behavior.NONE,
+      priority = Targeting.Priority.FIRST
+    };
+
+    // TODO: This should be read in from a data file, not hardcoded like this.
+    attributes[TowerData.Stat.RANGE] = 100.0f;
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
@@ -61,6 +69,9 @@ public class SpittingAntTower : Tower {
     if (enemy == null) {
       // Turn off particle systems.
     } else {
+
+      upperMesh.LookAt(enemy.transform);
+
       if (ContinuousAttack) {
         // Turn on continuous attack.
       } else {
