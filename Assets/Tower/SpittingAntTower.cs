@@ -32,7 +32,8 @@ public class SpittingAntTower : Tower {
     // TODO: This should be read in from a data file, not hardcoded like this.
     attributes[TowerData.Stat.RANGE] = 15.0f;
     attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
-
+    
+    // Disable all particle systems at startup.
     var emissionModule = splash.emission;
     emissionModule.enabled = false;
     emissionModule = beam.emission;
@@ -57,6 +58,9 @@ public class SpittingAntTower : Tower {
         towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = true;
         break;
       case SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE:
+        // Turn off the splash emission when upgraded to continuous attack to avoid simultaneous firing.
+        var splashEmission = splash.emission;
+        splashEmission.enabled = false;
         ContinuousAttack = true;
         break;
       default:
