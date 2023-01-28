@@ -7,8 +7,8 @@ using static UnityEngine.UI.Image;
 
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
-  [SerializeField] ParticleSystem splash = new();
-  [SerializeField] ParticleSystem beam = new();
+  [SerializeField] ParticleSystem splash;
+  [SerializeField] ParticleSystem beam;
 
   public bool AcidStun { get; private set; }
   public bool TearBonusDamage { get; private set; }
@@ -30,7 +30,10 @@ public class SpittingAntTower : Tower {
     };
 
     // TODO: This should be read in from a data file, not hardcoded like this.
-    attributes[TowerData.Stat.RANGE] = 100.0f;
+    attributes[TowerData.Stat.RANGE] = 15.0f;
+    attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
+
+    DisableParticleSystems();
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
@@ -51,6 +54,9 @@ public class SpittingAntTower : Tower {
         towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = true;
         break;
       case SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE:
+        // Turn off the splash emission when upgraded to continuous attack to avoid simultaneous firing.
+        var splashEmission = splash.emission;
+        splashEmission.enabled = false;
         ContinuousAttack = true;
         break;
       default:
@@ -66,17 +72,16 @@ public class SpittingAntTower : Tower {
       towerRange: Range,
       camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
       antiAir: towerAbilities[TowerData.TowerAbility.ANTI_AIR]);
+
+    // Fetch the appropriate particle system emission module.
+    var emissionModule = ContinuousAttack ? beam.emission : splash.emission;
+
     if (enemy == null) {
-      // Turn off particle systems.
+      // If there is no target, stop firing.
+      emissionModule.enabled = false;
     } else {
-
       upperMesh.LookAt(enemy.transform);
-
-      if (ContinuousAttack) {
-        // Turn on continuous attack.
-      } else {
-        // Turn on AoE attack.
-      }
+      emissionModule.enabled = true;
     }
   }
 
@@ -108,5 +113,13 @@ public class SpittingAntTower : Tower {
     }
 
     enemy.DamageEnemy(onHitDamage);
+  }
+
+  // Disable all particle systems.
+  private void DisableParticleSystems() {
+    var emissionModule = splash.emission;
+    emissionModule.enabled = false;
+    emissionModule = beam.emission;
+    emissionModule.enabled = false;
   }
 }
