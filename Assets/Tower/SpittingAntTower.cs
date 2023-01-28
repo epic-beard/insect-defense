@@ -32,12 +32,8 @@ public class SpittingAntTower : Tower {
     // TODO: This should be read in from a data file, not hardcoded like this.
     attributes[TowerData.Stat.RANGE] = 15.0f;
     attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
-    
-    // Disable all particle systems at startup.
-    var emissionModule = splash.emission;
-    emissionModule.enabled = false;
-    emissionModule = beam.emission;
-    emissionModule.enabled = false;
+
+    DisableParticleSystems();
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
@@ -117,5 +113,13 @@ public class SpittingAntTower : Tower {
     }
 
     enemy.DamageEnemy(onHitDamage);
+  }
+
+  // Disable all particle systems.
+  private void DisableParticleSystems() {
+    var emissionModule = splash.emission;
+    emissionModule.enabled = false;
+    emissionModule = beam.emission;
+    emissionModule.enabled = false;
   }
 }
