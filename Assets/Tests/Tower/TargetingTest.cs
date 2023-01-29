@@ -102,7 +102,7 @@ public class TargetingTest {
   // Test both the first and last priority. The setup for this test was nontrivial and integrating them together
   // was trivial, so this test does both.
   [Test]
-  public void FirstAndLast() {
+  public void FirstAndLast([Values(Targeting.Priority.FIRST, Targeting.Priority.LAST)] Targeting.Priority priority) {
     Waypoint waypoint1 = CreateWaypoint(Vector3.right);
     Waypoint waypoint2 = CreateWaypoint(waypoint1.transform.position + Vector3.right);
     Waypoint waypoint3 = CreateWaypoint(waypoint2.transform.position + Vector3.right);
@@ -120,15 +120,12 @@ public class TargetingTest {
     first.NextWaypoint = waypoint3;
     last.NextWaypoint = waypoint2;
     Enemy[] enemies = new Enemy[] { first, last };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.FIRST);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, priority);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
-    Assert.That(target, Is.EqualTo(first));
 
-    targeting.priority = Targeting.Priority.LAST;
-
-    target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
-    Assert.That(target, Is.EqualTo(last));
+    Enemy expected = priority == Targeting.Priority.FIRST ? first : last;
+    Assert.That(target, Is.EqualTo(expected));
   }
 
   // Should return the enemy with the lowest armor value, leastArmor

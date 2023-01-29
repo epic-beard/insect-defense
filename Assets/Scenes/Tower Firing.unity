@@ -5643,17 +5643,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spitting Ant Tower
       objectReference: {fileID: 0}
-    - target: {fileID: 3753737172954920774, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902801243027200727, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902801243027200727, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
