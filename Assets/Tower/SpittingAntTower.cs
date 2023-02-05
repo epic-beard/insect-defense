@@ -80,7 +80,7 @@ public class SpittingAntTower : Tower {
       // If there is no target, stop firing.
       emissionModule.enabled = false;
     } else {
-      upperMesh.LookAt(enemy.transform);
+      upperMesh.LookAt(enemy.transform.GetChild(0));
       emissionModule.enabled = true;
     }
   }
