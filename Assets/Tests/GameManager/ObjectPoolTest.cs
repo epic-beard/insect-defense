@@ -93,8 +93,7 @@ public class ObjectPoolTest {
       .SetValue(objectPool, size);
   }
 
-  // Adds a prefab to the ObjectPool's list of prefabs.  Determines the correct type
-  // from the EnemyData field in Enemy.
+  // Adds a prefab to the ObjectPool's list of prefabs.
   private void AddPrefab(ObjectPool objectPool, EnemyData.Type type, GameObject prefab) {
     var prefabs = (Dictionary<EnemyData.Type, GameObject>)typeof(ObjectPool)
       .GetField("prefabs", BindingFlags.Instance | BindingFlags.NonPublic)
