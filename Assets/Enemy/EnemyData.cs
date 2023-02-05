@@ -2,12 +2,12 @@
 using System;
 
 public class EnemyData {
-  public enum EnemyType {
+  public enum Type {
     BEETLE
   }
 
   [Flags]
-  public enum EnemyProperties {
+  public enum Properties {
     NONE = 0,
     CAMO = 1,
     FLYING = 2,
@@ -24,14 +24,14 @@ public class EnemyData {
     public EnemyData child = new();
   }
 
-  public EnemyType type;
+  public Type type;
   public int HitPoints;
   public float Armor;
   public float speed;
   public int damage;
   public int nu;
 
-  public EnemyProperties properties;
+  public Properties properties;
   // Once enabled the Enemy will start a spawner coroutine if spawner is not null.
   // The Spawner object contains all the information for starting this coroutine.
   public Spawner? spawner;
