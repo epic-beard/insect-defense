@@ -11,7 +11,7 @@ public class ObjectPool : MonoBehaviour {
     [SerializeField] public GameObject prefab;
   }
 
-  [SerializeField] readonly private int startingSize = 20;
+  readonly private int startingSize = 20;
   [SerializeField] private List<EnemyEntry> entries = new();
   private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
   private Dictionary<EnemyData.Type, GameObject> prefabs = new();
@@ -26,28 +26,35 @@ public class ObjectPool : MonoBehaviour {
 
   public GameObject InstantiateEnemy(EnemyData data, Vector3 position) {
     var pool = objectPools[data.type];
-    if (pool.Count == 0) {
-      GameObject gameObject = pool.Dequeue();
+    GameObject gameObject;
+    if (pool.Count != 0) {
+      gameObject = pool.Dequeue();
       gameObject.SetActive(true);
     } else {
-      GameObject.Instantiate(prefabs[data.type]);
+      gameObject = GameObject.Instantiate(prefabs[data.type]);
     }
     gameObject.transform.position = position;
+    gameObject.GetComponent<Enemy>().data = data;
 
     return gameObject;
   }
 
-  public void DestroyEnemy(GameObject gameObject, EnemyData.Type type) {
+  public void DestroyEnemy(GameObject gameObject) {
+    EnemyData.Type type = gameObject.GetComponent<Enemy>().data.type;
     gameObject.SetActive(false);
     objectPools[type].Enqueue(gameObject);
   }
 
   private void InitializeObjectPool() {
-    foreach (var entry in entries) {
+    foreach (var (type, _) in prefabs) {
+      objectPools[type] = new Queue<GameObject>();
+    }
+
+    foreach (var (type, prefab) in prefabs) {
       for (int i = 0; i < startingSize; i++) {
-        GameObject gameObject = GameObject.Instantiate(entry.prefab);
+        GameObject gameObject = Instantiate(prefab);
         gameObject.SetActive(false);
-        objectPools[entry.type].Enqueue(gameObject);
+        objectPools[type].Enqueue(gameObject);
       }
     }
   }
