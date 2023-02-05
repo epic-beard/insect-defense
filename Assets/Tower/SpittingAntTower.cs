@@ -81,7 +81,6 @@ public class SpittingAntTower : Tower {
       emissionModule.enabled = false;
     } else {
       upperMesh.LookAt(enemy.transform.GetChild(0));
-      //upperMesh.LookAt(enemy.transform);
       emissionModule.enabled = true;
     }
   }
