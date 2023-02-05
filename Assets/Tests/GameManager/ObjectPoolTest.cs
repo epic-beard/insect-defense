@@ -39,17 +39,16 @@ public class ObjectPoolTest {
     }
   }
 
-  // Instantiate an enemy and check that it is active, is in the correct position and 
+  // Instantiate an enemy and check that it is active and has the correct position and
   // enemy data.
   [Test]
   public void InstantiateEnemyWorks() {
     InvokeInitializeObjectPool(objectPool);
     GameObject gameObject = objectPool.InstantiateEnemy(enemyData, Vector3.left);
-    EnemyData data = gameObject.GetComponent<Enemy>().data;
 
     Assert.That(gameObject.activeSelf);
     Assert.That(gameObject.transform.position, Is.EqualTo(Vector3.left));
-    Assert.That(data, Is.EqualTo(enemyData));
+    Assert.That(gameObject.GetComponent<Enemy>().data, Is.EqualTo(enemyData));
   }
 
   // Set starting size to 1 so there is exactly one enemey of each type.  Create an enemy
@@ -94,12 +93,12 @@ public class ObjectPoolTest {
       .SetValue(objectPool, size);
   }
 
-  // Adds a prefab
-  private void AddPrefab(ObjectPool objectPool, GameObject prefab) {
+  // Adds a prefab to the ObjectPool's list of prefabs.  Determines the correct type
+  // from the EnemyData field in Enemy.
+  private void AddPrefab(ObjectPool objectPool, EnemyData.Type type, GameObject prefab) {
     var prefabs = (Dictionary<EnemyData.Type, GameObject>)typeof(ObjectPool)
       .GetField("prefabs", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(objectPool);
-    EnemyData.Type type = objectPool.GetComponent<Enemy>().data.type;
     prefabs.Add(type, prefab);
   }
 
