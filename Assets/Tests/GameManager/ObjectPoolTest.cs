@@ -48,6 +48,7 @@ public class ObjectPoolTest {
 
     Assert.That(gameObject.activeSelf);
     Assert.That(gameObject.transform.position, Is.EqualTo(Vector3.left));
+    Assert.That(gameObject.GetComponent<Enemy>().pool, Is.SameAs(objectPool));
     Assert.That(gameObject.GetComponent<Enemy>().data, Is.EqualTo(enemyData));
   }
 

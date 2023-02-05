@@ -29,17 +29,17 @@ public class Targeting {
   public delegate bool BehaviorPredicate(Enemy enemy);
   readonly Dictionary<Behavior, BehaviorPredicate> behaviorPredicates = new() {
     { Behavior.NONE, (enemy => true) },
-    { Behavior.CAMO, (enemy) => enemy.IsCamo() },
-    { Behavior.FLIER, (enemy) => enemy.IsFlier() },
+    { Behavior.CAMO, (enemy) => enemy.Camo },
+    { Behavior.FLIER, (enemy) => enemy.Flying },
     { Behavior.STUBBORN, (enemy) => true },  // This has an entry in case of stubborn fail-through.
   };
   readonly Dictionary<Priority, Comparison<Enemy>> priorityPredicates = new() {
     { Priority.FIRST, (enemy1, enemy2) => CompareFloats(enemy1.GetDistanceToEnd(), enemy2.GetDistanceToEnd()) },
     { Priority.LAST, (enemy1, enemy2) => CompareFloats(enemy2.GetDistanceToEnd(), enemy1.GetDistanceToEnd()) },
-    { Priority.LEASTARMOR, (enemy1, enemy2) => CompareFloats(enemy1.GetArmor(), enemy2.GetArmor()) },
-    { Priority.LEASTHP, (enemy1, enemy2) => CompareFloats(enemy1.GetHP(), enemy2.GetHP()) },
-    { Priority.MOSTARMOR, (enemy1, enemy2) => CompareFloats(enemy2.GetArmor(), enemy1.GetArmor()) },
-    { Priority.MOSTHP, (enemy1, enemy2) => CompareFloats(enemy2.GetHP(), enemy1.GetHP()) },
+    { Priority.LEASTARMOR, (enemy1, enemy2) => CompareFloats(enemy1.Armor, enemy2.Armor) },
+    { Priority.LEASTHP, (enemy1, enemy2) => CompareFloats(enemy1.HP, enemy2.HP) },
+    { Priority.MOSTARMOR, (enemy1, enemy2) => CompareFloats(enemy2.Armor, enemy1.Armor) },
+    { Priority.MOSTHP, (enemy1, enemy2) => CompareFloats(enemy2.HP, enemy1.HP) },
   };
 
   public Priority priority;
@@ -48,9 +48,9 @@ public class Targeting {
   public Enemy? FindTarget(Enemy? oldTarget, Enemy[] enemies, Vector3 towerPosition, float towerRange, bool camoSight, bool antiAir) {
     // Ensure all enemies are viable targets.
     List<Enemy> targets = enemies.ToList()
-        .Where(e => Vector3.Distance(towerPosition, e.GetPosition()) < towerRange)
-        .Where(e => !e.IsFlier() || antiAir)
-        .Where(e => !e.IsCamo() || camoSight)
+        .Where(e => Vector3.Distance(towerPosition, e.transform.position) < towerRange)
+        .Where(e => !e.Flying || antiAir)
+        .Where(e => !e.Camo || camoSight)
         .ToList();
     // This is a working copy to avoid extra work later in the case of no enemies found with the behavior filter.
     List<Enemy> workingTargets = new();
@@ -58,9 +58,9 @@ public class Targeting {
     // Ensure the old target is within range of the tower.
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
-        && (Vector3.Distance(towerPosition, oldTarget.GetPosition()) < towerRange)
-        && (!oldTarget.IsCamo() || camoSight)
-        && (!oldTarget.IsFlier() || antiAir)) {
+        && (Vector3.Distance(towerPosition, oldTarget.transform.position) < towerRange)
+        && (!oldTarget.Camo || camoSight)
+        && (!oldTarget.Flying || antiAir)) {
       return oldTarget;
     }
 
