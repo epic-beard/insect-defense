@@ -9,6 +9,8 @@ public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
   [SerializeField] ParticleSystem splash;
   [SerializeField] ParticleSystem beam;
+  [SerializeField] ParticleSystem splashExplosion;
+  [SerializeField] ParticleSystem acidExplosion;
 
   public bool AcidStun { get; private set; }
   public bool TearBonusDamage { get; private set; }
@@ -95,6 +97,8 @@ public class SpittingAntTower : Tower {
       //  1. Get attack speed to be frame rate independent (is Emit the right choice?).
       //  2. Make sure the attack speed is appropriately different for Splash and Beam.
     }
+
+    //GeneralAttackHandler(ContinuousAttack ? beam : splash, enemy);
   }
 
   private void OnParticleCollision(GameObject other) {
@@ -131,7 +135,14 @@ public class SpittingAntTower : Tower {
   private void DisableParticleSystems() {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;
+
     emissionModule = beam.emission;
+    emissionModule.enabled = false;
+
+    emissionModule = splashExplosion.emission;
+    emissionModule.enabled = false;
+
+    emissionModule = acidExplosion.emission;
     emissionModule.enabled = false;
   }
 }

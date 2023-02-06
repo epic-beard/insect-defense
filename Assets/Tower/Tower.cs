@@ -1,6 +1,8 @@
+using Codice.Client.Common.GameUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ParticleSystemJobs;
 
 public class Tower : MonoBehaviour {
   protected Dictionary<TowerData.Stat, float> attributes = new() {
@@ -51,5 +53,19 @@ public class Tower : MonoBehaviour {
     //  1. Iterate through attacks.
     //  2. For each attack, check to see if it is 'close enough' to the enemy to trigger 'contact'
     //  3. When contact is triggered, call a virtual method each sub tower will implmenent.
+  }
+
+  protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target) {
+    ParticleSystem.Particle[] particles = null;
+    int numActiveParticles = activeParticleSystem.GetParticles(particles);
+    Vector3 targetPosition = target.transform.position;
+
+    for (int i = 0; i < numActiveParticles; i++) {
+      float cursor = 0.5f;
+
+      particles[i].velocity = Vector3.zero;
+      particles[i].position = Vector3.Lerp(particles[i].position, targetPosition, cursor);
+      // m_rParticlesArray[iParticle].position = Vector3.Lerp(m_rParticlesArray[iParticle].position, m_vParticlesTarget, m_fCursor * m_fCursor);
+    }
   }
 }
