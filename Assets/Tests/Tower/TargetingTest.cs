@@ -232,8 +232,8 @@ public class TargetingTest {
     gameObject.transform.position = position;
 
     EnemyData data = new() {
-      maxArmor = armor,
-      maxHP = hp,
+      currArmor = armor,
+      currHP = hp,
       properties = properties,
     };
 
