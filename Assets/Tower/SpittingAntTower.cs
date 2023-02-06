@@ -64,6 +64,15 @@ public class SpittingAntTower : Tower {
     }
   }
 
+  protected override void processParticleCollision() {
+    // TODO:
+    //  1. Kill the particle (try using remainingLifetime)
+    //  2. Trigger follow-on effects.
+    //    a. If the acid splash is the parent system, do the explosion and check for AoE damage targets.
+    ParticleSystem.Particle particle = new();
+    particle.remainingLifetime = 0.0f;
+  }
+
   void Update() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
@@ -82,6 +91,9 @@ public class SpittingAntTower : Tower {
     } else {
       upperMesh.LookAt(enemy.transform.GetChild(0));
       emissionModule.enabled = true;
+      // TODO:
+      //  1. Get attack speed to be frame rate independent (is Emit the right choice?).
+      //  2. Make sure the attack speed is appropriately different for Splash and Beam.
     }
   }
 

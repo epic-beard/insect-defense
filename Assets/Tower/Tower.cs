@@ -12,6 +12,7 @@ public class Tower : MonoBehaviour {
     { TowerData.Stat.DAMAGE_OVER_TIME, 0.0f },
     { TowerData.Stat.RANGE, 0.0f },
   };
+  protected Dictionary<ParticleSystem.Particle, Enemy> attacks = new();
 
   public float AttackSpeed { get { return attributes[TowerData.Stat.ATTACK_SPEED]; } }
   public float AreaOfEffect { get { return attributes[TowerData.Stat.AREA_OF_EFFECT]; } }
@@ -42,4 +43,13 @@ public class Tower : MonoBehaviour {
   }
 
   public virtual void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {}
+
+  protected virtual void processParticleCollision() {}
+
+  private void LateUpdate() {
+    // TODO for the processing we want:
+    //  1. Iterate through attacks.
+    //  2. For each attack, check to see if it is 'close enough' to the enemy to trigger 'contact'
+    //  3. When contact is triggered, call a virtual method each sub tower will implmenent.
+  }
 }
