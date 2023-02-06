@@ -55,6 +55,7 @@ public class ObjectPool : MonoBehaviour {
   private void InitializeObjectPool() {
     foreach (var (type, prefab) in prefabs) {
       objectPools[type] = new Queue<GameObject>();
+      prefab.GetComponent<Enemy>().pool = this;
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefab);
         gameObject.SetActive(false);

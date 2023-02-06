@@ -6,6 +6,14 @@ public class EnemyData {
     BEETLE
   }
 
+  public enum Size {
+    TINY = 1,
+    SMALL = 2,
+    NORMAL = 4,
+    LARGE = 8,
+    COLOSSAL = 12
+  }
+
   [Flags]
   public enum Properties {
     NONE = 0,
@@ -25,11 +33,20 @@ public class EnemyData {
   }
 
   public Type type;
-  public int HitPoints;
-  public float Armor;
+  public Size size;
+
+  public float currHP;
+  public float maxHP;
+
+  public float currArmor;
+  public float maxArmor;
+
   public float speed;
+
   public int damage;
   public int nu;
+
+  public float acidStacks;
 
   public Properties properties;
   // Once enabled the Enemy will start a spawner coroutine if spawner is not null.

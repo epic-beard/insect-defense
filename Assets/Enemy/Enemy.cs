@@ -6,11 +6,7 @@ public class Enemy : MonoBehaviour {
   public EnemyData data;
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
-  public float Speed = 10;
-  public bool isCamo = false;
-  public bool isFlier = false;
-  public float hp = 0.0f;
-  public float armor = 0.0f;
+  public ObjectPool pool;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -24,35 +20,36 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(FollowPath());
   }
 
+  public float HP { get { return data.currHP; } }
+  public float Armor { get { return data.currArmor; } }
+  public float Speed { get { return data.speed; } }
+  public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
+  public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+
+  // [TODO nnewsom] implement this
   public void DamageEnemy(float damage) {
     // Mark damage this enemy has taken.
   }
 
   // Return the new armor total after the tear is applied.
-  // TODO: Complete this method
   public float TearArmor(float tear) {
-    return 0.0f;
-  }
-
-  // TODO: Complete this method
-  public float GetArmor() {
-    return armor;
-  }
-
-  // TODO: Complete this method
-  public float GetSpeed() {
-    return Speed;
+    data.currArmor = Mathf.Max(data.currArmor - tear, 0);
+    return data.currArmor;
   }
 
   // Returns true if stacks are at max.
-  // TODO: Complete this method
   public bool AddAcidStacks(float stacks) {
-    return true;
+    data.acidStacks = Mathf.Min(data.acidStacks + stacks, MaxAcidStacks);
+    return IsAcidDOTMax();
   }
 
-  // TODO: Complete this method
   public bool IsAcidDOTMax() {
-    return true;
+    return data.acidStacks == MaxAcidStacks;
+  }
+
+  public float MaxAcidStacks { get { return (int)data.size * 25; } }
+  public float GetDistanceToEnd() {
+    return Vector3.Distance(transform.position, NextWaypoint.transform.position) + NextWaypoint.DistanceToEnd;
   }
 
   private IEnumerator FollowPath() {
@@ -64,7 +61,7 @@ public class Enemy : MonoBehaviour {
       transform.LookAt(endPosition);
 
       while (travelPercent < 1.0f) {
-        travelPercent += Time.deltaTime * GetSpeed();
+        travelPercent += Time.deltaTime * Speed;
         transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
         yield return null;
       }
@@ -76,27 +73,8 @@ public class Enemy : MonoBehaviour {
     FinishPath();
   }
 
-  public bool IsFlier() {
-    return isFlier;
+  private void FinishPath() {
+    // [TODO nnewsom] handle damage.
+    pool.DestroyEnemy(gameObject);
   }
-
-  public bool IsCamo() {
-    return isCamo;
-  }
-
-  public float GetHP() {
-    return hp;
-  }
-
-  public Vector3 GetPosition() {
-    return transform.position;
-  }
-
-  public float GetDistanceToEnd() {
-    return Vector3.Distance(transform.position, NextWaypoint.transform.position) + NextWaypoint.DistanceToEnd;
-  }
-
-  // TODO nnewsom: Implement
-  private void FinishPath() { }
-
 }

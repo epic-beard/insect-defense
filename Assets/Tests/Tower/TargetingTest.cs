@@ -60,7 +60,7 @@ public class TargetingTest {
   // Should return flier.
   [Test]
   public void IsFlierWithAlternative() {
-    Enemy flier = CreateEnemy(Vector3.zero, armor: 0.5f, isFlier: true);
+    Enemy flier = CreateEnemy(Vector3.zero, armor: 0.5f, properties: EnemyData.Properties.FLYING);
     Enemy nonFlier = CreateEnemy(Vector3.zero, armor: 1.0f);
     Enemy[] enemies = new Enemy[] { flier, nonFlier };
     Targeting targeting = CreateTargeting(Targeting.Behavior.FLIER, Targeting.Priority.MOSTARMOR);
@@ -74,7 +74,7 @@ public class TargetingTest {
   // Should return camo.
   [Test]
   public void IsCamoWithAlternative() {
-    Enemy camo = CreateEnemy(Vector3.zero, armor: 0.5f, isCamo: true);
+    Enemy camo = CreateEnemy(Vector3.zero, armor: 0.5f, properties: EnemyData.Properties.CAMO);
     Enemy nonCamo= CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy[] enemies = new Enemy[] { camo, nonCamo };
     Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOSTARMOR);
@@ -88,7 +88,7 @@ public class TargetingTest {
   // Should return nonCamo, since camo is out of range.
   [Test]
   public void IsCamoOutOfRangeWithAlternative() {
-    Enemy camo = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f, isCamo: true);
+    Enemy camo = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f, properties: EnemyData.Properties.CAMO);
     Enemy nonCamo = CreateEnemy(Vector3.zero, armor: 1.0f);
     Enemy[] enemies = new Enemy[] { camo, nonCamo };
     Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOSTARMOR);
@@ -182,8 +182,8 @@ public class TargetingTest {
   [Test]
   public void NoViableTargetTest() {
     Enemy tooFar = CreateEnemy(new Vector3(100, 0, 0));
-    Enemy flier = CreateEnemy(Vector3.zero, isFlier: true);
-    Enemy camo = CreateEnemy(Vector3.zero, isCamo: true);
+    Enemy flier = CreateEnemy(Vector3.zero, properties: EnemyData.Properties.FLYING);
+    Enemy camo = CreateEnemy(Vector3.zero, properties: EnemyData.Properties.CAMO);
     Enemy[] enemies = new Enemy[] { tooFar, flier, camo };
     Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.MOSTARMOR);
 
@@ -227,14 +227,18 @@ public class TargetingTest {
   }
 
   // Create an Enemy and set various properties for testing.
-  Enemy CreateEnemy(Vector3 position, float armor = 0.0f, float hp = 0.0f, bool isFlier = false, bool isCamo = false) {
+  Enemy CreateEnemy(Vector3 position, float armor = 0.0f, float hp = 0.0f, EnemyData.Properties properties = EnemyData.Properties.NONE) {
     GameObject gameObject = new();
+    gameObject.transform.position = position;
+
+    EnemyData data = new() {
+      currArmor = armor,
+      currHP = hp,
+      properties = properties,
+    };
+
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.armor = armor;
-    enemy.hp = hp;
-    enemy.isFlier = isFlier;
-    enemy.isCamo = isCamo;
-    enemy.transform.position = position;
+    enemy.data = data;
     return enemy;
   }
 
