@@ -48,24 +48,18 @@ public class Tower : MonoBehaviour {
 
   protected virtual void processParticleCollision() {}
 
-  private void LateUpdate() {
-    // TODO for the processing we want:
-    //  1. Iterate through attacks.
-    //  2. For each attack, check to see if it is 'close enough' to the enemy to trigger 'contact'
-    //  3. When contact is triggered, call a virtual method each sub tower will implmenent.
-  }
-
   protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target) {
-    ParticleSystem.Particle[] particles = null;
+    ParticleSystem.Particle[] particles = new ParticleSystem.Particle[activeParticleSystem.main.maxParticles];
     int numActiveParticles = activeParticleSystem.GetParticles(particles);
-    Vector3 targetPosition = target.transform.position;
+    Vector3 targetPosition = target?.transform.GetChild(0).position ?? Vector3.zero;
 
+    // TODO: LERP is probably not what we want long-term. It remains for now as a proof-of-concept.
     for (int i = 0; i < numActiveParticles; i++) {
-      float cursor = 0.5f;
+      float progressPercentage = 0.01f;
 
       particles[i].velocity = Vector3.zero;
-      particles[i].position = Vector3.Lerp(particles[i].position, targetPosition, cursor);
-      // m_rParticlesArray[iParticle].position = Vector3.Lerp(m_rParticlesArray[iParticle].position, m_vParticlesTarget, m_fCursor * m_fCursor);
+      particles[i].position = Vector3.Lerp(particles[i].position, targetPosition, progressPercentage);
     }
+    activeParticleSystem.SetParticles(particles, numActiveParticles);
   }
 }

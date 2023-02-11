@@ -48,6 +48,7 @@ public class Targeting {
   public Enemy? FindTarget(Enemy? oldTarget, Enemy[] enemies, Vector3 towerPosition, float towerRange, bool camoSight, bool antiAir) {
     // Ensure all enemies are viable targets.
     List<Enemy> targets = enemies.ToList()
+        .Where(e => e.enabled)
         .Where(e => Vector3.Distance(towerPosition, e.transform.position) < towerRange)
         .Where(e => !e.Flying || antiAir)
         .Where(e => !e.Camo || camoSight)

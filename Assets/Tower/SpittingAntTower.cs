@@ -12,6 +12,10 @@ public class SpittingAntTower : Tower {
   [SerializeField] ParticleSystem splashExplosion;
   [SerializeField] ParticleSystem acidExplosion;
 
+  // TODO: These should not be SerializeFields long-term. They exist for debugging purposes now.
+  [SerializeField] Targeting.Behavior behavior;
+  [SerializeField] Targeting.Priority priority;
+
   public bool AcidStun { get; private set; }
   public bool TearBonusDamage { get; private set; }
   public bool DotSlow { get; private set; }
@@ -27,8 +31,8 @@ public class SpittingAntTower : Tower {
   private void Start() {
     // TODO: The user should be able to set the default for each tower type.
     targeting = new() {
-      behavior = Targeting.Behavior.NONE,
-      priority = Targeting.Priority.FIRST
+      behavior = this.behavior,
+      priority = this.priority
     };
 
     // TODO: This should be read in from a data file, not hardcoded like this.
@@ -71,11 +75,13 @@ public class SpittingAntTower : Tower {
     //  1. Kill the particle (try using remainingLifetime)
     //  2. Trigger follow-on effects.
     //    a. If the acid splash is the parent system, do the explosion and check for AoE damage targets.
-    ParticleSystem.Particle particle = new();
-    particle.remainingLifetime = 0.0f;
   }
 
   void Update() {
+    // TODO: Remove these two lines, they exist for debugging purposes at the moment.
+    targeting.behavior = this.behavior;
+    targeting.priority = this.priority;
+
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: FindObjectsOfType<Enemy>(),
@@ -94,13 +100,13 @@ public class SpittingAntTower : Tower {
       upperMesh.LookAt(enemy.transform.GetChild(0));
       emissionModule.enabled = true;
       // TODO:
-      //  1. Get attack speed to be frame rate independent (is Emit the right choice?).
+      //  1. Get attack speed to be frame rate independent.
       //  2. Make sure the attack speed is appropriately different for Splash and Beam.
+      GeneralAttackHandler(ContinuousAttack ? beam : splash, enemy);
     }
-
-    //GeneralAttackHandler(ContinuousAttack ? beam : splash, enemy);
   }
 
+  // TODO: Delete this. It exists for now as a guide for what else needs to be done.
   private void OnParticleCollision(GameObject other) {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;

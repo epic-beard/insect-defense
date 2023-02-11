@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 
+[Serializable]
 public class EnemyData {
   public enum Type {
     BEETLE
