@@ -10,6 +10,7 @@ using UnityEngine.TestTools;
 public class ObjectPoolTest {
   private ObjectPool objectPool;
   private EnemyData enemyData;
+  private Waypoint waypoint;
 
   [SetUp]
   public void SetUp() {
@@ -23,6 +24,8 @@ public class ObjectPoolTest {
     enemyData = new EnemyData() {
       type = EnemyData.Type.BEETLE
     };
+
+    waypoint = new GameObject().AddComponent<Waypoint>();
   }
 
   // Creates an ObjecPool of a starting size n. Checks that each pool in
@@ -44,11 +47,11 @@ public class ObjectPoolTest {
   [Test]
   public void InstantiateEnemyWorks() {
     InvokeInitializeObjectPool(objectPool);
-    GameObject gameObject = objectPool.InstantiateEnemy(enemyData, Vector3.left);
+    GameObject gameObject = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject.activeSelf);
-    Assert.That(gameObject.transform.position, Is.EqualTo(Vector3.left));
     Assert.That(gameObject.GetComponent<Enemy>().pool, Is.SameAs(objectPool));
+    Assert.That(gameObject.GetComponent<Enemy>().PrevWaypoint, Is.SameAs(waypoint));
     Assert.That(gameObject.GetComponent<Enemy>().data, Is.EqualTo(enemyData));
   }
 
@@ -59,9 +62,9 @@ public class ObjectPoolTest {
   public void DestroyEnemyWorks() {
     SetStartingSize(objectPool, 1);
     InvokeInitializeObjectPool(objectPool);
-    GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, Vector3.left);
+    GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     objectPool.DestroyEnemy(gameObject1);
-    GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, Vector3.right);
+    GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject1, Is.SameAs(gameObject2));
   }
@@ -72,8 +75,8 @@ public class ObjectPoolTest {
   public void ObjectPoolResizeWorks() {
     SetStartingSize(objectPool, 1);
     InvokeInitializeObjectPool(objectPool);
-    GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, Vector3.left);
-    GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, Vector3.right);
+    GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
+    GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject1, Is.Not.SameAs(gameObject2));
   }

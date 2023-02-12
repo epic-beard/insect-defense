@@ -14,22 +14,21 @@ public class ObjectPool : MonoBehaviour {
     [SerializeField] public GameObject prefab;
   }
 
-  readonly private int startingSize = 20;
+  [SerializeField] private int startingSize = 20;
   [SerializeField] private List<EnemyEntry> entries = new();
-  private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
-  private Dictionary<EnemyData.Type, GameObject> prefabs = new();
+  readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
+  readonly private Dictionary<EnemyData.Type, GameObject> prefabs = new();
 
   void Awake() {
     foreach (var entry in entries) {
       prefabs[entry.type] = entry.prefab;
     }
-
     InitializeObjectPool();
   }
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
-  public GameObject InstantiateEnemy(EnemyData data, Vector3 position) {
+  public GameObject InstantiateEnemy(EnemyData data, Waypoint start) {
     var pool = objectPools[data.type];
     GameObject gameObject;
     if (pool.Count != 0) {
@@ -38,8 +37,10 @@ public class ObjectPool : MonoBehaviour {
     } else {
       gameObject = GameObject.Instantiate(prefabs[data.type]);
     }
-    gameObject.transform.position = position;
-    gameObject.GetComponent<Enemy>().data = data;
+    Enemy enemy = gameObject.GetComponent<Enemy>();
+    enemy.data = data;
+    enemy.PrevWaypoint = start;
+    enemy.enabled = true;
 
     return gameObject;
   }
@@ -48,6 +49,7 @@ public class ObjectPool : MonoBehaviour {
   public void DestroyEnemy(GameObject gameObject) {
     EnemyData.Type type = gameObject.GetComponent<Enemy>().data.type;
     gameObject.SetActive(false);
+    gameObject.GetComponent<Enemy>().enabled = false;
     objectPools[type].Enqueue(gameObject);
   }
 
@@ -59,6 +61,7 @@ public class ObjectPool : MonoBehaviour {
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefab);
         gameObject.SetActive(false);
+        gameObject.GetComponent<Enemy>().enabled = false;
         objectPools[type].Enqueue(gameObject);
       }
     }
