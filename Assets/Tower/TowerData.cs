@@ -68,6 +68,7 @@ public class Ability {
     }
   }
 
+  // TODO: Make SpecialAbilityEnum nullable and remove mode entirely.
   public TowerData.Mode Mode { get; private set; }
   public SpecialAbilityEnum SpecialAbility { get; private set; }
   public AttributeModifier[] AttributeModifiers { get; private set; }

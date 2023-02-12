@@ -83,10 +83,8 @@ public class SpittingAntTower : Tower {
     float acidStacks = DamageOverTime;
 
     // Armor tear effects.
-    if (target.TearArmor(ArmorTear) == 0.0f) {
-      if (AcidStun) {
-        // Stun the enemy.
-      }
+    if (target.Armor != 0.0f && target.TearArmor(ArmorTear) == 0.0f && AcidStun) {
+      // Stun the enemy.
     }
 
     // DoT effects.
