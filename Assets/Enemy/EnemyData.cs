@@ -2,7 +2,7 @@
 using System;
 
 [Serializable]
-public class EnemyData {
+public struct EnemyData {
   public enum Type {
     BEETLE
   }

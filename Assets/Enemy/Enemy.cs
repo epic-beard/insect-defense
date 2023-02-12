@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour {
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
+    transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
 
     if (NextWaypoint == null) {
@@ -49,6 +50,10 @@ public class Enemy : MonoBehaviour {
 
   public float MaxAcidStacks { get { return (int)data.size * 25; } }
   public float GetDistanceToEnd() {
+    if (NextWaypoint == null) {
+      return float.MaxValue;
+    }
+
     return Vector3.Distance(transform.position, NextWaypoint.transform.position) + NextWaypoint.DistanceToEnd;
   }
 

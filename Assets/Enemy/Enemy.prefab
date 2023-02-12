@@ -144,3 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrevWaypoint: {fileID: 0}
   NextWaypoint: {fileID: 0}
+  pool: {fileID: 0}
