@@ -79,9 +79,11 @@ public class Tower : MonoBehaviour {
       particles[i].velocity = Vector3.zero;
 
       // Obtain the direction of travel
-      Vector3 deltaTravel = (targetPosition - particles[i].position).normalized;
-      // Make distance traveled frame rate independent.
-      deltaTravel *= Time.deltaTime * projectileSpeed;
+      Vector3 vec = targetPosition - particles[i].position;
+      float dist = vec.magnitude;
+      Vector3 deltaTravel = vec.normalized;
+      // Make distance traveled frame rate independent and ensure we cannot 'overshoot' a target.
+      deltaTravel *= Mathf.Min(Time.deltaTime * projectileSpeed, dist);
       particles[i].position += deltaTravel;
 
       if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
