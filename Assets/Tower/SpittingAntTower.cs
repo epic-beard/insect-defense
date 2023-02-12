@@ -99,6 +99,7 @@ public class SpittingAntTower : Tower {
     }
 
     if (!ContinuousAttack) {
+      splashExplosion.transform.position = target.transform.GetChild(0).position;
       splashExplosion.Play();
       // check for armortearexplosion and act accordingly.
     }
