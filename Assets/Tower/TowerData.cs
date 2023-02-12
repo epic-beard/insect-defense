@@ -12,6 +12,7 @@ public static class TowerData {
     ARMOR_PIERCE,
     ARMOR_TEAR,
     DAMAGE_OVER_TIME,
+    PROJECTILE_SPEED,
   }
 
   public enum Mode {
@@ -49,7 +50,7 @@ public class Ability {
   // Each divergent ability (usually at upgrades 3 and 5) should have its own entry in this enum.
   public enum SpecialAbilityEnum {
     SA_1_3_ACID_STUN,      // Spitting Ant Armor Tear upgrade tree level 3.
-    SA_1_5_TOTAL_TEAR_DAMAGE,  // Spitting Ant Armor Tear upgrade tree level 5.
+    SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Armor Tear upgrade tree level 5.
     SA_2_3_DOT_SLOW,       // Spitting Ant Acit DoT upgrade tree level 3.
     SA_2_5_DOT_EXPLOSION,    // Spitting Ant Acid DoT upgrade tree level 5.
     SA_3_3_CAMO_SIGHT,     // Spitting Ant Utility upgrade tree level 3.
@@ -67,6 +68,7 @@ public class Ability {
     }
   }
 
+  // TODO: Make SpecialAbilityEnum nullable and remove mode entirely.
   public TowerData.Mode Mode { get; private set; }
   public SpecialAbilityEnum SpecialAbility { get; private set; }
   public AttributeModifier[] AttributeModifiers { get; private set; }
