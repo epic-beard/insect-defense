@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour {
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
 
   // [TODO nnewsom] implement this
-  public void DamageEnemy(float damage) {
+  public void DamageEnemy(float damage, float armorPierce) {
     // Mark damage this enemy has taken.
   }
 

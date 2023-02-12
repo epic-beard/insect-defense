@@ -1,6 +1,7 @@
 using Codice.Client.Common.GameUI;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.ParticleSystemJobs;
 
@@ -13,16 +14,36 @@ public class Tower : MonoBehaviour {
     { TowerData.Stat.DAMAGE, 0.0f },
     { TowerData.Stat.DAMAGE_OVER_TIME, 0.0f },
     { TowerData.Stat.RANGE, 0.0f },
+    { TowerData.Stat.PROJECTILE_SPEED, 0.0f },
   };
   protected Dictionary<ParticleSystem.Particle, Enemy> attacks = new();
+  // How close a particle needs to get to consider it a hit.
+  protected float hitRange = 0.1f;
 
-  public float AttackSpeed { get { return attributes[TowerData.Stat.ATTACK_SPEED]; } }
-  public float AreaOfEffect { get { return attributes[TowerData.Stat.AREA_OF_EFFECT]; } }
-  public float ArmorPierce { get { return attributes[TowerData.Stat.ARMOR_PIERCE]; } }
-  public float ArmorTear { get { return attributes[TowerData.Stat.ARMOR_TEAR]; } }
-  public float Damage { get { return attributes[TowerData.Stat.DAMAGE]; } }
-  public float DamageOverTime { get { return attributes[TowerData.Stat.DAMAGE_OVER_TIME]; } }
-  public float Range { get { return attributes[TowerData.Stat.RANGE]; } }
+  public float AttackSpeed {
+    get { return attributes[TowerData.Stat.ATTACK_SPEED]; }
+    set { attributes[TowerData.Stat.ATTACK_SPEED] = value; } }
+  public float AreaOfEffect {
+    get { return attributes[TowerData.Stat.AREA_OF_EFFECT]; }
+    set { attributes[TowerData.Stat.AREA_OF_EFFECT] = value; } }
+  public float ArmorPierce {
+    get { return attributes[TowerData.Stat.ARMOR_PIERCE]; }
+    set { attributes[TowerData.Stat.ARMOR_PIERCE] = value; } }
+  public float ArmorTear {
+    get { return attributes[TowerData.Stat.ARMOR_TEAR]; }
+    set { attributes[TowerData.Stat.ARMOR_TEAR] = value; } }
+  public float Damage {
+    get { return attributes[TowerData.Stat.DAMAGE]; }
+    set { attributes[TowerData.Stat.DAMAGE] = value; } }
+  public float DamageOverTime {
+    get { return attributes[TowerData.Stat.DAMAGE_OVER_TIME]; }
+    set { attributes[TowerData.Stat.DAMAGE_OVER_TIME] = value; } }
+  public float Range {
+    get { return attributes[TowerData.Stat.RANGE]; }
+    set { attributes[TowerData.Stat.RANGE] = value; } }
+  public float ProjectileSpeed {
+    get { return attributes[TowerData.Stat.PROJECTILE_SPEED]; }
+    set { attributes[TowerData.Stat.PROJECTILE_SPEED] = value; } }
 
   protected Dictionary<TowerData.TowerAbility, bool> towerAbilities = new() {
     { TowerData.TowerAbility.ANTI_AIR, false },
@@ -46,20 +67,30 @@ public class Tower : MonoBehaviour {
 
   public virtual void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {}
 
-  protected virtual void processParticleCollision() {}
+  protected virtual void processParticleCollision(Enemy target) {}
 
-  protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target) {
+  protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target, float projectileSpeed) {
     ParticleSystem.Particle[] particles = new ParticleSystem.Particle[activeParticleSystem.main.maxParticles];
     int numActiveParticles = activeParticleSystem.GetParticles(particles);
     Vector3 targetPosition = target?.transform.GetChild(0).position ?? Vector3.zero;
 
-    // TODO: LERP is probably not what we want long-term. It remains for now as a proof-of-concept.
+    // Code intending to change particle position/behavior must use particles[i] rather than a helper variable.
     for (int i = 0; i < numActiveParticles; i++) {
-      float progressPercentage = 0.01f;
-
       particles[i].velocity = Vector3.zero;
-      particles[i].position = Vector3.Lerp(particles[i].position, targetPosition, progressPercentage);
+
+      // Obtain the direction of travel
+      Vector3 deltaTravel = (targetPosition - particles[i].position).normalized;
+      // Make distance traveled frame rate independent.
+      deltaTravel *= Time.deltaTime * projectileSpeed;
+      particles[i].position += deltaTravel;
+
+      if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
+        processParticleCollision(target);
+        particles[i].remainingLifetime = 0;
+      }
     }
+
+    // Update all particle positions.
     activeParticleSystem.SetParticles(particles, numActiveParticles);
   }
 }
