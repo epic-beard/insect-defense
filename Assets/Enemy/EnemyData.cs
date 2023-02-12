@@ -1,7 +1,8 @@
 #nullable enable
 using System;
 
-public class EnemyData {
+[Serializable]
+public struct EnemyData {
   public enum Type {
     BEETLE
   }
