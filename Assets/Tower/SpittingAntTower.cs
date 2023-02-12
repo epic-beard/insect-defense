@@ -104,6 +104,7 @@ public class SpittingAntTower : Tower {
       // check for armortearexplosion and act accordingly.
     }
 
+    // TODO: Destroy all particles associated with this enemy when it dies.
     target.DamageEnemy(onHitDamage, ArmorPierce);
   }
 
