@@ -27,9 +27,9 @@ public class Enemy : MonoBehaviour {
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
 
-  // [TODO nnewsom] implement this
-  public void DamageEnemy(float damage, float armorPierce) {
-    // Mark damage this enemy has taken.
+  // Damage this enemy while taking armor piercing into account.
+  public float DamageEnemy(float damage, float armorPierce) {
+    return data.currHP -= Mathf.Clamp(damage - Mathf.Clamp(Armor - armorPierce, 0, Armor), 0, HP);
   }
 
   // Return the new armor total after the tear is applied.

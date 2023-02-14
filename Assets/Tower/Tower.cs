@@ -1,4 +1,5 @@
 using Codice.Client.Common.GameUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
@@ -16,9 +17,11 @@ public class Tower : MonoBehaviour {
     { TowerData.Stat.RANGE, 0.0f },
     { TowerData.Stat.PROJECTILE_SPEED, 0.0f },
   };
-  protected Dictionary<ParticleSystem.Particle, Enemy> attacks = new();
   // How close a particle needs to get to consider it a hit.
   protected float hitRange = 0.1f;
+
+  protected Dictionary<Int64, Enemy> particleIDsToEnemies = new();
+  protected Int64 particleIDTracker = 100;
 
   public float AttackSpeed {
     get { return attributes[TowerData.Stat.ATTACK_SPEED]; }
@@ -72,11 +75,20 @@ public class Tower : MonoBehaviour {
   protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target, float projectileSpeed) {
     ParticleSystem.Particle[] particles = new ParticleSystem.Particle[activeParticleSystem.main.maxParticles];
     int numActiveParticles = activeParticleSystem.GetParticles(particles);
-    Vector3 targetPosition = target?.transform.GetChild(0).position ?? Vector3.zero;
 
     // Code intending to change particle position/behavior must use particles[i] rather than a helper variable.
     for (int i = 0; i < numActiveParticles; i++) {
+      // This is a local reference only and for local convenience. Do not try to use this reference elsewhere.
+      ref var particle = ref particles[i];
       particles[i].velocity = Vector3.zero;
+
+      if (particles[i].startLifetime < 100) {
+        particles[i].startLifetime = particleIDTracker;
+        particleIDsToEnemies.Add(particleIDTracker, target);
+        particleIDTracker++;
+      }
+
+      Vector3 targetPosition = particleIDsToEnemies[(int)particles[i].startLifetime].transform.GetChild(0).position;
 
       // Obtain the direction of travel
       Vector3 vec = targetPosition - particles[i].position;
@@ -87,7 +99,7 @@ public class Tower : MonoBehaviour {
       particles[i].position += deltaTravel;
 
       if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
-        processParticleCollision(target);
+        processParticleCollision(particleIDsToEnemies[(int)particles[i].startLifetime]);
         particles[i].remainingLifetime = 0;
       }
     }

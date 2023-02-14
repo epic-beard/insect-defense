@@ -17,6 +17,7 @@ public class SpittingAntTower : Tower {
   [SerializeField] Targeting.Behavior behavior;
   [SerializeField] Targeting.Priority priority;
   [SerializeField] float beamAttackSpeedModifier = 10.0f;
+  [SerializeField] float splashExplosionRange = 1.0f;
 
   public bool AcidStun { get; private set; } = false;
   public bool ArmorTearExplosion { get; private set; }
@@ -31,6 +32,7 @@ public class SpittingAntTower : Tower {
   private Targeting targeting = new();
   private bool firing = false;
   private ParticleSystem activeParticleSystem;
+  private ObjectPool objectPool;
 
   private void Start() {
     // TODO: The user should be able to set the default for each tower type.
@@ -44,6 +46,7 @@ public class SpittingAntTower : Tower {
     attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
     attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
 
+    objectPool = FindObjectOfType<ObjectPool>();
     activeParticleSystem = splash;
     DisableParticleSystems();
   }
@@ -83,7 +86,7 @@ public class SpittingAntTower : Tower {
     float acidStacks = DamageOverTime;
 
     // Armor tear effects.
-    if (target.Armor != 0.0f && target.TearArmor(ArmorTear) == 0.0f && AcidStun) {
+    if (ApplyArmorTearAndCheckForAcidStun(target)) {
       // Stun the enemy.
     }
 
@@ -101,6 +104,18 @@ public class SpittingAntTower : Tower {
     if (!ContinuousAttack) {
       splashExplosion.transform.position = target.transform.GetChild(0).position;
       splashExplosion.Play();
+
+      foreach (Enemy enemy in objectPool.GetActiveEnemies()) {
+        float distance = Vector3.Distance(enemy.transform.GetChild(0).position, target.transform.GetChild(0).position);
+        if (!enemy.Equals(target) && distance < splashExplosionRange) {
+          enemy.DamageEnemy(onHitDamage, ArmorPierce);
+
+          if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy)) {
+            // Stun enemy.
+          }
+        }
+
+      }
       // check for armortearexplosion and act accordingly.
     }
 
@@ -115,7 +130,7 @@ public class SpittingAntTower : Tower {
 
     enemy = targeting.FindTarget(
       oldTarget: enemy,
-      enemies: FindObjectsOfType<Enemy>(),
+      enemies: objectPool.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
@@ -143,7 +158,13 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  // Disable all particle systems.
+  // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
+  // SA_1_3_ACID_STUN.
+  private bool ApplyArmorTearAndCheckForAcidStun(Enemy enemy) {
+    return enemy.Armor != 0 && enemy.TearArmor(ArmorTear) == 0.0f && AcidStun;
+  }
+
+  // Disable the shooty particle systems.
   private void DisableParticleSystems() {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;

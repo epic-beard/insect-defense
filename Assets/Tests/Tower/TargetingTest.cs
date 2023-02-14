@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
@@ -7,14 +8,15 @@ using UnityEngine;
 public class TargetingTest {
   readonly float TOWER_RANGE = 10.0f;
   
-  //    --- Tests focusing on stubborn behavior. ---
+  //    --- Tests focusing on stubborn behavior ---
 
   // Stubborn target test with a viable alternative in range. It should return oldTarget.
   [Test]
   public void StubbornWithAlternative() {
     Enemy oldTarget = CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy newTarget = CreateEnemy(Vector3.zero, armor: 1.0f); ;
-    Enemy[] enemies = new Enemy[] { oldTarget, newTarget };
+    List<Enemy> enemies = new() { oldTarget, newTarget };
+    //Enemy[] enemies = new Enemy[] { oldTarget, newTarget };
     Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -25,7 +27,7 @@ public class TargetingTest {
   [Test]
   public void StubbornNotPresentWithAlternative() {
     Enemy newTarget = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy[] enemies = new Enemy[] { newTarget };
+    List<Enemy> enemies = new() { newTarget };
     Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -36,7 +38,7 @@ public class TargetingTest {
   [Test]
   public void StubbornNotInRangeWithoutAlternative() {
     Enemy oldTarget = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f);
-    Enemy[] enemies = new Enemy[] { oldTarget };
+    List<Enemy> enemies = new() { oldTarget };
     Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -48,7 +50,7 @@ public class TargetingTest {
   public void StubbornNotInRangeWithAlternative() {
     Enemy oldTarget = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f);
     Enemy newTarget = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy[] enemies = new Enemy[] { oldTarget, newTarget };
+    List<Enemy> enemies = new() { oldTarget, newTarget };
     Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -62,21 +64,21 @@ public class TargetingTest {
   public void IsFlierWithAlternative() {
     Enemy flier = CreateEnemy(Vector3.zero, armor: 0.5f, properties: EnemyData.Properties.FLYING);
     Enemy nonFlier = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy[] enemies = new Enemy[] { flier, nonFlier };
+    List<Enemy> enemies = new() { flier, nonFlier };
     Targeting targeting = CreateTargeting(Targeting.Behavior.FLIER, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, true);
     Assert.That(target, Is.EqualTo(flier));
   }
 
-  //    --- Test for isCamo behavior. ---
+  //    --- Test for isCamo behavior ---
 
   // Should return camo.
   [Test]
   public void IsCamoWithAlternative() {
     Enemy camo = CreateEnemy(Vector3.zero, armor: 0.5f, properties: EnemyData.Properties.CAMO);
     Enemy nonCamo= CreateEnemy(Vector3.zero, armor: 0.5f);
-    Enemy[] enemies = new Enemy[] { camo, nonCamo };
+    List<Enemy> enemies = new() { camo, nonCamo };
     Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, true, false);
@@ -90,7 +92,7 @@ public class TargetingTest {
   public void IsCamoOutOfRangeWithAlternative() {
     Enemy camo = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f, properties: EnemyData.Properties.CAMO);
     Enemy nonCamo = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy[] enemies = new Enemy[] { camo, nonCamo };
+    List<Enemy> enemies = new() { camo, nonCamo };
     Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, true, false);
@@ -119,7 +121,7 @@ public class TargetingTest {
     Enemy last = CreateEnemy(waypoint2.transform.position + Vector3.left * 0.25f);
     first.NextWaypoint = waypoint3;
     last.NextWaypoint = waypoint2;
-    Enemy[] enemies = new Enemy[] { first, last };
+    List<Enemy> enemies = new() { first, last };
     Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, priority);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -133,7 +135,7 @@ public class TargetingTest {
   public void LeastArmor() {
     Enemy leastArmor = CreateEnemy(Vector3.zero.normalized, armor: 0.5f);
     Enemy mostArmor = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy[] enemies = new Enemy[] { leastArmor, mostArmor };
+    List<Enemy> enemies = new() { leastArmor, mostArmor };
     Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.LEASTARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -145,7 +147,7 @@ public class TargetingTest {
   public void MostArmor() {
     Enemy leastArmor = CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy mostArmor = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy[] enemies = new Enemy[] { leastArmor, mostArmor };
+    List<Enemy> enemies = new() { leastArmor, mostArmor };
     Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -157,7 +159,7 @@ public class TargetingTest {
   public void LeastHP() {
     Enemy leastHP = CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy mostHP = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy[] enemies = new Enemy[] { leastHP, mostHP };
+    List<Enemy> enemies = new() { leastHP, mostHP };
     Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.LEASTHP);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -169,7 +171,7 @@ public class TargetingTest {
   public void MostHP() {
     Enemy leastHP = CreateEnemy(Vector3.zero, hp: 1.0f);
     Enemy mostHP = CreateEnemy(Vector3.zero, hp: 10.0f);
-    Enemy[] enemies = new Enemy[] { leastHP, mostHP };
+    List<Enemy> enemies = new() { leastHP, mostHP };
     Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.MOSTHP);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -184,7 +186,7 @@ public class TargetingTest {
     Enemy tooFar = CreateEnemy(new Vector3(100, 0, 0));
     Enemy flier = CreateEnemy(Vector3.zero, properties: EnemyData.Properties.FLYING);
     Enemy camo = CreateEnemy(Vector3.zero, properties: EnemyData.Properties.CAMO);
-    Enemy[] enemies = new Enemy[] { tooFar, flier, camo };
+    List<Enemy> enemies = new() { tooFar, flier, camo };
     Targeting targeting = CreateTargeting(Targeting.Behavior.NONE, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
@@ -227,7 +229,11 @@ public class TargetingTest {
   }
 
   // Create an Enemy and set various properties for testing.
-  Enemy CreateEnemy(Vector3 position, float armor = 0.0f, float hp = 0.0f, EnemyData.Properties properties = EnemyData.Properties.NONE) {
+  Enemy CreateEnemy(
+      Vector3 position,
+      float armor = 0.0f,
+      float hp = 0.0f,
+      EnemyData.Properties properties = EnemyData.Properties.NONE) {
     GameObject gameObject = new();
     gameObject.transform.position = position;
 
