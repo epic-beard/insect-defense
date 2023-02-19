@@ -72,32 +72,42 @@ public class Tower : MonoBehaviour {
 
   protected virtual void processParticleCollision(Enemy target) {}
 
+  // Handle individual particle movement. This method takes control of particle movement and collision initiation
+  // from Unity.
   protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target, float projectileSpeed) {
     ParticleSystem.Particle[] particles = new ParticleSystem.Particle[activeParticleSystem.main.maxParticles];
     int numActiveParticles = activeParticleSystem.GetParticles(particles);
 
     // Code intending to change particle position/behavior must use particles[i] rather than a helper variable.
     for (int i = 0; i < numActiveParticles; i++) {
-      // This is a local reference only and for local convenience. Do not try to use this reference elsewhere.
-      ref var particle = ref particles[i];
       particles[i].velocity = Vector3.zero;
 
+      // Add to the particle to enemy tracker if necessary. Tracking individual particles can be difficult because
+      // ParticleSystem.GetParticles returns a value rather than a reference.
       if (particles[i].startLifetime < 100) {
         particles[i].startLifetime = particleIDTracker;
         particleIDsToEnemies.Add(particleIDTracker, target);
         particleIDTracker++;
       }
 
-      Vector3 targetPosition = particleIDsToEnemies[(int)particles[i].startLifetime].transform.GetChild(0).position;
+      // Destroy any particles targeting an enemy that is no longer alive.
+      Enemy enemy = particleIDsToEnemies[(int)particles[i].startLifetime];
+      if (!enemy.enabled) {
+        particles[i].remainingLifetime = 0;
+        continue;
+      }
+      Vector3 targetPosition = enemy.transform.GetChild(0).position;
 
       // Obtain the direction of travel
       Vector3 vec = targetPosition - particles[i].position;
       float dist = vec.magnitude;
       Vector3 deltaTravel = vec.normalized;
+
       // Make distance traveled frame rate independent and ensure we cannot 'overshoot' a target.
       deltaTravel *= Mathf.Min(Time.deltaTime * projectileSpeed, dist);
       particles[i].position += deltaTravel;
 
+      // Initiate particle 'collision'. Destroy the particle and call the tower's particle collision handler.
       if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
         processParticleCollision(particleIDsToEnemies[(int)particles[i].startLifetime]);
         particles[i].remainingLifetime = 0;

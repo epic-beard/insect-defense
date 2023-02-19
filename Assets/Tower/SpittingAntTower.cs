@@ -1,6 +1,7 @@
 #nullable enable
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static Ability;
 using static TowerData;
@@ -106,21 +107,23 @@ public class SpittingAntTower : Tower {
       splashExplosion.transform.position = target.transform.GetChild(0).position;
       splashExplosion.Play();
 
-      foreach (Enemy enemy in objectPool.GetActiveEnemies()) {
-        float distance = Vector3.Distance(enemy.transform.GetChild(0).position, target.transform.GetChild(0).position);
-        if (!enemy.Equals(target) && distance < splashExplosionRange) {
-          enemy.DamageEnemy(onHitDamage, ArmorPierce);
+      // Get a list of enemies caught in the AoE that are not the enemy targeted.
+      List<Enemy> enemiesInAoe= objectPool.GetActiveEnemies()
+          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < splashExplosionRange)
+          .Where(e => !e.Equals(target))
+          .ToList();
 
-          if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy)) {
-            // Stun enemy.
-          }
+      //enemiesInAoe.Select(e => e.DamageEnemy(onHitDamage, ArmorPierce));
+      foreach (Enemy enemy in enemiesInAoe) {
+        enemy.DamageEnemy(onHitDamage, ArmorPierce);
+        Debug.Log("Damaging an enemy in the AOE");
+
+        if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy)) {
+          // Stun enemy.
         }
-
       }
-      // check for armortearexplosion and act accordingly.
     }
 
-    // TODO: Destroy all particles associated with this enemy when it dies.
     target.DamageEnemy(onHitDamage, ArmorPierce);
   }
 

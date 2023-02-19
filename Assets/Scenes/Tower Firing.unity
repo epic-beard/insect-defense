@@ -1006,13 +1006,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spitting Ant Tower
       objectReference: {fileID: 0}
-    - target: {fileID: 3070601151832978664, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
-      propertyPath: priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3070601151832978664, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
-      propertyPath: splashExplosionRange
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
