@@ -109,7 +109,7 @@ public class Tower : MonoBehaviour {
 
       // Initiate particle 'collision'. Destroy the particle and call the tower's particle collision handler.
       if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
-        processParticleCollision(particleIDsToEnemies[(int)particles[i].startLifetime]);
+        processParticleCollision(enemy);
         particles[i].remainingLifetime = 0;
       }
     }

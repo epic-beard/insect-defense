@@ -50,7 +50,7 @@ public class Targeting {
   // will only examine targets within the tower's given range. It also takes stubborn targeting into account.
   public Enemy? FindTarget(
       Enemy? oldTarget,
-      List<Enemy> enemies,
+      HashSet<Enemy> enemies,
       Vector3 towerPosition,
       float towerRange,
       bool camoSight,

@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using static Ability;
 using static TowerData;
-using static UnityEngine.UI.Image;
 
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
@@ -89,17 +88,17 @@ public class SpittingAntTower : Tower {
 
     // Armor tear effects.
     if (ApplyArmorTearAndCheckForAcidStun(target)) {
-      // Stun the enemy.
+      // TODO: Stun the enemy.
     }
 
     // DoT effects.
     if (target.AddAcidStacks(acidStacks)) {
       if (DotSlow) {
-        // Apply a slow to the enemy unless the enemy is already slowed.
+        // TODO: Apply a slow to the enemy unless the enemy is already slowed.
       }
       if (DotExplosion) {
-        // Trigger an explosion.
-        // Reset acid stacks to 0.
+        // TODO: Trigger an explosion.
+        // TODO: Reset acid stacks to 0.
       }
     }
 
@@ -113,12 +112,11 @@ public class SpittingAntTower : Tower {
           .Where(e => !e.Equals(target))
           .ToList();
 
-      //enemiesInAoe.Select(e => e.DamageEnemy(onHitDamage, ArmorPierce));
       foreach (Enemy enemy in enemiesInAoe) {
         enemy.DamageEnemy(onHitDamage, ArmorPierce);
 
         if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy)) {
-          // Stun enemy.
+          // TODO: Stun enemy.
         }
       }
     }
@@ -164,7 +162,7 @@ public class SpittingAntTower : Tower {
   // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
   // SA_1_3_ACID_STUN.
   private bool ApplyArmorTearAndCheckForAcidStun(Enemy enemy) {
-    return enemy.Armor != 0 && enemy.TearArmor(ArmorTear) == 0.0f && AcidStun;
+    return enemy.Armor != 0.0f && enemy.TearArmor(ArmorTear) == 0.0f && AcidStun;
   }
 
   // Disable the shooty particle systems.

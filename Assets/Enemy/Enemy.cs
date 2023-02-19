@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour {
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
 
-  // Damage this enemy while taking armor piercing into account. This method is reaponsible for initiating death.
+  // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
   public float DamageEnemy(float damage, float armorPierce) {
     data.currHP -= damage - Mathf.Clamp(Armor - armorPierce, 0.0f, damage);

@@ -9,8 +9,8 @@ public class WaypointTest {
   // by GetNextWaypoint.
   [Test]
   public void GetNextWaypointWorks() {
-    Waypoint waypoint = GetWaypoint();
-    Waypoint nextWaypoint = GetWaypoint();
+    Waypoint waypoint = CreateWaypoint();
+    Waypoint nextWaypoint = CreateWaypoint();
     waypoint.nextWaypoints.Add(nextWaypoint);
 
     Assert.That(waypoint.GetNextWaypoint(), Is.EqualTo(nextWaypoint));
@@ -20,7 +20,7 @@ public class WaypointTest {
   // returns null.
   [Test]
   public void GetNextWaypointWorksWhenEmpty() {
-    Waypoint waypoint = GetWaypoint();
+    Waypoint waypoint = CreateWaypoint();
 
     Assert.That(waypoint.GetNextWaypoint(), Is.EqualTo(null));
   }
@@ -29,8 +29,8 @@ public class WaypointTest {
   // by GetPrevWaypoint.
   [Test]
   public void GetPrevWaypointWorks() {
-    Waypoint waypoint = GetWaypoint();
-    Waypoint prevWaypoint = GetWaypoint();
+    Waypoint waypoint = CreateWaypoint();
+    Waypoint prevWaypoint = CreateWaypoint();
     waypoint.prevWaypoints.Add(prevWaypoint);
 
     Assert.That(waypoint.GetPrevWaypoint(), Is.EqualTo(prevWaypoint));
@@ -40,7 +40,7 @@ public class WaypointTest {
   // returns null.
   [Test]
   public void GetPrevWaypointWorksWhenEmpty() {
-    Waypoint waypoint = GetWaypoint();
+    Waypoint waypoint = CreateWaypoint();
 
     Assert.That(waypoint.GetPrevWaypoint(), Is.EqualTo(null));
   }
@@ -49,15 +49,14 @@ public class WaypointTest {
   // the right thing.
   [Test]
   public void GetCoordinatesWorks() {
-    Waypoint waypoint = GetWaypoint();
+    Waypoint waypoint = CreateWaypoint();
     waypoint.transform.position = new Vector3(10, 0, 20);
 
     Assert.That(waypoint.GetCoordinates(), Is.EqualTo(new Vector2Int(1, 2)));
   }
 
   // Creates and returns a Waypoint.
-  Waypoint GetWaypoint() {
-    GameObject gameObject = new();
-    return gameObject.AddComponent<Waypoint>();
+  Waypoint CreateWaypoint() {
+    return new GameObject().AddComponent<Waypoint>();
   }
 }

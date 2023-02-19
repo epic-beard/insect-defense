@@ -18,7 +18,7 @@ public class ObjectPool : MonoBehaviour {
   [SerializeField] private List<EnemyEntry> entries = new();
   readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
   readonly private Dictionary<EnemyData.Type, GameObject> prefabs = new();
-  public List<Enemy> activeEnemies = new();
+  public HashSet<Enemy> activeEnemies = new();
 
   void Awake() {
     foreach (var entry in entries) {
@@ -54,11 +54,13 @@ public class ObjectPool : MonoBehaviour {
     activeEnemies.Remove(enemy);
     EnemyData.Type type = enemy.data.type;
     gameObject.SetActive(false);
-    gameObject.GetComponent<Enemy>().enabled = false;
+    enemy.enabled = false;
     objectPools[type].Enqueue(gameObject);
   }
 
-  public List<Enemy> GetActiveEnemies() {
+  // This return is to actual active enemies. The enemy collection is (but shouldn't be) mutable. Do not
+  // remove objects from this list or manually destroy any members.
+  public HashSet<Enemy> GetActiveEnemies() {
     return activeEnemies;
   }
 
