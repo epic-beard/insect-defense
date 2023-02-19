@@ -45,9 +45,18 @@ public class Targeting {
   public Priority priority;
   public Behavior behavior;
 
-  public Enemy? FindTarget(Enemy? oldTarget, Enemy[] enemies, Vector3 towerPosition, float towerRange, bool camoSight, bool antiAir) {
+  // Find and return a target. Searches through available enemies for appropriate targets. This should ignore
+  // inappropriate targets (a tower that cannot hit airborne targets should not get an airborne enemy), and
+  // will only examine targets within the tower's given range. It also takes stubborn targeting into account.
+  public Enemy? FindTarget(
+      Enemy? oldTarget,
+      HashSet<Enemy> enemies,
+      Vector3 towerPosition,
+      float towerRange,
+      bool camoSight,
+      bool antiAir) {
     // Ensure all enemies are viable targets.
-    List<Enemy> targets = enemies.ToList()
+    List<Enemy> targets = enemies
         .Where(e => e.enabled)
         .Where(e => Vector3.Distance(towerPosition, e.transform.position) < towerRange)
         .Where(e => !e.Flying || antiAir)

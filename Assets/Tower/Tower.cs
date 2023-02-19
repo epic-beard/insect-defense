@@ -1,4 +1,5 @@
 using Codice.Client.Common.GameUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
@@ -16,9 +17,11 @@ public class Tower : MonoBehaviour {
     { TowerData.Stat.RANGE, 0.0f },
     { TowerData.Stat.PROJECTILE_SPEED, 0.0f },
   };
-  protected Dictionary<ParticleSystem.Particle, Enemy> attacks = new();
   // How close a particle needs to get to consider it a hit.
   protected float hitRange = 0.1f;
+
+  protected Dictionary<Int64, Enemy> particleIDsToEnemies = new();
+  protected Int64 particleIDTracker = 100;
 
   public float AttackSpeed {
     get { return attributes[TowerData.Stat.ATTACK_SPEED]; }
@@ -69,25 +72,44 @@ public class Tower : MonoBehaviour {
 
   protected virtual void processParticleCollision(Enemy target) {}
 
+  // Handle individual particle movement. This method takes control of particle movement and collision initiation
+  // from Unity.
   protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target, float projectileSpeed) {
     ParticleSystem.Particle[] particles = new ParticleSystem.Particle[activeParticleSystem.main.maxParticles];
     int numActiveParticles = activeParticleSystem.GetParticles(particles);
-    Vector3 targetPosition = target?.transform.GetChild(0).position ?? Vector3.zero;
 
     // Code intending to change particle position/behavior must use particles[i] rather than a helper variable.
     for (int i = 0; i < numActiveParticles; i++) {
       particles[i].velocity = Vector3.zero;
 
+      // Add to the particle to enemy tracker if necessary. Tracking individual particles can be difficult because
+      // ParticleSystem.GetParticles returns a value rather than a reference.
+      if (particles[i].startLifetime < 100) {
+        particles[i].startLifetime = particleIDTracker;
+        particleIDsToEnemies.Add(particleIDTracker, target);
+        particleIDTracker++;
+      }
+
+      // Destroy any particles targeting an enemy that is no longer alive.
+      Enemy enemy = particleIDsToEnemies[(int)particles[i].startLifetime];
+      if (!enemy.enabled) {
+        particles[i].remainingLifetime = 0;
+        continue;
+      }
+      Vector3 targetPosition = enemy.transform.GetChild(0).position;
+
       // Obtain the direction of travel
       Vector3 vec = targetPosition - particles[i].position;
       float dist = vec.magnitude;
       Vector3 deltaTravel = vec.normalized;
+
       // Make distance traveled frame rate independent and ensure we cannot 'overshoot' a target.
       deltaTravel *= Mathf.Min(Time.deltaTime * projectileSpeed, dist);
       particles[i].position += deltaTravel;
 
+      // Initiate particle 'collision'. Destroy the particle and call the tower's particle collision handler.
       if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
-        processParticleCollision(target);
+        processParticleCollision(enemy);
         particles[i].remainingLifetime = 0;
       }
     }

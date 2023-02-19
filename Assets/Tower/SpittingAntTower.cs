@@ -1,10 +1,10 @@
 #nullable enable
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static Ability;
 using static TowerData;
-using static UnityEngine.UI.Image;
 
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
@@ -17,6 +17,7 @@ public class SpittingAntTower : Tower {
   [SerializeField] Targeting.Behavior behavior;
   [SerializeField] Targeting.Priority priority;
   [SerializeField] float beamAttackSpeedModifier = 10.0f;
+  [SerializeField] float splashExplosionRange = 1.0f;
 
   public bool AcidStun { get; private set; } = false;
   public bool ArmorTearExplosion { get; private set; }
@@ -31,6 +32,7 @@ public class SpittingAntTower : Tower {
   private Targeting targeting = new();
   private bool firing = false;
   private ParticleSystem activeParticleSystem;
+  private ObjectPool objectPool;
 
   private void Start() {
     // TODO: The user should be able to set the default for each tower type.
@@ -39,11 +41,13 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
-    // TODO: This should be read in from a data file, not hardcoded like this.
+    // TODO: These should be read in from a data file, not hardcoded like this.
     attributes[TowerData.Stat.RANGE] = 15.0f;
     attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
     attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
+    attributes[TowerData.Stat.DAMAGE] = 10.0f;
 
+    objectPool = FindObjectOfType<ObjectPool>();
     activeParticleSystem = splash;
     DisableParticleSystems();
   }
@@ -83,28 +87,40 @@ public class SpittingAntTower : Tower {
     float acidStacks = DamageOverTime;
 
     // Armor tear effects.
-    if (target.Armor != 0.0f && target.TearArmor(ArmorTear) == 0.0f && AcidStun) {
-      // Stun the enemy.
+    if (ApplyArmorTearAndCheckForAcidStun(target)) {
+      // TODO: Stun the enemy.
     }
 
     // DoT effects.
     if (target.AddAcidStacks(acidStacks)) {
       if (DotSlow) {
-        // Apply a slow to the enemy unless the enemy is already slowed.
+        // TODO: Apply a slow to the enemy unless the enemy is already slowed.
       }
       if (DotExplosion) {
-        // Trigger an explosion.
-        // Reset acid stacks to 0.
+        // TODO: Trigger an explosion.
+        // TODO: Reset acid stacks to 0.
       }
     }
 
     if (!ContinuousAttack) {
       splashExplosion.transform.position = target.transform.GetChild(0).position;
       splashExplosion.Play();
-      // check for armortearexplosion and act accordingly.
+
+      // Get a list of enemies caught in the AoE that are not the enemy targeted.
+      List<Enemy> enemiesInAoe= objectPool.GetActiveEnemies()
+          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < splashExplosionRange)
+          .Where(e => !e.Equals(target))
+          .ToList();
+
+      foreach (Enemy enemy in enemiesInAoe) {
+        enemy.DamageEnemy(onHitDamage, ArmorPierce);
+
+        if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy)) {
+          // TODO: Stun enemy.
+        }
+      }
     }
 
-    // TODO: Destroy all particles associated with this enemy when it dies.
     target.DamageEnemy(onHitDamage, ArmorPierce);
   }
 
@@ -115,7 +131,7 @@ public class SpittingAntTower : Tower {
 
     enemy = targeting.FindTarget(
       oldTarget: enemy,
-      enemies: FindObjectsOfType<Enemy>(),
+      enemies: objectPool.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
@@ -143,7 +159,13 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  // Disable all particle systems.
+  // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
+  // SA_1_3_ACID_STUN.
+  private bool ApplyArmorTearAndCheckForAcidStun(Enemy enemy) {
+    return enemy.Armor != 0.0f && enemy.TearArmor(ArmorTear) == 0.0f && AcidStun;
+  }
+
+  // Disable the shooty particle systems.
   private void DisableParticleSystems() {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;

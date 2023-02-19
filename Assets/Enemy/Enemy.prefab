@@ -142,6 +142,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79623d836f1eced4fba27faa4a5e6ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    type: 0
+    size: 0
+    currHP: 0
+    maxHP: 0
+    currArmor: 0
+    maxArmor: 0
+    speed: 0
+    damage: 0
+    nu: 0
+    acidStacks: 0
+    properties: 0
   PrevWaypoint: {fileID: 0}
   NextWaypoint: {fileID: 0}
   pool: {fileID: 0}
