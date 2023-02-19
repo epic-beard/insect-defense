@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour {
   public Waypoint NextWaypoint;
   public ObjectPool pool;
 
+  readonly private int acidStackMaxMultiplier = 25;
+
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
     transform.position = PrevWaypoint.transform.position;
@@ -26,29 +28,31 @@ public class Enemy : MonoBehaviour {
   public float Speed { get { return data.speed; } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
 
-  // Damage this enemy while taking armor piercing into account.
+  // Damage this enemy while taking armor piercing into account. This method is reaponsible for initiating death.
+  // No other method should try to handle Enemy death.
   public float DamageEnemy(float damage, float armorPierce) {
-    return data.currHP -= Mathf.Clamp(damage - Mathf.Clamp(Armor - armorPierce, 0, Armor), 0, HP);
+    data.currHP -= damage - Mathf.Clamp(Armor - armorPierce, 0.0f, damage);
+    if (data.currHP <= 0.0f) {
+      // TODO: Award the player Nu
+      pool.DestroyEnemy(gameObject);
+    }
+    return data.currHP;
   }
 
   // Return the new armor total after the tear is applied.
   public float TearArmor(float tear) {
-    data.currArmor = Mathf.Max(data.currArmor - tear, 0);
-    return data.currArmor;
+    return data.currArmor = Mathf.Max(data.currArmor - tear, 0);
+    //return data.currArmor;
   }
 
   // Returns true if stacks are at max.
   public bool AddAcidStacks(float stacks) {
     data.acidStacks = Mathf.Min(data.acidStacks + stacks, MaxAcidStacks);
-    return IsAcidDOTMax();
-  }
-
-  public bool IsAcidDOTMax() {
     return data.acidStacks == MaxAcidStacks;
   }
 
-  public float MaxAcidStacks { get { return (int)data.size * 25; } }
   public float GetDistanceToEnd() {
     if (NextWaypoint == null) {
       return float.MaxValue;
@@ -79,7 +83,7 @@ public class Enemy : MonoBehaviour {
   }
 
   private void FinishPath() {
-    // [TODO nnewsom] handle damage.
+    // [TODO nnewsom] handle player damage.
     pool.DestroyEnemy(gameObject);
   }
 }

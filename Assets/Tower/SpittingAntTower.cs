@@ -41,10 +41,11 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
-    // TODO: This should be read in from a data file, not hardcoded like this.
+    // TODO: These should be read in from a data file, not hardcoded like this.
     attributes[TowerData.Stat.RANGE] = 15.0f;
     attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
     attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
+    attributes[TowerData.Stat.DAMAGE] = 10.0f;
 
     objectPool = FindObjectOfType<ObjectPool>();
     activeParticleSystem = splash;
