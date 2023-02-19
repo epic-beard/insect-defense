@@ -116,7 +116,6 @@ public class SpittingAntTower : Tower {
       //enemiesInAoe.Select(e => e.DamageEnemy(onHitDamage, ArmorPierce));
       foreach (Enemy enemy in enemiesInAoe) {
         enemy.DamageEnemy(onHitDamage, ArmorPierce);
-        Debug.Log("Damaging an enemy in the AOE");
 
         if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy)) {
           // Stun enemy.
