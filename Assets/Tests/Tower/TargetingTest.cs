@@ -16,7 +16,6 @@ public class TargetingTest {
     Enemy oldTarget = CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy newTarget = CreateEnemy(Vector3.zero, armor: 1.0f); ;
     List<Enemy> enemies = new() { oldTarget, newTarget };
-    //Enemy[] enemies = new Enemy[] { oldTarget, newTarget };
     Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
 
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);

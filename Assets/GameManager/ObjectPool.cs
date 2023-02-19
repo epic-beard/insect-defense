@@ -53,7 +53,6 @@ public class ObjectPool : MonoBehaviour {
     Enemy enemy = gameObject.GetComponent<Enemy>();
     activeEnemies.Remove(enemy);
     EnemyData.Type type = enemy.data.type;
-    //EnemyData.Type type = gameObject.GetComponent<Enemy>().data.type;
     gameObject.SetActive(false);
     gameObject.GetComponent<Enemy>().enabled = false;
     objectPools[type].Enqueue(gameObject);

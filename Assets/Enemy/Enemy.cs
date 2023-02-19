@@ -44,7 +44,6 @@ public class Enemy : MonoBehaviour {
   // Return the new armor total after the tear is applied.
   public float TearArmor(float tear) {
     return data.currArmor = Mathf.Max(data.currArmor - tear, 0);
-    //return data.currArmor;
   }
 
   // Returns true if stacks are at max.
