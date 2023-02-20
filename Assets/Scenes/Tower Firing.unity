@@ -893,7 +893,6 @@ MonoBehaviour:
   entries:
   - type: 0
     prefab: {fileID: 2166917792933380144, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
-  activeEnemies: []
 --- !u!1001 &1780047280004041463
 PrefabInstance:
   m_ObjectHideFlags: 0
