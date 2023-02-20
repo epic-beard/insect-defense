@@ -5,8 +5,10 @@ using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour {
+  [SerializeField] private List<Waypoint> startingLocations = new();
+
   private ISubwave subwave;
-  public ObjectPool pool;
+  private ObjectPool pool;
   void Start() {
     EnemySubwave enemyWave = new() {
       data = new EnemyData() {
@@ -50,6 +52,10 @@ public class Spawner : MonoBehaviour {
   }
 
   void Update() {
+  }
+
+  public GameObject Spawn(EnemyData data, int startingLocation) {
+    return pool.InstantiateEnemy(data, startingLocations[startingLocation]);
   }
 
   public class Wave {
@@ -104,7 +110,7 @@ public class Spawner : MonoBehaviour {
 
     public IEnumerator Run(Spawner spawner) {
       for (int i = 0; i < repetitions; i++) {
-        spawner.pool.InstantiateEnemy(data, spawnLocation);
+        spawner.Spawn(data, spawnLocation);
         yield return new WaitForSeconds(repeatDelay);
       }
       Finished = true;

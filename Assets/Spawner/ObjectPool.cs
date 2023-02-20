@@ -18,7 +18,8 @@ public class ObjectPool : MonoBehaviour {
   [SerializeField] private List<EnemyEntry> entries = new();
   readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
   readonly private Dictionary<EnemyData.Type, GameObject> prefabs = new();
-  [SerializeField] private List<Waypoint> startingPoints = new();
+  
+  private HashSet<Enemy> activeEnemies = new();
 
   void Awake() {
     foreach (var entry in entries) {
@@ -29,7 +30,7 @@ public class ObjectPool : MonoBehaviour {
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
-  public GameObject InstantiateEnemy(EnemyData data, Waypoint start) {
+  public virtual GameObject InstantiateEnemy(EnemyData data, Waypoint start) {
     var pool = objectPools[data.type];
     GameObject gameObject;
     if (pool.Count != 0) {
@@ -42,20 +43,25 @@ public class ObjectPool : MonoBehaviour {
     enemy.data = data;
     enemy.PrevWaypoint = start;
     enemy.enabled = true;
+    activeEnemies.Add(enemy);
 
     return gameObject;
   }
 
-  public GameObject InstantiateEnemy(EnemyData data, int startingPoint) {
-    return InstantiateEnemy(data, startingPoints[startingPoint]);
-  }
-
   // Deactivates an enemy and enqueues it back on the correct objectPool.
   public void DestroyEnemy(GameObject gameObject) {
-    EnemyData.Type type = gameObject.GetComponent<Enemy>().data.type;
     gameObject.SetActive(false);
-    gameObject.GetComponent<Enemy>().enabled = false;
+    Enemy enemy = gameObject.GetComponent<Enemy>();
+    activeEnemies.Remove(enemy);
+    EnemyData.Type type = enemy.data.type;
+    enemy.enabled = false;
     objectPools[type].Enqueue(gameObject);
+  }
+
+  // This returns the active enemies. Individual enemies may be modified but the
+  // list istself should never be modified outside the ObjectPool class.
+  public HashSet<Enemy> GetActiveEnemies() {
+    return activeEnemies;
   }
 
   // Creates startingSize enemies for each prefab, populating the objectPools map.
@@ -66,7 +72,8 @@ public class ObjectPool : MonoBehaviour {
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefab);
         gameObject.SetActive(false);
-        gameObject.GetComponent<Enemy>().enabled = false;
+        Enemy enemy = gameObject.GetComponent<Enemy>();
+        enemy.enabled = false;
         objectPools[type].Enqueue(gameObject);
       }
     }
