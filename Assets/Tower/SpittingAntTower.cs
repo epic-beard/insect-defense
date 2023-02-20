@@ -46,9 +46,13 @@ public class SpittingAntTower : Tower {
     attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
     attributes[TowerData.Stat.DAMAGE] = 10.0f;
 
+    // -----o-----
+
     objectPool = FindObjectOfType<ObjectPool>();
     activeParticleSystem = splash;
     DisableParticleSystems();
+
+    StartCoroutine(Shoot());
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
@@ -141,20 +145,19 @@ public class SpittingAntTower : Tower {
       firing = false;
     } else {
       upperMesh.LookAt(enemy.transform.GetChild(0));
-
-      if (!firing) {
-        firing = true;
-        StartCoroutine(Shoot());
-      }
+      firing = true;
 
       GeneralAttackHandler(activeParticleSystem, enemy, ProjectileSpeed);
     }
   }
 
   private IEnumerator Shoot() {
-    while (firing) {
-      activeParticleSystem.Emit(1);
-      yield return new WaitForSeconds(1 / AttackSpeed);
+    while (true) {
+      while (firing) {
+        activeParticleSystem.Emit(1);
+        yield return new WaitForSeconds(1 / AttackSpeed);
+      }
+      yield return new WaitUntil(() => firing);
     }
   }
 
