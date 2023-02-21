@@ -5,123 +5,106 @@ using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour {
-  [SerializeField] private List<Waypoint> startingLocations = new();
-
-  private ISubwave subwave;
+  [SerializeField] private List<Waypoint> spawnLocations = new();
   private ObjectPool pool;
+
   void Start() {
-    EnemySubwave enemyWave = new() {
-      data = new EnemyData() {
-        type = EnemyData.Type.BEETLE,
-        speed = 1.0f
-      },
-      repetitions = 2,
-      repeatDelay = 1,
-      spawnLocation = 0,
-    };
-    EnemySubwave slowWave = new() {
-      data = new EnemyData() {
-        type = EnemyData.Type.BEETLE,
-        speed = 0.5f
-      },
-      repetitions = 2,
-      repeatDelay = 1,
-      spawnLocation = 0,
-    };
-    EnemySubwave fastWave = new() {
-      data = new EnemyData() {
-        type = EnemyData.Type.BEETLE,
-        speed = 2.0f
-      },
-      repetitions = 2,
-      repeatDelay = 1,
-      spawnLocation = 0,
-    };
-    ConcurrentSubwave conWave = new();
-    conWave.Subwaves.Add(fastWave);
-    conWave.Subwaves.Add(slowWave);
-
-    SequentialSubwave seqWave = new();
-    seqWave.Subwaves.Add(enemyWave);
-    seqWave.Subwaves.Add(conWave);
-    Wave wave = new();
-    wave.Subwaves.Add(seqWave);
-    wave.Subwaves.Add(enemyWave);
     pool = FindObjectOfType<ObjectPool>();
-    StartCoroutine(wave.Start(this));
+    // TODO: Deserialize a Waves.
+    // StartCoroutine(wave.Start(this));
   }
 
-  void Update() {
+  // A thin wrapper around InstantiateEnemy, using spawnLocation as an
+  // index into spawnLocations.
+  public GameObject Spawn(EnemyData data, int spawnLocation) {
+    return pool.InstantiateEnemy(data, spawnLocations[spawnLocation]);
   }
 
-  public GameObject Spawn(EnemyData data, int startingLocation) {
-    return pool.InstantiateEnemy(data, startingLocations[startingLocation]);
-  }
-
-  public class Wave {
-    public List<ISubwave> Subwaves = new();
-    public IEnumerator Start(Spawner spawner) { 
-      yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
-      foreach (var subwave in Subwaves) {
-        yield return subwave.Run(spawner);
-        yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
-      }      
-    }
-    public void Serialize(Stream s) { }
-    public Wave Deserialize(Stream s) {
-      return new Wave();
-    }
-  }
-
-  public interface ISubwave {
-    IEnumerator Run(Spawner spawner);
+  // The interface for the Waves system.
+  public interface IWave {
+    // Starts the wave.  Meant to be called as a Coroutine.
+    IEnumerator Start(Spawner spawner);
+    // Whether or not this wave has completed.
     bool Finished { get; set; }
   }
 
-  public class SequentialSubwave : ISubwave {
-    public List<ISubwave> Subwaves = new();
+  // The top level of the subwave heirarchy, describing a level.
+  public class Waves : IWave{
+    // Each wave represents one round of combat.
+    readonly private List<IWave> waves = new();
+    // Whether this wave has completed.
     public bool Finished { get; set; }
-    public IEnumerator Run(Spawner spawner) {
+    // Starts the level logic.
+    public IEnumerator Start(Spawner spawner) {
+      foreach (var wave in waves) {
+        // Wait for the signal to start the next level.
+        yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
+        // Run the wave and wait till it is complete.
+        yield return wave.Start(spawner);
+      }
+      Finished = true;
+    }
+    public void Serialize(Stream s) { }
+    public Waves Deserialize(Stream s) {
+      return new Waves();
+    }
+  }
+
+  // A wave that calls its subwaves sequentially.
+  public class SequentialWave : IWave {
+    readonly public List<IWave> Subwaves = new();
+    public bool Finished { get; set; }
+    public IEnumerator Start(Spawner spawner) {
       foreach (var subwave in Subwaves) {
-        yield return spawner.StartCoroutine(subwave.Run(spawner));
+        // Start the subwave and wait till it's finished.
+        yield return spawner.StartCoroutine(subwave.Start(spawner));
       }
       Finished = true;
     }
   }
 
-  public class ConcurrentSubwave : ISubwave {
-    public List<ISubwave> Subwaves = new();
+  // A wave that calls its subwaves concurrently.
+  public class ConcurrentWave : IWave {
+    readonly public List<IWave> Subwaves = new();
     public bool Finished { get; set; }
-    public IEnumerator Run(Spawner spawner) {
+    public IEnumerator Start(Spawner spawner) {
+      // Start all the subwaves.
       foreach (var subwave in Subwaves) {
-        spawner.StartCoroutine(subwave.Run(spawner));
+        spawner.StartCoroutine(subwave.Start(spawner));
       }
+      // Wait until all the subwaves have finished.
       yield return new WaitUntil(() => Subwaves.All((s) => s.Finished));
       Finished = true;
     }
   }
 
-  public class EnemySubwave : ISubwave {
+  // A wave that creates an enemy at regular intervals.
+  public class EnemyWave : IWave {
     public int repetitions;
     public float repeatDelay;
     public EnemyData data;
     public int spawnLocation;
     public bool Finished { get; set; }
 
-    public IEnumerator Run(Spawner spawner) {
+    public IEnumerator Start(Spawner spawner) {
       for (int i = 0; i < repetitions; i++) {
+        // Create the enemy.
         spawner.Spawn(data, spawnLocation);
+        // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
       }
       Finished = true;
     }
   }
 
-  public class SpacerSubwave : ISubwave {
+  // A wave that just waits for a given delay then finishes.
+  // Used to pause between waves.
+  public class SpacerWave : IWave {
     public float delay;
     public bool Finished { get; set; }
 
-    public IEnumerator Run(Spawner spawner) {
+    public IEnumerator Start(Spawner spawner) {
+      // Wait for delay seconds.
       yield return new WaitForSeconds(delay);
       Finished = true;
     }

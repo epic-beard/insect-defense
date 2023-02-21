@@ -30,7 +30,7 @@ public class ObjectPool : MonoBehaviour {
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
-  public virtual GameObject InstantiateEnemy(EnemyData data, Waypoint start) {
+  public GameObject InstantiateEnemy(EnemyData data, Waypoint start) {
     var pool = objectPools[data.type];
     GameObject gameObject;
     if (pool.Count != 0) {

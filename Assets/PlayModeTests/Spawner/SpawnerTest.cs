@@ -11,13 +11,13 @@ public class SpawnerTest {
   public IEnumerator ConcurrentSubwaveTest() {
     // Creates a concurrent subwave with two spacer subwabves.
     Spawner spawner = new GameObject().AddComponent<Spawner>();
-    Spawner.SpacerSubwave spacer1 = new() { delay = 0.1f };
-    Spawner.SpacerSubwave spacer2 = new() { delay = 0.1f };
-    Spawner.ConcurrentSubwave subwave = new();
+    Spawner.SpacerWave spacer1 = new() { delay = 0.1f };
+    Spawner.SpacerWave spacer2 = new() { delay = 0.1f };
+    Spawner.ConcurrentWave subwave = new();
     subwave.Subwaves.Add(spacer1);
     subwave.Subwaves.Add(spacer2);
 
-    subwave.Run(spawner);
+    subwave.Start(spawner);
     yield return new WaitForSeconds(0.11f);
     Assert.True(spacer1.Finished);
     Assert.True(spacer2.Finished);
@@ -29,13 +29,13 @@ public class SpawnerTest {
   public IEnumerator SequentialSubwaveTest() {
     // Creates a sequential subwave with two spacer subwaves.
     Spawner spawner = new GameObject().AddComponent<Spawner>();
-    Spawner.SpacerSubwave spacer1 = new() { delay = 0.1f };
-    Spawner.SpacerSubwave spacer2 = new() { delay = 0.1f };
-    Spawner.SequentialSubwave subwave = new();
+    Spawner.SpacerWave spacer1 = new() { delay = 0.1f };
+    Spawner.SpacerWave spacer2 = new() { delay = 0.1f };
+    Spawner.SequentialWave subwave = new();
     subwave.Subwaves.Add(spacer1);
     subwave.Subwaves.Add(spacer2);
 
-    subwave.Run(spawner);
+    subwave.Start(spawner);
     yield return new WaitForSeconds(0.11f);
     Assert.True(spacer1.Finished);
     Assert.False(spacer2.Finished);
@@ -49,9 +49,9 @@ public class SpawnerTest {
   public IEnumerator SpacerSubwaveTest() {
     // Create a spacer subwave with a short delay.
     Spawner spawner = new GameObject().AddComponent<Spawner>();
-    Spawner.SpacerSubwave subwave = new() { delay = 0.1f };
+    Spawner.SpacerWave subwave = new() { delay = 0.1f };
     
-    subwave.Run(spawner);
+    subwave.Start(spawner);
     yield return new WaitForSeconds(0.1f);
     Assert.That(subwave.Finished);
     yield return null;
@@ -91,14 +91,14 @@ public class EnemySubwaveTest {
 
   [UnityTest]
   public IEnumerator EnemySubwaveWorks() {
-    Spawner.EnemySubwave subwave = new() {
+    Spawner.EnemyWave subwave = new() {
       repetitions = 2,
       repeatDelay = 0.1f,
       spawnLocation = 1,
       data = enemyData,
     };
 
-    subwave.Run(spawner);
+    subwave.Start(spawner);
     Assert.That(objectPool.GetActiveEnemies().Count, Is.EqualTo(1));
     foreach (var enemy in objectPool.GetActiveEnemies()) {
       Assert.That(enemy.data, Is.EqualTo(enemyData));
