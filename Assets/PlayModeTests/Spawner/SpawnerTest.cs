@@ -13,15 +13,17 @@ public class SpawnerTest {
     Spawner spawner = new GameObject().AddComponent<Spawner>();
     Spawner.SpacerWave spacer1 = new() { delay = 0.1f };
     Spawner.SpacerWave spacer2 = new() { delay = 0.1f };
-    Spawner.ConcurrentWave subwave = new();
-    subwave.Subwaves.Add(spacer1);
-    subwave.Subwaves.Add(spacer2);
+    Spawner.ConcurrentWave wave = new();
+    wave.Subwaves.Add(spacer1);
+    wave.Subwaves.Add(spacer2);
 
-    subwave.Start(spawner);
+    var enumerator = wave.Start(spawner);
+    Assert.True(enumerator.MoveNext());
     yield return new WaitForSeconds(0.11f);
+    Assert.False(enumerator.MoveNext());
     Assert.True(spacer1.Finished);
     Assert.True(spacer2.Finished);
-    Assert.That(subwave.Finished);
+    Assert.That(wave.Finished);
     yield return null;
   }
 
@@ -31,29 +33,35 @@ public class SpawnerTest {
     Spawner spawner = new GameObject().AddComponent<Spawner>();
     Spawner.SpacerWave spacer1 = new() { delay = 0.1f };
     Spawner.SpacerWave spacer2 = new() { delay = 0.1f };
-    Spawner.SequentialWave subwave = new();
-    subwave.Subwaves.Add(spacer1);
-    subwave.Subwaves.Add(spacer2);
+    Spawner.SequentialWave wave = new();
+    wave.Subwaves.Add(spacer1);
+    wave.Subwaves.Add(spacer2);
 
-    subwave.Start(spawner);
+    var enumerator = wave.Start(spawner);
+    Assert.True(enumerator.MoveNext());
     yield return new WaitForSeconds(0.11f);
+    Assert.True(enumerator.MoveNext());
     Assert.True(spacer1.Finished);
     Assert.False(spacer2.Finished);
     yield return new WaitForSeconds(0.11f);
+    Assert.False(enumerator.MoveNext());
     Assert.True(spacer2.Finished);
-    Assert.That(subwave.Finished);
+    Assert.That(wave.Finished);
     yield return null;
   }
 
   [UnityTest]
   public IEnumerator SpacerSubwaveTest() {
+    Debug.Log("starting spacer test");
     // Create a spacer subwave with a short delay.
     Spawner spawner = new GameObject().AddComponent<Spawner>();
-    Spawner.SpacerWave subwave = new() { delay = 0.1f };
-    
-    subwave.Start(spawner);
-    yield return new WaitForSeconds(0.1f);
-    Assert.That(subwave.Finished);
+    Spawner.SpacerWave wave = new() { delay = 0.1f };
+
+    var enumerator = wave.Start(spawner);
+    Assert.True(enumerator.MoveNext());
+    yield return new WaitForSeconds(0.11f);
+    Assert.False(enumerator.MoveNext());
+    Assert.That(wave.Finished);
     yield return null;
   }
 }
@@ -91,32 +99,35 @@ public class EnemySubwaveTest {
 
   [UnityTest]
   public IEnumerator EnemySubwaveWorks() {
-    Spawner.EnemyWave subwave = new() {
+    Spawner.EnemyWave wave = new() {
       repetitions = 2,
       repeatDelay = 0.1f,
       spawnLocation = 1,
       data = enemyData,
     };
 
-    subwave.Start(spawner);
+    var enumerator = wave.Start(spawner);
+    Assert.True(enumerator.MoveNext());
     Assert.That(objectPool.GetActiveEnemies().Count, Is.EqualTo(1));
     foreach (var enemy in objectPool.GetActiveEnemies()) {
       Assert.That(enemy.data, Is.EqualTo(enemyData));
       Assert.That(enemy.transform.position, Is.EqualTo(Vector3.left));
     }
     yield return new WaitForSeconds(0.11f);
+    Assert.True(enumerator.MoveNext());
     Assert.That(objectPool.GetActiveEnemies().Count, Is.EqualTo(2));
     foreach (var enemy in objectPool.GetActiveEnemies()) {
       Assert.That(enemy.data, Is.EqualTo(enemyData));
       Assert.That(enemy.transform.position, Is.EqualTo(Vector3.left));
     }
     yield return new WaitForSeconds(0.11f);
-    Assert.True(subwave.Finished);
+    Assert.False(enumerator.MoveNext());
+    Assert.True(wave.Finished);
     yield return null;
   }
   private void AddStartingLocation(Spawner spawner, Waypoint waypoint) {
     var startingLocations = (List<Waypoint>)typeof(Spawner)
-      .GetField("startingLocations", BindingFlags.Instance | BindingFlags.NonPublic)
+      .GetField("spawnLocations", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(spawner);
     startingLocations.Add(waypoint);
   }
