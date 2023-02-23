@@ -17,6 +17,8 @@ public class SpawnerTest {
     wave.Subwaves.Add(spacer1);
     wave.Subwaves.Add(spacer2);
 
+    // We capture the enumerator to manually advance the wave.
+    // This is normally handled under the hood by Unity.
     var enumerator = wave.Start(spawner);
     Assert.True(enumerator.MoveNext());
     yield return new WaitForSeconds(0.11f);
@@ -52,7 +54,6 @@ public class SpawnerTest {
 
   [UnityTest]
   public IEnumerator SpacerSubwaveTest() {
-    Debug.Log("starting spacer test");
     // Create a spacer subwave with a short delay.
     Spawner spawner = new GameObject().AddComponent<Spawner>();
     Spawner.SpacerWave wave = new() { delay = 0.1f };
