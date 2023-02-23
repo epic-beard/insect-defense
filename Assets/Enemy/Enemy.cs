@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
   public ObjectPool pool;
 
   readonly private int acidStackMaxMultiplier = 25;
+  readonly private float acidDamagePerStackPerSecond = 1;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -52,12 +53,36 @@ public class Enemy : MonoBehaviour {
     return data.acidStacks == MaxAcidStacks;
   }
 
+  // Returns the amount of time this enemy is now stunned.
+  public float AddStunTime(float stunTime) {
+    return data.stunTime += stunTime;
+  }
+
   public float GetDistanceToEnd() {
     if (NextWaypoint == null) {
       return float.MaxValue;
     }
 
     return Vector3.Distance(transform.position, NextWaypoint.transform.position) + NextWaypoint.DistanceToEnd;
+  }
+
+  private void Update() {
+    // TODO: Process slows.
+
+    // Handle stun
+    if (0.0f < data.stunTime) {
+      data.stunTime = Mathf.Max(data.stunTime - Time.deltaTime, 0.0f);
+      data.speed = 0.0f;
+      // TODO: Disable special attacks and enemy animation.
+    }
+
+    // Handle acid damage.
+    if (0.0f < data.acidStacks) {
+      float acidDamage = acidDamagePerStackPerSecond * Time.deltaTime;
+      data.acidStacks = Mathf.Max(data.acidStacks - Time.deltaTime, 0.0f);
+      data.currHP -= acidDamage;
+    }
+    
   }
 
   private IEnumerator FollowPath() {

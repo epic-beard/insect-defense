@@ -10,7 +10,7 @@ public class SpittingAntTower : Tower {
   [SerializeField] ParticleSystem splash;
   [SerializeField] ParticleSystem splashExplosion;
   [SerializeField] ParticleSystem acidExplosion;
-  [SerializeField] LineRenderer beam;
+  [SerializeField] LineRenderer laser;
 
   // TODO: These should not be SerializeFields long-term. They exist for debugging purposes now.
   [SerializeField] Targeting.Behavior behavior;
@@ -23,7 +23,7 @@ public class SpittingAntTower : Tower {
   public bool DotSlow { get; private set; }
   public bool DotExplosion { get; private set; }
   public float SlowPercentage { get; private set; }
-  public float StunLength { get; private set; }
+  public float StunTime { get; private set; }
   public float AcidDPS { get; private set; }
 
   private Enemy? enemy;
@@ -45,6 +45,7 @@ public class SpittingAntTower : Tower {
     attributes[TowerData.Stat.DAMAGE] = 10.0f;
     attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 5.0f;
     attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
+    attributes[TowerData.Stat.STUN_TIME] = 1.0f;
 
     // -----0-----
 
@@ -92,17 +93,19 @@ public class SpittingAntTower : Tower {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;
     float armorTear = ArmorTear;
+    float stunTime = attributes[TowerData.Stat.STUN_TIME];
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
       onHitDamage *= AttackSpeed * Time.deltaTime;
       acidStacks *= AttackSpeed * Time.deltaTime;
       armorTear *= AttackSpeed * Time.deltaTime;
+      stunTime *= AttackSpeed * Time.deltaTime;
     }
 
     // Armor tear effects.
     if (ApplyArmorTearAndCheckForAcidStun(target, armorTear)) {
-      // TODO: Stun the enemy.
+      target.AddStunTime(stunTime);
     }
 
     // DoT effects.
@@ -138,7 +141,7 @@ public class SpittingAntTower : Tower {
     target.DamageEnemy(onHitDamage, ArmorPierce);
   }
 
-  void Update() {
+  private void Update() {
     // TODO: Remove these two lines, they exist for debugging purposes at the moment.
     targeting.behavior = this.behavior;
     targeting.priority = this.priority;
@@ -154,7 +157,7 @@ public class SpittingAntTower : Tower {
     if (enemy == null) {
       // If there is no target, stop firing.
       firing = false;
-      beam.enabled = false;
+      laser.enabled = false;
     } else {
       upperMesh.LookAt(enemy.transform.GetChild(0));
       firing = true;
@@ -162,8 +165,8 @@ public class SpittingAntTower : Tower {
       if (!ContinuousAttack) {
         GeneralAttackHandler(splash, enemy, ProjectileSpeed);
       } else {
-        beam.enabled = true;
-        beam.SetPosition(
+        laser.enabled = true;
+        laser.SetPosition(
             1,  // The destination of the system.
             enemy.transform.position - Vector3.up);  // Target a little below the top of the enemy position.
 
@@ -193,6 +196,6 @@ public class SpittingAntTower : Tower {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;
 
-    beam.enabled = false;
+    laser.enabled = false;
   }
 }

@@ -16,6 +16,7 @@ public class Tower : MonoBehaviour {
     { TowerData.Stat.DAMAGE_OVER_TIME, 0.0f },
     { TowerData.Stat.RANGE, 0.0f },
     { TowerData.Stat.PROJECTILE_SPEED, 0.0f },
+    { TowerData.Stat.STUN_TIME, 0.0f },
   };
   // How close a particle needs to get to consider it a hit.
   protected float hitRange = 0.1f;

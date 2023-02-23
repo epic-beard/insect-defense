@@ -13,6 +13,7 @@ public static class TowerData {
     ARMOR_TEAR,
     DAMAGE_OVER_TIME,
     PROJECTILE_SPEED,
+    STUN_TIME,
   }
 
   public enum Mode {

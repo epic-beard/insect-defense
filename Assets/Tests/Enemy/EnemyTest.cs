@@ -44,6 +44,15 @@ public class EnemyTest {
     Assert.That(maxStacks, Is.EqualTo(isMaxStacks));
   }
 
+  // Test AddStunTime.
+  [Test]
+  public void AddStunTime([Values(0.0f, 1.0f, 1000.0f)] float stunTime) {
+    Enemy enemy = CreateEnemy(Vector3.zero);
+
+    float actualStunTime = enemy.AddStunTime(stunTime);
+    Assert.That(actualStunTime, Is.EqualTo(stunTime));
+  }
+
   #endregion
 
   // Confirm that GetDistanceToEnd calculates the distance correctly.
