@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pause : MonoBehaviour {
+public class PauseManager : MonoBehaviour {
   bool paused = false;
 
   void Update() {
