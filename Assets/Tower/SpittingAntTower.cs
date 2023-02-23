@@ -97,6 +97,7 @@ public class SpittingAntTower : Tower {
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
+      // This explicitly ignores the potential for the Spitting Ant tower to ever have armor piercing.
       onHitDamage *= AttackSpeed * Time.deltaTime;
       acidStacks *= AttackSpeed * Time.deltaTime;
       armorTear *= AttackSpeed * Time.deltaTime;
