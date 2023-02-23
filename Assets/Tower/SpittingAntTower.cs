@@ -8,14 +8,13 @@ using static TowerData;
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
   [SerializeField] ParticleSystem splash;
-  [SerializeField] ParticleSystem beam;
   [SerializeField] ParticleSystem splashExplosion;
   [SerializeField] ParticleSystem acidExplosion;
+  [SerializeField] LineRenderer beam;
 
   // TODO: These should not be SerializeFields long-term. They exist for debugging purposes now.
   [SerializeField] Targeting.Behavior behavior;
   [SerializeField] Targeting.Priority priority;
-  [SerializeField] float beamAttackSpeedModifier = 10.0f;
   [SerializeField] float splashExplosionRange = 1.0f;
 
   public bool AcidStun { get; private set; } = false;
@@ -30,7 +29,6 @@ public class SpittingAntTower : Tower {
   private Enemy? enemy;
   private Targeting targeting = new();
   private bool firing = false;
-  private ParticleSystem activeParticleSystem;
   private ObjectPool objectPool;
 
   private void Start() {
@@ -45,14 +43,21 @@ public class SpittingAntTower : Tower {
     attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
     attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
     attributes[TowerData.Stat.DAMAGE] = 10.0f;
+    attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 5.0f;
+    attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
 
-    // -----o-----
+    // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
-    activeParticleSystem = splash;
-    DisableParticleSystems();
+    DisableSystems();
+    
+    var coroutine = StartCoroutine(SplashShoot());
 
-    StartCoroutine(Shoot());
+    // -----0-----
+
+    var splashEmission = splash.emission;
+    splashEmission.enabled = false;
+    ContinuousAttack = true;
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
@@ -76,8 +81,6 @@ public class SpittingAntTower : Tower {
         // Ensure the splash particle system is not emitting particles.
         var splashEmission = splash.emission;
         splashEmission.enabled = false;
-        activeParticleSystem = beam;
-        AttackSpeed *= beamAttackSpeedModifier;
         ContinuousAttack = true;
         break;
       default:
@@ -88,9 +91,17 @@ public class SpittingAntTower : Tower {
   protected override void processParticleCollision(Enemy target) {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;
+    float armorTear = ArmorTear;
+
+    if (ContinuousAttack) {
+      // Calculate continuous damage, armor tear, etc. for application below.
+      onHitDamage *= AttackSpeed * Time.deltaTime;
+      acidStacks *= AttackSpeed * Time.deltaTime;
+      armorTear *= AttackSpeed * Time.deltaTime;
+    }
 
     // Armor tear effects.
-    if (ApplyArmorTearAndCheckForAcidStun(target)) {
+    if (ApplyArmorTearAndCheckForAcidStun(target, armorTear)) {
       // TODO: Stun the enemy.
     }
 
@@ -118,7 +129,7 @@ public class SpittingAntTower : Tower {
       foreach (Enemy enemy in enemiesInAoe) {
         enemy.DamageEnemy(onHitDamage, ArmorPierce);
 
-        if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy)) {
+        if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy, ArmorTear)) {
           // TODO: Stun enemy.
         }
       }
@@ -143,18 +154,28 @@ public class SpittingAntTower : Tower {
     if (enemy == null) {
       // If there is no target, stop firing.
       firing = false;
+      beam.enabled = false;
     } else {
       upperMesh.LookAt(enemy.transform.GetChild(0));
       firing = true;
 
-      GeneralAttackHandler(activeParticleSystem, enemy, ProjectileSpeed);
+      if (!ContinuousAttack) {
+        GeneralAttackHandler(splash, enemy, ProjectileSpeed);
+      } else {
+        beam.enabled = true;
+        beam.SetPosition(
+            1,  // The destination of the system.
+            enemy.transform.position - Vector3.up);  // Target a little below the top of the enemy position.
+
+        processParticleCollision(enemy);
+      }
     }
   }
 
-  private IEnumerator Shoot() {
-    while (true) {
+  private IEnumerator SplashShoot() {
+    while (!ContinuousAttack) {
       while (firing) {
-        activeParticleSystem.Emit(1);
+        splash.Emit(1);
         yield return new WaitForSeconds(1 / AttackSpeed);
       }
       yield return new WaitUntil(() => firing);
@@ -163,16 +184,15 @@ public class SpittingAntTower : Tower {
 
   // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
   // SA_1_3_ACID_STUN.
-  private bool ApplyArmorTearAndCheckForAcidStun(Enemy enemy) {
-    return enemy.Armor != 0.0f && enemy.TearArmor(ArmorTear) == 0.0f && AcidStun;
+  private bool ApplyArmorTearAndCheckForAcidStun(Enemy enemy, float armorTear) {
+    return enemy.Armor != 0.0f && enemy.TearArmor(armorTear) == 0.0f && AcidStun;
   }
 
-  // Disable the shooty particle systems.
-  private void DisableParticleSystems() {
+  // Disable the shooty systems.
+  private void DisableSystems() {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;
 
-    emissionModule = beam.emission;
-    emissionModule.enabled = false;
+    beam.enabled = false;
   }
 }
