@@ -18,7 +18,8 @@ public class ObjectPool : MonoBehaviour {
   [SerializeField] private List<EnemyEntry> entries = new();
   readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
   readonly private Dictionary<EnemyData.Type, GameObject> prefabs = new();
-  public HashSet<Enemy> activeEnemies = new();
+  
+  private HashSet<Enemy> activeEnemies = new();
 
   void Awake() {
     foreach (var entry in entries) {
@@ -42,7 +43,6 @@ public class ObjectPool : MonoBehaviour {
     enemy.data = data;
     enemy.PrevWaypoint = start;
     enemy.enabled = true;
-
     activeEnemies.Add(enemy);
 
     return gameObject;
@@ -50,16 +50,16 @@ public class ObjectPool : MonoBehaviour {
 
   // Deactivates an enemy and enqueues it back on the correct objectPool.
   public void DestroyEnemy(GameObject gameObject) {
+    gameObject.SetActive(false);
     Enemy enemy = gameObject.GetComponent<Enemy>();
     activeEnemies.Remove(enemy);
     EnemyData.Type type = enemy.data.type;
-    gameObject.SetActive(false);
     enemy.enabled = false;
     objectPools[type].Enqueue(gameObject);
   }
 
-  // This return is to actual active enemies. The enemy collection is (but shouldn't be) mutable. Do not
-  // remove objects from this list or manually destroy any members.
+  // This returns the active enemies. Individual enemies may be modified but the
+  // list istself should never be modified outside the ObjectPool class.
   public HashSet<Enemy> GetActiveEnemies() {
     return activeEnemies;
   }
@@ -72,7 +72,8 @@ public class ObjectPool : MonoBehaviour {
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefab);
         gameObject.SetActive(false);
-        gameObject.GetComponent<Enemy>().enabled = false;
+        Enemy enemy = gameObject.GetComponent<Enemy>();
+        enemy.enabled = false;
         objectPools[type].Enqueue(gameObject);
       }
     }

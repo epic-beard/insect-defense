@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour {
+public class DebugSpawner : MonoBehaviour {
   [SerializeField] private Waypoint start;
   private ObjectPool pool;
   [SerializeField] private EnemyData data;
