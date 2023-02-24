@@ -118,7 +118,6 @@ public class EnemyTest {
     gameObject.transform.position = position;
 
     EnemyData data = new() {
-      acidStacks = 0.0f,
       currArmor = armor,
       currHP = hp,
       size = EnemyData.Size.NORMAL,

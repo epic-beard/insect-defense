@@ -47,11 +47,6 @@ public struct EnemyData {
   public int damage;
   public int nu;
 
-  public float acidStacks;
-  public float stunTime;
-  public float slowPower;
-  public float slowDuration;
-
   public Properties properties;
   // Once enabled the Enemy will start a spawner coroutine if spawner is not null.
   // The Spawner object contains all the information for starting this coroutine.

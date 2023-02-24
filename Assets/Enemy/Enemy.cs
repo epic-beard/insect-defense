@@ -32,10 +32,11 @@ public class Enemy : MonoBehaviour {
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
-  public float AcidStacks { get { return data.acidStacks; } }
+  public float AcidStacks { get; private set; }
   public float AcidDamagePerStack { get { return acidDamagePerStackPerSecond; } }
-  public float SlowPower { get { return data.slowPower; } }
-  public float SlowDuration { get { return data.slowDuration; } }
+  public float SlowPower { get; private set; }
+  public float SlowDuration { get; private set; }
+  public float StunTime { get; private set; }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
@@ -55,17 +56,17 @@ public class Enemy : MonoBehaviour {
 
   // Returns true if stacks are at max.
   public bool AddAcidStacks(float stacks) {
-    data.acidStacks = Mathf.Min(data.acidStacks + stacks, MaxAcidStacks);
-    return data.acidStacks == MaxAcidStacks;
+    AcidStacks = Mathf.Min(AcidStacks + stacks, MaxAcidStacks);
+    return AcidStacks == MaxAcidStacks;
   }
 
   public void ResetAcidStacks() {
-    data.acidStacks = 0;
+    AcidStacks = 0;
   }
 
   // Returns the amount of time this enemy is now stunned.
   public float AddStunTime(float stunTime) {
-    return data.stunTime += stunTime;
+    return StunTime += stunTime;
   }
 
   // Slows work thusly:
@@ -74,19 +75,16 @@ public class Enemy : MonoBehaviour {
   //     For example, if an enemy is suffering a 10% slow with a duraiton of 10 seconds and then is hit with a
   //   20% slow with an additional duratin of 7 seconds, the new slow stats would be a 20% slow with a 12 second
   //   duration (20 = 10 * 2 for power so 10 / 2 = 5 for duration).
-  public void ApplySlow(float slowPower, float slowDuration) {
-    float newPower;
+  public void ApplySlow(float incomingSlowPower, float incomingSlowDuration) {
     float newDuration;
-    float multiplier = SlowPower / slowPower;
-    if (SlowPower < slowPower) {
-      newPower = slowPower;
-      newDuration = slowDuration + (SlowDuration * multiplier);
+    float multiplier = SlowPower / incomingSlowPower;
+    if (SlowPower < incomingSlowPower) {
+      newDuration = incomingSlowDuration + (SlowDuration * multiplier);
     } else {
-      newPower = SlowPower;
-      newDuration = SlowDuration + (slowDuration / multiplier);
+      newDuration = SlowDuration + (incomingSlowDuration / multiplier);
     }
-    data.slowPower = newPower;
-    data.slowDuration = newDuration;
+    SlowPower = Mathf.Max(SlowPower, incomingSlowPower);
+    SlowDuration = newDuration;
   }
 
   public float GetDistanceToEnd() {
@@ -98,18 +96,18 @@ public class Enemy : MonoBehaviour {
   }
 
   private void Update() {
-    // TODO: Process slows.
+    // Handle slows.
     if (0.0f < SlowDuration) {
-      data.slowDuration = Mathf.Max(data.slowDuration - Time.deltaTime, 0.0f);
+      SlowDuration = Mathf.Max(SlowDuration - Time.deltaTime, 0.0f);
       if (SlowDuration <= 0.0f) {
-        data.slowPower = 0.0f;
+        SlowPower = 0.0f;
       }
     }
 
     // Handle acid damage.
-    if (0.0f < data.acidStacks) {
+    if (0.0f < AcidStacks) {
       float acidDamage = acidDamagePerStackPerSecond * Time.deltaTime;
-      data.acidStacks = Mathf.Max(data.acidStacks - Time.deltaTime, 0.0f);
+      AcidStacks = Mathf.Max(AcidStacks - Time.deltaTime, 0.0f);
       data.currHP -= acidDamage;
     }
     
@@ -118,10 +116,10 @@ public class Enemy : MonoBehaviour {
   private IEnumerator HandleStun() {
     float originalSpeed = data.speed;
     while (true) {
-      yield return new WaitUntil(() => 0.0f < data.stunTime);
+      yield return new WaitUntil(() => 0.0f < StunTime);
       data.speed = 0.0f;
-      float interimStunTime = data.stunTime;
-      data.stunTime = 0.0f;
+      float interimStunTime = StunTime;
+      StunTime = 0.0f;
       yield return new WaitForSeconds(interimStunTime);
       data.speed = originalSpeed;
     }
