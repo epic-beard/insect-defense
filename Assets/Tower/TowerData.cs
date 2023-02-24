@@ -13,7 +13,9 @@ public static class TowerData {
     ARMOR_TEAR,
     DAMAGE_OVER_TIME,
     PROJECTILE_SPEED,
-    STUN_TIME,
+    SLOW_DURATION,
+    SLOW_POWER,  // This is a percentage slow.
+    STUN_TIME,  // Slow duration in seconds.
   }
 
   public enum Mode {

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using static Ability;
 using static TowerData;
+using static UnityEngine.GraphicsBuffer;
 
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
@@ -16,6 +17,7 @@ public class SpittingAntTower : Tower {
   [SerializeField] Targeting.Behavior behavior;
   [SerializeField] Targeting.Priority priority;
   [SerializeField] float splashExplosionRange = 1.0f;
+  [SerializeField] float acidExplosionRange = 1.0f;
 
   public bool AcidStun { get; private set; } = false;
   public bool ArmorTearExplosion { get; private set; }
@@ -43,18 +45,23 @@ public class SpittingAntTower : Tower {
     attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
     attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
     attributes[TowerData.Stat.DAMAGE] = 10.0f;
-    attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 5.0f;
+    attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 10.0f;
     attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
     attributes[TowerData.Stat.STUN_TIME] = 1.0f;
+    attributes[TowerData.Stat.SLOW_DURATION] = 1.0f;
+    attributes[TowerData.Stat.SLOW_POWER] = 10.0f;
 
     // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
-    DisableSystems();
+    DisableAttackSystems();
     
     var coroutine = StartCoroutine(SplashShoot());
 
     // -----0-----
+
+    //DotExplosion = true;
+    AcidStun = true;
 
     var splashEmission = splash.emission;
     splashEmission.enabled = false;
@@ -93,7 +100,6 @@ public class SpittingAntTower : Tower {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;
     float armorTear = ArmorTear;
-    float stunTime = attributes[TowerData.Stat.STUN_TIME];
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
@@ -101,12 +107,11 @@ public class SpittingAntTower : Tower {
       onHitDamage *= AttackSpeed * Time.deltaTime;
       acidStacks *= AttackSpeed * Time.deltaTime;
       armorTear *= AttackSpeed * Time.deltaTime;
-      stunTime *= AttackSpeed * Time.deltaTime;
     }
 
     // Armor tear effects.
     if (ApplyArmorTearAndCheckForAcidStun(target, armorTear)) {
-      target.AddStunTime(stunTime);
+      target.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
     }
 
     // DoT effects.
@@ -115,8 +120,20 @@ public class SpittingAntTower : Tower {
         // TODO: Apply a slow to the enemy unless the enemy is already slowed.
       }
       if (DotExplosion) {
-        // TODO: Trigger an explosion.
-        // TODO: Reset acid stacks to 0.
+        acidExplosion.transform.position = target.transform.GetChild(0).position;
+        acidExplosion.Play();
+
+        float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStack;
+        List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, acidExplosionRange);
+
+        // Cause totalAcidDamage to all enemies in range (including target).
+        foreach (Enemy enemy in enemiesInAoe) {
+          enemy.DamageEnemy(totalAcidDamage, 0.0f);
+        }
+        // Target is excluded from enemiesInAoe, so make sure to cause the damage here.
+        target.DamageEnemy(totalAcidDamage, 0.0f);
+
+        target.ResetAcidStacks();
       }
     }
 
@@ -125,16 +142,13 @@ public class SpittingAntTower : Tower {
       splashExplosion.Play();
 
       // Get a list of enemies caught in the AoE that are not the enemy targeted.
-      List<Enemy> enemiesInAoe= objectPool.GetActiveEnemies()
-          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < splashExplosionRange)
-          .Where(e => !e.Equals(target))
-          .ToList();
+      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, splashExplosionRange);
 
       foreach (Enemy enemy in enemiesInAoe) {
         enemy.DamageEnemy(onHitDamage, ArmorPierce);
 
         if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy, ArmorTear)) {
-          // TODO: Stun enemy.
+          enemy.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
         }
       }
     }
@@ -192,8 +206,15 @@ public class SpittingAntTower : Tower {
     return enemy.Armor != 0.0f && enemy.TearArmor(armorTear) == 0.0f && AcidStun;
   }
 
+  private List<Enemy> GetEnemiesInExplosionRange(Enemy target, float explosionRange) {
+    return objectPool.GetActiveEnemies()
+          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < explosionRange)
+          .Where(e => !e.Equals(target))
+          .ToList();
+  }
+
   // Disable the shooty systems.
-  private void DisableSystems() {
+  private void DisableAttackSystems() {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;
 

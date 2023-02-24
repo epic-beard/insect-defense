@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands.CheckIn.Progress;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour {
       return;
     }
 
+    StartCoroutine(HandleStun());
     StartCoroutine(FollowPath());
   }
 
@@ -30,6 +32,8 @@ public class Enemy : MonoBehaviour {
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
+  public float AcidStacks { get { return data.acidStacks; } }
+  public float AcidDamagePerStack { get { return acidDamagePerStackPerSecond; } }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
@@ -53,9 +57,23 @@ public class Enemy : MonoBehaviour {
     return data.acidStacks == MaxAcidStacks;
   }
 
+  public void ResetAcidStacks() {
+    data.acidStacks = 0;
+  }
+
   // Returns the amount of time this enemy is now stunned.
   public float AddStunTime(float stunTime) {
     return data.stunTime += stunTime;
+  }
+
+  // Slows work thusly:
+  //     The most powerful slow applied to an enemy is the one actually used. The time is amortized with respect to
+  //   the difference.
+  //     For example, if an enemy is suffering a 10% slow with a duraiton of 10 seconds and then is hit with a
+  //   20% slow with an additional duratin of 7 seconds, the new slow stats would be a 20% slow with a 12 second
+  //   duration (20 = 10 * 2 for power so 10 / 2 = 5 for duration).
+  public void ApplySlow(float slowPower, float slowDuration) {
+    //
   }
 
   public float GetDistanceToEnd() {
@@ -69,12 +87,6 @@ public class Enemy : MonoBehaviour {
   private void Update() {
     // TODO: Process slows.
 
-    // Handle stun
-    if (0.0f < data.stunTime) {
-      data.stunTime = Mathf.Max(data.stunTime - Time.deltaTime, 0.0f);
-      data.speed = 0.0f;
-      // TODO: Disable special attacks and enemy animation.
-    }
 
     // Handle acid damage.
     if (0.0f < data.acidStacks) {
@@ -83,6 +95,18 @@ public class Enemy : MonoBehaviour {
       data.currHP -= acidDamage;
     }
     
+  }
+
+  private IEnumerator HandleStun() {
+    float originalSpeed = data.speed;
+    while (true) {
+      yield return new WaitUntil(() => 0.0f < data.stunTime);
+      data.speed = 0.0f;
+      float interimStunTime = data.stunTime;
+      data.stunTime = 0.0f;
+      yield return new WaitForSeconds(interimStunTime);
+      data.speed = originalSpeed;
+    }
   }
 
   private IEnumerator FollowPath() {

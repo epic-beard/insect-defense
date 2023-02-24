@@ -40,8 +40,19 @@ public class EnemyTest {
       [Values(false, true)] bool isMaxStacks) {
     Enemy enemy = CreateEnemy(Vector3.zero);
     
-    bool maxStacks = enemy.AddAcidStacks(acidStacks);
-    Assert.That(maxStacks, Is.EqualTo(isMaxStacks));
+    bool currStacks = enemy.AddAcidStacks(acidStacks);
+    Assert.That(currStacks, Is.EqualTo(isMaxStacks));
+  }
+
+  // Make sure ResetAcidStacks performs as expected.
+  [Test]
+  public void ResetAcidStacks() {
+    Enemy enemy = CreateEnemy(Vector3.zero);
+
+    bool currStacks = enemy.AddAcidStacks(enemy.MaxAcidStacks);
+    Assert.That(currStacks, Is.EqualTo(true));
+    enemy.ResetAcidStacks();
+    Assert.That(enemy.AcidStacks, Is.EqualTo(0.0f));
   }
 
   // Test AddStunTime.
