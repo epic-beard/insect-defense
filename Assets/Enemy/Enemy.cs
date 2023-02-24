@@ -28,12 +28,14 @@ public class Enemy : MonoBehaviour {
 
   public float HP { get { return data.currHP; } }
   public float Armor { get { return data.currArmor; } }
-  public float Speed { get { return data.speed; } }
+  public float Speed { get { return data.speed * (1 - SlowPower); } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
   public float AcidStacks { get { return data.acidStacks; } }
   public float AcidDamagePerStack { get { return acidDamagePerStackPerSecond; } }
+  public float SlowPower { get { return data.slowPower; } }
+  public float SlowDuration { get { return data.slowDuration; } }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
@@ -73,7 +75,18 @@ public class Enemy : MonoBehaviour {
   //   20% slow with an additional duratin of 7 seconds, the new slow stats would be a 20% slow with a 12 second
   //   duration (20 = 10 * 2 for power so 10 / 2 = 5 for duration).
   public void ApplySlow(float slowPower, float slowDuration) {
-    //
+    float newPower;
+    float newDuration;
+    float multiplier = SlowPower / slowPower;
+    if (SlowPower < slowPower) {
+      newPower = slowPower;
+      newDuration = slowDuration + (SlowDuration * multiplier);
+    } else {
+      newPower = SlowPower;
+      newDuration = SlowDuration + (slowDuration / multiplier);
+    }
+    data.slowPower = newPower;
+    data.slowDuration = newDuration;
   }
 
   public float GetDistanceToEnd() {
@@ -86,7 +99,12 @@ public class Enemy : MonoBehaviour {
 
   private void Update() {
     // TODO: Process slows.
-
+    if (0.0f < SlowDuration) {
+      data.slowDuration = Mathf.Max(data.slowDuration - Time.deltaTime, 0.0f);
+      if (SlowDuration <= 0.0f) {
+        data.slowPower = 0.0f;
+      }
+    }
 
     // Handle acid damage.
     if (0.0f < data.acidStacks) {

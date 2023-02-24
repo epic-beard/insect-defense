@@ -14,7 +14,7 @@ public static class TowerData {
     DAMAGE_OVER_TIME,
     PROJECTILE_SPEED,
     SLOW_DURATION,
-    SLOW_POWER,  // This is a percentage slow.
+    SLOW_POWER,  // This is a percentage slow from 0.0 - 1.0.
     STUN_TIME,  // Slow duration in seconds.
   }
 

@@ -24,7 +24,6 @@ public class SpittingAntTower : Tower {
   public bool ContinuousAttack { get; private set; } = false;
   public bool DotSlow { get; private set; }
   public bool DotExplosion { get; private set; }
-  public float SlowPercentage { get; private set; }
   public float StunTime { get; private set; }
   public float AcidDPS { get; private set; }
 
@@ -49,7 +48,7 @@ public class SpittingAntTower : Tower {
     attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
     attributes[TowerData.Stat.STUN_TIME] = 1.0f;
     attributes[TowerData.Stat.SLOW_DURATION] = 1.0f;
-    attributes[TowerData.Stat.SLOW_POWER] = 10.0f;
+    attributes[TowerData.Stat.SLOW_POWER] = 0.1f;
 
     // -----0-----
 
@@ -60,8 +59,9 @@ public class SpittingAntTower : Tower {
 
     // -----0-----
 
-    //DotExplosion = true;
-    AcidStun = true;
+    DotExplosion = true;
+    //AcidStun = true;
+    DotSlow = true;
 
     var splashEmission = splash.emission;
     splashEmission.enabled = false;
@@ -117,7 +117,7 @@ public class SpittingAntTower : Tower {
     // DoT effects.
     if (target.AddAcidStacks(acidStacks)) {
       if (DotSlow) {
-        // TODO: Apply a slow to the enemy unless the enemy is already slowed.
+        target.ApplySlow(attributes[TowerData.Stat.SLOW_POWER], attributes[TowerData.Stat.SLOW_DURATION]);
       }
       if (DotExplosion) {
         acidExplosion.transform.position = target.transform.GetChild(0).position;

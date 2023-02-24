@@ -64,6 +64,33 @@ public class EnemyTest {
     Assert.That(actualStunTime, Is.EqualTo(stunTime));
   }
 
+  // Test slows.
+  [Test]
+  public void ApplySlowSecondSlowIsBigger() {
+    Enemy enemy = CreateEnemy(Vector3.zero);
+
+    enemy.ApplySlow(10.0f, 10.0f);
+    Assert.That(10.0f, Is.EqualTo(enemy.SlowPower));
+    Assert.That(10.0f, Is.EqualTo(enemy.SlowDuration));
+
+    enemy.ApplySlow(20.0f, 7.0f);
+    Assert.That(20.0f, Is.EqualTo(enemy.SlowPower));
+    Assert.That(12.0f, Is.EqualTo(enemy.SlowDuration));
+  }
+
+  [Test]
+  public void ApplySlowFirstSlowIsBigger() {
+    Enemy enemy = CreateEnemy(Vector3.zero);
+
+    enemy.ApplySlow(25.0f, 10.0f);
+    Assert.That(25.0f, Is.EqualTo(enemy.SlowPower));
+    Assert.That(10.0f, Is.EqualTo(enemy.SlowDuration));
+
+    enemy.ApplySlow(5.0f, 15.0f);
+    Assert.That(25.0f, Is.EqualTo(enemy.SlowPower));
+    Assert.That(13.0f, Is.EqualTo(enemy.SlowDuration));
+  }
+
   #endregion
 
   // Confirm that GetDistanceToEnd calculates the distance correctly.
