@@ -1,10 +1,6 @@
-using Codice.Client.Common.GameUI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
-using UnityEngine.ParticleSystemJobs;
 
 public class Tower : MonoBehaviour {
   protected Dictionary<TowerData.Stat, float> attributes = new() {
@@ -20,12 +16,6 @@ public class Tower : MonoBehaviour {
     { TowerData.Stat.SLOW_POWER, 0.0f },
     { TowerData.Stat.STUN_TIME, 0.0f },
   };
-  // How close a particle needs to get to consider it a hit.
-  protected float hitRange = 0.1f;
-
-  protected Dictionary<Int64, Enemy> particleIDsToEnemies = new();
-  protected Int64 particleIDTracker = 100;
-
   public float AttackSpeed {
     get { return attributes[TowerData.Stat.ATTACK_SPEED]; }
     set { attributes[TowerData.Stat.ATTACK_SPEED] = value; } }
@@ -50,13 +40,41 @@ public class Tower : MonoBehaviour {
   public float ProjectileSpeed {
     get { return attributes[TowerData.Stat.PROJECTILE_SPEED]; }
     set { attributes[TowerData.Stat.PROJECTILE_SPEED] = value; } }
+  public float SlowDuration {
+    get { return attributes[TowerData.Stat.SLOW_DURATION]; }
+    set { attributes[TowerData.Stat.SLOW_DURATION] = value; } }
+  public float SlowPower {
+    get { return attributes[TowerData.Stat.SLOW_POWER]; }
+    set { attributes[TowerData.Stat.SLOW_POWER] = value; }
+  }
+  public float StunTime {
+    get { return attributes[TowerData.Stat.STUN_TIME]; }
+    set { attributes[TowerData.Stat.STUN_TIME] = value; }
+  }
 
   protected Dictionary<TowerData.TowerAbility, bool> towerAbilities = new() {
     { TowerData.TowerAbility.ANTI_AIR, false },
     { TowerData.TowerAbility.CAMO_SIGHT, false },
     { TowerData.TowerAbility.CRIPPLE, false }
   };
+  public bool AntiAir {
+    get { return towerAbilities[TowerData.TowerAbility.ANTI_AIR]; }
+    set { towerAbilities[TowerData.TowerAbility.ANTI_AIR] = value; } }
+  public bool CamoSight {
+    get { return towerAbilities[TowerData.TowerAbility.CAMO_SIGHT]; }
+    set { towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = value; }
+  }
+  public bool Cripple {
+    get { return towerAbilities[TowerData.TowerAbility.CRIPPLE]; }
+    set { towerAbilities[TowerData.TowerAbility.CRIPPLE] = value; }
+  }
   int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
+
+  // How close a particle needs to get to consider it a hit.
+  protected float hitRange = 0.1f;
+
+  protected Dictionary<Int64, Enemy> particleIDsToEnemies = new();
+  protected Int64 particleIDTracker = 100;
 
   // TODO: Add an enforcement mechanic to make sure the player can get at most 9 upgrades.
   public void Upgrade(Ability ability) {
@@ -73,7 +91,7 @@ public class Tower : MonoBehaviour {
 
   public virtual void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {}
 
-  protected virtual void processParticleCollision(Enemy target) {}
+  protected virtual void ProcessDamageAndEffects(Enemy target) {}
 
   // Handle individual particle movement. This method takes control of particle movement and collision initiation
   // from Unity.
@@ -112,7 +130,7 @@ public class Tower : MonoBehaviour {
 
       // Initiate particle 'collision'. Destroy the particle and call the tower's particle collision handler.
       if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
-        processParticleCollision(enemy);
+        ProcessDamageAndEffects(enemy);
         particles[i].remainingLifetime = 0;
       }
     }

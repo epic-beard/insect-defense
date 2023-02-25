@@ -1,6 +1,4 @@
-using Codice.Client.BaseCommands.CheckIn.Progress;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
@@ -9,8 +7,8 @@ public class Enemy : MonoBehaviour {
   public Waypoint NextWaypoint;
   public ObjectPool pool;
 
-  readonly private int acidStackMaxMultiplier = 25;
-  readonly private float acidDamagePerStackPerSecond = 1;
+  readonly public int acidStackMaxMultiplier = 25;
+  readonly public float acidDamagePerStackPerSecond = 1.0f;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -21,6 +19,9 @@ public class Enemy : MonoBehaviour {
       Debug.Log("[ERROR] NextWaypoint not found.");
       return;
     }
+    data.Initialize();
+
+    // TODO: Reset all non-EnemyData stats.
 
     StartCoroutine(HandleStun());
     StartCoroutine(FollowPath());
@@ -51,7 +52,7 @@ public class Enemy : MonoBehaviour {
 
   // Return the new armor total after the tear is applied.
   public float TearArmor(float tear) {
-    return data.currArmor = Mathf.Max(data.currArmor - tear, 0);
+    return data.currArmor = Mathf.Max(data.currArmor - tear, 0.0f);
   }
 
   // Returns true if stacks are at max.
@@ -61,7 +62,7 @@ public class Enemy : MonoBehaviour {
   }
 
   public void ResetAcidStacks() {
-    AcidStacks = 0;
+    AcidStacks = 0.0f;
   }
 
   // Returns the amount of time this enemy is now stunned.

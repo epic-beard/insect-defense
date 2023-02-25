@@ -1,8 +1,10 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public struct EnemyData {
+
   public enum Type {
     BEETLE
   }
@@ -47,6 +49,8 @@ public struct EnemyData {
   public int damage;
   public int nu;
 
+  public HashSet<Tower> spittingAntTowerSlows;
+
   public Properties properties;
   // Once enabled the Enemy will start a spawner coroutine if spawner is not null.
   // The Spawner object contains all the information for starting this coroutine.
@@ -54,4 +58,10 @@ public struct EnemyData {
   // On death the Enemy will spawn a given number of child Enemies.
   // The Carrier object contains all the information required for spawning.
   public Carrier? carrier;
+
+  public void Initialize() {
+    spittingAntTowerSlows = new();
+    currArmor = maxArmor;
+    currHP = maxHP;
+  }
 }

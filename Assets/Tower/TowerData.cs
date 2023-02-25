@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
 
+// TODO: Rename this to TowerDataManager.
 public static class TowerData {
   public enum Stat {
     DAMAGE,
