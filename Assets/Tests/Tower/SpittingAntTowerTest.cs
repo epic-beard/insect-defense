@@ -12,46 +12,59 @@ public class SpittingAntTowerTest {
 
   #region SpecialAbilityUpgradeTests
 
+  // Test setting AcidStun.
   [Test]
   public void SpecialAbilityUpgradeAcidStun() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
+
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
+
     Assert.That(true, Is.EqualTo(spittingAntTower.AcidStun));
     Assert.That(false, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
   }
 
+  // Test setting ArmorTearExplosion.
   [Test]
   public void SpecialAbilityUpgradeArmorTearExplosion() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
+
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION);
+
     Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
     Assert.That(false, Is.EqualTo(spittingAntTower.DotSlow));
   }
 
+  // Test setting DotSlow.
   [Test]
   public void SpecialAbilityUpgradeDotSlow() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
+
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_3_DOT_SLOW);
+
     Assert.That(true, Is.EqualTo(spittingAntTower.DotSlow));
     Assert.That(false, Is.EqualTo(spittingAntTower.DotExplosion));
   }
 
+  // Test setting DotExplosion.
   [Test]
   public void SpecialAbilityUpgradeDotExplosion() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
+
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION);
+
     Assert.That(true, Is.EqualTo(spittingAntTower.DotExplosion));
     Assert.That(false, Is.EqualTo(spittingAntTower.CamoSight));
   }
 
+  // Test setting continuous fire, this requires setting the splash particle system on the tower.
   [Test]
   public void SpecialAbilityUpgradeConstantFire() {
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     SetSpittingAntTowerSplash(spittingAntTower, splash);
 
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
+
     Assert.That(true, Is.EqualTo(spittingAntTower.ContinuousAttack));
   }
 
@@ -59,44 +72,54 @@ public class SpittingAntTowerTest {
 
   #region ApplyArmorTearAndCheckForAcidStunTests
 
+  // Make sure acid damage doesn't stun doesn't apply if AcidStun isn't set.
   [Test]
   public void ApplyArmorTearAndCheckForAcidStunDoesNotStunWithoutAcidStun() {
     Enemy enemy = CreateEnemy(Vector3.zero, armor: 1.0f);
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    bool result = InvokeApplyArmorTearAndCheckForAcidStun(spittingAntTower, enemy, 2.0f);
-    Assert.That(result, Is.EqualTo(false));
+
+    bool isStunned = InvokeApplyArmorTearAndCheckForAcidStun(spittingAntTower, enemy, 2.0f);
+
+    Assert.That(isStunned, Is.EqualTo(false));
   }
 
+  // Confirm acid stun behavior with a variety of preconditions.
   [Test, Sequential]
   public void ApplyArmorTearAndCheckForAcidStun(
-    [Values(0.0f, 1.0f, 2.0f)] float armor,
-    [Values(1.0f, 1.0f, 1.0f)] float armorTear,
-    [Values(false, true, false)] bool expectedResult) {
-    Enemy enemy = CreateEnemy(Vector3.zero, armor: armor);
+      [Values(0.0f, 1.0f, 2.0f)] float enemyArmor,
+      [Values(1.0f, 1.0f, 1.0f)] float armorTear,
+      [Values(false, true, false)] bool expectedStun) {
+    Enemy enemy = CreateEnemy(Vector3.zero, armor: enemyArmor);
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
-    bool result = InvokeApplyArmorTearAndCheckForAcidStun(spittingAntTower, enemy, armorTear);
-    Assert.That(result, Is.EqualTo(expectedResult));
+
+    bool isStunned = InvokeApplyArmorTearAndCheckForAcidStun(spittingAntTower, enemy, armorTear);
+
+    Assert.That(isStunned, Is.EqualTo(expectedStun));
   }
 
   #endregion
 
   #region GetEnemiesInExplosionRangeTest
 
+  // Test that GetEnemiesInExplosionRange functions as expected
   [Test]
   public void GetEnemiesInExplosionRange() {
     Enemy target = CreateEnemy(Vector3.zero);
     Enemy enemyInRange = CreateEnemy(Vector3.zero);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
-    ObjectPool objectPool = CreateObjectPool();
+    
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     SetSpittingAntTowerSplashExplosionRange(spittingAntTower, 10.0f);
+
+    ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange };
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
     SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
 
-    List<Enemy> enemiesInRange = InvokeGetEnemiesInExplosionRange(spittingAntTower, target, 10.0f);
     List<Enemy> expectedEnemiesInRange = new() { enemyInRange };
+
+    List<Enemy> enemiesInRange = InvokeGetEnemiesInExplosionRange(spittingAntTower, target, 10.0f);
 
     Assert.That(enemiesInRange, Is.EqualTo(expectedEnemiesInRange));
   }
@@ -105,6 +128,7 @@ public class SpittingAntTowerTest {
 
   #region ProcessDamageAndEffectsTests
 
+  // Test the slow aspect of acid effects.
   [Test]
   public void HandleAcidEffectsSlows() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
@@ -120,15 +144,18 @@ public class SpittingAntTowerTest {
 
     InvokeHandleAcidEffects(spittingAntTower, target);
 
+    // Make sure the target is slowed.
     Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
     Assert.That(target.SlowPower, Is.EqualTo(slowPower));
 
     InvokeHandleAcidEffects(spittingAntTower, target);
 
+    // Make sure the slow is not applied more than once.
     Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
     Assert.That(target.SlowPower, Is.EqualTo(slowPower));
   }
 
+  // Test that acid explosions have the desired effects.
   [Test]
   public void HandleAcidEffectsAcidExplosions() {
     Enemy target = CreateEnemy(Vector3.zero);
@@ -162,6 +189,7 @@ public class SpittingAntTowerTest {
     Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
   }
 
+  // Test HandleSplashEffects with combinatorial arguments.
   [Test]
   public void HandleSplashEffects(
       [Values(true, false)] bool armorTearExplosion,
@@ -199,13 +227,13 @@ public class SpittingAntTowerTest {
     Assert.That(enemyInRange.HP, Is.EqualTo(enemyHp - expectedDamage));
     Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
 
-    // Ensure that armor tear is applied appropriately.
+    // Ensure that armor tear is applied appropriately only if ArmorTearExplosion is set.
     Assert.That(target.StunTime, Is.EqualTo(expectedStunTime));
     Assert.That(enemyInRange.StunTime, Is.EqualTo(expectedStunTime));
     Assert.That(enemyOutOfRange.StunTime, Is.EqualTo(0.0f));
   }
 
-  // Test with continuous fire on an unarmored target.
+  // Test continuous fire on an unarmored target.
   [Test]
   public void ProcessDamageAndEffectsContinuousFireNoArmor() {
     Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 1.0f);
@@ -226,7 +254,7 @@ public class SpittingAntTowerTest {
     Assert.That(target.Armor, Is.EqualTo(0.0f));
   }
 
-  // Test with continuous fire on an armored target.
+  // Test continuous fire on an armored target.
   [Test]
   public void ProcessDamageAndEffectsContinuousFireWithArmor() {
     Enemy target = CreateEnemy(Vector3.zero, armor: 1.0f, hp: 1.0f);
@@ -311,6 +339,8 @@ public class SpittingAntTowerTest {
   private ObjectPool CreateObjectPool() {
     return new GameObject().AddComponent<ObjectPool>();
   }
+
+  // All helper methods below this point use reflection to access private or protected properties, fields, or methods.
 
   private void SetSpittingAntTowerDotSlow(SpittingAntTower spittingAntTower, bool dotSlow) {
     typeof(SpittingAntTower)
