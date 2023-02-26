@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using static Ability;
 using static UnityEngine.GraphicsBuffer;
@@ -10,7 +11,7 @@ public class SpittingAntTower : Tower {
   [SerializeField] ParticleSystem splash;
   [SerializeField] ParticleSystem splashExplosion;
   [SerializeField] ParticleSystem acidExplosion;
-  [SerializeField] LineRenderer laser;
+  [SerializeField] LineRenderer beam;
 
   // TODO: These should not be SerializeFields long-term. They exist for debugging purposes now.
   [SerializeField] Targeting.Behavior behavior;
@@ -55,6 +56,8 @@ public class SpittingAntTower : Tower {
     var coroutine = StartCoroutine(SplashShoot());
 
     // -----0-----
+
+    // TODO: Remove this section, it is for practical testing only.
 
     DotExplosion = true;
     //AcidStun = true;
@@ -115,6 +118,7 @@ public class SpittingAntTower : Tower {
       HandleAcidEffects(target);
     }
 
+    // Splash explosion handling, unnecessary if the tower is continuous attack.
     if (!ContinuousAttack) {
       HandleSplashEffects(target, onHitDamage);
     }
@@ -174,10 +178,10 @@ public class SpittingAntTower : Tower {
       camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
       antiAir: towerAbilities[TowerData.TowerAbility.ANTI_AIR]);
 
+    // If there is no target, stop firing.
     if (enemy == null) {
-      // If there is no target, stop firing.
       firing = false;
-      laser.enabled = false;
+      beam.enabled = false;
     } else {
       upperMesh.LookAt(enemy.transform.GetChild(0));
       firing = true;
@@ -185,8 +189,8 @@ public class SpittingAntTower : Tower {
       if (!ContinuousAttack) {
         GeneralAttackHandler(splash, enemy, ProjectileSpeed);
       } else {
-        laser.enabled = true;
-        laser.SetPosition(
+        beam.enabled = true;
+        beam.SetPosition(
             1,  // The destination of the system.
             enemy.transform.position - Vector3.up);  // Target a little below the top of the enemy position.
 
@@ -221,6 +225,7 @@ public class SpittingAntTower : Tower {
     return enemy.Armor != 0.0f && enemy.TearArmor(armorTear) == 0.0f && AcidStun;
   }
 
+  // Fetch enemies in explosionRange of target. This excludes target itself.
   private List<Enemy> GetEnemiesInExplosionRange(Enemy target, float explosionRange) {
     return objectPool.GetActiveEnemies()
           .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < explosionRange)
@@ -233,6 +238,6 @@ public class SpittingAntTower : Tower {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;
 
-    laser.enabled = false;
+    beam.enabled = false;
   }
 }
