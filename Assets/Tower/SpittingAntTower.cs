@@ -195,6 +195,7 @@ public class SpittingAntTower : Tower {
     }
   }
 
+  // Handle the splash shot outside of the Update method, so it won't interrupt the program flow.
   private IEnumerator SplashShoot() {
     while (!ContinuousAttack) {
       while (firing) {
@@ -205,6 +206,8 @@ public class SpittingAntTower : Tower {
     }
   }
 
+  // Get a safe position for the shots of the tower. Ideally, the actual mesh, but if that isn't present,
+  // the enemy container itself.
   private Vector3 GetSafeChildPosition(Enemy enemy) {
     if (enemy.transform.childCount == 0) {
       return enemy.transform.position;

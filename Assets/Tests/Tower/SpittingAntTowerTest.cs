@@ -51,7 +51,7 @@ public class SpittingAntTowerTest {
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
 
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplashExplosion(spittingAntTower, splash);
+    SetSpittingAntTowerSplash(spittingAntTower, splash);
 
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
     Assert.That(true, Is.EqualTo(spittingAntTower.ContinuousAttack));
@@ -146,6 +146,7 @@ public class SpittingAntTowerTest {
     spittingAntTower.DamageOverTime = 1000.0f;
     SetSpittingAntTowerDotSlow(spittingAntTower, false);
     SetSpittingAntTowerDotExplosion(spittingAntTower, true);
+    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
     ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
     SetSpittingAntTowerAcidExplosion(spittingAntTower, acidExplosion);
 
@@ -163,17 +164,13 @@ public class SpittingAntTowerTest {
     Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
   }
 
-  // Tests for splash effects:
-  //  1. nearby enemies take damage.
-  //  2. without armor tear explosion no armor tear is applied to nearby enemies.
-  //  3. with armor tear explosion, armor tear is applied to nearby enemies.
-  //    a. 2 and 3 can probably be the same test with parameterized values. Can combine 1 & 2.
-  [Test, Sequential]
+  [Test]
   public void HandleSplashEffects(
-      [Values(false, true)] bool armorTearExplosion) {
-    Enemy target = CreateEnemy(Vector3.zero);
-    Enemy enemyInRange = CreateEnemy(Vector3.zero);
-    Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
+      [Values(true, false)] bool armorTearExplosion,
+      [Values(true, false)] bool acidStun) {
+    Enemy target = CreateEnemy(Vector3.zero, armor: 1.0f);
+    Enemy enemyInRange = CreateEnemy(Vector3.zero, armor: 1.0f);
+    Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0), armor: 1.0f);
     float enemyHp = 10000.0f;
     target.data.currHP = enemyHp;
     enemyInRange.data.currHP = enemyHp;
@@ -183,7 +180,32 @@ public class SpittingAntTowerTest {
     SetSpittingAntTowerSplashExplosionRange(spittingAntTower, 10.0f);
     SetSpittingAntTowerArmorTearExplosion(spittingAntTower, armorTearExplosion);
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
+    splashExplosion.transform.position = Vector3.zero;
     SetSpittingAntTowerSplashExplosion(spittingAntTower, splashExplosion);
+    float expectedStunTime = 0.0f;
+    if (acidStun) {
+      spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
+      expectedStunTime = spittingAntTower.StunTime;
+    }
+
+    ObjectPool objectPool = CreateObjectPool();
+    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange };
+    SetObjectPoolActiveEnemies(objectPool, activeEnemies);
+    SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
+
+    float expectedDamage = spittingAntTower.Damage;
+
+    InvokeHandleSplashEffects(spittingAntTower, target, expectedDamage);
+
+    // Ensure that the splash damage is applied appropriately regardless of ArmorTearExplosion.
+    Assert.That(target.HP, Is.EqualTo(enemyHp - expectedDamage));
+    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHp - expectedDamage));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
+
+    // Ensure that armor tear is applied appropriately.
+    Assert.That(target.StunTime, Is.EqualTo(expectedStunTime));
+    Assert.That(enemyInRange.StunTime, Is.EqualTo(expectedStunTime));
+    Assert.That(enemyOutOfRange.StunTime, Is.EqualTo(0.0f));
   }
 
   #endregion
@@ -239,9 +261,15 @@ public class SpittingAntTowerTest {
         .SetValue(spittingAntTower, tearExplosion);
   }
 
-  private void SetSpittingAntTowerSplashExplosion(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
+  private void SetSpittingAntTowerSplash(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
     typeof(SpittingAntTower)
         .GetField("splash", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(spittingAntTower, particleSystem);
+  }
+
+  private void SetSpittingAntTowerSplashExplosion(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
+    typeof(SpittingAntTower)
+        .GetField("splashExplosion", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, particleSystem);
   }
 
@@ -280,6 +308,16 @@ public class SpittingAntTowerTest {
     Type[] argTypes = { typeof(Enemy) };
     MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
         "HandleAcidEffects",
+        BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    handleAcidEffects.Invoke(spittingAntTower, args);
+  }
+
+  private void InvokeHandleSplashEffects(SpittingAntTower spittingAntTower, Enemy enemy, float onHitDamage) {
+    object[] args = { enemy, onHitDamage };
+    Type[] argTypes = { typeof(Enemy), typeof(float) };
+    MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
+        "HandleSplashEffects",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
     handleAcidEffects.Invoke(spittingAntTower, args);
