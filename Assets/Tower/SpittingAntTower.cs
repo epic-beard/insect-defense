@@ -41,17 +41,6 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
-    // TODO: These should be read in from a data file, not hardcoded like this.
-    //attributes[TowerData.Stat.RANGE] = 15.0f;
-    //attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
-    //attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
-    //attributes[TowerData.Stat.DAMAGE] = 10.0f;
-    //attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 30.0f;
-    //attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
-    //attributes[TowerData.Stat.STUN_TIME] = 1.0f;
-    //attributes[TowerData.Stat.SLOW_DURATION] = 0.5f;
-    //attributes[TowerData.Stat.SLOW_POWER] = 0.5f;
-
     // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
@@ -59,17 +48,6 @@ public class SpittingAntTower : Tower {
     DisableAttackSystems();
     var coroutine = StartCoroutine(SplashShoot());
 
-    // -----0-----
-
-    // TODO: Remove this section, it is for practical testing only.
-
-    //DotExplosion = true;
-    //AcidStun = true;
-    //DotSlow = true;
-
-    //var splashEmission = splash.emission;
-    //splashEmission.enabled = false;
-    //ContinuousAttack = true;
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
@@ -141,7 +119,6 @@ public class SpittingAntTower : Tower {
 
       float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStack;
       List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, AcidExplosionRange);
-      Debug.Log(totalAcidDamage + " damage to be applied to " + enemiesInAoe.Count + " enemies");
 
       // Cause totalAcidDamage to all enemies in range (including target).
       foreach (Enemy enemy in enemiesInAoe) {

@@ -7,19 +7,13 @@ using UnityEngine.TestTools;
 using static UnityEngine.GraphicsBuffer;
 
 public class SpittingAntTowerPlayModeTest {
-  // Test outline:
-  // Splash
-  //  1. 3 enemies, check splash damage is applied appropriately.
-  //  2. Check to make sure area armor tear applies appropriately.
-  //    a. Make sure enemies caught in the AoE with armor tear are stunned appropriately.
-  //  
-  // Beam
 
   // Play test for the basic splash attack. This test focuses on those effects only available to the
   // splash effect. It does not delve into the DoT effects, SA_2_3_DOT_SLOW and SA_2_5_DOT_EXPLOSION should
   // not be true for this test.
   [UnityTest]
   public IEnumerator SplashAttackTest() {
+    // Ensure enemies won't die in this test.
     float enemyHp = 1000.0f;
     float enemyArmor = 90.0f;
     EnemyData.Size enemySize = EnemyData.Size.TINY;
@@ -36,6 +30,7 @@ public class SpittingAntTowerPlayModeTest {
       damage : 100.0f,
       range : 10.0f);
 
+    // These four simple additions are required for the tower to not error out. 
     MeshRenderer upperMesh = new GameObject().AddComponent<MeshRenderer>();
     SetSpittingAntTowerUpperMesh(spittingAntTower, upperMesh);
 
@@ -48,6 +43,7 @@ public class SpittingAntTowerPlayModeTest {
     LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
     SetSpittingAntTowerBeam(spittingAntTower, beam);
 
+    // Create the object pool and construct activeEnemies appropriately.
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
@@ -65,6 +61,7 @@ public class SpittingAntTowerPlayModeTest {
     Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
+    // Cache target's new hp and enable armor tear explosion for testing that.
     float damagedTargetHP = target.HP;
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION);
 
@@ -103,6 +100,7 @@ public class SpittingAntTowerPlayModeTest {
       slowDuration: 10.0f,
       slowPower: 0.5f); ;
 
+    // These four simple additions are required for the tower to not error out. 
     MeshRenderer upperMesh = new GameObject().AddComponent<MeshRenderer>();
     SetSpittingAntTowerUpperMesh(spittingAntTower, upperMesh);
 
@@ -115,6 +113,7 @@ public class SpittingAntTowerPlayModeTest {
     LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
     SetSpittingAntTowerBeam(spittingAntTower, beam);
 
+    // Create the object pool and construct activeEnemies appropriately.
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
@@ -123,6 +122,7 @@ public class SpittingAntTowerPlayModeTest {
     enemyInRange.pool = objectPool;
     enemyOutOfRange.pool = objectPool;
 
+    // Turn on continuous fire.
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
 
     yield return new WaitForSeconds(0.11f);
@@ -135,6 +135,7 @@ public class SpittingAntTowerPlayModeTest {
     Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
+    // Cache target's new stats and enable the acid dot based slow.
     float damagedTargetHP = target.HP;
     float damagedTargetArmor = target.Armor;
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_3_DOT_SLOW);
@@ -149,6 +150,7 @@ public class SpittingAntTowerPlayModeTest {
     Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
+    // Cache the target's new stats and enable the acid dot based explosion.
     damagedTargetHP = target.HP;
     damagedTargetArmor= target.Armor;
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION);
@@ -168,6 +170,7 @@ public class SpittingAntTowerPlayModeTest {
 
   #region TestHelperMethods
 
+  // Create a spitting ant tower with all the values explicitly set for clarity.
   private SpittingAntTower CreateSpittingAntTower(
       Vector3 position,
       Targeting.Priority priority = Targeting.Priority.LEASTARMOR,
@@ -200,7 +203,7 @@ public class SpittingAntTowerPlayModeTest {
     return spittingAntTower;
   }
 
-  // Create and return an enemy with optional args.
+  // Create and return an enemy with optional args, create and set the prev waypoing based on position.
   private Enemy CreateEnemy(
       Vector3 position,
       float armor = 0.0f,
