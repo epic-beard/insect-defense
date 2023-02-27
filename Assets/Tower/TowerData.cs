@@ -50,7 +50,7 @@ public class Ability {
 
   // Each divergent ability (usually at upgrades 3 and 5) should have its own entry in this enum.
   public enum SpecialAbilityEnum {
-    SA_1_3_ACID_STUN,      // Spitting Ant Armor Tear upgrade tree level 3.
+    SA_1_3_ARMOR_TEAR_STUN,      // Spitting Ant Armor Tear upgrade tree level 3.
     SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Armor Tear upgrade tree level 5.
     SA_2_3_DOT_SLOW,       // Spitting Ant Acit DoT upgrade tree level 3.
     SA_2_5_DOT_EXPLOSION,    // Spitting Ant Acid DoT upgrade tree level 5.

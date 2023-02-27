@@ -14,16 +14,20 @@ public class SpittingAntTower : Tower {
   [SerializeField] LineRenderer beam;
 
   // TODO: These should not be SerializeFields long-term. They exist for debugging purposes now.
-  [SerializeField] Targeting.Behavior behavior;
-  [SerializeField] Targeting.Priority priority;
-  [SerializeField] float splashExplosionRange = 1.0f;
-  [SerializeField] float acidExplosionRange = 1.0f;
+  [SerializeField] public Targeting.Behavior behavior;
+  [SerializeField] public Targeting.Priority priority;
+  [SerializeField] float splashExplosionMultiplier = 1.0f;
+  [SerializeField] float acidExplosionMultiplier = 1.0f;
 
-  public bool AcidStun { get; private set; } = false;
+  public bool ArmorTearStun { get; private set; } = false;
   public bool ArmorTearExplosion { get; private set; } = false;
   public bool ContinuousAttack { get; private set; } = false;
   public bool DotSlow { get; private set; } = false;
   public bool DotExplosion { get; private set; } = false;
+  public float SplashExplosionRange {
+    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; } }
+  public float AcidExplosionRange {
+    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; } }
 
   private Enemy enemy;
   private Targeting targeting = new();
@@ -38,15 +42,15 @@ public class SpittingAntTower : Tower {
     };
 
     // TODO: These should be read in from a data file, not hardcoded like this.
-    attributes[TowerData.Stat.RANGE] = 15.0f;
-    attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
-    attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
-    attributes[TowerData.Stat.DAMAGE] = 10.0f;
-    attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 30.0f;
-    attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
-    attributes[TowerData.Stat.STUN_TIME] = 1.0f;
-    attributes[TowerData.Stat.SLOW_DURATION] = 0.5f;
-    attributes[TowerData.Stat.SLOW_POWER] = 0.5f;
+    //attributes[TowerData.Stat.RANGE] = 15.0f;
+    //attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
+    //attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
+    //attributes[TowerData.Stat.DAMAGE] = 10.0f;
+    //attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 30.0f;
+    //attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
+    //attributes[TowerData.Stat.STUN_TIME] = 1.0f;
+    //attributes[TowerData.Stat.SLOW_DURATION] = 0.5f;
+    //attributes[TowerData.Stat.SLOW_POWER] = 0.5f;
 
     // -----0-----
 
@@ -59,19 +63,19 @@ public class SpittingAntTower : Tower {
 
     // TODO: Remove this section, it is for practical testing only.
 
-    DotExplosion = true;
+    //DotExplosion = true;
     //AcidStun = true;
-    DotSlow = true;
+    //DotSlow = true;
 
-    var splashEmission = splash.emission;
-    splashEmission.enabled = false;
-    ContinuousAttack = true;
+    //var splashEmission = splash.emission;
+    //splashEmission.enabled = false;
+    //ContinuousAttack = true;
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
     switch (ability) {
-      case SpecialAbilityEnum.SA_1_3_ACID_STUN:
-        AcidStun = true;
+      case SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN:
+        ArmorTearStun = true;
         break;
       case SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION:
         ArmorTearExplosion = true;
@@ -109,7 +113,7 @@ public class SpittingAntTower : Tower {
     }
 
     // Armor tear effects.
-    if (ApplyArmorTearAndCheckForAcidStun(target, armorTear)) {
+    if (ApplyArmorTearAndCheckForArmorTearStun(target, armorTear)) {
       target.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
     }
 
@@ -136,7 +140,8 @@ public class SpittingAntTower : Tower {
       acidExplosion.Play();
 
       float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStack;
-      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, acidExplosionRange);
+      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, AcidExplosionRange);
+      Debug.Log(totalAcidDamage + " damage to be applied to " + enemiesInAoe.Count + " enemies");
 
       // Cause totalAcidDamage to all enemies in range (including target).
       foreach (Enemy enemy in enemiesInAoe) {
@@ -154,12 +159,12 @@ public class SpittingAntTower : Tower {
     splashExplosion.Play();
 
     // Get a list of enemies caught in the AoE that are not the enemy targeted.
-    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, splashExplosionRange);
+    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, SplashExplosionRange);
 
     foreach (Enemy enemy in enemiesInAoe) {
       enemy.DamageEnemy(onHitDamage, ArmorPierce);
 
-      if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy, ArmorTear)) {
+      if (ArmorTearExplosion && ApplyArmorTearAndCheckForArmorTearStun(enemy, ArmorTear)) {
         enemy.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
       }
     }
@@ -179,11 +184,11 @@ public class SpittingAntTower : Tower {
       antiAir: towerAbilities[TowerData.TowerAbility.ANTI_AIR]);
 
     // If there is no target, stop firing.
-    if (enemy == null) {
+    if (enemy is null) {
       firing = false;
       beam.enabled = false;
     } else {
-      upperMesh.LookAt(enemy.transform.GetChild(0));
+      upperMesh.LookAt(GetSafeChildPosition(enemy));
       firing = true;
 
       if (!ContinuousAttack) {
@@ -210,19 +215,10 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  // Get a safe position for the shots of the tower. Ideally, the actual mesh, but if that isn't present,
-  // the enemy container itself.
-  private Vector3 GetSafeChildPosition(Enemy enemy) {
-    if (enemy.transform.childCount == 0) {
-      return enemy.transform.position;
-    }
-    return enemy.transform.GetChild(0).position;
-  }
-
   // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
   // SA_1_3_ACID_STUN.
-  private bool ApplyArmorTearAndCheckForAcidStun(Enemy enemy, float armorTear) {
-    return enemy.Armor != 0.0f && enemy.TearArmor(armorTear) == 0.0f && AcidStun;
+  private bool ApplyArmorTearAndCheckForArmorTearStun(Enemy enemy, float armorTear) {
+    return 0.0f < enemy.Armor && enemy.TearArmor(armorTear) == 0.0f && ArmorTearStun;
   }
 
   // Fetch enemies in explosionRange of target. This excludes target itself.

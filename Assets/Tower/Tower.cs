@@ -117,7 +117,7 @@ public class Tower : MonoBehaviour {
         particles[i].remainingLifetime = 0;
         continue;
       }
-      Vector3 targetPosition = enemy.transform.GetChild(0).position;
+      Vector3 targetPosition = GetSafeChildPosition(enemy);
 
       // Obtain the direction of travel
       Vector3 vec = targetPosition - particles[i].position;
@@ -137,5 +137,14 @@ public class Tower : MonoBehaviour {
 
     // Update all particle positions.
     activeParticleSystem.SetParticles(particles, numActiveParticles);
+  }
+
+  // Get a safe position for the shots of the tower. Ideally, the actual mesh, but if that isn't present,
+  // the enemy container itself.
+  protected Vector3 GetSafeChildPosition(Enemy enemy) {
+    if (enemy.transform.childCount == 0) {
+      return enemy.transform.position;
+    }
+    return enemy.transform.GetChild(0).position;
   }
 }

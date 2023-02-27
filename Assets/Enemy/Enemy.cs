@@ -15,15 +15,15 @@ public class Enemy : MonoBehaviour {
     transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
 
+    data.Initialize();
+    // TODO: Reset all non-EnemyData stats.
+    StartCoroutine(HandleStun());
+
     if (NextWaypoint == null) {
       Debug.Log("[ERROR] NextWaypoint not found.");
       return;
     }
-    data.Initialize();
-
-    // TODO: Reset all non-EnemyData stats.
-
-    StartCoroutine(HandleStun());
+    
     StartCoroutine(FollowPath());
   }
 
@@ -51,8 +51,8 @@ public class Enemy : MonoBehaviour {
   }
 
   // Return the new armor total after the tear is applied.
-  public float TearArmor(float tear) {
-    return data.currArmor = Mathf.Max(data.currArmor - tear, 0.0f);
+  public float TearArmor(float armorTear) {
+    return data.currArmor = Mathf.Max(data.currArmor - armorTear, 0.0f);
   }
 
   // Returns true if stacks are at max.

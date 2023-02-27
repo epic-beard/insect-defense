@@ -18,9 +18,9 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeAcidStun() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
+    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
 
-    Assert.That(true, Is.EqualTo(spittingAntTower.AcidStun));
+    Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearStun));
     Assert.That(false, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
   }
 
@@ -79,7 +79,7 @@ public class SpittingAntTowerTest {
     Enemy enemy = CreateEnemy(Vector3.zero, armor: 1.0f);
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    bool isStunned = InvokeApplyArmorTearAndCheckForAcidStun(spittingAntTower, enemy, 2.0f);
+    bool isStunned = InvokeApplyArmorTearAndCheckForArmorTearStun(spittingAntTower, enemy, 2.0f);
 
     Assert.That(isStunned, Is.EqualTo(false));
   }
@@ -92,9 +92,9 @@ public class SpittingAntTowerTest {
       [Values(false, true, false)] bool expectedStun) {
     Enemy enemy = CreateEnemy(Vector3.zero, armor: enemyArmor);
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
+    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
 
-    bool isStunned = InvokeApplyArmorTearAndCheckForAcidStun(spittingAntTower, enemy, armorTear);
+    bool isStunned = InvokeApplyArmorTearAndCheckForArmorTearStun(spittingAntTower, enemy, armorTear);
 
     Assert.That(isStunned, Is.EqualTo(expectedStun));
   }
@@ -111,10 +111,10 @@ public class SpittingAntTowerTest {
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
     
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplashExplosionRange(spittingAntTower, 10.0f);
+    SetSpittingAntTowerSplashExplosionRangeMultiplier(spittingAntTower, 10.0f);
 
     ObjectPool objectPool = CreateObjectPool();
-    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange };
+    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
     SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
 
@@ -168,16 +168,17 @@ public class SpittingAntTowerTest {
     enemyOutOfRange.data.currHP = enemyHp;
 
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerAcidExplosionRange(spittingAntTower, 10.0f);
+    spittingAntTower.AreaOfEffect = 10.0f;
+    SetSpittingAntTowerAcidExplosionRangeMultiplier(spittingAntTower, 1.0f);
     spittingAntTower.DamageOverTime = 1000.0f;
     SetSpittingAntTowerDotSlow(spittingAntTower, false);
     SetSpittingAntTowerDotExplosion(spittingAntTower, true);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
+    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
     ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
     SetSpittingAntTowerAcidExplosion(spittingAntTower, acidExplosion);
 
     ObjectPool objectPool = CreateObjectPool();
-    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange };
+    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
     SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
 
@@ -204,18 +205,18 @@ public class SpittingAntTowerTest {
     enemyOutOfRange.data.currHP = enemyHp;
 
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplashExplosionRange(spittingAntTower, 10.0f);
+    SetSpittingAntTowerSplashExplosionRangeMultiplier(spittingAntTower, 10.0f);
     SetSpittingAntTowerArmorTearExplosion(spittingAntTower, armorTearExplosion);
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     SetSpittingAntTowerSplashExplosion(spittingAntTower, splashExplosion);
     float expectedStunTime = 0.0f;
     if (acidStun) {
-      spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ACID_STUN);
+      spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
       expectedStunTime = spittingAntTower.StunTime;
     }
 
     ObjectPool objectPool = CreateObjectPool();
-    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange };
+    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
     SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
 
@@ -289,7 +290,7 @@ public class SpittingAntTowerTest {
     SetSpittingAntTowerSplashExplosion(spittingAntTower, splashExplosion);
 
     ObjectPool objectPool = CreateObjectPool();
-    HashSet<Enemy> activeEnemies = new();
+    HashSet<Enemy> activeEnemies = new() { target };
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
     SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
 
@@ -373,9 +374,9 @@ public class SpittingAntTowerTest {
         .SetValue(spittingAntTower, particleSystem);
   }
 
-  private void SetSpittingAntTowerSplashExplosionRange(SpittingAntTower spittingAntTower, float range) {
+  private void SetSpittingAntTowerSplashExplosionRangeMultiplier(SpittingAntTower spittingAntTower, float range) {
     typeof(SpittingAntTower)
-        .GetField("splashExplosionRange", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("splashExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, range);
   }
 
@@ -385,9 +386,9 @@ public class SpittingAntTowerTest {
         .SetValue(spittingAntTower, particleSystem);
   }
 
-  private void SetSpittingAntTowerAcidExplosionRange(SpittingAntTower spittingAntTower, float range) {
+  private void SetSpittingAntTowerAcidExplosionRangeMultiplier(SpittingAntTower spittingAntTower, float range) {
     typeof(SpittingAntTower)
-        .GetField("acidExplosionRange", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("acidExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, range);
   }
 
@@ -443,11 +444,11 @@ public class SpittingAntTowerTest {
     return (List<Enemy>) getEnemiesInExplosionRange.Invoke(spittingAntTower, args);
   }
 
-  private bool InvokeApplyArmorTearAndCheckForAcidStun(SpittingAntTower spittingAntTower, Enemy enemy, float armorTear) {
+  private bool InvokeApplyArmorTearAndCheckForArmorTearStun(SpittingAntTower spittingAntTower, Enemy enemy, float armorTear) {
     object[] args = { enemy, armorTear };
     Type[] argTypes = { typeof(Enemy), typeof(float) };
     MethodInfo applyArmorTearAndCheckForAcidStun = typeof(SpittingAntTower).GetMethod(
-        "ApplyArmorTearAndCheckForAcidStun",
+        "ApplyArmorTearAndCheckForArmorTearStun",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
     return (bool) applyArmorTearAndCheckForAcidStun.Invoke(spittingAntTower, args);
