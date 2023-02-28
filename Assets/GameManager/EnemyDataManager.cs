@@ -1,10 +1,10 @@
-// A class that contains a dictionary of EnemyDatas keyed by strings.
-// Allows you to reference enemy stats by name for convenient wave creation.
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
 
+// A class that contains a dictionary of EnemyDatas keyed by strings.
+// Allows you to reference enemy stats by name for convenient wave creation.
 public class EnemyDataManager : MonoBehaviour {
   [SerializeField] private string filename;
   readonly private Dictionary<string, EnemyData> datas = new();
