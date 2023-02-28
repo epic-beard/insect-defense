@@ -8,29 +8,27 @@ using static UnityEngine.GraphicsBuffer;
 
 public class SpittingAntTowerPlayModeTest {
 
-  // Play test for the basic splash attack. This test focuses on those effects only available to the
-  // splash effect. It does not delve into the DoT effects, SA_2_3_DOT_SLOW and SA_2_5_DOT_EXPLOSION should
-  // not be true for this test.
-  [UnityTest]
-  public IEnumerator SplashAttackTest() {
+  SpittingAntTower spittingAntTower;
+  Enemy target;
+  Enemy enemyInRange;
+  Enemy enemyOutOfRange;
+
+  float enemyHP = 100000.0f;
+  float enemyArmor = 90.0f;
+  float targetArmor = 85.0f;
+
+  [SetUp]
+  public void Setup() {
     // Ensure enemies won't die in this test.
-    float enemyHp = 1000.0f;
-    float enemyArmor = 90.0f;
-    EnemyData.Size enemySize = EnemyData.Size.TINY;
+    EnemyData.Size enemySize = EnemyData.Size.NORMAL;
 
-    Enemy target = CreateEnemy(Vector3.zero, hp: enemyHp, armor: enemyArmor - 5.0f, size: enemySize);
-    Enemy enemyInRange = CreateEnemy(Vector3.right, hp: enemyHp, armor: enemyArmor, size: enemySize);
-    Enemy enemyOutOfRange = CreateEnemy(new Vector3(100, 0, 0), hp: enemyHp, armor: enemyArmor, size: enemySize);
+    target = CreateEnemy(Vector3.zero, hp: enemyHP, armor: targetArmor, size: enemySize);
+    enemyInRange = CreateEnemy(Vector3.right, hp: enemyHP, armor: enemyArmor, size: enemySize);
+    enemyOutOfRange = CreateEnemy(Vector3.right * 100, hp: enemyHP, armor: enemyArmor, size: enemySize);
 
-    SpittingAntTower spittingAntTower = CreateSpittingAntTower(
-      Vector3.up,
-      attackSpeed : 10.0f,
-      areaOfEffect : 10.0f,
-      armorTear : enemyArmor * 0.8f,
-      damage : 100.0f,
-      range : 10.0f);
+    spittingAntTower = CreateSpittingAntTower(Vector3.up);
 
-    // These four simple additions are required for the tower to not error out. 
+    // Mandatory setup.
     MeshRenderer upperMesh = new GameObject().AddComponent<MeshRenderer>();
     SetSpittingAntTowerUpperMesh(spittingAntTower, upperMesh);
 
@@ -40,6 +38,9 @@ public class SpittingAntTowerPlayModeTest {
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     SetSpittingAntTowerSplashExplosion(spittingAntTower, splashExplosion);
 
+    ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
+    SetSpittingAntTowerAcidExplosion(spittingAntTower, acidExplosion);
+
     LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
     SetSpittingAntTowerBeam(spittingAntTower, beam);
 
@@ -51,27 +52,54 @@ public class SpittingAntTowerPlayModeTest {
     target.pool = objectPool;
     enemyInRange.pool = objectPool;
     enemyOutOfRange.pool = objectPool;
+  }
+
+  // Play test for the basic splash attack. This test focuses on those effects only available to the
+  // splash effect. It does not delve into the DoT effects, SA_2_3_DOT_SLOW and SA_2_5_DOT_EXPLOSION should
+  // not be true for this test.
+  [UnityTest]
+  public IEnumerator SplashAttackTestWithNoArmorTearExplosion() {
+    SetSpittingAntTowerProperties(
+        spittingAntTower,
+        attackSpeed: 10.0f,
+        areaOfEffect: 10.0f,
+        armorTear: target.Armor * 0.8f,
+        damage: 100.0f,
+        range: 10.0f);
 
     yield return new WaitForSeconds(0.11f);
 
-    Assert.That(target.HP, Is.LessThan(enemyHp));
-    Assert.That(target.Armor, Is.LessThan(enemyArmor));
-    Assert.That(enemyInRange.HP, Is.LessThan(enemyHp));
+    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.Armor, Is.LessThan(targetArmor));
+    Assert.That(enemyInRange.HP, Is.LessThan(enemyHP));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
-    // Cache target's new hp and enable armor tear explosion for testing that.
-    float damagedTargetHP = target.HP;
+    yield return null;
+  }
+
+  // Like the above, this test focuses on splash, but includs the ArmorTearExplosion to make sure it damages
+  // the armor of nearby enemies.
+  [UnityTest]
+  public IEnumerator SplashAttackTestWithArmorTearExplosion() {
+    SetSpittingAntTowerProperties(
+        spittingAntTower,
+        attackSpeed: 10.0f,
+        areaOfEffect: 10.0f,
+        armorTear: target.Armor * 0.8f,
+        damage: 100.0f,
+        range: 10.0f);
+
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION);
 
     yield return new WaitForSeconds(0.11f);
 
-    Assert.That(target.HP, Is.LessThan(damagedTargetHP));
-    Assert.That(target.Armor, Is.EqualTo(0.0f));
-    Assert.That(enemyInRange.HP, Is.LessThan(enemyHp));
+    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.Armor, Is.LessThan(targetArmor));
+    Assert.That(enemyInRange.HP, Is.LessThan(enemyHP));
     Assert.That(enemyInRange.Armor, Is.LessThan(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
     yield return null;
@@ -79,90 +107,85 @@ public class SpittingAntTowerPlayModeTest {
 
   // Play test for the continuous attack and the acid DoT effects.
   [UnityTest]
-  public IEnumerator BeamAttackTest() {
-    float enemyHp = 100000.0f;
-    float enemyArmor = 90.0f;
-    EnemyData.Size enemySize = EnemyData.Size.NORMAL;
-
-    Enemy target = CreateEnemy(Vector3.zero, hp: enemyHp, armor: enemyArmor - 5.0f, size: enemySize);
-    Enemy enemyInRange = CreateEnemy(Vector3.right, hp: enemyHp, armor: enemyArmor, size: enemySize);
-    Enemy enemyOutOfRange = CreateEnemy(new Vector3(100, 0, 0), hp: enemyHp, armor: enemyArmor, size: enemySize);
-
-    float towerDamage = 100.0f;
-    SpittingAntTower spittingAntTower = CreateSpittingAntTower(
-      Vector3.up,
-      attackSpeed: 10.0f,
-      areaOfEffect: 10.0f,
-      armorTear: enemyArmor * 0.8f,
-      damage: towerDamage,
-      damageOverTime: 50.0f,
-      range: 10.0f,
-      slowDuration: 10.0f,
-      slowPower: 0.5f); ;
-
-    // These four simple additions are required for the tower to not error out. 
-    MeshRenderer upperMesh = new GameObject().AddComponent<MeshRenderer>();
-    SetSpittingAntTowerUpperMesh(spittingAntTower, upperMesh);
-
-    ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerSplash(spittingAntTower, splash);
-
-    ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerAcidExplosion(spittingAntTower, splashExplosion);
-
-    LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
-    SetSpittingAntTowerBeam(spittingAntTower, beam);
-
-    // Create the object pool and construct activeEnemies appropriately.
-    ObjectPool objectPool = CreateObjectPool();
-    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-    SetObjectPoolActiveEnemies(objectPool, activeEnemies);
-    SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
-    target.pool = objectPool;
-    enemyInRange.pool = objectPool;
-    enemyOutOfRange.pool = objectPool;
-
-    // Turn on continuous fire.
+  public IEnumerator BeamAttackTestNoSlowOrExplosion() {
+    SetSpittingAntTowerProperties(
+        spittingAntTower,
+        attackSpeed: 10.0f,
+        areaOfEffect: 10.0f,
+        armorTear: enemyArmor * 0.1f,
+        damage: 100.0f,
+        damageOverTime: 50.0f,
+        range: 10.0f,
+        slowDuration: 10.0f,
+        slowPower: 0.5f);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
 
     yield return new WaitForSeconds(0.11f);
 
-    Assert.That(target.HP, Is.LessThan(enemyHp));
+    Assert.That(target.HP, Is.LessThan(enemyHP));
     Assert.That(target.Armor, Is.LessThan(enemyArmor));
     Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHP));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
-    // Cache target's new stats and enable the acid dot based slow.
-    float damagedTargetHP = target.HP;
-    float damagedTargetArmor = target.Armor;
+    yield return null;
+  }
+
+  // Make sure that the target is slowed when the dot reaches max.
+  [UnityTest]
+  public IEnumerator BeamAttackTestWithSlowNoExplosion() {
+    SetSpittingAntTowerProperties(
+        spittingAntTower,
+        attackSpeed: 10.0f,
+        areaOfEffect: 10.0f,
+        armorTear: enemyArmor * 0.1f,
+        damage: 100.0f,
+        damageOverTime: 100.0f,
+        range: 10.0f,
+        slowDuration: 10.0f,
+        slowPower: 0.5f);
+    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_3_DOT_SLOW);
 
     yield return new WaitForSeconds(0.11f);
 
-    Assert.That(target.HP, Is.LessThan(damagedTargetHP));
-    Assert.That(target.Armor, Is.LessThan(damagedTargetArmor));
+    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.Armor, Is.LessThan(targetArmor));
     Assert.That(target.SlowDuration, Is.GreaterThan(0.0f));
-    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHP));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
-    // Cache the target's new stats and enable the acid dot based explosion.
-    damagedTargetHP = target.HP;
-    damagedTargetArmor= target.Armor;
+    yield return null;
+  }
+
+  // Make sure nearby enemies are damaged by the acid explosion when dot reaches max.
+  [UnityTest]
+  public IEnumerator BeamAttackTestWithExplosionNoSlow() {
+    SetSpittingAntTowerProperties(
+        spittingAntTower,
+        attackSpeed: 10.0f,
+        areaOfEffect: 10.0f,
+        armorTear: enemyArmor * 0.1f,
+        damage: 100.0f,
+        damageOverTime: 100.0f,
+        range: 10.0f,
+        slowDuration: 10.0f,
+        slowPower: 0.5f);
+    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION);
 
     yield return new WaitForSeconds(0.11f);
 
-    Assert.That(target.HP, Is.LessThan(damagedTargetHP));
-    Assert.That(target.Armor, Is.LessThanOrEqualTo(damagedTargetArmor));
-    Assert.That(target.SlowDuration, Is.GreaterThan(0.0f));
-    Assert.That(enemyInRange.HP, Is.LessThan(enemyHp));
+    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.Armor, Is.LessThanOrEqualTo(targetArmor));
+    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(enemyInRange.HP, Is.LessThan(enemyHP));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
     yield return null;
@@ -171,36 +194,37 @@ public class SpittingAntTowerPlayModeTest {
   #region TestHelperMethods
 
   // Create a spitting ant tower with all the values explicitly set for clarity.
-  private SpittingAntTower CreateSpittingAntTower(
-      Vector3 position,
-      Targeting.Priority priority = Targeting.Priority.LEASTARMOR,
+  private SpittingAntTower CreateSpittingAntTower(Vector3 position) {
+    GameObject gameObject = new();
+    gameObject.transform.position = position;
+    SpittingAntTower spittingAntTower = gameObject.AddComponent<SpittingAntTower>();
+
+    spittingAntTower.priority = Targeting.Priority.LEASTARMOR;
+    spittingAntTower.ProjectileSpeed = 100.0f;  // To cover distance as quickly as possible.
+
+    return spittingAntTower;
+  }
+
+  private void SetSpittingAntTowerProperties(
+      SpittingAntTower spittingAntTower,
       float attackSpeed = 0.0f,
       float areaOfEffect = 0.0f,
       float armorTear = 0.0f,
       float damage = 0.0f,
       float damageOverTime = 0.0f,
       float range = 0.0f,
-      float projectileSpeed = 100.0f,  // To cover distance as quickly as possible.
       float slowDuration = 0.0f,
       float slowPower = 0.0f,
       float stunTime = 0.0f) {
-    GameObject gameObject = new();
-    gameObject.transform.position = position;
-    SpittingAntTower spittingAntTower = gameObject.AddComponent<SpittingAntTower>();
-
-    spittingAntTower.priority = priority;
     spittingAntTower.AttackSpeed = attackSpeed;
     spittingAntTower.AreaOfEffect = areaOfEffect;
     spittingAntTower.ArmorTear = armorTear;
     spittingAntTower.Damage = damage;
     spittingAntTower.DamageOverTime = damageOverTime;
     spittingAntTower.Range = range;
-    spittingAntTower.ProjectileSpeed = projectileSpeed;
     spittingAntTower.SlowDuration = slowDuration;
     spittingAntTower.SlowPower = slowPower;
     spittingAntTower.StunTime = stunTime;
-
-    return spittingAntTower;
   }
 
   // Create and return an enemy with optional args, create and set the prev waypoing based on position.

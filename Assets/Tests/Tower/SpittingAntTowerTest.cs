@@ -13,7 +13,7 @@ public class SpittingAntTowerTest {
 
   #region SpecialAbilityUpgradeTests
 
-  // Test setting AcidStun.
+  // Test setting ArmorTearStun.
   [Test]
   public void SpecialAbilityUpgradeAcidStun() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
@@ -86,7 +86,7 @@ public class SpittingAntTowerTest {
 
   // Confirm acid stun behavior with a variety of preconditions.
   [Test, Sequential]
-  public void ApplyArmorTearAndCheckForAcidStun(
+  public void ApplyArmorTearAndCheckForArmorTearStun(
       [Values(0.0f, 1.0f, 2.0f)] float enemyArmor,
       [Values(1.0f, 1.0f, 1.0f)] float armorTear,
       [Values(false, true, false)] bool expectedStun) {
@@ -162,10 +162,10 @@ public class SpittingAntTowerTest {
     Enemy target = CreateEnemy(Vector3.zero);
     Enemy enemyInRange = CreateEnemy(Vector3.zero);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
-    float enemyHp = 10000.0f;
-    target.data.currHP = enemyHp;
-    enemyInRange.data.currHP = enemyHp;
-    enemyOutOfRange.data.currHP = enemyHp;
+    float enemyHP = 10000.0f;
+    target.data.currHP = enemyHP;
+    enemyInRange.data.currHP = enemyHP;
+    enemyOutOfRange.data.currHP = enemyHP;
 
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     spittingAntTower.AreaOfEffect = 10.0f;
@@ -182,13 +182,13 @@ public class SpittingAntTowerTest {
     SetObjectPoolActiveEnemies(objectPool, activeEnemies);
     SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
 
-    float expectedDamage = target.MaxAcidStacks * target.AcidDamagePerStack;
+    float expectedEnemyHP = enemyHP - (target.MaxAcidStacks * target.AcidDamagePerStackPerSecond);
 
     InvokeHandleAcidEffects(spittingAntTower, target);
 
-    Assert.That(target.HP, Is.EqualTo(enemyHp - expectedDamage));
-    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHp - expectedDamage));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
+    Assert.That(target.HP, Is.EqualTo(expectedEnemyHP));
+    Assert.That(enemyInRange.HP, Is.EqualTo(expectedEnemyHP));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
   }
 
   // Test HandleSplashEffects with combinatorial arguments.

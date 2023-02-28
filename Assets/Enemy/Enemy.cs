@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour {
   public ObjectPool pool;
 
   readonly public int acidStackMaxMultiplier = 25;
-  readonly public float acidDamagePerStackPerSecond = 1.0f;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -16,7 +15,6 @@ public class Enemy : MonoBehaviour {
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
 
     data.Initialize();
-    // TODO: Reset all non-EnemyData stats.
     StartCoroutine(HandleStun());
 
     if (NextWaypoint == null) {
@@ -27,6 +25,8 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(FollowPath());
   }
 
+  // TODO: These properties should all reference data stored in the EnemyData class. We will simply not
+  //       serialize those fields that should not be saved (like SlowPower or AcidStacks).
   public float HP { get { return data.currHP; } }
   public float Armor { get { return data.currArmor; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour {
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
   public float AcidStacks { get; private set; }
-  public float AcidDamagePerStack { get { return acidDamagePerStackPerSecond; } }
+  public float AcidDamagePerStackPerSecond { get; } = 1.0f;
   public float SlowPower { get; private set; }
   public float SlowDuration { get; private set; }
   public float StunTime { get; private set; }
@@ -107,16 +107,16 @@ public class Enemy : MonoBehaviour {
 
     // Handle acid damage.
     if (0.0f < AcidStacks) {
-      float acidDamage = acidDamagePerStackPerSecond * Time.deltaTime;
+      float acidDamage = AcidDamagePerStackPerSecond * Time.deltaTime;
       AcidStacks = Mathf.Max(AcidStacks - Time.deltaTime, 0.0f);
       data.currHP -= acidDamage;
     }
-    
   }
 
   private IEnumerator HandleStun() {
     float originalSpeed = data.speed;
     while (true) {
+      // Wait until the enemy has a nonzero StunTime.
       yield return new WaitUntil(() => 0.0f < StunTime);
       data.speed = 0.0f;
       float interimStunTime = StunTime;

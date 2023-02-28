@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using static Ability;
-using static UnityEngine.GraphicsBuffer;
 
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
@@ -97,7 +95,7 @@ public class SpittingAntTower : Tower {
 
     // Acid DoT effects.
     if (target.AddAcidStacks(acidStacks)) {
-      HandleAcidEffects(target);
+      HandleMaxAcidStackEffects(target);
     }
 
     // Splash explosion handling, unnecessary if the tower is continuous attack.
@@ -108,7 +106,8 @@ public class SpittingAntTower : Tower {
     target.DamageEnemy(onHitDamage, ArmorPierce);
   }
 
-  private void HandleAcidEffects(Enemy target) {
+  // This is only called when the target's acid stacks are at max.
+  private void HandleMaxAcidStackEffects(Enemy target) {
     if (DotSlow && !target.data.spittingAntTowerSlows.Contains(this)) {
       target.ApplySlow(attributes[TowerData.Stat.SLOW_POWER], attributes[TowerData.Stat.SLOW_DURATION]);
       target.data.spittingAntTowerSlows.Add(this);
@@ -117,7 +116,7 @@ public class SpittingAntTower : Tower {
       acidExplosion.transform.position = GetSafeChildPosition(target);
       acidExplosion.Play();
 
-      float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStack;
+      float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStackPerSecond;
       List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, AcidExplosionRange);
 
       // Cause totalAcidDamage to all enemies in range (including target).
@@ -193,7 +192,7 @@ public class SpittingAntTower : Tower {
   }
 
   // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
-  // SA_1_3_ACID_STUN.
+  // SA_1_3_ARMOR_TEAR_STUN.
   private bool ApplyArmorTearAndCheckForArmorTearStun(Enemy enemy, float armorTear) {
     return 0.0f < enemy.Armor && enemy.TearArmor(armorTear) == 0.0f && ArmorTearStun;
   }
