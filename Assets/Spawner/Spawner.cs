@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour {
   [SerializeField] private List<Waypoint> spawnLocations = new();
   private ObjectPool pool;
+  private EnemyDataManager enemyDataManager;
 
   void Start() {
     pool = FindObjectOfType<ObjectPool>();
+    enemyDataManager = FindObjectOfType<EnemyDataManager>();
     // TODO: Deserialize a Waves.
     // StartCoroutine(wave.Start(this));
   }
@@ -19,23 +22,33 @@ public class Spawner : MonoBehaviour {
   public GameObject Spawn(EnemyData data, int spawnLocation) {
     return pool.InstantiateEnemy(data, spawnLocations[spawnLocation]);
   }
+  // Same as above but looks up the enemy stats in the EnemyManager.
+  public GameObject Spawn(string enemyDataKey, int spawnLocation) {
+    EnemyData data = enemyDataManager.GetEnemyData(enemyDataKey);
+    return Spawn(data, spawnLocation);
+  }
 
   // The interface for the Waves system.
-  public interface IWave {
+  [XmlInclude(typeof(Waves))]
+  [XmlInclude(typeof(SequentialWave))]
+  [XmlInclude(typeof(ConcurrentWave))]
+  [XmlInclude(typeof(EnemyWave))]
+  [XmlInclude(typeof(CannedEnemyWave))]
+  [XmlInclude(typeof(SpacerWave))]
+  public abstract class Wave {
     // Starts the wave.  Meant to be called as a Coroutine.
-    IEnumerator Start(Spawner spawner);
+    public abstract IEnumerator Start(Spawner spawner);
     // Whether or not this wave has completed.
-    bool Finished { get; set; }
+    [XmlIgnore]
+    public bool Finished { get; set; }
   }
 
   // The top level of the subwave heirarchy, describing a level.
-  public class Waves : IWave{
+  public class Waves : Wave{
     // Each wave represents one round of combat.
-    readonly private List<IWave> waves = new();
-    // Whether this wave has completed.
-    public bool Finished { get; set; }
+    readonly public List<Wave> waves = new();
     // Starts the level logic.
-    public IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start(Spawner spawner) {
       foreach (var wave in waves) {
         // Wait for the signal to start the next level.
         yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
@@ -51,10 +64,9 @@ public class Spawner : MonoBehaviour {
   }
 
   // A wave that calls its subwaves sequentially.
-  public class SequentialWave : IWave {
-    readonly public List<IWave> Subwaves = new();
-    public bool Finished { get; set; }
-    public IEnumerator Start(Spawner spawner) {
+  public class SequentialWave : Wave {
+    readonly public List<Wave> Subwaves = new();
+    public override IEnumerator Start(Spawner spawner) {
       foreach (var subwave in Subwaves) {
         // Start the subwave and wait till it's finished.
         yield return spawner.StartCoroutine(subwave.Start(spawner));
@@ -64,10 +76,9 @@ public class Spawner : MonoBehaviour {
   }
 
   // A wave that calls its subwaves concurrently.
-  public class ConcurrentWave : IWave {
-    readonly public List<IWave> Subwaves = new();
-    public bool Finished { get; set; }
-    public IEnumerator Start(Spawner spawner) {
+  public class ConcurrentWave : Wave {
+    readonly public List<Wave> Subwaves = new();
+    public override IEnumerator Start(Spawner spawner) {
       // Start all the subwaves.
       foreach (var subwave in Subwaves) {
         spawner.StartCoroutine(subwave.Start(spawner));
@@ -79,14 +90,13 @@ public class Spawner : MonoBehaviour {
   }
 
   // A wave that creates an enemy at regular intervals.
-  public class EnemyWave : IWave {
+  public class EnemyWave : Wave {
     public int repetitions;
     public float repeatDelay;
-    public EnemyData data;
     public int spawnLocation;
-    public bool Finished { get; set; }
+    public EnemyData data;
 
-    public IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start(Spawner spawner) {
       for (int i = 0; i < repetitions; i++) {
         // Create the enemy.
         spawner.Spawn(data, spawnLocation);
@@ -97,13 +107,31 @@ public class Spawner : MonoBehaviour {
     }
   }
 
+  // Same as the EnemyWave but used canned stats looked up by a
+  // string key.
+  public class CannedEnemyWave : Wave {
+    public int repetitions;
+    public float repeatDelay;
+    public int spawnLocation;
+    public string enemyDataKey;
+
+    public override IEnumerator Start(Spawner spawner) {
+      for (int i = 0; i < repetitions; i++) {
+        // Create the enemy.
+        spawner.Spawn(enemyDataKey, spawnLocation);
+        // Wait for repeat delay seconds.
+        yield return new WaitForSeconds(repeatDelay);
+      }
+      Finished = true;
+    }
+  }
+
   // A wave that just waits for a given delay then finishes.
   // Used to pause between waves.
-  public class SpacerWave : IWave {
+  public class SpacerWave : Wave {
     public float delay;
-    public bool Finished { get; set; }
 
-    public IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start(Spawner spawner) {
       // Wait for delay seconds.
       yield return new WaitForSeconds(delay);
       Finished = true;

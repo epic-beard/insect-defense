@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 public class SpawnerTest {
+
   [UnityTest]
   public IEnumerator ConcurrentSubwaveTest() {
     // Creates a concurrent subwave with two spacer subwabves.
