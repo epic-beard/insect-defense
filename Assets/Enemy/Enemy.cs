@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
@@ -8,6 +9,7 @@ public class Enemy : MonoBehaviour {
   public ObjectPool pool;
 
   readonly public int acidStackMaxMultiplier = 25;
+  public HashSet<Tower> spittingAntTowerSlows = new();
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {

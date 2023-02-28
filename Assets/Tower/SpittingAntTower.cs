@@ -108,9 +108,9 @@ public class SpittingAntTower : Tower {
 
   // This is only called when the target's acid stacks are at max.
   private void HandleMaxAcidStackEffects(Enemy target) {
-    if (DotSlow && !target.data.spittingAntTowerSlows.Contains(this)) {
+    if (DotSlow && !target.spittingAntTowerSlows.Contains(this)) {
       target.ApplySlow(attributes[TowerData.Stat.SLOW_POWER], attributes[TowerData.Stat.SLOW_DURATION]);
-      target.data.spittingAntTowerSlows.Add(this);
+      target.spittingAntTowerSlows.Add(this);
     }
     if (DotExplosion) {
       acidExplosion.transform.position = GetSafeChildPosition(target);

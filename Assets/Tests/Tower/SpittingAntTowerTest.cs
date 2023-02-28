@@ -143,13 +143,13 @@ public class SpittingAntTowerTest {
     Enemy target = CreateEnemy(Vector3.zero);
     target.data.Initialize();
 
-    InvokeHandleAcidEffects(spittingAntTower, target);
+    InvokeHandleMaxAcidStackEffects(spittingAntTower, target);
 
     // Make sure the target is slowed.
     Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
     Assert.That(target.SlowPower, Is.EqualTo(slowPower));
 
-    InvokeHandleAcidEffects(spittingAntTower, target);
+    InvokeHandleMaxAcidStackEffects(spittingAntTower, target);
 
     // Make sure the slow is not applied more than once.
     Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
@@ -184,7 +184,7 @@ public class SpittingAntTowerTest {
 
     float expectedEnemyHP = enemyHP - (target.MaxAcidStacks * target.AcidDamagePerStackPerSecond);
 
-    InvokeHandleAcidEffects(spittingAntTower, target);
+    InvokeHandleMaxAcidStackEffects(spittingAntTower, target);
 
     Assert.That(target.HP, Is.EqualTo(expectedEnemyHP));
     Assert.That(enemyInRange.HP, Is.EqualTo(expectedEnemyHP));
@@ -414,11 +414,11 @@ public class SpittingAntTowerTest {
     handleAcidEffects.Invoke(spittingAntTower, args);
   }
 
-  private void InvokeHandleAcidEffects(SpittingAntTower spittingAntTower, Enemy enemy) {
+  private void InvokeHandleMaxAcidStackEffects(SpittingAntTower spittingAntTower, Enemy enemy) {
     object[] args = { enemy };
     Type[] argTypes = { typeof(Enemy) };
     MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
-        "HandleAcidEffects",
+        "HandleMaxAcidStackEffects",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
     handleAcidEffects.Invoke(spittingAntTower, args);
