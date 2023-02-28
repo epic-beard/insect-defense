@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static Ability;
-using static TowerData;
 
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
@@ -13,20 +12,22 @@ public class SpittingAntTower : Tower {
   [SerializeField] LineRenderer beam;
 
   // TODO: These should not be SerializeFields long-term. They exist for debugging purposes now.
-  [SerializeField] Targeting.Behavior behavior;
-  [SerializeField] Targeting.Priority priority;
-  [SerializeField] float splashExplosionRange = 1.0f;
+  [SerializeField] public Targeting.Behavior behavior;
+  [SerializeField] public Targeting.Priority priority;
+  [SerializeField] float splashExplosionMultiplier = 1.0f;
+  [SerializeField] float acidExplosionMultiplier = 1.0f;
 
-  public bool AcidStun { get; private set; } = false;
-  public bool ArmorTearExplosion { get; private set; }
+  public bool ArmorTearStun { get; private set; } = false;
+  public bool ArmorTearExplosion { get; private set; } = false;
   public bool ContinuousAttack { get; private set; } = false;
-  public bool DotSlow { get; private set; }
-  public bool DotExplosion { get; private set; }
-  public float SlowPercentage { get; private set; }
-  public float StunLength { get; private set; }
-  public float AcidDPS { get; private set; }
+  public bool DotSlow { get; private set; } = false;
+  public bool DotExplosion { get; private set; } = false;
+  public float SplashExplosionRange {
+    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; } }
+  public float AcidExplosionRange {
+    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; } }
 
-  private Enemy? enemy;
+  private Enemy enemy;
   private Targeting targeting = new();
   private bool firing = false;
   private ObjectPool objectPool;
@@ -38,32 +39,19 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
-    // TODO: These should be read in from a data file, not hardcoded like this.
-    attributes[TowerData.Stat.RANGE] = 15.0f;
-    attributes[TowerData.Stat.ATTACK_SPEED] = 1.0f;
-    attributes[TowerData.Stat.PROJECTILE_SPEED] = 30.0f;
-    attributes[TowerData.Stat.DAMAGE] = 10.0f;
-    attributes[TowerData.Stat.DAMAGE_OVER_TIME] = 5.0f;
-    attributes[TowerData.Stat.ARMOR_TEAR] = 1.0f;
-
     // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
-    DisableSystems();
-    
+
+    DisableAttackSystems();
     var coroutine = StartCoroutine(SplashShoot());
 
-    // -----0-----
-
-    var splashEmission = splash.emission;
-    splashEmission.enabled = false;
-    ContinuousAttack = true;
   }
 
   public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
     switch (ability) {
-      case SpecialAbilityEnum.SA_1_3_ACID_STUN:
-        AcidStun = true;
+      case SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN:
+        ArmorTearStun = true;
         break;
       case SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION:
         ArmorTearExplosion = true;
@@ -75,10 +63,9 @@ public class SpittingAntTower : Tower {
         DotExplosion = true;
         break;
       case SpecialAbilityEnum.SA_3_3_CAMO_SIGHT:
-        towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = true;
+        CamoSight = true;
         break;
       case SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE:
-        // Ensure the splash particle system is not emitting particles.
         var splashEmission = splash.emission;
         splashEmission.enabled = false;
         ContinuousAttack = true;
@@ -88,7 +75,7 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  protected override void processParticleCollision(Enemy target) {
+  protected override void ProcessDamageAndEffects(Enemy target) {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;
     float armorTear = ArmorTear;
@@ -102,44 +89,64 @@ public class SpittingAntTower : Tower {
     }
 
     // Armor tear effects.
-    if (ApplyArmorTearAndCheckForAcidStun(target, armorTear)) {
-      // TODO: Stun the enemy.
+    if (ApplyArmorTearAndCheckForArmorTearStun(target, armorTear)) {
+      target.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
     }
 
-    // DoT effects.
+    // Acid DoT effects.
     if (target.AddAcidStacks(acidStacks)) {
-      if (DotSlow) {
-        // TODO: Apply a slow to the enemy unless the enemy is already slowed.
-      }
-      if (DotExplosion) {
-        // TODO: Trigger an explosion.
-        // TODO: Reset acid stacks to 0.
-      }
+      HandleMaxAcidStackEffects(target);
     }
 
+    // Splash explosion handling, unnecessary if the tower is continuous attack.
     if (!ContinuousAttack) {
-      splashExplosion.transform.position = target.transform.GetChild(0).position;
-      splashExplosion.Play();
-
-      // Get a list of enemies caught in the AoE that are not the enemy targeted.
-      List<Enemy> enemiesInAoe= objectPool.GetActiveEnemies()
-          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < splashExplosionRange)
-          .Where(e => !e.Equals(target))
-          .ToList();
-
-      foreach (Enemy enemy in enemiesInAoe) {
-        enemy.DamageEnemy(onHitDamage, ArmorPierce);
-
-        if (ArmorTearExplosion && ApplyArmorTearAndCheckForAcidStun(enemy, ArmorTear)) {
-          // TODO: Stun enemy.
-        }
-      }
+      HandleSplashEffects(target, onHitDamage);
     }
 
     target.DamageEnemy(onHitDamage, ArmorPierce);
   }
 
-  void Update() {
+  // This is only called when the target's acid stacks are at max.
+  private void HandleMaxAcidStackEffects(Enemy target) {
+    if (DotSlow && !target.spittingAntTowerSlows.Contains(this)) {
+      target.ApplySlow(attributes[TowerData.Stat.SLOW_POWER], attributes[TowerData.Stat.SLOW_DURATION]);
+      target.spittingAntTowerSlows.Add(this);
+    }
+    if (DotExplosion) {
+      acidExplosion.transform.position = GetSafeChildPosition(target);
+      acidExplosion.Play();
+
+      float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStackPerSecond;
+      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, AcidExplosionRange);
+
+      // Cause totalAcidDamage to all enemies in range (including target).
+      foreach (Enemy enemy in enemiesInAoe) {
+        enemy.DamageEnemy(totalAcidDamage, 0.0f);
+      }
+      // Target is excluded from enemiesInAoe, so make sure to cause the damage here.
+      target.DamageEnemy(totalAcidDamage, 0.0f);
+
+      target.ResetAcidStacks();
+    }
+  }
+
+  private void HandleSplashEffects(Enemy target, float onHitDamage) {
+    splashExplosion.transform.position = GetSafeChildPosition(target);
+    splashExplosion.Play();
+
+    // Get a list of enemies caught in the AoE that are not the enemy targeted.
+    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, SplashExplosionRange);
+
+    foreach (Enemy enemy in enemiesInAoe) {
+      enemy.DamageEnemy(onHitDamage, ArmorPierce);
+
+      if (ArmorTearExplosion && ApplyArmorTearAndCheckForArmorTearStun(enemy, ArmorTear)) {
+        enemy.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
+      }
+    }
+  }
+
+  private void Update() {
     // TODO: Remove these two lines, they exist for debugging purposes at the moment.
     targeting.behavior = this.behavior;
     targeting.priority = this.priority;
@@ -152,12 +159,12 @@ public class SpittingAntTower : Tower {
       camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
       antiAir: towerAbilities[TowerData.TowerAbility.ANTI_AIR]);
 
-    if (enemy == null) {
-      // If there is no target, stop firing.
+    // If there is no target, stop firing.
+    if (enemy is null) {
       firing = false;
       beam.enabled = false;
     } else {
-      upperMesh.LookAt(enemy.transform.GetChild(0));
+      upperMesh.LookAt(GetSafeChildPosition(enemy));
       firing = true;
 
       if (!ContinuousAttack) {
@@ -168,11 +175,12 @@ public class SpittingAntTower : Tower {
             1,  // The destination of the system.
             enemy.transform.position - Vector3.up);  // Target a little below the top of the enemy position.
 
-        processParticleCollision(enemy);
+        ProcessDamageAndEffects(enemy);
       }
     }
   }
 
+  // Handle the splash shot outside of the Update method, so it won't interrupt the program flow.
   private IEnumerator SplashShoot() {
     while (!ContinuousAttack) {
       while (firing) {
@@ -184,13 +192,21 @@ public class SpittingAntTower : Tower {
   }
 
   // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
-  // SA_1_3_ACID_STUN.
-  private bool ApplyArmorTearAndCheckForAcidStun(Enemy enemy, float armorTear) {
-    return enemy.Armor != 0.0f && enemy.TearArmor(armorTear) == 0.0f && AcidStun;
+  // SA_1_3_ARMOR_TEAR_STUN.
+  private bool ApplyArmorTearAndCheckForArmorTearStun(Enemy enemy, float armorTear) {
+    return 0.0f < enemy.Armor && enemy.TearArmor(armorTear) == 0.0f && ArmorTearStun;
+  }
+
+  // Fetch enemies in explosionRange of target. This excludes target itself.
+  private List<Enemy> GetEnemiesInExplosionRange(Enemy target, float explosionRange) {
+    return objectPool.GetActiveEnemies()
+          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < explosionRange)
+          .Where(e => !e.Equals(target))
+          .ToList();
   }
 
   // Disable the shooty systems.
-  private void DisableSystems() {
+  private void DisableAttackSystems() {
     var emissionModule = splash.emission;
     emissionModule.enabled = false;
 

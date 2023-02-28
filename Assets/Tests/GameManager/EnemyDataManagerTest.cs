@@ -16,7 +16,6 @@ public class EnemyDataManagerTest {
 
   [SetUp]
   public void SetUp() {
-    Debug.Log("Setup");
     EnemyData child = new() {
       type = EnemyData.Type.BEETLE,
       size = EnemyData.Size.TINY,

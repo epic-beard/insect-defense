@@ -57,6 +57,7 @@ MonoBehaviour:
   behavior: 0
   priority: 1
   splashExplosionRange: 10
+  acidExplosionRange: 1
 --- !u!1 &7171448751696889158
 GameObject:
   m_ObjectHideFlags: 0

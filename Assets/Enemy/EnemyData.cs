@@ -1,5 +1,7 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
 [Serializable]
 public struct EnemyData {
@@ -88,5 +90,10 @@ public struct EnemyData {
       + "\nCurrent Armor: " + currArmor + "\nMax Armor: " + maxArmor
       + "\nSpeed: " + speed + "\nDamage: " + damage + "\nnu: " + nu
       + "\nProperties: " + properties + "\n" + spawner + "\n" + carrier;
+  }
+
+  public void Initialize() {
+    currArmor = maxArmor;
+    currHP = maxHP;
   }
 }
