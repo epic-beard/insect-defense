@@ -20,7 +20,8 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(HandleStun());
 
     if (NextWaypoint == null) {
-      Debug.Log("[ERROR] NextWaypoint not found.");
+      // TODO: Uncomment this.
+      //Debug.Log("[ERROR] NextWaypoint not found.");
       return;
     }
 
