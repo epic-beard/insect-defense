@@ -18,31 +18,40 @@ public class Tower : MonoBehaviour {
   };
   public float AttackSpeed {
     get { return attributes[TowerData.Stat.ATTACK_SPEED]; }
-    set { attributes[TowerData.Stat.ATTACK_SPEED] = value; } }
+    set { attributes[TowerData.Stat.ATTACK_SPEED] = value; }
+  }
   public float AreaOfEffect {
     get { return attributes[TowerData.Stat.AREA_OF_EFFECT]; }
-    set { attributes[TowerData.Stat.AREA_OF_EFFECT] = value; } }
+    set { attributes[TowerData.Stat.AREA_OF_EFFECT] = value; }
+  }
   public float ArmorPierce {
     get { return attributes[TowerData.Stat.ARMOR_PIERCE]; }
-    set { attributes[TowerData.Stat.ARMOR_PIERCE] = value; } }
+    set { attributes[TowerData.Stat.ARMOR_PIERCE] = value; }
+  }
   public float ArmorTear {
     get { return attributes[TowerData.Stat.ARMOR_TEAR]; }
-    set { attributes[TowerData.Stat.ARMOR_TEAR] = value; } }
+    set { attributes[TowerData.Stat.ARMOR_TEAR] = value; }
+  }
   public float Damage {
     get { return attributes[TowerData.Stat.DAMAGE]; }
-    set { attributes[TowerData.Stat.DAMAGE] = value; } }
+    set { attributes[TowerData.Stat.DAMAGE] = value; }
+  }
   public float DamageOverTime {
     get { return attributes[TowerData.Stat.DAMAGE_OVER_TIME]; }
-    set { attributes[TowerData.Stat.DAMAGE_OVER_TIME] = value; } }
+    set { attributes[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
+  }
   public float Range {
     get { return attributes[TowerData.Stat.RANGE]; }
-    set { attributes[TowerData.Stat.RANGE] = value; } }
+    set { attributes[TowerData.Stat.RANGE] = value; }
+  }
   public float ProjectileSpeed {
     get { return attributes[TowerData.Stat.PROJECTILE_SPEED]; }
-    set { attributes[TowerData.Stat.PROJECTILE_SPEED] = value; } }
+    set { attributes[TowerData.Stat.PROJECTILE_SPEED] = value; }
+  }
   public float SlowDuration {
     get { return attributes[TowerData.Stat.SLOW_DURATION]; }
-    set { attributes[TowerData.Stat.SLOW_DURATION] = value; } }
+    set { attributes[TowerData.Stat.SLOW_DURATION] = value; }
+  }
   public float SlowPower {
     get { return attributes[TowerData.Stat.SLOW_POWER]; }
     set { attributes[TowerData.Stat.SLOW_POWER] = value; }
@@ -59,7 +68,8 @@ public class Tower : MonoBehaviour {
   };
   public bool AntiAir {
     get { return towerAbilities[TowerData.TowerAbility.ANTI_AIR]; }
-    set { towerAbilities[TowerData.TowerAbility.ANTI_AIR] = value; } }
+    set { towerAbilities[TowerData.TowerAbility.ANTI_AIR] = value; }
+  }
   public bool CamoSight {
     get { return towerAbilities[TowerData.TowerAbility.CAMO_SIGHT]; }
     set { towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = value; }
@@ -89,9 +99,9 @@ public class Tower : MonoBehaviour {
     upgradeLevels[ability.UpgradePath]++;
   }
 
-  public virtual void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {}
+  public virtual void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) { }
 
-  protected virtual void ProcessDamageAndEffects(Enemy target) {}
+  protected virtual void ProcessDamageAndEffects(Enemy target) { }
 
   // Handle individual particle movement. This method takes control of particle movement and collision initiation
   // from Unity.

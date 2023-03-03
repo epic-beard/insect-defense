@@ -62,7 +62,7 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeConstantFire() {
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplash(spittingAntTower, splash);
+    spittingAntTower.SetSplash(splash);
 
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
 
@@ -79,7 +79,7 @@ public class SpittingAntTowerTest {
     Enemy enemy = CreateEnemy(Vector3.zero, armor: 1.0f);
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    bool isStunned = InvokeApplyArmorTearAndCheckForArmorTearStun(spittingAntTower, enemy, 2.0f);
+    bool isStunned = spittingAntTower.InvokeApplyArmorTearAndCheckForArmorTearStun(enemy, 2.0f);
 
     Assert.That(isStunned, Is.EqualTo(false));
   }
@@ -94,7 +94,7 @@ public class SpittingAntTowerTest {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
 
-    bool isStunned = InvokeApplyArmorTearAndCheckForArmorTearStun(spittingAntTower, enemy, armorTear);
+    bool isStunned = spittingAntTower.InvokeApplyArmorTearAndCheckForArmorTearStun(enemy, armorTear);
 
     Assert.That(isStunned, Is.EqualTo(expectedStun));
   }
@@ -109,18 +109,18 @@ public class SpittingAntTowerTest {
     Enemy target = CreateEnemy(Vector3.zero);
     Enemy enemyInRange = CreateEnemy(Vector3.zero);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
-    
+
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplashExplosionRangeMultiplier(spittingAntTower, 10.0f);
+    spittingAntTower.SetSplashExplosionRangeMultiplier(10.0f);
 
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-    SetObjectPoolActiveEnemies(objectPool, activeEnemies);
-    SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
+    objectPool.SetActiveEnemies(activeEnemies);
+    spittingAntTower.SetObjectPool(objectPool);
 
     List<Enemy> expectedEnemiesInRange = new() { enemyInRange };
 
-    List<Enemy> enemiesInRange = InvokeGetEnemiesInExplosionRange(spittingAntTower, target, 10.0f);
+    List<Enemy> enemiesInRange = spittingAntTower.InvokeGetEnemiesInExplosionRange(target, 10.0f);
 
     Assert.That(enemiesInRange, Is.EqualTo(expectedEnemiesInRange));
   }
@@ -133,8 +133,8 @@ public class SpittingAntTowerTest {
   [Test]
   public void HandleAcidEffectsSlows() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerDotSlow(spittingAntTower, true);
-    SetSpittingAntTowerDotExplosion(spittingAntTower, false);
+    spittingAntTower.SetDotSlow(true);
+    spittingAntTower.SetDotExplosion(false);
     float slowPower = 0.5f;
     float slowDuration = 10.0f;
     spittingAntTower.SlowPower = slowPower;
@@ -143,13 +143,13 @@ public class SpittingAntTowerTest {
     Enemy target = CreateEnemy(Vector3.zero);
     target.data.Initialize();
 
-    InvokeHandleMaxAcidStackEffects(spittingAntTower, target);
+    spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
 
     // Make sure the target is slowed.
     Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
     Assert.That(target.SlowPower, Is.EqualTo(slowPower));
 
-    InvokeHandleMaxAcidStackEffects(spittingAntTower, target);
+    spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
 
     // Make sure the slow is not applied more than once.
     Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
@@ -169,22 +169,22 @@ public class SpittingAntTowerTest {
 
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     spittingAntTower.AreaOfEffect = 10.0f;
-    SetSpittingAntTowerAcidExplosionRangeMultiplier(spittingAntTower, 1.0f);
+    spittingAntTower.SetAcidExplosionRangeMultiplier(1.0f);
     spittingAntTower.DamageOverTime = 1000.0f;
-    SetSpittingAntTowerDotSlow(spittingAntTower, false);
-    SetSpittingAntTowerDotExplosion(spittingAntTower, true);
+    spittingAntTower.SetDotSlow(false);
+    spittingAntTower.SetDotExplosion(true);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
     ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerAcidExplosion(spittingAntTower, acidExplosion);
+    spittingAntTower.SetAcidExplosion(acidExplosion);
 
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-    SetObjectPoolActiveEnemies(objectPool, activeEnemies);
-    SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
+    objectPool.SetActiveEnemies(activeEnemies);
+    spittingAntTower.SetObjectPool(objectPool);
 
     float expectedEnemyHP = enemyHP - (target.MaxAcidStacks * target.AcidDamagePerStackPerSecond);
 
-    InvokeHandleMaxAcidStackEffects(spittingAntTower, target);
+    spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedEnemyHP));
     Assert.That(enemyInRange.HP, Is.EqualTo(expectedEnemyHP));
@@ -205,10 +205,10 @@ public class SpittingAntTowerTest {
     enemyOutOfRange.data.currHP = enemyHp;
 
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplashExplosionRangeMultiplier(spittingAntTower, 10.0f);
-    SetSpittingAntTowerArmorTearExplosion(spittingAntTower, armorTearExplosion);
+    spittingAntTower.SetSplashExplosionRangeMultiplier(10.0f);
+    spittingAntTower.SetArmorTearExplosion(armorTearExplosion);
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerSplashExplosion(spittingAntTower, splashExplosion);
+    spittingAntTower.SetSplashExplosion(splashExplosion);
     float expectedStunTime = 0.0f;
     if (acidStun) {
       spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
@@ -217,12 +217,12 @@ public class SpittingAntTowerTest {
 
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-    SetObjectPoolActiveEnemies(objectPool, activeEnemies);
-    SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
+    objectPool.SetActiveEnemies(activeEnemies);
+    spittingAntTower.SetObjectPool(objectPool);
 
     float expectedDamage = spittingAntTower.Damage;
 
-    InvokeHandleSplashEffects(spittingAntTower, target, expectedDamage);
+    spittingAntTower.InvokeHandleSplashEffects(target, expectedDamage);
 
     // Ensure that the splash damage is applied appropriately regardless of ArmorTearExplosion.
     Assert.That(target.HP, Is.EqualTo(enemyHp - expectedDamage));
@@ -241,16 +241,16 @@ public class SpittingAntTowerTest {
     Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 1.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplash(spittingAntTower, splash);
+    spittingAntTower.SetSplash(splash);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
 
     spittingAntTower.Damage = 1.0f;
     spittingAntTower.AttackSpeed = 1.0f;
     spittingAntTower.ArmorTear = 1.0f;
-    
+
     float expectedHp = target.HP;
 
-    InvokeProcessDamageAndEffects(spittingAntTower, target);
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.LessThan(expectedHp));
     Assert.That(target.Armor, Is.EqualTo(0.0f));
@@ -262,7 +262,7 @@ public class SpittingAntTowerTest {
     Enemy target = CreateEnemy(Vector3.zero, armor: 1.0f, hp: 1.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplash(spittingAntTower, splash);
+    spittingAntTower.SetSplash(splash);
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
 
     spittingAntTower.Damage = 1.0f;
@@ -272,7 +272,7 @@ public class SpittingAntTowerTest {
     float expectedHp = target.HP;
     float expectedArmor = target.Armor;
 
-    InvokeProcessDamageAndEffects(spittingAntTower, target);
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedHp));
     Assert.That(target.Armor, Is.LessThan(expectedArmor));
@@ -285,14 +285,14 @@ public class SpittingAntTowerTest {
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
 
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    SetSpittingAntTowerSplash(spittingAntTower, splash);
+    spittingAntTower.SetSplash(splash);
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerSplashExplosion(spittingAntTower, splashExplosion);
+    spittingAntTower.SetSplashExplosion(splashExplosion);
 
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { target };
-    SetObjectPoolActiveEnemies(objectPool, activeEnemies);
-    SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
+    objectPool.SetActiveEnemies(activeEnemies);
+    spittingAntTower.SetObjectPool(objectPool);
 
     spittingAntTower.Damage = 1.0f;
     spittingAntTower.AttackSpeed = 1.0f;
@@ -301,7 +301,7 @@ public class SpittingAntTowerTest {
     float expectedArmor = target.Armor - spittingAntTower.ArmorTear;
     float expectedHP = target.HP - (Mathf.Max(spittingAntTower.Damage - expectedArmor, 0.0f));
 
-    InvokeProcessDamageAndEffects(spittingAntTower, target);
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedHP));
     Assert.That(target.Armor, Is.EqualTo(expectedArmor));
@@ -342,69 +342,81 @@ public class SpittingAntTowerTest {
     return new GameObject().AddComponent<ObjectPool>();
   }
 
-  // All helper methods below this point use reflection to access private or protected properties, fields, or methods.
+  #endregion
+}
 
-  private void SetSpittingAntTowerDotSlow(SpittingAntTower spittingAntTower, bool dotSlow) {
+#region SpittingAntTowerUtils
+
+// Extension methods to hold reflection-based calls to access private fields, properties, or methods of
+// SpittingAntTower.
+public static class SpittingAntTowerUtils {
+  public static void SetDotSlow(this SpittingAntTower spittingAntTower, bool dotSlow) {
     typeof(SpittingAntTower)
         .GetProperty("DotSlow")
         .SetValue(spittingAntTower, dotSlow);
   }
 
-  private void SetSpittingAntTowerDotExplosion(SpittingAntTower spittingAntTower, bool dotExplosion) {
+  public static void SetDotExplosion(this SpittingAntTower spittingAntTower, bool dotExplosion) {
     typeof(SpittingAntTower)
         .GetProperty("DotExplosion")
         .SetValue(spittingAntTower, dotExplosion);
   }
 
-  private void SetSpittingAntTowerArmorTearExplosion(SpittingAntTower spittingAntTower, bool tearExplosion) {
+  public static void SetArmorTearExplosion(this SpittingAntTower spittingAntTower, bool tearExplosion) {
     typeof(SpittingAntTower)
         .GetProperty("ArmorTearExplosion")
         .SetValue(spittingAntTower, tearExplosion);
   }
 
-  private void SetSpittingAntTowerSplash(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
+  public static void SetSplash(this SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
     typeof(SpittingAntTower)
         .GetField("splash", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, particleSystem);
   }
 
-  private void SetSpittingAntTowerSplashExplosion(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
+  public static void SetSplashExplosion(this SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
     typeof(SpittingAntTower)
         .GetField("splashExplosion", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, particleSystem);
   }
 
-  private void SetSpittingAntTowerSplashExplosionRangeMultiplier(SpittingAntTower spittingAntTower, float range) {
+  public static void SetSplashExplosionRangeMultiplier(this SpittingAntTower spittingAntTower, float range) {
     typeof(SpittingAntTower)
         .GetField("splashExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, range);
   }
 
-  private void SetSpittingAntTowerAcidExplosion(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
+  public static void SetAcidExplosion(this SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
     typeof(SpittingAntTower)
         .GetField("acidExplosion", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, particleSystem);
   }
 
-  private void SetSpittingAntTowerAcidExplosionRangeMultiplier(SpittingAntTower spittingAntTower, float range) {
+  public static void SetAcidExplosionRangeMultiplier(this SpittingAntTower spittingAntTower, float range) {
     typeof(SpittingAntTower)
         .GetField("acidExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, range);
   }
 
-  private void SetSpittingAntTowerObjectPool(SpittingAntTower spittingAntTower, ObjectPool objectPool) {
+  public static void SetObjectPool(this SpittingAntTower spittingAntTower, ObjectPool objectPool) {
     typeof(SpittingAntTower)
         .GetField("objectPool", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, objectPool);
   }
 
-  private void SetObjectPoolActiveEnemies(ObjectPool objectPool, HashSet<Enemy> enemies) {
-    typeof(ObjectPool)
-        .GetField("activeEnemies", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(objectPool, enemies);
+  public static void SetBeam(this SpittingAntTower spittingAntTower, LineRenderer lineRenderer) {
+    typeof(SpittingAntTower)
+        .GetField("beam", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(spittingAntTower, lineRenderer);
   }
 
-  private void InvokeProcessDamageAndEffects(SpittingAntTower spittingAntTower, Enemy enemy) {
+  public static void SetUpperMesh(this SpittingAntTower spittingAntTower, MeshRenderer meshRenderer) {
+    typeof(SpittingAntTower)
+        .GetField("upperMesh", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(spittingAntTower, meshRenderer.transform);
+  }
+
+  public static void InvokeProcessDamageAndEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {
     object[] args = { enemy };
     Type[] argTypes = { typeof(Enemy) };
     MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
@@ -414,7 +426,7 @@ public class SpittingAntTowerTest {
     handleAcidEffects.Invoke(spittingAntTower, args);
   }
 
-  private void InvokeHandleMaxAcidStackEffects(SpittingAntTower spittingAntTower, Enemy enemy) {
+  public static void InvokeHandleMaxAcidStackEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {
     object[] args = { enemy };
     Type[] argTypes = { typeof(Enemy) };
     MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
@@ -424,7 +436,8 @@ public class SpittingAntTowerTest {
     handleAcidEffects.Invoke(spittingAntTower, args);
   }
 
-  private void InvokeHandleSplashEffects(SpittingAntTower spittingAntTower, Enemy enemy, float onHitDamage) {
+  public static void InvokeHandleSplashEffects(
+      this SpittingAntTower spittingAntTower, Enemy enemy, float onHitDamage) {
     object[] args = { enemy, onHitDamage };
     Type[] argTypes = { typeof(Enemy), typeof(float) };
     MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
@@ -434,25 +447,27 @@ public class SpittingAntTowerTest {
     handleAcidEffects.Invoke(spittingAntTower, args);
   }
 
-  private List<Enemy> InvokeGetEnemiesInExplosionRange(SpittingAntTower spittingAntTower, Enemy enemy, float explosionRange) {
+  public static List<Enemy> InvokeGetEnemiesInExplosionRange(
+      this SpittingAntTower spittingAntTower, Enemy enemy, float explosionRange) {
     object[] args = { enemy, explosionRange };
     Type[] argTypes = { typeof(Enemy), typeof(float) };
     MethodInfo getEnemiesInExplosionRange = typeof(SpittingAntTower).GetMethod(
         "GetEnemiesInExplosionRange",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
-    return (List<Enemy>) getEnemiesInExplosionRange.Invoke(spittingAntTower, args);
+    return (List<Enemy>)getEnemiesInExplosionRange.Invoke(spittingAntTower, args);
   }
 
-  private bool InvokeApplyArmorTearAndCheckForArmorTearStun(SpittingAntTower spittingAntTower, Enemy enemy, float armorTear) {
+  public static bool InvokeApplyArmorTearAndCheckForArmorTearStun(
+      this SpittingAntTower spittingAntTower, Enemy enemy, float armorTear) {
     object[] args = { enemy, armorTear };
     Type[] argTypes = { typeof(Enemy), typeof(float) };
     MethodInfo applyArmorTearAndCheckForAcidStun = typeof(SpittingAntTower).GetMethod(
         "ApplyArmorTearAndCheckForArmorTearStun",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
-    return (bool) applyArmorTearAndCheckForAcidStun.Invoke(spittingAntTower, args);
+    return (bool)applyArmorTearAndCheckForAcidStun.Invoke(spittingAntTower, args);
   }
-
-  #endregion
 }
+
+#endregion

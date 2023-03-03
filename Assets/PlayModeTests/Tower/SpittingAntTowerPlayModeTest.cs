@@ -30,25 +30,25 @@ public class SpittingAntTowerPlayModeTest {
 
     // Mandatory setup.
     MeshRenderer upperMesh = new GameObject().AddComponent<MeshRenderer>();
-    SetSpittingAntTowerUpperMesh(spittingAntTower, upperMesh);
+    spittingAntTower.SetUpperMesh(upperMesh);
 
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerSplash(spittingAntTower, splash);
+    spittingAntTower.SetSplash(splash);
 
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerSplashExplosion(spittingAntTower, splashExplosion);
+    spittingAntTower.SetSplashExplosion(splashExplosion);
 
     ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
-    SetSpittingAntTowerAcidExplosion(spittingAntTower, acidExplosion);
+    spittingAntTower.SetAcidExplosion(acidExplosion);
 
     LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
-    SetSpittingAntTowerBeam(spittingAntTower, beam);
+    spittingAntTower.SetBeam(beam);
 
     // Create the object pool and construct activeEnemies appropriately.
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-    SetObjectPoolActiveEnemies(objectPool, activeEnemies);
-    SetSpittingAntTowerObjectPool(spittingAntTower, objectPool);
+    objectPool.SetActiveEnemies(activeEnemies);
+    spittingAntTower.SetObjectPool(objectPool);
     target.pool = objectPool;
     enemyInRange.pool = objectPool;
     enemyOutOfRange.pool = objectPool;
@@ -260,48 +260,6 @@ public class SpittingAntTowerPlayModeTest {
 
   private ObjectPool CreateObjectPool() {
     return new GameObject().AddComponent<ObjectPool>();
-  }
-
-  private void SetSpittingAntTowerSplash(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
-    typeof(SpittingAntTower)
-        .GetField("splash", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, particleSystem);
-  }
-
-  private void SetSpittingAntTowerSplashExplosion(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
-    typeof(SpittingAntTower)
-        .GetField("splashExplosion", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, particleSystem);
-  }
-
-  private void SetSpittingAntTowerAcidExplosion(SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
-    typeof(SpittingAntTower)
-        .GetField("acidExplosion", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, particleSystem);
-  }
-
-  private void SetSpittingAntTowerBeam(SpittingAntTower spittingAntTower, LineRenderer lineRenderer) {
-    typeof(SpittingAntTower)
-        .GetField("beam", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, lineRenderer);
-  }
-
-  private void SetSpittingAntTowerObjectPool(SpittingAntTower spittingAntTower, ObjectPool objectPool) {
-    typeof(SpittingAntTower)
-        .GetField("objectPool", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, objectPool);
-  }
-
-  private void SetObjectPoolActiveEnemies(ObjectPool objectPool, HashSet<Enemy> enemies) {
-    typeof(ObjectPool)
-        .GetField("activeEnemies", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(objectPool, enemies);
-  }
-
-  private void SetSpittingAntTowerUpperMesh(SpittingAntTower spittingAntTower, MeshRenderer meshRenderer) {
-    typeof(SpittingAntTower)
-        .GetField("upperMesh", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, meshRenderer.transform);
   }
 
   #endregion

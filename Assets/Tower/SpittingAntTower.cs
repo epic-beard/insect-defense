@@ -23,9 +23,11 @@ public class SpittingAntTower : Tower {
   public bool DotSlow { get; private set; } = false;
   public bool DotExplosion { get; private set; } = false;
   public float SplashExplosionRange {
-    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; } }
+    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
+  }
   public float AcidExplosionRange {
-    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; } }
+    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; }
+  }
 
   private Enemy enemy;
   private Targeting targeting = new();

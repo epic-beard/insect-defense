@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour {
       Debug.Log("[ERROR] NextWaypoint not found.");
       return;
     }
-    
+
     StartCoroutine(FollowPath());
   }
 

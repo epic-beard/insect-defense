@@ -44,7 +44,7 @@ public class Spawner : MonoBehaviour {
   }
 
   // The top level of the subwave heirarchy, describing a level.
-  public class Waves : Wave{
+  public class Waves : Wave {
     // Each wave represents one round of combat.
     readonly public List<Wave> waves = new();
     // Starts the level logic.

@@ -68,6 +68,8 @@ public class EnemyDataManagerTest {
   }
 }
 
+// Extension methods to hold reflection-based calls to access private fields, properties, or methods of
+// EnemyDataManager.
 public static class EnemyDataManagerUtils {
   public static void InvokeDeserializeEnemies(this EnemyDataManager manager, string filename) {
     object[] args = { filename };

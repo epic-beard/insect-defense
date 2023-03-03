@@ -21,7 +21,7 @@ public class TargetingTest {
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(oldTarget));
   }
-  
+
   // Stubborn target test without a stubborn target. Should return newTarget.
   [Test]
   public void StubbornNotPresentWithAlternative() {
@@ -32,7 +32,7 @@ public class TargetingTest {
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(newTarget));
   }
- 
+
   // Stubborn target test with the stubborn target out of range and without a viable alternative. Should return null.
   [Test]
   public void StubbornNotInRangeWithoutAlternative() {
@@ -76,7 +76,7 @@ public class TargetingTest {
   [Test]
   public void IsCamoWithAlternative() {
     Enemy camo = CreateEnemy(Vector3.zero, armor: 0.5f, properties: EnemyData.Properties.CAMO);
-    Enemy nonCamo= CreateEnemy(Vector3.zero, armor: 0.5f);
+    Enemy nonCamo = CreateEnemy(Vector3.zero, armor: 0.5f);
     HashSet<Enemy> enemies = new() { camo, nonCamo };
     Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOSTARMOR);
 
@@ -113,7 +113,7 @@ public class TargetingTest {
     waypoint3.nextWaypoints.Add(waypoint4);
 
     PathManager pathManager = new GameObject().AddComponent<PathManager>();
-    InvokeGetDistanceToEnd(pathManager, new Waypoint[] {
+    pathManager.InvokeGetDistanceToEnd(new Waypoint[] {
       waypoint1, waypoint2, waypoint3, waypoint4 });
 
     Enemy first = CreateEnemy(waypoint3.transform.position + Vector3.left * 0.5f);
@@ -140,7 +140,7 @@ public class TargetingTest {
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(leastArmor));
   }
-  
+
   // Should return the enemy with the highest armor value, mostArmor.
   [Test]
   public void MostArmor() {
@@ -264,16 +264,6 @@ public class TargetingTest {
     GameObject gameObject = new();
     gameObject.transform.position = position;
     return gameObject.AddComponent<Waypoint>();
-  }
-
-  void InvokeGetDistanceToEnd(PathManager pathManager, Waypoint[] waypoints) {
-    object[] args = { waypoints };
-    Type[] argTypes = { typeof(Waypoint[]) };
-    MethodInfo getDistanceToEnd = typeof(PathManager).GetMethod(
-      "GetDistanceToEnd",
-       BindingFlags.NonPublic | BindingFlags.Instance,
-        null, CallingConventions.Standard, argTypes, null);
-    getDistanceToEnd.Invoke(pathManager, args);
   }
 
   #endregion
