@@ -75,7 +75,17 @@ public struct EnemyData {
   public int damage;
   public int nu;
 
+  [XmlIgnore]
+  public float slowPower;
+  [XmlIgnore]
+  public float slowDuration;
+  [XmlIgnore]
+  public float stunTime;
+
+  [XmlIgnore]
   public float acidStacks;
+  [XmlIgnore]
+  public float acidDamagePerStackPerSecond;
 
   public Properties properties;
   // Once enabled the Enemy will start a spawner coroutine if spawner is not null.
@@ -95,5 +105,6 @@ public struct EnemyData {
   public void Initialize() {
     currArmor = maxArmor;
     currHP = maxHP;
+    acidDamagePerStackPerSecond = 1.0f;
   }
 }
