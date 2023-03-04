@@ -54,7 +54,18 @@ public class SpittingAntTowerTest {
     spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.DotExplosion));
-    Assert.That(false, Is.EqualTo(spittingAntTower.CamoSight));
+    Assert.That(false, Is.EqualTo(spittingAntTower.AntiAir));
+  }
+
+  // Test setting AntiAir.
+  [Test]
+  public void SpecialAbilityUpgradeAntiAir() {
+    SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
+
+    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_3_ANTI_AIR);
+
+    Assert.That(true, Is.EqualTo(spittingAntTower.AntiAir));
+    Assert.That(false, Is.EqualTo(spittingAntTower.ContinuousAttack));
   }
 
   // Test setting continuous fire, this requires setting the splash particle system on the tower.

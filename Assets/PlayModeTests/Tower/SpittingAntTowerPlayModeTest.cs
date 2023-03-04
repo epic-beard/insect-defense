@@ -13,9 +13,9 @@ public class SpittingAntTowerPlayModeTest {
   Enemy enemyInRange;
   Enemy enemyOutOfRange;
 
-  float enemyHP = 100000.0f;
-  float enemyArmor = 90.0f;
-  float targetArmor = 85.0f;
+  readonly float enemyHP = 100000.0f;
+  readonly float enemyArmor = 90.0f;
+  readonly float targetArmor = 85.0f;
 
   [SetUp]
   public void Setup() {
