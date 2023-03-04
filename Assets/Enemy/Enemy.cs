@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
   public ObjectPool pool;
 
   public static int acidStackMaxMultiplier = 25;
+  public static float acidDamagePerStackPerSecond = 1.0f;
   public HashSet<Tower> spittingAntTowerSlows = new();
 
   // PrevWaypoint should be set before OnEnable is called.
@@ -39,7 +40,7 @@ public class Enemy : MonoBehaviour {
     get { return data.acidStacks; }
     private set { data.acidStacks = value; }
   }
-  public float AcidDamagePerStackPerSecond { get { return data.acidDamagePerStackPerSecond; } }
+  public float AcidDamagePerStackPerSecond { get { return acidDamagePerStackPerSecond; } }
   public float SlowPower {
     get { return data.slowPower; }
     private set { data.slowPower = value; }

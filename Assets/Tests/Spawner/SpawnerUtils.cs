@@ -3,7 +3,6 @@ using System.Reflection;
 
 public static class SpawnerUtils {
 
-  // Adds a prefab to the ObjectPool's list of prefabs.
   public static void SetObjectPool(this Spawner spawner, ObjectPool objectPool) {
     typeof(Spawner)
       .GetField("pool", BindingFlags.Instance | BindingFlags.NonPublic)
