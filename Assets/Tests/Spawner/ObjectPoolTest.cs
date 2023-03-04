@@ -18,8 +18,8 @@ public class ObjectPoolTest {
     GameObject prefab = new();
     prefab.AddComponent<Enemy>();
 
-    AddPrefab(objectPool, EnemyData.Type.BEETLE, prefab);
-    SetStartingSize(objectPool, 1);
+    objectPool.AddPrefab(EnemyData.Type.BEETLE, prefab);
+    objectPool.SetStartingSize(1);
 
     enemyData = new EnemyData() {
       type = EnemyData.Type.BEETLE
@@ -32,9 +32,9 @@ public class ObjectPoolTest {
   // the ObjectPool has Count == n.
   [Test]
   public void InitializeObjectPoolWorks([Values(0, 1, 10)] int startingSize) {
-    SetStartingSize(objectPool, startingSize);
-    InvokeInitializeObjectPool(objectPool);
-    var objectPools = GetObjectPools(objectPool);
+    objectPool.SetStartingSize(startingSize);
+    objectPool.InvokeInitializeObjectPool();
+    var objectPools = objectPool.GetObjectPools();
 
     Assert.That(objectPools.Count, Is.EqualTo(1));
     foreach (var (_, pool) in objectPools) {
@@ -46,7 +46,7 @@ public class ObjectPoolTest {
   // enemy data.
   [Test]
   public void InstantiateEnemyWorks() {
-    InvokeInitializeObjectPool(objectPool);
+    objectPool.InvokeInitializeObjectPool();
     GameObject gameObject = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject.activeSelf);
@@ -60,8 +60,8 @@ public class ObjectPoolTest {
   // Both references should point to the same GameObject. 
   [Test]
   public void DestroyEnemyWorks() {
-    SetStartingSize(objectPool, 1);
-    InvokeInitializeObjectPool(objectPool);
+    objectPool.SetStartingSize(1);
+    objectPool.InvokeInitializeObjectPool();
     GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     objectPool.DestroyEnemy(gameObject1);
     GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
@@ -73,8 +73,8 @@ public class ObjectPoolTest {
   // return a new enemy for each all.
   [Test]
   public void ObjectPoolResizeWorks() {
-    SetStartingSize(objectPool, 1);
-    InvokeInitializeObjectPool(objectPool);
+    objectPool.SetStartingSize(1);
+    objectPool.InvokeInitializeObjectPool();
     GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
 
@@ -85,27 +85,38 @@ public class ObjectPoolTest {
     return new GameObject().AddComponent<ObjectPool>();
   }
 
-  private Dictionary<EnemyData.Type, Queue<GameObject>> GetObjectPools(ObjectPool objectPool) {
+  
+}
+
+// Extension methods to hold reflection-based calls to access private fields, properties, or methods of
+// ObjectPool.
+public static class ObjectPoolUtils {
+  public static void SetActiveEnemies(this ObjectPool objectPool, HashSet<Enemy> enemies) {
+    typeof(ObjectPool)
+        .GetField("activeEnemies", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(objectPool, enemies);
+  }
+
+  public static Dictionary<EnemyData.Type, Queue<GameObject>> GetObjectPools(this ObjectPool objectPool) {
     return (Dictionary<EnemyData.Type, Queue<GameObject>>)typeof(ObjectPool)
       .GetField("objectPools", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(objectPool);
   }
 
-  private void SetStartingSize(ObjectPool objectPool, int size) {
+  public static void SetStartingSize(this ObjectPool objectPool, int size) {
     typeof(ObjectPool)
       .GetField("startingSize", BindingFlags.Instance | BindingFlags.NonPublic)
       .SetValue(objectPool, size);
   }
 
-  // Adds a prefab to the ObjectPool's list of prefabs.
-  private void AddPrefab(ObjectPool objectPool, EnemyData.Type type, GameObject prefab) {
+  public static void AddPrefab(this ObjectPool objectPool, EnemyData.Type type, GameObject prefab) {
     var prefabs = (Dictionary<EnemyData.Type, GameObject>)typeof(ObjectPool)
       .GetField("prefabs", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(objectPool);
     prefabs.Add(type, prefab);
   }
 
-  private void InvokeInitializeObjectPool(ObjectPool objectPool) {
+  public static void InvokeInitializeObjectPool(this ObjectPool objectPool) {
     MethodInfo initializeObjectPool = typeof(ObjectPool).GetMethod(
       name: "InitializeObjectPool",
       bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance,

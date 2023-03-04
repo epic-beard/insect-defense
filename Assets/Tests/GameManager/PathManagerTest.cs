@@ -24,7 +24,7 @@ public class PathManagerTest {
 
     PathManager pathManager = new GameObject().AddComponent<PathManager>();
     object[] args = { new Waypoint[] { waypointUp, waypointRight, waypointDown, waypointLeft, waypointCenter } };
-    InvokePopulateWaypoints(pathManager, args);
+    pathManager.InvokePopulateWaypoints(args);
 
     Assert.That(waypointUp.prevWaypoints,
         Is.EquivalentTo(new List<Waypoint>() { waypointCenter }));
@@ -49,7 +49,7 @@ public class PathManagerTest {
 
     PathManager pathManager = new GameObject().AddComponent<PathManager>();
     object[] args = { new Waypoint[] { waypointCenter } };
-    InvokePopulateWaypoints(pathManager, args);
+    pathManager.InvokePopulateWaypoints(args);
 
     Assert.That(waypointCenter.nextWaypoints, Is.EquivalentTo(new List<Waypoint>()));
   }
@@ -67,7 +67,7 @@ public class PathManagerTest {
 
     PathManager pathManager = new GameObject().AddComponent<PathManager>();
     object[] args = { new Waypoint[] { waypointUp, waypointRight, waypointCenter } };
-    InvokePopulateWaypoints(pathManager, args);
+    pathManager.InvokePopulateWaypoints(args);
 
     Assert.That(waypointCenter.nextWaypoints, Is.EquivalentTo(new List<Waypoint>() { waypointRight }));
     Assert.That(waypointUp.prevWaypoints, Is.EquivalentTo(new List<Waypoint>()));
@@ -90,7 +90,7 @@ public class PathManagerTest {
     waypoint5.nextWaypoints.Add(waypoint1);
 
     PathManager pathManager = new GameObject().AddComponent<PathManager>();
-    InvokeGetDistanceToEnd(pathManager, new Waypoint[] { 
+    pathManager.InvokeGetDistanceToEnd(new Waypoint[] {
       waypoint0, waypoint1, waypoint2, waypoint3, waypoint4, waypoint5 });
 
     Assert.That(waypoint0.DistanceToEnd, Is.EqualTo(2));
@@ -107,9 +107,12 @@ public class PathManagerTest {
     gameObject.transform.position = v;
     return gameObject.AddComponent<Waypoint>();
   }
+}
 
-  // Uses reflection to call the private method PopulateWaypoints.
-  void InvokePopulateWaypoints(PathManager pathManager, object[] args) {
+// Extension methods to hold reflection-based calls to access private fields, properties, or methods of
+// PathManager.
+public static class PathManagerUtils {
+  public static void InvokePopulateWaypoints(this PathManager pathManager, object[] args) {
     Type[] argTypes = { typeof(Waypoint[]) };
     MethodInfo populateWaypoints = typeof(PathManager).GetMethod(
         "PopulateWaypoints",
@@ -118,7 +121,7 @@ public class PathManagerTest {
     populateWaypoints.Invoke(pathManager, args);
   }
 
-  void InvokeGetDistanceToEnd(PathManager pathManager, Waypoint[] waypoints) {
+  public static void InvokeGetDistanceToEnd(this PathManager pathManager, Waypoint[] waypoints) {
     object[] args = { waypoints };
     Type[] argTypes = { typeof(Waypoint[]) };
     MethodInfo getDistanceToEnd = typeof(PathManager).GetMethod(

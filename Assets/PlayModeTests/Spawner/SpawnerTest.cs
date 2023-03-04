@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -80,19 +77,19 @@ public class EnemySubwaveTest {
     prefab.AddComponent<Enemy>();
 
     objectPool = CreateObjectPool();
-    AddPrefab(objectPool, EnemyData.Type.BEETLE, prefab);
-    InvokeInitializeObjectPool(objectPool);
+    objectPool.AddPrefab(EnemyData.Type.BEETLE, prefab);
+    objectPool.InvokeInitializeObjectPool();
 
     spawner = new GameObject().AddComponent<Spawner>();
     Waypoint spawnLocation = new GameObject().AddComponent<Waypoint>();
     spawnLocation.transform.position = Vector3.zero;
-    AddStartingLocation(spawner, spawnLocation);
+    spawner.AddStartingLocation(spawnLocation);
 
     spawnLocation = new GameObject().AddComponent<Waypoint>();
     spawnLocation.transform.position = Vector3.left;
-    AddStartingLocation(spawner, spawnLocation);
+    spawner.AddStartingLocation(spawnLocation);
 
-    SetObjectPool(spawner, objectPool);
+    spawner.SetObjectPool(objectPool);
 
     enemyData = new EnemyData() {
       type = EnemyData.Type.BEETLE
@@ -126,38 +123,6 @@ public class EnemySubwaveTest {
     Assert.False(enumerator.MoveNext());
     Assert.True(wave.Finished);
     yield return null;
-  }
-  private void AddStartingLocation(Spawner spawner, Waypoint waypoint) {
-    var startingLocations = (List<Waypoint>)typeof(Spawner)
-      .GetField("spawnLocations", BindingFlags.Instance | BindingFlags.NonPublic)
-      .GetValue(spawner);
-    startingLocations.Add(waypoint);
-  }
-
-  // Adds a prefab to the ObjectPool's list of prefabs.
-  private void AddPrefab(ObjectPool objectPool, EnemyData.Type type, GameObject prefab) {
-    var prefabs = (Dictionary<EnemyData.Type, GameObject>)typeof(ObjectPool)
-      .GetField("prefabs", BindingFlags.Instance | BindingFlags.NonPublic)
-      .GetValue(objectPool);
-    prefabs.Add(type, prefab);
-  }
-
-  // Adds a prefab to the ObjectPool's list of prefabs.
-  private void SetObjectPool(Spawner spawner, ObjectPool objectPool) {
-    typeof(Spawner)
-      .GetField("pool", BindingFlags.Instance | BindingFlags.NonPublic)
-      .SetValue(spawner, objectPool);
-  }
-
-  private void InvokeInitializeObjectPool(ObjectPool objectPool) {
-    MethodInfo initializeObjectPool = typeof(ObjectPool).GetMethod(
-      name: "InitializeObjectPool",
-      bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance,
-      binder: null,
-      callConvention: CallingConventions.Standard,
-      types: new Type[0],
-      modifiers: null);
-    initializeObjectPool.Invoke(objectPool, new object[0]);
   }
 
   private ObjectPool CreateObjectPool() {

@@ -75,6 +75,14 @@ public struct EnemyData {
   public int damage;
   public int nu;
 
+  [XmlIgnore]
+  public float slowPower;
+  [XmlIgnore]
+  public float slowDuration;
+  [XmlIgnore]
+  public float stunTime;
+
+  [XmlIgnore]
   public float acidStacks;
 
   public Properties properties;

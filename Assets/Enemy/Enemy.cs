@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour {
   public Waypoint NextWaypoint;
   public ObjectPool pool;
 
-  readonly public int acidStackMaxMultiplier = 25;
+  public static int acidStackMaxMultiplier = 25;
+  public static float acidDamagePerStackPerSecond = 1.0f;
   public HashSet<Tower> spittingAntTowerSlows = new();
 
   // PrevWaypoint should be set before OnEnable is called.
@@ -23,7 +24,7 @@ public class Enemy : MonoBehaviour {
       Debug.Log("[ERROR] NextWaypoint not found.");
       return;
     }
-    
+
     StartCoroutine(FollowPath());
   }
 
@@ -35,11 +36,23 @@ public class Enemy : MonoBehaviour {
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
-  public float AcidStacks { get; private set; }
-  public float AcidDamagePerStackPerSecond { get; } = 1.0f;
-  public float SlowPower { get; private set; }
-  public float SlowDuration { get; private set; }
-  public float StunTime { get; private set; }
+  public float AcidStacks {
+    get { return data.acidStacks; }
+    private set { data.acidStacks = value; }
+  }
+  public float AcidDamagePerStackPerSecond { get { return acidDamagePerStackPerSecond; } }
+  public float SlowPower {
+    get { return data.slowPower; }
+    private set { data.slowPower = value; }
+  }
+  public float SlowDuration {
+    get { return data.slowDuration; }
+    private set { data.slowDuration = value; }
+  }
+  public float StunTime {
+    get { return data.stunTime; }
+    private set { data.stunTime = value; }
+  }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.

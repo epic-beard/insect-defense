@@ -34,7 +34,7 @@ public class EnemyTest {
       [Values(1.0f, 10000.0f)] float acidStacks,
       [Values(false, true)] bool isMaxStacks) {
     Enemy enemy = CreateEnemy(Vector3.zero);
-    
+
     bool isCurrentMaxStacks = enemy.AddAcidStacks(acidStacks);
     Assert.That(isCurrentMaxStacks, Is.EqualTo(isMaxStacks));
   }
