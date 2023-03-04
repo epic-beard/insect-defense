@@ -54,7 +54,7 @@ public class Ability {
     SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Armor Tear upgrade tree level 5.
     SA_2_3_DOT_SLOW,       // Spitting Ant Acit DoT upgrade tree level 3.
     SA_2_5_DOT_EXPLOSION,    // Spitting Ant Acid DoT upgrade tree level 5.
-    SA_3_3_CAMO_SIGHT,     // Spitting Ant Utility upgrade tree level 3.
+    SA_3_3_ANTI_AIR,     // Spitting Ant Utility upgrade tree level 3.
     SA_3_5_CONSTANT_FIRE,    // Spitting Ant Utility upgrade tree level 5.
   }
 

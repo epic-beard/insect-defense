@@ -64,8 +64,8 @@ public class SpittingAntTower : Tower {
       case SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION:
         DotExplosion = true;
         break;
-      case SpecialAbilityEnum.SA_3_3_CAMO_SIGHT:
-        CamoSight = true;
+      case SpecialAbilityEnum.SA_3_3_ANTI_AIR:
+        AntiAir = true;
         break;
       case SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE:
         var splashEmission = splash.emission;
@@ -158,8 +158,8 @@ public class SpittingAntTower : Tower {
       enemies: objectPool.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
-      camoSight: towerAbilities[TowerData.TowerAbility.CAMO_SIGHT],
-      antiAir: towerAbilities[TowerData.TowerAbility.ANTI_AIR]);
+      camoSight: CamoSight,
+      antiAir: AntiAir);
 
     // If there is no target, stop firing.
     if (enemy is null) {
