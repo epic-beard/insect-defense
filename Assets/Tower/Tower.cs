@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour {
+public abstract class Tower : MonoBehaviour {
   protected Dictionary<TowerData.Stat, float> attributes = new() {
     { TowerData.Stat.ATTACK_SPEED, 0.0f },
     { TowerData.Stat.AREA_OF_EFFECT, 0.0f },
@@ -99,9 +99,9 @@ public class Tower : MonoBehaviour {
     upgradeLevels[ability.UpgradePath]++;
   }
 
-  public virtual void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) { }
+  public abstract void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability);
 
-  protected virtual void ProcessDamageAndEffects(Enemy target) { }
+  protected abstract void ProcessDamageAndEffects(Enemy target);
 
   // Handle individual particle movement. This method takes control of particle movement and collision initiation
   // from Unity.
