@@ -18,7 +18,7 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeAcidStun() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_STUN);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearStun));
     Assert.That(false, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
@@ -29,7 +29,7 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeArmorTearExplosion() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
     Assert.That(false, Is.EqualTo(spittingAntTower.DotSlow));
@@ -40,7 +40,7 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeDotSlow() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_3_DOT_SLOW);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_3_DOT_SLOW);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.DotSlow));
     Assert.That(false, Is.EqualTo(spittingAntTower.DotExplosion));
@@ -51,7 +51,7 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeDotExplosion() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_5_DOT_EXPLOSION);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.DotExplosion));
     Assert.That(false, Is.EqualTo(spittingAntTower.AntiAir));
@@ -62,7 +62,7 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeAntiAir() {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_3_ANTI_AIR);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_3_ANTI_AIR);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.AntiAir));
     Assert.That(false, Is.EqualTo(spittingAntTower.ContinuousAttack));
@@ -75,7 +75,7 @@ public class SpittingAntTowerTest {
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     spittingAntTower.SetSplash(splash);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.ContinuousAttack));
   }
@@ -103,7 +103,7 @@ public class SpittingAntTowerTest {
       [Values(false, true, false)] bool expectedStun) {
     Enemy enemy = CreateEnemy(Vector3.zero, armor: enemyArmor);
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_STUN);
 
     bool isStunned = spittingAntTower.InvokeApplyArmorTearAndCheckForArmorTearStun(enemy, armorTear);
 
@@ -184,7 +184,7 @@ public class SpittingAntTowerTest {
     spittingAntTower.DamageOverTime = 1000.0f;
     spittingAntTower.SetDotSlow(false);
     spittingAntTower.SetDotExplosion(true);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_STUN);
     ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetAcidExplosion(acidExplosion);
 
@@ -222,7 +222,7 @@ public class SpittingAntTowerTest {
     spittingAntTower.SetSplashExplosion(splashExplosion);
     float expectedStunTime = 0.0f;
     if (acidStun) {
-      spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN);
+      spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_STUN);
       expectedStunTime = spittingAntTower.StunTime;
     }
 
@@ -253,7 +253,7 @@ public class SpittingAntTowerTest {
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     spittingAntTower.SetSplash(splash);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
 
     spittingAntTower.Damage = 1.0f;
     spittingAntTower.AttackSpeed = 1.0f;
@@ -274,7 +274,7 @@ public class SpittingAntTowerTest {
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     SpittingAntTower spittingAntTower = CreateSpittingAntTower(Vector3.zero);
     spittingAntTower.SetSplash(splash);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
 
     spittingAntTower.Damage = 1.0f;
     spittingAntTower.AttackSpeed = 1.0f;

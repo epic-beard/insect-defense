@@ -1,88 +1,67 @@
-using System.Collections.Generic;
+using System;
 
-// TODO: Rename this to TowerDataManager.
-public static class TowerData {
+[Serializable]
+public struct TowerData {
+  public enum Type {
+    SPITTING_ANT_TOWER,
+  }
   public enum Stat {
-    DAMAGE,
-    RANGE,
     AREA_OF_EFFECT,
-    ATTACK_SPEED,
     ARMOR_PIERCE,
     ARMOR_TEAR,
+    ATTACK_SPEED,
+    DAMAGE,
     DAMAGE_OVER_TIME,
     PROJECTILE_SPEED,
+    RANGE,
     SLOW_DURATION,
     SLOW_POWER,  // This is a percentage slow from 0.0 - 1.0.
     STUN_TIME,  // Slow duration in seconds.
   }
 
-  public enum Mode {
-    MULTIPLICATIVE,
-    SPECIAL,
-  }
+  public float area_of_effect;
+  public float armor_pierce;
+  public float armor_tear;
+  public float attack_speed;
+  public float damage;
+  public float damage_over_time;
+  public float projectile_speed;
+  public float range;
+  public float slow_duration;
+  public float slow_power;
+  public float stun_time;
 
-  public enum Tower {
-    SPITTING_ANT_TOWER,
-  }
-
-  public enum TowerAbility {
-    ANTI_AIR,
-    CAMO_SIGHT,
-    CRIPPLE,
-    SLOW,
-    STUN,
-  }
-
-  public struct TowerInfo {
-    public Dictionary<Stat, float> startingStats;
-    public Ability[][] abilities;
-
-    public TowerInfo(Dictionary<Stat, float> startingStats, Ability[][] abilities) {
-      this.startingStats = startingStats;
-      this.abilities = abilities;
+  public float this[Stat stat] {
+    get {
+      return stat switch {
+        Stat.AREA_OF_EFFECT => area_of_effect,
+        Stat.ARMOR_PIERCE => armor_pierce,
+        Stat.ARMOR_TEAR => armor_tear,
+        Stat.ATTACK_SPEED => attack_speed,
+        Stat.DAMAGE => damage,
+        Stat.DAMAGE_OVER_TIME => damage_over_time,
+        Stat.PROJECTILE_SPEED => projectile_speed,
+        Stat.RANGE => range,
+        Stat.SLOW_DURATION => slow_duration,
+        Stat.SLOW_POWER => slow_power,
+        Stat.STUN_TIME => stun_time,
+        _ => 0.0f,
+      };
     }
-  }
-
-  private static Dictionary<Tower, TowerInfo> towerInfoDic = new();
-}
-
-public class Ability {
-
-  // Each divergent ability (usually at upgrades 3 and 5) should have its own entry in this enum.
-  public enum SpecialAbilityEnum {
-    SA_1_3_ARMOR_TEAR_STUN,      // Spitting Ant Armor Tear upgrade tree level 3.
-    SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Armor Tear upgrade tree level 5.
-    SA_2_3_DOT_SLOW,       // Spitting Ant Acit DoT upgrade tree level 3.
-    SA_2_5_DOT_EXPLOSION,    // Spitting Ant Acid DoT upgrade tree level 5.
-    SA_3_3_ANTI_AIR,     // Spitting Ant Utility upgrade tree level 3.
-    SA_3_5_CONSTANT_FIRE,    // Spitting Ant Utility upgrade tree level 5.
-  }
-
-  // This describes a single change to an attribute.
-  public struct AttributeModifier {
-    public TowerData.Stat attribute;
-    public float mult;
-
-    public AttributeModifier(TowerData.Stat attribute, float mult) {
-      this.attribute = attribute;
-      this.mult = mult;
-    }
-  }
-
-  // TODO: Make SpecialAbilityEnum nullable and remove mode entirely.
-  public TowerData.Mode Mode { get; private set; }
-  public SpecialAbilityEnum SpecialAbility { get; private set; }
-  public AttributeModifier[] AttributeModifiers { get; private set; }
-  private int upgradePath;
-  public int UpgradePath {
-    get { return upgradePath; }
     set {
-      if (0 <= value && value <= 2) upgradePath = value;
-      else UnityEngine.Debug.Log("Access attempt to upgrade paths out of bounds.");
+      switch (stat) {
+        case Stat.AREA_OF_EFFECT: area_of_effect = value; break;
+        case Stat.ARMOR_PIERCE: armor_pierce = value; break;
+        case Stat.ARMOR_TEAR: armor_tear = value; break;
+        case Stat.ATTACK_SPEED: attack_speed = value; break;
+        case Stat.DAMAGE: damage = value; break;
+        case Stat.DAMAGE_OVER_TIME: damage_over_time = value; break;
+        case Stat.PROJECTILE_SPEED: projectile_speed = value; break;
+        case Stat.RANGE: range = value; break;
+        case Stat.SLOW_DURATION: slow_duration = value; break;
+        case Stat.SLOW_POWER: slow_power = value; break;
+        case Stat.STUN_TIME: stun_time = value; break;
+      }
     }
   }
-
-  string name;
-  string description;
-  float cost;
-}
+ }
