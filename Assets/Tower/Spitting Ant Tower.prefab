@@ -53,11 +53,11 @@ MonoBehaviour:
   splash: {fileID: 4902801243027200727}
   splashExplosion: {fileID: 3317322654966219181}
   acidExplosion: {fileID: 4909361111352076615}
-  laser: {fileID: 3224845854375139996}
+  beam: {fileID: 3224845854375139996}
   behavior: 0
   priority: 1
-  splashExplosionRange: 10
-  acidExplosionRange: 1
+  splashExplosionMultiplier: 1
+  acidExplosionMultiplier: 1
 --- !u!1 &7171448751696889158
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +500,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 50
       minScalar: 5
       maxCurve:
         serializedVersion: 2

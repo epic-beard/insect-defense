@@ -33,6 +33,7 @@ public class SpittingAntTower : Tower {
   private Targeting targeting = new();
   private bool firing = false;
   private ObjectPool objectPool;
+  private ProjectileHandler projectileHandler;
 
   private void Start() {
     // TODO: The user should be able to set the default for each tower type.
@@ -41,9 +42,14 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
+    //Range = 10.0f;
+    //ProjectileSpeed = 20.0f;
+    //AttackSpeed = 1.0f;
+
     // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
+    projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
     DisableAttackSystems();
     var coroutine = StartCoroutine(SplashShoot());
@@ -76,6 +82,10 @@ public class SpittingAntTower : Tower {
         break;
     }
   }
+
+  //public static void DelegateProcessDamageAndEffects(Enemy target) {
+  //  ProcessDamageAndEffects(target);
+  //}
 
   protected override void ProcessDamageAndEffects(Enemy target) {
     float onHitDamage = Damage;
@@ -170,7 +180,8 @@ public class SpittingAntTower : Tower {
       firing = true;
 
       if (!ContinuousAttack) {
-        GeneralAttackHandler(splash, enemy, ProjectileSpeed);
+        //GeneralAttackHandler(splash, enemy, ProjectileSpeed);
+        projectileHandler(enemy, ProcessDamageAndEffects);
       } else {
         beam.enabled = true;
         beam.SetPosition(
