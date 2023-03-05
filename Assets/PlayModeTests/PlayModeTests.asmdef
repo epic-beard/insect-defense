@@ -1,10 +1,24 @@
 {
     "name": "PlayModeTests",
+    "rootNamespace": "",
     "references": [
         "Code",
-        "Tests"
+        "Tests",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
     ],
-    "optionalUnityReferences": [
-        "TestAssemblies"
-    ]
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "EpicBeardLib.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -8,8 +8,9 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+using EnemyDictionary = EpicBeardLib.Containers.SerializableDictionary<string, EnemyData>;
+
 public class EnemyDataManagerTest {
-  readonly string filename = "Assets/Tests/delete_me";
   readonly string enemyName = "Beetle";
   EnemyData enemyData;
   EnemyDataManager manager;
@@ -44,24 +45,25 @@ public class EnemyDataManagerTest {
   }
 
   // Round trip an enemy data through serialization then deserialization.
-  [Test]
+ [Test]
   public void SerializationWorks() {
-    List<EnemyDataManager.KvPair> enemies = new() {
-      new() { Key = enemyName, Value = enemyData, }
-    };
-
-    Dictionary<string, EnemyData> expectedDatas = new() {
+    EnemyDictionary expectedEnemies = new() {
       { enemyName, enemyData }
     };
 
-    manager.SerializeEnemies(enemies, filename);
-    manager.InvokeDeserializeEnemies(filename);
-    CollectionAssert.AreEquivalent(manager.GetEnemyDataMap(), expectedDatas);
+    MemoryStream memStream = new();
+    TextWriter writer = new StreamWriter(memStream);
+    manager.SerializeEnemies(expectedEnemies, writer);
+
+    memStream.Position = 0;
+
+    manager.InvokeDeserializeEnemies(memStream);
+    CollectionAssert.AreEquivalent(manager.GetEnemyDataMap(), expectedEnemies);
   }
 
   [Test]
   public void GetEnemyDataWorks() {
-    Dictionary<string, EnemyData> datas = manager.GetEnemyDataMap();
+    EnemyDictionary datas = manager.GetEnemyDataMap();
     datas.Add(enemyName, enemyData);
 
     Assert.That(manager.GetEnemyData(enemyName), Is.EqualTo(enemyData));
@@ -71,9 +73,9 @@ public class EnemyDataManagerTest {
 // Extension methods to hold reflection-based calls to access private fields, properties, or methods of
 // EnemyDataManager.
 public static class EnemyDataManagerUtils {
-  public static void InvokeDeserializeEnemies(this EnemyDataManager manager, string filename) {
-    object[] args = { filename };
-    Type[] argTypes = { typeof(string) };
+  public static void InvokeDeserializeEnemies(this EnemyDataManager manager, Stream stream) {
+    object[] args = { stream };
+    Type[] argTypes = { typeof(Stream) };
     MethodInfo deserializeEnemies = typeof(EnemyDataManager).GetMethod(
       "DeserializeEnemies",
       BindingFlags.NonPublic | BindingFlags.Instance,
@@ -81,9 +83,9 @@ public static class EnemyDataManagerUtils {
     deserializeEnemies.Invoke(manager, args);
   }
 
-  public static Dictionary<string, EnemyData> GetEnemyDataMap(this EnemyDataManager manager) {
-    return (Dictionary<string, EnemyData>)typeof(EnemyDataManager)
-      .GetField("datas", BindingFlags.Instance | BindingFlags.NonPublic)
+  public static EnemyDictionary GetEnemyDataMap(this EnemyDataManager manager) {
+    return (EnemyDictionary)typeof(EnemyDataManager)
+      .GetField("enemies", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(manager);
   }
 }

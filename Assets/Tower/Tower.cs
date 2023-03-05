@@ -3,103 +3,91 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Tower : MonoBehaviour {
-  protected Dictionary<TowerData.Stat, float> attributes = new() {
-    { TowerData.Stat.ATTACK_SPEED, 0.0f },
-    { TowerData.Stat.AREA_OF_EFFECT, 0.0f },
-    { TowerData.Stat.ARMOR_PIERCE, 0.0f },
-    { TowerData.Stat.ARMOR_TEAR, 0.0f },
-    { TowerData.Stat.DAMAGE, 0.0f },
-    { TowerData.Stat.DAMAGE_OVER_TIME, 0.0f },
-    { TowerData.Stat.RANGE, 0.0f },
-    { TowerData.Stat.PROJECTILE_SPEED, 0.0f },
-    { TowerData.Stat.SLOW_DURATION, 0.0f },
-    { TowerData.Stat.SLOW_POWER, 0.0f },
-    { TowerData.Stat.STUN_TIME, 0.0f },
-  };
+  [SerializeField] protected TowerData data;
   public float AttackSpeed {
-    get { return attributes[TowerData.Stat.ATTACK_SPEED]; }
-    set { attributes[TowerData.Stat.ATTACK_SPEED] = value; }
+    get { return data[TowerData.Stat.ATTACK_SPEED]; }
+    set { data[TowerData.Stat.ATTACK_SPEED] = value; }
   }
   public float AreaOfEffect {
-    get { return attributes[TowerData.Stat.AREA_OF_EFFECT]; }
-    set { attributes[TowerData.Stat.AREA_OF_EFFECT] = value; }
+    get { return data[TowerData.Stat.AREA_OF_EFFECT]; }
+    set { data[TowerData.Stat.AREA_OF_EFFECT] = value; }
   }
   public float ArmorPierce {
-    get { return attributes[TowerData.Stat.ARMOR_PIERCE]; }
-    set { attributes[TowerData.Stat.ARMOR_PIERCE] = value; }
+    get { return data[TowerData.Stat.ARMOR_PIERCE]; }
+    set { data[TowerData.Stat.ARMOR_PIERCE] = value; }
   }
   public float ArmorTear {
-    get { return attributes[TowerData.Stat.ARMOR_TEAR]; }
-    set { attributes[TowerData.Stat.ARMOR_TEAR] = value; }
+    get { return data[TowerData.Stat.ARMOR_TEAR]; }
+    set { data[TowerData.Stat.ARMOR_TEAR] = value; }
   }
   public float Damage {
-    get { return attributes[TowerData.Stat.DAMAGE]; }
-    set { attributes[TowerData.Stat.DAMAGE] = value; }
+    get { return data[TowerData.Stat.DAMAGE]; }
+    set { data[TowerData.Stat.DAMAGE] = value; }
   }
   public float DamageOverTime {
-    get { return attributes[TowerData.Stat.DAMAGE_OVER_TIME]; }
-    set { attributes[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
+    get { return data[TowerData.Stat.DAMAGE_OVER_TIME]; }
+    set { data[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
   }
   public float Range {
-    get { return attributes[TowerData.Stat.RANGE]; }
-    set { attributes[TowerData.Stat.RANGE] = value; }
+    get { return data[TowerData.Stat.RANGE]; }
+    set { data[TowerData.Stat.RANGE] = value; }
   }
   public float ProjectileSpeed {
-    get { return attributes[TowerData.Stat.PROJECTILE_SPEED]; }
-    set { attributes[TowerData.Stat.PROJECTILE_SPEED] = value; }
+    get { return data[TowerData.Stat.PROJECTILE_SPEED]; }
+    set { data[TowerData.Stat.PROJECTILE_SPEED] = value; }
   }
   public float SlowDuration {
-    get { return attributes[TowerData.Stat.SLOW_DURATION]; }
-    set { attributes[TowerData.Stat.SLOW_DURATION] = value; }
+    get { return data[TowerData.Stat.SLOW_DURATION]; }
+    set { data[TowerData.Stat.SLOW_DURATION] = value; }
   }
   public float SlowPower {
-    get { return attributes[TowerData.Stat.SLOW_POWER]; }
-    set { attributes[TowerData.Stat.SLOW_POWER] = value; }
+    get { return data[TowerData.Stat.SLOW_POWER]; }
+    set { data[TowerData.Stat.SLOW_POWER] = value; }
   }
   public float StunTime {
-    get { return attributes[TowerData.Stat.STUN_TIME]; }
-    set { attributes[TowerData.Stat.STUN_TIME] = value; }
+    get { return data[TowerData.Stat.STUN_TIME]; }
+    set { data[TowerData.Stat.STUN_TIME] = value; }
   }
 
-  protected Dictionary<TowerData.TowerAbility, bool> towerAbilities = new() {
-    { TowerData.TowerAbility.ANTI_AIR, false },
-    { TowerData.TowerAbility.CAMO_SIGHT, false },
-    { TowerData.TowerAbility.CRIPPLE, false }
+  protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
+    { TowerAbility.Type.ANTI_AIR, false },
+    { TowerAbility.Type.CAMO_SIGHT, false },
+    { TowerAbility.Type.CRIPPLE, false }
   };
   public bool AntiAir {
-    get { return towerAbilities[TowerData.TowerAbility.ANTI_AIR]; }
-    set { towerAbilities[TowerData.TowerAbility.ANTI_AIR] = value; }
+    get { return towerAbilities[TowerAbility.Type.ANTI_AIR]; }
+    set { towerAbilities[TowerAbility.Type.ANTI_AIR] = value; }
   }
   public bool CamoSight {
-    get { return towerAbilities[TowerData.TowerAbility.CAMO_SIGHT]; }
-    set { towerAbilities[TowerData.TowerAbility.CAMO_SIGHT] = value; }
+    get { return towerAbilities[TowerAbility.Type.CAMO_SIGHT]; }
+    set { towerAbilities[TowerAbility.Type.CAMO_SIGHT] = value; }
   }
   public bool Cripple {
-    get { return towerAbilities[TowerData.TowerAbility.CRIPPLE]; }
-    set { towerAbilities[TowerData.TowerAbility.CRIPPLE] = value; }
+    get { return towerAbilities[TowerAbility.Type.CRIPPLE]; }
+    set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
   int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
 
   // How close a particle needs to get to consider it a hit.
-  protected float hitRange = 0.1f;
+  protected readonly static float hitRange = 0.1f;
 
   protected Dictionary<Int64, Enemy> particleIDsToEnemies = new();
   protected Int64 particleIDTracker = 100;
 
   // TODO: Add an enforcement mechanic to make sure the player can get at most 9 upgrades.
-  public void Upgrade(Ability ability) {
-    if (ability.Mode == TowerData.Mode.SPECIAL) {
-      SpecialAbilityUpgrade(ability.SpecialAbility);
+  public void Upgrade(TowerAbility ability) {
+    if (ability.mode == TowerAbility.Mode.SPECIAL) {
+      SpecialAbilityUpgrade(ability.specialAbility);
     } else {
-      foreach (Ability.AttributeModifier mod in ability.AttributeModifiers) {
-        attributes[mod.attribute] *= mod.mult;
+      foreach (TowerAbility.AttributeModifier mod in ability.attributeModifiers) {
+        data[mod.attribute] *= mod.mult;
       }
     }
 
-    upgradeLevels[ability.UpgradePath]++;
+    upgradeLevels[ability.upgradePath]++;
   }
 
-  public abstract void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability);
+  public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
 
   protected abstract void ProcessDamageAndEffects(Enemy target);
 

@@ -91,7 +91,7 @@ public class SpittingAntTowerPlayModeTest {
         damage: 100.0f,
         range: 10.0f);
 
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION);
 
     yield return new WaitForSeconds(0.11f);
 
@@ -118,7 +118,7 @@ public class SpittingAntTowerPlayModeTest {
         range: 10.0f,
         slowDuration: 10.0f,
         slowPower: 0.5f);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
 
     yield return new WaitForSeconds(0.11f);
 
@@ -146,8 +146,8 @@ public class SpittingAntTowerPlayModeTest {
         range: 10.0f,
         slowDuration: 10.0f,
         slowPower: 0.5f);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_3_DOT_SLOW);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_3_DOT_SLOW);
 
     yield return new WaitForSeconds(0.11f);
 
@@ -175,8 +175,8 @@ public class SpittingAntTowerPlayModeTest {
         range: 10.0f,
         slowDuration: 10.0f,
         slowPower: 0.5f);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE);
-    spittingAntTower.SpecialAbilityUpgrade(Ability.SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_5_DOT_EXPLOSION);
 
     yield return new WaitForSeconds(0.11f);
 

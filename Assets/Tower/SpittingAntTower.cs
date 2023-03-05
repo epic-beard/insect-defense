@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Ability;
+using static TowerAbility;
 
 public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
@@ -23,10 +23,10 @@ public class SpittingAntTower : Tower {
   public bool DotSlow { get; private set; } = false;
   public bool DotExplosion { get; private set; } = false;
   public float SplashExplosionRange {
-    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
+    get { return data[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
   }
   public float AcidExplosionRange {
-    get { return attributes[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; }
+    get { return data[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; }
   }
 
   private Enemy enemy;
@@ -52,28 +52,27 @@ public class SpittingAntTower : Tower {
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
     DisableAttackSystems();
-    var coroutine = StartCoroutine(SplashShoot());
-
+    StartCoroutine(SplashShoot());
   }
 
-  public override void SpecialAbilityUpgrade(Ability.SpecialAbilityEnum ability) {
+  public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
     switch (ability) {
-      case SpecialAbilityEnum.SA_1_3_ARMOR_TEAR_STUN:
+      case SpecialAbility.SA_1_3_ARMOR_TEAR_STUN:
         ArmorTearStun = true;
         break;
-      case SpecialAbilityEnum.SA_1_5_ARMOR_TEAR_EXPLOSION:
+      case SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION:
         ArmorTearExplosion = true;
         break;
-      case SpecialAbilityEnum.SA_2_3_DOT_SLOW:
+      case SpecialAbility.SA_2_3_DOT_SLOW:
         DotSlow = true;
         break;
-      case SpecialAbilityEnum.SA_2_5_DOT_EXPLOSION:
+      case SpecialAbility.SA_2_5_DOT_EXPLOSION:
         DotExplosion = true;
         break;
-      case SpecialAbilityEnum.SA_3_3_ANTI_AIR:
+      case SpecialAbility.SA_3_3_ANTI_AIR:
         AntiAir = true;
         break;
-      case SpecialAbilityEnum.SA_3_5_CONSTANT_FIRE:
+      case SpecialAbility.SA_3_5_CONSTANT_FIRE:
         var splashEmission = splash.emission;
         splashEmission.enabled = false;
         ContinuousAttack = true;
@@ -102,7 +101,7 @@ public class SpittingAntTower : Tower {
 
     // Armor tear effects.
     if (ApplyArmorTearAndCheckForArmorTearStun(target, armorTear)) {
-      target.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
+      target.AddStunTime(data[TowerData.Stat.STUN_TIME]);
     }
 
     // Acid DoT effects.
@@ -121,7 +120,7 @@ public class SpittingAntTower : Tower {
   // This is only called when the target's acid stacks are at max.
   private void HandleMaxAcidStackEffects(Enemy target) {
     if (DotSlow && !target.spittingAntTowerSlows.Contains(this)) {
-      target.ApplySlow(attributes[TowerData.Stat.SLOW_POWER], attributes[TowerData.Stat.SLOW_DURATION]);
+      target.ApplySlow(data[TowerData.Stat.SLOW_POWER], data[TowerData.Stat.SLOW_DURATION]);
       target.spittingAntTowerSlows.Add(this);
     }
     if (DotExplosion) {
@@ -153,7 +152,7 @@ public class SpittingAntTower : Tower {
       enemy.DamageEnemy(onHitDamage, ArmorPierce);
 
       if (ArmorTearExplosion && ApplyArmorTearAndCheckForArmorTearStun(enemy, ArmorTear)) {
-        enemy.AddStunTime(attributes[TowerData.Stat.STUN_TIME]);
+        enemy.AddStunTime(data[TowerData.Stat.STUN_TIME]);
       }
     }
   }
