@@ -3,11 +3,13 @@ using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
 
+using EnemyDictionary = EpicBeardLib.Containers.SerializableDictionary<string, EnemyData>;
+
 // A class that contains a dictionary of EnemyDatas keyed by strings.
 // Allows you to reference enemy stats by name for convenient wave creation.
 public class EnemyDataManager : MonoBehaviour {
   [SerializeField] private string filename;
-  readonly private Dictionary<string, EnemyData> datas = new();
+  private EnemyDictionary enemies = new();
 
   // A simple Key Value pair class since the builtin KeyValuePair does not
   // serialize well.
@@ -23,19 +25,19 @@ public class EnemyDataManager : MonoBehaviour {
   // Returns the EnemyData associated with the key.
   // Errors out if key is not contained in the dictionary.
   public EnemyData GetEnemyData(string key) {
-    return datas[key];
+    return enemies[key];
   }
 
   // A version of serialization that takes an arbitrary TextWriter.
   // Not intended for general use but may be helpfull for testing.
-  public void SerializeEnemies(List<KvPair> enemies, TextWriter writer) {
-    XmlSerializer serializer = new(typeof(List<KvPair>));
+  public void SerializeEnemies(EnemyDictionary enemies, TextWriter writer) {
+    XmlSerializer serializer = new(typeof(EnemyDictionary));
     serializer.Serialize(writer, enemies);
   }
 
   // Serializes the list of enemies to the file given by filename.
   // Creates the file if it does not exist, otherwise overwrites it.
-  public void SerializeEnemies(List<KvPair> enemies, string filename) {
+  public void SerializeEnemies(EnemyDictionary enemies, string filename) {
     using TextWriter writer = new StreamWriter(filename);
     SerializeEnemies(enemies, writer);
   }
@@ -43,12 +45,8 @@ public class EnemyDataManager : MonoBehaviour {
   // A version of deserialization that takes an arbitrary Stream.
   // Not inteded for general use but may be helpfull for testing.
   void DeserializeEnemies(Stream stream) {
-    XmlSerializer serializer = new(typeof(List<KvPair>));
-    List<KvPair> tmp = (List<KvPair>)serializer.Deserialize(stream);
-
-    foreach (KvPair pair in tmp) {
-      datas.Add(pair.Key, pair.Value);
-    }
+    XmlSerializer serializer = new(typeof(EnemyDictionary));
+    enemies = (EnemyDictionary)serializer.Deserialize(stream);
   }
 
   // Deserializes the list of KvPairs in filename and adds them to the
@@ -60,8 +58,8 @@ public class EnemyDataManager : MonoBehaviour {
 
   public override string ToString() {
     string str = "EnemyDataManager:";
-    foreach (var kvPair in datas) {
-      str += "\nKey: " + kvPair.Key + "Value: " + kvPair.Value;
+    foreach (var (key, value) in enemies) {
+      str += "\nKey: " + key + "Value: " + value;
     }
     return str;
   }
