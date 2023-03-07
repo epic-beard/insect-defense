@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour {
   public static int acidStackMaxMultiplier = 25;
   public static float acidDamagePerStackPerSecond = 1.0f;
   public HashSet<Tower> spittingAntTowerSlows = new();
+  public HashSet<Tower> webShootingTowerStuns = new();
   public HashSet<Tower> webShootingTowerPermSlow = new();
 
   // PrevWaypoint should be set before OnEnable is called.

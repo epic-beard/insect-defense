@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using static TowerAbility;
 
@@ -12,9 +11,11 @@ public class WebShootingSpiderTower : Tower {
   [SerializeField] public Targeting.Behavior behavior;
   [SerializeField] public Targeting.Priority priority;
 
+  public int numLingeringWebUses = 3;
+  public float flightDisableTimeInSeconds = 1.0f;
+
   public bool SlowStun { get; private set; } = false;
   public bool PermanentSlow { get; private set; } = false;
-  public bool ImprovedAoE { get; private set; } = false;
   public bool LingeringSlow { get; private set; } = false;
   public bool AAAssist { get; private set; } = false;
   // This uses the upgrade levels to track how many enemies are effected by the slow (it maxes at 3).
@@ -31,7 +32,7 @@ public class WebShootingSpiderTower : Tower {
         4 => 1.0f,
         5 => 1.0f,
         _ => 0.0f,
-      }; ; }
+      }; }
   }
 
   private Enemy enemy;
@@ -68,8 +69,6 @@ public class WebShootingSpiderTower : Tower {
         SlowStun = true; break;
       case SpecialAbility.WSS_1_5_PERMANENT_SLOW:
         PermanentSlow = true; break;
-      case SpecialAbility.WSS_2_3_IMPROVE_AOE:
-        ImprovedAoE = true; break;
       case SpecialAbility.WSS_2_5_LINGERING_SLOW:
         LingeringSlow = true; break;
       case SpecialAbility.WSS_3_3_ANTI_AIR:
@@ -82,16 +81,23 @@ public class WebShootingSpiderTower : Tower {
   }
 
   protected override void ProcessDamageAndEffects(Enemy target) {
-    if (SlowStun && target.SlowDuration <= 0.0f) {
+    if (SlowStun && !target.webShootingTowerStuns.Contains(this)) {
       target.AddStunTime(StunTime);
+      target.webShootingTowerStuns.Add(this);
     }
-    if (PermanentSlow && target.webShootingTowerPermSlow.Contains(this)) {
+    if (PermanentSlow && !target.webShootingTowerPermSlow.Contains(this)) {
       target.ApplyPermanentSlow(SlowPower);
       target.webShootingTowerPermSlow.Add(this);
     }
 
     if (EnemiesHitBySlow > 0) {
-
+      // TODO: Slow nearest EnemiesHitBySlow enemies.
+    }
+    if (LingeringSlow) {
+      // TODO: Place a lingering web with numLingeringWebUses hits on the tile the enemy was on at collision.
+    }
+    if (AAAssist) {
+      // TODO: Remove flying from target for flightDisableTimeInSeconds seconds.
     }
   }
 

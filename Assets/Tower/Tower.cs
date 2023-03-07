@@ -71,7 +71,7 @@ public abstract class Tower : MonoBehaviour {
   // How close a particle needs to get to consider it a hit.
   public readonly static float hitRange = 0.1f;
 
-  // TODO: Add an enforcement mechanic to make sure the player can get at most 9 upgrades.
+  // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
     if (ability.mode == TowerAbility.Mode.SPECIAL) {
       SpecialAbilityUpgrade(ability.specialAbility);

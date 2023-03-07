@@ -10,7 +10,9 @@ public class SpittingAntTowerTest {
 
   [SetUp]
   public void Setup() {
-    spittingAntTower = CreateSpittingAntTower(Vector3.zero);
+    GameObject gameObject = new();
+    gameObject.transform.position = Vector3.zero;
+    spittingAntTower = gameObject.AddComponent<SpittingAntTower>();
 
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
 
@@ -308,13 +310,6 @@ public class SpittingAntTowerTest {
   #endregion
 
   #region TestHelperMethods
-
-  private SpittingAntTower CreateSpittingAntTower(Vector3 position) {
-    GameObject gameObject = new();
-    gameObject.transform.position = position;
-    SpittingAntTower spittingAntTower = gameObject.AddComponent<SpittingAntTower>();
-    return spittingAntTower;
-  }
 
   // Create and return an enemy with optional args.
   private Enemy CreateEnemy(
