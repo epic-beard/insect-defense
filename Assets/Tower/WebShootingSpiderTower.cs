@@ -48,11 +48,11 @@ public class WebShootingSpiderTower : Tower {
       priority = this.priority
     };
 
-    Range = 20.0f;
-    ProjectileSpeed = 20.0f;
-    AttackSpeed = 1.0f;
-    SlowDuration = 5.0f;
-    SlowPower = 0.5f;
+    //Range = 20.0f;
+    //ProjectileSpeed = 20.0f;
+    //AttackSpeed = 1.0f;
+    //SlowDuration = 5.0f;
+    //SlowPower = 0.5f;
 
     // -----0-----
 
@@ -116,6 +116,7 @@ public class WebShootingSpiderTower : Tower {
 
     if (enemy is null) {
       firing = false;
+      // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
       upperMesh.LookAt(projectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;

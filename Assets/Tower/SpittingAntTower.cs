@@ -171,6 +171,7 @@ public class SpittingAntTower : Tower {
     if (enemy is null) {
       firing = false;
       beam.enabled = false;
+      // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
       upperMesh.LookAt(projectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
