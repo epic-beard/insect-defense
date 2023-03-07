@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour {
   public static int acidStackMaxMultiplier = 25;
   public static float acidDamagePerStackPerSecond = 1.0f;
   public HashSet<Tower> spittingAntTowerSlows = new();
+  public HashSet<Tower> webShootingTowerPermSlow = new();
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -28,8 +29,6 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(FollowPath());
   }
 
-  // TODO: These properties should all reference data stored in the EnemyData class. We will simply not
-  //       serialize those fields that should not be saved (like SlowPower or AcidStacks).
   public float HP { get { return data.currHP; } }
   public float Armor { get { return data.currArmor; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
@@ -101,6 +100,12 @@ public class Enemy : MonoBehaviour {
     }
     SlowPower = Mathf.Max(SlowPower, incomingSlowPower);
     SlowDuration = newDuration;
+  }
+
+  // This permanently reduces the enemy's speed. Care should be taken with calling this method.
+  // slow is expected to be 0.0 - 1.0 and is used as a multiplier.
+  public void ApplyPermanentSlow(float slow) {
+    data.speed *= slow;
   }
 
   public float GetDistanceToEnd() {
