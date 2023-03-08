@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
@@ -120,8 +122,101 @@ public class WebShootingSpiderTowerTest {
 
   #endregion
 
+  // Test to make sure the AoE range testing capability of SlowNearbyEnemies doesn't apply slows to
+  // enemies out of range.
+  [Test]
+  public void SlowNearbyEnemiesOutOfAoERange() {
+    TowerAbility ability = CreateTowerAbilityForAoESlowTests();
+    wssTower.Upgrade(ability);
+    wssTower.AreaOfEffect = 10.0f;
+
+    Enemy target = CreateEnemy(Vector3.zero);
+    // Create an enemy out of the tower's AoE range.
+    Enemy outOfRange = CreateEnemy(Vector3.right * 100);
+
+    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
+    HashSet<Enemy> activeEnemies = new() { target, outOfRange };
+    objectPool.SetActiveEnemies(activeEnemies);
+    wssTower.SetObjectPool(objectPool);
+
+    // Establish a baseline before invoking SlowNearbyEnemies
+    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(outOfRange.SlowPower));
+
+    wssTower.InvokeSlowNearbyEnemies(target);
+
+    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(outOfRange.SlowPower));
+  }
+
+  // Check to ensure that the proper number of in-range enemies are affected by the tower's AoE slow.
+  [Test]
+  public void SlowNearbyEnemies() {
+    TowerAbility ability = CreateTowerAbilityForAoESlowTests();
+    wssTower.Upgrade(ability);
+    wssTower.Upgrade(ability);
+    wssTower.AreaOfEffect = 10.0f;
+    wssTower.SlowPower = 0.25f;
+    wssTower.SlowDuration = 1.0f;
+    float secondaryTowerSlowPower = wssTower.SlowPower * wssTower.SlowAppliedToSecondaryTargets;
+    float secondaryTowerSlowDuration = wssTower.SlowDuration * wssTower.SlowAppliedToSecondaryTargets;
+
+    Enemy target = CreateEnemy(Vector3.zero);
+    Enemy firstClosestEnemy = CreateEnemy(Vector3.right);
+    Enemy secondClosestEnemy = CreateEnemy(Vector3.right * 2);
+    Enemy thirdClosestEnemy = CreateEnemy(Vector3.right * 3);
+
+    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
+    HashSet<Enemy> activeEnemies = new() { target, firstClosestEnemy, secondClosestEnemy, thirdClosestEnemy };
+    objectPool.SetActiveEnemies(activeEnemies);
+    wssTower.SetObjectPool(objectPool);
+
+    // Establish a baseline before invoking SlowNearbyEnemies
+    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(target.SlowDuration));
+    Assert.That(0.0f, Is.EqualTo(firstClosestEnemy.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(firstClosestEnemy.SlowDuration));
+    Assert.That(0.0f, Is.EqualTo(secondClosestEnemy.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(secondClosestEnemy.SlowDuration));
+    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowDuration));
+
+    wssTower.InvokeSlowNearbyEnemies(target);
+
+    // Make sure that the slows and durations were applied appropriately.
+    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(target.SlowDuration));
+    Assert.That(secondaryTowerSlowPower, Is.EqualTo(firstClosestEnemy.SlowPower));
+    Assert.That(secondaryTowerSlowDuration, Is.EqualTo(firstClosestEnemy.SlowDuration));
+    Assert.That(secondaryTowerSlowPower, Is.EqualTo(secondClosestEnemy.SlowPower));
+    Assert.That(secondaryTowerSlowDuration, Is.EqualTo(secondClosestEnemy.SlowDuration));
+    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowPower));
+    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowDuration));
+  }
+
   #region TestHelperMethods
 
+  // Create and return an enemy with optional args.
+  private Enemy CreateEnemy(
+      Vector3 position,
+      float armor = 0.0f,
+      float hp = 1.0f) {
+    GameObject gameObject = new();
+    gameObject.transform.position = position;
+
+    EnemyData data = new() {
+      currArmor = armor,
+      currHP = hp,
+      size = EnemyData.Size.NORMAL,
+    };
+
+    Enemy enemy = gameObject.AddComponent<Enemy>();
+    enemy.data = data;
+
+    return enemy;
+  }
+
+  // Create a TowerAbility for use in testing the secondary slow numbers and duration.
   private TowerAbility CreateTowerAbilityForAoESlowTests() {
     TowerAbility ability = new();
     ability.mode = TowerAbility.Mode.MULTIPLICATIVE;
@@ -141,6 +236,22 @@ public static class WebShootingSpiderTowerUtils {
     typeof(WebShootingSpiderTower)
         .GetField("projectileHandler", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, projectileHandler);
+  }
+
+  public static void SetObjectPool(this WebShootingSpiderTower wssTower, ObjectPool pool) {
+    typeof(WebShootingSpiderTower)
+        .GetField("objectPool", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(wssTower, pool);
+  }
+
+  public static void InvokeSlowNearbyEnemies(this WebShootingSpiderTower wssTower, Enemy enemy) {
+    object[] args = { enemy };
+    Type[] argTypes = { typeof(Enemy) };
+    MethodInfo slowNearbyEnemies = typeof(WebShootingSpiderTower).GetMethod(
+        "SlowNearbyEnemies",
+        BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    slowNearbyEnemies.Invoke(wssTower, args);
   }
 }
 

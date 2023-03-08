@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using static TowerAbility;
 
@@ -12,7 +13,6 @@ public class WebShootingSpiderTower : Tower {
   [SerializeField] public Targeting.Priority priority;
 
   public int numLingeringWebUses = 3;
-  public float flightDisableTimeInSeconds = 1.0f;
 
   public bool SlowStun { get; private set; } = false;
   public bool PermanentSlow { get; private set; } = false;
@@ -32,8 +32,10 @@ public class WebShootingSpiderTower : Tower {
         4 => 1.0f,
         5 => 1.0f,
         _ => 0.0f,
-      }; }
+      };
+    }
   }
+  public float GroundedTime { get; } = 0.5f;
 
   private Enemy enemy;
   private bool firing = false;
@@ -53,6 +55,7 @@ public class WebShootingSpiderTower : Tower {
     //AttackSpeed = 1.0f;
     //SlowDuration = 5.0f;
     //SlowPower = 0.5f;
+    //AreaOfEffect = 10.0f;
 
     // -----0-----
 
@@ -91,13 +94,30 @@ public class WebShootingSpiderTower : Tower {
     }
 
     if (EnemiesHitBySlow > 0) {
-      // TODO: Slow nearest EnemiesHitBySlow enemies.
+      SlowNearbyEnemies(target);
     }
     if (LingeringSlow) {
       // TODO: Place a lingering web with numLingeringWebUses hits on the tile the enemy was on at collision.
     }
-    if (AAAssist) {
-      // TODO: Remove flying from target for flightDisableTimeInSeconds seconds.
+    if (AAAssist && target.Flying) {
+      target.TemporarilyStripFlying(GroundedTime);
+    }
+
+    target.ApplySlow(SlowPower, SlowDuration);
+  }
+
+  private void SlowNearbyEnemies(Enemy target) {
+    var closestEnemies = objectPool.GetActiveEnemies()
+        .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < AreaOfEffect)
+        .Where(e => !e.Equals(target))
+        .Select((e) => new { distance = Vector3.Distance(target.transform.position, e.transform.position), enemy = e })
+        .OrderBy(e => e.distance)
+        .Take(EnemiesHitBySlow)
+        .ToList();
+    float secondarySlowPower = SlowPower * SlowAppliedToSecondaryTargets;
+    float secondarySlowDuration = SlowDuration * SlowAppliedToSecondaryTargets;
+    foreach (var enemyTuple in closestEnemies) {
+      enemyTuple.enemy.ApplySlow(secondarySlowPower, secondarySlowDuration);
     }
   }
 

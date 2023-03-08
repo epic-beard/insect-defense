@@ -87,7 +87,47 @@ public class EnemyTest {
     Assert.That(enemy.SlowDuration, Is.EqualTo(13.0f));
   }
 
+  // Test the permanent slow.
+  [Test]
+  public void ApplyPermanentSlow() {
+    Enemy enemy = CreateEnemy(Vector3.zero, speed: 10.0f);
+    float permanentSlowPercent = 0.3f;
+    float expectedNewSpeed = enemy.Speed * permanentSlowPercent;
+
+    enemy.ApplyPermanentSlow(permanentSlowPercent);
+
+    Assert.That(enemy.Speed, Is.EqualTo(expectedNewSpeed));
+  }
+
   #endregion
+
+  // Test GetClosestWaypoint in the situation where PrevWaypoint is closest.
+  [Test]
+  public void GetClosestWaypointPrevIsClosest() {
+    Enemy enemy = CreateEnemy(Vector3.zero);
+    Waypoint prevWaypoint = CreateWaypoint(Vector3.zero);
+    Waypoint nextWaypoint = CreateWaypoint(Vector3.right);
+    enemy.PrevWaypoint = prevWaypoint;
+    enemy.NextWaypoint = nextWaypoint;
+
+    Waypoint closestWaypoint = enemy.GetClosestWaypoint();
+
+    Assert.That(closestWaypoint, Is.EqualTo(prevWaypoint));
+  }
+
+  // Test GetClosestWaypoint in the situation where NextWaypoint is closest.
+  [Test]
+  public void GetClosestWaypointNextIsClosest() {
+    Enemy enemy = CreateEnemy(Vector3.zero);
+    Waypoint prevWaypoint = CreateWaypoint(Vector3.right);
+    Waypoint nextWaypoint = CreateWaypoint(Vector3.zero);
+    enemy.PrevWaypoint = prevWaypoint;
+    enemy.NextWaypoint = nextWaypoint;
+
+    Waypoint closestWaypoint = enemy.GetClosestWaypoint();
+
+    Assert.That(closestWaypoint, Is.EqualTo(nextWaypoint));
+  }
 
   // Confirm that GetDistanceToEnd calculates the distance correctly.
   [Test]
@@ -109,13 +149,15 @@ public class EnemyTest {
   Enemy CreateEnemy(
       Vector3 position,
       float armor = 0.0f,
-      float hp = 1.0f) {
+      float hp = 1.0f,
+      float speed = 0.0f) {
     GameObject gameObject = new();
     gameObject.transform.position = position;
 
     EnemyData data = new() {
       currArmor = armor,
       currHP = hp,
+      speed = speed,
       size = EnemyData.Size.NORMAL,
     };
 
