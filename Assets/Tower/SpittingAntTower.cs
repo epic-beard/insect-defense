@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static TowerAbility;
 
@@ -30,9 +29,10 @@ public class SpittingAntTower : Tower {
   }
 
   private Enemy enemy;
-  private Targeting targeting = new();
   private bool firing = false;
-  private ObjectPool objectPool;
+  private ProjectileHandler projectileHandler;
+  private Targeting targeting = new();
+  protected ObjectPool objectPool;
 
   private void Start() {
     // TODO: The user should be able to set the default for each tower type.
@@ -41,9 +41,16 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
+    //Range = 20.0f;
+    //ProjectileSpeed = 20.0f;
+    //AttackSpeed = 1.0f;
+    //Damage = 10.0f;
+    //AreaOfEffect = 10.0f;
+
     // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
+    projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
     DisableAttackSystems();
     StartCoroutine(SplashShoot());
@@ -114,11 +121,11 @@ public class SpittingAntTower : Tower {
       target.spittingAntTowerSlows.Add(this);
     }
     if (DotExplosion) {
-      acidExplosion.transform.position = GetSafeChildPosition(target);
+      acidExplosion.transform.position = projectileHandler.GetSafeChildPosition(target.transform);
       acidExplosion.Play();
 
       float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStackPerSecond;
-      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, AcidExplosionRange);
+      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(objectPool.GetActiveEnemies(), target, AcidExplosionRange);
 
       // Cause totalAcidDamage to all enemies in range (including target).
       foreach (Enemy enemy in enemiesInAoe) {
@@ -132,11 +139,11 @@ public class SpittingAntTower : Tower {
   }
 
   private void HandleSplashEffects(Enemy target, float onHitDamage) {
-    splashExplosion.transform.position = GetSafeChildPosition(target);
+    splashExplosion.transform.position = projectileHandler.GetSafeChildPosition(target.transform);
     splashExplosion.Play();
 
     // Get a list of enemies caught in the AoE that are not the enemy targeted.
-    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(target, SplashExplosionRange);
+    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(objectPool.GetActiveEnemies(), target, SplashExplosionRange);
 
     foreach (Enemy enemy in enemiesInAoe) {
       enemy.DamageEnemy(onHitDamage, ArmorPierce);
@@ -164,12 +171,13 @@ public class SpittingAntTower : Tower {
     if (enemy is null) {
       firing = false;
       beam.enabled = false;
+      // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      upperMesh.LookAt(GetSafeChildPosition(enemy));
+      upperMesh.LookAt(projectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
 
       if (!ContinuousAttack) {
-        GeneralAttackHandler(splash, enemy, ProjectileSpeed);
+        projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
       } else {
         beam.enabled = true;
         beam.SetPosition(
@@ -196,14 +204,6 @@ public class SpittingAntTower : Tower {
   // SA_1_3_ARMOR_TEAR_STUN.
   private bool ApplyArmorTearAndCheckForArmorTearStun(Enemy enemy, float armorTear) {
     return 0.0f < enemy.Armor && enemy.TearArmor(armorTear) == 0.0f && ArmorTearStun;
-  }
-
-  // Fetch enemies in explosionRange of target. This excludes target itself.
-  private List<Enemy> GetEnemiesInExplosionRange(Enemy target, float explosionRange) {
-    return objectPool.GetActiveEnemies()
-          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < explosionRange)
-          .Where(e => !e.Equals(target))
-          .ToList();
   }
 
   // Disable the shooty systems.
