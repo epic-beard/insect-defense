@@ -89,6 +89,10 @@ public class WebShootingSpiderTowerTest {
     wssTower.Upgrade(ability);
 
     Assert.That(3, Is.EqualTo(wssTower.EnemiesHitBySlow));
+
+    wssTower.Upgrade(ability);
+
+    Assert.That(3, Is.EqualTo(wssTower.EnemiesHitBySlow));
   }
 
   [Test]
