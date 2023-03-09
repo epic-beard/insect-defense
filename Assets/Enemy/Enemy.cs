@@ -28,6 +28,10 @@ public class Enemy : MonoBehaviour {
     }
 
     StartCoroutine(FollowPath());
+
+    if (Flying) {
+      StartCoroutine(GroundFlierForDuration());
+    }
   }
 
   public float HP { get { return data.currHP; } }
@@ -53,6 +57,7 @@ public class Enemy : MonoBehaviour {
     get { return data.stunTime; }
     private set { data.stunTime = value; }
   }
+  public float GroundedTime { get; private set; }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
@@ -109,6 +114,18 @@ public class Enemy : MonoBehaviour {
     data.speed *= slow;
   }
 
+  public void TemporarilyStripFlying(float duration) {
+    GroundedTime += duration;
+  }
+
+  public Waypoint GetClosestWaypoint() {
+    if (Vector3.Distance(PrevWaypoint.transform.position, this.transform.position)
+        < Vector3.Distance(NextWaypoint.transform.position, this.transform.position)) {
+      return PrevWaypoint;
+    }
+    return NextWaypoint;
+  }
+
   public float GetDistanceToEnd() {
     if (NextWaypoint == null) {
       return float.MaxValue;
@@ -131,6 +148,17 @@ public class Enemy : MonoBehaviour {
       float acidDamage = AcidDamagePerStackPerSecond * Time.deltaTime;
       AcidStacks = Mathf.Max(AcidStacks - Time.deltaTime, 0.0f);
       data.currHP -= acidDamage;
+    }
+  }
+
+  private IEnumerator GroundFlierForDuration() {
+    while (true) {
+      yield return new WaitUntil(() => GroundedTime > 0.0f);
+      data.properties = EnemyData.Properties.NONE;
+      // TODO: Ground the enemy mesh and initiate walking animation.
+      yield return new WaitForSeconds(GroundedTime);
+      GroundedTime = 0.0f;
+      data.properties = EnemyData.Properties.FLYING;
     }
   }
 
