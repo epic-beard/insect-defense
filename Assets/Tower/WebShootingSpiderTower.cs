@@ -110,14 +110,13 @@ public class WebShootingSpiderTower : Tower {
     var closestEnemies = objectPool.GetActiveEnemies()
         .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < AreaOfEffect)
         .Where(e => !e.Equals(target))
-        .Select((e) => new { distance = Vector3.Distance(target.transform.position, e.transform.position), enemy = e })
-        .OrderBy(e => e.distance)
+        .OrderBy(e => Vector3.Distance(target.transform.position, e.transform.position))
         .Take(EnemiesHitBySlow)
         .ToList();
     float secondarySlowPower = SlowPower * SlowAppliedToSecondaryTargets;
     float secondarySlowDuration = SlowDuration * SlowAppliedToSecondaryTargets;
-    foreach (var enemyTuple in closestEnemies) {
-      enemyTuple.enemy.ApplySlow(secondarySlowPower, secondarySlowDuration);
+    foreach (var enemy in closestEnemies) {
+      enemy.ApplySlow(secondarySlowPower, secondarySlowDuration);
     }
   }
 
