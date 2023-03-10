@@ -11,6 +11,7 @@ public struct TowerAbility {
   }
   // Each divergent ability (usually at upgrades 3 and 5) should have its own entry in this enum.
   public enum SpecialAbility {
+    NONE,
     SA_1_3_ARMOR_TEAR_STUN,  // Spitting Ant Tower, Armor Tear upgrade tree level 3.
     SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Tower, Armor Tear upgrade tree level 5.
     SA_2_3_DOT_SLOW,  // Spitting Ant Tower, Acid DoT upgrade tree level 3.
@@ -27,16 +28,17 @@ public struct TowerAbility {
 
   public enum Mode {
     MULTIPLICATIVE,
-    SPECIAL,
+    ADDITIVE,
+    SET,
   }
 
   // This describes a single change to an attribute.
   public struct AttributeModifier {
     public TowerData.Stat attribute;
-    public float mult;
+    public Mode mode;
+    public float mod;
   }
 
-  public Mode mode;
   public SpecialAbility specialAbility;
   public AttributeModifier[] attributeModifiers;
   public int upgradePath;
