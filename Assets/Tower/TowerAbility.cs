@@ -33,6 +33,7 @@ public struct TowerAbility {
   }
 
   // This describes a single change to an attribute.
+  [Serializable]
   public struct AttributeModifier {
     public TowerData.Stat attribute;
     public Mode mode;
