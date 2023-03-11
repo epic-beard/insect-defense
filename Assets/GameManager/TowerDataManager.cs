@@ -4,7 +4,7 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using TowerDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData.Type, TowerData>;
 using AbilityDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData.Type, TowerAbility[][]>;
 
-public class TowerDataManager : MonoBehaviour {
+public class TowerDataManager {
   [SerializeField] private string towerDataFilename;
   [SerializeField] private string towerAbilitiesFilename;
   private TowerDictionary towers = new();
