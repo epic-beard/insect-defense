@@ -146,3 +146,4 @@ public abstract class Tower : MonoBehaviour {
     return enemy.transform.GetChild(0).position;
   }
 }
+                

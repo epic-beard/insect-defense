@@ -19,6 +19,7 @@ public struct TowerData {
     STUN_TIME,  // Slow duration in seconds.
   }
 
+  public Type type;
   public float area_of_effect;
   public float armor_pierce;
   public float armor_tear;
