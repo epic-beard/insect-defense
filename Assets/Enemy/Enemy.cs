@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour {
   public static int acidStackMaxMultiplier = 25;
   public static float acidDamagePerStackPerSecond = 1.0f;
   public HashSet<Tower> spittingAntTowerSlows = new();
+  public HashSet<Tower> webShootingTowerStuns = new();
+  public HashSet<Tower> webShootingTowerPermSlow = new();
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -26,10 +28,12 @@ public class Enemy : MonoBehaviour {
     }
 
     StartCoroutine(FollowPath());
+
+    if (Flying) {
+      StartCoroutine(GroundFlierForDuration());
+    }
   }
 
-  // TODO: These properties should all reference data stored in the EnemyData class. We will simply not
-  //       serialize those fields that should not be saved (like SlowPower or AcidStacks).
   public float HP { get { return data.currHP; } }
   public float Armor { get { return data.currArmor; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
@@ -53,6 +57,7 @@ public class Enemy : MonoBehaviour {
     get { return data.stunTime; }
     private set { data.stunTime = value; }
   }
+  public float GroundedTime { get; private set; }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
@@ -103,6 +108,24 @@ public class Enemy : MonoBehaviour {
     SlowDuration = newDuration;
   }
 
+  // This permanently reduces the enemy's speed. Care should be taken with calling this method.
+  // slow is expected to be 0.0 - 1.0 and is used as a multiplier.
+  public void ApplyPermanentSlow(float slow) {
+    data.speed *= slow;
+  }
+
+  public void TemporarilyStripFlying(float duration) {
+    GroundedTime += duration;
+  }
+
+  public Waypoint GetClosestWaypoint() {
+    if (Vector3.Distance(PrevWaypoint.transform.position, this.transform.position)
+        < Vector3.Distance(NextWaypoint.transform.position, this.transform.position)) {
+      return PrevWaypoint;
+    }
+    return NextWaypoint;
+  }
+
   public float GetDistanceToEnd() {
     if (NextWaypoint == null) {
       return float.MaxValue;
@@ -125,6 +148,17 @@ public class Enemy : MonoBehaviour {
       float acidDamage = AcidDamagePerStackPerSecond * Time.deltaTime;
       AcidStacks = Mathf.Max(AcidStacks - Time.deltaTime, 0.0f);
       data.currHP -= acidDamage;
+    }
+  }
+
+  private IEnumerator GroundFlierForDuration() {
+    while (true) {
+      yield return new WaitUntil(() => GroundedTime > 0.0f);
+      data.properties = EnemyData.Properties.NONE;
+      // TODO: Ground the enemy mesh and initiate walking animation.
+      yield return new WaitForSeconds(GroundedTime);
+      GroundedTime = 0.0f;
+      data.properties = EnemyData.Properties.FLYING;
     }
   }
 

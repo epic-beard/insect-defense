@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
@@ -36,6 +36,14 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.PROJECTILE_SPEED]; }
     set { data[TowerData.Stat.PROJECTILE_SPEED] = value; }
   }
+  public float SecondarySlowPotency {
+    get { return data[TowerData.Stat.SECDONARY_SLOW_POTENCY]; }
+    set { data[TowerData.Stat.SECDONARY_SLOW_POTENCY] = value; }
+  }
+  public int SecondarySlowTargets {
+    get { return (int)data[TowerData.Stat.SECONDARY_SLOW_TARGETS]; }
+    set { data[TowerData.Stat.SECONDARY_SLOW_TARGETS] = value; }
+  }
   public float SlowDuration {
     get { return data[TowerData.Stat.SLOW_DURATION]; }
     set { data[TowerData.Stat.SLOW_DURATION] = value; }
@@ -66,21 +74,28 @@ public abstract class Tower : MonoBehaviour {
     get { return towerAbilities[TowerAbility.Type.CRIPPLE]; }
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
-  int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
+  protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-5.
 
   // How close a particle needs to get to consider it a hit.
-  protected readonly static float hitRange = 0.1f;
+  public readonly static float hitRange = 0.1f;
 
-  protected Dictionary<Int64, Enemy> particleIDsToEnemies = new();
-  protected Int64 particleIDTracker = 100;
-
-  // TODO: Add an enforcement mechanic to make sure the player can get at most 9 upgrades.
+  // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
-    if (ability.mode == TowerAbility.Mode.SPECIAL) {
+    if (ability.specialAbility != TowerAbility.SpecialAbility.NONE) {
       SpecialAbilityUpgrade(ability.specialAbility);
-    } else {
-      foreach (TowerAbility.AttributeModifier mod in ability.attributeModifiers) {
-        data[mod.attribute] *= mod.mult;
+    }
+
+    foreach (TowerAbility.AttributeModifier modifier in ability.attributeModifiers) {
+      switch (modifier.mode) {
+        case TowerAbility.Mode.MULTIPLICATIVE:
+          data[modifier.attribute] *= modifier.mod;
+          break;
+        case TowerAbility.Mode.ADDITIVE:
+          data[modifier.attribute] += modifier.mod;
+          break;
+        case TowerAbility.Mode.SET:
+          data[modifier.attribute] = modifier.mod;
+          break;
       }
     }
 
@@ -91,59 +106,12 @@ public abstract class Tower : MonoBehaviour {
 
   protected abstract void ProcessDamageAndEffects(Enemy target);
 
-  // Handle individual particle movement. This method takes control of particle movement and collision initiation
-  // from Unity.
-  protected void GeneralAttackHandler(ParticleSystem activeParticleSystem, Enemy target, float projectileSpeed) {
-    ParticleSystem.Particle[] particles = new ParticleSystem.Particle[activeParticleSystem.main.maxParticles];
-    int numActiveParticles = activeParticleSystem.GetParticles(particles);
-
-    // Code intending to change particle position/behavior must use particles[i] rather than a helper variable.
-    for (int i = 0; i < numActiveParticles; i++) {
-      particles[i].velocity = Vector3.zero;
-
-      // Add to the particle to enemy tracker if necessary. Tracking individual particles can be difficult because
-      // ParticleSystem.GetParticles returns a value rather than a reference.
-      if (particles[i].startLifetime < 100) {
-        particles[i].startLifetime = particleIDTracker;
-        particleIDsToEnemies.Add(particleIDTracker, target);
-        particleIDTracker++;
-      }
-
-      // Destroy any particles targeting an enemy that is no longer alive.
-      Enemy enemy = particleIDsToEnemies[(int)particles[i].startLifetime];
-      if (!enemy.enabled) {
-        particles[i].remainingLifetime = 0;
-        continue;
-      }
-      Vector3 targetPosition = GetSafeChildPosition(enemy);
-
-      // Obtain the direction of travel
-      Vector3 vec = targetPosition - particles[i].position;
-      float dist = vec.magnitude;
-      Vector3 deltaTravel = vec.normalized;
-
-      // Make distance traveled frame rate independent and ensure we cannot 'overshoot' a target.
-      deltaTravel *= Mathf.Min(Time.deltaTime * projectileSpeed, dist);
-      particles[i].position += deltaTravel;
-
-      // Initiate particle 'collision'. Destroy the particle and call the tower's particle collision handler.
-      if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
-        ProcessDamageAndEffects(enemy);
-        particles[i].remainingLifetime = 0;
-      }
-    }
-
-    // Update all particle positions.
-    activeParticleSystem.SetParticles(particles, numActiveParticles);
-  }
-
-  // Get a safe position for the shots of the tower. Ideally, the actual mesh, but if that isn't present,
-  // the enemy container itself.
-  protected Vector3 GetSafeChildPosition(Enemy enemy) {
-    if (enemy.transform.childCount == 0) {
-      return enemy.transform.position;
-    }
-    return enemy.transform.GetChild(0).position;
+  // Fetch enemies in explosionRange of target. This excludes target itself.
+  protected List<Enemy> GetEnemiesInExplosionRange(HashSet<Enemy> enemiesInRange, Enemy target, float explosionRange) {
+    return enemiesInRange
+          .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < explosionRange)
+          .Where(e => !e.Equals(target))
+          .ToList();
   }
 }
                 
