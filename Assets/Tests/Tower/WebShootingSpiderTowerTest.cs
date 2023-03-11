@@ -27,8 +27,8 @@ public class WebShootingSpiderTowerTest {
   public void SpecialAbilityUpgradeSlowStun() {
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_1_3_SLOW_STUN);
 
-    Assert.That(true, Is.EqualTo(wssTower.SlowStun));
-    Assert.That(false, Is.EqualTo(wssTower.PermanentSlow));
+    Assert.That(wssTower.SlowStun, Is.EqualTo(true));
+    Assert.That(wssTower.PermanentSlow, Is.EqualTo(false));
   }
 
   // Test setting PermanentSlow.
@@ -36,8 +36,8 @@ public class WebShootingSpiderTowerTest {
   public void SpecialAbilityUpgradePermanentSlow() {
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_1_5_PERMANENT_SLOW);
 
-    Assert.That(true, Is.EqualTo(wssTower.PermanentSlow));
-    Assert.That(false, Is.EqualTo(wssTower.LingeringSlow));
+    Assert.That(wssTower.PermanentSlow, Is.EqualTo(true));
+    Assert.That(wssTower.LingeringSlow, Is.EqualTo(false));
   }
 
   // Test setting LingeringSlow.
@@ -45,8 +45,8 @@ public class WebShootingSpiderTowerTest {
   public void SpecialAbilityUpgradeLingeringSlow() {
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_2_5_LINGERING_SLOW);
 
-    Assert.That(true, Is.EqualTo(wssTower.LingeringSlow));
-    Assert.That(false, Is.EqualTo(wssTower.AntiAir));
+    Assert.That(wssTower.LingeringSlow, Is.EqualTo(true));
+    Assert.That(wssTower.AntiAir, Is.EqualTo(false));
   }
 
   // Test setting AntiAir.
@@ -54,8 +54,8 @@ public class WebShootingSpiderTowerTest {
   public void SpecialAbilityUpgradeAntiAir() {
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_3_ANTI_AIR);
 
-    Assert.That(true, Is.EqualTo(wssTower.AntiAir));
-    Assert.That(false, Is.EqualTo(wssTower.AAAssist));
+    Assert.That(wssTower.AntiAir, Is.EqualTo(true));
+    Assert.That(wssTower.AAAssist, Is.EqualTo(false));
   }
 
   // Test setting AAAssist.
@@ -63,7 +63,7 @@ public class WebShootingSpiderTowerTest {
   public void SpecialAbilityUpgradeAAAssist() {
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_AA_ASSIST);
 
-    Assert.That(true, Is.EqualTo(wssTower.AAAssist));
+    Assert.That(wssTower.AAAssist, Is.EqualTo(true));
   }
 
   #endregion
@@ -72,56 +72,36 @@ public class WebShootingSpiderTowerTest {
 
   [Test]
   public void EnemieshitBySlow() {
-    TowerAbility ability = CreateTowerAbilityForAoESlowTests();
+    Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(0));
 
-    Assert.That(0, Is.EqualTo(wssTower.EnemiesHitBySlow));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 1.0f));
 
-    wssTower.Upgrade(ability);
+    Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(1));
 
-    Assert.That(1, Is.EqualTo(wssTower.EnemiesHitBySlow));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 2.0f));
 
-    wssTower.Upgrade(ability);
+    Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(2));
 
-    Assert.That(2, Is.EqualTo(wssTower.EnemiesHitBySlow));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 3.0f));
 
-    wssTower.Upgrade(ability);
-
-    Assert.That(3, Is.EqualTo(wssTower.EnemiesHitBySlow));
-
-    wssTower.Upgrade(ability);
-
-    Assert.That(3, Is.EqualTo(wssTower.EnemiesHitBySlow));
-
-    wssTower.Upgrade(ability);
-
-    Assert.That(3, Is.EqualTo(wssTower.EnemiesHitBySlow));
+    Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(3));
   }
 
   [Test]
   public void SlowAppliedToSecondaryTargets() {
-    TowerAbility ability = CreateTowerAbilityForAoESlowTests();
+    Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(0.0f));
 
-    Assert.That(0.0f, Is.EqualTo(wssTower.SlowAppliedToSecondaryTargets));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 0.0f));
 
-    wssTower.Upgrade(ability);
+    Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(0.5f));
 
-    Assert.That(0.5f, Is.EqualTo(wssTower.SlowAppliedToSecondaryTargets));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.75f, 0.0f));
 
-    wssTower.Upgrade(ability);
+    Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(0.75f));
 
-    Assert.That(0.5f, Is.EqualTo(wssTower.SlowAppliedToSecondaryTargets));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(1.0f, 0.0f));
 
-    wssTower.Upgrade(ability);
-
-    Assert.That(0.75f, Is.EqualTo(wssTower.SlowAppliedToSecondaryTargets));
-
-    wssTower.Upgrade(ability);
-
-    Assert.That(1.0f, Is.EqualTo(wssTower.SlowAppliedToSecondaryTargets));
-
-    wssTower.Upgrade(ability);
-
-    Assert.That(1.0f, Is.EqualTo(wssTower.SlowAppliedToSecondaryTargets));
+    Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(1.0f));
   }
 
   #endregion
@@ -130,8 +110,7 @@ public class WebShootingSpiderTowerTest {
   // enemies out of range.
   [Test]
   public void SlowNearbyEnemiesOutOfAoERange() {
-    TowerAbility ability = CreateTowerAbilityForAoESlowTests();
-    wssTower.Upgrade(ability);
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 1.0f));
     wssTower.AreaOfEffect = 10.0f;
 
     Enemy target = CreateEnemy(Vector3.zero);
@@ -144,26 +123,24 @@ public class WebShootingSpiderTowerTest {
     wssTower.SetObjectPool(objectPool);
 
     // Establish a baseline before invoking SlowNearbyEnemies
-    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(outOfRange.SlowPower));
+    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(outOfRange.SlowPower, Is.EqualTo(0.0f));
 
     wssTower.InvokeSlowNearbyEnemies(target);
 
-    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(outOfRange.SlowPower));
+    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(outOfRange.SlowPower, Is.EqualTo(0.0f));
   }
 
   // Check to ensure that the proper number of in-range enemies are affected by the tower's AoE slow.
   [Test]
   public void SlowNearbyEnemies() {
-    TowerAbility ability = CreateTowerAbilityForAoESlowTests();
-    wssTower.Upgrade(ability);
-    wssTower.Upgrade(ability);
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 2.0f));
     wssTower.AreaOfEffect = 10.0f;
     wssTower.SlowPower = 0.25f;
     wssTower.SlowDuration = 1.0f;
-    float secondaryTowerSlowPower = wssTower.SlowPower * wssTower.SlowAppliedToSecondaryTargets;
-    float secondaryTowerSlowDuration = wssTower.SlowDuration * wssTower.SlowAppliedToSecondaryTargets;
+    float secondaryTowerSlowPower = wssTower.SlowPower * wssTower.SecondarySlowPotency;
+    float secondaryTowerSlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
 
     Enemy target = CreateEnemy(Vector3.zero);
     Enemy firstClosestEnemy = CreateEnemy(Vector3.right);
@@ -176,26 +153,26 @@ public class WebShootingSpiderTowerTest {
     wssTower.SetObjectPool(objectPool);
 
     // Establish a baseline before invoking SlowNearbyEnemies
-    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(target.SlowDuration));
-    Assert.That(0.0f, Is.EqualTo(firstClosestEnemy.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(firstClosestEnemy.SlowDuration));
-    Assert.That(0.0f, Is.EqualTo(secondClosestEnemy.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(secondClosestEnemy.SlowDuration));
-    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowDuration));
+    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(firstClosestEnemy.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(firstClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(secondClosestEnemy.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(secondClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(thirdClosestEnemy.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(thirdClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
 
     wssTower.InvokeSlowNearbyEnemies(target);
 
     // Make sure that the slows and durations were applied appropriately.
-    Assert.That(0.0f, Is.EqualTo(target.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(target.SlowDuration));
-    Assert.That(secondaryTowerSlowPower, Is.EqualTo(firstClosestEnemy.SlowPower));
-    Assert.That(secondaryTowerSlowDuration, Is.EqualTo(firstClosestEnemy.SlowDuration));
-    Assert.That(secondaryTowerSlowPower, Is.EqualTo(secondClosestEnemy.SlowPower));
-    Assert.That(secondaryTowerSlowDuration, Is.EqualTo(secondClosestEnemy.SlowDuration));
-    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowPower));
-    Assert.That(0.0f, Is.EqualTo(thirdClosestEnemy.SlowDuration));
+    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(firstClosestEnemy.SlowPower, Is.EqualTo(secondaryTowerSlowPower));
+    Assert.That(firstClosestEnemy.SlowDuration, Is.EqualTo(secondaryTowerSlowDuration));
+    Assert.That(secondClosestEnemy.SlowPower, Is.EqualTo(secondaryTowerSlowPower));
+    Assert.That(secondClosestEnemy.SlowDuration, Is.EqualTo(secondaryTowerSlowDuration));
+    Assert.That(thirdClosestEnemy.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(thirdClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
   }
 
   #region TestHelperMethods
@@ -221,10 +198,15 @@ public class WebShootingSpiderTowerTest {
   }
 
   // Create a TowerAbility for use in testing the secondary slow numbers and duration.
-  private TowerAbility CreateTowerAbilityForAoESlowTests() {
+  private TowerAbility CreateTowerAbilityForAoESlowTests(float secondarySlow, float secondaryTargets) {
     TowerAbility ability = new();
-    ability.mode = TowerAbility.Mode.MULTIPLICATIVE;
-    ability.attributeModifiers = new TowerAbility.AttributeModifier[0];
+    ability.attributeModifiers = new TowerAbility.AttributeModifier[2];
+    ability.attributeModifiers[0].attribute = TowerData.Stat.SECDONARY_SLOW_POTENCY;
+    ability.attributeModifiers[0].mode = TowerAbility.Mode.SET;
+    ability.attributeModifiers[0].mod = secondarySlow;
+    ability.attributeModifiers[1].attribute = TowerData.Stat.SECONDARY_SLOW_TARGETS;
+    ability.attributeModifiers[1].mode = TowerAbility.Mode.SET;
+    ability.attributeModifiers[1].mod = secondaryTargets;
     ability.upgradePath = 1;
 
     return ability;

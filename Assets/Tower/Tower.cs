@@ -36,6 +36,14 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.PROJECTILE_SPEED]; }
     set { data[TowerData.Stat.PROJECTILE_SPEED] = value; }
   }
+  public float SecondarySlowPotency {
+    get { return data[TowerData.Stat.SECDONARY_SLOW_POTENCY]; }
+    set { data[TowerData.Stat.SECDONARY_SLOW_POTENCY] = value; }
+  }
+  public int SecondarySlowTargets {
+    get { return (int)data[TowerData.Stat.SECONDARY_SLOW_TARGETS]; }
+    set { data[TowerData.Stat.SECONDARY_SLOW_TARGETS] = value; }
+  }
   public float SlowDuration {
     get { return data[TowerData.Stat.SLOW_DURATION]; }
     set { data[TowerData.Stat.SLOW_DURATION] = value; }
@@ -73,11 +81,21 @@ public abstract class Tower : MonoBehaviour {
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
-    if (ability.mode == TowerAbility.Mode.SPECIAL) {
+    if (ability.specialAbility != TowerAbility.SpecialAbility.NONE) {
       SpecialAbilityUpgrade(ability.specialAbility);
-    } else {
-      foreach (TowerAbility.AttributeModifier mod in ability.attributeModifiers) {
-        data[mod.attribute] *= mod.mult;
+    }
+
+    foreach (TowerAbility.AttributeModifier modifier in ability.attributeModifiers) {
+      switch (modifier.mode) {
+        case TowerAbility.Mode.MULTIPLICATIVE:
+          data[modifier.attribute] *= modifier.mod;
+          break;
+        case TowerAbility.Mode.ADDITIVE:
+          data[modifier.attribute] += modifier.mod;
+          break;
+        case TowerAbility.Mode.SET:
+          data[modifier.attribute] = modifier.mod;
+          break;
       }
     }
 

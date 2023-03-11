@@ -18,23 +18,6 @@ public class WebShootingSpiderTower : Tower {
   public bool PermanentSlow { get; private set; } = false;
   public bool LingeringSlow { get; private set; } = false;
   public bool AAAssist { get; private set; } = false;
-  // This uses the upgrade levels to track how many enemies are effected by the slow (it maxes at 3).
-  public int EnemiesHitBySlow {
-    get { return Mathf.Min(upgradeLevels[1], 3); }
-  }
-  public float SlowAppliedToSecondaryTargets {
-    get {
-      return upgradeLevels[1] switch {
-        0 => 0.0f,
-        1 => 0.5f,
-        2 => 0.5f,
-        3 => 0.75f,
-        4 => 1.0f,
-        5 => 1.0f,
-        _ => 0.0f,
-      };
-    }
-  }
   public float GroundedTime { get; } = 0.5f;
 
   private Enemy enemy;
@@ -93,7 +76,7 @@ public class WebShootingSpiderTower : Tower {
       target.webShootingTowerPermSlow.Add(this);
     }
 
-    if (EnemiesHitBySlow > 0) {
+    if (SecondarySlowTargets > 0) {
       SlowNearbyEnemies(target);
     }
     if (LingeringSlow) {
@@ -111,10 +94,10 @@ public class WebShootingSpiderTower : Tower {
         .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < AreaOfEffect)
         .Where(e => !e.Equals(target))
         .OrderBy(e => Vector3.Distance(target.transform.position, e.transform.position))
-        .Take(EnemiesHitBySlow)
+        .Take(SecondarySlowTargets)
         .ToList();
-    float secondarySlowPower = SlowPower * SlowAppliedToSecondaryTargets;
-    float secondarySlowDuration = SlowDuration * SlowAppliedToSecondaryTargets;
+    float secondarySlowPower = SlowPower * SecondarySlowPotency;
+    float secondarySlowDuration = SlowDuration * SecondarySlowPotency;
     foreach (var enemy in closestEnemies) {
       enemy.ApplySlow(secondarySlowPower, secondarySlowDuration);
     }
