@@ -89,6 +89,7 @@ public class WebShootingSpiderTowerPlayModeTest {
 
     yield return new WaitForSeconds(0.11f);
 
+    // Ensure that the stuntime is not applied a second time.
     Assert.That(target.StunTime, Is.GreaterThan(0.0f));
     Assert.That(target.StunTime, Is.LessThanOrEqualTo(stunTime));
     Assert.That(enemyInRange.StunTime, Is.EqualTo(0.0f));
@@ -97,7 +98,8 @@ public class WebShootingSpiderTowerPlayModeTest {
     yield return null;
   }
 
-  // Ensure the permanent slow applies properly and only once.
+  // Ensure the permanent slow applies properly and only once. This test uses BaseSpeed to look at the
+  // enemy's unmodified speed (so as not to count the tower's slows).
   [UnityTest]
   public IEnumerator ProcessDamageAndEffects_PermanentSlow() {
     float slowPower = 0.8f;

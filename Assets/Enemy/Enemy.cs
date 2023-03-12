@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour {
 
   public float HP { get { return data.currHP; } }
   public float Armor { get { return data.currArmor; } }
+  // The enemy's unmodified core speed. This is not what is called to determine move speed.
   public float BaseSpeed { get { return data.speed; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
