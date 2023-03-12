@@ -23,7 +23,7 @@ public struct TowerAbility {
     WSS_2_3_IMPROVE_AOE,  // Web Shooting Spider Tower, AoE upgrade tree level 3.
     WSS_2_5_LINGERING_SLOW,  // Web Shooting Spider Tower, AoE upgrade tree level 5.
     WSS_3_3_ANTI_AIR,  // Web Shooting Spider Tower, Utility upgrade tree level 3.
-    WSS_3_5_AA_ASSIST,  // Web Shooting Spider Tower, Utility upgrade tree level 5.
+    WSS_3_5_GROUNDING_SHOT,  // Web Shooting Spider Tower, Utility upgrade tree level 5.
   }
 
   public enum Mode {

@@ -22,20 +22,21 @@ public class Enemy : MonoBehaviour {
     data.Initialize();
     StartCoroutine(HandleStun());
 
+    if (Flying) {
+      StartCoroutine(GroundFlierForDuration());
+    }
+
     if (NextWaypoint == null) {
       Debug.Log("[ERROR] NextWaypoint not found.");
       return;
     }
 
     StartCoroutine(FollowPath());
-
-    if (Flying) {
-      StartCoroutine(GroundFlierForDuration());
-    }
   }
 
   public float HP { get { return data.currHP; } }
   public float Armor { get { return data.currArmor; } }
+  public float BaseSpeed { get { return data.speed; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
@@ -154,11 +155,13 @@ public class Enemy : MonoBehaviour {
   private IEnumerator GroundFlierForDuration() {
     while (true) {
       yield return new WaitUntil(() => GroundedTime > 0.0f);
+      EnemyData.Properties properties = data.properties;
       data.properties = EnemyData.Properties.NONE;
       // TODO: Ground the enemy mesh and initiate walking animation.
-      yield return new WaitForSeconds(GroundedTime);
-      GroundedTime = 0.0f;
-      data.properties = EnemyData.Properties.FLYING;
+      float interimGroundedTime = GroundedTime;
+      yield return new WaitForSeconds(interimGroundedTime);
+      GroundedTime -= interimGroundedTime;
+      data.properties = properties;
     }
   }
 
@@ -169,8 +172,8 @@ public class Enemy : MonoBehaviour {
       yield return new WaitUntil(() => 0.0f < StunTime);
       data.speed = 0.0f;
       float interimStunTime = StunTime;
-      StunTime = 0.0f;
       yield return new WaitForSeconds(interimStunTime);
+      StunTime -= interimStunTime;
       data.speed = originalSpeed;
     }
   }

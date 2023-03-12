@@ -1,3 +1,4 @@
+using Codice.CM.Client.Differences;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -7,17 +8,16 @@ public class WebShootingSpiderTower : Tower {
   [SerializeField] Transform upperMesh;
   [SerializeField] ParticleSystem webShot;
   [SerializeField] ParticleSystem webEffect;
-  [SerializeField] ParticleSystem webExplosion;
 
   [SerializeField] public Targeting.Behavior behavior;
   [SerializeField] public Targeting.Priority priority;
 
-  public int numLingeringWebUses = 3;
+  public int lingeringWebNumUses = 3;
 
   public bool SlowStun { get; private set; } = false;
   public bool PermanentSlow { get; private set; } = false;
   public bool LingeringSlow { get; private set; } = false;
-  public bool AAAssist { get; private set; } = false;
+  public bool GroundingShot { get; private set; } = false;
   public float GroundedTime { get; } = 0.5f;
 
   private Enemy enemy;
@@ -46,7 +46,7 @@ public class WebShootingSpiderTower : Tower {
     projectileHandler = new(webShot, ProjectileSpeed, hitRange);
 
     DisableAttackSystems();
-    var coroutine = StartCoroutine(WebShoot());
+    StartCoroutine(WebShoot());
   }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
@@ -59,8 +59,8 @@ public class WebShootingSpiderTower : Tower {
         LingeringSlow = true; break;
       case SpecialAbility.WSS_3_3_ANTI_AIR:
         AntiAir = true; break;
-      case SpecialAbility.WSS_3_5_AA_ASSIST:
-        AAAssist = true; break;
+      case SpecialAbility.WSS_3_5_GROUNDING_SHOT:
+        GroundingShot = true; break;
       default:
         break;
     }
@@ -80,9 +80,9 @@ public class WebShootingSpiderTower : Tower {
       SlowNearbyEnemies(target);
     }
     if (LingeringSlow) {
-      // TODO: Place a lingering web with numLingeringWebUses hits on the tile the enemy was on at collision.
+      // TODO: Place a lingering web with lingeringWebNumUses hits on the tile the enemy was on at collision.
     }
-    if (AAAssist && target.Flying) {
+    if (GroundingShot && target.Flying) {
       target.TemporarilyStripFlying(GroundedTime);
     }
 
@@ -90,6 +90,7 @@ public class WebShootingSpiderTower : Tower {
   }
 
   private void SlowNearbyEnemies(Enemy target) {
+    // TODO: Trigger the web aoe effects.
     var closestEnemies = objectPool.GetActiveEnemies()
         .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < AreaOfEffect)
         .Where(e => !e.Equals(target))

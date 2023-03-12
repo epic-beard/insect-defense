@@ -55,15 +55,15 @@ public class WebShootingSpiderTowerTest {
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_3_ANTI_AIR);
 
     Assert.That(wssTower.AntiAir, Is.EqualTo(true));
-    Assert.That(wssTower.AAAssist, Is.EqualTo(false));
+    Assert.That(wssTower.GroundingShot, Is.EqualTo(false));
   }
 
   // Test setting AAAssist.
   [Test]
   public void SpecialAbilityUpgradeAAAssist() {
-    wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_AA_ASSIST);
+    wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_GROUNDING_SHOT);
 
-    Assert.That(wssTower.AAAssist, Is.EqualTo(true));
+    Assert.That(wssTower.GroundingShot, Is.EqualTo(true));
   }
 
   #endregion
@@ -228,6 +228,18 @@ public static class WebShootingSpiderTowerUtils {
     typeof(WebShootingSpiderTower)
         .GetField("objectPool", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, pool);
+  }
+
+  public static void SetUpperMesh(this WebShootingSpiderTower wssTower, MeshRenderer meshRenderer) {
+    typeof(WebShootingSpiderTower)
+        .GetField("upperMesh", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(wssTower, meshRenderer.transform);
+  }
+
+  public static void SetWebShot(this WebShootingSpiderTower wssTower, ParticleSystem particleSystem) {
+    typeof(WebShootingSpiderTower)
+        .GetField("webShot", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(wssTower, particleSystem);
   }
 
   public static void InvokeSlowNearbyEnemies(this WebShootingSpiderTower wssTower, Enemy enemy) {

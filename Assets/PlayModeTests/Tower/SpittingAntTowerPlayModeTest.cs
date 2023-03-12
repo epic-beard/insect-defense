@@ -43,7 +43,7 @@ public class SpittingAntTowerPlayModeTest {
     spittingAntTower.SetBeam(beam);
 
     // Create the object pool and construct activeEnemies appropriately.
-    ObjectPool objectPool = CreateObjectPool();
+    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
     spittingAntTower.SetObjectPool(objectPool);
@@ -225,7 +225,7 @@ public class SpittingAntTowerPlayModeTest {
     spittingAntTower.StunTime = stunTime;
   }
 
-  // Create and return an enemy with optional args, create and set the prev waypoing based on position.
+  // Create and return an enemy with optional args, create and set the prev waypoint based on position.
   private Enemy CreateEnemy(
       Vector3 position,
       float armor = 0.0f,
@@ -254,10 +254,6 @@ public class SpittingAntTowerPlayModeTest {
     Waypoint waypoint = new GameObject().AddComponent<Waypoint>();
     waypoint.transform.position = position;
     return waypoint;
-  }
-
-  private ObjectPool CreateObjectPool() {
-    return new GameObject().AddComponent<ObjectPool>();
   }
 
   #endregion
