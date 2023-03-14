@@ -33,12 +33,14 @@ public class WebShootingSpiderTower : Tower {
       priority = this.priority
     };
 
-    //Range = 20.0f;
-    //ProjectileSpeed = 20.0f;
-    //AttackSpeed = 1.0f;
-    //SlowDuration = 5.0f;
-    //SlowPower = 0.5f;
-    //AreaOfEffect = 10.0f;
+    AttackSpeed = 1.0f;
+    AreaOfEffect = 20.0f;
+    Range = 30.0f;
+    ProjectileSpeed = 20.0f;
+    SecondarySlowPotency = 0.5f;
+    SecondarySlowTargets = 2;
+    SlowDuration = 5.0f;
+    SlowPower = 0.8f;
 
     // -----0-----
 
@@ -76,7 +78,7 @@ public class WebShootingSpiderTower : Tower {
       target.webShootingTowerPermSlow.Add(this);
     }
 
-    if (SecondarySlowTargets > 0) {
+    if (0 < SecondarySlowTargets) {
       SlowNearbyEnemies(target);
     }
     if (LingeringSlow) {
@@ -97,11 +99,14 @@ public class WebShootingSpiderTower : Tower {
         .OrderBy(e => Vector3.Distance(target.transform.position, e.transform.position))
         .Take(SecondarySlowTargets)
         .ToList();
-    float secondarySlowPower = SlowPower * SecondarySlowPotency;
-    float secondarySlowDuration = SlowDuration * SecondarySlowPotency;
     foreach (var enemy in closestEnemies) {
-      enemy.ApplySlow(secondarySlowPower, secondarySlowDuration);
+      webShot.Emit(1);
+      projectileHandler.UpdateParticles(enemy, SecondaryProcessDamageAndEffects);
     }
+  }
+
+  private void SecondaryProcessDamageAndEffects(Enemy enemy) {
+    enemy.ApplySlow(SlowPower * SecondarySlowPotency, SlowDuration * SecondarySlowPotency);
   }
 
   private void Update() {
