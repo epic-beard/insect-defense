@@ -99,14 +99,13 @@ public class WebShootingSpiderTower : Tower {
         .OrderBy(e => Vector3.Distance(target.transform.position, e.transform.position))
         .Take(SecondarySlowTargets)
         .ToList();
+    float secondarySlowPower = SlowPower * SecondarySlowPotency;
+    float secondarySlowDuration = SlowDuration * SecondarySlowPotency;
     foreach (var enemy in closestEnemies) {
       webShot.Emit(1);
-      projectileHandler.UpdateParticles(enemy, SecondaryProcessDamageAndEffects);
+      projectileHandler.AssociateOrphanParticlesWithEnemy(enemy);
+      enemy.ApplySlow(secondarySlowPower, secondarySlowDuration);
     }
-  }
-
-  private void SecondaryProcessDamageAndEffects(Enemy enemy) {
-    enemy.ApplySlow(SlowPower * SecondarySlowPotency, SlowDuration * SecondarySlowPotency);
   }
 
   private void Update() {
