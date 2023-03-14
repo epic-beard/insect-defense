@@ -7,6 +7,7 @@ using static TowerAbility;
 public class WebShootingSpiderTower : Tower {
   [SerializeField] Transform upperMesh;
   [SerializeField] ParticleSystem webShot;
+  [SerializeField] ParticleSystem secondaryWebShot;
   [SerializeField] ParticleSystem webEffect;
 
   [SerializeField] public Targeting.Behavior behavior;
@@ -22,7 +23,8 @@ public class WebShootingSpiderTower : Tower {
 
   private Enemy enemy;
   private bool firing = false;
-  private ProjectileHandler projectileHandler;
+  private ProjectileHandler primaryProjectileHandler;
+  private ProjectileHandler secondaryProjectileHandler;
   private Targeting targeting = new();
   protected ObjectPool objectPool;
 
@@ -45,7 +47,8 @@ public class WebShootingSpiderTower : Tower {
     // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
-    projectileHandler = new(webShot, ProjectileSpeed, hitRange);
+    primaryProjectileHandler = new(webShot, ProjectileSpeed, hitRange);
+    secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
 
     DisableAttackSystems();
     StartCoroutine(WebShoot());
@@ -92,20 +95,22 @@ public class WebShootingSpiderTower : Tower {
   }
 
   private void SlowNearbyEnemies(Enemy target) {
-    // TODO: Trigger the web aoe effects.
     var closestEnemies = objectPool.GetActiveEnemies()
         .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < AreaOfEffect)
         .Where(e => !e.Equals(target))
         .OrderBy(e => Vector3.Distance(target.transform.position, e.transform.position))
         .Take(SecondarySlowTargets)
         .ToList();
-    float secondarySlowPower = SlowPower * SecondarySlowPotency;
-    float secondarySlowDuration = SlowDuration * SecondarySlowPotency;
     foreach (var enemy in closestEnemies) {
-      webShot.Emit(1);
-      projectileHandler.AssociateOrphanParticlesWithEnemy(enemy);
-      enemy.ApplySlow(secondarySlowPower, secondarySlowDuration);
+      // Make sure the origin point for the secondary web is the target just hit.
+      secondaryWebShot.transform.position = secondaryProjectileHandler.GetSafeChildPosition(target.transform);
+      secondaryWebShot.Emit(1);
+      secondaryProjectileHandler.AssociateOrphanParticlesWithEnemy(enemy);
     }
+  }
+
+  private void ProcessSecondarySlowEffects(Enemy enemy) {
+    enemy.ApplySlow(SlowPower * SecondarySlowPotency, SlowDuration * SecondarySlowPotency);
   }
 
   private void Update() {
@@ -125,10 +130,11 @@ public class WebShootingSpiderTower : Tower {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      upperMesh.LookAt(projectileHandler.GetSafeChildPosition(enemy.transform));
+      upperMesh.LookAt(primaryProjectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
 
-      projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
+      primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
+      secondaryProjectileHandler.UpdateParticles(null, ProcessSecondarySlowEffects);
     }
   }
 
@@ -144,6 +150,9 @@ public class WebShootingSpiderTower : Tower {
 
   private void DisableAttackSystems() {
     var emissionModule = webShot.emission;
+    emissionModule.enabled = false;
+
+    emissionModule = secondaryWebShot.emission;
     emissionModule.enabled = false;
   }
 }

@@ -54,6 +54,8 @@ public class ProjectileHandler {
         particleIdTracker++;
       }
     }
+
+    particleSystem.SetParticles(particles, numActiveParticles);
   }
 
   public void UpdateParticles(Enemy? target, ProcessParticleCollision collisionProcessor) {

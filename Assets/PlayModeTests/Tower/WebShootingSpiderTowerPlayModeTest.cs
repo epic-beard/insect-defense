@@ -30,6 +30,9 @@ public class WebShootingSpiderTowerPlayModeTest {
     ParticleSystem webShot = new GameObject().AddComponent<ParticleSystem>();
     wssTower.SetWebShot(webShot);
 
+    ParticleSystem secondaryWebShot = new GameObject().AddComponent<ParticleSystem>();
+    wssTower.SetSecondaryWebShot(secondaryWebShot);
+
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
@@ -176,6 +179,40 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(target.Flying, Is.EqualTo(false));
     Assert.That(enemyInRange.Flying, Is.EqualTo(true));
     Assert.That(enemyOutOfRange.Flying, Is.EqualTo(true));
+
+    yield return null;
+  }
+
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffects_SecondarySlow() {
+    SetWebShootingSpiderTowerProperties(
+        wssTower,
+        attackSpeed: 10.0f,
+        areaOfEffect: 10.0f,
+        range: 10.0f,
+        secondarySlowPotency: 0.5f,
+        secondarySlowTargets: 2,
+        slowDuration: 10.0f,
+        slowPower: 0.8f);
+    float secondarySlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
+
+    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(enemyInRange.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(enemyInRange.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
+
+    yield return new WaitForSeconds(0.11f);
+
+    Assert.That(target.SlowPower, Is.EqualTo(wssTower.SlowPower));
+    Assert.That(target.SlowDuration, Is.GreaterThan(secondarySlowDuration));
+    Assert.That(target.SlowDuration, Is.LessThan(wssTower.SlowDuration));
+    Assert.That(enemyInRange.SlowPower, Is.EqualTo(wssTower.SlowPower * wssTower.SecondarySlowPotency));
+    Assert.That(enemyInRange.SlowDuration, Is.GreaterThan(0.0f));
+    Assert.That(enemyInRange.SlowDuration, Is.LessThan(secondarySlowDuration));
+    Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
 
     yield return null;
   }
