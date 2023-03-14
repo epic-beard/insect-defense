@@ -6,7 +6,7 @@ using static TowerAbility;
 
 public class WebShootingSpiderTower : Tower {
   [SerializeField] Transform upperMesh;
-  [SerializeField] ParticleSystem webShot;
+  [SerializeField] ParticleSystem primaryWebShot;
   [SerializeField] ParticleSystem secondaryWebShot;
   [SerializeField] ParticleSystem webEffect;
 
@@ -47,7 +47,7 @@ public class WebShootingSpiderTower : Tower {
     // -----0-----
 
     objectPool = FindObjectOfType<ObjectPool>();
-    primaryProjectileHandler = new(webShot, ProjectileSpeed, hitRange);
+    primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
 
     DisableAttackSystems();
@@ -141,7 +141,7 @@ public class WebShootingSpiderTower : Tower {
   private IEnumerator WebShoot() {
     while (true) {
       while (firing) {
-        webShot.Emit(1);
+        primaryWebShot.Emit(1);
         yield return new WaitForSeconds(1 / AttackSpeed);
       }
       yield return new WaitUntil(() => firing);
@@ -149,7 +149,7 @@ public class WebShootingSpiderTower : Tower {
   }
 
   private void DisableAttackSystems() {
-    var emissionModule = webShot.emission;
+    var emissionModule = primaryWebShot.emission;
     emissionModule.enabled = false;
 
     emissionModule = secondaryWebShot.emission;

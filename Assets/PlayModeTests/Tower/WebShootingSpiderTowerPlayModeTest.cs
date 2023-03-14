@@ -28,7 +28,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     wssTower.SetUpperMesh(upperMesh);
 
     ParticleSystem webShot = new GameObject().AddComponent<ParticleSystem>();
-    wssTower.SetWebShot(webShot);
+    wssTower.SetPrimaryWebShot(webShot);
 
     ParticleSystem secondaryWebShot = new GameObject().AddComponent<ParticleSystem>();
     wssTower.SetSecondaryWebShot(secondaryWebShot);
@@ -183,6 +183,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     yield return null;
   }
 
+  // Test to make sure the secondary slows are applied appropriately.
   [UnityTest]
   public IEnumerator ProcessDamageAndEffects_SecondarySlow() {
     SetWebShootingSpiderTowerProperties(
@@ -206,6 +207,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     yield return new WaitForSeconds(0.11f);
 
     Assert.That(target.SlowPower, Is.EqualTo(wssTower.SlowPower));
+    // The primary slow should be stronger than the secondary slow.
     Assert.That(target.SlowDuration, Is.GreaterThan(secondarySlowDuration));
     Assert.That(target.SlowDuration, Is.LessThan(wssTower.SlowDuration));
     Assert.That(enemyInRange.SlowPower, Is.EqualTo(wssTower.SlowPower * wssTower.SecondarySlowPotency));

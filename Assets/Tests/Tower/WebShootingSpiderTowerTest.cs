@@ -211,9 +211,9 @@ public static class WebShootingSpiderTowerUtils {
         .SetValue(wssTower, particleSystem);
   }
 
-  public static void SetWebShot(this WebShootingSpiderTower wssTower, ParticleSystem particleSystem) {
+  public static void SetPrimaryWebShot(this WebShootingSpiderTower wssTower, ParticleSystem particleSystem) {
     typeof(WebShootingSpiderTower)
-        .GetField("webShot", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("primaryWebShot", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, particleSystem);
   }
 
