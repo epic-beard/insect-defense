@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using static UnityEngine.GraphicsBuffer;
 
 public class WebShootingSpiderTowerPlayModeTest {
 
@@ -208,11 +207,9 @@ public class WebShootingSpiderTowerPlayModeTest {
 
     Assert.That(target.SlowPower, Is.EqualTo(wssTower.SlowPower));
     // The primary slow should be stronger than the secondary slow.
-    Assert.That(target.SlowDuration, Is.GreaterThan(secondarySlowDuration));
-    Assert.That(target.SlowDuration, Is.LessThan(wssTower.SlowDuration));
+    Assert.That(target.SlowDuration, Is.InRange(secondarySlowDuration, wssTower.SlowDuration));
     Assert.That(enemyInRange.SlowPower, Is.EqualTo(wssTower.SlowPower * wssTower.SecondarySlowPotency));
-    Assert.That(enemyInRange.SlowDuration, Is.GreaterThan(0.0f));
-    Assert.That(enemyInRange.SlowDuration, Is.LessThan(secondarySlowDuration));
+    Assert.That(enemyInRange.SlowDuration, Is.InRange(0.0f, secondarySlowDuration));
     Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
 

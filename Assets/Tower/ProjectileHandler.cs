@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.ParticleSystem;
 
 // A class to handle projectile management instead of unity's built-in handling. This allows fine-grained
