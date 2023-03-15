@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using static UnityEngine.GraphicsBuffer;
 
 public class WebShootingSpiderTowerPlayModeTest {
 
@@ -28,7 +27,10 @@ public class WebShootingSpiderTowerPlayModeTest {
     wssTower.SetUpperMesh(upperMesh);
 
     ParticleSystem webShot = new GameObject().AddComponent<ParticleSystem>();
-    wssTower.SetWebShot(webShot);
+    wssTower.SetPrimaryWebShot(webShot);
+
+    ParticleSystem secondaryWebShot = new GameObject().AddComponent<ParticleSystem>();
+    wssTower.SetSecondaryWebShot(secondaryWebShot);
 
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
@@ -176,6 +178,40 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(target.Flying, Is.EqualTo(false));
     Assert.That(enemyInRange.Flying, Is.EqualTo(true));
     Assert.That(enemyOutOfRange.Flying, Is.EqualTo(true));
+
+    yield return null;
+  }
+
+  // Test to make sure the secondary slows are applied appropriately.
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffects_SecondarySlow() {
+    SetWebShootingSpiderTowerProperties(
+        wssTower,
+        attackSpeed: 10.0f,
+        areaOfEffect: 10.0f,
+        range: 10.0f,
+        secondarySlowPotency: 0.5f,
+        secondarySlowTargets: 2,
+        slowDuration: 10.0f,
+        slowPower: 0.8f);
+    float secondarySlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
+
+    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(enemyInRange.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(enemyInRange.SlowDuration, Is.EqualTo(0.0f));
+    Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
+
+    yield return new WaitForSeconds(0.11f);
+
+    Assert.That(target.SlowPower, Is.EqualTo(wssTower.SlowPower));
+    // The primary slow should be stronger than the secondary slow.
+    Assert.That(target.SlowDuration, Is.InRange(secondarySlowDuration, wssTower.SlowDuration));
+    Assert.That(enemyInRange.SlowPower, Is.EqualTo(wssTower.SlowPower * wssTower.SecondarySlowPotency));
+    Assert.That(enemyInRange.SlowDuration, Is.InRange(0.0f, secondarySlowDuration));
+    Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
+    Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
 
     yield return null;
   }

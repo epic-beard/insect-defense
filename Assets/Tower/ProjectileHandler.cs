@@ -28,6 +28,35 @@ public class ProjectileHandler {
     particles = new Particle[particleSystem.main.maxParticles];
   }
 
+  // Get a safe position for the shots of any tower. Ideally, the actual mesh, but if that isn't present,
+  // the enemy container itself.
+  public Vector3 GetSafeChildPosition(Transform transform) {
+    if (transform.childCount == 0) {
+      return transform.position;
+    }
+    return transform.GetChild(0).position;
+  }
+
+  // Make sure that a just-fired particle is associated with the given enemy.
+  public void AssociateOrphanParticlesWithEnemy(Enemy enemy) {
+    int numActiveParticles = particleSystem.GetParticles(particles);
+
+    // Code intending to change particle position/behavior must use particles[i] rather than a helper variable.
+    for (int i = 0; i < numActiveParticles; i++) {
+      particles[i].velocity = Vector3.zero;
+
+      // Add to the particle to enemy tracker if necessary. Tracking individual particles can be difficult because
+      // ParticleSystem.GetParticles returns a value rather than a reference.
+      if (particles[i].startLifetime < 100) {
+        particles[i].startLifetime = particleIdTracker;
+        particleIDsToEnemies.Add(particleIdTracker, enemy);
+        particleIdTracker++;
+      }
+    }
+
+    particleSystem.SetParticles(particles, numActiveParticles);
+  }
+
   public void UpdateParticles(Enemy? target, ProcessParticleCollision collisionProcessor) {
     int numActiveParticles = particleSystem.GetParticles(particles);
 
@@ -75,14 +104,5 @@ public class ProjectileHandler {
 
     // Update all particle positions.
     particleSystem.SetParticles(particles, numActiveParticles);
-  }
-
-  // Get a safe position for the shots of any tower. Ideally, the actual mesh, but if that isn't present,
-  // the enemy container itself.
-  public Vector3 GetSafeChildPosition(Transform transform) {
-    if (transform.childCount == 0) {
-      return transform.position;
-    }
-    return transform.GetChild(0).position;
   }
 }
