@@ -35,14 +35,14 @@ public class WebShootingSpiderTower : Tower {
       priority = this.priority
     };
 
-    AttackSpeed = 1.0f;
-    AreaOfEffect = 20.0f;
-    Range = 30.0f;
-    ProjectileSpeed = 20.0f;
-    SecondarySlowPotency = 0.5f;
-    SecondarySlowTargets = 2;
-    SlowDuration = 5.0f;
-    SlowPower = 0.8f;
+    //AttackSpeed = 1.0f;
+    //AreaOfEffect = 20.0f;
+    //Range = 30.0f;
+    //ProjectileSpeed = 20.0f;
+    //SecondarySlowPotency = 0.5f;
+    //SecondarySlowTargets = 2;
+    //SlowDuration = 5.0f;
+    //SlowPower = 0.8f;
 
     // -----0-----
 
@@ -50,7 +50,6 @@ public class WebShootingSpiderTower : Tower {
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
 
-    DisableAttackSystems();
     StartCoroutine(WebShoot());
   }
 
@@ -149,13 +148,5 @@ public class WebShootingSpiderTower : Tower {
       }
       yield return new WaitUntil(() => firing);
     }
-  }
-
-  private void DisableAttackSystems() {
-    var emissionModule = primaryWebShot.emission;
-    emissionModule.enabled = false;
-
-    emissionModule = secondaryWebShot.emission;
-    emissionModule.enabled = false;
   }
 }

@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 97a92cd187f42dd4ebc4ac4c6c9c1131, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -342,6 +342,7 @@ MonoBehaviour:
   exits: 03000000
   nextWaypoints: []
   prevWaypoints: []
+  DistanceToEnd: 0
 --- !u!1 &9139447889207085095
 GameObject:
   m_ObjectHideFlags: 0
