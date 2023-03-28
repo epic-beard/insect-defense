@@ -19,6 +19,7 @@ public class WebShootingSpiderTower : Tower {
   public bool PermanentSlow { get; private set; } = false;
   public bool LingeringSlow { get; private set; } = false;
   public bool GroundingShot { get; private set; } = false;
+  public int LingeringWebHits { get; private set; } = 3;
   public float GroundedTime { get; } = 0.5f;
 
   private Enemy enemy;
@@ -84,7 +85,8 @@ public class WebShootingSpiderTower : Tower {
       SlowNearbyEnemies(target);
     }
     if (LingeringSlow) {
-      // TODO: Place a lingering web with lingeringWebNumUses hits on the tile the enemy was on at collision.
+      target.GetClosestWaypoint().GetComponent<Tile>()
+        .AddLingeringWeb(this, SlowPower, SlowDuration, LingeringWebHits);
     }
     if (GroundingShot && target.Flying) {
       target.TemporarilyStripFlying(GroundedTime);
