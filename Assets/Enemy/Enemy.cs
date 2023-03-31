@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour {
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
   public ObjectPool pool;
+  public GameStateManager stateManager;
 
   public static int acidStackMaxMultiplier = 25;
   public static float acidDamagePerStackPerSecond = 1.0f;
@@ -16,8 +17,13 @@ public class Enemy : MonoBehaviour {
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
+    Debug.Log("Speed: " + Speed);
     transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
+
+    // This may be slow, concider moving it to the object pool.
+    // But this is unlikely to be a significant fraction of the instantiation time.
+    stateManager = FindObjectOfType<GameStateManager>();
 
     data.Initialize();
     StartCoroutine(HandleStun());
@@ -39,6 +45,7 @@ public class Enemy : MonoBehaviour {
   public float Speed { get { return data.speed * (1 - SlowPower); } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public int Damage { get { return data.damage; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
   public float AcidStacks {
     get { return data.acidStacks; }
@@ -197,7 +204,7 @@ public class Enemy : MonoBehaviour {
   }
 
   private void FinishPath() {
-    // [TODO nnewsom] handle player damage.
+    stateManager.DealDamage(Damage);
     pool.DestroyEnemy(gameObject);
   }
 }
