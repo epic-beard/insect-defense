@@ -175,9 +175,7 @@ public class SpittingAntTower : Tower {
       upperMesh.LookAt(projectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
 
-      if (!ContinuousAttack) {
-        projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
-      } else {
+      if (ContinuousAttack) {
         beam.enabled = true;
         beam.SetPosition(
             1,  // The destination of the system.
@@ -185,6 +183,10 @@ public class SpittingAntTower : Tower {
 
         ProcessDamageAndEffects(enemy);
       }
+    }
+
+    if (!ContinuousAttack) {
+      projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
     }
   }
 
