@@ -53,7 +53,7 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowDuration: 10.0f,
         slowPower: slowPower);
 
-    yield return new WaitForSeconds(0.11f);
+    yield return new WaitForSeconds(0.08f);
 
     Assert.That(target.SlowDuration, Is.GreaterThan(0.0f));
     Assert.That(target.SlowPower, Is.EqualTo(slowPower));
@@ -83,13 +83,13 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.StunTime, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.StunTime, Is.EqualTo(0.0f));
 
-    yield return new WaitForSeconds(0.11f);
+    yield return new WaitForSeconds(0.08f);
 
     Assert.That(target.StunTime, Is.GreaterThan(0.0f));
     Assert.That(enemyInRange.StunTime, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.StunTime, Is.EqualTo(0.0f));
 
-    yield return new WaitForSeconds(0.11f);
+    yield return new WaitForSeconds(0.08f);
 
     // Ensure that the stuntime is not applied a second time.
     Assert.That(target.StunTime, Is.GreaterThan(0.0f));
@@ -118,7 +118,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyOutOfRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
 
-    yield return new WaitForSeconds(0.11f);
+    yield return new WaitForSeconds(0.08f);
 
     Assert.That(target.BaseSpeed, Is.EqualTo(baseEnemySpeed * slowPower));
     Assert.That(target.Speed, Is.LessThan(baseEnemySpeed * slowPower));
@@ -147,7 +147,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.Speed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyOutOfRange.Speed, Is.EqualTo(baseEnemySpeed));
 
-    yield return new WaitForSeconds(0.11f);
+    yield return new WaitForSeconds(0.08f);
 
     Assert.That(target.Speed, Is.EqualTo(baseEnemySpeed * (1 - slowPower)));
     Assert.That(enemyInRange.Speed, Is.GreaterThan(baseEnemySpeed * (1 - slowPower)));
@@ -173,7 +173,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.Flying, Is.EqualTo(true));
     Assert.That(enemyOutOfRange.Flying, Is.EqualTo(true));
 
-    yield return new WaitForSeconds(0.11f);
+    yield return new WaitForSeconds(0.08f);
 
     Assert.That(target.Flying, Is.EqualTo(false));
     Assert.That(enemyInRange.Flying, Is.EqualTo(true));
@@ -203,7 +203,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
 
-    yield return new WaitForSeconds(0.11f);
+    yield return new WaitForSeconds(0.08f);
 
     Assert.That(target.SlowPower, Is.EqualTo(wssTower.SlowPower));
     // The primary slow should be stronger than the secondary slow.

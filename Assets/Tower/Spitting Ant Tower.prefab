@@ -49,6 +49,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae4a272c80620049a0cdbda2a657ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    type: 0
+    area_of_effect: 0
+    armor_pierce: 0
+    armor_tear: 0
+    attack_speed: 0
+    damage: 0
+    damage_over_time: 0
+    projectile_speed: 0
+    range: 0
+    secondary_slow_potency: 0
+    secondary_slow_targets: 0
+    slow_duration: 0
+    slow_power: 0
+    stun_time: 0
   upperMesh: {fileID: 7756997695684524525}
   splash: {fileID: 4902801243027200727}
   splashExplosion: {fileID: 3317322654966219181}
@@ -1246,7 +1261,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2

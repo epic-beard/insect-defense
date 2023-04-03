@@ -1,4 +1,3 @@
-using Codice.CM.Client.Differences;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +18,7 @@ public class WebShootingSpiderTower : Tower {
   public bool PermanentSlow { get; private set; } = false;
   public bool LingeringSlow { get; private set; } = false;
   public bool GroundingShot { get; private set; } = false;
+  public int LingeringWebHits { get; private set; } = 3;
   public float GroundedTime { get; } = 0.5f;
 
   private Enemy enemy;
@@ -35,14 +35,15 @@ public class WebShootingSpiderTower : Tower {
       priority = this.priority
     };
 
-    AttackSpeed = 1.0f;
-    AreaOfEffect = 20.0f;
-    Range = 30.0f;
-    ProjectileSpeed = 20.0f;
-    SecondarySlowPotency = 0.5f;
-    SecondarySlowTargets = 2;
-    SlowDuration = 5.0f;
-    SlowPower = 0.8f;
+    //AttackSpeed = 1.0f;
+    //AreaOfEffect = 20.0f;
+    //Range = 30.0f;
+    //ProjectileSpeed = 20.0f;
+    //SecondarySlowPotency = 0.5f;
+    //SecondarySlowTargets = 2;
+    //SlowDuration = 5.0f;
+    //SlowPower = 0.8f;
+    //LingeringSlow = true;
 
     // -----0-----
 
@@ -50,7 +51,6 @@ public class WebShootingSpiderTower : Tower {
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
 
-    DisableAttackSystems();
     StartCoroutine(WebShoot());
   }
 
@@ -85,7 +85,8 @@ public class WebShootingSpiderTower : Tower {
       SlowNearbyEnemies(target);
     }
     if (LingeringSlow) {
-      // TODO: Place a lingering web with lingeringWebNumUses hits on the tile the enemy was on at collision.
+      target.GetClosestWaypoint().GetComponent<Tile>()
+        .AddLingeringWeb(this, SlowPower, SlowDuration, LingeringWebHits);
     }
     if (GroundingShot && target.Flying) {
       target.TemporarilyStripFlying(GroundedTime);
@@ -134,11 +135,10 @@ public class WebShootingSpiderTower : Tower {
     } else {
       upperMesh.LookAt(primaryProjectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
-
-      primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
-      // Null is passed because secondaryProjectileHanlder should never have unassociated particles at this point.
-      secondaryProjectileHandler.UpdateParticles(null, ProcessSecondarySlowEffects);
     }
+    primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
+    // Null is passed because secondaryProjectileHanlder should never have unassociated particles at this point.
+    secondaryProjectileHandler.UpdateParticles(null, ProcessSecondarySlowEffects);
   }
 
   private IEnumerator WebShoot() {
@@ -149,13 +149,5 @@ public class WebShootingSpiderTower : Tower {
       }
       yield return new WaitUntil(() => firing);
     }
-  }
-
-  private void DisableAttackSystems() {
-    var emissionModule = primaryWebShot.emission;
-    emissionModule.enabled = false;
-
-    emissionModule = secondaryWebShot.emission;
-    emissionModule.enabled = false;
   }
 }

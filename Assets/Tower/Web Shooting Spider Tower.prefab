@@ -64,7 +64,7 @@ MonoBehaviour:
     slow_power: 0
     stun_time: 0
   upperMesh: {fileID: 3099126358928570077}
-  webShot: {fileID: 6440254613249286852}
+  primaryWebShot: {fileID: 6440254613249286852}
   secondaryWebShot: {fileID: 4019824567988487369}
   webEffect: {fileID: 0}
   behavior: 0
@@ -932,7 +932,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
@@ -4992,7 +4992,7 @@ GameObject:
   - component: {fileID: 6440254613249286852}
   - component: {fileID: 7039123870537530637}
   m_Layer: 0
-  m_Name: Web Shot
+  m_Name: Primary Web Shot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5842,7 +5842,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
