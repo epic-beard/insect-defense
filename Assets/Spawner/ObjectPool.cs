@@ -18,8 +18,7 @@ public class ObjectPool : MonoBehaviour {
   [SerializeField] private List<EnemyEntry> entries = new();
   readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
   readonly private Dictionary<EnemyData.Type, GameObject> prefabs = new();
-
-  private HashSet<Enemy> activeEnemies = new();
+  readonly private HashSet<Enemy> activeEnemies = new();
 
   void Awake() {
     foreach (var entry in entries) {
