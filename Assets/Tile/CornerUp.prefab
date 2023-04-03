@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 2479687041232172119}
   - component: {fileID: 2681669480377502259}
   - component: {fileID: 8860293183582799349}
+  - component: {fileID: -3466148999726054209}
   m_Layer: 0
   m_Name: CornerUp
   m_TagString: Untagged
@@ -502,6 +503,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8, y: 6, z: 8}
   m_Center: {x: -1, y: 4, z: 1}
+--- !u!114 &-3466148999726054209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402399966594683929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194a3b66edb57fb49a5e63b2152461bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9139447889207085095
 GameObject:
   m_ObjectHideFlags: 0

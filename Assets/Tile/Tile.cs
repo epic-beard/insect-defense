@@ -1,18 +1,15 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Tile : MonoBehaviour {
 
   private bool lingeringWebs = false;
-  private Dictionary<Tower, LingeringSlow> lingeringSlows;
+  private Dictionary<Tower, LingeringSlow> lingeringSlows = new();
   private LineRenderer webLineRenderer;
 
-  // This private class is used because structs are value type and c# does not deal well with changing value
+  // This class is used because structs are value type and c# does not deal well with changing value
   // types in a dictionary.
-  private class LingeringSlow {
+  public class LingeringSlow {
     public float SlowPower { get; set; }
     public float SlowDuration { get; set; }
     // This counts how many hits the web has left.
@@ -26,7 +23,7 @@ public class Tile : MonoBehaviour {
   }
 
   private void Start() {
-    webLineRenderer = GetComponent<LineRenderer>();
+    webLineRenderer = GetComponentInChildren<LineRenderer>();
   }
 
   // Add a lingering web to this tile. It can support multiple different towers adding a lingering web
@@ -37,20 +34,21 @@ public class Tile : MonoBehaviour {
       LingeringSlow slow = lingeringSlows[tower];
       slow.SlowPower = slowPower;
       slow.SlowDuration = slowDuration;
-      slow.Hits += hits;
+      // To avoid infinitely stacking lingering webs, the max charges of a lingering web is static.
+      slow.Hits = hits;
     } else {
       lingeringSlows.Add(tower, new LingeringSlow(slowPower, slowDuration, hits));
     }
     lingeringWebs = true;
     if (!webLineRenderer.enabled) {
-      webLineRenderer.enabled = false;
+      webLineRenderer.enabled = true;
     }
   }
 
   private void OnTriggerEnter(Collider other) {
     if (lingeringWebs) {
       Enemy enemy = other.GetComponent<Enemy>();
-      // Webs don't apply to flying enemies.
+      // Lingering webs don't apply to flying enemies.
       if (enemy.Flying) {
         return;
       }

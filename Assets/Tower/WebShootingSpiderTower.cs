@@ -1,4 +1,3 @@
-using Codice.CM.Client.Differences;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -44,6 +43,7 @@ public class WebShootingSpiderTower : Tower {
     //SecondarySlowTargets = 2;
     //SlowDuration = 5.0f;
     //SlowPower = 0.8f;
+    //LingeringSlow = true;
 
     // -----0-----
 
@@ -135,11 +135,10 @@ public class WebShootingSpiderTower : Tower {
     } else {
       upperMesh.LookAt(primaryProjectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
-
-      primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
-      // Null is passed because secondaryProjectileHanlder should never have unassociated particles at this point.
-      secondaryProjectileHandler.UpdateParticles(null, ProcessSecondarySlowEffects);
     }
+    primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
+    // Null is passed because secondaryProjectileHanlder should never have unassociated particles at this point.
+    secondaryProjectileHandler.UpdateParticles(null, ProcessSecondarySlowEffects);
   }
 
   private IEnumerator WebShoot() {

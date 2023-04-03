@@ -69,8 +69,10 @@ public class ProjectileHandler {
       if (particles[i].startLifetime < 100) {
         // Visual studio recommended '==' rather than 'is'. This could be a bug.
         if (target == null) {
-          // This should be an impossible situation, a particle that was just fired but doesn't have a target.
+          // This is a very unlikely situation. If it occurs, we set the particle for deletion
+          // and skip further processing for that particle.
           particles[i].remainingLifetime = 0.0f;
+          continue;
         } else {
           particles[i].startLifetime = particleIdTracker;
           particleIDsToEnemies.Add(particleIdTracker, target);

@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour {
   //     The most powerful slow applied to an enemy is the one actually used. The time is amortized with respect to
   //   the difference.
   //     For example, if an enemy is suffering a 10% slow with a duraiton of 10 seconds and then is hit with a
-  //   20% slow with an additional duratin of 7 seconds, the new slow stats would be a 20% slow with a 12 second
+  //   20% slow with an additional duration of 7 seconds, the new slow stats would be a 20% slow with a 12 second
   //   duration (20 = 10 * 2 for power so 10 / 2 = 5 for duration).
   public void ApplySlow(float incomingSlowPower, float incomingSlowDuration) {
     float newDuration;
