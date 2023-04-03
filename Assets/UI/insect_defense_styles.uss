@@ -1,0 +1,22 @@
+.Button {
+    padding: 15px 25px;
+    font-size: 20px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(51, 51, 51);
+    border-radius: 10px;
+    box-shadow: 0 9px rgb(153, 153, 153);
+    width: 150px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.Button:hover {
+    background-color: rgb(85, 85, 85);
+}
+
+.Button:active {
+    background-color: rgb(85, 85, 85);
+    box-shadow: 0 5px rgb(102, 102, 102);
+    translate: 0 2px;
+}

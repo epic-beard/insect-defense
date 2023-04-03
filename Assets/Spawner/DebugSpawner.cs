@@ -8,10 +8,6 @@ public class DebugSpawner : MonoBehaviour {
   [SerializeField] private EnemyData data;
   void Awake() {
     pool = FindObjectOfType<ObjectPool>();
-    data = new() {
-      type = EnemyData.Type.BEETLE,
-      speed = 1.0f
-    };
   }
 
   private void Update() {
