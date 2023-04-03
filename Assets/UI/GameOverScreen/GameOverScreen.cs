@@ -11,9 +11,13 @@ public class GameOverScreen : MonoBehaviour {
 
   private void OnEnable() {
     SetVisualElements();
-    RegisterButtonCallbacks();
+    RegisterCallbacks();
 
     GameStateManager.GameOver += OnGameOver;
+  }
+
+  private void OnDisable() {
+    GameStateManager.GameOver -= OnGameOver;
   }
 
   private void SetVisualElements() {
@@ -23,7 +27,7 @@ public class GameOverScreen : MonoBehaviour {
     restartButton = rootElement.Q<Button>(restartButtonName);
   }
 
-  private void RegisterButtonCallbacks() {
+  private void RegisterCallbacks() {
     restartButton.RegisterCallback<ClickEvent>(Restart);
   }
 
@@ -33,6 +37,7 @@ public class GameOverScreen : MonoBehaviour {
   }
 
   private void OnGameOver() {
-
+    Time.timeScale = 0;
+    gameOverScreen.enabled = true;
   }
 }

@@ -17,11 +17,10 @@ public class Enemy : MonoBehaviour {
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
-    Debug.Log("Speed: " + Speed);
     transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
 
-    // This may be slow, concider moving it to the object pool.
+    // This may be slow, consider moving it to the object pool.
     // But this is unlikely to be a significant fraction of the instantiation time.
     stateManager = FindObjectOfType<GameStateManager>();
 
