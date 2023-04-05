@@ -17,16 +17,19 @@ public class Enemy : MonoBehaviour {
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
-    Debug.Log("Speed: " + Speed);
     transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
 
-    // This may be slow, concider moving it to the object pool.
+    // This may be slow, consider moving it to the object pool.
     // But this is unlikely to be a significant fraction of the instantiation time.
     stateManager = FindObjectOfType<GameStateManager>();
 
     data.Initialize();
     StartCoroutine(HandleStun());
+
+    if (Flying) {
+      StartCoroutine(GroundFlierForDuration());
+    }
 
     if (NextWaypoint == null) {
       Debug.Log("[ERROR] NextWaypoint not found.");
@@ -34,14 +37,12 @@ public class Enemy : MonoBehaviour {
     }
 
     StartCoroutine(FollowPath());
-
-    if (Flying) {
-      StartCoroutine(GroundFlierForDuration());
-    }
   }
 
   public float HP { get { return data.currHP; } }
   public float Armor { get { return data.currArmor; } }
+  // The enemy's unmodified core speed. This is not what is called to determine move speed.
+  public float BaseSpeed { get { return data.speed; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
@@ -101,7 +102,7 @@ public class Enemy : MonoBehaviour {
   //     The most powerful slow applied to an enemy is the one actually used. The time is amortized with respect to
   //   the difference.
   //     For example, if an enemy is suffering a 10% slow with a duraiton of 10 seconds and then is hit with a
-  //   20% slow with an additional duratin of 7 seconds, the new slow stats would be a 20% slow with a 12 second
+  //   20% slow with an additional duration of 7 seconds, the new slow stats would be a 20% slow with a 12 second
   //   duration (20 = 10 * 2 for power so 10 / 2 = 5 for duration).
   public void ApplySlow(float incomingSlowPower, float incomingSlowDuration) {
     float newDuration;
@@ -161,11 +162,13 @@ public class Enemy : MonoBehaviour {
   private IEnumerator GroundFlierForDuration() {
     while (true) {
       yield return new WaitUntil(() => GroundedTime > 0.0f);
+      EnemyData.Properties properties = data.properties;
       data.properties = EnemyData.Properties.NONE;
       // TODO: Ground the enemy mesh and initiate walking animation.
-      yield return new WaitForSeconds(GroundedTime);
-      GroundedTime = 0.0f;
-      data.properties = EnemyData.Properties.FLYING;
+      float interimGroundedTime = GroundedTime;
+      yield return new WaitForSeconds(interimGroundedTime);
+      GroundedTime -= interimGroundedTime;
+      data.properties = properties;
     }
   }
 
@@ -176,8 +179,8 @@ public class Enemy : MonoBehaviour {
       yield return new WaitUntil(() => 0.0f < StunTime);
       data.speed = 0.0f;
       float interimStunTime = StunTime;
-      StunTime = 0.0f;
       yield return new WaitForSeconds(interimStunTime);
+      StunTime -= interimStunTime;
       data.speed = originalSpeed;
     }
   }

@@ -15,9 +15,13 @@ public class WebShootingSpiderTowerTest {
     wssTower = gameObject.AddComponent<WebShootingSpiderTower>();
 
     ParticleSystem web = new GameObject().AddComponent<ParticleSystem>();
-
     ProjectileHandler projectileHandler = new(web, wssTower.ProjectileSpeed, Tower.hitRange);
-    wssTower.SetProjectileHandler(projectileHandler);
+    wssTower.SetPrimaryProjectileHandler(projectileHandler);
+
+    ParticleSystem secondaryWeb = new GameObject().AddComponent<ParticleSystem>();
+    wssTower.SetSecondaryWebShot(secondaryWeb);
+    ProjectileHandler secondaryProjectileHandler = new(secondaryWeb, wssTower.ProjectileSpeed, Tower.hitRange);
+    wssTower.SetSecondaryProjectileHandler(secondaryProjectileHandler);
   }
 
   #region SpecialAbilityUpgradeTests
@@ -55,15 +59,15 @@ public class WebShootingSpiderTowerTest {
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_3_ANTI_AIR);
 
     Assert.That(wssTower.AntiAir, Is.EqualTo(true));
-    Assert.That(wssTower.AAAssist, Is.EqualTo(false));
+    Assert.That(wssTower.GroundingShot, Is.EqualTo(false));
   }
 
   // Test setting AAAssist.
   [Test]
   public void SpecialAbilityUpgradeAAAssist() {
-    wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_AA_ASSIST);
+    wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_GROUNDING_SHOT);
 
-    Assert.That(wssTower.AAAssist, Is.EqualTo(true));
+    Assert.That(wssTower.GroundingShot, Is.EqualTo(true));
   }
 
   #endregion
@@ -132,49 +136,6 @@ public class WebShootingSpiderTowerTest {
     Assert.That(outOfRange.SlowPower, Is.EqualTo(0.0f));
   }
 
-  // Check to ensure that the proper number of in-range enemies are affected by the tower's AoE slow.
-  [Test]
-  public void SlowNearbyEnemies() {
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 2.0f));
-    wssTower.AreaOfEffect = 10.0f;
-    wssTower.SlowPower = 0.25f;
-    wssTower.SlowDuration = 1.0f;
-    float secondaryTowerSlowPower = wssTower.SlowPower * wssTower.SecondarySlowPotency;
-    float secondaryTowerSlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
-
-    Enemy target = CreateEnemy(Vector3.zero);
-    Enemy firstClosestEnemy = CreateEnemy(Vector3.right);
-    Enemy secondClosestEnemy = CreateEnemy(Vector3.right * 2);
-    Enemy thirdClosestEnemy = CreateEnemy(Vector3.right * 3);
-
-    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
-    HashSet<Enemy> activeEnemies = new() { target, firstClosestEnemy, secondClosestEnemy, thirdClosestEnemy };
-    objectPool.SetActiveEnemies(activeEnemies);
-    wssTower.SetObjectPool(objectPool);
-
-    // Establish a baseline before invoking SlowNearbyEnemies
-    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
-    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(firstClosestEnemy.SlowPower, Is.EqualTo(0.0f));
-    Assert.That(firstClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(secondClosestEnemy.SlowPower, Is.EqualTo(0.0f));
-    Assert.That(secondClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(thirdClosestEnemy.SlowPower, Is.EqualTo(0.0f));
-    Assert.That(thirdClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
-
-    wssTower.InvokeSlowNearbyEnemies(target);
-
-    // Make sure that the slows and durations were applied appropriately.
-    Assert.That(target.SlowPower, Is.EqualTo(0.0f));
-    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(firstClosestEnemy.SlowPower, Is.EqualTo(secondaryTowerSlowPower));
-    Assert.That(firstClosestEnemy.SlowDuration, Is.EqualTo(secondaryTowerSlowDuration));
-    Assert.That(secondClosestEnemy.SlowPower, Is.EqualTo(secondaryTowerSlowPower));
-    Assert.That(secondClosestEnemy.SlowDuration, Is.EqualTo(secondaryTowerSlowDuration));
-    Assert.That(thirdClosestEnemy.SlowPower, Is.EqualTo(0.0f));
-    Assert.That(thirdClosestEnemy.SlowDuration, Is.EqualTo(0.0f));
-  }
-
   #region TestHelperMethods
 
   // Create and return an enemy with optional args.
@@ -218,9 +179,17 @@ public class WebShootingSpiderTowerTest {
 #region WebShootingSpiderTowerUtils
 
 public static class WebShootingSpiderTowerUtils {
-  public static void SetProjectileHandler(this WebShootingSpiderTower wssTower, ProjectileHandler projectileHandler) {
+  public static void SetPrimaryProjectileHandler(
+      this WebShootingSpiderTower wssTower, ProjectileHandler projectileHandler) {
     typeof(WebShootingSpiderTower)
-        .GetField("projectileHandler", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("primaryProjectileHandler", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(wssTower, projectileHandler);
+  }
+
+  public static void SetSecondaryProjectileHandler(
+      this WebShootingSpiderTower wssTower, ProjectileHandler projectileHandler) {
+    typeof(WebShootingSpiderTower)
+        .GetField("secondaryProjectileHandler", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, projectileHandler);
   }
 
@@ -228,6 +197,24 @@ public static class WebShootingSpiderTowerUtils {
     typeof(WebShootingSpiderTower)
         .GetField("objectPool", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, pool);
+  }
+
+  public static void SetUpperMesh(this WebShootingSpiderTower wssTower, MeshRenderer meshRenderer) {
+    typeof(WebShootingSpiderTower)
+        .GetField("upperMesh", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(wssTower, meshRenderer.transform);
+  }
+
+  public static void SetSecondaryWebShot(this WebShootingSpiderTower wssTower, ParticleSystem particleSystem) {
+    typeof(WebShootingSpiderTower)
+        .GetField("secondaryWebShot", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(wssTower, particleSystem);
+  }
+
+  public static void SetPrimaryWebShot(this WebShootingSpiderTower wssTower, ParticleSystem particleSystem) {
+    typeof(WebShootingSpiderTower)
+        .GetField("primaryWebShot", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(wssTower, particleSystem);
   }
 
   public static void InvokeSlowNearbyEnemies(this WebShootingSpiderTower wssTower, Enemy enemy) {

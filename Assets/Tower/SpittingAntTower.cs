@@ -52,7 +52,6 @@ public class SpittingAntTower : Tower {
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
-    DisableAttackSystems();
     StartCoroutine(SplashShoot());
   }
 
@@ -176,9 +175,7 @@ public class SpittingAntTower : Tower {
       upperMesh.LookAt(projectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
 
-      if (!ContinuousAttack) {
-        projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
-      } else {
+      if (ContinuousAttack) {
         beam.enabled = true;
         beam.SetPosition(
             1,  // The destination of the system.
@@ -186,6 +183,10 @@ public class SpittingAntTower : Tower {
 
         ProcessDamageAndEffects(enemy);
       }
+    }
+
+    if (!ContinuousAttack) {
+      projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
     }
   }
 
@@ -204,13 +205,5 @@ public class SpittingAntTower : Tower {
   // SA_1_3_ARMOR_TEAR_STUN.
   private bool ApplyArmorTearAndCheckForArmorTearStun(Enemy enemy, float armorTear) {
     return 0.0f < enemy.Armor && enemy.TearArmor(armorTear) == 0.0f && ArmorTearStun;
-  }
-
-  // Disable the shooty systems.
-  private void DisableAttackSystems() {
-    var emissionModule = splash.emission;
-    emissionModule.enabled = false;
-
-    beam.enabled = false;
   }
 }

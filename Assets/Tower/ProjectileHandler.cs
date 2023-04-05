@@ -28,6 +28,35 @@ public class ProjectileHandler {
     particles = new Particle[particleSystem.main.maxParticles];
   }
 
+  // Get a safe position for the shots of any tower. Ideally, the actual mesh, but if that isn't present,
+  // the enemy container itself.
+  public Vector3 GetSafeChildPosition(Transform transform) {
+    if (transform.childCount == 0) {
+      return transform.position;
+    }
+    return transform.GetChild(0).position;
+  }
+
+  // Make sure that a just-fired particle is associated with the given enemy.
+  public void AssociateOrphanParticlesWithEnemy(Enemy enemy) {
+    int numActiveParticles = particleSystem.GetParticles(particles);
+
+    // Code intending to change particle position/behavior must use particles[i] rather than a helper variable.
+    for (int i = 0; i < numActiveParticles; i++) {
+      particles[i].velocity = Vector3.zero;
+
+      // Add to the particle to enemy tracker if necessary. Tracking individual particles can be difficult because
+      // ParticleSystem.GetParticles returns a value rather than a reference.
+      if (particles[i].startLifetime < 100) {
+        particles[i].startLifetime = particleIdTracker;
+        particleIDsToEnemies.Add(particleIdTracker, enemy);
+        particleIdTracker++;
+      }
+    }
+
+    particleSystem.SetParticles(particles, numActiveParticles);
+  }
+
   public void UpdateParticles(Enemy? target, ProcessParticleCollision collisionProcessor) {
     int numActiveParticles = particleSystem.GetParticles(particles);
 
@@ -40,8 +69,10 @@ public class ProjectileHandler {
       if (particles[i].startLifetime < 100) {
         // Visual studio recommended '==' rather than 'is'. This could be a bug.
         if (target == null) {
-          // This should be an impossible situation, a particle that was just fired but doesn't have a target.
+          // This is a very unlikely situation. If it occurs, we set the particle for deletion
+          // and skip further processing for that particle.
           particles[i].remainingLifetime = 0.0f;
+          continue;
         } else {
           particles[i].startLifetime = particleIdTracker;
           particleIDsToEnemies.Add(particleIdTracker, target);
@@ -75,14 +106,5 @@ public class ProjectileHandler {
 
     // Update all particle positions.
     particleSystem.SetParticles(particles, numActiveParticles);
-  }
-
-  // Get a safe position for the shots of any tower. Ideally, the actual mesh, but if that isn't present,
-  // the enemy container itself.
-  public Vector3 GetSafeChildPosition(Transform transform) {
-    if (transform.childCount == 0) {
-      return transform.position;
-    }
-    return transform.GetChild(0).position;
   }
 }

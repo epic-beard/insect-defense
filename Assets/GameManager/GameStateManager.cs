@@ -22,11 +22,6 @@ public class GameStateManager : MonoBehaviour {
 
   public void DealDamage(int damage) {
     Health -= damage;
-    if (Health <= 0) HandlePlayerDeath();
-  }
-
-  public void HandlePlayerDeath() {
-    Time.timeScale = 0;
-    gameOverScreen.SetActive(true);
+    if (Health <= 0) GameOver?.Invoke();
   }
 }
