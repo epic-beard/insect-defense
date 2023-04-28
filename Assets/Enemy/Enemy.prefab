@@ -177,3 +177,4 @@ MonoBehaviour:
   PrevWaypoint: {fileID: 0}
   NextWaypoint: {fileID: 0}
   pool: {fileID: 0}
+  stateManager: {fileID: 0}
