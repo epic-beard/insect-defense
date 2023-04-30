@@ -43,7 +43,13 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 43e610efcebea0247a029525945a9ecd
+    name: Master Volume
+  - guid: 0fe37f9cff7656e468105d2692f0470f
+    name: Music Volume
+  - guid: e4aa6800cc0bd34459ebec7d3180bad1
+    name: Sfx Volume
   m_AudioMixerGroupViews:
   - guids:
     - 1fb9fca77d5c28b4ea13129249474bd8
@@ -117,6 +123,22 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &5739636870708658856
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: bb53fbe5d76b53247a2f15832ae8adb7
+  m_EffectName: Highpass Simple
+  m_MixLevel: 1969aa8c5476673428a397f16eb64f3d
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: b1487703d0b65eb46b25835ba25a2c4b
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &9064424125080577741
 AudioMixerGroupController:
   m_ObjectHideFlags: 0

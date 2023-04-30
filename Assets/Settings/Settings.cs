@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public struct Settings {
-  public int MasterVolume;
-  public int MusicVolume;
-  public int SfxVolume;
+[Serializable]
+public class Settings {
+  [Range(0, 1)]
+  public float MasterVolume;
+  [Range(0, 1)]
+  public float MusicVolume;
+  [Range(0, 1)]
+  public float SfxVolume;
 }

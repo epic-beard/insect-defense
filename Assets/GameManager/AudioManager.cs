@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour {
 
   [SerializeReference] private AudioMixerGroup musicGroup;
   [SerializeReference] private AudioMixerGroup sfxGroup;
-  [SerializeReference] private List<Sound> sounds;
+  [NonReorderable][SerializeField] private List<Sound> sounds;
   readonly private List<AudioSource> sources = new();
 
   private void Awake() {
@@ -17,6 +17,10 @@ public class AudioManager : MonoBehaviour {
     foreach (var sound in sounds) {
       sources.Add(GetAudioSource(sound));
     }
+  }
+
+  private void Start() {
+    OnVolumeChanged();
   }
 
   public void Play(string name) {
@@ -38,7 +42,7 @@ public class AudioManager : MonoBehaviour {
   }
 
   private AudioSource GetAudioSource(Sound sound) {
-    AudioSource source = gameObject.AddComponent<AudioSource>();
+    AudioSource source = new GameObject().AddComponent<AudioSource>();
     source.name = sound.Name;
     source.clip = sound.Clip;
     source.loop = sound.Loop;
@@ -59,10 +63,18 @@ public class AudioManager : MonoBehaviour {
   }
 
   public void OnVolumeChanged() {
-    AudioMixer mixer = musicGroup.audioMixer;
     Settings settings = PlayerState.Instance.Settings;
-    mixer.SetFloat("Music Volume", Mathf.Log10(settings.MusicVolume) * 20);
-    mixer.SetFloat("Sfx Volume", Mathf.Log10(settings.SfxVolume) * 20);
-    mixer.SetFloat("Master Volume", Mathf.Log10(settings.MasterVolume) * 20);
+    UpdateVolume("Master Volume", settings.MasterVolume);
+    UpdateVolume("Music Volume", settings.MusicVolume);
+    UpdateVolume("Sfx Volume", settings.SfxVolume);
+  }
+
+  private void UpdateVolume(string volumeSetting, float volume) {
+    AudioMixer mixer = musicGroup.audioMixer;
+    if (volume > 0) {
+      mixer.SetFloat(volumeSetting, Mathf.Log10(volume) * 20);
+    } else {
+      mixer.SetFloat(volumeSetting, -80);
+    }
   }
 }

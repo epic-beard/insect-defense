@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class Sound {
+public struct Sound {
   public enum AudioType { SFX, MUSIC };
 
   public string Name;

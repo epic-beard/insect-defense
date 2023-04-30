@@ -1,11 +1,9 @@
-using Palmmedia.ReportGenerator.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public struct PlayerState {
+[Serializable]
+public class PlayerState {
   public static PlayerState Instance;
 
-  public int HighestLevelBeat;
-  public Settings Settings;
+  public int HighestLevelBeat = 0;
+  public Settings Settings = new();
 }
