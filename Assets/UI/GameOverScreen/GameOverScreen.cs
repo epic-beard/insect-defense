@@ -8,6 +8,7 @@ public class GameOverScreen : MonoBehaviour {
   UIDocument gameOverScreen;
 
   Button restartButton;
+  Label nuLabel;
 
   private void OnEnable() {
     SetVisualElements();

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     type: 0
-    size: 0
+    size: 2
     currHP: 0
     maxHP: 0
     currArmor: 0
