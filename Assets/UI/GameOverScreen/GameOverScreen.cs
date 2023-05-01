@@ -33,11 +33,11 @@ public class GameOverScreen : MonoBehaviour {
 
   private void Restart(ClickEvent evt) {
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    Time.timeScale = 1;
+    PauseManager.Instance.UnpauseAndUnlock();
   }
 
   private void OnGameOver() {
-    Time.timeScale = 0;
+    PauseManager.Instance.PauseAndLock();
     gameOverScreen.enabled = true;
   }
 }
