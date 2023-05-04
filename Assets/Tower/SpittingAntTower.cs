@@ -41,11 +41,11 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
-    Range = 20.0f;
-    ProjectileSpeed = 20.0f;
-    AttackSpeed = 1.0f;
-    Damage = 10.0f;
-    AreaOfEffect = 10.0f;
+    //Range = 20.0f;
+    //ProjectileSpeed = 20.0f;
+    //AttackSpeed = 1.0f;
+    //Damage = 10.0f;
+    //AreaOfEffect = 10.0f;
 
     // -----0-----
 
