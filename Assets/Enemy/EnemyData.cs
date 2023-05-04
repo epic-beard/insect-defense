@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 public struct EnemyData {
   public enum Type {
     ANT,
+    APHID,
     BEETLE
   }
 
