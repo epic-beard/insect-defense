@@ -65,25 +65,26 @@
     <Compile Include="Assets\GameManager\GameStateManager.cs" />
     <Compile Include="Assets\Tower\ProjectileHandler.cs" />
     <Compile Include="Assets\Tower\SpittingAntTower.cs" />
+    <Compile Include="Assets\Settings\Settings.cs" />
     <Compile Include="Assets\Tile\Tile.cs" />
+    <Compile Include="Assets\Sound\Sound.cs" />
+    <Compile Include="Assets\UI\SettingsMenu\SoundSettingsMenu.cs" />
     <Compile Include="Assets\GameManager\EnemyDataManager.cs" />
     <Compile Include="Assets\GameManager\TowerDataManager.cs" />
     <Compile Include="Assets\UI\GameOverScreen\GameOverScreen.cs" />
     <Compile Include="Assets\Tower\TowerAbility.cs" />
     <Compile Include="Assets\Enemy\Enemy.cs" />
     <Compile Include="Assets\Tower\TowerData.cs" />
+    <Compile Include="Assets\UI\Terrarium\TerrariumUI.cs" />
+    <Compile Include="Assets\GameManager\AudioManager.cs" />
     <Compile Include="Assets\Tile\Waypoint.cs" />
+    <Compile Include="Assets\Settings\DebugLoader.cs" />
     <Compile Include="Assets\Tower\Targeting.cs" />
+    <Compile Include="Assets\PlayerState\PlayerState.cs" />
     <Compile Include="Assets\GameManager\PauseManager.cs" />
     <Compile Include="Assets\Spawner\Spawner.cs" />
-    <Compile Include="Assets\Tower\Tower.cs" />
-    <Compile Include="Assets\PlayerState\PlayerState.cs" />
-    <Compile Include="Assets\Sound\Sound.cs" />
-    <Compile Include="Assets\UI\SettingsMenu\SoundSettingsMenu.cs" />
-    <Compile Include="Assets\GameManager\AudioManager.cs" />
     <Compile Include="Assets\UI\SettingsMenu\SettingsMenu.cs" />
-    <Compile Include="Assets\Settings\DebugLoader.cs" />
-    <Compile Include="Assets\Settings\Settings.cs" />
+    <Compile Include="Assets\Tower\Tower.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\SettingsMenu\SoundSettingsMenu.uxml" />
