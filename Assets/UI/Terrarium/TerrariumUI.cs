@@ -6,10 +6,10 @@ public class TerrariumUI : MonoBehaviour {
   UIDocument terrariumScreen;
 
   private void OnEnable() {
-    SetVisualElement();
+    SetVisualElements();
   }
 
-  private void SetVisualElement() {
+  private void SetVisualElements() {
     terrariumScreen = GetComponent<UIDocument>();
   }
 }
