@@ -65,24 +65,40 @@
     <Compile Include="Assets\GameManager\GameStateManager.cs" />
     <Compile Include="Assets\Tower\ProjectileHandler.cs" />
     <Compile Include="Assets\Tower\SpittingAntTower.cs" />
+    <Compile Include="Assets\Settings\Settings.cs" />
     <Compile Include="Assets\Tile\Tile.cs" />
+    <Compile Include="Assets\Sound\Sound.cs" />
+    <Compile Include="Assets\UI\SettingsMenu\SoundSettingsMenu.cs" />
     <Compile Include="Assets\GameManager\EnemyDataManager.cs" />
     <Compile Include="Assets\GameManager\TowerDataManager.cs" />
     <Compile Include="Assets\UI\GameOverScreen\GameOverScreen.cs" />
     <Compile Include="Assets\Tower\TowerAbility.cs" />
     <Compile Include="Assets\Enemy\Enemy.cs" />
     <Compile Include="Assets\Tower\TowerData.cs" />
+    <Compile Include="Assets\UI\Terrarium\TerrariumUI.cs" />
+    <Compile Include="Assets\GameManager\AudioManager.cs" />
     <Compile Include="Assets\Tile\Waypoint.cs" />
+    <Compile Include="Assets\Settings\DebugLoader.cs" />
     <Compile Include="Assets\Tower\Targeting.cs" />
+    <Compile Include="Assets\PlayerState\PlayerState.cs" />
     <Compile Include="Assets\GameManager\PauseManager.cs" />
     <Compile Include="Assets\Spawner\Spawner.cs" />
+    <Compile Include="Assets\UI\SettingsMenu\SettingsMenu.cs" />
     <Compile Include="Assets\Tower\Tower.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\UI\SettingsMenu\SoundSettingsMenu.uxml" />
+    <None Include="Assets\UI\Terrarium\TerrariumBottomSettings.uxml" />
+    <None Include="Assets\UI\Terrarium\TerrariumContext.uxml" />
+    <None Include="Assets\UI\SettingsMenu\SettingsMenu.uxml" />
+    <None Include="Assets\UI\Terrarium\TerrariumUI.uxml" />
     <None Include="Assets\UI\insect_defense_styles.uss" />
     <None Include="Assets\Plugins\EpicBeardLib.dll" />
     <None Include="Assets\Code.asmdef" />
     <None Include="Assets\UI\GameOverScreen\GameOverScreen.uxml" />
+    <None Include="Assets\UI\Terrarium\TerrariumTowerSelection.uxml" />
+    <None Include="Assets\UI\Terrarium\TerrariumGameView.uxml" />
+    <None Include="Assets\UI\Terrarium\TerrariumHeartHP.uxml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

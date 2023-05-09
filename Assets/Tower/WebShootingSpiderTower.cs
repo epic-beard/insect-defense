@@ -39,11 +39,8 @@ public class WebShootingSpiderTower : Tower {
     //AreaOfEffect = 20.0f;
     //Range = 30.0f;
     //ProjectileSpeed = 20.0f;
-    //SecondarySlowPotency = 0.5f;
-    //SecondarySlowTargets = 2;
-    //SlowDuration = 5.0f;
-    //SlowPower = 0.8f;
-    //LingeringSlow = true;
+    //SlowDuration = 2.0f;
+    //SlowPower = 0.5f;
 
     // -----0-----
 

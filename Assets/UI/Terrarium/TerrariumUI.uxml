@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="TerrariumHeartHP" src="project://database/Assets/UI/Terrarium/TerrariumHeartHP.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TerrariumHeartHP" />
+    <ui:Template name="TerrariumGameView" src="project://database/Assets/UI/Terrarium/TerrariumGameView.uxml?fileID=9197481963319205126&amp;guid=7ea4d8407eae82d489cea20a36656ae0&amp;type=3#TerrariumGameView" />
+    <ui:Template name="TerrariumContext" src="project://database/Assets/UI/Terrarium/TerrariumContext.uxml?fileID=9197481963319205126&amp;guid=b5492c09c7f44394fbc44bf6702ba2f2&amp;type=3#TerrariumContext" />
+    <ui:Template name="TerrariumTowerSelection" src="project://database/Assets/UI/Terrarium/TerrariumTowerSelection.uxml?fileID=9197481963319205126&amp;guid=3ade494c6fdabcd4585240bbd2de7115&amp;type=3#TerrariumTowerSelection" />
+    <ui:Template name="TerrariumBottomPanel" src="project://database/Assets/UI/Terrarium/TerrariumBottomSettings.uxml?fileID=9197481963319205126&amp;guid=e4f00dad63298524aaf4b40c11f5f365&amp;type=3#TerrariumBottomPanel" />
+    <ui:VisualElement name="overall_terrarium_ui__visualelement" style="flex-direction: row;">
+        <ui:VisualElement name="left__visualelement">
+            <ui:Instance template="TerrariumGameView" name="TerrariumGameView" />
+            <ui:Instance template="TerrariumBottomPanel" name="TerrariumBottomPanel" />
+        </ui:VisualElement>
+        <ui:VisualElement name="right__visualelement">
+            <ui:Instance template="TerrariumHeartHP" name="TerrariumHeartHP" />
+            <ui:Instance template="TerrariumContext" name="TerrariumContext" />
+            <ui:Instance template="TerrariumTowerSelection" name="TerrariumTowerSelection" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
