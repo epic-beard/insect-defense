@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PauseManager : MonoBehaviour {
   public static PauseManager Instance;
@@ -10,16 +9,21 @@ public class PauseManager : MonoBehaviour {
   private void Awake() {
     Instance = this;
   }
-  void Update() {
+
+  private void Update() {
     if (Input.GetKeyDown(KeyCode.Space)) {
       HandlePause();
     }
   }
 
-  void HandlePause() {
+  private void HandlePause() {
     if (locked) return;
 
     Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+  }
+
+  public void HandlePauseCallback(ClickEvent evt) {
+    HandlePause();
   }
 
   public void PauseAndLock() {

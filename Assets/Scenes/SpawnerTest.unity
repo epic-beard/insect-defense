@@ -128,6 +128,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1745931049603090984, guid: 0f8754147aa7d834d8eb40c5a3bbaa79, type: 3}
   m_PrefabInstance: {fileID: 1656429554}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &270192170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 270192173}
+  - component: {fileID: 270192172}
+  - component: {fileID: 270192171}
+  m_Layer: 5
+  m_Name: TerrariumUIScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &270192171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270192170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af17b7e494e81734993e1a8d907df597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &270192172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270192170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 4a7232cbbc4e8e74e9a86eaa1c86a0da, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 575c3a076fa4a2145adda78918f45bc0, type: 3}
+  m_SortingOrder: 0
+--- !u!4 &270192173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270192170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &361020781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2479687041232172119, guid: 4b5209a3ca2500a48815fbb3ad8a5ef9, type: 3}
@@ -1055,7 +1116,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 36cbbd92a0917994ab1b33bc98a296c6, type: 3}
     Loop: 1
     PlayOnAwake: 1
-    Volume: 0.5
+    Volume: 0
 --- !u!1001 &1780047280004041463
 PrefabInstance:
   m_ObjectHideFlags: 0

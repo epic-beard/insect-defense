@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UIElements;
 
 public class SettingsMenu : MonoBehaviour {
-  UIDocument settingsMenu;
+  public static SettingsMenu Instance;
 
-  private void OnEnable() {
+  private UIDocument settingsMenu;
+
+  private void Awake() {
+    Instance = this;
     SetVisualElements();
   }
+
   private void Update() {
     if (Input.GetKeyDown(KeyCode.S)) {
       ToggleSettings();
@@ -22,6 +23,14 @@ public class SettingsMenu : MonoBehaviour {
     } else {
       CloseSettings();
     }
+  }
+
+  public void ToggleSettingsCallback(ClickEvent evt) {
+    ToggleSettings();
+  }
+
+  public static void ShenanigansCallback(ClickEvent evt) {
+    Instance.ToggleSettings();
   }
 
   private void SetVisualElements() {
