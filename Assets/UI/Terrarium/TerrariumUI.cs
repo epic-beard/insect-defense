@@ -45,7 +45,7 @@ public class TerrariumUI : MonoBehaviour {
     towerNames.Add("Web Shooting Spider Tower");
 
     towerSelectionListView.makeItem = () => new Button();
-    towerSelectionListView.bindItem = (e, i) => { (e as Button).text = towerNames[i]; }
+    towerSelectionListView.bindItem = (e, i) => { (e as Button).text = towerNames[i]; };
     towerSelectionListView.itemsSource = towerNames;
   }
 
