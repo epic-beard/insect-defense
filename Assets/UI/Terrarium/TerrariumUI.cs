@@ -34,12 +34,18 @@ public class TerrariumUI : MonoBehaviour {
 
   private void ConstructTowerSelectionListView() {
     towerNames = new();
+    towerNames.Add("Ant Farm");
+    towerNames.Add("Ant Pheremone Tower");
+    towerNames.Add("Assassin Bug");
+    towerNames.Add("Bee Hive");
+    towerNames.Add("Mantis");
+    towerNames.Add("Noxious Beetle");
     towerNames.Add("Spitting Ant Tower");
+    towerNames.Add("Trapdoor Spider");
     towerNames.Add("Web Shooting Spider Tower");
 
     towerSelectionListView.makeItem = () => new Button();
-    towerSelectionListView.bindItem = (e, i) => { (e as Button).text = towerNames[i]; };
-    towerSelectionListView.fixedItemHeight = 16;
+    towerSelectionListView.bindItem = (e, i) => { (e as Button).text = towerNames[i]; }
     towerSelectionListView.itemsSource = towerNames;
   }
 
