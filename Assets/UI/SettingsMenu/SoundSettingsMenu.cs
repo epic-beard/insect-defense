@@ -37,6 +37,7 @@ public class SoundSettingsMenu : MonoBehaviour {
     SetVisualElements();
     RegisterCallbacks();
 
+    if (PlayerState.Instance == null) Debug.Log("Help");
     SetLabels(PlayerState.Instance.Settings);
 
     playSfxButton.clicked += PlaySfx;
@@ -73,6 +74,8 @@ public class SoundSettingsMenu : MonoBehaviour {
     settings.MasterVolume = masterVolumeSlider.value;
     settings.SfxVolume = sfxVolumeSlider.value;
     settings.MusicVolume = musicVolumeSlider.value;
+
+    SaveManager.Instance.Save(PlayerState.Instance);
 
     SetLabels(settings);
 
