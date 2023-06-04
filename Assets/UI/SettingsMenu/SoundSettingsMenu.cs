@@ -74,6 +74,8 @@ public class SoundSettingsMenu : MonoBehaviour {
     settings.SfxVolume = sfxVolumeSlider.value;
     settings.MusicVolume = musicVolumeSlider.value;
 
+    SaveManager.Instance.Save(PlayerState.Instance);
+
     SetLabels(settings);
 
     AudioManager.Instance.OnVolumeChanged();

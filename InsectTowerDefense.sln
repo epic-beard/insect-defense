@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Code", "Code.csproj", "{2BCE259E-72D6-F83B-080F-37F2F33D4F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayModeTests", "PlayModeTests.csproj", "{E0154A8A-4FFA-D768-7077-19D64B0D0043}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests.csproj", "{AF493EF0-6097-FFCE-D14C-D4621A4AE48E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BCE259E-72D6-F83B-080F-37F2F33D4F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCE259E-72D6-F83B-080F-37F2F33D4F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCE259E-72D6-F83B-080F-37F2F33D4F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCE259E-72D6-F83B-080F-37F2F33D4F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0154A8A-4FFA-D768-7077-19D64B0D0043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0154A8A-4FFA-D768-7077-19D64B0D0043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0154A8A-4FFA-D768-7077-19D64B0D0043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0154A8A-4FFA-D768-7077-19D64B0D0043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF493EF0-6097-FFCE-D14C-D4621A4AE48E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF493EF0-6097-FFCE-D14C-D4621A4AE48E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF493EF0-6097-FFCE-D14C-D4621A4AE48E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF493EF0-6097-FFCE-D14C-D4621A4AE48E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

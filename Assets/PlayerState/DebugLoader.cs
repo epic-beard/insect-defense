@@ -6,6 +6,6 @@ public class DebugLoader : MonoBehaviour {
 
   [SerializeField] PlayerState State;
   void Awake() {
-    PlayerState.Instance = State;
+    PlayerState.Instance ??= State;
   }
 }

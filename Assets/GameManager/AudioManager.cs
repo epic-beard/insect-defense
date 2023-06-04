@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour {
 
   [SerializeReference] private AudioMixerGroup musicGroup;
   [SerializeReference] private AudioMixerGroup sfxGroup;
-  [NonReorderable][SerializeField] private List<Sound> sounds;
+  [NonReorderable][SerializeField] private List<Sound> sounds = new();
   readonly private List<AudioSource> sources = new();
 
   private void Awake() {
