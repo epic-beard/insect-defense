@@ -37,7 +37,6 @@ public class SoundSettingsMenu : MonoBehaviour {
     SetVisualElements();
     RegisterCallbacks();
 
-    if (PlayerState.Instance == null) Debug.Log("Help");
     SetLabels(PlayerState.Instance.Settings);
 
     playSfxButton.clicked += PlaySfx;

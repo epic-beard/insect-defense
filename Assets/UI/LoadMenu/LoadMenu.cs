@@ -4,10 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-
-
 public class LoadMenu : MonoBehaviour {
-  
 
   readonly private string saveListViewName = "save__list_view";
 
@@ -23,7 +20,6 @@ public class LoadMenu : MonoBehaviour {
 
   private void Update() {
     if (Input.GetKeyDown(KeyCode.Escape)) {
-      Debug.Log("I need someone");
       ToggleScreen();
     }
   }
@@ -70,14 +66,11 @@ public class LoadMenu : MonoBehaviour {
     playerStates = SaveManager.Instance.GetSaves();
     saveList.itemsSource = playerStates;
     saveList.Rebuild();
-    Debug.Log("Help");
     loadMenu.rootVisualElement.style.display = DisplayStyle.Flex;
-    //loadMenu.enabled = true;
   }
 
   private void CloseMenu() {
     PauseManager.Instance.UnpauseAndUnlock();
     loadMenu.rootVisualElement.style.display = DisplayStyle.None;
-    //loadMenu.enabled = false;
   }
 }
