@@ -17,7 +17,7 @@ public class SpawnerTest {
 
     // We capture the enumerator to manually advance the wave.
     // This is normally handled under the hood by Unity.
-    var enumerator = wave.Start(spawner);
+    var enumerator = wave.Start();
     Assert.True(enumerator.MoveNext());
     yield return new WaitForSeconds(0.11f);
     Assert.False(enumerator.MoveNext());
@@ -37,7 +37,7 @@ public class SpawnerTest {
     wave.Subwaves.Add(spacer1);
     wave.Subwaves.Add(spacer2);
 
-    var enumerator = wave.Start(spawner);
+    var enumerator = wave.Start();
     Assert.True(enumerator.MoveNext());
     yield return new WaitForSeconds(0.11f);
     Assert.True(enumerator.MoveNext());
@@ -56,7 +56,7 @@ public class SpawnerTest {
     Spawner spawner = new GameObject().AddComponent<Spawner>();
     Spawner.SpacerWave wave = new() { delay = 0.1f };
 
-    var enumerator = wave.Start(spawner);
+    var enumerator = wave.Start();
     Assert.True(enumerator.MoveNext());
     yield return new WaitForSeconds(0.11f);
     Assert.False(enumerator.MoveNext());
@@ -105,7 +105,7 @@ public class EnemySubwaveTest {
       data = enemyData,
     };
 
-    var enumerator = wave.Start(spawner);
+    var enumerator = wave.Start();
     Assert.True(enumerator.MoveNext());
     Assert.That(objectPool.GetActiveEnemies().Count, Is.EqualTo(1));
     foreach (var enemy in objectPool.GetActiveEnemies()) {
