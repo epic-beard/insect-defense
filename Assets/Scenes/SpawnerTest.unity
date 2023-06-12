@@ -524,6 +524,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38cbfd2eb941a9940914ff351a76c092, type: 3}
+--- !u!114 &1038391427 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4294272177678036933, guid: a02049ef52e71414dabe7a874261c1a4, type: 3}
+  m_PrefabInstance: {fileID: 1554251028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd33f3a8c549c7047b96432937ed1d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1147267869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -706,6 +717,30 @@ PrefabInstance:
       propertyPath: filename
       value: waves/spawner_test.wave
       objectReference: {fileID: 0}
+    - target: {fileID: 1693289339214695213, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+      propertyPath: spawnLocations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1693289339214695213, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+      propertyPath: spawnLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 1038391427}
+    - target: {fileID: 2095149139777741097, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+      propertyPath: entries.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095149139777741097, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+      propertyPath: entries.Array.data[1].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095149139777741097, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+      propertyPath: entries.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 754222768604096711, guid: 1aa2bc059d06ad34d84f8ba768222ac3, type: 3}
+    - target: {fileID: 2095149139777741097, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+      propertyPath: entries.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 2166917792933380144, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
     - target: {fileID: 8256458714520664759, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: m_RootOrder
       value: 12
