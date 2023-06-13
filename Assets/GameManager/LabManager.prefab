@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3770796850854829353
+--- !u!1 &7505620091327887725
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1855479238056869879}
-  - component: {fileID: 6361153872161190346}
-  - component: {fileID: 97919302000182411}
-  - component: {fileID: 4167615392457572297}
-  - component: {fileID: 1333951122199400389}
+  - component: {fileID: 5026618601797508019}
+  - component: {fileID: 6712121989640691919}
+  - component: {fileID: 5692263022489430913}
+  - component: {fileID: 189811081180564329}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: LabManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1855479238056869879
+--- !u!4 &5026618601797508019
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770796850854829353}
+  m_GameObject: {fileID: 7505620091327887725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,53 +34,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6361153872161190346
+--- !u!114 &6712121989640691919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770796850854829353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b029a52e0bd537a41a181d6737d1bba9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &97919302000182411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770796850854829353}
+  m_GameObject: {fileID: 7505620091327887725}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1fe332e3f7667042ab0e7298844587b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4167615392457572297
+--- !u!114 &5692263022489430913
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770796850854829353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb5fbcb37d1d7b49b162c5c6db876fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
-  startingHealth: 10
-  startingNu: 100
-  nu: 0
---- !u!114 &1333951122199400389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770796850854829353}
+  m_GameObject: {fileID: 7505620091327887725}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d27faf84dbbc0643949e0368fa9866d, type: 3}
@@ -90,15 +61,22 @@ MonoBehaviour:
   musicGroup: {fileID: 1626779888496228386, guid: 9691b7a46b4e1e342974367fce383bb0, type: 2}
   sfxGroup: {fileID: 9064424125080577741, guid: 9691b7a46b4e1e342974367fce383bb0, type: 2}
   sounds:
-  - Name: sfx
-    Type: 0
-    Clip: {fileID: 8300000, guid: 6e4b12910df22014eaff268aef1e24d9, type: 3}
-    Loop: 0
-    PlayOnAwake: 0
-    Volume: 0.5
   - Name: music
     Type: 1
     Clip: {fileID: 8300000, guid: 36cbbd92a0917994ab1b33bc98a296c6, type: 3}
     Loop: 1
     PlayOnAwake: 1
     Volume: 0.5
+--- !u!114 &189811081180564329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7505620091327887725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b315dcb0151baba42ae3d463deb8f1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveDirectory: saves
