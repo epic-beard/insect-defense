@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SerializableDictionaryOfStringEnemyData>
+  <KeyValuePair>
+    <Key>
+      <string>ant</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>ANT</type>
+        <size>NORMAL</size>
+        <currHP>0</currHP>
+        <maxHP>20</maxHP>
+        <currArmor>0</currArmor>
+        <maxArmor>1</maxArmor>
+        <speed>1</speed>
+        <damage>1</damage>
+        <nu>20</nu>
+        <properties>NONE</properties>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>beetle</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>BEETLE</type>
+        <size>TINY</size>
+        <currHP>0</currHP>
+        <maxHP>5</maxHP>
+        <currArmor>0</currArmor>
+        <maxArmor>5</maxArmor>
+        <speed>0.5</speed>
+        <damage>2</damage>
+        <nu>10</nu>
+        <properties>NONE</properties>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+</SerializableDictionaryOfStringEnemyData>
