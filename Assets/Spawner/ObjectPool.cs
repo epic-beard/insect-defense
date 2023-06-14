@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour {
+  static public ObjectPool Instance;
 
   // An ugly artifact, just a pair class.
   // [TODO: nnewsom] get rid of this with Addressables or a SerializableDictionary.
@@ -21,6 +22,8 @@ public class ObjectPool : MonoBehaviour {
   readonly private HashSet<Enemy> activeEnemies = new();
 
   void Awake() {
+    Instance = this;
+
     foreach (var entry in entries) {
       prefabs[entry.type] = entry.prefab;
     }

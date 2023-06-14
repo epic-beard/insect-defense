@@ -5,26 +5,93 @@ using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
 
+using static EpicBeardLib.XmlSerializationHelpers;
+
 public class Spawner : MonoBehaviour {
+  static public Spawner Instance;
+
   [SerializeField] private List<Waypoint> spawnLocations = new();
-  private ObjectPool pool;
-  private EnemyDataManager enemyDataManager;
+  [SerializeField] private string filename;
+
+  private void Awake() {
+    Instance = this;
+  }
 
   void Start() {
-    pool = FindObjectOfType<ObjectPool>();
-    enemyDataManager = FindObjectOfType<EnemyDataManager>();
-    // TODO: Deserialize a Waves.
-    // StartCoroutine(wave.Start(this));
+    //----------------------------------------
+    //EnemyData testData1 = new() {
+    //  maxArmor = 1,
+    //  maxHP = 20,
+    //  size = EnemyData.Size.NORMAL,
+    //  nu = 20,
+    //  type = EnemyData.Type.ANT,
+    //  speed = 1.0f
+    //};
+
+    //EnemyWave enemyWave1 = new() {
+    //  data = testData1,
+    //  repetitions = 2,
+    //  spawnLocation = 0,
+    //  spawnAmmount = 2,
+    //};
+
+    //EnemyData testData2 = new() {
+    //  maxArmor = 5,
+    //  maxHP = 5,
+    //  size = EnemyData.Size.TINY,
+    //  nu = 10,
+    //  type = EnemyData.Type.BEETLE,
+    //  speed = 0.5f
+    //};
+
+    //EnemyWave enemyWave2 = new() {
+    //  data = testData2,
+    //  repetitions = 1,
+    //  spawnLocation = 0,
+    //  spawnAmmount = 1,
+    //};
+
+    //SequentialWave seqWave1 = new();
+    //seqWave1.Subwaves.Add(enemyWave1);
+    //seqWave1.Subwaves.Add(new SpacerWave() { delay = 1.0f });
+    //seqWave1.Subwaves.Add(enemyWave2);
+
+    //CannedEnemyWave cannedEnemyWave1 = new() {
+    //  repetitions = 3,
+    //  spawnLocation = 0,
+    //  spawnAmmount = 2,
+    //  enemyDataKey = "ant"
+    //};
+
+    //CannedEnemyWave cannedEnemyWave2 = new() {
+    //  repetitions = 3,
+    //  spawnLocation = 0,
+    //  spawnAmmount = 1,
+    //  enemyDataKey = "beetle"
+    //};
+
+    //ConcurrentWave conWave1 = new();
+    //conWave1.Subwaves.Add(cannedEnemyWave1);
+    //conWave1.Subwaves.Add(cannedEnemyWave2);
+
+    //Waves testWave = new();
+    //testWave.waves.Add(seqWave1);
+    //testWave.waves.Add(conWave1);
+
+    //Serialize<Wave>(testWave, filename);
+    //----------------------------------------
+    Wave wave = Deserialize<Wave>(filename);
+    StartCoroutine(wave.Start());
   }
 
   // A thin wrapper around InstantiateEnemy, using spawnLocation as an
   // index into spawnLocations.
   public GameObject Spawn(EnemyData data, int spawnLocation) {
-    return pool.InstantiateEnemy(data, spawnLocations[spawnLocation]);
+    return ObjectPool.Instance.InstantiateEnemy(data, spawnLocations[spawnLocation]);
   }
   // Same as above but looks up the enemy stats in the EnemyManager.
   public GameObject Spawn(string enemyDataKey, int spawnLocation) {
-    EnemyData data = enemyDataManager.GetEnemyData(enemyDataKey);
+    EnemyData data = EnemyDataManager.Instance.GetEnemyData(enemyDataKey);
     return Spawn(data, spawnLocation);
   }
 
@@ -37,7 +104,7 @@ public class Spawner : MonoBehaviour {
   [XmlInclude(typeof(SpacerWave))]
   public abstract class Wave {
     // Starts the wave.  Meant to be called as a Coroutine.
-    public abstract IEnumerator Start(Spawner spawner);
+    public abstract IEnumerator Start();
     // Whether or not this wave has completed.
     [XmlIgnore]
     public bool Finished { get; set; }
@@ -48,28 +115,24 @@ public class Spawner : MonoBehaviour {
     // Each wave represents one round of combat.
     readonly public List<Wave> waves = new();
     // Starts the level logic.
-    public override IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start() {
       foreach (var wave in waves) {
         // Wait for the signal to start the next level.
         yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
         // Run the wave and wait till it is complete.
-        yield return wave.Start(spawner);
+        yield return wave.Start();
       }
       Finished = true;
-    }
-    public void Serialize(Stream s) { }
-    public Waves Deserialize(Stream s) {
-      return new Waves();
     }
   }
 
   // A wave that calls its subwaves sequentially.
   public class SequentialWave : Wave {
     readonly public List<Wave> Subwaves = new();
-    public override IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start() {
       foreach (var subwave in Subwaves) {
         // Start the subwave and wait till it's finished.
-        yield return spawner.StartCoroutine(subwave.Start(spawner));
+        yield return Spawner.Instance.StartCoroutine(subwave.Start());
       }
       Finished = true;
     }
@@ -78,10 +141,10 @@ public class Spawner : MonoBehaviour {
   // A wave that calls its subwaves concurrently.
   public class ConcurrentWave : Wave {
     readonly public List<Wave> Subwaves = new();
-    public override IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start() {
       // Start all the subwaves.
       foreach (var subwave in Subwaves) {
-        spawner.StartCoroutine(subwave.Start(spawner));
+        Spawner.Instance.StartCoroutine(subwave.Start());
       }
       // Wait until all the subwaves have finished.
       yield return new WaitUntil(() => Subwaves.All((s) => s.Finished));
@@ -94,12 +157,15 @@ public class Spawner : MonoBehaviour {
     public int repetitions;
     public float repeatDelay;
     public int spawnLocation;
+    public int spawnAmmount;
     public EnemyData data;
 
-    public override IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {
-        // Create the enemy.
-        spawner.Spawn(data, spawnLocation);
+        for (int j = 0; j < spawnAmmount; j++) {
+          // Create the enemy.
+          Spawner.Instance.Spawn(data, spawnLocation);
+        }
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
       }
@@ -113,12 +179,15 @@ public class Spawner : MonoBehaviour {
     public int repetitions;
     public float repeatDelay;
     public int spawnLocation;
+    public int spawnAmmount;
     public string enemyDataKey;
 
-    public override IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {
-        // Create the enemy.
-        spawner.Spawn(enemyDataKey, spawnLocation);
+        for (int j = 0; j < spawnAmmount; j++) {
+          // Create the enemy.
+          Spawner.Instance.Spawn(enemyDataKey, spawnLocation);
+        }
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
       }
@@ -131,7 +200,7 @@ public class Spawner : MonoBehaviour {
   public class SpacerWave : Wave {
     public float delay;
 
-    public override IEnumerator Start(Spawner spawner) {
+    public override IEnumerator Start() {
       // Wait for delay seconds.
       yield return new WaitForSeconds(delay);
       Finished = true;
