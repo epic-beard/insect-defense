@@ -715,7 +715,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1693289339214695213, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: filename
-      value: waves/spawner_test.wave
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1693289339214695213, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: spawnLocations.Array.size
@@ -791,6 +791,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+--- !u!1 &1609288443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8459080827600517795, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+  m_PrefabInstance: {fileID: 1609288442}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1609288444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609288443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c10ff29737e1234198db17db9ce3ede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filename: waves/spawner_test.wave
 --- !u!1001 &1656429554
 PrefabInstance:
   m_ObjectHideFlags: 0
