@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour {
-  public static event Action GameOver; 
+  public static event Action GameOver;
+  public static GameObject SelectedTower;
 
-  [SerializeField] private GameObject gameOverScreen;
   [SerializeField] private int startingHealth = 10;
   [SerializeField] private int startingNu = 100;
   public int nu;

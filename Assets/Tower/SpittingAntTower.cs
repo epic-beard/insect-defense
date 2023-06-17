@@ -27,6 +27,7 @@ public class SpittingAntTower : Tower {
   public float AcidExplosionRange {
     get { return data[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; }
   }
+  public override TowerData.Type TowerType { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
 
   private Enemy enemy;
   private bool firing = false;

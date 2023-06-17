@@ -3,9 +3,13 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour {
 
+  [SerializeField] bool isTowerPlaceable;
+
+  private bool isTowerPresent = false;
   private bool lingeringWebs = false;
   private Dictionary<Tower, LingeringSlow> lingeringSlows = new();
   private LineRenderer webLineRenderer;
+  private Waypoint waypoint;
 
   // This class is used because structs are value type and c# does not deal well with changing value
   // types in a dictionary.
@@ -13,17 +17,18 @@ public class Tile : MonoBehaviour {
     public float SlowPower { get; set; }
     public float SlowDuration { get; set; }
     // This counts how many hits the web has left.
-    public int Hits { get; set; }
+    public int WebHits { get; set; }
 
     public LingeringSlow(float slowPower, float slowDuration, int hits) {
       SlowPower = slowPower;
       SlowDuration = slowDuration;
-      Hits = hits;
+      WebHits = hits;
     }
   }
 
   private void Start() {
     webLineRenderer = GetComponentInChildren<LineRenderer>();
+    waypoint = GetComponent<Waypoint>();
   }
 
   // Add a lingering web to this tile. It can support multiple different towers adding a lingering web
@@ -35,7 +40,7 @@ public class Tile : MonoBehaviour {
       slow.SlowPower = slowPower;
       slow.SlowDuration = slowDuration;
       // To avoid infinitely stacking lingering webs, the max charges of a lingering web is static.
-      slow.Hits = hits;
+      slow.WebHits = hits;
     } else {
       lingeringSlows.Add(tower, new LingeringSlow(slowPower, slowDuration, hits));
     }
@@ -56,8 +61,8 @@ public class Tile : MonoBehaviour {
       List<Tower> entriesToRemove = new();
       foreach (var (tower, lingeringSlow) in lingeringSlows) {
         enemy.ApplySlow(lingeringSlow.SlowPower, lingeringSlow.SlowDuration);
-        lingeringSlow.Hits--;
-        if (lingeringSlow.Hits == 0) {
+        lingeringSlow.WebHits--;
+        if (lingeringSlow.WebHits == 0) {
           entriesToRemove.Add(tower);
         }
       }
@@ -70,6 +75,13 @@ public class Tile : MonoBehaviour {
         lingeringWebs = false;
         webLineRenderer.enabled = false;
       }
+    }
+  }
+
+  // Capture mouseclick and build a tower.
+  private void OnMouseDown() {
+    if (isTowerPlaceable && !isTowerPresent) {
+      Instantiate(GameStateManager.SelectedTower, transform.position, Quaternion.identity);
     }
   }
 }
