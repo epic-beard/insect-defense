@@ -7,6 +7,10 @@ public class TerrariumUI : MonoBehaviour {
   readonly private string settingsButtonName = "settings__button";
   readonly private string towerSelectionListviewName = "tower_selection__listview";
   readonly private string gameViewVisualElementName = "game_view__visualelement";
+  readonly private string contextWindowLabelName = "placeholder__label";
+
+  // The list of 'authorized' tower prefabs for this map. The tower select menu is built off this list.
+  [SerializeField] List<GameObject> prefabs;
 
   UIDocument terrariumScreen;
 
@@ -14,7 +18,7 @@ public class TerrariumUI : MonoBehaviour {
   Button settingsButton;
   ListView towerSelectionListView;
   VisualElement gameView;
-  List<string> towerNames;
+  Label contextLabel;
 
   private void Awake() {
     SetVisualElements();
@@ -36,23 +40,25 @@ public class TerrariumUI : MonoBehaviour {
     settingsButton = rootElement.Q<Button>(settingsButtonName);
     towerSelectionListView = rootElement.Q<ListView>(towerSelectionListviewName);
     gameView = rootElement.Q<VisualElement>(gameViewVisualElementName);
+    contextLabel = rootElement.Q<Label>(contextWindowLabelName);
   }
 
   private void ConstructTowerSelectionListView() {
-    towerNames = new();
-    towerNames.Add("Ant Farm");
-    towerNames.Add("Ant Pheremone Tower");
-    towerNames.Add("Assassin Bug");
-    towerNames.Add("Bee Hive");
-    towerNames.Add("Mantis");
-    towerNames.Add("Noxious Beetle");
-    towerNames.Add("Spitting Ant Tower");
-    towerNames.Add("Trapdoor Spider");
-    towerNames.Add("Web Shooting Spider Tower");
-
     towerSelectionListView.makeItem = () => new Button();
-    towerSelectionListView.bindItem = (e, i) => { (e as Button).text = towerNames[i]; };
-    towerSelectionListView.itemsSource = towerNames;
+    towerSelectionListView.bindItem = (e, i) => {
+      Button tower = (Button)e;
+      var towerPrefab = prefabs[i].GetComponent<Tower>();
+
+      tower.text = towerPrefab.TowerType.ToString();
+      tower.RegisterCallback<ClickEvent>(TowerClickEvent);
+    };
+    towerSelectionListView.itemsSource = prefabs;
+  }
+
+  private void TowerClickEvent(ClickEvent evt) {
+    Button buttonPressed = evt.target as Button;
+    Debug.Log("Button pressed: " + buttonPressed.text);
+    contextLabel.text = buttonPressed.text;
   }
 
   private void RegisterCallbacks() {
