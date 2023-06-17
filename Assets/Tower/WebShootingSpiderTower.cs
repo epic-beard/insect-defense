@@ -30,7 +30,6 @@ public class WebShootingSpiderTower : Tower {
   protected ObjectPool objectPool;
 
   private void Start() {
-    //TowerType = TowerData.Type.WEB_SHOOTING_SPIDER_TOWER;
     // TODO: The user should be able to set the default for each tower type.
     targeting = new() {
       behavior = this.behavior,

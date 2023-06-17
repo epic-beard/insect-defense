@@ -19,6 +19,7 @@ public class TerrariumUI : MonoBehaviour {
   ListView towerSelectionListView;
   VisualElement gameView;
   Label contextLabel;
+  Dictionary<string, GameObject> towerNameToPrefab = new();
 
   private void Awake() {
     SetVisualElements();
@@ -47,9 +48,10 @@ public class TerrariumUI : MonoBehaviour {
     towerSelectionListView.makeItem = () => new Button();
     towerSelectionListView.bindItem = (e, i) => {
       Button tower = (Button)e;
-      var towerPrefab = prefabs[i].GetComponent<Tower>();
+      string towerName = prefabs[i].GetComponent<Tower>().TowerType.ToString();
 
-      tower.text = towerPrefab.TowerType.ToString();
+      tower.text = towerName;
+      towerNameToPrefab.Add(towerName, prefabs[i]);
       tower.RegisterCallback<ClickEvent>(TowerClickEvent);
     };
     towerSelectionListView.itemsSource = prefabs;
@@ -57,8 +59,8 @@ public class TerrariumUI : MonoBehaviour {
 
   private void TowerClickEvent(ClickEvent evt) {
     Button buttonPressed = evt.target as Button;
-    Debug.Log("Button pressed: " + buttonPressed.text);
     contextLabel.text = buttonPressed.text;
+    GameStateManager.SelectedTower = towerNameToPrefab[buttonPressed.text];
   }
 
   private void RegisterCallbacks() {

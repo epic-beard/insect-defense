@@ -1,5 +1,4 @@
 using System;
-using UnityEditorInternal;
 
 [Serializable]
 public struct TowerData {
