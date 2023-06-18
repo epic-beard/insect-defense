@@ -81,6 +81,9 @@ public class Tile : MonoBehaviour {
   // Capture mouseclick and build a tower.
   private void OnMouseDown() {
     if (isTowerPlaceable && !isTowerPresent) {
+      if (GameStateManager.SelectedTower == null) {
+        return;
+      }
       Instantiate(GameStateManager.SelectedTower, transform.position, Quaternion.identity);
     }
   }
