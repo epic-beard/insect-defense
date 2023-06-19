@@ -418,32 +418,32 @@ public static class SpittingAntTowerUtils {
   public static void InvokeProcessDamageAndEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {
     object[] args = { enemy };
     Type[] argTypes = { typeof(Enemy) };
-    MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
+    MethodInfo processDamageAndEffects = typeof(SpittingAntTower).GetMethod(
         "ProcessDamageAndEffects",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
-    handleAcidEffects.Invoke(spittingAntTower, args);
+    processDamageAndEffects.Invoke(spittingAntTower, args);
   }
 
   public static void InvokeHandleMaxAcidStackEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {
     object[] args = { enemy };
     Type[] argTypes = { typeof(Enemy) };
-    MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
+    MethodInfo handleMaxAcidStackEffects = typeof(SpittingAntTower).GetMethod(
         "HandleMaxAcidStackEffects",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
-    handleAcidEffects.Invoke(spittingAntTower, args);
+    handleMaxAcidStackEffects.Invoke(spittingAntTower, args);
   }
 
   public static void InvokeHandleSplashEffects(
       this SpittingAntTower spittingAntTower, Enemy enemy, float onHitDamage) {
     object[] args = { enemy, onHitDamage };
     Type[] argTypes = { typeof(Enemy), typeof(float) };
-    MethodInfo handleAcidEffects = typeof(SpittingAntTower).GetMethod(
+    MethodInfo handleSplashEffects = typeof(SpittingAntTower).GetMethod(
         "HandleSplashEffects",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
-    handleAcidEffects.Invoke(spittingAntTower, args);
+    handleSplashEffects.Invoke(spittingAntTower, args);
   }
 
   public static List<Enemy> InvokeGetEnemiesInExplosionRange(
