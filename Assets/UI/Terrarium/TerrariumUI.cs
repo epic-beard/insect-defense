@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TerrariumUI : MonoBehaviour {
-  public static TerrariumUI instance;
+  public static TerrariumUI Instance;
 
   readonly private string playPauseButtonName = "play_pause__button";
   readonly private string settingsButtonName = "settings__button";
@@ -29,7 +29,7 @@ public class TerrariumUI : MonoBehaviour {
     SetVisualElements();
     ConstructTowerSelectionListView();
 
-    instance = this;
+    Instance = this;
   }
 
   private void Start() {

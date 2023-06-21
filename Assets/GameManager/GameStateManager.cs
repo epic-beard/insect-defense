@@ -5,7 +5,7 @@ public class GameStateManager : MonoBehaviour {
   public static event Action GameOver;
   public static GameObject SelectedTower;
 
-  [SerializeField] private int startingHealth = 100;
+  [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
   public int nu;
   private int health;
@@ -13,13 +13,13 @@ public class GameStateManager : MonoBehaviour {
     get { return health; }
     private set {
       // Update the ui health label.
-      TerrariumUI.instance.SetHpLabelText(value);
+      TerrariumUI.Instance.SetHpLabelText(value);
       health = value;
     }
   }
 
   void Start () {
-    Health = startingHealth;
+    Health = maxHealth;
     nu = startingNu;
   }
 
