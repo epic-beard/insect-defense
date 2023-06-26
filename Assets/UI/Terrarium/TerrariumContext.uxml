@@ -1,5 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="context__visualelement" style="background-color: rgb(0, 0, 0); visibility: visible; -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=3777eba60fbb10a46aae923b94a266cb&amp;type=3#NotInter-Regular&apos;); -unity-font-style: normal; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; display: flex;">
-        <ui:Label text="Contextual Panel" display-tooltip-when-elided="true" name="placeholder__label" style="-unity-font: none; -unity-text-align: middle-center; font-size: 20px; color: rgba(255, 255, 255, 255);" />
+        <ui:Label text="Contextual Panel" display-tooltip-when-elided="true" name="placeholder__label" style="-unity-font: none; -unity-text-align: middle-center; font-size: 20px; color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="tower_context__visualelement">
+        <ui:Label text="&lt;towername&gt;" display-tooltip-when-elided="true" style="align-items: stretch; -unity-text-align: upper-center;" />
+        <ui:DropdownField label="Behavior" index="0" choices="Normal, Camo, Flier, Stubborn" name="tower_behavior__dropdown" style="flex-direction: row;" />
+        <ui:DropdownField label="Priority" index="0" choices="First, Last, Least Armor, Least HP, Most Armor, Most HP" name="tower_priority__dropdown" />
+    </ui:VisualElement>
+    <ui:VisualElement name="enemy_context__visualelement" />
+    <ui:VisualElement name="no_context__visualelement">
+        <ui:Label text="No Current Context" display-tooltip-when-elided="true" name="no_context__label" />
     </ui:VisualElement>
 </ui:UXML>
