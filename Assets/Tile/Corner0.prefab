@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 8860293183582799349}
   - component: {fileID: -3466148999726054209}
   m_Layer: 0
-  m_Name: CornerUp
+  m_Name: Corner0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
