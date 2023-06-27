@@ -6,8 +6,6 @@ public class Enemy : MonoBehaviour {
   public EnemyData data;
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
-  public ObjectPool pool;
-  public GameStateManager stateManager;
 
   public static int acidStackMaxMultiplier = 25;
   public static float acidDamagePerStackPerSecond = 1.0f;
@@ -19,10 +17,6 @@ public class Enemy : MonoBehaviour {
   void OnEnable() {
     transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
-
-    // This may be slow, consider moving it to the object pool.
-    // But this is unlikely to be a significant fraction of the instantiation time.
-    stateManager = FindObjectOfType<GameStateManager>();
 
     data.Initialize();
     StartCoroutine(HandleStun());
@@ -207,7 +201,7 @@ public class Enemy : MonoBehaviour {
   }
 
   private void FinishPath() {
-    stateManager.DealDamage(Damage);
-    pool.DestroyEnemy(gameObject);
+    GameStateManager.Instance.DealDamage(Damage);
+    ObjectPool.Instance.DestroyEnemy(gameObject);
   }
 }

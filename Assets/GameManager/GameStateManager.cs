@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour {
+  public static GameStateManager Instance;
   public static event Action GameOver; 
 
   [SerializeField] private GameObject gameOverScreen;
@@ -13,6 +14,9 @@ public class GameStateManager : MonoBehaviour {
   [SerializeField] private int startingNu = 100;
   public int nu;
   public int Health { get; private set; }
+  private void Awake() {
+    Instance = this;
+  }
 
   void Start () {
     Health = startingHealth;
