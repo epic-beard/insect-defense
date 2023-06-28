@@ -6,7 +6,7 @@
         <ui:Label text="&lt;towername&gt;" display-tooltip-when-elided="true" style="align-items: stretch; -unity-text-align: upper-center;" />
         <ui:VisualElement name="tower_context_content__visualelement" style="flex-direction: row;">
             <ui:VisualElement name="tower_actions_container__visualelement">
-                <ui:DropdownField label="Behavior" index="0" choices="Normal, Camo, Flier, Stubborn" name="tower_behavior__dropdown" style="flex-direction: column;" />
+                <ui:DropdownField label="Behavior" index="0" choices="All,Camo,Flier,Stubborn" name="tower_behavior__dropdown" style="flex-direction: column;" />
                 <ui:DropdownField label="Priority" index="0" choices="First, Last, Least Armor, Least HP, Most Armor, Most HP" name="tower_priority__dropdown" style="flex-direction: column;" />
             </ui:VisualElement>
             <ui:VisualElement name="tower_upgrade_container__visualelement" style="flex-wrap: nowrap;">

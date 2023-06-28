@@ -80,6 +80,16 @@ public abstract class Tower : MonoBehaviour {
   // How close a particle needs to get to consider it a hit.
   public readonly static float hitRange = 0.1f;
 
+  protected Targeting targeting = new();
+  public Targeting.Behavior Behavior {
+    get { return targeting.behavior; }
+    set { targeting.behavior = value; }
+  }
+  public Targeting.Priority Priority {
+    get { return targeting.priority; }
+    set { targeting.priority = value; }
+  }
+
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
     if (ability.specialAbility != TowerAbility.SpecialAbility.NONE) {

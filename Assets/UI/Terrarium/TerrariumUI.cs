@@ -112,7 +112,8 @@ public class TerrariumUI : MonoBehaviour {
   private void TowerClickEvent(ClickEvent evt) {
     Button buttonPressed = evt.target as Button;
     contextLabel.text = buttonPressed.text;
-    GameStateManager.SelectedTower = towerNameToPrefab[buttonPressed.text];
+    GameStateManager.SelectedTowerType = towerNameToPrefab[buttonPressed.text];
+    SetTowerContextPanel();
   }
 
   private void RegisterCallbacks() {
@@ -120,8 +121,28 @@ public class TerrariumUI : MonoBehaviour {
     playPauseButton.RegisterCallback<ClickEvent>(KeepPlayPauseButtonNameCorrect);
     settingsButton.RegisterCallback<ClickEvent>(SettingsMenu.Instance.ToggleSettingsCallback);
 
-    towerBehaviorDropdown.RegisterValueChangedCallback(v => Debug.Log(v.newValue));
-    towerPriorityDropdown.RegisterValueChangedCallback(v => Debug.Log(v.newValue));
+    towerBehaviorDropdown.RegisterCallback<ChangeEvent<string>>(BehaviorCallback);
+    towerPriorityDropdown.RegisterCallback<ChangeEvent<string>>(PriorityCallback);
+  }
+
+  private void BehaviorCallback(ChangeEvent<string> evt) {
+    if (GameStateManager.SelectedTower == null) {
+      Debug.Log("[ERROR] No tower selected, but behavior change attempted.");
+    }
+    Targeting.Behavior behavior =
+        (Targeting.Behavior)System.Enum.Parse(
+            typeof(Targeting.Behavior), towerBehaviorDropdown.value.ToUpper());
+    GameStateManager.SelectedTower.Behavior = behavior;
+  }
+
+  private void PriorityCallback(ChangeEvent<string> evt) {
+    if (GameStateManager.SelectedTower == null) {
+      Debug.Log("[ERROR] No tower selected, but priority change attempted.");
+    }
+    Targeting.Priority priority =
+        (Targeting.Priority)System.Enum.Parse(
+            typeof(Targeting.Priority), towerPriorityDropdown.value.ToUpper().Replace(" ", ""));
+    GameStateManager.SelectedTower.Priority = priority;
   }
 
   private void KeepPlayPauseButtonNameCorrect(ClickEvent evt) {

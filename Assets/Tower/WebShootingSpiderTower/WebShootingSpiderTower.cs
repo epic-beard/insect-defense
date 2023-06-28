@@ -26,7 +26,6 @@ public class WebShootingSpiderTower : Tower {
   private bool firing = false;
   private ProjectileHandler primaryProjectileHandler;
   private ProjectileHandler secondaryProjectileHandler;
-  private Targeting targeting = new();
   protected ObjectPool objectPool;
 
   private void Start() {

@@ -32,7 +32,6 @@ public class SpittingAntTower : Tower {
   private Enemy enemy;
   private bool firing = false;
   private ProjectileHandler projectileHandler;
-  private Targeting targeting = new();
   protected ObjectPool objectPool;
 
   private void Start() {

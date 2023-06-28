@@ -1,10 +1,16 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStateManager : MonoBehaviour {
   public static GameStateManager Instance;
   public static event Action GameOver;
-  public static GameObject SelectedTower;
+  // The type of tower currently selected by the user for construction.
+  public static GameObject SelectedTowerType;
+  // The specific tower the user clicked on in the map.
+  public static Tower SelectedTower;
+
+  public Dictionary<Vector2Int, Tower> activeTowerMap = new();
 
   public enum ContextType {
     TOWER,
@@ -37,7 +43,7 @@ public class GameStateManager : MonoBehaviour {
   private void Update() {
     // Right click should clear selected context.
     if (Input.GetMouseButton(1)) {
-      SelectedTower = null;
+      ClearSelection();
       TerrariumUI.Instance.SetNoContextPanel();
     }
   }
@@ -45,5 +51,18 @@ public class GameStateManager : MonoBehaviour {
   public void DealDamage(int damage) {
     Health -= damage;
     if (Health <= 0) GameOver?.Invoke();
+  }
+
+  public void AddTower(Vector2Int coordinates, Tower tower) {
+    activeTowerMap.Add(coordinates, tower);
+  }
+
+  public Tower GetTower(Vector2Int coordinates) {
+    return activeTowerMap[coordinates];
+  }
+
+  public void ClearSelection() {
+    SelectedTowerType = null;
+    SelectedTower = null;
   }
 }
