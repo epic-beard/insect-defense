@@ -13,6 +13,7 @@ public class TerrariumUI : MonoBehaviour {
   readonly private string noContextVisualElementName = "no_context__visualelement";
   readonly private string towerContextVisualElementName = "tower_context__visualelement";
   readonly private string towerBehaviorDropdownName = "tower_behavior__dropdown";
+  readonly private string towerPriorityDropdownName = "tower_priority__dropdown";
 
   // Bottom Panel
   readonly private string playPauseButtonName = "play_pause__button";
@@ -38,6 +39,7 @@ public class TerrariumUI : MonoBehaviour {
   private VisualElement noContextVisualElement;
   private VisualElement towerContextVisualElement;
   private DropdownField towerBehaviorDropdown;
+  private DropdownField towerPriorityDropdown;
 
   // Bottom Panel
   private Button playPauseButton;
@@ -85,6 +87,7 @@ public class TerrariumUI : MonoBehaviour {
     towerSelectionListView = rootElement.Q<ListView>(towerSelectionListviewName);
 
     towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
+    towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
   }
 
   private void ConstructTowerSelectionListView() {
@@ -116,6 +119,9 @@ public class TerrariumUI : MonoBehaviour {
     playPauseButton.RegisterCallback<ClickEvent>(PauseManager.Instance.HandlePauseCallback);
     playPauseButton.RegisterCallback<ClickEvent>(KeepPlayPauseButtonNameCorrect);
     settingsButton.RegisterCallback<ClickEvent>(SettingsMenu.Instance.ToggleSettingsCallback);
+
+    towerBehaviorDropdown.RegisterValueChangedCallback(v => Debug.Log(v.newValue));
+    towerPriorityDropdown.RegisterValueChangedCallback(v => Debug.Log(v.newValue));
   }
 
   private void KeepPlayPauseButtonNameCorrect(ClickEvent evt) {
