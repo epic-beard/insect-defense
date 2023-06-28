@@ -89,8 +89,6 @@ public class EnemySubwaveTest {
     spawnLocation.transform.position = Vector3.left;
     spawner.AddStartingLocation(spawnLocation);
 
-    spawner.SetObjectPool(objectPool);
-
     enemyData = new EnemyData() {
       type = EnemyData.Type.BEETLE
     };
@@ -101,6 +99,7 @@ public class EnemySubwaveTest {
     Spawner.EnemyWave wave = new() {
       repetitions = 2,
       repeatDelay = 0.1f,
+      spawnAmmount = 1,
       spawnLocation = 1,
       data = enemyData,
     };

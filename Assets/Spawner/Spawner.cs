@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour {
   static public Spawner Instance;
 
   [SerializeField] private List<Waypoint> spawnLocations = new();
-  [SerializeField] private string filename;
+  [SerializeField] private string filename = "";
 
   private void Awake() {
     Instance = this;
