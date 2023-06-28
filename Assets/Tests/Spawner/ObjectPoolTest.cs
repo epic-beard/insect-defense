@@ -50,7 +50,6 @@ public class ObjectPoolTest {
     GameObject gameObject = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject.activeSelf);
-    Assert.That(gameObject.GetComponent<Enemy>().pool, Is.SameAs(objectPool));
     Assert.That(gameObject.GetComponent<Enemy>().PrevWaypoint, Is.SameAs(waypoint));
     Assert.That(gameObject.GetComponent<Enemy>().data, Is.EqualTo(enemyData));
   }

@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour {
     data.currHP -= damage - Mathf.Clamp(Armor - armorPierce, 0.0f, damage);
     if (data.currHP <= 0.0f) {
       // TODO: Award the player Nu
-      pool.DestroyEnemy(gameObject);
+      ObjectPool.Instance.DestroyEnemy(gameObject);
     }
     return data.currHP;
   }

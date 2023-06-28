@@ -35,10 +35,6 @@ public class WebShootingSpiderTowerPlayModeTest {
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
-    wssTower.SetObjectPool(objectPool);
-    target.pool = objectPool;
-    enemyInRange.pool = objectPool;
-    enemyOutOfRange.pool = objectPool;
   }
 
   // The most basic playtest, this is a slow tower without any special abilities.
