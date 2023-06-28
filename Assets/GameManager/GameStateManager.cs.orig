@@ -9,10 +9,11 @@ public class GameStateManager : MonoBehaviour {
   [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
   public int nu;
-  private int health;
+
   private void Awake() {
     Instance = this;
-  }
+
+  private int health;
   public int Health {
     get { return health; }
     private set {

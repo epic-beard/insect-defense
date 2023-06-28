@@ -20,6 +20,7 @@ public class WebShootingSpiderTower : Tower {
   public bool GroundingShot { get; private set; } = false;
   public int LingeringWebHits { get; private set; } = 3;
   public float GroundedTime { get; } = 0.5f;
+  public override TowerData.Type TowerType { get; set; } = TowerData.Type.WEB_SHOOTING_SPIDER_TOWER;
 
   private Enemy enemy;
   private bool firing = false;
@@ -35,12 +36,12 @@ public class WebShootingSpiderTower : Tower {
       priority = this.priority
     };
 
-    //AttackSpeed = 1.0f;
-    //AreaOfEffect = 20.0f;
-    //Range = 30.0f;
-    //ProjectileSpeed = 20.0f;
-    //SlowDuration = 2.0f;
-    //SlowPower = 0.5f;
+    AttackSpeed = 1.0f;
+    AreaOfEffect = 20.0f;
+    Range = 30.0f;
+    ProjectileSpeed = 20.0f;
+    SlowDuration = 2.0f;
+    SlowPower = 0.5f;
 
     // -----0-----
 

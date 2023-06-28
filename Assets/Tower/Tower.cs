@@ -56,6 +56,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
+  public abstract TowerData.Type TowerType { get; set; }
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
     { TowerAbility.Type.ANTI_AIR, false },

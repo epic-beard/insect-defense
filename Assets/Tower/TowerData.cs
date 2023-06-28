@@ -1,10 +1,10 @@
 using System;
-using UnityEditorInternal;
 
 [Serializable]
 public struct TowerData {
   public enum Type {
     SPITTING_ANT_TOWER,
+    WEB_SHOOTING_SPIDER_TOWER,
   }
   public enum Stat {
     AREA_OF_EFFECT,

@@ -72,7 +72,7 @@ public class TileTest {
     // Establish the basis for comparison.
     Assert.That(lingeringWebs.Count, Is.EqualTo(1));
     Assert.That(lineRenderer.enabled, Is.True);
-    Assert.That(lingeringWebs[wssTower].Hits, Is.EqualTo(hits));
+    Assert.That(lingeringWebs[wssTower].WebHits, Is.EqualTo(hits));
     Assert.That(enemy.SlowDuration, Is.EqualTo(0.0f));
 
     tile.InvokeOnTriggerEnter(collider);
@@ -81,7 +81,7 @@ public class TileTest {
     lingeringWebs = tile.GetLingeringSlows();
     Assert.That(lingeringWebs.Count, Is.EqualTo(1));
     Assert.That(lineRenderer.enabled, Is.True);
-    Assert.That(lingeringWebs[wssTower].Hits, Is.EqualTo(hits - 1));
+    Assert.That(lingeringWebs[wssTower].WebHits, Is.EqualTo(hits - 1));
     Assert.That(enemy.SlowDuration, Is.EqualTo(slowDuration));
   }
 
@@ -100,7 +100,7 @@ public class TileTest {
     // Establish the basis for comparison.
     Assert.That(lingeringWebs.Count, Is.EqualTo(1));
     Assert.That(lineRenderer.enabled, Is.True);
-    Assert.That(lingeringWebs[wssTower].Hits, Is.EqualTo(hits));
+    Assert.That(lingeringWebs[wssTower].WebHits, Is.EqualTo(hits));
     Assert.That(enemy.SlowDuration, Is.EqualTo(0.0f));
 
     tile.InvokeOnTriggerEnter(collider);
@@ -109,7 +109,7 @@ public class TileTest {
     lingeringWebs = tile.GetLingeringSlows();
     Assert.That(lingeringWebs.Count, Is.EqualTo(1));
     Assert.That(lineRenderer.enabled, Is.True);
-    Assert.That(lingeringWebs[wssTower].Hits, Is.EqualTo(hits));
+    Assert.That(lingeringWebs[wssTower].WebHits, Is.EqualTo(hits));
     Assert.That(enemy.SlowDuration, Is.EqualTo(0.0f));
   }
 
