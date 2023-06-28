@@ -37,8 +37,7 @@ public class PathManager : MonoBehaviour {
     foreach (var waypoint in waypoints) {
       Vector2Int coord = waypoint.GetCoordinates() - coordOffset;
       foreach (var exit in waypoint.exits) {
-        Waypoint.Direction dir = GetRotatedDirection(waypoint.transform, exit);
-        Waypoint? neighbor = GetNeigbhor(dir, coord, grid);
+        Waypoint? neighbor = GetNeigbhor(exit, coord, grid);
         if (neighbor == null) continue;
         neighbor.prevWaypoints.Add(waypoint);
         waypoint.nextWaypoints.Add(neighbor);
@@ -64,11 +63,6 @@ public class PathManager : MonoBehaviour {
     }
   }
 
-  // Rotates a Direction by the 90 degree steps of the z rotation of the transform.
-  private Waypoint.Direction GetRotatedDirection(Transform transform, Waypoint.Direction dir) {
-    int steps = Mathf.RoundToInt(transform.rotation.eulerAngles.y / 90);
-    return (Waypoint.Direction)(((int)dir + steps) % 4);
-  }
   private void GetDistanceToEnd(Waypoint[] waypoints) {
     foreach (Waypoint waypoint in waypoints) {
       GetDistanceToEnd(waypoint);

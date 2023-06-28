@@ -47,9 +47,6 @@ public class SpittingAntTowerPlayModeTest {
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
     spittingAntTower.SetObjectPool(objectPool);
-    target.pool = objectPool;
-    enemyInRange.pool = objectPool;
-    enemyOutOfRange.pool = objectPool;
   }
 
   // Play test for the basic splash attack. This test focuses on those effects only available to the

@@ -54,26 +54,6 @@ public class PathManagerTest {
     Assert.That(waypointCenter.nextWaypoints, Is.EquivalentTo(new List<Waypoint>()));
   }
 
-  // Creates a central Waypoint with neighbors above and to the right.  The central Waypoint is rotated -270 degrees.
-  // Tests that rotation of Waypoints is handled correctly.
-  [Test]
-  public void PopulateWaypointsRotation() {
-    Waypoint waypointUp = GetWaypoint(Vector3.forward * tileSpacing);
-    Waypoint waypointRight = GetWaypoint(Vector3.right * tileSpacing);
-    Waypoint waypointCenter = GetWaypoint(Vector3.zero * tileSpacing);
-
-    waypointCenter.exits = new List<Waypoint.Direction>() { Waypoint.Direction.UP };
-    waypointCenter.transform.Rotate(-270 * Vector3.up);
-
-    PathManager pathManager = new GameObject().AddComponent<PathManager>();
-    object[] args = { new Waypoint[] { waypointUp, waypointRight, waypointCenter } };
-    pathManager.InvokePopulateWaypoints(args);
-
-    Assert.That(waypointCenter.nextWaypoints, Is.EquivalentTo(new List<Waypoint>() { waypointRight }));
-    Assert.That(waypointUp.prevWaypoints, Is.EquivalentTo(new List<Waypoint>()));
-    Assert.That(waypointRight.prevWaypoints, Is.EquivalentTo(new List<Waypoint>() { waypointCenter }));
-  }
-
   // Tests the case where there are two starts and two ends.
   [Test]
   public void GetDistanceToEndWorks() {
