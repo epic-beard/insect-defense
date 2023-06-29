@@ -22,6 +22,10 @@ public class GameStateManager : MonoBehaviour {
   [SerializeField] private int startingNu = 100;
   public int nu;
   private int health;
+
+  private void Awake() {
+    Instance = this;
+  }
   public int Health {
     get { return health; }
     private set {
@@ -29,10 +33,6 @@ public class GameStateManager : MonoBehaviour {
       TerrariumUI.Instance.SetHpLabelText(value);
       health = value;
     }
-  }
-
-  private void Awake() {
-    Instance = this;
   }
 
   private void Start () {

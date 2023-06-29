@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour {
@@ -70,7 +68,6 @@ public class ObjectPool : MonoBehaviour {
   private void InitializeObjectPool() {
     foreach (var (type, prefab) in prefabs) {
       objectPools[type] = new Queue<GameObject>();
-      prefab.GetComponent<Enemy>().pool = this;
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefab);
         gameObject.SetActive(false);

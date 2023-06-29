@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -8,11 +7,11 @@ public class TerrariumUI : MonoBehaviour {
   public static TerrariumUI Instance;
 
   // Contextual Panel
-  readonly private string contextWindowLabelName = "placeholder__label";
   readonly private string enemyContextVisualElementName = "enemy_context__visualelement";
   readonly private string noContextVisualElementName = "no_context__visualelement";
-  readonly private string towerContextVisualElementName = "tower_context__visualelement";
   readonly private string towerBehaviorDropdownName = "tower_behavior__dropdown";
+  readonly private string towerContextVisualElementName = "tower_context__visualelement";
+  readonly private string towerNameLabelName = "tower_name__label";
   readonly private string towerPriorityDropdownName = "tower_priority__dropdown";
 
   // Bottom Panel
@@ -34,11 +33,11 @@ public class TerrariumUI : MonoBehaviour {
   private UIDocument terrariumScreen;
 
   // Contextual Panel
-  private Label contextLabel;
   private VisualElement enemyContextVisualElement;
   private VisualElement noContextVisualElement;
-  private VisualElement towerContextVisualElement;
   private DropdownField towerBehaviorDropdown;
+  private VisualElement towerContextVisualElement;
+  private Label towerNameLabel;
   private DropdownField towerPriorityDropdown;
 
   // Bottom Panel
@@ -59,7 +58,6 @@ public class TerrariumUI : MonoBehaviour {
   private void Awake() {
     SetVisualElements();
     ConstructTowerSelectionListView();
-    ConstructBehaviorDropDown();
     //SetNoContextPanel();
     SetTowerContextPanel();
 
@@ -76,7 +74,6 @@ public class TerrariumUI : MonoBehaviour {
     terrariumScreen = GetComponent<UIDocument>();
     VisualElement rootElement = terrariumScreen.rootVisualElement;
 
-    contextLabel = rootElement.Q<Label>(contextWindowLabelName);
     enemyContextVisualElement = rootElement.Q<VisualElement>(enemyContextVisualElementName);
     gameView = rootElement.Q<VisualElement>(gameViewVisualElementName);
     hpLabel = rootElement.Q<Label>(hpLabelName);
@@ -87,6 +84,7 @@ public class TerrariumUI : MonoBehaviour {
     towerSelectionListView = rootElement.Q<ListView>(towerSelectionListviewName);
 
     towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
+    towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
     towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
   }
 
@@ -103,17 +101,11 @@ public class TerrariumUI : MonoBehaviour {
     towerSelectionListView.itemsSource = prefabs;
   }
 
-  private void ConstructBehaviorDropDown() {
-    //var dropdown = new DropdownField("Options", new List<string> { "Option 1", "Option 2", "Option 3" }, 0);
-    //dropdown.RegisterValueChangedCallback(evt => Debug.Log(evt.newValue));
-    //towerBehaviorDropdown.Add(dropdown);
-  }
-
   private void TowerClickEvent(ClickEvent evt) {
     Button buttonPressed = evt.target as Button;
-    contextLabel.text = buttonPressed.text;
     GameStateManager.SelectedTowerType = towerNameToPrefab[buttonPressed.text];
     SetTowerContextPanel();
+    SetContextTowerName(GameStateManager.SelectedTowerType.name);
   }
 
   private void RegisterCallbacks() {
@@ -173,5 +165,9 @@ public class TerrariumUI : MonoBehaviour {
     enemyContextVisualElement.style.display = DisplayStyle.Flex;
     towerContextVisualElement.style.display = DisplayStyle.None;
     noContextVisualElement.style.display = DisplayStyle.None;
+  }
+
+  public void SetContextTowerName(string name) {
+    towerNameLabel.text = name;
   }
 }

@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour {
   public EnemyData data;
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
-  public ObjectPool pool;
 
   public static int acidStackMaxMultiplier = 25;
   public static float acidDamagePerStackPerSecond = 1.0f;
@@ -68,7 +67,7 @@ public class Enemy : MonoBehaviour {
     data.currHP -= damage - Mathf.Clamp(Armor - armorPierce, 0.0f, damage);
     if (data.currHP <= 0.0f) {
       // TODO: Award the player Nu
-      pool.DestroyEnemy(gameObject);
+      ObjectPool.Instance.DestroyEnemy(gameObject);
     }
     return data.currHP;
   }
@@ -203,6 +202,6 @@ public class Enemy : MonoBehaviour {
 
   private void FinishPath() {
     GameStateManager.Instance.DealDamage(Damage);
-    pool.DestroyEnemy(gameObject);
+    ObjectPool.Instance.DestroyEnemy(gameObject);
   }
 }

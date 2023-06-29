@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour {
   static public Spawner Instance;
 
   [SerializeField] private List<Waypoint> spawnLocations = new();
-  [SerializeField] private string filename;
+  [SerializeField] private string filename = "";
 
   private void Awake() {
     Instance = this;
@@ -26,6 +26,7 @@ public class Spawner : MonoBehaviour {
     //  nu = 20,
     //  type = EnemyData.Type.ANT,
     //  speed = 1.0f
+    //  damage = 1
     //};
 
     //EnemyWave enemyWave1 = new() {
@@ -42,6 +43,7 @@ public class Spawner : MonoBehaviour {
     //  nu = 10,
     //  type = EnemyData.Type.BEETLE,
     //  speed = 0.5f
+    //  damage = 2
     //};
 
     //EnemyWave enemyWave2 = new() {
@@ -80,8 +82,21 @@ public class Spawner : MonoBehaviour {
 
     //Serialize<Wave>(testWave, filename);
     //----------------------------------------
-    Wave wave = Deserialize<Wave>(filename);
+    if (filename.Length == 0) return;
+    SpawnWave(Deserialize<Wave>(filename));
+  }
+
+  public void SpawnWave(Wave wave) {
+    ClearWave();
     StartCoroutine(wave.Start());
+  }
+
+  public void ClearWave() {
+    StopAllCoroutines();
+    var enemies = ObjectPool.Instance.GetActiveEnemies().ToList();
+    foreach (var enemy in enemies) {
+      ObjectPool.Instance.DestroyEnemy(enemy.gameObject);
+    }
   }
 
   // A thin wrapper around InstantiateEnemy, using spawnLocation as an
