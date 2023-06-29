@@ -12,12 +12,6 @@ public class GameStateManager : MonoBehaviour {
 
   public Dictionary<Vector2Int, Tower> activeTowerMap = new();
 
-  public enum ContextType {
-    TOWER,
-    ENEMY,
-    NONE,
-  }
-
   [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
   public int nu;
