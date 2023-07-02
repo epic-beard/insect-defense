@@ -1,17 +1,13 @@
 #nullable enable
-using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.Rendering;
 using System;
-using System.Runtime.ExceptionServices;
 
 public class Targeting {
 
   public enum Behavior {
-    NONE,
+    ALL,
     CAMO,  // Always prioritize camo enemies
     FLIER,  // Always prioritize flying enemies.
     STUBBORN,  // Don't change targets until the target dies or moves out of range.
@@ -28,7 +24,7 @@ public class Targeting {
 
   public delegate bool BehaviorPredicate(Enemy enemy);
   readonly Dictionary<Behavior, BehaviorPredicate> behaviorPredicates = new() {
-    { Behavior.NONE, (enemy => true) },
+    { Behavior.ALL, (enemy => true) },
     { Behavior.CAMO, (enemy) => enemy.Camo },
     { Behavior.FLIER, (enemy) => enemy.Flying },
     { Behavior.STUBBORN, (enemy) => true },  // This has an entry in case of stubborn fail-through.
@@ -77,7 +73,7 @@ public class Targeting {
     // Apply the behavior predicate to all potential targets.
     workingTargets = targets.Where(e => behaviorPredicates[behavior](e)).ToList();
     // Only get the unfiltered list if we have used filters and there are no filtered results.
-    if (workingTargets.Count == 0 && behavior != Behavior.NONE) {
+    if (workingTargets.Count == 0 && behavior != Behavior.ALL) {
       workingTargets = targets;
     }
 

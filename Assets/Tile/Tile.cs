@@ -80,11 +80,21 @@ public class Tile : MonoBehaviour {
 
   // Capture mouseclick and build a tower.
   private void OnMouseDown() {
-    if (isTowerPlaceable && !isTowerPresent) {
-      if (GameStateManager.SelectedTower == null) {
+    if (!isTowerPlaceable) {
+      return;
+    }
+    if (isTowerPresent) {
+      GameStateManager.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
+      TerrariumUI.Instance.SetTowerContextPanel();
+      TerrariumUI.Instance.SetContextTowerName(GameStateManager.SelectedTower.Name);
+    } else {
+      if (GameStateManager.SelectedTowerType == null) {
         return;
       }
-      Instantiate(GameStateManager.SelectedTower, transform.position, Quaternion.identity);
+      GameObject completeTower = Instantiate(GameStateManager.SelectedTowerType, transform.position, Quaternion.identity);
+      Tower tower = completeTower.GetComponent<Tower>();
+      GameStateManager.Instance.AddTower(waypoint.GetCoordinates(), tower);
+      isTowerPresent = true;
     }
   }
 }

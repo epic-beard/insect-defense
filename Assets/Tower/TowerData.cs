@@ -23,6 +23,7 @@ public struct TowerData {
   }
 
   public Type type;
+  public string name;
   public float area_of_effect;
   public float armor_pierce;
   public float armor_tear;

@@ -32,7 +32,6 @@ public class SpittingAntTower : Tower {
   private Enemy enemy;
   private bool firing = false;
   private ProjectileHandler projectileHandler;
-  private Targeting targeting = new();
   protected ObjectPool objectPool;
 
   private void Start() {
@@ -42,14 +41,15 @@ public class SpittingAntTower : Tower {
       priority = this.priority
     };
 
-    //Range = 20.0f;
-    //ProjectileSpeed = 20.0f;
-    //AttackSpeed = 1.0f;
-    //Damage = 10.0f;
-    //AreaOfEffect = 10.0f;
+    Range = 20.0f;
+    ProjectileSpeed = 20.0f;
+    AttackSpeed = 1.0f;
+    Damage = 5.0f;
+    AreaOfEffect = 10.0f;
 
     // -----0-----
 
+    Name = "Spitting Ant Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 

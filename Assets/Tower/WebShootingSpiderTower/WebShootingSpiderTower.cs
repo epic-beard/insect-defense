@@ -26,7 +26,6 @@ public class WebShootingSpiderTower : Tower {
   private bool firing = false;
   private ProjectileHandler primaryProjectileHandler;
   private ProjectileHandler secondaryProjectileHandler;
-  private Targeting targeting = new();
   protected ObjectPool objectPool;
 
   private void Start() {
@@ -45,6 +44,7 @@ public class WebShootingSpiderTower : Tower {
 
     // -----0-----
 
+    Name = "Web Shooting Spider Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
