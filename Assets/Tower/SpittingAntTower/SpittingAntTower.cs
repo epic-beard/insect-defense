@@ -49,6 +49,7 @@ public class SpittingAntTower : Tower {
 
     // -----0-----
 
+    Name = "Spitting Ant Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 

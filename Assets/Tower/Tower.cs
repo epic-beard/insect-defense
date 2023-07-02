@@ -28,6 +28,10 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.DAMAGE_OVER_TIME]; }
     set { data[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
   }
+  public string Name {
+    get { return data.name; }
+    set { data.name = value; }
+  }
   public float Range {
     get { return data[TowerData.Stat.RANGE]; }
     set { data[TowerData.Stat.RANGE] = value; }

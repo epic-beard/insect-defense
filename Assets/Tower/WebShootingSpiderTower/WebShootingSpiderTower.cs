@@ -44,6 +44,7 @@ public class WebShootingSpiderTower : Tower {
 
     // -----0-----
 
+    Name = "Web Shooting Spider Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);

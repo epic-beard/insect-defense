@@ -80,23 +80,21 @@ public class Tile : MonoBehaviour {
 
   // Capture mouseclick and build a tower.
   private void OnMouseDown() {
-    if (isTowerPlaceable) {
-      if (isTowerPresent) {
-        GameStateManager.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
-        TerrariumUI.Instance.SetTowerContextPanel();
-        // strip "(clone)" from the name of the tower for appropriate presentation.
-        string name = GameStateManager.SelectedTower.name;
-        name = name.Substring(0, name.Length - 7);
-        TerrariumUI.Instance.SetContextTowerName(name);
-      } else {
-        if (GameStateManager.SelectedTowerType == null) {
-          return;
-        }
-        GameObject completeTower = Instantiate(GameStateManager.SelectedTowerType, transform.position, Quaternion.identity);
-        Tower tower = completeTower.GetComponent<Tower>();
-        GameStateManager.Instance.AddTower(waypoint.GetCoordinates(), tower);
-        isTowerPresent = true;
+    if (!isTowerPlaceable) {
+      return;
+    }
+    if (isTowerPresent) {
+      GameStateManager.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
+      TerrariumUI.Instance.SetTowerContextPanel();
+      TerrariumUI.Instance.SetContextTowerName(GameStateManager.SelectedTower.Name);
+    } else {
+      if (GameStateManager.SelectedTowerType == null) {
+        return;
       }
+      GameObject completeTower = Instantiate(GameStateManager.SelectedTowerType, transform.position, Quaternion.identity);
+      Tower tower = completeTower.GetComponent<Tower>();
+      GameStateManager.Instance.AddTower(waypoint.GetCoordinates(), tower);
+      isTowerPresent = true;
     }
   }
 }
