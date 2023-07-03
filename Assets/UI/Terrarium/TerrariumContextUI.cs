@@ -41,7 +41,6 @@ public class TerrariumContextUI : MonoBehaviour {
   private void RegisterCallbacks() {
     towerBehaviorDropdown.RegisterCallback<ChangeEvent<string>>(BehaviorCallback);
     towerPriorityDropdown.RegisterCallback<ChangeEvent<string>>(PriorityCallback);
-
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {
