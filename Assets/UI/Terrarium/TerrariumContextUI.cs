@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,11 +41,13 @@ public class TerrariumContextUI : MonoBehaviour {
   private void RegisterCallbacks() {
     towerBehaviorDropdown.RegisterCallback<ChangeEvent<string>>(BehaviorCallback);
     towerPriorityDropdown.RegisterCallback<ChangeEvent<string>>(PriorityCallback);
+
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {
     if (GameStateManager.SelectedTower == null) {
       Debug.Log("[ERROR] No tower selected, but behavior change attempted.");
+      return;
     }
     Targeting.Behavior behavior =
         (Targeting.Behavior)System.Enum.Parse(
@@ -58,6 +58,7 @@ public class TerrariumContextUI : MonoBehaviour {
   private void PriorityCallback(ChangeEvent<string> evt) {
     if (GameStateManager.SelectedTower == null) {
       Debug.Log("[ERROR] No tower selected, but priority change attempted.");
+      return;
     }
     Targeting.Priority priority =
         (Targeting.Priority)System.Enum.Parse(

@@ -20,6 +20,7 @@ public class PauseManager : MonoBehaviour {
     if (locked) return;
 
     Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+    TerrariumBottomUI.Instance.KeepPlayPauseButtonNameCorrect();
   }
 
   public void HandlePauseCallback(ClickEvent evt) {

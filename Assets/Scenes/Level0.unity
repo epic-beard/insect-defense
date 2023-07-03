@@ -8650,7 +8650,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrariumUIScreen
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6871690005817048724, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
 --- !u!1001 &8047259548272314415
 PrefabInstance:

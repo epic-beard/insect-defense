@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TerrariumBottomUI : MonoBehaviour {
+  public static TerrariumBottomUI Instance;
 
   readonly private string playPauseButtonName = "play_pause__button";
   readonly private string settingsButtonName = "settings__button";
@@ -18,6 +17,8 @@ public class TerrariumBottomUI : MonoBehaviour {
 
     playPauseButton = rootElement.Q<Button>(playPauseButtonName);
     settingsButton = rootElement.Q<Button>(settingsButtonName);
+
+    Instance = this;
   }
 
   private void Start() {
@@ -26,11 +27,10 @@ public class TerrariumBottomUI : MonoBehaviour {
 
   private void RegisterCallbacks() {
     playPauseButton.RegisterCallback<ClickEvent>(PauseManager.Instance.HandlePauseCallback);
-    playPauseButton.RegisterCallback<ClickEvent>(KeepPlayPauseButtonNameCorrect);
     settingsButton.RegisterCallback<ClickEvent>(SettingsMenu.Instance.ToggleSettingsCallback);
   }
 
-  private void KeepPlayPauseButtonNameCorrect(ClickEvent evt) {
+  public void KeepPlayPauseButtonNameCorrect() {
     if (Time.timeScale == 0) {
       playPauseButton.text = "Play";
     } else {
