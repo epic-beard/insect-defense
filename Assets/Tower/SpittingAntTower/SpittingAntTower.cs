@@ -114,7 +114,7 @@ public class SpittingAntTower : Tower {
       HandleSplashEffects(target, onHitDamage);
     }
 
-    target.DamageEnemy(onHitDamage, armorPierce);
+    target.DamageEnemy(onHitDamage, armorPierce, ContinuousAttack);
   }
 
   // This is only called when the target's acid stacks are at max.
