@@ -24,7 +24,7 @@ public class GameStateManager : MonoBehaviour {
     get { return health; }
     private set {
       // Update the ui health label.
-      TerrariumUI.Instance.SetHpLabelText(value);
+      TerrariumHealthUI.Instance.SetHpLabelText(value);
       health = value;
     }
   }
@@ -38,7 +38,7 @@ public class GameStateManager : MonoBehaviour {
     // Right click should clear selected context.
     if (Input.GetMouseButton(1)) {
       ClearSelection();
-      TerrariumUI.Instance.SetNoContextPanel();
+      TerrariumContextUI.Instance.SetNoContextPanel();
     }
   }
 

@@ -8590,6 +8590,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1390141948357352001, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
+      propertyPath: prefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1390141948357352001, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
+      propertyPath: prefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2916662960132310537, guid: 110abc640126fa6468ac9b87fb1d5bcf, type: 3}
+    - target: {fileID: 1390141948357352001, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
+      propertyPath: prefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 501058636009489155, guid: 521760ee22950e147b1e4d8d645ee937, type: 3}
     - target: {fileID: 6871690005817048722, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -8638,7 +8650,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrariumUIScreen
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6871690005817048724, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af0bfd5406ea05843a4d8d44b905d49c, type: 3}
 --- !u!1001 &8047259548272314415
 PrefabInstance:
