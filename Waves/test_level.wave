@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Waves">
+  <waves>
+    <Wave xsi:type="ConcurrentWave">
+      <Subwaves>
+        <Wave xsi:type="SequentialWave">
+          <Subwaves>
+            <Wave xsi:type="SpacerWave">
+              <delay>2</delay>
+            </Wave>
+            <Wave xsi:type="EnemyWave">
+              <repetitions>2</repetitions>
+              <repeatDelay>1</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>2</spawnAmmount>
+              <data>
+                <type>BEETLE</type>
+                <size>NORMAL</size>
+                <currHP>0</currHP>
+                <maxHP>20</maxHP>
+                <currArmor>0</currArmor>
+                <maxArmor>1</maxArmor>
+                <speed>1</speed>
+                <damage>1</damage>
+                <nu>20</nu>
+                <properties>NONE</properties>
+              </data>
+            </Wave>
+          </Subwaves>
+        </Wave>
+       </Subwaves>
+     </Wave>
+  </waves>
+</Wave>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
+  static public event Action OnLevelComplete; 
   static public Spawner Instance;
 
   [SerializeField] private List<Waypoint> spawnLocations = new();
@@ -136,6 +138,17 @@ public class Spawner : MonoBehaviour {
         yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
         // Run the wave and wait till it is complete.
         yield return wave.Start();
+      }
+
+      // Sanity check, make sure all the waves have completed.
+      yield return new WaitUntil(() => waves.All<Wave>((wave) => wave.Finished));
+
+      // The level ends once all the enemies have been spawned and destroyed.
+      yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count() == 0);
+
+      // Make sure the players health didn't drop to zero getting rid of the last enemy.
+      if (GameStateManager.Instance.Health > 0) {
+        OnLevelComplete.Invoke();
       }
       Finished = true;
     }
