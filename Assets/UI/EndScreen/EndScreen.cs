@@ -19,6 +19,8 @@ public class EndScreen : MonoBehaviour {
 
     GameStateManager.GameOver += OnGameOver;
     Spawner.OnLevelComplete += OnLevelComplete;
+
+    endScreen.rootVisualElement.style.display = DisplayStyle.None;
   }
 
   private void OnDisable() {
@@ -46,15 +48,17 @@ public class EndScreen : MonoBehaviour {
 
   private void OnGameOver() {
     PauseManager.Instance.PauseAndLock();
+    TerrariumUI.Instance.HideUI();
     endScreenLabel.text = "You Died";
     labButton.text = "Give Up";
-    endScreen.enabled = true;
+    endScreen.rootVisualElement.style.display = DisplayStyle.Flex;
   }
 
   private void OnLevelComplete() {
     PauseManager.Instance.PauseAndLock();
+    TerrariumUI.Instance.HideUI();
     endScreenLabel.text = "You Won!";
     labButton.text = "Return";
-    endScreen.enabled = true;
+    endScreen.rootVisualElement.style.display = DisplayStyle.Flex;
   }
 }

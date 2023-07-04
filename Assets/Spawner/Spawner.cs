@@ -139,8 +139,17 @@ public class Spawner : MonoBehaviour {
         // Run the wave and wait till it is complete.
         yield return wave.Start();
       }
+
+      // Sanity check, make sure all the waves have completed.
+      yield return new WaitUntil(() => waves.All<Wave>((wave) => wave.Finished));
+
+      // The level ends once all the enemies have been spawned and destroyed.
       yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count() == 0);
-      OnLevelComplete.Invoke();
+
+      // Make sure the players health didn't drop to zero getting rid of the last enemy.
+      if (GameStateManager.Instance.Health > 0) {
+        OnLevelComplete.Invoke();
+      }
       Finished = true;
     }
   }

@@ -5,13 +5,16 @@
       <Subwaves>
         <Wave xsi:type="SequentialWave">
           <Subwaves>
+            <Wave xsi:type="SpacerWave">
+              <delay>2</delay>
+            </Wave>
             <Wave xsi:type="EnemyWave">
               <repetitions>2</repetitions>
               <repeatDelay>1</repeatDelay>
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
               <data>
-                <type>ANT</type>
+                <type>BEETLE</type>
                 <size>NORMAL</size>
                 <currHP>0</currHP>
                 <maxHP>20</maxHP>
