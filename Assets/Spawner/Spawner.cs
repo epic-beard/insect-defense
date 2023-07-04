@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
+  static public event Action OnLevelComplete; 
   static public Spawner Instance;
 
   [SerializeField] private List<Waypoint> spawnLocations = new();
@@ -137,6 +139,8 @@ public class Spawner : MonoBehaviour {
         // Run the wave and wait till it is complete.
         yield return wave.Start();
       }
+      yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count() == 0);
+      OnLevelComplete.Invoke();
       Finished = true;
     }
   }
