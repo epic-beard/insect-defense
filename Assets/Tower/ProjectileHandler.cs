@@ -96,7 +96,7 @@ public class ProjectileHandler {
       // Make distance traveled frame rate independent and ensure we cannot 'overshoot' a target.
       deltaTravel *= Mathf.Min(Time.deltaTime * particleSpeed, dist);
       particles[i].position += deltaTravel;
-
+            
       // Initiate particle 'collision'. Destroy the particle and call the tower's particle collision handler.
       if (Vector3.Distance(targetPosition, particles[i].position) < hitRange) {
         collisionProcessor(enemy);

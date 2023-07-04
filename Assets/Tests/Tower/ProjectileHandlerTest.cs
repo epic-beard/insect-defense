@@ -12,7 +12,7 @@ public class ProjectileHandlerTest {
   public void SetUp() {
     projectileSystem = new GameObject().AddComponent<ParticleSystem>();
 
-    projectileHandler = new(projectileSystem, 100.0f, 0.1f);
+    projectileHandler = new(projectileSystem, 1000.0f, 0.1f);
     particles = new Particle[projectileSystem.main.maxParticles];
   }
 
@@ -36,6 +36,8 @@ public class ProjectileHandlerTest {
     Assert.That(particles[0].position.normalized, Is.EqualTo(normalizedDirectionOfTravel));
   }
 
+  // The setup for this test is creating the particle at the origin and creating the enemy one unit to
+  // the right. With the projectile speed of 1000, it will overshoot, unless our logic handles that.
   [Test]
   public void UpdateParticlesDestroysWhenParticlesHitNoOvershoot() {
     EmitParticleAndSetTheLocationToOrigin(particles);
@@ -57,7 +59,7 @@ public class ProjectileHandlerTest {
   [Test]
   public void GetSafeChildPositionWithChild() {
     projectileHandler = new(projectileSystem, 1.0f, 1.0f);
-    GameObject gameObject = new GameObject();
+    GameObject gameObject = new();
 
     Enemy enemyParent = gameObject.AddComponent<Enemy>();
     Enemy enemyChild = gameObject.AddComponent<Enemy>();
@@ -71,7 +73,7 @@ public class ProjectileHandlerTest {
   [Test]
   public void GetSafeChildPositionWithoutChild() {
     projectileHandler = new(projectileSystem, 1.0f, 1.0f);
-    GameObject gameObject = new GameObject();
+    GameObject gameObject = new();
 
     Enemy enemyParent = gameObject.AddComponent<Enemy>();
     enemyParent.transform.position = Vector3.up;
