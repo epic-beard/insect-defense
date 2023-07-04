@@ -1,3 +1,4 @@
+using PlasticPipe.PlasticProtocol.Messages;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -87,6 +88,7 @@ public class SpittingAntTower : Tower {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;
     float armorTear = ArmorTear;
+    float armorPierce = ArmorPierce;
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
@@ -94,6 +96,7 @@ public class SpittingAntTower : Tower {
       onHitDamage *= AttackSpeed * Time.deltaTime;
       acidStacks *= AttackSpeed * Time.deltaTime;
       armorTear *= AttackSpeed * Time.deltaTime;
+      armorPierce *= AttackSpeed * Time.deltaTime;
     }
 
     // Armor tear effects.
@@ -111,7 +114,7 @@ public class SpittingAntTower : Tower {
       HandleSplashEffects(target, onHitDamage);
     }
 
-    target.DamageEnemy(onHitDamage, ArmorPierce);
+    target.DamageEnemy(onHitDamage, armorPierce);
   }
 
   // This is only called when the target's acid stacks are at max.

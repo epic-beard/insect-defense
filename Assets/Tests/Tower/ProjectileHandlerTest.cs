@@ -1,5 +1,7 @@
 using NUnit.Framework;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.TestTools;
 using static UnityEngine.ParticleSystem;
 
 public class ProjectileHandlerTest {
@@ -12,14 +14,15 @@ public class ProjectileHandlerTest {
   public void SetUp() {
     projectileSystem = new GameObject().AddComponent<ParticleSystem>();
 
-    projectileHandler = new(projectileSystem, 1000.0f, 0.1f);
+    projectileHandler = new(projectileSystem, 10.0f, 0.1f);
     particles = new Particle[projectileSystem.main.maxParticles];
+    Time.captureDeltaTime = 1;
   }
 
   #region UpdateParticlesTests
 
-  [Test]
-  public void UpdateParticlesCorrectDirectionOfTravel() {
+  [UnityTest]
+  public IEnumerator UpdateParticlesCorrectDirectionOfTravel() {
     EmitParticleAndSetTheLocationToOrigin(particles);
 
     Enemy enemy = new GameObject().AddComponent<Enemy>();
@@ -34,12 +37,14 @@ public class ProjectileHandlerTest {
 
     Assert.That(numActiveParticles, Is.EqualTo(1));
     Assert.That(particles[0].position.normalized, Is.EqualTo(normalizedDirectionOfTravel));
+
+    return null;
   }
 
   // The setup for this test is creating the particle at the origin and creating the enemy one unit to
-  // the right. With the projectile speed of 1000, it will overshoot, unless our logic handles that.
-  [Test]
-  public void UpdateParticlesDestroysWhenParticlesHitNoOvershoot() {
+  // the right. With the projectile speed of 10, it will overshoot, unless our logic handles that.
+  [UnityTest]
+  public IEnumerator UpdateParticlesDestroysWhenParticlesHitNoOvershoot() {
     EmitParticleAndSetTheLocationToOrigin(particles);
 
     Enemy enemy = new GameObject().AddComponent<Enemy>();
@@ -50,6 +55,8 @@ public class ProjectileHandlerTest {
     int numActiveParticles = projectileSystem.GetParticles(particles);
 
     Assert.That(numActiveParticles, Is.EqualTo(0));
+
+    return null;
   }
 
   #endregion

@@ -63,15 +63,16 @@ public class Enemy : MonoBehaviour {
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
-  public float DamageEnemy(float damage, float armorPierce) {
-    data.currHP -= damage - Mathf.Clamp(Armor - armorPierce, 0.0f, damage);
+  public float DamageEnemy(float damage, float armorPierce, bool continuous = false) {
+    float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
+    data.currHP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
     if (data.currHP <= 0.0f) {
       // TODO: Award the player Nu
       ObjectPool.Instance.DestroyEnemy(gameObject);
     }
     return data.currHP;
   }
-
+  
   // Return the new armor total after the tear is applied.
   public float TearArmor(float armorTear) {
     return data.currArmor = Mathf.Max(data.currArmor - armorTear, 0.0f);
