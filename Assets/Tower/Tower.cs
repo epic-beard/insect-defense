@@ -60,15 +60,6 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
-  //public string FirstUpgradePath {
-  //  get { return data.firstUpgradePathname; }
-  //}
-  //public string SecondUpgradePath {
-  //  get { return data.secondUpgradePathname; }
-  //}
-  //public string ThirdUpgradePath {
-  //  get { return data.thirdUpgradePathname; }
-  //}
   public abstract TowerData.Type TowerType { get; set; }
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
