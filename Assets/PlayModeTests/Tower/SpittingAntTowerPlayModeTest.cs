@@ -241,7 +241,7 @@ public class SpittingAntTowerPlayModeTest {
       maxHP = hp,
       size = size,
     };
-    enemy.data = data;
+    enemy.Data = data;
     gameObject.SetActive(true);
 
     return enemy;

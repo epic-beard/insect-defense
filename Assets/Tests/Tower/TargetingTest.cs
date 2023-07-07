@@ -238,16 +238,18 @@ public class TargetingTest {
       float hp = 0.0f,
       EnemyData.Properties properties = EnemyData.Properties.NONE) {
     GameObject gameObject = new();
+    gameObject.SetActive(true);
     gameObject.transform.position = position;
 
     EnemyData data = new() {
-      currArmor = armor,
-      currHP = hp,
+      maxArmor = armor,
+      maxHP = hp,
       properties = properties,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.data = data;
+    enemy.Data = data;
+    gameObject.SetActive(false);
     return enemy;
   }
 
