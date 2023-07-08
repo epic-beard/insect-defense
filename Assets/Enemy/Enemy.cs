@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour {
   public HashSet<Tower> webShootingTowerStuns = new();
   public HashSet<Tower> webShootingTowerPermSlow = new();
 
+  private float crippleSlow = 0.8f;
+
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
     transform.position = PrevWaypoint.transform.position;
@@ -50,7 +52,10 @@ public class Enemy : MonoBehaviour {
   public float BaseSpeed { get { return data.speed; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
+  public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public bool Crippled { get; set; }
+  public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
   public int Damage { get { return data.damage; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
   public float AcidStacks {
@@ -131,6 +136,14 @@ public class Enemy : MonoBehaviour {
   // slow is expected to be 0.0 - 1.0 and is used as a multiplier.
   public void ApplyPermanentSlow(float slow) {
     data.speed *= slow;
+  }
+
+  public void ApplyCripple() {
+    if (!CrippleImmunity && !Crippled) {
+      // [TODO] nnewsom: handle removing the leg, or downing the flyer here.
+      data.speed *= crippleSlow;
+      Crippled = true;
+    }
   }
 
   public void TemporarilyStripFlying(float duration) {
