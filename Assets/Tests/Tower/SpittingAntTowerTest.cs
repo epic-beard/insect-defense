@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 public class SpittingAntTowerTest {
 
@@ -18,6 +20,7 @@ public class SpittingAntTowerTest {
 
     ProjectileHandler projectileHandler = new(splash, spittingAntTower.ProjectileSpeed, Tower.hitRange);
     spittingAntTower.SetProjectileHandler(projectileHandler);
+    Time.captureDeltaTime = 1;
   }
 
   #region SpecialAbilityUpgradeTests
@@ -238,9 +241,9 @@ public class SpittingAntTowerTest {
   }
 
   // Test continuous fire on an unarmored target.
-  [Test]
-  public void ProcessDamageAndEffectsContinuousFireNoArmor() {
-    Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 1.0f);
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffectsContinuousFireNoArmor() {
+    Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 10.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplash(splash);
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
@@ -255,12 +258,14 @@ public class SpittingAntTowerTest {
 
     Assert.That(target.HP, Is.LessThan(expectedHp));
     Assert.That(target.Armor, Is.EqualTo(0.0f));
+
+    return null;
   }
 
   // Test continuous fire on an armored target.
-  [Test]
-  public void ProcessDamageAndEffectsContinuousFireWithArmor() {
-    Enemy target = CreateEnemy(Vector3.zero, armor: 1.0f, hp: 1.0f);
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffectsContinuousFireWithArmor() {
+    Enemy target = CreateEnemy(Vector3.zero, armor: 2.0f, hp: 10.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplash(splash);
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
@@ -276,6 +281,8 @@ public class SpittingAntTowerTest {
 
     Assert.That(target.HP, Is.EqualTo(expectedHp));
     Assert.That(target.Armor, Is.LessThan(expectedArmor));
+
+    return null;
   }
 
   // Test with splash fire on targets of varying armor.
