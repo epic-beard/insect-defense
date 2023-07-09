@@ -11,8 +11,7 @@ public class EnemyDataManager : MonoBehaviour {
   static public EnemyDataManager Instance;
 
   [SerializeField] private string filename;
-  //private EnemyDictionary enemies = new();
-  public EnemyDictionary enemies = new();
+  private EnemyDictionary enemies = new();
 
   private void Awake() {
     Instance = this;
