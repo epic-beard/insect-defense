@@ -23,6 +23,8 @@ public struct EnemyData {
     NONE = 0,
     CAMO = 1,
     FLYING = 2,
+    CRIPPLE_IMMUNITY = 4,
+    BIG_TARGET = 8,
   }
 
   public struct SpawnerProperties {
