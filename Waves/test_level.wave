@@ -9,21 +9,45 @@
               <delay>2</delay>
             </Wave>
             <Wave xsi:type="EnemyWave">
-              <repetitions>2</repetitions>
-              <repeatDelay>1</repeatDelay>
+              <repetitions>1</repetitions>
               <spawnLocation>0</spawnLocation>
-              <spawnAmmount>2</spawnAmmount>
+              <spawnAmmount>1</spawnAmmount>
               <data>
                 <type>BEETLE</type>
                 <size>NORMAL</size>
-                <currHP>0</currHP>
                 <maxHP>20</maxHP>
-                <currArmor>0</currArmor>
                 <maxArmor>1</maxArmor>
                 <speed>1</speed>
                 <damage>1</damage>
                 <nu>20</nu>
                 <properties>NONE</properties>
+                <spawner>
+                  <num>1</num>
+                  <interval>1</interval>
+                  <childKey>aphid</childKey>
+                </spawner>
+              </data>
+            </Wave>
+            <Wave xsi:type="SpacerWave">
+              <delay>5</delay>
+            </Wave>
+            <Wave xsi:type="EnemyWave">
+              <repetitions>1</repetitions>
+              <spawnLocation>1</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <data>
+                <type>BEETLE</type>
+                <size>NORMAL</size>
+                <maxHP>20</maxHP>
+                <maxArmor>1</maxArmor>
+                <speed>1</speed>
+                <damage>1</damage>
+                <nu>20</nu>
+                <properties>NONE</properties>
+                <carrier>
+                  <num>1</num>
+                  <childKey>aphid</childKey>
+                </carrier>
               </data>
             </Wave>
           </Subwaves>

@@ -51,7 +51,7 @@ public class ObjectPoolTest {
 
     Assert.That(gameObject.activeSelf);
     Assert.That(gameObject.GetComponent<Enemy>().PrevWaypoint, Is.SameAs(waypoint));
-    Assert.That(gameObject.GetComponent<Enemy>().data, Is.EqualTo(enemyData));
+    Assert.That(gameObject.GetComponent<Enemy>().Data, Is.EqualTo(enemyData));
   }
 
   // Set starting size to 1 so there is exactly one enemey of each type.  Create an enemy

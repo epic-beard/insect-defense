@@ -1,5 +1,7 @@
+using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 public class EnemyTest {
 
@@ -155,14 +157,14 @@ public class EnemyTest {
     gameObject.transform.position = position;
 
     EnemyData data = new() {
-      currArmor = armor,
-      currHP = hp,
+      maxArmor = armor,
+      maxHP = hp,
       speed = speed,
       size = EnemyData.Size.NORMAL,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.data = data;
+    enemy.Data = data;
     return enemy;
   }
 

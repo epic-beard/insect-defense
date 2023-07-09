@@ -10,10 +10,6 @@ public class EnemyDataManagerTest {
 
   [SetUp]
   public void SetUp() {
-    EnemyData child = new() {
-      type = EnemyData.Type.BEETLE,
-      size = EnemyData.Size.TINY,
-    };
     enemyData = new() {
       type = EnemyData.Type.BEETLE,
       size = EnemyData.Size.NORMAL,
@@ -24,13 +20,13 @@ public class EnemyDataManagerTest {
       nu = 5,
       properties = EnemyData.Properties.CAMO,
       spawner = new() {
-        num = 6.5f,
+        num = 6,
         interval = 7.5f,
-        child = child,
+        childKey = "child",
       },
       carrier = new() {
         num = 8,
-        child = child,
+        childKey = "child",
       },
     };
   }

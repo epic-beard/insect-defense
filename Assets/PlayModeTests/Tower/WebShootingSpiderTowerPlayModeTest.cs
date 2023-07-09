@@ -127,11 +127,12 @@ public class WebShootingSpiderTowerPlayModeTest {
   // Check to make sure the secondary slow is applied appropriately and to the right number of secondary targets.
   [UnityTest]
   public IEnumerator ProcessDamageAndEffects_SecondarySlows() {
+    Time.captureDeltaTime = 1.0f;
     float slowPower = 0.8f;
     float secondarySlowPower = 0.5f;
     SetWebShootingSpiderTowerProperties(
         wssTower,
-        attackSpeed: 10.0f,
+        attackSpeed: 0.7f,
         areaOfEffect: 10.0f,
         range: 10.0f,
         slowDuration: 10.0f,
@@ -143,7 +144,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.Speed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyOutOfRange.Speed, Is.EqualTo(baseEnemySpeed));
 
-    yield return new WaitForSeconds(0.08f);
+    yield return null;
 
     Assert.That(target.Speed, Is.EqualTo(baseEnemySpeed * (1 - slowPower)));
     Assert.That(enemyInRange.Speed, Is.GreaterThan(baseEnemySpeed * (1 - slowPower)));
@@ -190,6 +191,8 @@ public class WebShootingSpiderTowerPlayModeTest {
         secondarySlowTargets: 2,
         slowDuration: 10.0f,
         slowPower: 0.8f);
+    Time.captureDeltaTime = 1.0f;
+
     float secondarySlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
 
     Assert.That(target.SlowPower, Is.EqualTo(0.0f));
@@ -268,7 +271,7 @@ public class WebShootingSpiderTowerPlayModeTest {
       speed = speed,
       size = size,
     };
-    enemy.data = data;
+    enemy.Data = data;
     gameObject.SetActive(true);
 
     return enemy;

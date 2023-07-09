@@ -149,7 +149,6 @@ public class SpittingAntTowerTest {
     spittingAntTower.SlowDuration = slowDuration;
 
     Enemy target = CreateEnemy(Vector3.zero);
-    target.data.Initialize();
 
     spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
 
@@ -171,9 +170,9 @@ public class SpittingAntTowerTest {
     Enemy enemyInRange = CreateEnemy(Vector3.zero);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
     float enemyHP = 10000.0f;
-    target.data.currHP = enemyHP;
-    enemyInRange.data.currHP = enemyHP;
-    enemyOutOfRange.data.currHP = enemyHP;
+    target.HP = enemyHP;
+    enemyInRange.HP = enemyHP;
+    enemyOutOfRange.HP = enemyHP;
 
     spittingAntTower.AreaOfEffect = 10.0f;
     spittingAntTower.SetAcidExplosionRangeMultiplier(1.0f);
@@ -207,9 +206,9 @@ public class SpittingAntTowerTest {
     Enemy enemyInRange = CreateEnemy(Vector3.zero, armor: 1.0f);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0), armor: 1.0f);
     float enemyHp = 10000.0f;
-    target.data.currHP = enemyHp;
-    enemyInRange.data.currHP = enemyHp;
-    enemyOutOfRange.data.currHP = enemyHp;
+    target.HP = enemyHp;
+    enemyInRange.HP = enemyHp;
+    enemyOutOfRange.HP = enemyHp;
 
     spittingAntTower.SetSplashExplosionRangeMultiplier(10.0f);
     spittingAntTower.SetArmorTearExplosion(armorTearExplosion);
@@ -325,16 +324,16 @@ public class SpittingAntTowerTest {
       float hp = 1.0f) {
     GameObject gameObject = new();
     gameObject.transform.position = position;
-
+    gameObject.SetActive(false);
     EnemyData data = new() {
-      currArmor = armor,
-      currHP = hp,
+      maxArmor = armor,
+      maxHP = hp,
       size = EnemyData.Size.NORMAL,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.data = data;
-
+    enemy.Data = data;
+    gameObject.SetActive(true);
     return enemy;
   }
 

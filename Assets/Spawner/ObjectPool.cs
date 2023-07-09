@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,17 +31,21 @@ public class ObjectPool : MonoBehaviour {
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
-  public GameObject InstantiateEnemy(EnemyData data, Waypoint start) {
+  public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Transform? parent = null) {
     var pool = objectPools[data.type];
     GameObject gameObject;
     if (pool.Count != 0) {
       gameObject = pool.Dequeue();
       gameObject.SetActive(true);
     } else {
-      gameObject = GameObject.Instantiate(prefabs[data.type]);
+      if (parent == null) {
+        gameObject = GameObject.Instantiate(prefabs[data.type]);
+      } else {
+        gameObject = GameObject.Instantiate(prefabs[data.type], parent);
+      }
     }
     Enemy enemy = gameObject.GetComponent<Enemy>();
-    enemy.data = data;
+    enemy.Data = data;
     enemy.PrevWaypoint = start;
     enemy.enabled = true;
     activeEnemies.Add(enemy);
@@ -53,7 +58,7 @@ public class ObjectPool : MonoBehaviour {
     gameObject.SetActive(false);
     Enemy enemy = gameObject.GetComponent<Enemy>();
     activeEnemies.Remove(enemy);
-    EnemyData.Type type = enemy.data.type;
+    EnemyData.Type type = enemy.Data.type;
     enemy.enabled = false;
     objectPools[type].Enqueue(gameObject);
   }

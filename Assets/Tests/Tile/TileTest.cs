@@ -127,7 +127,7 @@ public class TileTest {
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.data = data;
+    enemy.Data = data;
     Collider collider = gameObject.AddComponent<BoxCollider>();
 
     return collider;
