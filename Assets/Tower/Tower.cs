@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Experimental.AI;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
@@ -80,6 +81,7 @@ public abstract class Tower : MonoBehaviour {
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
   protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-5.
+  public int[] UpgradeLevels { get { return upgradeLevels; } }
 
   // How close a particle needs to get to consider it a hit.
   public readonly static float hitRange = 0.1f;
@@ -87,7 +89,9 @@ public abstract class Tower : MonoBehaviour {
   protected Targeting targeting = new();
   public Targeting.Behavior Behavior {
     get { return targeting.behavior; }
-    set { targeting.behavior = value; }
+    set {
+      targeting.behavior = value;
+    }
   }
   public Targeting.Priority Priority {
     get { return targeting.priority; }

@@ -45,10 +45,16 @@ public class TerrariumContextUI : MonoBehaviour {
       for (int j = 0; j < 5; j++) {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
         towerUpgradeButtons[i, j] = rootElement.Q<Button>(buttonName);
+        towerUpgradeButtons[i, j].RegisterCallback<ClickEvent>(HandleTowerUpgradeCallback);
+        towerUpgradeButtons[i, j].SetEnabled(false);
       }
       string labelName = towerUpgradeLabelNameTemplate.Replace("X", i.ToString());
       towerUpgradeTreeLabels[i] = rootElement.Q<Label>(labelName);
     }
+  }
+
+  private void HandleTowerUpgradeCallback(ClickEvent evt) {
+    Debug.Log("You clicked a button! Event: " + evt.ToString());
   }
 
   private void Start() {
@@ -62,28 +68,25 @@ public class TerrariumContextUI : MonoBehaviour {
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {
-    if (GameStateManager.SelectedTower == null) {
+    if (GameStateManager.Instance.SelectedTower == null) {
       Debug.Log("[ERROR] No tower selected, but behavior change attempted.");
       return;
     }
     Targeting.Behavior behavior =
         (Targeting.Behavior)System.Enum.Parse(
             typeof(Targeting.Behavior), towerBehaviorDropdown.value.ToUpper());
-
-    // TODO - What is going on with the behavior storage? Figure it out.
-    Debug.Log("Selected Behavior: " + behavior + ", index: " + ((int)behavior));
-    GameStateManager.SelectedTower.Behavior = behavior;
+    GameStateManager.Instance.SelectedTower.Behavior = behavior;
   }
 
   private void PriorityCallback(ChangeEvent<string> evt) {
-    if (GameStateManager.SelectedTower == null) {
+    if (GameStateManager.Instance.SelectedTower == null) {
       Debug.Log("[ERROR] No tower selected, but priority change attempted.");
       return;
     }
     Targeting.Priority priority =
         (Targeting.Priority)System.Enum.Parse(
             typeof(Targeting.Priority), towerPriorityDropdown.value.ToUpper().Replace(" ", ""));
-    GameStateManager.SelectedTower.Priority = priority;
+    GameStateManager.Instance.SelectedTower.Priority = priority;
   }
 
   public void SetNoContextPanel() {
@@ -107,11 +110,14 @@ public class TerrariumContextUI : MonoBehaviour {
   // Set all appropriate text, pictures, and miscellaneous information for a specific tower
   public void SetContextForTower(Tower tower) {
     towerNameLabel.text = tower.Name;
-    Debug.Log("Behavior: " + tower.Behavior + ", index: " + ((int)tower.Behavior));
-    //towerBehaviorDropdown.index = ((int)tower.Behavior);
-    // set the behavior
-    // set the priority
-    // set the upgrades
+    towerBehaviorDropdown.index = ((int)tower.Behavior);
+    towerPriorityDropdown.index = ((int)tower.Priority);
+    for (int i = 0; i < 3; i++) {
+      for (int j= 0; j <= tower.UpgradeLevels[i] - 1; j++) {
+        towerUpgradeButtons[i, j].text = "Bought";
+      }
+      towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);
+    }
   }
 
   public void SetContextTowerName(string name) {

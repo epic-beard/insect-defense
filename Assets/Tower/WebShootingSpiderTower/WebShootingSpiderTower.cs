@@ -9,9 +9,6 @@ public class WebShootingSpiderTower : Tower {
   [SerializeField] ParticleSystem secondaryWebShot;
   [SerializeField] ParticleSystem webEffect;
 
-  [SerializeField] public Targeting.Behavior behavior;
-  [SerializeField] public Targeting.Priority priority;
-
   public int lingeringWebNumUses = 3;
 
   public bool SlowStun { get; private set; } = false;
@@ -29,11 +26,6 @@ public class WebShootingSpiderTower : Tower {
   protected ObjectPool objectPool;
 
   private void Start() {
-    // TODO: The user should be able to set the default for each tower type.
-    targeting = new() {
-      behavior = this.behavior,
-      priority = this.priority
-    };
 
     AttackSpeed = 1.0f;
     AreaOfEffect = 20.0f;
@@ -44,6 +36,7 @@ public class WebShootingSpiderTower : Tower {
 
     // -----0-----
 
+    // TODO: Remove this, it should be set on read-in.
     Name = "Web Shooting Spider Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
@@ -115,10 +108,6 @@ public class WebShootingSpiderTower : Tower {
   }
 
   private void Update() {
-    // TODO: Remove these two lines, they exist for debugging purposes at the moment.
-    targeting.behavior = this.behavior;
-    targeting.priority = this.priority;
-
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: objectPool.GetActiveEnemies(),

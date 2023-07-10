@@ -84,9 +84,9 @@ public class Tile : MonoBehaviour {
       return;
     }
     if (isTowerPresent) {
-      GameStateManager.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
+      GameStateManager.Instance.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
       TerrariumContextUI.Instance.SetTowerContextPanel();
-      TerrariumContextUI.Instance.SetContextForTower(GameStateManager.SelectedTower);
+      TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
     } else {
       if (GameStateManager.SelectedTowerType == null) {
         return;
