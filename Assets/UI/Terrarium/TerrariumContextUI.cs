@@ -27,6 +27,15 @@ public class TerrariumContextUI : MonoBehaviour {
   private void Awake() {
     SetVisualElements();
 
+    // TODO - Further consider the most appropriate way to populate the options for behavior and
+    //        priority. Carefully ordered lists. Map of enum -> string for easy access. Good. Bad.
+    //        Zathras.
+    //        This should be in its own cl.
+    //Debug.Log("Behavior choice options: " + towerBehaviorDropdown.choices.ToArray());
+    //foreach (var element in towerBehaviorDropdown.choices) {
+    //  Debug.Log(element.ToString());
+    //}
+
     Instance = this;
   }
 
@@ -54,7 +63,10 @@ public class TerrariumContextUI : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    Debug.Log("You clicked a button! Event: " + evt.ToString());
+    // TODO:
+    //   Fire a call to the Upgrade method with the appropriate info.
+    //   Adjust which button is enabled.
+    Debug.Log("You clicked a button! Button clicked: " + evt.target);
   }
 
   private void Start() {
@@ -112,6 +124,7 @@ public class TerrariumContextUI : MonoBehaviour {
     towerNameLabel.text = tower.Name;
     towerBehaviorDropdown.index = ((int)tower.Behavior);
     towerPriorityDropdown.index = ((int)tower.Priority);
+    // Ensure only the correct button is enabled for clicking.
     for (int i = 0; i < 3; i++) {
       for (int j= 0; j <= tower.UpgradeLevels[i] - 1; j++) {
         towerUpgradeButtons[i, j].text = "Bought";

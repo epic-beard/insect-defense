@@ -4,7 +4,7 @@ using UnityEngine;
 using static TowerAbility;
 
 public class WebShootingSpiderTower : Tower {
-  [SerializeField] Transform upperMesh;
+  [SerializeField] Transform mesh;
   [SerializeField] ParticleSystem primaryWebShot;
   [SerializeField] ParticleSystem secondaryWebShot;
   [SerializeField] ParticleSystem webEffect;
@@ -120,7 +120,7 @@ public class WebShootingSpiderTower : Tower {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      upperMesh.LookAt(primaryProjectileHandler.GetSafeChildPosition(enemy.transform));
+      mesh.LookAt(primaryProjectileHandler.GetSafeChildPosition(enemy.transform));
       firing = true;
     }
     primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);

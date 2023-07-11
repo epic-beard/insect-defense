@@ -35,14 +35,6 @@ public struct TowerData {
     }
   }
 
-  public class Shenanigans {
-    TowerAbility[,] ability = new TowerAbility[3,5];
-
-    public override bool Equals(object obj) {
-      return base.Equals(obj);
-    }
-  }
-
   public Type type;
   public UpgradePathNames upgradePathNames;
   public string name;

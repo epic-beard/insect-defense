@@ -80,7 +80,7 @@ public abstract class Tower : MonoBehaviour {
     get { return towerAbilities[TowerAbility.Type.CRIPPLE]; }
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
-  protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-5.
+  protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
   public int[] UpgradeLevels { get { return upgradeLevels; } }
 
   // How close a particle needs to get to consider it a hit.
