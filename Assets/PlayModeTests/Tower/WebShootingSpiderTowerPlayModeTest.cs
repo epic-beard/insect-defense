@@ -223,7 +223,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     gameObject.transform.position = position;
     WebShootingSpiderTower wssTower = gameObject.AddComponent<WebShootingSpiderTower>();
 
-    wssTower.Priority = Targeting.Priority.LEASTARMOR;
+    wssTower.Priority = Targeting.Priority.LEAST_ARMOR;
     wssTower.ProjectileSpeed = 100.0f;
     wssTower.AntiAir = true;
 

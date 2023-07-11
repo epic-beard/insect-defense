@@ -16,10 +16,10 @@ public class Targeting {
   public enum Priority {
     FIRST,  // Enemy closest to the defensive goal.
     LAST,  // Enemy farthest from the defensive goal.
-    LEASTARMOR,
-    LEASTHP,
-    MOSTARMOR,
-    MOSTHP,
+    LEAST_ARMOR,
+    LEAST_HP,
+    MOST_ARMOR,
+    MOST_HP,
   }
 
   public delegate bool BehaviorPredicate(Enemy enemy);
@@ -32,10 +32,10 @@ public class Targeting {
   readonly Dictionary<Priority, Comparison<Enemy>> priorityPredicates = new() {
     { Priority.FIRST, (enemy1, enemy2) => CompareFloats(enemy1.GetDistanceToEnd(), enemy2.GetDistanceToEnd()) },
     { Priority.LAST, (enemy1, enemy2) => CompareFloats(enemy2.GetDistanceToEnd(), enemy1.GetDistanceToEnd()) },
-    { Priority.LEASTARMOR, (enemy1, enemy2) => CompareFloats(enemy1.Armor, enemy2.Armor) },
-    { Priority.LEASTHP, (enemy1, enemy2) => CompareFloats(enemy1.HP, enemy2.HP) },
-    { Priority.MOSTARMOR, (enemy1, enemy2) => CompareFloats(enemy2.Armor, enemy1.Armor) },
-    { Priority.MOSTHP, (enemy1, enemy2) => CompareFloats(enemy2.HP, enemy1.HP) },
+    { Priority.LEAST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy1.Armor, enemy2.Armor) },
+    { Priority.LEAST_HP, (enemy1, enemy2) => CompareFloats(enemy1.HP, enemy2.HP) },
+    { Priority.MOST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy2.Armor, enemy1.Armor) },
+    { Priority.MOST_HP, (enemy1, enemy2) => CompareFloats(enemy2.HP, enemy1.HP) },
   };
 
   public Priority priority;

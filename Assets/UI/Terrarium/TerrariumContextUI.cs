@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Targeting;
 
 public class TerrariumContextUI : MonoBehaviour {
   public static TerrariumContextUI Instance;
@@ -26,16 +28,8 @@ public class TerrariumContextUI : MonoBehaviour {
 
   private void Awake() {
     SetVisualElements();
-
-    // TODO - Further consider the most appropriate way to populate the options for behavior and
-    //        priority. Carefully ordered lists. Map of enum -> string for easy access. Good. Bad.
-    //        Zathras.
-    //        This should be in its own cl.
-    //Debug.Log("Behavior choice options: " + towerBehaviorDropdown.choices.ToArray());
-    //foreach (var element in towerBehaviorDropdown.choices) {
-    //  Debug.Log(element.ToString());
-    //}
-
+    ConstructDropdownChoices();
+    
     Instance = this;
   }
 
@@ -60,6 +54,31 @@ public class TerrariumContextUI : MonoBehaviour {
       string labelName = towerUpgradeLabelNameTemplate.Replace("X", i.ToString());
       towerUpgradeTreeLabels[i] = rootElement.Q<Label>(labelName);
     }
+  }
+
+  // Construct the dropdown choices for the Behavior and Priorty options.
+  private void ConstructDropdownChoices() {
+    towerBehaviorDropdown.choices.RemoveAt(0);
+    foreach (var behavior in Enum.GetValues(typeof(Targeting.Behavior))) {
+      towerBehaviorDropdown.choices.Add(FormatTargetingEnumsForUser(behavior.ToString()));
+    }
+
+    towerPriorityDropdown.choices.RemoveAt(0);
+    foreach (var priority in Enum.GetValues(typeof(Targeting.Priority))) {
+      towerPriorityDropdown.choices.Add(FormatTargetingEnumsForUser(priority.ToString()));
+    }
+  }
+
+  // Recursively process Targeting's enum strings for presentation to the user in the context UI.
+  private string FormatTargetingEnumsForUser(string toModify) {
+    if (toModify.Contains('_')) {
+      string[] words = toModify.Split('_');
+      for (int i = 0; i < words.Length; i++) {
+        words[i] = FormatTargetingEnumsForUser(words[i]);
+      }
+      return string.Join(" ", words);
+    }
+    return string.Concat(toModify[..1].ToUpper(), toModify[1..].ToLower());
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
@@ -97,7 +116,7 @@ public class TerrariumContextUI : MonoBehaviour {
     }
     Targeting.Priority priority =
         (Targeting.Priority)System.Enum.Parse(
-            typeof(Targeting.Priority), towerPriorityDropdown.value.ToUpper().Replace(" ", ""));
+            typeof(Targeting.Priority), towerPriorityDropdown.value.ToUpper().Replace(" ", "_"));
     GameStateManager.Instance.SelectedTower.Priority = priority;
   }
 
@@ -124,9 +143,11 @@ public class TerrariumContextUI : MonoBehaviour {
     towerNameLabel.text = tower.Name;
     towerBehaviorDropdown.index = ((int)tower.Behavior);
     towerPriorityDropdown.index = ((int)tower.Priority);
+
     // Ensure only the correct button is enabled for clicking.
     for (int i = 0; i < 3; i++) {
       for (int j= 0; j <= tower.UpgradeLevels[i] - 1; j++) {
+        // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
         towerUpgradeButtons[i, j].text = "Bought";
       }
       towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);

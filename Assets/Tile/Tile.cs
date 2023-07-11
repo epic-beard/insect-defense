@@ -78,16 +78,12 @@ public class Tile : MonoBehaviour {
     }
   }
 
-  // Capture mouseclick and build a tower.
+  // Handle tower placement and selection. Will automatically select a tower that has just been built.
   private void OnMouseDown() {
     if (!isTowerPlaceable) {
       return;
     }
-    if (isTowerPresent) {
-      GameStateManager.Instance.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
-      TerrariumContextUI.Instance.SetTowerContextPanel();
-      TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
-    } else {
+    if (!isTowerPresent) {
       if (GameStateManager.SelectedTowerType == null) {
         return;
       }
@@ -96,5 +92,8 @@ public class Tile : MonoBehaviour {
       GameStateManager.Instance.AddTower(waypoint.GetCoordinates(), tower);
       isTowerPresent = true;
     }
+    GameStateManager.Instance.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
+    TerrariumContextUI.Instance.SetTowerContextPanel();
+    TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
   }
 }

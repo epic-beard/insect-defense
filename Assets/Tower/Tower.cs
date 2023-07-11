@@ -89,9 +89,7 @@ public abstract class Tower : MonoBehaviour {
   protected Targeting targeting = new();
   public Targeting.Behavior Behavior {
     get { return targeting.behavior; }
-    set {
-      targeting.behavior = value;
-    }
+    set { targeting.behavior = value; }
   }
   public Targeting.Priority Priority {
     get { return targeting.priority; }
