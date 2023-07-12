@@ -23,8 +23,8 @@ public class WebShootingSpiderTowerPlayModeTest {
     wssTower = CreateWebShootingSpiderTower(Vector3.up);
 
     // Mandatory setup.
-    MeshRenderer upperMesh = new GameObject().AddComponent<MeshRenderer>();
-    wssTower.SetUpperMesh(upperMesh);
+    MeshRenderer mesh = new GameObject().AddComponent<MeshRenderer>();
+    wssTower.SetMesh(mesh);
 
     ParticleSystem webShot = new GameObject().AddComponent<ParticleSystem>();
     wssTower.SetPrimaryWebShot(webShot);
@@ -223,6 +223,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     gameObject.transform.position = position;
     WebShootingSpiderTower wssTower = gameObject.AddComponent<WebShootingSpiderTower>();
 
+    wssTower.Behavior = Targeting.Behavior.ALL;
     wssTower.Priority = Targeting.Priority.LEAST_ARMOR;
     wssTower.ProjectileSpeed = 100.0f;
     wssTower.AntiAir = true;

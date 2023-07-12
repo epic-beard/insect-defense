@@ -65,7 +65,6 @@ MonoBehaviour:
   mesh: {fileID: 8378345006578987892}
   primaryWebShot: {fileID: 6440254613249286852}
   secondaryWebShot: {fileID: 4019824567988487369}
-  webEffect: {fileID: 0}
   lingeringWebNumUses: 3
 --- !u!1 &768969485412470893
 GameObject:
