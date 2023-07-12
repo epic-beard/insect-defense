@@ -7,7 +7,6 @@ public class WebShootingSpiderTower : Tower {
   [SerializeField] Transform mesh;
   [SerializeField] ParticleSystem primaryWebShot;
   [SerializeField] ParticleSystem secondaryWebShot;
-  [SerializeField] ParticleSystem webEffect;
 
   public int lingeringWebNumUses = 3;
 
