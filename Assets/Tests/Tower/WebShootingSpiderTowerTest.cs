@@ -200,9 +200,9 @@ public static class WebShootingSpiderTowerUtils {
         .SetValue(wssTower, pool);
   }
 
-  public static void SetUpperMesh(this WebShootingSpiderTower wssTower, MeshRenderer meshRenderer) {
+  public static void SetMesh(this WebShootingSpiderTower wssTower, MeshRenderer meshRenderer) {
     typeof(WebShootingSpiderTower)
-        .GetField("upperMesh", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("mesh", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, meshRenderer.transform);
   }
 

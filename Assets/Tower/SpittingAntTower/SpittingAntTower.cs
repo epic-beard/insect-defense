@@ -1,4 +1,3 @@
-using PlasticPipe.PlasticProtocol.Messages;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +10,6 @@ public class SpittingAntTower : Tower {
   [SerializeField] ParticleSystem acidExplosion;
   [SerializeField] LineRenderer beam;
 
-  // TODO: These should not be SerializeFields long-term. They exist for debugging purposes now.
-  [SerializeField] public Targeting.Behavior behavior;
-  [SerializeField] public Targeting.Priority priority;
   [SerializeField] float splashExplosionMultiplier = 1.0f;
   [SerializeField] float acidExplosionMultiplier = 1.0f;
 
@@ -36,11 +32,6 @@ public class SpittingAntTower : Tower {
   protected ObjectPool objectPool;
 
   private void Start() {
-    // TODO: The user should be able to set the default for each tower type.
-    targeting = new() {
-      behavior = this.behavior,
-      priority = this.priority
-    };
 
     Range = 20.0f;
     ProjectileSpeed = 20.0f;
@@ -50,6 +41,7 @@ public class SpittingAntTower : Tower {
 
     // -----0-----
 
+    // TODO: Remove this, it should be set on read-in.
     Name = "Spitting Ant Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
@@ -92,7 +84,6 @@ public class SpittingAntTower : Tower {
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
-      // This explicitly ignores the potential for the Spitting Ant tower to ever have armor piercing.
       onHitDamage *= AttackSpeed * Time.deltaTime;
       acidStacks *= AttackSpeed * Time.deltaTime;
       armorTear *= AttackSpeed * Time.deltaTime;
@@ -158,9 +149,6 @@ public class SpittingAntTower : Tower {
   }
 
   private void Update() {
-    // TODO: Remove these two lines, they exist for debugging purposes at the moment.
-    targeting.behavior = this.behavior;
-    targeting.priority = this.priority;
 
     enemy = targeting.FindTarget(
       oldTarget: enemy,

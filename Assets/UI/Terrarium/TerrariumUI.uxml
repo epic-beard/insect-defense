@@ -9,9 +9,9 @@
             <ui:Instance template="TerrariumGameView" name="TerrariumGameView" style="flex-grow: 1; visibility: visible;" />
             <ui:Instance template="TerrariumBottomPanel" name="TerrariumBottomPanel" style="flex-grow: 0; height: 50px; flex-shrink: 0; justify-content: flex-end;" />
         </ui:VisualElement>
-        <ui:VisualElement name="right__visualelement" style="justify-content: space-around; flex-grow: 0; width: 275px;">
+        <ui:VisualElement name="right__visualelement" style="justify-content: space-around; flex-grow: 0; width: 300px;">
             <ui:Instance template="TerrariumHeartHP" name="TerrariumHeartHP" style="height: 50px; flex-shrink: 0;" />
-            <ui:Instance template="TerrariumContext" name="TerrariumContext" style="height: 100px;" />
+            <ui:Instance template="TerrariumContext" name="TerrariumContext" style="height: auto; flex-grow: 0; max-height: 300px; min-width: auto;" />
             <ui:Instance template="TerrariumTowerSelection" name="TerrariumTowerSelection" />
         </ui:VisualElement>
     </ui:VisualElement>
