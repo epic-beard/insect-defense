@@ -60,25 +60,26 @@ public class TerrariumContextUI : MonoBehaviour {
   private void ConstructDropdownChoices() {
     towerBehaviorDropdown.choices.RemoveAt(0);
     foreach (var behavior in Enum.GetValues(typeof(Targeting.Behavior))) {
-      towerBehaviorDropdown.choices.Add(FormatTargetingEnumsForUser(behavior.ToString()));
+      towerBehaviorDropdown.choices.Add(ToTitleCase(behavior.ToString()));
     }
 
     towerPriorityDropdown.choices.RemoveAt(0);
     foreach (var priority in Enum.GetValues(typeof(Targeting.Priority))) {
-      towerPriorityDropdown.choices.Add(FormatTargetingEnumsForUser(priority.ToString()));
+      towerPriorityDropdown.choices.Add(FormatPriorityEnumString(priority.ToString()));
     }
   }
 
-  // Recursively process Targeting's enum strings for presentation to the user in the context UI.
-  private string FormatTargetingEnumsForUser(string toModify) {
-    if (toModify.Contains('_')) {
-      string[] words = toModify.Split('_');
-      for (int i = 0; i < words.Length; i++) {
-        words[i] = FormatTargetingEnumsForUser(words[i]);
-      }
-      return string.Join(" ", words);
+  private string FormatPriorityEnumString(string toModify) {
+    string[] words = toModify.Split('_');
+    for (int i = 0; i < words.Length; i++) {
+      words[i] = ToTitleCase(words[i]);
     }
-    return string.Concat(toModify[..1].ToUpper(), toModify[1..].ToLower());
+    return string.Join(" ", words);
+  }
+
+  // Capitalize the first letter in a word and make all other letters lowercase.
+  private string ToTitleCase(string titleCase) {
+    return string.Concat(titleCase[..1].ToUpper(), titleCase[1..].ToLower());
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
