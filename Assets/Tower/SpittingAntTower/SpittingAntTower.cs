@@ -184,7 +184,7 @@ public class SpittingAntTower : Tower {
   // Handle the splash shot outside of the Update method, so it won't interrupt the program flow.
   private IEnumerator SplashShoot() {
     while (!ContinuousAttack) {
-      while (firing) {
+      while (firing && DazzleTime == 0.0f) {
         splash.Emit(1);
         Debug.Log("spit: " + EffectiveAttackSpeed);
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);

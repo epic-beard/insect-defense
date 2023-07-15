@@ -129,9 +129,8 @@ public class WebShootingSpiderTower : Tower {
 
   private IEnumerator WebShoot() {
     while (true) {
-      while (firing) {
+      while (firing && DazzleTime == 0.0f) {
         primaryWebShot.Emit(1);
-        Debug.Log("web: " + EffectiveAttackSpeed);
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
       yield return new WaitUntil(() => firing);

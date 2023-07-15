@@ -41,14 +41,14 @@ public class Enemy : MonoBehaviour {
 
     if (data.dazzle != null) {
       EnemyData.DazzleProperties dazzle = data.dazzle.Value;
-      StartCoroutine(HandleAbility(GetDazzleAction(dazzle.duration),
-                     dazzle.interval, dazzle.range));
+      StartCoroutine(HandleAbility(
+          GetDazzleAction(dazzle.duration), dazzle.interval, dazzle.range));
     }
 
     if (data.slime != null) {
       EnemyData.SlimeProperties slime = data.slime.Value;
-      StartCoroutine(HandleAbility(GetSlimeAction(slime.duration, slime.power),
-                                   slime.interval, slime.range));
+      StartCoroutine(HandleAbility(
+          GetSlimeAction(slime.duration, slime.power), slime.interval, slime.range));
     }
 
     if (NextWaypoint == null) {
@@ -254,7 +254,7 @@ public class Enemy : MonoBehaviour {
     yield return new WaitForSeconds(UnityEngine.Random.Range(0, interval));
     while (true) {
       var towers =
-        GameStateManager.Instance.GetTowersInRange(range, transform.position);
+          GameStateManager.Instance.GetTowersInRange(range, transform.position);
       foreach (var tower in towers) {
         ability(tower);
       }

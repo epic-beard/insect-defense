@@ -32,6 +32,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.DAMAGE_OVER_TIME]; }
     set { data[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
   }
+  public float DazzleTime { get; set; }
   public string Name {
     get { return data.name; }
     set { data.name = value; }
@@ -52,6 +53,8 @@ public abstract class Tower : MonoBehaviour {
     get { return (int)data[TowerData.Stat.SECONDARY_SLOW_TARGETS]; }
     set { data[TowerData.Stat.SECONDARY_SLOW_TARGETS] = value; }
   }
+  public float SlimeTime { get; set; }
+  public float SlimePower { get; set; } = 1.0f;
   public float SlowDuration {
     get { return data[TowerData.Stat.SLOW_DURATION]; }
     set { data[TowerData.Stat.SLOW_DURATION] = value; }
@@ -64,9 +67,6 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
-  public float DazzleTime { get; set; }
-  public float SlimeTime { get; set; }
-  public float SlimePower { get; set; } = 1.0f;
   public abstract TowerData.Type TowerType { get; set; }
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
@@ -103,8 +103,6 @@ public abstract class Tower : MonoBehaviour {
   }
 
   private void Update() {
-    if (DazzleTime > 0) return;
-
     TowerUpdate();
   }
 
