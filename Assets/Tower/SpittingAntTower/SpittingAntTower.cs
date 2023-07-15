@@ -84,10 +84,10 @@ public class SpittingAntTower : Tower {
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
-      onHitDamage *= AttackSpeed * Time.deltaTime;
-      acidStacks *= AttackSpeed * Time.deltaTime;
-      armorTear *= AttackSpeed * Time.deltaTime;
-      armorPierce *= AttackSpeed * Time.deltaTime;
+      onHitDamage *= EffectiveAttackSpeed * Time.deltaTime;
+      acidStacks *= EffectiveAttackSpeed * Time.deltaTime;
+      armorTear *= EffectiveAttackSpeed * Time.deltaTime;
+      armorPierce *= EffectiveAttackSpeed * Time.deltaTime;
     }
 
     // Armor tear effects.
@@ -148,8 +148,7 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  private void Update() {
-
+  protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: objectPool.GetActiveEnemies(),
@@ -187,7 +186,8 @@ public class SpittingAntTower : Tower {
     while (!ContinuousAttack) {
       while (firing) {
         splash.Emit(1);
-        yield return new WaitForSeconds(1 / AttackSpeed);
+        Debug.Log("spit: " + EffectiveAttackSpeed);
+        yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
       yield return new WaitUntil(() => firing);
     }

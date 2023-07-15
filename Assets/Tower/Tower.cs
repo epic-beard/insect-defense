@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -7,6 +8,9 @@ public abstract class Tower : MonoBehaviour {
   public float AttackSpeed {
     get { return data[TowerData.Stat.ATTACK_SPEED]; }
     set { data[TowerData.Stat.ATTACK_SPEED] = value; }
+  }
+  public float EffectiveAttackSpeed {
+    get { return AttackSpeed * SlimePower; }
   }
   public float AreaOfEffect {
     get { return data[TowerData.Stat.AREA_OF_EFFECT]; }
@@ -60,6 +64,9 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
+  public float DazzleTime { get; set; }
+  public float SlimeTime { get; set; }
+  public float SlimePower { get; set; } = 1.0f;
   public abstract TowerData.Type TowerType { get; set; }
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
@@ -95,6 +102,14 @@ public abstract class Tower : MonoBehaviour {
     set { targeting.priority = value; }
   }
 
+  private void Update() {
+    if (DazzleTime > 0) return;
+
+    TowerUpdate();
+  }
+
+  protected abstract void TowerUpdate();
+
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
     if (ability.specialAbility != TowerAbility.SpecialAbility.NONE) {
@@ -128,6 +143,45 @@ public abstract class Tower : MonoBehaviour {
           .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < explosionRange)
           .Where(e => !e.Equals(target))
           .ToList();
+  }
+
+  public void ApplyDazzle(float duration) {
+    if (DazzleTime > 0) {
+      DazzleTime = Mathf.Max(DazzleTime, duration);
+    } else {
+      DazzleTime = duration;
+      StartCoroutine(HandleDazzle());
+    }
+  }
+
+  private IEnumerator HandleDazzle() {
+    while (DazzleTime > 0) {
+      DazzleTime -= Time.deltaTime;
+      yield return null;
+    }
+    DazzleTime = 0.0f;
+    yield return null;
+  }
+
+  public void ApplySlime(float duration, float power) {
+    if (SlimeTime > 0) {
+      SlimeTime = Mathf.Max(SlimeTime, duration);
+      SlimePower = Mathf.Max(SlimePower, power);
+    } else {
+      SlimeTime = duration;
+      SlimePower = power;
+      StartCoroutine(HandleSlime());
+    }
+  }
+
+  private IEnumerator HandleSlime() {
+    while (SlimeTime > 0) {
+      SlimeTime -= Time.deltaTime;
+      yield return null;
+    }
+    SlimePower = 1.0f;
+    SlimeTime = 0.0f;
+    yield return null;
   }
 }
                 

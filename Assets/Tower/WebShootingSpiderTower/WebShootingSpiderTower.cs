@@ -106,7 +106,7 @@ public class WebShootingSpiderTower : Tower {
     enemy.ApplySlow(SlowPower * SecondarySlowPotency, SlowDuration * SecondarySlowPotency);
   }
 
-  private void Update() {
+  protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: objectPool.GetActiveEnemies(),
@@ -131,7 +131,8 @@ public class WebShootingSpiderTower : Tower {
     while (true) {
       while (firing) {
         primaryWebShot.Emit(1);
-        yield return new WaitForSeconds(1 / AttackSpeed);
+        Debug.Log("web: " + EffectiveAttackSpeed);
+        yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
       yield return new WaitUntil(() => firing);
     }
