@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -203,5 +204,19 @@ public class Enemy : MonoBehaviour {
   private void FinishPath() {
     GameStateManager.Instance.DealDamage(Damage);
     ObjectPool.Instance.DestroyEnemy(gameObject);
+  }
+
+  private IEnumerable HandleAbility(Action<Tower> ability, float interval, float range) {
+    // Wait for a random time in (0, interval)
+    // before using the ability for the first time;
+    yield return new WaitForSeconds(UnityEngine.Random.Range(0, interval));
+    while (true) {
+      var towers =
+        GameStateManager.Instance.GetTowersInRange(range, transform.position);
+      foreach (var tower in towers) {
+        ability(tower);
+      }
+      yield return new WaitForSeconds(interval);
+    }
   }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameStateManager : MonoBehaviour {
@@ -49,6 +50,11 @@ public class GameStateManager : MonoBehaviour {
 
   public void AddTower(Vector2Int coordinates, Tower tower) {
     activeTowerMap.Add(coordinates, tower);
+  }
+
+  public List<Tower> GetTowersInRange(float range, Vector3 pos) {
+    return activeTowerMap.Values.Where(
+      (tower) => Vector3.Distance(pos, tower.transform.position) <= range).ToList();
   }
 
   public Tower GetTower(Vector2Int coordinates) {
