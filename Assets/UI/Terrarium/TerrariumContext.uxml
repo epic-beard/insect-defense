@@ -1,13 +1,36 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="tower_context__visualelement" style="flex-direction: column;">
         <ui:Label text="&lt;towername&gt;" display-tooltip-when-elided="true" name="tower_name__label" style="align-items: stretch; -unity-text-align: upper-center;" />
-        <ui:VisualElement name="tower_context_content__visualelement" style="flex-direction: row;">
-            <ui:VisualElement name="tower_actions_container__visualelement">
-                <ui:DropdownField label="Behavior" index="0" choices="All,Camo,Flier,Stubborn" name="tower_behavior__dropdown" style="flex-direction: column;" />
-                <ui:DropdownField label="Priority" index="0" choices="First, Last, Least Armor, Least HP, Most Armor, Most HP" name="tower_priority__dropdown" style="flex-direction: column;" />
+        <ui:VisualElement name="tower_context_content__visualelement" style="flex-direction: column; flex-grow: 1;">
+            <ui:VisualElement name="tower_actions_container__visualelement" style="width: auto; flex-direction: row; -unity-text-align: upper-center; flex-grow: 1;">
+                <ui:DropdownField label="Behavior" index="0" choices="All" name="tower_behavior__dropdown" style="flex-direction: column;" />
+                <ui:DropdownField label="Priority" index="0" choices="First" name="tower_priority__dropdown" style="flex-direction: column;" />
             </ui:VisualElement>
-            <ui:VisualElement name="tower_upgrade_container__visualelement" style="flex-wrap: nowrap;">
-                <ui:Label text="Tower Upgrade Panel" display-tooltip-when-elided="true" name="temp_filler__label" style="flex-wrap: nowrap; -unity-text-align: upper-left; white-space: normal;" />
+            <ui:VisualElement name="tower_upgrade_container__visualelement" style="flex-wrap: nowrap; flex-grow: 1;">
+                <ui:VisualElement name="tower_upgrade_tree_1__visual_element" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="&lt;Tree 1&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_0__label" style="font-size: 12px; white-space: normal; text-overflow: clip; max-width: 50px;" />
+                    <ui:Button text="A 1" display-tooltip-when-elided="true" name="tree_0_upgrade_0__button" focusable="true" style="width: 50px; flex-grow: 1; white-space: nowrap; text-overflow: clip; font-size: 10px;" />
+                    <ui:Button text="A 2" display-tooltip-when-elided="true" name="tree_0_upgrade_1__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 3" display-tooltip-when-elided="true" name="tree_0_upgrade_2__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 4" display-tooltip-when-elided="true" name="tree_0_upgrade_3__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 5" display-tooltip-when-elided="true" name="tree_0_upgrade_4__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="tower_upgrade_tree_2__visual_element" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="&lt;Tree 2&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_1__label" style="white-space: normal; max-width: 50px; font-size: 12px;" />
+                    <ui:Button text="A 1" display-tooltip-when-elided="true" name="tree_1_upgrade_0__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 2" display-tooltip-when-elided="true" name="tree_1_upgrade_1__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 3" display-tooltip-when-elided="true" name="tree_1_upgrade_2__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 4" display-tooltip-when-elided="true" name="tree_1_upgrade_3__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 5" display-tooltip-when-elided="true" name="tree_1_upgrade_4__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="tower_upgrade_tree_3__visual_element" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="&lt;Tree 3&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_2__label" style="white-space: normal; max-width: 50px; font-size: 12px;" />
+                    <ui:Button text="A 1" display-tooltip-when-elided="true" name="tree_2_upgrade_0__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 2" display-tooltip-when-elided="true" name="tree_2_upgrade_1__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 3" display-tooltip-when-elided="true" name="tree_2_upgrade_2__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 4" display-tooltip-when-elided="true" name="tree_2_upgrade_3__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                    <ui:Button text="A 5" display-tooltip-when-elided="true" name="tree_2_upgrade_4__button" style="width: 50px; flex-grow: 1; font-size: 10px;" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

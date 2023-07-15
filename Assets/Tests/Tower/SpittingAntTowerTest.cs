@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 public class SpittingAntTowerTest {
 
@@ -18,6 +20,7 @@ public class SpittingAntTowerTest {
 
     ProjectileHandler projectileHandler = new(splash, spittingAntTower.ProjectileSpeed, Tower.hitRange);
     spittingAntTower.SetProjectileHandler(projectileHandler);
+    Time.captureDeltaTime = 1;
   }
 
   #region SpecialAbilityUpgradeTests
@@ -146,7 +149,6 @@ public class SpittingAntTowerTest {
     spittingAntTower.SlowDuration = slowDuration;
 
     Enemy target = CreateEnemy(Vector3.zero);
-    target.data.Initialize();
 
     spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
 
@@ -168,9 +170,9 @@ public class SpittingAntTowerTest {
     Enemy enemyInRange = CreateEnemy(Vector3.zero);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
     float enemyHP = 10000.0f;
-    target.data.currHP = enemyHP;
-    enemyInRange.data.currHP = enemyHP;
-    enemyOutOfRange.data.currHP = enemyHP;
+    target.HP = enemyHP;
+    enemyInRange.HP = enemyHP;
+    enemyOutOfRange.HP = enemyHP;
 
     spittingAntTower.AreaOfEffect = 10.0f;
     spittingAntTower.SetAcidExplosionRangeMultiplier(1.0f);
@@ -204,9 +206,9 @@ public class SpittingAntTowerTest {
     Enemy enemyInRange = CreateEnemy(Vector3.zero, armor: 1.0f);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0), armor: 1.0f);
     float enemyHp = 10000.0f;
-    target.data.currHP = enemyHp;
-    enemyInRange.data.currHP = enemyHp;
-    enemyOutOfRange.data.currHP = enemyHp;
+    target.HP = enemyHp;
+    enemyInRange.HP = enemyHp;
+    enemyOutOfRange.HP = enemyHp;
 
     spittingAntTower.SetSplashExplosionRangeMultiplier(10.0f);
     spittingAntTower.SetArmorTearExplosion(armorTearExplosion);
@@ -239,9 +241,9 @@ public class SpittingAntTowerTest {
   }
 
   // Test continuous fire on an unarmored target.
-  [Test]
-  public void ProcessDamageAndEffectsContinuousFireNoArmor() {
-    Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 1.0f);
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffectsContinuousFireNoArmor() {
+    Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 10.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplash(splash);
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
@@ -256,12 +258,14 @@ public class SpittingAntTowerTest {
 
     Assert.That(target.HP, Is.LessThan(expectedHp));
     Assert.That(target.Armor, Is.EqualTo(0.0f));
+
+    return null;
   }
 
   // Test continuous fire on an armored target.
-  [Test]
-  public void ProcessDamageAndEffectsContinuousFireWithArmor() {
-    Enemy target = CreateEnemy(Vector3.zero, armor: 1.0f, hp: 1.0f);
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffectsContinuousFireWithArmor() {
+    Enemy target = CreateEnemy(Vector3.zero, armor: 2.0f, hp: 10.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplash(splash);
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
@@ -277,6 +281,8 @@ public class SpittingAntTowerTest {
 
     Assert.That(target.HP, Is.EqualTo(expectedHp));
     Assert.That(target.Armor, Is.LessThan(expectedArmor));
+
+    return null;
   }
 
   // Test with splash fire on targets of varying armor.
@@ -318,16 +324,16 @@ public class SpittingAntTowerTest {
       float hp = 1.0f) {
     GameObject gameObject = new();
     gameObject.transform.position = position;
-
+    gameObject.SetActive(false);
     EnemyData data = new() {
-      currArmor = armor,
-      currHP = hp,
+      maxArmor = armor,
+      maxHP = hp,
       size = EnemyData.Size.NORMAL,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.data = data;
-
+    enemy.Data = data;
+    gameObject.SetActive(true);
     return enemy;
   }
 

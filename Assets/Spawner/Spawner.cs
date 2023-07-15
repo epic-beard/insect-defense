@@ -1,3 +1,5 @@
+#nullable enable
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +10,7 @@ using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
+  public static event Action OnLevelComplete;
   static public Spawner Instance;
 
   [SerializeField] private List<Waypoint> spawnLocations = new();
@@ -83,7 +86,8 @@ public class Spawner : MonoBehaviour {
     //Serialize<Wave>(testWave, filename);
     //----------------------------------------
     if (filename.Length == 0) return;
-    SpawnWave(Deserialize<Wave>(filename));
+    Wave? wave = Deserialize<Wave>(filename);
+    if (wave != null)  SpawnWave(wave);
   }
 
   public void SpawnWave(Wave wave) {
@@ -102,12 +106,20 @@ public class Spawner : MonoBehaviour {
   // A thin wrapper around InstantiateEnemy, using spawnLocation as an
   // index into spawnLocations.
   public GameObject Spawn(EnemyData data, int spawnLocation) {
-    return ObjectPool.Instance.InstantiateEnemy(data, spawnLocations[spawnLocation]);
+    return Spawn(data, spawnLocations[spawnLocation]);
   }
   // Same as above but looks up the enemy stats in the EnemyManager.
   public GameObject Spawn(string enemyDataKey, int spawnLocation) {
+    return Spawn(enemyDataKey, spawnLocations[spawnLocation]);
+  }
+  // Same as above but includes a Transform at which to spawn the enemy.
+  public GameObject Spawn(string enemyDataKey, Waypoint nextWaypoint, Transform? parent = null) {
     EnemyData data = EnemyDataManager.Instance.GetEnemyData(enemyDataKey);
-    return Spawn(data, spawnLocation);
+    return Spawn(data, nextWaypoint, parent);
+  }
+
+  public GameObject Spawn(EnemyData data, Waypoint nextWaypoint, Transform? parent = null) {
+    return ObjectPool.Instance.InstantiateEnemy(data, nextWaypoint, parent);
   }
 
   // The interface for the Waves system.
@@ -136,6 +148,17 @@ public class Spawner : MonoBehaviour {
         yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
         // Run the wave and wait till it is complete.
         yield return wave.Start();
+      }
+
+      // Sanity check, make sure all the waves have completed.
+      yield return new WaitUntil(() => waves.All<Wave>((wave) => wave.Finished));
+
+      // The level ends once all the enemies have been spawned and destroyed.
+      yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count() == 0);
+
+      // Make sure the players health didn't drop to zero getting rid of the last enemy.
+      if (GameStateManager.Instance.Health > 0) {
+        OnLevelComplete.Invoke();
       }
       Finished = true;
     }
@@ -195,7 +218,7 @@ public class Spawner : MonoBehaviour {
     public float repeatDelay;
     public int spawnLocation;
     public int spawnAmmount;
-    public string enemyDataKey;
+    public string enemyDataKey = "";
 
     public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {

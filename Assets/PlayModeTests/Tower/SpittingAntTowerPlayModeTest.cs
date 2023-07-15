@@ -194,7 +194,7 @@ public class SpittingAntTowerPlayModeTest {
     gameObject.transform.position = position;
     SpittingAntTower spittingAntTower = gameObject.AddComponent<SpittingAntTower>();
 
-    spittingAntTower.priority = Targeting.Priority.LEASTARMOR;
+    spittingAntTower.Priority = Targeting.Priority.LEAST_ARMOR;
     spittingAntTower.ProjectileSpeed = 100.0f;  // To cover distance as quickly as possible.
 
     return spittingAntTower;
@@ -241,7 +241,7 @@ public class SpittingAntTowerPlayModeTest {
       maxHP = hp,
       size = size,
     };
-    enemy.data = data;
+    enemy.Data = data;
     gameObject.SetActive(true);
 
     return enemy;

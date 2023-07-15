@@ -5,6 +5,7 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using TowerDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData.Type, TowerData>;
 using AbilityDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData.Type, TowerAbility[][]>;
 using System.Linq;
+using static TowerData;
 
 public class TowerDataManagerTest {
   TowerData towerData;
@@ -14,6 +15,7 @@ public class TowerDataManagerTest {
   public void SetUp() {
     towerData = new() {
       type = TowerData.Type.SPITTING_ANT_TOWER,
+      upgradePathNames = new TowerData.UpgradePathNames("first", "second", "third"),
       area_of_effect = 1.0f,
       armor_pierce = 2.0f,
       armor_tear = 3.0f,

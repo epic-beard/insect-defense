@@ -4,7 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-  public EnemyData data;
+  private EnemyData data;
+  public EnemyData Data {
+    get { return data; }
+    set {
+      HP = value.maxHP;
+      Armor = value.maxArmor;
+      data = value;
+    }
+  }
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
 
@@ -14,16 +22,21 @@ public class Enemy : MonoBehaviour {
   public HashSet<Tower> webShootingTowerStuns = new();
   public HashSet<Tower> webShootingTowerPermSlow = new();
 
+  private float crippleSlow = 0.8f;
+
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
     transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
 
-    data.Initialize();
     StartCoroutine(HandleStun());
 
     if (Flying) {
       StartCoroutine(GroundFlierForDuration());
+    }
+
+    if (data.spawner != null) {
+      StartCoroutine(Spawn());
     }
 
     if (NextWaypoint == null) {
@@ -34,13 +47,16 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(FollowPath());
   }
 
-  public float HP { get { return data.currHP; } }
-  public float Armor { get { return data.currArmor; } }
+  public float HP { get; set; }
+  public float Armor { get; set; }
   // The enemy's unmodified core speed. This is not what is called to determine move speed.
   public float BaseSpeed { get { return data.speed; } }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
+  public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public bool Crippled { get; set; }
+  public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
   public int Damage { get { return data.damage; } }
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
   public float AcidStacks {
@@ -64,18 +80,24 @@ public class Enemy : MonoBehaviour {
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
-  public float DamageEnemy(float damage, float armorPierce) {
-    data.currHP -= damage - Mathf.Clamp(Armor - armorPierce, 0.0f, damage);
-    if (data.currHP <= 0.0f) {
+  public float DamageEnemy(float damage, float armorPierce, bool continuous = false) {
+    float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
+    HP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
+    if (HP <= 0.0f) {
       // TODO: Award the player Nu
+      if (data.carrier != null) {
+        var carrier = data.carrier.Value;
+        SpawnChildren(carrier.childKey, carrier.num);
+      }
       ObjectPool.Instance.DestroyEnemy(gameObject);
     }
-    return data.currHP;
+    return HP;
   }
-
+  
   // Return the new armor total after the tear is applied.
   public float TearArmor(float armorTear) {
-    return data.currArmor = Mathf.Max(data.currArmor - armorTear, 0.0f);
+    Armor = Mathf.Max(Armor - armorTear, 0.0f);
+    return Armor;
   }
 
   // Returns true if stacks are at max.
@@ -117,6 +139,14 @@ public class Enemy : MonoBehaviour {
     data.speed *= slow;
   }
 
+  public void ApplyCripple() {
+    if (!CrippleImmunity && !Crippled) {
+      // [TODO] nnewsom: handle removing the leg, or downing the flyer here.
+      data.speed *= crippleSlow;
+      Crippled = true;
+    }
+  }
+
   public void TemporarilyStripFlying(float duration) {
     GroundedTime += duration;
   }
@@ -150,7 +180,7 @@ public class Enemy : MonoBehaviour {
     if (0.0f < AcidStacks) {
       float acidDamage = AcidDamagePerStackPerSecond * Time.deltaTime;
       AcidStacks = Mathf.Max(AcidStacks - Time.deltaTime, 0.0f);
-      data.currHP -= acidDamage;
+      HP -= acidDamage;
     }
   }
 
@@ -217,6 +247,20 @@ public class Enemy : MonoBehaviour {
         ability(tower);
       }
       yield return new WaitForSeconds(interval);
+    }
+  }
+
+  private IEnumerator Spawn() {
+    EnemyData.SpawnerProperties properties = data.spawner.Value;
+    while(true) {
+      yield return new WaitForSeconds(properties.interval);
+      SpawnChildren(properties.childKey, properties.num);
+    }
+  }
+
+  private void SpawnChildren(string childKey, int num) {
+    for (int i = 0; i < num; i++) {
+      Spawner.Instance.Spawn(childKey, NextWaypoint, transform);
     }
   }
 }

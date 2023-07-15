@@ -23,52 +23,36 @@ public struct EnemyData {
     NONE = 0,
     CAMO = 1,
     FLYING = 2,
+    CRIPPLE_IMMUNITY = 4,
+    BIG_TARGET = 8,
   }
 
-  public class Spawner {
-    public float num;
+  public struct SpawnerProperties {
+    public int num;
     public float interval;
-    public EnemyData child = new();
-    public override bool Equals(object obj) {
-      Spawner? spawner = obj as Spawner;
-      if (spawner is null) return false;
-      return spawner.num == num
-        && spawner.interval == interval
-        && spawner.child.Equals(child);
-    }
-    public override int GetHashCode() => (num, interval, child).GetHashCode();
-    public static bool operator ==(Spawner lhs, Spawner rhs) => lhs.Equals(rhs);
-    public static bool operator !=(Spawner lhs, Spawner rhs) => !(lhs == rhs);
+    public string childKey;
+
     public override string ToString() {
-      return "Spawner:\n" + "Number: " + num + "\nInterval: " + interval
-        + "\nChild: " + child;
+      return "Number: " + num
+        + "\nInterval: " + interval
+        + "\nChild Key: " + childKey;
     }
   }
 
-  public class Carrier {
-    public float num;
-    public EnemyData child = new();
-    public override bool Equals(object obj) {
-      Carrier? carrier = obj as Carrier;
-      if (carrier is null) return false;
-      return carrier.num == num
-        && carrier.child.Equals(child);
-    }
-    public override int GetHashCode() => (num, child).GetHashCode();
-    public static bool operator ==(Carrier lhs, Carrier rhs) => lhs.Equals(rhs);
-    public static bool operator !=(Carrier lhs, Carrier rhs) => !(lhs == rhs);
+  public struct CarrierProperties {
+    public int num;
+    public string childKey;
+
     public override string ToString() {
-      return "Spawner:\n" + "Number: " + num + "\nChild: " + child;
+      return "Number: " + num
+        + "\nChild Key: " + childKey;
     }
   }
 
   public Type type;
   public Size size;
 
-  public float currHP;
   public float maxHP;
-
-  public float currArmor;
   public float maxArmor;
 
   public float speed;
@@ -89,20 +73,15 @@ public struct EnemyData {
   public Properties properties;
   // Once enabled the Enemy will start a spawner coroutine if spawner is not null.
   // The Spawner object contains all the information for starting this coroutine.
-  public Spawner? spawner;
+  public SpawnerProperties? spawner;
   // On death the Enemy will spawn a given number of child Enemies.
   // The Carrier object contains all the information required for spawning.
-  public Carrier? carrier;
+  public CarrierProperties? carrier;
   public override string ToString() {
     return "EnemyData:" + "\nType: " + type + "\nSize: " + size
-      + "\nCurrent HP: " + currHP + "\nMax HP" + maxHP
-      + "\nCurrent Armor: " + currArmor + "\nMax Armor: " + maxArmor
+      + "\nMax HP" + maxHP + "\nMax Armor: " + maxArmor
       + "\nSpeed: " + speed + "\nDamage: " + damage + "\nnu: " + nu
-      + "\nProperties: " + properties + "\n" + spawner + "\n" + carrier;
-  }
-
-  public void Initialize() {
-    currArmor = maxArmor;
-    currHP = maxHP;
+      + "\nProperties: " + properties + "\n" + "Spawner:\n" + spawner
+      + "\n" + "Carrier:\n" + carrier;
   }
 }

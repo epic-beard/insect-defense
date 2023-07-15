@@ -144,17 +144,18 @@ public class WebShootingSpiderTowerTest {
       float armor = 0.0f,
       float hp = 1.0f) {
     GameObject gameObject = new();
+    gameObject.SetActive(false);
     gameObject.transform.position = position;
 
     EnemyData data = new() {
-      currArmor = armor,
-      currHP = hp,
+      maxArmor = armor,
+      maxHP = hp,
       size = EnemyData.Size.NORMAL,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.data = data;
-
+    enemy.Data = data;
+    gameObject.SetActive(true);
     return enemy;
   }
 
@@ -199,9 +200,9 @@ public static class WebShootingSpiderTowerUtils {
         .SetValue(wssTower, pool);
   }
 
-  public static void SetUpperMesh(this WebShootingSpiderTower wssTower, MeshRenderer meshRenderer) {
+  public static void SetMesh(this WebShootingSpiderTower wssTower, MeshRenderer meshRenderer) {
     typeof(WebShootingSpiderTower)
-        .GetField("upperMesh", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("mesh", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, meshRenderer.transform);
   }
 

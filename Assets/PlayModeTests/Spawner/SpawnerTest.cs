@@ -108,14 +108,14 @@ public class EnemySubwaveTest {
     Assert.True(enumerator.MoveNext());
     Assert.That(objectPool.GetActiveEnemies().Count, Is.EqualTo(1));
     foreach (var enemy in objectPool.GetActiveEnemies()) {
-      Assert.That(enemy.data, Is.EqualTo(enemyData));
+      Assert.That(enemy.Data, Is.EqualTo(enemyData));
       Assert.That(enemy.transform.position, Is.EqualTo(Vector3.left));
     }
     yield return new WaitForSeconds(0.11f);
     Assert.True(enumerator.MoveNext());
     Assert.That(objectPool.GetActiveEnemies().Count, Is.EqualTo(2));
     foreach (var enemy in objectPool.GetActiveEnemies()) {
-      Assert.That(enemy.data, Is.EqualTo(enemyData));
+      Assert.That(enemy.Data, Is.EqualTo(enemyData));
       Assert.That(enemy.transform.position, Is.EqualTo(Vector3.left));
     }
     yield return new WaitForSeconds(0.11f);

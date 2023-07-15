@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,10 @@ public class GameStateManager : MonoBehaviour {
   public static GameStateManager Instance;
   public static event Action GameOver;
   // The type of tower currently selected by the user for construction.
-  public static GameObject SelectedTowerType;
-  // The specific tower the user clicked on in the map.
-  public static Tower SelectedTower;
+  public static GameObject? SelectedTowerType;
 
+  // The specific tower the user clicked on in the map.
+  public Tower? SelectedTower;
   public Dictionary<Vector2Int, Tower> activeTowerMap = new();
 
   [SerializeField] private int maxHealth = 100;
@@ -25,7 +26,7 @@ public class GameStateManager : MonoBehaviour {
     get { return health; }
     private set {
       // Update the ui health label.
-      TerrariumUI.Instance.SetHpLabelText(value);
+      TerrariumHealthUI.Instance.SetHpLabelText(value);
       health = value;
     }
   }
@@ -39,7 +40,7 @@ public class GameStateManager : MonoBehaviour {
     // Right click should clear selected context.
     if (Input.GetMouseButton(1)) {
       ClearSelection();
-      TerrariumUI.Instance.SetNoContextPanel();
+      TerrariumContextUI.Instance.SetNoContextPanel();
     }
   }
 

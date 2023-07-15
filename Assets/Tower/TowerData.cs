@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 
 [Serializable]
@@ -21,8 +22,21 @@ public struct TowerData {
     SLOW_POWER,  // This is a percentage slow from 0.0 - 1.0.
     STUN_TIME,  // Slow duration in seconds.
   }
+  // This class is required because list and array equality checking look at references.
+  public struct UpgradePathNames {
+    public string? first;
+    public string? second;
+    public string? third;
+
+    public UpgradePathNames(string? first, string? second, string? third) {
+      this.first = first;
+      this.second = second;
+      this.third = third;
+    }
+  }
 
   public Type type;
+  public UpgradePathNames upgradePathNames;
   public string name;
   public float area_of_effect;
   public float armor_pierce;

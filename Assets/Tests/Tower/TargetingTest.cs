@@ -16,7 +16,7 @@ public class TargetingTest {
     Enemy oldTarget = CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy newTarget = CreateEnemy(Vector3.zero, armor: 1.0f); ;
     HashSet<Enemy> enemies = new() { oldTarget, newTarget };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(oldTarget));
@@ -27,7 +27,7 @@ public class TargetingTest {
   public void StubbornNotPresentWithAlternative() {
     Enemy newTarget = CreateEnemy(Vector3.zero, armor: 1.0f);
     HashSet<Enemy> enemies = new() { newTarget };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(newTarget));
@@ -38,7 +38,7 @@ public class TargetingTest {
   public void StubbornNotInRangeWithoutAlternative() {
     Enemy oldTarget = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f);
     HashSet<Enemy> enemies = new() { oldTarget };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(null));
@@ -50,7 +50,7 @@ public class TargetingTest {
     Enemy oldTarget = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f);
     Enemy newTarget = CreateEnemy(Vector3.zero, armor: 1.0f);
     HashSet<Enemy> enemies = new() { oldTarget, newTarget };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.STUBBORN, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(oldTarget, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(newTarget));
@@ -66,7 +66,7 @@ public class TargetingTest {
     Enemy flier = CreateEnemy(Vector3.zero, armor: 0.5f, properties: EnemyData.Properties.FLYING);
     Enemy nonFlier = CreateEnemy(Vector3.zero, armor: 1.0f);
     HashSet<Enemy> enemies = new() { flier, nonFlier };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.FLIER, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.FLIER, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, true);
     Assert.That(target, Is.EqualTo(flier));
@@ -78,7 +78,7 @@ public class TargetingTest {
     Enemy camo = CreateEnemy(Vector3.zero, armor: 0.5f, properties: EnemyData.Properties.CAMO);
     Enemy nonCamo = CreateEnemy(Vector3.zero, armor: 0.5f);
     HashSet<Enemy> enemies = new() { camo, nonCamo };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, true, false);
     Assert.That(target, Is.EqualTo(camo));
@@ -90,7 +90,7 @@ public class TargetingTest {
     Enemy camo = CreateEnemy(new Vector3(100, 0, 0), armor: 0.5f, properties: EnemyData.Properties.CAMO);
     Enemy nonCamo = CreateEnemy(Vector3.zero, armor: 1.0f);
     HashSet<Enemy> enemies = new() { camo, nonCamo };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.CAMO, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, true, false);
     Assert.That(target, Is.EqualTo(nonCamo));
@@ -135,7 +135,7 @@ public class TargetingTest {
     Enemy leastArmor = CreateEnemy(Vector3.zero.normalized, armor: 0.5f);
     Enemy mostArmor = CreateEnemy(Vector3.zero, armor: 1.0f);
     HashSet<Enemy> enemies = new() { leastArmor, mostArmor };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.LEASTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.LEAST_ARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(leastArmor));
@@ -147,7 +147,7 @@ public class TargetingTest {
     Enemy leastArmor = CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy mostArmor = CreateEnemy(Vector3.zero, armor: 1.0f);
     HashSet<Enemy> enemies = new() { leastArmor, mostArmor };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(mostArmor));
@@ -159,7 +159,7 @@ public class TargetingTest {
     Enemy leastHP = CreateEnemy(Vector3.zero, armor: 0.5f);
     Enemy mostHP = CreateEnemy(Vector3.zero, armor: 1.0f);
     HashSet<Enemy> enemies = new() { leastHP, mostHP };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.LEASTHP);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.LEAST_HP);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(leastHP));
@@ -171,7 +171,7 @@ public class TargetingTest {
     Enemy leastHP = CreateEnemy(Vector3.zero, hp: 1.0f);
     Enemy mostHP = CreateEnemy(Vector3.zero, hp: 10.0f);
     HashSet<Enemy> enemies = new() { leastHP, mostHP };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.MOSTHP);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.MOST_HP);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(mostHP));
@@ -184,7 +184,7 @@ public class TargetingTest {
     Enemy flier = CreateEnemy(Vector3.zero, properties: EnemyData.Properties.FLYING);
     Enemy camo = CreateEnemy(Vector3.zero, properties: EnemyData.Properties.CAMO);
     HashSet<Enemy> enemies = new() { tooFar, flier, camo };
-    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.MOSTARMOR);
+    Targeting targeting = CreateTargeting(Targeting.Behavior.ALL, Targeting.Priority.MOST_ARMOR);
 
     Enemy? target = targeting.FindTarget(null, enemies, Vector3.right, TOWER_RANGE, false, false);
     Assert.That(target, Is.EqualTo(null));
@@ -238,16 +238,18 @@ public class TargetingTest {
       float hp = 0.0f,
       EnemyData.Properties properties = EnemyData.Properties.NONE) {
     GameObject gameObject = new();
+    gameObject.SetActive(true);
     gameObject.transform.position = position;
 
     EnemyData data = new() {
-      currArmor = armor,
-      currHP = hp,
+      maxArmor = armor,
+      maxHP = hp,
       properties = properties,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.data = data;
+    enemy.Data = data;
+    gameObject.SetActive(false);
     return enemy;
   }
 

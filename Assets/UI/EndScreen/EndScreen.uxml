@@ -2,9 +2,9 @@
     <Style src="project://database/Assets/UI/insect_defense_styles.uss?fileID=7433441132597879392&amp;guid=0808b06bea899484ab538ff82d137e71&amp;type=3#insect_defense_styles" />
     <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.59);">
         <ui:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0); align-items: center; justify-content: center; flex-direction: column; height: auto; width: 300px;">
-            <ui:Label text="You Died" display-tooltip-when-elided="true" style="font-size: 20px; -unity-font-style: bold; margin-bottom: 20px; color: rgb(255, 255, 255);" />
+            <ui:Label name="end-screen__label" text="You Died" display-tooltip-when-elided="true" style="font-size: 20px; -unity-font-style: bold; margin-bottom: 20px; color: rgb(255, 255, 255);" />
             <ui:Button name="restart__button" text="Restart" display-tooltip-when-elided="true" class="Button" style="width: 125px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; margin-bottom: 10px;" />
-            <ui:Button text="Give Up" display-tooltip-when-elided="true" class="Button" style="width: 125px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+            <ui:Button name="lab__button" text="Give Up" display-tooltip-when-elided="true" class="Button" style="width: 125px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
