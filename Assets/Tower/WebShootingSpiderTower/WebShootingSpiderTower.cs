@@ -26,12 +26,12 @@ public class WebShootingSpiderTower : Tower {
 
   private void Start() {
 
-    AttackSpeed = 1.0f;
-    AreaOfEffect = 20.0f;
-    Range = 30.0f;
-    ProjectileSpeed = 20.0f;
-    SlowDuration = 2.0f;
-    SlowPower = 0.5f;
+    //AttackSpeed = 1.0f;
+    //AreaOfEffect = 20.0f;
+    //Range = 30.0f;
+    //ProjectileSpeed = 20.0f;
+    //SlowDuration = 2.0f;
+    //SlowPower = 0.5f;
 
     // -----0-----
 

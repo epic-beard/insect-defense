@@ -33,11 +33,11 @@ public class SpittingAntTower : Tower {
 
   private void Start() {
 
-    Range = 20.0f;
-    ProjectileSpeed = 20.0f;
-    AttackSpeed = 1.0f;
-    Damage = 5.0f;
-    AreaOfEffect = 10.0f;
+    //Range = 20.0f;
+    //ProjectileSpeed = 20.0f;
+    //AttackSpeed = 1.0f;
+    //Damage = 5.0f;
+    //AreaOfEffect = 10.0f;
 
     // -----0-----
 
@@ -186,7 +186,6 @@ public class SpittingAntTower : Tower {
     while (!ContinuousAttack) {
       while (firing && DazzleTime == 0.0f) {
         splash.Emit(1);
-        Debug.Log("spit: " + EffectiveAttackSpeed);
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
       yield return new WaitUntil(() => firing);

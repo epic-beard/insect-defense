@@ -154,9 +154,10 @@ public abstract class Tower : MonoBehaviour {
 
   private IEnumerator HandleDazzle() {
     while (DazzleTime > 0) {
-      DazzleTime -= Time.deltaTime;
       yield return null;
+      DazzleTime -= Time.deltaTime;
     }
+
     DazzleTime = 0.0f;
     yield return null;
   }
@@ -174,8 +175,8 @@ public abstract class Tower : MonoBehaviour {
 
   private IEnumerator HandleSlime() {
     while (SlimeTime > 0) {
-      SlimeTime -= Time.deltaTime;
       yield return null;
+      SlimeTime -= Time.deltaTime;
     }
     SlimePower = 1.0f;
     SlimeTime = 0.0f;

@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameStateManager : MonoBehaviour {
   public static GameStateManager Instance;
   public static event Action GameOver;
+  public static event Action<int> HealthChanged;
   // The type of tower currently selected by the user for construction.
   public static GameObject? SelectedTowerType;
 
@@ -25,9 +26,9 @@ public class GameStateManager : MonoBehaviour {
   public int Health {
     get { return health; }
     private set {
-      // Update the ui health label.
-      TerrariumHealthUI.Instance.SetHpLabelText(value);
       health = value;
+      // Update the ui health label.
+      HealthChanged?.Invoke(health);
     }
   }
 

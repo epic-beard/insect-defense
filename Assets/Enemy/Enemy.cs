@@ -89,6 +89,14 @@ public class Enemy : MonoBehaviour {
     private set { data.stunTime = value; }
   }
   public float GroundedTime { get; private set; }
+  public EnemyData.DazzleProperties? Dazzle {
+    get { return data.dazzle; }
+    set { data.dazzle = value; }
+  }
+  public EnemyData.SlimeProperties? Slime {
+    get { return data.slime; }
+    set { data.slime = value; }
+  }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.

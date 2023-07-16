@@ -59,6 +59,7 @@
     <Compile Include="Assets\PlayModeTests\Tower\SpittingAntTowerPlayModeTest.cs" />
     <Compile Include="Assets\PlayModeTests\Tower\WebShootingSpiderTowerPlayModeTest.cs" />
     <Compile Include="Assets\PlayModeTests\Spawner\SpawnerTest.cs" />
+    <Compile Include="Assets\PlayModeTests\Enemy\EnemyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\PlayModeTests\PlayModeTests.asmdef" />
