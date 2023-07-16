@@ -15,7 +15,7 @@ public class TowerDataManagerTest {
   public void SetUp() {
     towerData = new() {
       type = TowerData.Type.SPITTING_ANT_TOWER,
-      upgradePathNames = new TowerData.UpgradePathNames("first", "second", "third"),
+      upgradeTreeData = new TowerData.UpgradeTreeData("first", "second", "third"),
       area_of_effect = 1.0f,
       armor_pierce = 2.0f,
       armor_tear = 3.0f,

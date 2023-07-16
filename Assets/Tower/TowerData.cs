@@ -9,34 +9,53 @@ public struct TowerData {
   }
   public enum Stat {
     AREA_OF_EFFECT,
-    ARMOR_PIERCE,
-    ARMOR_TEAR,
+    ARMOR_PIERCE,  // The amount of enemy armor each attack ignores.
+    ARMOR_TEAR,  // The amount by which this tower permanently reduces enemy armor.
     ATTACK_SPEED,
-    DAMAGE,
+    DAMAGE,  // The raw damage this tower inflicts per attack.
     DAMAGE_OVER_TIME,
-    PROJECTILE_SPEED,
-    RANGE,
+    PROJECTILE_SPEED,  // How quickly the projectile this tower fires will move towards the targeted enemy.
+    RANGE,  // The maximum range of a tower's attacks.
     SECDONARY_SLOW_POTENCY,  // The strength, relative to normal slows, of the slow applied to secondary targets.
     SECONDARY_SLOW_TARGETS,  // The max number of targets hit by the secondary slow AoE, this should be an integar.
-    SLOW_DURATION,
+    SLOW_DURATION,  // Slow duration in seconds.
     SLOW_POWER,  // This is a percentage slow from 0.0 - 1.0.
-    STUN_TIME,  // Slow duration in seconds.
+    STUN_TIME,  // Stun duration in seconds.
   }
-  // This class is required because list and array equality checking look at references.
-  public struct UpgradePathNames {
-    public string? first;
-    public string? second;
-    public string? third;
 
-    public UpgradePathNames(string? first, string? second, string? third) {
+  // This class is required because list and array equality checking look at references.
+  public class UpgradeTreeData {
+    public string first;
+    public string second;
+    public string third;
+
+    public TowerAbility[] firstPathUpgrades;
+    public TowerAbility[] secondPathUpgrades;
+    public TowerAbility[] thirdPathUpgrades;
+
+    public UpgradeTreeData() : this("", "", "") {}
+
+    public UpgradeTreeData(string first, string second, string third) {
       this.first = first;
       this.second = second;
       this.third = third;
+      firstPathUpgrades = new TowerAbility[5];
+      secondPathUpgrades = new TowerAbility[5];
+      thirdPathUpgrades = new TowerAbility[5];
+    }
+
+    public override bool Equals(object obj) {
+      if (obj == null) return false;
+      UpgradeTreeData? treeData = obj as UpgradeTreeData;
+      if (first.Equals(treeData.first) && second.Equals(treeData.second) && third.Equals(treeData.third)) {
+        return true;
+      }
+      return false;
     }
   }
 
   public Type type;
-  public UpgradePathNames upgradePathNames;
+  public UpgradeTreeData upgradeTreeData;
   public string name;
   public float area_of_effect;
   public float armor_pierce;

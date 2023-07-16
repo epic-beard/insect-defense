@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+using static UnityEngine.ParticleSystem;
+using UnityEngine.InputSystem.HID;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
@@ -93,6 +96,26 @@ public abstract class Tower : MonoBehaviour {
   public Targeting.Priority Priority {
     get { return targeting.priority; }
     set { targeting.priority = value; }
+  }
+
+  // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
+  public string GetUpgradePathName(int index) {
+    return index switch {
+      0 => data.upgradeTreeData.first,
+      1 => data.upgradeTreeData.second,
+      2 => data.upgradeTreeData.third,
+      _ => "[ERROR] Bad treename.",
+    };
+  }
+
+  // Get the upgrade path corresponding to the given index. No value other than 0, 1, 2 should be passed in.
+  public TowerAbility[] GetUpgradePath(int index) {
+    return index switch {
+      0 => data.upgradeTreeData.firstPathUpgrades,
+      1 => data.upgradeTreeData.secondPathUpgrades,
+      2 => data.upgradeTreeData.thirdPathUpgrades,
+      _ => null,
+    };
   }
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.

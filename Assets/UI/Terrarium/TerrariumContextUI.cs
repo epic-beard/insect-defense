@@ -83,10 +83,20 @@ public class TerrariumContextUI : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    // TODO:
-    //   Fire a call to the Upgrade method with the appropriate info.
-    //   Adjust which button is enabled.
     Debug.Log("You clicked a button! Button clicked: " + evt.target);
+    Button button = evt.target as Button;
+
+    TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
+    //GameStateManager.Instance.SelectedTower.Upgrade(upgrade);
+  }
+
+  private TowerAbility GetUpgradeFromButtonName(string buttonName) {
+    // tree_X_upgrade_Y__button
+    // 0____5_________15
+    int upgradePath = (int) Char.GetNumericValue(buttonName[5]);
+    int upgradeNum = (int)Char.GetNumericValue(buttonName[15]);
+
+    return GameStateManager.Instance.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
   }
 
   private void Start() {
@@ -147,9 +157,17 @@ public class TerrariumContextUI : MonoBehaviour {
 
     // Ensure only the correct button is enabled for clicking.
     for (int i = 0; i < 3; i++) {
+      //towerUpgradeTreeLabels[i].text = tower.GetUpgradePathName(i);
+
+      for (int j = 0; j < 5; j++) {
+        towerUpgradeButtons[i, j].SetEnabled(false);
+        //towerUpgradeButtons[i, j].text = tower.GetUpgradePath(i)[j].name;
+        //towerUpgradeButtons[i, j].tooltip = tower.GetUpgradePath(i)[j].description;
+      }
+
       for (int j= 0; j <= tower.UpgradeLevels[i] - 1; j++) {
         // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
-        towerUpgradeButtons[i, j].text = "Bought";
+        towerUpgradeButtons[i, j].text += " Bought.";
       }
       towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);
     }
