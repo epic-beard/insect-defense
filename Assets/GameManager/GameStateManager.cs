@@ -1,11 +1,13 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameStateManager : MonoBehaviour {
   public static GameStateManager Instance;
   public static event Action GameOver;
+  public static event Action<int> HealthChanged;
   // The type of tower currently selected by the user for construction.
   public static GameObject? SelectedTowerType;
 
@@ -24,9 +26,9 @@ public class GameStateManager : MonoBehaviour {
   public int Health {
     get { return health; }
     private set {
-      // Update the ui health label.
-      TerrariumHealthUI.Instance.SetHpLabelText(value);
       health = value;
+      // Update the ui health label.
+      HealthChanged?.Invoke(health);
     }
   }
 
@@ -50,6 +52,11 @@ public class GameStateManager : MonoBehaviour {
 
   public void AddTower(Vector2Int coordinates, Tower tower) {
     activeTowerMap.Add(coordinates, tower);
+  }
+
+  public List<Tower> GetTowersInRange(float range, Vector3 pos) {
+    return activeTowerMap.Values.Where(
+      (tower) => Vector3.Distance(pos, tower.transform.position) <= range).ToList();
   }
 
   public Tower GetTower(Vector2Int coordinates) {
