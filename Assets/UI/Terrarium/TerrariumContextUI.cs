@@ -29,7 +29,7 @@ public class TerrariumContextUI : MonoBehaviour {
   private void Awake() {
     SetVisualElements();
     ConstructDropdownChoices();
-    
+
     Instance = this;
   }
 
@@ -93,7 +93,7 @@ public class TerrariumContextUI : MonoBehaviour {
   private TowerAbility GetUpgradeFromButtonName(string buttonName) {
     // tree_X_upgrade_Y__button
     // 0____5_________15
-    int upgradePath = (int) Char.GetNumericValue(buttonName[5]);
+    int upgradePath = (int)Char.GetNumericValue(buttonName[5]);
     int upgradeNum = (int)Char.GetNumericValue(buttonName[15]);
 
     return GameStateManager.Instance.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
@@ -165,7 +165,7 @@ public class TerrariumContextUI : MonoBehaviour {
         //towerUpgradeButtons[i, j].tooltip = tower.GetUpgradePath(i)[j].description;
       }
 
-      for (int j= 0; j <= tower.UpgradeLevels[i] - 1; j++) {
+      for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++) {
         // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
         towerUpgradeButtons[i, j].text += " Bought.";
       }
