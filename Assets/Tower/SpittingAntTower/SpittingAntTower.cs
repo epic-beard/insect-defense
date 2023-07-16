@@ -33,11 +33,11 @@ public class SpittingAntTower : Tower {
 
   private void Start() {
 
-    Range = 20.0f;
-    ProjectileSpeed = 20.0f;
-    AttackSpeed = 1.0f;
-    Damage = 5.0f;
-    AreaOfEffect = 10.0f;
+    //Range = 20.0f;
+    //ProjectileSpeed = 20.0f;
+    //AttackSpeed = 1.0f;
+    //Damage = 5.0f;
+    //AreaOfEffect = 10.0f;
 
     // -----0-----
 
@@ -84,10 +84,10 @@ public class SpittingAntTower : Tower {
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
-      onHitDamage *= AttackSpeed * Time.deltaTime;
-      acidStacks *= AttackSpeed * Time.deltaTime;
-      armorTear *= AttackSpeed * Time.deltaTime;
-      armorPierce *= AttackSpeed * Time.deltaTime;
+      onHitDamage *= EffectiveAttackSpeed * Time.deltaTime;
+      acidStacks *= EffectiveAttackSpeed * Time.deltaTime;
+      armorTear *= EffectiveAttackSpeed * Time.deltaTime;
+      armorPierce *= EffectiveAttackSpeed * Time.deltaTime;
     }
 
     // Armor tear effects.
@@ -148,8 +148,7 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  private void Update() {
-
+  protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: objectPool.GetActiveEnemies(),
@@ -185,9 +184,9 @@ public class SpittingAntTower : Tower {
   // Handle the splash shot outside of the Update method, so it won't interrupt the program flow.
   private IEnumerator SplashShoot() {
     while (!ContinuousAttack) {
-      while (firing) {
+      while (firing && DazzleTime == 0.0f) {
         splash.Emit(1);
-        yield return new WaitForSeconds(1 / AttackSpeed);
+        yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
       yield return new WaitUntil(() => firing);
     }

@@ -26,12 +26,12 @@ public class WebShootingSpiderTower : Tower {
 
   private void Start() {
 
-    AttackSpeed = 1.0f;
-    AreaOfEffect = 20.0f;
-    Range = 30.0f;
-    ProjectileSpeed = 20.0f;
-    SlowDuration = 2.0f;
-    SlowPower = 0.5f;
+    //AttackSpeed = 1.0f;
+    //AreaOfEffect = 20.0f;
+    //Range = 30.0f;
+    //ProjectileSpeed = 20.0f;
+    //SlowDuration = 2.0f;
+    //SlowPower = 0.5f;
 
     // -----0-----
 
@@ -106,7 +106,7 @@ public class WebShootingSpiderTower : Tower {
     enemy.ApplySlow(SlowPower * SecondarySlowPotency, SlowDuration * SecondarySlowPotency);
   }
 
-  private void Update() {
+  protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: objectPool.GetActiveEnemies(),
@@ -129,9 +129,9 @@ public class WebShootingSpiderTower : Tower {
 
   private IEnumerator WebShoot() {
     while (true) {
-      while (firing) {
+      while (firing && DazzleTime == 0.0f) {
         primaryWebShot.Emit(1);
-        yield return new WaitForSeconds(1 / AttackSpeed);
+        yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
       yield return new WaitUntil(() => firing);
     }

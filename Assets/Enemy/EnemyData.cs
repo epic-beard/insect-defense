@@ -49,6 +49,19 @@ public struct EnemyData {
     }
   }
 
+  public struct DazzleProperties {
+    public float duration;
+    public float interval;
+    public float range;
+  }
+
+  public struct SlimeProperties {
+    public float duration;
+    public float interval;
+    public float range;
+    public float power;
+  }
+
   public Type type;
   public Size size;
 
@@ -77,6 +90,8 @@ public struct EnemyData {
   // On death the Enemy will spawn a given number of child Enemies.
   // The Carrier object contains all the information required for spawning.
   public CarrierProperties? carrier;
+  public DazzleProperties? dazzle;
+  public SlimeProperties? slime;
   public override string ToString() {
     return "EnemyData:" + "\nType: " + type + "\nSize: " + size
       + "\nMax HP" + maxHP + "\nMax Armor: " + maxArmor

@@ -39,18 +39,6 @@ public class Enemy : MonoBehaviour {
       StartCoroutine(Spawn());
     }
 
-    if (data.dazzle != null) {
-      EnemyData.DazzleProperties dazzle = data.dazzle.Value;
-      StartCoroutine(HandleAbility(
-          GetDazzleAction(dazzle.duration), dazzle.interval, dazzle.range));
-    }
-
-    if (data.slime != null) {
-      EnemyData.SlimeProperties slime = data.slime.Value;
-      StartCoroutine(HandleAbility(
-          GetSlimeAction(slime.duration, slime.power), slime.interval, slime.range));
-    }
-
     if (NextWaypoint == null) {
       Debug.Log("[ERROR] NextWaypoint not found.");
       return;
@@ -89,14 +77,6 @@ public class Enemy : MonoBehaviour {
     private set { data.stunTime = value; }
   }
   public float GroundedTime { get; private set; }
-  public EnemyData.DazzleProperties? Dazzle {
-    get { return data.dazzle; }
-    set { data.dazzle = value; }
-  }
-  public EnemyData.SlimeProperties? Slime {
-    get { return data.slime; }
-    set { data.slime = value; }
-  }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
@@ -256,28 +236,19 @@ public class Enemy : MonoBehaviour {
     ObjectPool.Instance.DestroyEnemy(gameObject);
   }
 
-  private IEnumerator HandleAbility(Action<Tower> ability, float interval, float range) {
+<<<<<<< HEAD
+  private IEnumerable HandleAbility(Action<Tower> ability, float interval, float range) {
     // Wait for a random time in (0, interval)
     // before using the ability for the first time;
     yield return new WaitForSeconds(UnityEngine.Random.Range(0, interval));
     while (true) {
       var towers =
-          GameStateManager.Instance.GetTowersInRange(range, transform.position);
+        GameStateManager.Instance.GetTowersInRange(range, transform.position);
       foreach (var tower in towers) {
         ability(tower);
       }
       yield return new WaitForSeconds(interval);
-    }
-  }
-
-  private Action<Tower> GetDazzleAction(float duration) {
-    return (tower) => tower.ApplyDazzle(duration);
-  }
-
-  private Action<Tower> GetSlimeAction(float duration, float power) {
-    return (tower) => tower.ApplySlime(duration, power);
-  }
-
+=======
   private IEnumerator Spawn() {
     EnemyData.SpawnerProperties properties = data.spawner.Value;
     while(true) {
@@ -289,6 +260,7 @@ public class Enemy : MonoBehaviour {
   private void SpawnChildren(string childKey, int num) {
     for (int i = 0; i < num; i++) {
       Spawner.Instance.Spawn(childKey, NextWaypoint, transform);
+>>>>>>> 1faf7f80a9ebf5b5d27e0de278e1f4a4b4dfb0b7
     }
   }
 }

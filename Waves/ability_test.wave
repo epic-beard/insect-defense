@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Waves">
+  <waves>
+    <Wave xsi:type="ConcurrentWave">
+      <Subwaves>
+        <Wave xsi:type="EnemyWave">
+          <repetitions>1</repetitions>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <data>
+            <type>BEETLE</type>
+            <size>NORMAL</size>
+            <maxHP>20</maxHP>
+            <maxArmor>1</maxArmor>
+            <speed>1</speed>
+            <damage>1</damage>
+            <nu>20</nu>
+            <properties>NONE</properties>
+            <dazzle>
+              <duration>4</duration>
+              <interval>3</interval>
+              <range>20</range>
+            </dazzle>
+          </data>
+        </Wave>
+        <Wave xsi:type="SpacerWave">
+          <delay>5</delay>
+        </Wave>
+        <Wave xsi:type="EnemyWave">
+          <repetitions>1</repetitions>
+          <spawnLocation>1</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <data>
+            <type>BEETLE</type>
+            <size>NORMAL</size>
+            <maxHP>20</maxHP>
+            <maxArmor>1</maxArmor>
+            <speed>1</speed>
+            <damage>1</damage>
+            <nu>20</nu>
+            <properties>NONE</properties>
+            <slime>
+              <duration>4</duration>
+              <interval>3</interval>
+              <range>20</range>
+              <power>0.5</power>
+            </slime>
+          </data>
+        </Wave>
+      </Subwaves>
+    </Wave>
+  </waves>
+</Wave>

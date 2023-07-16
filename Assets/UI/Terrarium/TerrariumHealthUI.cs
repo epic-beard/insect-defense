@@ -13,8 +13,9 @@ public class TerrariumHealthUI : MonoBehaviour {
     terrariumScreen = GetComponent<UIDocument>();
     VisualElement rootElement = terrariumScreen.rootVisualElement;
     hpLabel = rootElement.Q<Label>(hpLabelName);
-
     Instance = this;
+
+    GameStateManager.HealthChanged += SetHpLabelText;
   }
 
   public void SetHpLabelText(int hp) {
