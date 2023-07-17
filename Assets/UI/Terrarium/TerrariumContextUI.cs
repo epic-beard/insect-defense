@@ -83,7 +83,6 @@ public class TerrariumContextUI : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    Debug.Log("You clicked a button! Button clicked: " + evt.target);
     Button button = evt.target as Button;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);

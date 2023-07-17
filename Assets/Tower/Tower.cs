@@ -102,6 +102,26 @@ public abstract class Tower : MonoBehaviour {
     set { targeting.priority = value; }
   }
 
+  // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
+  public string GetUpgradePathName(int index) {
+    return index switch {
+      0 => data.upgradeTreeData.first,
+      1 => data.upgradeTreeData.second,
+      2 => data.upgradeTreeData.third,
+      _ => "[ERROR] Bad treename.",
+    };
+  }
+
+  // Get the upgrade path corresponding to the given index. No value other than 0, 1, 2 should be passed in.
+  public TowerAbility[] GetUpgradePath(int index) {
+    return index switch {
+      0 => data.upgradeTreeData.firstPathUpgrades,
+      1 => data.upgradeTreeData.secondPathUpgrades,
+      2 => data.upgradeTreeData.thirdPathUpgrades,
+      _ => null,
+    };
+  }
+
   private void Update() {
     TowerUpdate();
   }

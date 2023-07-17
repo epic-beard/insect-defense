@@ -42,8 +42,8 @@ public struct TowerAbility {
 
   public SpecialAbility specialAbility;
   public AttributeModifier[] attributeModifiers;
-  public int upgradePath;
   public string name;
   public string description;
+  public int upgradePath;
   public int cost;
 }

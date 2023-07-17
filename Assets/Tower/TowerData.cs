@@ -16,7 +16,7 @@ public struct TowerData {
     DAMAGE_OVER_TIME,
     PROJECTILE_SPEED,  // How quickly the projectile this tower fires will move towards the targeted enemy.
     RANGE,  // The maximum range of a tower's attacks.
-    SECDONARY_SLOW_POTENCY,  // The strength, relative to normal slows, of the slow applied to secondary targets.
+    SECDONARY_SLOW_POTENCY,  // The percentage of the regular slow to apply.
     SECONDARY_SLOW_TARGETS,  // The max number of targets hit by the secondary slow AoE, this should be an integar.
     SLOW_DURATION,  // Slow duration in seconds.
     SLOW_POWER,  // This is a percentage slow from 0.0 - 1.0.
@@ -35,13 +35,17 @@ public struct TowerData {
 
     public UpgradeTreeData() : this("", "", "") {}
 
-    public UpgradeTreeData(string first, string second, string third) {
+    public UpgradeTreeData(string first, string second, string third)
+        : this(first, second, third, new TowerAbility[5], new TowerAbility[5], new TowerAbility[5]) {}
+
+    public UpgradeTreeData(string first, string second, string third,
+        TowerAbility[] firstPath, TowerAbility[] secondPath, TowerAbility[] thirdPath) {
       this.first = first;
       this.second = second;
       this.third = third;
-      firstPathUpgrades = new TowerAbility[5];
-      secondPathUpgrades = new TowerAbility[5];
-      thirdPathUpgrades = new TowerAbility[5];
+      this.firstPathUpgrades = firstPath;
+      this.secondPathUpgrades = secondPath;
+      this.thirdPathUpgrades = thirdPath;
     }
 
     public override bool Equals(object obj) {
