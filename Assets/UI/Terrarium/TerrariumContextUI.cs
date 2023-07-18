@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static Targeting;
 
 public class TerrariumContextUI : MonoBehaviour {
   public static TerrariumContextUI Instance;

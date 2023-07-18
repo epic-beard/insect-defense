@@ -93,7 +93,7 @@ public class TowerDataManagerTest {
   }
 
   // This is to generate tower data for reading in.
-  [Test]
+  //[Test]
   public void GenerateTowerData() {
     TowerData spittingAntTowerTest = new() {
       type = TowerData.Type.SPITTING_ANT_TOWER,
@@ -552,7 +552,5 @@ public class TowerDataManagerTest {
     Serialize<TowerDictionary>(testTowers, filename );
 
     TowerDictionary towers = Deserialize<TowerDictionary>(filename);
-    Debug.Log(towers);
-
   }
 }

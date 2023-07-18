@@ -42,7 +42,7 @@ public class SpittingAntTower : Tower {
     // -----0-----
 
     // TODO: Remove this, it should be set on read-in.
-    Name = "Spitting Ant Tower";
+    //Name = "Spitting Ant Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
@@ -158,7 +158,7 @@ public class SpittingAntTower : Tower {
       antiAir: AntiAir);
 
     // If there is no target, stop firing.
-    if (enemy is null) {
+    if (enemy == null) {
       firing = false;
       beam.enabled = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.

@@ -36,7 +36,7 @@ public class WebShootingSpiderTower : Tower {
     // -----0-----
 
     // TODO: Remove this, it should be set on read-in.
-    Name = "Web Shooting Spider Tower";
+    //Name = "Web Shooting Spider Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
@@ -115,7 +115,7 @@ public class WebShootingSpiderTower : Tower {
       camoSight: CamoSight,
       antiAir: AntiAir);
 
-    if (enemy is null) {
+    if (enemy == null) {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
