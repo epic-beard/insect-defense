@@ -102,6 +102,26 @@ public abstract class Tower : MonoBehaviour {
     set { targeting.priority = value; }
   }
 
+  // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
+  public string GetUpgradePathName(int index) {
+    return index switch {
+      0 => data.upgradeTreeData.first,
+      1 => data.upgradeTreeData.second,
+      2 => data.upgradeTreeData.third,
+      _ => "[ERROR] Bad upgrade path index: " + index,
+    };
+  }
+
+  // Get the upgrade path corresponding to the given index. No value other than 0, 1, 2 should be passed in.
+  public TowerAbility[] GetUpgradePath(int index) {
+    return index switch {
+      0 => data.upgradeTreeData.firstPathUpgrades,
+      1 => data.upgradeTreeData.secondPathUpgrades,
+      2 => data.upgradeTreeData.thirdPathUpgrades,
+      _ => null,
+    };
+  }
+
   private void Update() {
     TowerUpdate();
   }
@@ -143,6 +163,10 @@ public abstract class Tower : MonoBehaviour {
           .ToList();
   }
 
+  public void SetTowerData(TowerData data) {
+    this.data = data;
+  }
+
   public void ApplyDazzle(float duration) {
     if (DazzleTime > 0) {
       DazzleTime = Mathf.Max(DazzleTime, duration);
@@ -182,5 +206,22 @@ public abstract class Tower : MonoBehaviour {
     SlimeTime = 0.0f;
     yield return null;
   }
+
+  public override string ToString() {
+    return Name + "\n"
+        + "  Area of effect: " + AreaOfEffect + "\n"
+        + "  Armor piercing: " + ArmorPierce + "\n"
+        + "  Armor tear: " + ArmorTear + "\n"
+        + "  Attack speed: " + AttackSpeed + "\n"
+        + "  Damage: " + Damage + "\n"
+        + "  Damage over time: " + DamageOverTime + "\n"
+        + "  Projectile speed: " + ProjectileSpeed + "\n"
+        + "  Range: " + Range + "\n"
+        + "  Secondary slow potency: " + SecondarySlowPotency + "\n"
+        + "  Secondary slow targets: " + SecondarySlowTargets + "\n"
+        + "  Slow duration: " + SlowDuration + "\n"
+        + "  Slow power: " + SlowPower + "\n"
+        + "  Stun time: " + StunTime + "\n"
+        + "  Upgrade Tree Data: " + data.upgradeTreeData.ToString() + "\n";
+  }
 }
-                

@@ -32,17 +32,6 @@ public class SpittingAntTower : Tower {
   protected ObjectPool objectPool;
 
   private void Start() {
-
-    //Range = 20.0f;
-    //ProjectileSpeed = 20.0f;
-    //AttackSpeed = 1.0f;
-    //Damage = 5.0f;
-    //AreaOfEffect = 10.0f;
-
-    // -----0-----
-
-    // TODO: Remove this, it should be set on read-in.
-    Name = "Spitting Ant Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
@@ -158,7 +147,7 @@ public class SpittingAntTower : Tower {
       antiAir: AntiAir);
 
     // If there is no target, stop firing.
-    if (enemy is null) {
+    if (enemy == null) {
       firing = false;
       beam.enabled = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
