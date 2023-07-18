@@ -25,18 +25,6 @@ public class WebShootingSpiderTower : Tower {
   protected ObjectPool objectPool;
 
   private void Start() {
-
-    //AttackSpeed = 1.0f;
-    //AreaOfEffect = 20.0f;
-    //Range = 30.0f;
-    //ProjectileSpeed = 20.0f;
-    //SlowDuration = 2.0f;
-    //SlowPower = 0.5f;
-
-    // -----0-----
-
-    // TODO: Remove this, it should be set on read-in.
-    //Name = "Web Shooting Spider Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);

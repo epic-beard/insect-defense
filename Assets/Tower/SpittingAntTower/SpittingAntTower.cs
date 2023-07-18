@@ -32,17 +32,6 @@ public class SpittingAntTower : Tower {
   protected ObjectPool objectPool;
 
   private void Start() {
-
-    //Range = 20.0f;
-    //ProjectileSpeed = 20.0f;
-    //AttackSpeed = 1.0f;
-    //Damage = 5.0f;
-    //AreaOfEffect = 10.0f;
-
-    // -----0-----
-
-    // TODO: Remove this, it should be set on read-in.
-    //Name = "Spitting Ant Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
