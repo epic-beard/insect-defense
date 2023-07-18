@@ -8,12 +8,12 @@ public struct TowerData {
     WEB_SHOOTING_SPIDER_TOWER,
   }
   public enum Stat {
-    AREA_OF_EFFECT,
+    AREA_OF_EFFECT,  // The radius of area of effect effects.
     ARMOR_PIERCE,  // The amount of enemy armor each attack ignores.
     ARMOR_TEAR,  // The amount by which this tower permanently reduces enemy armor.
-    ATTACK_SPEED,
+    ATTACK_SPEED,  // The number of attacks per second.
     DAMAGE,  // The raw damage this tower inflicts per attack.
-    DAMAGE_OVER_TIME,
+    DAMAGE_OVER_TIME,  // Damage per second.
     PROJECTILE_SPEED,  // How quickly the projectile this tower fires will move towards the targeted enemy.
     RANGE,  // The maximum range of a tower's attacks.
     SECDONARY_SLOW_POTENCY,  // The percentage of the regular slow to apply.
@@ -25,32 +25,20 @@ public struct TowerData {
 
   // This class is required because list and array equality checking look at references.
   public class UpgradeTreeData {
-    public string first;
-    public string second;
-    public string third;
+    public string first = "";
+    public string second = "";
+    public string third = "";
 
-    public TowerAbility[] firstPathUpgrades;
-    public TowerAbility[] secondPathUpgrades;
-    public TowerAbility[] thirdPathUpgrades;
+    public TowerAbility[] firstPathUpgrades = new TowerAbility[5];
+    public TowerAbility[] secondPathUpgrades = new TowerAbility[5];
+    public TowerAbility[] thirdPathUpgrades = new TowerAbility[5];
 
-    public UpgradeTreeData() : this("", "", "") {}
-
-    public UpgradeTreeData(string first, string second, string third)
-        : this(first, second, third, new TowerAbility[5], new TowerAbility[5], new TowerAbility[5]) {}
-
-    public UpgradeTreeData(string first, string second, string third,
-        TowerAbility[] firstPath, TowerAbility[] secondPath, TowerAbility[] thirdPath) {
-      this.first = first;
-      this.second = second;
-      this.third = third;
-      this.firstPathUpgrades = firstPath;
-      this.secondPathUpgrades = secondPath;
-      this.thirdPathUpgrades = thirdPath;
-    }
+    public UpgradeTreeData() {}
 
     public override bool Equals(object obj) {
       if (obj == null) return false;
       UpgradeTreeData? treeData = obj as UpgradeTreeData;
+      if (treeData == null) return false;
       if (first.Equals(treeData.first) && second.Equals(treeData.second) && third.Equals(treeData.third)) {
         return true;
       }
@@ -58,21 +46,17 @@ public struct TowerData {
     }
 
     public override string ToString() {
-      return "Towerdata\n"
-          + "first: " + first + "\n"
-          + "second: " + second + "\n"
-          + "third: " + third + "\n\n"
-          + "firstPathUpgrades: " + FormatUpgradeStringForToString(firstPathUpgrades) + "\n"
-          + "secondPathUpgrades: " + FormatUpgradeStringForToString(secondPathUpgrades) + "\n"
-          + "thirdPathUpgrades: " + FormatUpgradeStringForToString(thirdPathUpgrades) + "\n";
+      return "\n"
+          + "first upgrade path name: " + first + "\n"
+          + "second upgrade path name: " + second + "\n"
+          + "third upgrade path name: " + third + "\n\n"
+          + first + " path upgrades\n" + FormatUpgradeStringForToString(firstPathUpgrades) + "\n\n"
+          + second + " path upgrades\n" + FormatUpgradeStringForToString(secondPathUpgrades) + "\n\n"
+          + third + " path upgrades\n" + FormatUpgradeStringForToString(thirdPathUpgrades) + "\n\n";
     }
 
     public string FormatUpgradeStringForToString(TowerAbility[] path) {
-      string result = "";
-      foreach (var ability in path) {
-        result += ability.ToString() + "\n";
-      }
-      return result;
+      return string.Join("\n", path);
     }
   }
 

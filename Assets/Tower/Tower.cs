@@ -108,7 +108,7 @@ public abstract class Tower : MonoBehaviour {
       0 => data.upgradeTreeData.first,
       1 => data.upgradeTreeData.second,
       2 => data.upgradeTreeData.third,
-      _ => "[ERROR] Bad treename.",
+      _ => "[ERROR] Bad upgrade path index: " + index,
     };
   }
 

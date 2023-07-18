@@ -83,6 +83,7 @@ public class TerrariumContextUI : MonoBehaviour {
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
     Button button = evt.target as Button;
+    if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
     GameStateManager.Instance.SelectedTower.Upgrade(upgrade);

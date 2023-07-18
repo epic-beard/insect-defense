@@ -14,7 +14,11 @@ public class TowerDataManagerTest {
   public void SetUp() {
     towerData = new() {
       type = TowerData.Type.SPITTING_ANT_TOWER,
-      upgradeTreeData = new TowerData.UpgradeTreeData("first", "second", "third"),
+      upgradeTreeData = new() {
+        first = "first",
+        second = "second",
+        third = "third"
+      },
       area_of_effect = 1.0f,
       armor_pierce = 2.0f,
       armor_tear = 3.0f,
@@ -97,12 +101,12 @@ public class TowerDataManagerTest {
   public void GenerateTowerData() {
     TowerData spittingAntTowerTest = new() {
       type = TowerData.Type.SPITTING_ANT_TOWER,
-      upgradeTreeData = new TowerData.UpgradeTreeData(
-          "Armor Tear",
-          "Acid Power",
-          "Utility",
-          // Armor Tear path
-          new TowerAbility[5] {
+      upgradeTreeData = new TowerData.UpgradeTreeData() {
+        first = "Armor Tear",
+        second = "Acid Power",
+        third = "Utility",
+        // Armor Tear path
+        firstPathUpgrades = new TowerAbility[5] {
             // Armor Tear path, upgrade 1
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
@@ -164,8 +168,8 @@ public class TowerDataManagerTest {
               cost = 10,
             }
           },
-          // Acid Power path
-          new TowerAbility[5] {
+        // Acid Power path
+        secondPathUpgrades = new TowerAbility[5] {
             // Acid Power path, upgrade 1
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
@@ -228,8 +232,8 @@ public class TowerDataManagerTest {
               cost = 10,
             }
           },
-          // Utility path
-          new TowerAbility[5] {
+        // Utility path
+        thirdPathUpgrades = new TowerAbility[5] {
             // Utility path, upgrade 1
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
@@ -291,7 +295,7 @@ public class TowerDataManagerTest {
               cost = 10,
             }
           }
-        ),
+      },
       name = "Spitting Ant Tower",
       area_of_effect = 5.0f,
       armor_pierce = 0.0f,
@@ -309,12 +313,12 @@ public class TowerDataManagerTest {
     };
     TowerData webShootingSpiderTowerTest = new() {
       type = TowerData.Type.WEB_SHOOTING_SPIDER_TOWER,
-      upgradeTreeData = new TowerData.UpgradeTreeData(
-          "Improved Slow",
-          "Area Slow",
-          "Utility",
-          // Improved Slow path
-          new TowerAbility[5] {
+      upgradeTreeData = new TowerData.UpgradeTreeData() {
+        first = "Improved Slow",
+        second = "Area Slow",
+        third = "Utility",
+        // Improved Slow path
+        firstPathUpgrades = new TowerAbility[5] {
             // Armor Tear path, upgrade 1
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[2] {
@@ -392,8 +396,8 @@ public class TowerDataManagerTest {
               cost = 10,
             }
           },
-          // Area Slow path
-          new TowerAbility[5] {
+        // Area Slow path
+        secondPathUpgrades = new TowerAbility[5] {
             // Area Slow path, upgrade 1
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
@@ -465,8 +469,8 @@ public class TowerDataManagerTest {
               cost = 10,
             }
           },
-          // Utility path
-          new TowerAbility[5] {
+        // Utility path
+        thirdPathUpgrades = new TowerAbility[5] {
             // Utility path, upgrade 1
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
@@ -528,7 +532,7 @@ public class TowerDataManagerTest {
               cost = 10,
             }
           }
-        ),
+      },
       name = "Web Shooting Spider Tower",
       area_of_effect = 10.0f,
       armor_pierce = 0.0f,
@@ -549,7 +553,7 @@ public class TowerDataManagerTest {
       { TowerData.Type.WEB_SHOOTING_SPIDER_TOWER, webShootingSpiderTowerTest },
     };
     string filename = "data.towers";
-    Serialize<TowerDictionary>(testTowers, filename );
+    Serialize<TowerDictionary>(testTowers, filename);
 
     TowerDictionary towers = Deserialize<TowerDictionary>(filename);
   }
