@@ -46,4 +46,9 @@ public struct TowerAbility {
   public string description;
   public int upgradePath;
   public int cost;
+
+  public override string ToString() {
+    return "Name: " + name + ", description: " + description
+        + ", upgrade path: " + upgradePath + ", cost: " + cost;
+  }
 }

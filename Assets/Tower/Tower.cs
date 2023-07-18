@@ -163,9 +163,9 @@ public abstract class Tower : MonoBehaviour {
           .ToList();
   }
 
-  //public void SetTowerData(TowerData data) {
-  //  this.data = data;
-  //}
+  public void SetTowerData(TowerData data) {
+    this.data = data;
+  }
 
   public void ApplyDazzle(float duration) {
     if (DazzleTime > 0) {
@@ -221,6 +221,7 @@ public abstract class Tower : MonoBehaviour {
         + "  Secondary slow targets: " + SecondarySlowTargets + "\n"
         + "  Slow duration: " + SlowDuration + "\n"
         + "  Slow power: " + SlowPower + "\n"
-        + "  Stun time: " + StunTime + "\n";
+        + "  Stun time: " + StunTime + "\n"
+        + "  Upgrade Tree Data: " + data.upgradeTreeData.ToString() + "\n";
   }
 }

@@ -85,7 +85,8 @@ public class TerrariumContextUI : MonoBehaviour {
     Button button = evt.target as Button;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
-    //GameStateManager.Instance.SelectedTower.Upgrade(upgrade);
+    GameStateManager.Instance.SelectedTower.Upgrade(upgrade);
+    SetContextForTower(GameStateManager.Instance.SelectedTower);
   }
 
   private TowerAbility GetUpgradeFromButtonName(string buttonName) {
@@ -155,12 +156,12 @@ public class TerrariumContextUI : MonoBehaviour {
 
     // Ensure only the correct button is enabled for clicking.
     for (int i = 0; i < 3; i++) {
-      //towerUpgradeTreeLabels[i].text = tower.GetUpgradePathName(i);
+      towerUpgradeTreeLabels[i].text = tower.GetUpgradePathName(i);
 
       for (int j = 0; j < 5; j++) {
         towerUpgradeButtons[i, j].SetEnabled(false);
-        //towerUpgradeButtons[i, j].text = tower.GetUpgradePath(i)[j].name;
-        //towerUpgradeButtons[i, j].tooltip = tower.GetUpgradePath(i)[j].description;
+        towerUpgradeButtons[i, j].text = tower.GetUpgradePath(i)[j].name;
+        towerUpgradeButtons[i, j].tooltip = tower.GetUpgradePath(i)[j].description;
       }
 
       for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++) {

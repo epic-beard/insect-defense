@@ -56,6 +56,24 @@ public struct TowerData {
       }
       return false;
     }
+
+    public override string ToString() {
+      return "Towerdata\n"
+          + "first: " + first + "\n"
+          + "second: " + second + "\n"
+          + "third: " + third + "\n\n"
+          + "firstPathUpgrades: " + FormatUpgradeStringForToString(firstPathUpgrades) + "\n"
+          + "secondPathUpgrades: " + FormatUpgradeStringForToString(secondPathUpgrades) + "\n"
+          + "thirdPathUpgrades: " + FormatUpgradeStringForToString(thirdPathUpgrades) + "\n";
+    }
+
+    public string FormatUpgradeStringForToString(TowerAbility[] path) {
+      string result = "";
+      foreach (var ability in path) {
+        result += ability.ToString() + "\n";
+      }
+      return result;
+    }
   }
 
   public Type type;

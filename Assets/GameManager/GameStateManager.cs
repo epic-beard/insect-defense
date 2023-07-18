@@ -67,17 +67,4 @@ public class GameStateManager : MonoBehaviour {
     SelectedTowerType = null;
     SelectedTower = null;
   }
-
-  //public void CreateTower(Vector3 transformPosition, Vector2Int coordinates) {
-  //  GameObject? completeTower = Instantiate(SelectedTowerType, transformPosition, Quaternion.identity);
-  //  if (completeTower == null) {
-  //    Debug.Log("[ERROR] Tower creation failed.");
-  //    return;
-  //  }
-  //  Debug.Log("completeTower: " + completeTower.ToString());
-  //  Tower tower = completeTower.GetComponent<Tower>();
-  //  Debug.Log("Constructed tower: " + tower.ToString());
-  //  tower.SetTowerData(TowerDataManager.Instance.GetTowerData(tower.TowerType));
-  //  AddTower(coordinates, tower);
-  //}
 }

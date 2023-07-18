@@ -28,13 +28,6 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     towerSelectionListView.bindItem = (e, i) => {
       Button towerButton = (Button)e;
 
-      //
-      Tower tower = prefabs[i].GetComponent<Tower>();
-      Debug.Log("Tower prefab: " + tower.ToString());
-      //tower.SetTowerData(TowerDataManager.Instance.GetTowerData(tower.TowerType));
-      //Debug.Log("Tower prefab: " + tower.ToString());
-      //
-
       string towerName = prefabs[i].GetComponent<Tower>().TowerType.ToString();
 
       towerButton.text = towerName;
