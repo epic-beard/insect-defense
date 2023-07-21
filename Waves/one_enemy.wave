@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Waves">
+  <waves>
+    <Wave xsi:type="SequentialWave">
+        <Subwaves>
+        <Wave xsi:type="EnemyWave">
+            <repetitions>1</repetitions>
+            <repeatDelay>1</repeatDelay>
+            <spawnLocation>0</spawnLocation>
+            <spawnAmmount>1</spawnAmmount>
+            <data>
+            <type>ANT</type>
+            <size>NORMAL</size>
+            <maxHP>20</maxHP>
+            <maxArmor>1</maxArmor>
+            <speed>1</speed>
+            <damage>1</damage>
+            <nu>20</nu>
+            <properties>NONE</properties>
+            </data>
+        </Wave>
+        </Subwaves>
+    </Wave>
+  </waves>
+</Wave>

@@ -169,7 +169,9 @@ public class TerrariumContextUI : MonoBehaviour {
         // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
         towerUpgradeButtons[i, j].text += " Bought.";
       }
-      towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);
+      if (tower.UpgradeLevels[i] < 5) {
+        towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);
+      }
     }
   }
 
