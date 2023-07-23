@@ -30,7 +30,7 @@ public class ProjectileHandler {
 
   // Get a safe position for the shots of any tower. Specifically, the 'target' element present in all
   // enemy meshes.
-  public Vector3 GetTargetPosition(Transform transform) {
+  public static Vector3 GetTargetPosition(Transform transform) {
     if (transform.childCount == 0) {
       return transform.position;
     }
