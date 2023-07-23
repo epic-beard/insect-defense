@@ -42,8 +42,13 @@ public struct TowerAbility {
 
   public SpecialAbility specialAbility;
   public AttributeModifier[] attributeModifiers;
-  public int upgradePath;
   public string name;
   public string description;
+  public int upgradePath;
   public int cost;
+
+  public override string ToString() {
+    return "Name: " + name + ", description: " + description
+        + ", upgrade path: " + upgradePath + ", cost: " + cost;
+  }
 }

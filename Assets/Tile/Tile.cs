@@ -89,6 +89,7 @@ public class Tile : MonoBehaviour {
       }
       GameObject completeTower = Instantiate(GameStateManager.SelectedTowerType, transform.position, Quaternion.identity);
       Tower tower = completeTower.GetComponent<Tower>();
+      tower.SetTowerData(TowerDataManager.Instance.GetTowerData(tower.TowerType));
       GameStateManager.Instance.AddTower(waypoint.GetCoordinates(), tower);
       isTowerPresent = true;
     }

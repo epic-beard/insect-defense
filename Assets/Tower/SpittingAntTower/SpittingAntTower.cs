@@ -32,17 +32,6 @@ public class SpittingAntTower : Tower {
   protected ObjectPool objectPool;
 
   private void Start() {
-
-    //Range = 20.0f;
-    //ProjectileSpeed = 20.0f;
-    //AttackSpeed = 1.0f;
-    //Damage = 5.0f;
-    //AreaOfEffect = 10.0f;
-
-    // -----0-----
-
-    // TODO: Remove this, it should be set on read-in.
-    Name = "Spitting Ant Tower";
     objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
@@ -157,7 +146,7 @@ public class SpittingAntTower : Tower {
       camoSight: CamoSight,
       antiAir: AntiAir);
     // If there is no target, stop firing.
-    if (enemy is null) {
+    if (enemy == null) {
       firing = false;
       beam.enabled = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
@@ -169,7 +158,9 @@ public class SpittingAntTower : Tower {
         beam.enabled = true;
         beam.SetPosition(
             1,  // The destination of the system.
-            enemy.transform.position - Vector3.up);  // Target a little below the top of the enemy position.
+            // TODO: The multiplier should be 5, repositioning of the ant prefab containers isn't being respected.
+            //       We should figure out what is going on. There is a task on clickup about this.
+            projectileHandler.GetSafeChildPosition(enemy.transform) - beam.transform.position - Vector3.up);
 
         ProcessDamageAndEffects(enemy);
       }
