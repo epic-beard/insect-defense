@@ -7071,7 +7071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10ff29737e1234198db17db9ce3ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filename: waves/one_enemy.wave
+  filename: waves/level0.wave
 --- !u!4 &1620014309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5381060101872572144, guid: cea1f3f28fb3dd74387afb234c63acf3, type: 3}

@@ -104,7 +104,7 @@ public class SpittingAntTower : Tower {
       target.spittingAntTowerSlows.Add(this);
     }
     if (DotExplosion) {
-      acidExplosion.transform.position = projectileHandler.GetSafeChildPosition(target.transform);
+      acidExplosion.transform.position = projectileHandler.GetTargetPosition(target.transform);
       acidExplosion.Play();
 
       float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStackPerSecond;
@@ -122,7 +122,7 @@ public class SpittingAntTower : Tower {
   }
 
   private void HandleSplashEffects(Enemy target, float onHitDamage) {
-    splashExplosion.transform.position = projectileHandler.GetSafeChildPosition(target.transform);
+    splashExplosion.transform.position = projectileHandler.GetTargetPosition(target.transform);
     splashExplosion.Play();
 
     // Get a list of enemies caught in the AoE that are not the enemy targeted.
@@ -151,7 +151,7 @@ public class SpittingAntTower : Tower {
       beam.enabled = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      upperMesh.LookAt(projectileHandler.GetSafeChildPosition(enemy.transform));
+      upperMesh.LookAt(projectileHandler.GetTargetPosition(enemy.transform));
       firing = true;
 
       if (ContinuousAttack) {
@@ -160,7 +160,7 @@ public class SpittingAntTower : Tower {
             1,  // The destination of the system.
             // TODO: The multiplier should be 5, repositioning of the ant prefab containers isn't being respected.
             //       We should figure out what is going on. There is a task on clickup about this.
-            projectileHandler.GetSafeChildPosition(enemy.transform) - beam.transform.position);
+            projectileHandler.GetTargetPosition(enemy.transform) - beam.transform.position);
 
         ProcessDamageAndEffects(enemy);
       }
