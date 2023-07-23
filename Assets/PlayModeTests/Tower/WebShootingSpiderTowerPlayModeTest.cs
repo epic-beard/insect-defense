@@ -252,7 +252,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     // Yield once to trigger a shot.
     yield return new WaitForEndOfFrame();
 
-    //// Wait two seconds and skip to the end of the frame.
+    //// Wait a second and skip to the end of the frame.
     Time.captureDeltaTime = 1.0f;
     yield return new WaitForEndOfFrame();
 
