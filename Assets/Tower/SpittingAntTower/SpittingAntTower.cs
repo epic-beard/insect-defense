@@ -160,7 +160,7 @@ public class SpittingAntTower : Tower {
             1,  // The destination of the system.
             // TODO: The multiplier should be 5, repositioning of the ant prefab containers isn't being respected.
             //       We should figure out what is going on. There is a task on clickup about this.
-            projectileHandler.GetSafeChildPosition(enemy.transform) - beam.transform.position - Vector3.up);
+            projectileHandler.GetSafeChildPosition(enemy.transform) - beam.transform.position);
 
         ProcessDamageAndEffects(enemy);
       }

@@ -33,14 +33,14 @@
               <spawnAmmount>1</spawnAmmount>
               <data>
                 <type>BEETLE</type>
-                <size>TINY</size>
+                <size>NORMAL</size>
                 <currHP>0</currHP>
-                <maxHP>5</maxHP>
+                <maxHP>30</maxHP>
                 <currArmor>0</currArmor>
                 <maxArmor>5</maxArmor>
                 <speed>0.5</speed>
                 <damage>2</damage>
-                <nu>10</nu>
+                <nu>30</nu>
                 <properties>NONE</properties>
               </data>
             </Wave>
@@ -76,14 +76,14 @@
               <spawnAmmount>1</spawnAmmount>
               <data>
                 <type>BEETLE</type>
-                <size>TINY</size>
+                <size>NORMAL</size>
                 <currHP>0</currHP>
-                <maxHP>5</maxHP>
+                <maxHP>30</maxHP>
                 <currArmor>0</currArmor>
                 <maxArmor>5</maxArmor>
                 <speed>0.5</speed>
                 <damage>2</damage>
-                <nu>10</nu>
+                <nu>30</nu>
                 <properties>NONE</properties>
               </data>
             </Wave>
