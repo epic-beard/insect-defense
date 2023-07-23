@@ -16,11 +16,11 @@ public class WebShootingSpiderTowerPlayModeTest {
 
   [SetUp]
   public void SetUp() {
-    target = CreateEnemy(Vector3.zero, armor: (armor - 5.0f), speed: baseEnemySpeed);
-    enemyInRange = CreateEnemy(Vector3.right, armor: armor, speed: baseEnemySpeed);
+    target = CreateEnemy(Vector3.right, armor: (armor - 5.0f), speed: baseEnemySpeed);
+    enemyInRange = CreateEnemy(Vector3.right * 2, armor: armor, speed: baseEnemySpeed);
     enemyOutOfRange = CreateEnemy(Vector3.right * 100, armor: armor, speed: baseEnemySpeed);
 
-    wssTower = CreateWebShootingSpiderTower(Vector3.up);
+    wssTower = CreateWebShootingSpiderTower(Vector3.zero);
 
     // Mandatory setup.
     MeshRenderer mesh = new GameObject().AddComponent<MeshRenderer>();
@@ -43,13 +43,21 @@ public class WebShootingSpiderTowerPlayModeTest {
     float slowPower = 0.8f;
     SetWebShootingSpiderTowerProperties(
         wssTower,
-        attackSpeed: 10.0f,
+        attackSpeed: 1.0f,
         areaOfEffect: 10.0f,
-        range: 10.0f,
+        range: 1.0f,
         slowDuration: 10.0f,
         slowPower: slowPower);
+    Time.captureDeltaTime = 0.001f;
+    // Yield once to target enemy.
+    yield return null;
+    // Yield once to trigger a shot.
+    yield return new WaitForEndOfFrame();
 
-    yield return new WaitForSeconds(0.08f);
+    // Wait two seconds and skip to the end of the frame.
+    Time.captureDeltaTime = 2.0f;
+    yield return null;
+    yield return new WaitForEndOfFrame();
 
     Assert.That(target.SlowDuration, Is.GreaterThan(0.0f));
     Assert.That(target.SlowPower, Is.EqualTo(slowPower));
@@ -67,9 +75,9 @@ public class WebShootingSpiderTowerPlayModeTest {
     float stunTime = 10.0f;
     SetWebShootingSpiderTowerProperties(
         wssTower,
-        attackSpeed: 10.0f,
+        attackSpeed: 1.0f,
         areaOfEffect: 10.0f,
-        range: 10.0f,
+        range: 1.0f,
         slowDuration: 10.0f,
         slowPower: 0.8f,
         stunTime: stunTime);
@@ -79,13 +87,25 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.StunTime, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.StunTime, Is.EqualTo(0.0f));
 
-    yield return new WaitForSeconds(0.08f);
+    Time.captureDeltaTime = 0.001f;
+    // Yield once to target enemy.
+    yield return null;
+    // Yield once to trigger a shot.
+    yield return new WaitForEndOfFrame();
+
+    // Wait two seconds and skip to the end of the frame.
+    Time.captureDeltaTime = 2.0f;
+    yield return null;
+    yield return new WaitForEndOfFrame();
 
     Assert.That(target.StunTime, Is.GreaterThan(0.0f));
     Assert.That(enemyInRange.StunTime, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.StunTime, Is.EqualTo(0.0f));
 
-    yield return new WaitForSeconds(0.08f);
+    // Wait two seconds and skip to the end of the frame.
+    Time.captureDeltaTime = 2.0f;
+    yield return null;
+    yield return new WaitForEndOfFrame();
 
     // Ensure that the stuntime is not applied a second time.
     Assert.That(target.StunTime, Is.GreaterThan(0.0f));
@@ -103,9 +123,9 @@ public class WebShootingSpiderTowerPlayModeTest {
     float slowPower = 0.8f;
     SetWebShootingSpiderTowerProperties(
         wssTower,
-        attackSpeed: 10.0f,
+        attackSpeed: 1.0f,
         areaOfEffect: 10.0f,
-        range: 10.0f,
+        range: 1.0f,
         slowDuration: 10.0f,
         slowPower: slowPower);
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_1_5_PERMANENT_SLOW);
@@ -114,7 +134,16 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyOutOfRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
 
-    yield return new WaitForSeconds(0.08f);
+    Time.captureDeltaTime = 0.001f;
+    // Yield once to target enemy.
+    yield return null;
+    // Yield once to trigger a shot.
+    yield return new WaitForEndOfFrame();
+
+    // Wait two seconds and skip to the end of the frame.
+    Time.captureDeltaTime = 2.0f;
+    yield return null;
+    yield return new WaitForEndOfFrame();
 
     Assert.That(target.BaseSpeed, Is.EqualTo(baseEnemySpeed * slowPower));
     Assert.That(target.Speed, Is.LessThan(baseEnemySpeed * slowPower));
@@ -132,9 +161,9 @@ public class WebShootingSpiderTowerPlayModeTest {
     float secondarySlowPower = 0.5f;
     SetWebShootingSpiderTowerProperties(
         wssTower,
-        attackSpeed: 0.7f,
+        attackSpeed: 1.0f,
         areaOfEffect: 10.0f,
-        range: 10.0f,
+        range: 1.0f,
         slowDuration: 10.0f,
         slowPower: slowPower);
     TowerAbility ability = CreateTowerAbility(secondarySlowPower, 2.0f);
@@ -144,7 +173,15 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.Speed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyOutOfRange.Speed, Is.EqualTo(baseEnemySpeed));
 
+    Time.captureDeltaTime = 0.001f;
+    // Yield once to target enemy.
     yield return null;
+    // Yield once to trigger a shot.
+    yield return new WaitForEndOfFrame();
+
+    // Wait two seconds and skip to the end of the frame.
+    Time.captureDeltaTime = 2.0f;
+    yield return new WaitForEndOfFrame();
 
     Assert.That(target.Speed, Is.EqualTo(baseEnemySpeed * (1 - slowPower)));
     Assert.That(enemyInRange.Speed, Is.GreaterThan(baseEnemySpeed * (1 - slowPower)));
@@ -159,9 +196,9 @@ public class WebShootingSpiderTowerPlayModeTest {
   public IEnumerator ProcessDamageAndEffects_GroundingShot() {
     SetWebShootingSpiderTowerProperties(
         wssTower,
-        attackSpeed: 10.0f,
+        attackSpeed: 1.0f,
         areaOfEffect: 10.0f,
-        range: 10.0f,
+        range: 1.0f,
         slowDuration: 10.0f,
         slowPower: 0.8f);
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_GROUNDING_SHOT);
@@ -170,7 +207,16 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.Flying, Is.EqualTo(true));
     Assert.That(enemyOutOfRange.Flying, Is.EqualTo(true));
 
-    yield return new WaitForSeconds(0.08f);
+    Time.captureDeltaTime = 0.001f;
+    // Yield once to target enemy.
+    yield return null;
+    // Yield once to trigger a shot.
+    yield return new WaitForEndOfFrame();
+
+    // Wait two seconds and skip to the end of the frame.
+    Time.captureDeltaTime = 2.0f;
+    yield return null;
+    yield return new WaitForEndOfFrame();
 
     Assert.That(target.Flying, Is.EqualTo(false));
     Assert.That(enemyInRange.Flying, Is.EqualTo(true));
@@ -184,15 +230,13 @@ public class WebShootingSpiderTowerPlayModeTest {
   public IEnumerator ProcessDamageAndEffects_SecondarySlow() {
     SetWebShootingSpiderTowerProperties(
         wssTower,
-        attackSpeed: 10.0f,
+        attackSpeed: 0.1f,
         areaOfEffect: 10.0f,
-        range: 10.0f,
+        range: 1.0f,
         secondarySlowPotency: 0.5f,
         secondarySlowTargets: 2,
         slowDuration: 10.0f,
         slowPower: 0.8f);
-    Time.captureDeltaTime = 1.0f;
-
     float secondarySlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
 
     Assert.That(target.SlowPower, Is.EqualTo(0.0f));
@@ -202,7 +246,15 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
 
-    yield return new WaitForSeconds(0.08f);
+    Time.captureDeltaTime = 0.001f;
+    // Yield once to target enemy.
+    yield return null;
+    // Yield once to trigger a shot.
+    yield return new WaitForEndOfFrame();
+
+    //// Wait two seconds and skip to the end of the frame.
+    Time.captureDeltaTime = 1.0f;
+    yield return new WaitForEndOfFrame();
 
     Assert.That(target.SlowPower, Is.EqualTo(wssTower.SlowPower));
     // The primary slow should be stronger than the secondary slow.
@@ -211,7 +263,6 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.SlowDuration, Is.InRange(0.0f, secondarySlowDuration));
     Assert.That(enemyOutOfRange.SlowPower, Is.EqualTo(0.0f));
     Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
-
     yield return null;
   }
 
@@ -225,7 +276,7 @@ public class WebShootingSpiderTowerPlayModeTest {
 
     wssTower.Behavior = Targeting.Behavior.ALL;
     wssTower.Priority = Targeting.Priority.LEAST_ARMOR;
-    wssTower.ProjectileSpeed = 100.0f;
+    wssTower.ProjectileSpeed = 10.0f;
     wssTower.AntiAir = true;
 
     return wssTower;

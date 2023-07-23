@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -156,7 +157,6 @@ public class SpittingAntTower : Tower {
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
-
     // If there is no target, stop firing.
     if (enemy is null) {
       firing = false;
