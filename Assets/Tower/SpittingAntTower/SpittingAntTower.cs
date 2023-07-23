@@ -145,7 +145,6 @@ public class SpittingAntTower : Tower {
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
-
     // If there is no target, stop firing.
     if (enemy == null) {
       firing = false;

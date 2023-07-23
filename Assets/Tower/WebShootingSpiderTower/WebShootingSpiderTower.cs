@@ -28,7 +28,6 @@ public class WebShootingSpiderTower : Tower {
     objectPool = FindObjectOfType<ObjectPool>();
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
-
     StartCoroutine(WebShoot());
   }
 
@@ -102,7 +101,6 @@ public class WebShootingSpiderTower : Tower {
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
-
     if (enemy == null) {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.

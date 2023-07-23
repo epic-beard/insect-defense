@@ -51,10 +51,10 @@ public class EnemyTest {
     Assert.That(webShootingSpiderInRange.DazzleTime, Is.EqualTo(0.0f));
     Assert.That(webShootingSpiderOutOfRange.DazzleTime, Is.EqualTo(0.0f));
 
-    // This sets the next frame's deltaTime to 1, then we wait for the next frame
-    // and finally skip to the end of that frame.
     Time.captureDeltaTime = 1.0f;
+    // Start the timer to the first shot.
     yield return null;
+    // Activate the ability.
     yield return new WaitForEndOfFrame();
     Assert.That(spittingAntInRange.DazzleTime, Is.EqualTo(10.0f));
     Assert.That(spittingAntOutOfRange.DazzleTime, Is.EqualTo(0.0f));
@@ -65,7 +65,6 @@ public class EnemyTest {
     enemy.transform.position = 10 * Vector3.left;
 
     Time.captureDeltaTime = 10.0f;
-    yield return null;
     yield return new WaitForEndOfFrame();
     Assert.That(spittingAntInRange.DazzleTime, Is.EqualTo(0.0f));
     Assert.That(spittingAntOutOfRange.DazzleTime, Is.EqualTo(0.0f));
@@ -92,10 +91,10 @@ public class EnemyTest {
     Assert.That(webShootingSpiderOutOfRange.SlimeTime, Is.EqualTo(0.0f));
     Assert.That(webShootingSpiderOutOfRange.SlimePower, Is.EqualTo(1.0f));
 
-    // This sets the next frame's deltaTime to 1, then we wait for the next frame
-    // and finally skip to the end of that frame.
     Time.captureDeltaTime = 1.0f;
+    // Start the timer to the first shot.
     yield return null;
+    // Activate the ability.
     yield return new WaitForEndOfFrame();
     Assert.That(spittingAntInRange.SlimeTime, Is.EqualTo(10.0f));
     Assert.That(spittingAntInRange.SlimePower, Is.EqualTo(0.5f));
@@ -110,7 +109,6 @@ public class EnemyTest {
     enemy.transform.position = 10 * Vector3.left;
 
     Time.captureDeltaTime = 10.0f;
-    yield return null;
     yield return new WaitForEndOfFrame();
     Assert.That(spittingAntInRange.SlimeTime, Is.EqualTo(0.0f));
     Assert.That(spittingAntInRange.SlimePower, Is.EqualTo(1.0f));
