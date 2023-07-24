@@ -1,7 +1,6 @@
-using System.Collections;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class EnemyTest {
 
@@ -177,3 +176,17 @@ public class EnemyTest {
 
   #endregion
 }
+
+#region EnemyUtils
+
+// Extension methods to hold reflection-based calls to access private fields, properties, or methods
+// of Enemy.
+public static class EnemyUtils {
+  public static void SetTarget(this Enemy enemy, Transform target) {
+    typeof(Enemy)
+        .GetField("target", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(enemy, target);
+  }
+}
+
+#endregion

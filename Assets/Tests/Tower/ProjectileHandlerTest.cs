@@ -27,8 +27,9 @@ public class ProjectileHandlerTest {
 
     Enemy enemy = new GameObject().AddComponent<Enemy>();
     enemy.transform.position = Vector3.right * 100;
+    enemy.SetTarget(enemy.transform);
 
-    Vector3 directionOfTravel = ProjectileHandler.GetTargetPosition(enemy.transform) - particles[0].position;
+    Vector3 directionOfTravel = enemy.AimPoint - particles[0].position;
     Vector3 normalizedDirectionOfTravel = directionOfTravel.normalized;
 
     projectileHandler.UpdateParticles(enemy, FakeProcessParticleCollision);
@@ -49,6 +50,7 @@ public class ProjectileHandlerTest {
 
     Enemy enemy = new GameObject().AddComponent<Enemy>();
     enemy.transform.position = Vector3.right;
+    enemy.SetTarget(enemy.transform);
 
     projectileHandler.UpdateParticles(enemy, FakeProcessParticleCollision);
 
@@ -57,33 +59,6 @@ public class ProjectileHandlerTest {
     Assert.That(numActiveParticles, Is.EqualTo(0));
 
     return null;
-  }
-
-  #endregion
-
-  #region GetTargetPositionTests
-
-  [Test]
-  public void GetTargetPositionWithChild() {
-    GameObject gameObject = new();
-
-    Enemy enemyParent = gameObject.AddComponent<Enemy>();
-    Enemy enemyChild = gameObject.AddComponent<Enemy>();
-    enemyParent.transform.position = Vector3.up;
-    enemyChild.transform.position = Vector3.down;
-    enemyChild.transform.parent = enemyParent.transform;
-
-    Assert.That(ProjectileHandler.GetTargetPosition(enemyParent.transform), Is.EqualTo(Vector3.down));
-  }
-
-  [Test]
-  public void GetTargetPositionWithoutChild() {
-    GameObject gameObject = new();
-
-    Enemy enemyParent = gameObject.AddComponent<Enemy>();
-    enemyParent.transform.position = Vector3.up;
-
-    Assert.That(ProjectileHandler.GetTargetPosition(enemyParent.transform), Is.EqualTo(Vector3.up));
   }
 
   #endregion

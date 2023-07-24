@@ -23,11 +23,15 @@ public class Enemy : MonoBehaviour {
   public HashSet<Tower> webShootingTowerPermSlow = new();
 
   private float crippleSlow = 0.8f;
+  private Transform target;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
     transform.position = PrevWaypoint.transform.position;
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
+    if (transform.childCount > 0) {
+      target = transform.GetChild(0).Find("target");
+    }
 
     StartCoroutine(HandleStun());
 
@@ -96,6 +100,15 @@ public class Enemy : MonoBehaviour {
   public EnemyData.SlimeProperties? Slime {
     get { return data.slime; }
     set { data.slime = value; }
+  }
+  public Vector3 AimPoint {
+    get {
+      if (target != null) {
+        return target.transform.position;
+      } else {
+        return transform.position;
+      }
+    }
   }
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
