@@ -105,7 +105,7 @@ public class WebShootingSpiderTower : Tower {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      mesh.LookAt(enemy.transform);
+      mesh.LookAt(enemy.AimPoint);
       firing = true;
     }
     primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
