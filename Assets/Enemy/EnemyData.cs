@@ -7,7 +7,13 @@ public struct EnemyData {
   public enum Type {
     ANT,
     APHID,
-    BEETLE
+    BEETLE,
+    HERCULES_BEETLE,
+    SLUG,
+    SNAIL,
+    STINK_BUG,
+    TARANTULA,
+    WOLF_SPIDER,
   }
 
   public enum Size {
