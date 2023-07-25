@@ -28,15 +28,6 @@ public class ProjectileHandler {
     particles = new Particle[particleSystem.main.maxParticles];
   }
 
-  // Get a safe position for the shots of any tower. Ideally, the actual mesh, but if that isn't present,
-  // the enemy container itself.
-  public Vector3 GetSafeChildPosition(Transform transform) {
-    if (transform.childCount == 0) {
-      return transform.position;
-    }
-    return transform.GetChild(0).position;
-  }
-
   // Make sure that a just-fired particle is associated with the given enemy.
   public void AssociateOrphanParticlesWithEnemy(Enemy enemy) {
     int numActiveParticles = particleSystem.GetParticles(particles);
@@ -86,7 +77,7 @@ public class ProjectileHandler {
         particles[i].remainingLifetime = 0.0f;
         continue;
       }
-      Vector3 targetPosition = GetSafeChildPosition(enemy.transform);
+      Vector3 targetPosition = enemy.AimPoint;
 
       // Obtain the direction of travel
       Vector3 vec = targetPosition - particles[i].position;

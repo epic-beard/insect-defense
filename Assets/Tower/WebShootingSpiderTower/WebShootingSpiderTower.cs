@@ -81,7 +81,7 @@ public class WebShootingSpiderTower : Tower {
         .ToList();
     foreach (var enemy in closestEnemies) {
       // Make sure the origin point for the secondary web is the target just hit.
-      secondaryWebShot.transform.position = secondaryProjectileHandler.GetSafeChildPosition(target.transform);
+      secondaryWebShot.transform.position = target.AimPoint;
       // The association must be done here because this is the only place the knowledge of the secondary slow's target
       // exists. To ensure consistent updates, only the association is handled here.
       secondaryWebShot.Emit(1);
@@ -105,7 +105,7 @@ public class WebShootingSpiderTower : Tower {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      mesh.LookAt(primaryProjectileHandler.GetSafeChildPosition(enemy.transform));
+      mesh.LookAt(enemy.AimPoint);
       firing = true;
     }
     primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);

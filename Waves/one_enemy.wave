@@ -11,11 +11,11 @@
             <data>
             <type>ANT</type>
             <size>NORMAL</size>
-            <maxHP>20</maxHP>
-            <maxArmor>1</maxArmor>
+            <maxHP>500</maxHP>
+            <maxArmor>0</maxArmor>
             <speed>1</speed>
             <damage>1</damage>
-            <nu>20</nu>
+            <nu>10</nu>
             <properties>NONE</properties>
             </data>
         </Wave>
