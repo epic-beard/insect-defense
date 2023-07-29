@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
 
-public class SoundSettingsMenu : MonoBehaviour {
+public class SoundSettingsScreen : MonoBehaviour {
   VisualElement rootElement;
 
   readonly private string sfxName = "sfx";

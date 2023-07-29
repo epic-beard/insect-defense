@@ -43,11 +43,12 @@ public class EndScreen : MonoBehaviour {
 
   private void Restart(ClickEvent evt) {
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    PauseManager.Instance.UnpauseAndUnlock();
+    //[TODO nnewsom] is this necessary
+    //PauseManager.Instance.Unpause();
   }
 
   private void OnGameOver() {
-    PauseManager.Instance.PauseAndLock();
+    PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.HideUI();
     endScreenLabel.text = "You Died";
     labButton.text = "Give Up";
@@ -55,7 +56,7 @@ public class EndScreen : MonoBehaviour {
   }
 
   private void OnLevelComplete() {
-    PauseManager.Instance.PauseAndLock();
+    PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.HideUI();
     endScreenLabel.text = "You Won!";
     labButton.text = "Return";
