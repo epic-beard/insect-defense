@@ -304,4 +304,11 @@ public class Enemy : MonoBehaviour {
       Spawner.Instance.Spawn(childKey, NextWaypoint, transform);
     }
   }
+
+  public override string ToString() {
+    return data.type + "\n"
+        + "  Current HP: " + HP + "\n"
+        + "  Current Armor: " + Armor + "\n"
+        + data.ToString();
+  }
 }

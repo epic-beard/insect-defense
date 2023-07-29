@@ -178,4 +178,7 @@ public class TerrariumContextUI : MonoBehaviour {
   public void SetContextTowerName(string name) {
     towerNameLabel.text = name;
   }
+  public void SetContextForEnemy(Enemy enemy) {
+    Debug.Log(enemy.ToString());
+  }
 }
