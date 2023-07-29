@@ -24,6 +24,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   }
 
   private void ConstructTowerSelectionListView() {
+    towerSelectionListView.Clear();
     towerSelectionListView.makeItem = () => new Button();
     towerSelectionListView.bindItem = (e, i) => {
       Button towerButton = (Button)e;

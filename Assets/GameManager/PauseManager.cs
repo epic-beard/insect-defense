@@ -4,36 +4,21 @@ using UnityEngine.UIElements;
 public class PauseManager : MonoBehaviour {
   public static PauseManager Instance;
 
-  private bool locked = false;
+  private bool paused;
+  private bool screenPaused;
 
   private void Awake() {
     Instance = this;
   }
 
-  private void Update() {
-    if (Input.GetKeyDown(KeyCode.Space)) {
-      HandlePause();
-    }
-  }
-
-  private void HandlePause() {
-    if (locked) return;
-
-    Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+  public void HandlePause() {
+    paused = !paused;
+    Time.timeScale = paused || screenPaused ? 0 : 1;
     TerrariumBottomUI.Instance.KeepPlayPauseButtonNameCorrect();
   }
 
-  public void HandlePauseCallback(ClickEvent evt) {
-    HandlePause();
-  }
-
-  public void PauseAndLock() {
-    locked = true;
-    Time.timeScale = 0;
-  }
-
-  public void UnpauseAndUnlock() {
-    locked = false;
-    Time.timeScale = 1;
+  public void HandleScreenPause() {
+    screenPaused = !screenPaused;
+    Time.timeScale = paused || screenPaused ? 0 : 1;
   }
 }

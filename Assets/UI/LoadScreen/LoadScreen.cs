@@ -1,35 +1,28 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class LoadMenu : MonoBehaviour {
-
+public class LoadScreen : MonoBehaviour {
+  public static LoadScreen Instance;
+  public static event Action<bool> OnLoadScreenOpen;
   readonly private string saveListViewName = "save__list_view";
 
   UIDocument loadMenu;
   private ListView saveList;
-
   private List<PlayerState> playerStates = new();
+  //private InputActionMap loadScreenActions;
+
+  private void Awake() {
+    Instance = this;
+  }
 
   private void OnEnable() {
     SetVisualElements();
     loadMenu.rootVisualElement.style.display = DisplayStyle.None;
-  }
-
-  private void Update() {
-    if (Input.GetKeyDown(KeyCode.Escape)) {
-      ToggleScreen();
-    }
-  }
-
-  private void ToggleScreen() {
-    if (loadMenu.rootVisualElement.style.display == DisplayStyle.None) {
-      OpenMenu();
-    } else {
-      CloseMenu();
-    }
   }
 
   private void SetVisualElements() {
@@ -61,16 +54,14 @@ public class LoadMenu : MonoBehaviour {
     SceneManager.LoadScene("Lab");
   }
 
-  private void OpenMenu() {
-    PauseManager.Instance.PauseAndLock();
+  public void OpenMenu() {
     playerStates = SaveManager.Instance.GetSaves();
     saveList.itemsSource = playerStates;
     saveList.Rebuild();
     loadMenu.rootVisualElement.style.display = DisplayStyle.Flex;
   }
 
-  private void CloseMenu() {
-    PauseManager.Instance.UnpauseAndUnlock();
+  public void CloseMenu() {
     loadMenu.rootVisualElement.style.display = DisplayStyle.None;
   }
 }
