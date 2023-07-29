@@ -35,14 +35,6 @@ public class GameStateManager : MonoBehaviour {
     nu = startingNu;
   }
 
-  private void Update() {
-    // Right click should clear selected context.
-    if (Input.GetMouseButton(1)) {
-      ClearSelection();
-      TerrariumContextUI.Instance.SetNoContextPanel();
-    }
-  }
-
   public void DealDamage(int damage) {
     Health -= damage;
     if (Health <= 0) GameOver?.Invoke();

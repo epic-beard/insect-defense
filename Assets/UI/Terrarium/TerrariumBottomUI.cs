@@ -26,8 +26,10 @@ public class TerrariumBottomUI : MonoBehaviour {
   }
 
   private void RegisterCallbacks() {
-    playPauseButton.RegisterCallback<ClickEvent>(PauseManager.Instance.HandlePauseCallback);
-    settingsButton.RegisterCallback<ClickEvent>(SettingsMenu.Instance.ToggleSettingsCallback);
+    playPauseButton.RegisterCallback<ClickEvent>(
+      (ClickEvent) => { PauseManager.Instance.HandlePause(); });
+    settingsButton.RegisterCallback<ClickEvent>(
+    (ClickEvent) => { SettingsScreen.Instance.ToggleSettings(); });
   }
 
   public void KeepPlayPauseButtonNameCorrect() {
