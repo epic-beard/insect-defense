@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(FollowPath());
   }
 
+  public EnemyData.Type Type { get { return data.type; } }
   public float HP { get; set; }
   public float Armor { get; set; }
   // The enemy's unmodified core speed. This is not what is called to determine move speed.
@@ -118,6 +119,10 @@ public class Enemy : MonoBehaviour {
     HP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
     if (HP <= 0.0f) {
       // TODO: Award the player Nu
+      if (GameStateManager.Instance.SelectedEnemy != null
+          && Equals(GameStateManager.Instance.SelectedEnemy)) {
+        GameStateManager.Instance.DeselectEnemy();
+      }
       if (data.carrier != null) {
         var carrier = data.carrier.Value;
         SpawnChildren(carrier.childKey, carrier.num);
@@ -126,7 +131,7 @@ public class Enemy : MonoBehaviour {
     }
     return HP;
   }
-  
+
   // Return the new armor total after the tear is applied.
   public float TearArmor(float armorTear) {
     Armor = Mathf.Max(Armor - armorTear, 0.0f);
@@ -293,7 +298,7 @@ public class Enemy : MonoBehaviour {
 
   private IEnumerator Spawn() {
     EnemyData.SpawnerProperties properties = data.spawner.Value;
-    while(true) {
+    while (true) {
       yield return new WaitForSeconds(properties.interval);
       SpawnChildren(properties.childKey, properties.num);
     }
@@ -303,6 +308,29 @@ public class Enemy : MonoBehaviour {
     for (int i = 0; i < num; i++) {
       Spawner.Instance.Spawn(childKey, NextWaypoint, transform);
     }
+  }
+
+  private void OnEnemyStatUpdate() {
+    // Update enemy stats in the context ui.
+  }
+
+  public void StartEnemyStatBroadcast() {
+    GameStateManager.EnemyStatChanged += OnEnemyStatUpdate;
+  }
+
+  public void StopEnemyStatBroadcast() {
+    GameStateManager.EnemyStatChanged -= OnEnemyStatUpdate;
+  }
+
+  // Compare two enemies based on Type, HP, Armor, Speed, and location.
+  public override bool Equals(object other) {
+    if (other == null) return false;
+    Enemy enemy = other as Enemy;
+    if (Type == enemy.Type && HP == enemy.HP && Armor == enemy.Armor && Speed == enemy.Speed
+        && transform.position.Equals(enemy.transform.position)) {
+      return true;
+    }
+    return false;
   }
 
   public override string ToString() {
