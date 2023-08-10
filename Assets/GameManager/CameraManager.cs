@@ -21,7 +21,6 @@ public class CameraManager : MonoBehaviour {
   }
 
   public void ZoomCamera(float zoom) {
-    camera.orthographicSize += - zoom * zoomSpeed * Time.deltaTime;
-    //transform.Translate(Vector3.forward * zoom * zoomSpeed * Time.deltaTime);
+    camera.orthographicSize += - PlayerState.Instance.Settings.ZoomSensitivity * zoom * zoomSpeed * Time.deltaTime;
   }
 }
