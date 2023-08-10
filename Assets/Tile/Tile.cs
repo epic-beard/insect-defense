@@ -82,8 +82,8 @@ public class Tile : MonoBehaviour {
   private void OnMouseDown() {
     if (!isTowerPlaceable) {
       // TODO(emonzon): Fetch the enemy that the player has clicked 'on'. However we do that.
-      Enemy enemy = new();
-      GameStateManager.Instance.SelectEnemy(enemy);
+      //Enemy enemy = new();
+      //GameStateManager.Instance.SelectEnemy(enemy);
       return;
     }
     if (!isTowerPresent) {

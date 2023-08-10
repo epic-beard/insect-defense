@@ -63,44 +63,12 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(FollowPath());
   }
 
-  public EnemyData.Type Type { get { return data.type; } }
-  public float HP { get; set; }
-  public float Armor { get; set; }
-  // The enemy's unmodified core speed. This is not what is called to determine move speed.
-  public float BaseSpeed { get { return data.speed; } }
-  public float Speed { get { return data.speed * (1 - SlowPower); } }
-  public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
-  public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
-  public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
-  public bool Crippled { get; set; }
-  public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
-  public int Damage { get { return data.damage; } }
-  public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
+  #region Properties
+
+  public float AcidDamagePerStackPerSecond { get { return acidDamagePerStackPerSecond; } }
   public float AcidStacks {
     get { return data.acidStacks; }
     private set { data.acidStacks = value; }
-  }
-  public float AcidDamagePerStackPerSecond { get { return acidDamagePerStackPerSecond; } }
-  public float SlowPower {
-    get { return data.slowPower; }
-    private set { data.slowPower = value; }
-  }
-  public float SlowDuration {
-    get { return data.slowDuration; }
-    private set { data.slowDuration = value; }
-  }
-  public float StunTime {
-    get { return data.stunTime; }
-    private set { data.stunTime = value; }
-  }
-  public float GroundedTime { get; private set; }
-  public EnemyData.DazzleProperties? Dazzle {
-    get { return data.dazzle; }
-    set { data.dazzle = value; }
-  }
-  public EnemyData.SlimeProperties? Slime {
-    get { return data.slime; }
-    set { data.slime = value; }
   }
   public Vector3 AimPoint {
     get {
@@ -111,6 +79,46 @@ public class Enemy : MonoBehaviour {
       }
     }
   }
+  public float Armor { get; set; }
+  public float BaseSpeed { get { return data.speed; } }
+  public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
+  public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public bool Crippled { get; set; }
+  public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
+  public int Damage { get { return data.damage; } }
+  public EnemyData.DazzleProperties? Dazzle {
+    get { return data.dazzle; }
+    set { data.dazzle = value; }
+  }
+  public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
+  public float GroundedTime { get; private set; }
+  public float HP { get; set; }
+  // The enemy's unmodified core speed. This is not what is called to determine move speed.
+  public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
+  public float MaxArmor { get { return data.maxArmor; } }
+  public float MaxHp { get { return data.maxHP; } }
+  public int Nu { get { return data.nu; } }
+  public EnemyData.Size Size { get { return data.size; } }
+  public EnemyData.SlimeProperties? Slime {
+    get { return data.slime; }
+    set { data.slime = value; }
+  }
+  public float SlowDuration {
+    get { return data.slowDuration; }
+    private set { data.slowDuration = value; }
+  }
+  public float SlowPower {
+    get { return data.slowPower; }
+    private set { data.slowPower = value; }
+  }
+  public float Speed { get { return data.speed * (1 - SlowPower); } }
+  public float StunTime {
+    get { return data.stunTime; }
+    private set { data.stunTime = value; }
+  }
+  public EnemyData.Type Type { get { return data.type; } }
+
+  #endregion
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
@@ -120,7 +128,7 @@ public class Enemy : MonoBehaviour {
     if (HP <= 0.0f) {
       // TODO: Award the player Nu
       if (GameStateManager.Instance.SelectedEnemy != null
-          && Equals(GameStateManager.Instance.SelectedEnemy)) {
+          && this == GameStateManager.Instance.SelectedEnemy) {
         GameStateManager.Instance.DeselectEnemy();
       }
       if (data.carrier != null) {
@@ -310,8 +318,9 @@ public class Enemy : MonoBehaviour {
     }
   }
 
+  // This event should only be executed by the GameStateManager.
   private void OnEnemyStatUpdate() {
-    // Update enemy stats in the context ui.
+    TerrariumContextUI.Instance.SetContextForEnemy(this);
   }
 
   public void StartEnemyStatBroadcast() {
@@ -320,17 +329,6 @@ public class Enemy : MonoBehaviour {
 
   public void StopEnemyStatBroadcast() {
     GameStateManager.EnemyStatChanged -= OnEnemyStatUpdate;
-  }
-
-  // Compare two enemies based on Type, HP, Armor, Speed, and location.
-  public override bool Equals(object other) {
-    if (other == null) return false;
-    Enemy enemy = other as Enemy;
-    if (Type == enemy.Type && HP == enemy.HP && Armor == enemy.Armor && Speed == enemy.Speed
-        && transform.position.Equals(enemy.transform.position)) {
-      return true;
-    }
-    return false;
   }
 
   public override string ToString() {
