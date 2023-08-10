@@ -27,14 +27,14 @@ public class SettingsScreen : MonoBehaviour {
 
   public void OpenSettings() {
     PauseManager.Instance.HandleScreenPause();
-    InputManager.Input.SwitchCurrentActionMap("SettingsScreen");
+    InputManager.Instance.SwitchToActionMap("SettingsScreen");
     settingsScreen.rootVisualElement.style.display = DisplayStyle.Flex;
     TerrariumUI.Instance.HideUI();
   }
 
   public void CloseSettings() {
     PauseManager.Instance.HandleScreenPause();
-    InputManager.SwitchToSceneActionMap();
+    InputManager.Instance.SwitchToSceneActionMap();
     settingsScreen.rootVisualElement.style.display = DisplayStyle.None;
     TerrariumUI.Instance.ShowUI();
   }
