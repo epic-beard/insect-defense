@@ -127,14 +127,11 @@ public class Enemy : MonoBehaviour {
     HP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
     if (HP <= 0.0f) {
       // TODO: Award the player Nu
-      if (GameStateManager.Instance.SelectedEnemy != null
-          && this == GameStateManager.Instance.SelectedEnemy) {
-        GameStateManager.Instance.DeselectEnemy();
-      }
       if (data.carrier != null) {
         var carrier = data.carrier.Value;
         SpawnChildren(carrier.childKey, carrier.num);
       }
+      ConditionalContextualReset();
       ObjectPool.Instance.DestroyEnemy(gameObject);
     }
     return HP;
@@ -277,7 +274,16 @@ public class Enemy : MonoBehaviour {
     FinishPath();
   }
 
+  private void ConditionalContextualReset() {
+    if (GameStateManager.Instance.SelectedEnemy != null
+          && this == GameStateManager.Instance.SelectedEnemy) {
+      GameStateManager.Instance.DeselectEnemy();
+      TerrariumContextUI.Instance.SetNoContextPanel();
+    }
+  }
+
   private void FinishPath() {
+    ConditionalContextualReset();
     GameStateManager.Instance.DealDamage(Damage);
     ObjectPool.Instance.DestroyEnemy(gameObject);
   }

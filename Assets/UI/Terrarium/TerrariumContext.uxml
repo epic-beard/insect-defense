@@ -37,7 +37,7 @@
     <ui:VisualElement name="enemy_context__visualelement">
         <ui:Label tabindex="-1" text="&lt;enemyname&gt;" display-tooltip-when-elided="true" name="enemy_name__label" style="-unity-text-align: upper-center;" />
         <ui:VisualElement name="enemy_context_content__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-            <ui:VisualElement name="enemy_attributes_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement name="enemy_attributes_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-width: 150px;">
                 <ui:VisualElement name="enemy_size_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                     <ui:Label tabindex="-1" text="Size:" display-tooltip-when-elided="true" name="enemy_size_label__label" />
                     <ui:Label tabindex="-1" text="&lt;enemysize&gt;" display-tooltip-when-elided="true" name="enemy_size__label" />

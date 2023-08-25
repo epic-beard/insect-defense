@@ -9,7 +9,8 @@ public class EnemyClickManager : MonoBehaviour {
     enemy = GetComponentInParent<Enemy>();
   }
   private void OnMouseDown() {
-    Debug.Log("I've been clicked!");
+    GameStateManager.Instance.SelectEnemy(enemy);
     TerrariumContextUI.Instance.SetContextForEnemy(enemy);
+    TerrariumContextUI.Instance.SetEnemyContextPanel();
   }
 }

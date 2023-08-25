@@ -80,12 +80,7 @@ public class Tile : MonoBehaviour {
 
   // Handle tower placement and selection. Will automatically select a tower that has just been built.
   private void OnMouseDown() {
-    if (!isTowerPlaceable) {
-      // TODO(emonzon): Fetch the enemy that the player has clicked 'on'. However we do that.
-      //Enemy enemy = new();
-      //GameStateManager.Instance.SelectEnemy(enemy);
-      return;
-    }
+    if (!isTowerPlaceable) { return; }
     if (!isTowerPresent) {
       if (GameStateManager.SelectedTowerType == null) {
         return;
