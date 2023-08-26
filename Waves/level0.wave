@@ -9,7 +9,7 @@
               <repetitions>2</repetitions>
               <repeatDelay>1</repeatDelay>
               <spawnLocation>0</spawnLocation>
-              <spawnAmmount>2</spawnAmmount>
+              <spawnAmmount>1</spawnAmmount>
               <data>
                 <type>ANT</type>
                 <size>NORMAL</size>

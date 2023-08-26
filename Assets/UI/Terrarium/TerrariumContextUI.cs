@@ -221,4 +221,12 @@ public class TerrariumContextUI : MonoBehaviour {
   public void SetContextTowerName(string name) {
     towerNameLabel.text = name;
   }
+
+  public void SubscribeToEnemyStateBroadcast(Enemy enemy) {
+    enemy.StatChangedEvent += SetContextForEnemy;
+  }
+
+  public void DesbuscribeToEnemyStateBroadcast(Enemy enemy) {
+    enemy.StatChangedEvent -= SetContextForEnemy;
+  }
 }

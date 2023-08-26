@@ -13,6 +13,10 @@ public class Enemy : MonoBehaviour {
       data = value;
     }
   }
+
+  // The Event to update the context panel in the Terrarium UI.
+  public event Action<Enemy> StatChangedEvent;
+
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
 
@@ -79,25 +83,60 @@ public class Enemy : MonoBehaviour {
       }
     }
   }
-  public float Armor { get; set; }
+  private float armor;
+  public float Armor {
+    get { return armor; }
+    set {
+      armor = value;
+      StatChangedEvent?.Invoke(this);
+    }
+  }
   public float BaseSpeed { get { return data.speed; } }
   public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public bool Crippled { get; set; }
   public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
-  public int Damage { get { return data.damage; } }
+  public int Damage {
+    get { return data.damage; }
+    set {
+      data.damage = value;
+      StatChangedEvent?.Invoke(this);
+    }
+  }
   public EnemyData.DazzleProperties? Dazzle {
     get { return data.dazzle; }
     set { data.dazzle = value; }
   }
   public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
   public float GroundedTime { get; private set; }
-  public float HP { get; set; }
+  private float hp;
+  public float HP {
+    get { return hp; }
+    set {
+      hp = value;
+      StatChangedEvent?.Invoke(this);
+      if (hp <= 0.0f) {
+        // TODO: Award the player Nu
+        if (data.carrier != null) {
+          var carrier = data.carrier.Value;
+          SpawnChildren(carrier.childKey, carrier.num);
+        }
+        ConditionalContextReset();
+        ObjectPool.Instance.DestroyEnemy(gameObject);
+      }
+    }
+  }
   // The enemy's unmodified core speed. This is not what is called to determine move speed.
   public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
   public float MaxArmor { get { return data.maxArmor; } }
   public float MaxHp { get { return data.maxHP; } }
-  public int Nu { get { return data.nu; } }
+  public int Nu {
+    get { return data.nu; }
+    set {
+      data.nu = value;
+      StatChangedEvent?.Invoke(this);
+    }
+  }
   public EnemyData.Size Size { get { return data.size; } }
   public EnemyData.SlimeProperties? Slime {
     get { return data.slime; }
@@ -109,7 +148,10 @@ public class Enemy : MonoBehaviour {
   }
   public float SlowPower {
     get { return data.slowPower; }
-    private set { data.slowPower = value; }
+    private set {
+      data.slowPower = value;
+      StatChangedEvent?.Invoke(this);
+    }
   }
   public float Speed { get { return data.speed * (1 - SlowPower); } }
   public float StunTime {
@@ -125,15 +167,6 @@ public class Enemy : MonoBehaviour {
   public float DamageEnemy(float damage, float armorPierce, bool continuous = false) {
     float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
     HP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
-    if (HP <= 0.0f) {
-      // TODO: Award the player Nu
-      if (data.carrier != null) {
-        var carrier = data.carrier.Value;
-        SpawnChildren(carrier.childKey, carrier.num);
-      }
-      ConditionalContextualReset();
-      ObjectPool.Instance.DestroyEnemy(gameObject);
-    }
     return HP;
   }
 
@@ -274,16 +307,15 @@ public class Enemy : MonoBehaviour {
     FinishPath();
   }
 
-  private void ConditionalContextualReset() {
-    if (GameStateManager.Instance.SelectedEnemy != null
-          && this == GameStateManager.Instance.SelectedEnemy) {
-      GameStateManager.Instance.DeselectEnemy();
+  private void ConditionalContextReset() {
+    if (EnemyClickManager.SelectedEnemy == this) {
+      TerrariumContextUI.Instance.DesbuscribeToEnemyStateBroadcast(this);
       TerrariumContextUI.Instance.SetNoContextPanel();
     }
   }
 
   private void FinishPath() {
-    ConditionalContextualReset();
+    ConditionalContextReset();
     GameStateManager.Instance.DealDamage(Damage);
     ObjectPool.Instance.DestroyEnemy(gameObject);
   }
@@ -322,19 +354,6 @@ public class Enemy : MonoBehaviour {
     for (int i = 0; i < num; i++) {
       Spawner.Instance.Spawn(childKey, NextWaypoint, transform);
     }
-  }
-
-  // This event should only be executed by the GameStateManager.
-  private void OnEnemyStatUpdate() {
-    TerrariumContextUI.Instance.SetContextForEnemy(this);
-  }
-
-  public void StartEnemyStatBroadcast() {
-    GameStateManager.EnemyStatChanged += OnEnemyStatUpdate;
-  }
-
-  public void StopEnemyStatBroadcast() {
-    GameStateManager.EnemyStatChanged -= OnEnemyStatUpdate;
   }
 
   public override string ToString() {

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// This class is a catch-all for gamestate management that doesn't have a better home elsewhere.
 public class GameStateManager : MonoBehaviour {
   public static GameStateManager Instance;
   public static event Action GameOver;
   public static event Action<int> HealthChanged;
-  public static event Action EnemyStatChanged;
   // The type of tower currently selected by the user for construction.
   public static GameObject? SelectedTowerType;
 
@@ -39,10 +39,6 @@ public class GameStateManager : MonoBehaviour {
     nu = startingNu;
   }
 
-  public void Update() {
-    EnemyStatChanged?.Invoke();
-  }
-
   public void DealDamage(int damage) {
     Health -= damage;
     if (Health <= 0) GameOver?.Invoke();
@@ -61,24 +57,8 @@ public class GameStateManager : MonoBehaviour {
     return activeTowerMap[coordinates];
   }
 
-  public void SelectEnemy(Enemy enemy) {
-    if (SelectedEnemy != null) {
-      SelectedEnemy.StopEnemyStatBroadcast();
-    }
-    SelectedEnemy = enemy;
-    enemy.StartEnemyStatBroadcast();
-  }
-
-  public void DeselectEnemy() {
-    if (SelectedEnemy != null) {
-      SelectedEnemy.StopEnemyStatBroadcast();
-      SelectedEnemy = null;
-    }
-  }
-
   public void ClearSelection() {
     SelectedTowerType = null;
     SelectedTower = null;
-    DeselectEnemy();
   }
 }
