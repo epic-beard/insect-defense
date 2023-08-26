@@ -307,6 +307,7 @@ public class Enemy : MonoBehaviour {
     FinishPath();
   }
 
+  // Reset the contextual panel if an enemy dies or completes its path.
   private void ConditionalContextReset() {
     if (EnemyClickManager.SelectedEnemy == this) {
       TerrariumContextUI.Instance.DesbuscribeToEnemyStateBroadcast(this);
