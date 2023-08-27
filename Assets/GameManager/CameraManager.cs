@@ -9,6 +9,8 @@ public class CameraManager : MonoBehaviour {
   public static CameraManager Instance;
 
   private Camera camera;
+  // This is how much padding, in world space, we give to the map.
+  // This value was made up whole cloth without much thought, but it doesn't look bad.
   private float screenOffset = 20;
   // These act as sentinels for our camera, they mark the extents in each of the four
   // screen directions.
@@ -39,7 +41,7 @@ public class CameraManager : MonoBehaviour {
 
     if (camera.WorldToScreenPoint(minZ).y > 0.0f && axis.y < 0.0f) { axis.y = 0.0f; }
     if (camera.WorldToScreenPoint(maxZ).y < Screen.height && axis.y > 0.0f) { axis.y = 0.0f; }
-    Debug.Log(axis);
+
     Vector3 delta = new Vector3(axis.x, 0.0f, axis.y) * Time.deltaTime;
     Vector3 position = transform.position 
       + PlayerState.Instance.Settings.CameraSensitivity * speed * delta;
@@ -48,7 +50,7 @@ public class CameraManager : MonoBehaviour {
 
   // Update the camera zoom, using the sentinels to position the camera.
   public void ZoomCamera(float zoom) {
-    // If all four sentinels are on the screen than dissable zooming out.
+    // If all four sentinels are on the screen then dissable zooming out.
     if (IsOnScreenX(minX) && IsOnScreenX(maxX) &&
         IsOnScreenY(minZ) && IsOnScreenY(maxZ) && zoom < 0.0f) { return; }
 
