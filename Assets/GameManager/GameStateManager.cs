@@ -14,7 +14,6 @@ public class GameStateManager : MonoBehaviour {
 
   // The specific tower the user clicked on in the map.
   public Tower? SelectedTower;
-  public Enemy? SelectedEnemy;
   public Dictionary<Vector2Int, Tower> activeTowerMap = new();
 
   [SerializeField] private int maxHealth = 100;
