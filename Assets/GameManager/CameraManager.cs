@@ -15,6 +15,8 @@ public class CameraManager : MonoBehaviour {
   // These act as sentinels for our camera, they mark the extents in each of the four
   // screen directions.
   private Vector3 minX, minZ, maxX, maxZ;
+  // The smallest size value allowed.
+  private float minSize = 1.0f;
 
   private static readonly int speed = 100;
   private static readonly float zoomSpeed = 3;
@@ -23,6 +25,8 @@ public class CameraManager : MonoBehaviour {
     Instance = this;
     camera = GetComponent<Camera>();
     SetExtents();
+    CenterX(minX, maxX);
+    CenterY(minZ, maxZ);
   }
 
   private void SetExtents() {
@@ -57,10 +61,13 @@ public class CameraManager : MonoBehaviour {
     // Actually update the size of the camera.
     camera.orthographicSize += - PlayerState.Instance.Settings.ZoomSensitivity * zoom * zoomSpeed * Time.deltaTime;
 
+    // If we're too far zoomed in, go no further.
+    camera.orthographicSize = Mathf.Max(camera.orthographicSize, minSize);
+
     // If both x sentinels are on screen center in the x direction.
     if (IsOnScreenX(minX) && IsOnScreenX(maxX)) {
       CenterX(minX, maxX);
-    // If minX is on screen move right
+      // If minX is on screen move right
     } else if (IsOnScreenX(minX)) {
       Vector3 v = ScreenToWorld(Vector3.zero);
       Vector3 p = transform.position;
@@ -100,7 +107,7 @@ public class CameraManager : MonoBehaviour {
     } else if (IsOnScreenY(maxZ)) {
       Vector3 v = ScreenToWorld(Screen.height * Vector3.up);
       Vector3 p = transform.position;
-      p.z -= v.z - maxZ.z;
+      p.z += maxZ.z - v.z;
       transform.position = p;
 
       // If we moved minZ onto screen, center.
