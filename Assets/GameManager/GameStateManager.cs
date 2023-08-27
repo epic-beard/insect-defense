@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// This class is a catch-all for gamestate management that doesn't have a better home elsewhere.
 public class GameStateManager : MonoBehaviour {
   public static GameStateManager Instance;
   public static event Action GameOver;

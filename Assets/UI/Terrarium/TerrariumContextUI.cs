@@ -5,7 +5,16 @@ using UnityEngine.UIElements;
 public class TerrariumContextUI : MonoBehaviour {
   public static TerrariumContextUI Instance;
 
+  readonly private string enemyArmorCurrentArmorLabelName = "enemy_current_armor__label";
+  readonly private string enemyArmorMaxArmorLabelName = "enemy_max_armor__label";
   readonly private string enemyContextVisualElementName = "enemy_context__visualelement";
+  readonly private string enemyDamageLabelName = "enemy_damage__label";
+  readonly private string enemyHpCurrentHpLabelName = "enemy_current_hp__label";
+  readonly private string enemyHpMaxHpLabelName = "enemy_max_hp__label";
+  readonly private string enemyNameLabelName = "enemy_name__label";
+  readonly private string enemyNuLabelName = "enemy_nu__label";
+  readonly private string enemySizeLabelName = "enemy_size__label";
+  readonly private string enemySpeedLabelName = "enemy_speed__label";
   readonly private string noContextVisualElementName = "no_context__visualelement";
   readonly private string towerBehaviorDropdownName = "tower_behavior__dropdown";
   readonly private string towerContextVisualElementName = "tower_context__visualelement";
@@ -16,8 +25,19 @@ public class TerrariumContextUI : MonoBehaviour {
 
   private UIDocument terrariumScreen;
 
+  private Label enemyArmorCurrentArmorLabel;
+  private Label enemyArmorMaxArmorLabel;
   private VisualElement enemyContextVisualElement;
+  private Label enemyDamageLabel;
+  private Label enemyHpCurrentHpLabel;
+  private Label enemyHpMaxHpLabel;
+  private Label enemyNameLabel;
+  private Label enemyNuLabel;
+  private Label enemySizeLabel;
+  private Label enemySpeedLabel;
+
   private VisualElement noContextVisualElement;
+
   private DropdownField towerBehaviorDropdown;
   private VisualElement towerContextVisualElement;
   private Label towerNameLabel;
@@ -36,13 +56,23 @@ public class TerrariumContextUI : MonoBehaviour {
     terrariumScreen = GetComponent<UIDocument>();
     VisualElement rootElement = terrariumScreen.rootVisualElement;
 
+    enemyArmorCurrentArmorLabel = rootElement.Q<Label>(enemyArmorCurrentArmorLabelName);
+    enemyArmorMaxArmorLabel = rootElement.Q<Label>(enemyArmorMaxArmorLabelName);
     enemyContextVisualElement = rootElement.Q<VisualElement>(enemyContextVisualElementName);
+    enemyDamageLabel = rootElement.Q<Label>(enemyDamageLabelName);
+    enemyHpCurrentHpLabel = rootElement.Q<Label>(enemyHpCurrentHpLabelName);
+    enemyHpMaxHpLabel = rootElement.Q<Label>(enemyHpMaxHpLabelName);
+    enemyNameLabel = rootElement.Q<Label>(enemyNameLabelName);
+    enemyNuLabel = rootElement.Q<Label>(enemyNuLabelName);
+    enemySizeLabel = rootElement.Q<Label>(enemySizeLabelName);
+    enemySpeedLabel = rootElement.Q<Label>(enemySpeedLabelName);
+
     noContextVisualElement = rootElement.Q<VisualElement>(noContextVisualElementName);
+
     towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
     towerContextVisualElement = rootElement.Q<VisualElement>(towerContextVisualElementName);
     towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
     towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
-
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 5; j++) {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
@@ -149,7 +179,20 @@ public class TerrariumContextUI : MonoBehaviour {
     noContextVisualElement.style.display = DisplayStyle.None;
   }
 
-  // Set all appropriate text, pictures, and miscellaneous information for a specific tower
+  // Set all appripriate text, pictures, and miscellaneous information for a specific enemy.
+  public void SetContextForEnemy(Enemy enemy) {
+    enemyNameLabel.text = ToTitleCase(enemy.Type.ToString());
+    enemySizeLabel.text = ToTitleCase(enemy.Size.ToString());
+    enemyHpCurrentHpLabel.text = enemy.HP.ToString();
+    enemyHpMaxHpLabel.text = enemy.MaxHp.ToString();
+    enemyArmorCurrentArmorLabel.text = enemy.Armor.ToString();
+    enemyArmorMaxArmorLabel.text = enemy.MaxArmor.ToString();
+    enemySpeedLabel.text = enemy.Speed.ToString();
+    enemyDamageLabel.text = enemy.Damage.ToString();
+    enemyNuLabel.text = enemy.Nu.ToString();
+}
+
+  // Set all appropriate text, pictures, and miscellaneous information for a specific tower.
   public void SetContextForTower(Tower tower) {
     towerNameLabel.text = tower.Name;
     towerBehaviorDropdown.index = ((int)tower.Behavior);
@@ -177,5 +220,13 @@ public class TerrariumContextUI : MonoBehaviour {
 
   public void SetContextTowerName(string name) {
     towerNameLabel.text = name;
+  }
+
+  public void SubscribeToEnemyStateBroadcast(Enemy enemy) {
+    enemy.StatChangedEvent += SetContextForEnemy;
+  }
+
+  public void DesbuscribeToEnemyStateBroadcast(Enemy enemy) {
+    enemy.StatChangedEvent -= SetContextForEnemy;
   }
 }

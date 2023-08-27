@@ -34,7 +34,42 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="enemy_context__visualelement" />
+    <ui:VisualElement name="enemy_context__visualelement">
+        <ui:Label tabindex="-1" text="&lt;enemyname&gt;" display-tooltip-when-elided="true" name="enemy_name__label" style="-unity-text-align: upper-center;" />
+        <ui:VisualElement name="enemy_context_content__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+            <ui:VisualElement name="enemy_attributes_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-width: 150px;">
+                <ui:VisualElement name="enemy_size_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="Size:" display-tooltip-when-elided="true" name="enemy_size_label__label" />
+                    <ui:Label tabindex="-1" text="&lt;enemysize&gt;" display-tooltip-when-elided="true" name="enemy_size__label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="enemy_hp_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="Hp:" display-tooltip-when-elided="true" name="enemy_hp_label__label" />
+                    <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="enemy_current_hp__label" style="-unity-text-align: upper-right;" />
+                    <ui:Label tabindex="-1" text="/" display-tooltip-when-elided="true" name="enemy_hp_slash__label" style="-unity-text-align: upper-center;" />
+                    <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="enemy_max_hp__label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="enemy_armor_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="Armor:" display-tooltip-when-elided="true" name="enemy_armor_label__label" />
+                    <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="enemy_current_armor__label" style="-unity-text-align: upper-right;" />
+                    <ui:Label tabindex="-1" text="/" display-tooltip-when-elided="true" name="ememy_armor_slash__label" style="-unity-text-align: upper-center;" />
+                    <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="enemy_max_armor__label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="enemy_speed_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="Speed:" display-tooltip-when-elided="true" name="enemy_speed_label__label" />
+                    <ui:Label tabindex="-1" text="&lt;enemyspeed&gt;" display-tooltip-when-elided="true" name="enemy_speed__label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="enemy_damage_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="Damage:" display-tooltip-when-elided="true" name="enemy_damage_label__label" />
+                    <ui:Label tabindex="-1" text="&lt;enemydamage&gt;" display-tooltip-when-elided="true" name="enemy_damage__label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="enemy_nu_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                    <ui:Label tabindex="-1" text="Nu:" display-tooltip-when-elided="true" name="enemy_nu_label__label" />
+                    <ui:Label tabindex="-1" text="&lt;enemynu&gt;" display-tooltip-when-elided="true" name="enemy_nu__label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="enemy_active_preview_container__visualelement" style="flex-grow: 1; background-color: rgb(0, 0, 0);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
     <ui:VisualElement name="no_context__visualelement">
         <ui:Label text="No Current Context" display-tooltip-when-elided="true" name="no_context__label" />
     </ui:VisualElement>

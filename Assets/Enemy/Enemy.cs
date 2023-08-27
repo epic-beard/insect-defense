@@ -13,6 +13,10 @@ public class Enemy : MonoBehaviour {
       data = value;
     }
   }
+
+  // The Event to update the context panel in the Terrarium UI.
+  public event Action<Enemy> StatChangedEvent;
+
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
 
@@ -63,43 +67,12 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(FollowPath());
   }
 
-  public float HP { get; set; }
-  public float Armor { get; set; }
-  // The enemy's unmodified core speed. This is not what is called to determine move speed.
-  public float BaseSpeed { get { return data.speed; } }
-  public float Speed { get { return data.speed * (1 - SlowPower); } }
-  public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
-  public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
-  public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
-  public bool Crippled { get; set; }
-  public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
-  public int Damage { get { return data.damage; } }
-  public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
+  #region Properties
+
+  public float AcidDamagePerStackPerSecond { get { return acidDamagePerStackPerSecond; } }
   public float AcidStacks {
     get { return data.acidStacks; }
     private set { data.acidStacks = value; }
-  }
-  public float AcidDamagePerStackPerSecond { get { return acidDamagePerStackPerSecond; } }
-  public float SlowPower {
-    get { return data.slowPower; }
-    private set { data.slowPower = value; }
-  }
-  public float SlowDuration {
-    get { return data.slowDuration; }
-    private set { data.slowDuration = value; }
-  }
-  public float StunTime {
-    get { return data.stunTime; }
-    private set { data.stunTime = value; }
-  }
-  public float GroundedTime { get; private set; }
-  public EnemyData.DazzleProperties? Dazzle {
-    get { return data.dazzle; }
-    set { data.dazzle = value; }
-  }
-  public EnemyData.SlimeProperties? Slime {
-    get { return data.slime; }
-    set { data.slime = value; }
   }
   public Vector3 AimPoint {
     get {
@@ -110,23 +83,93 @@ public class Enemy : MonoBehaviour {
       }
     }
   }
+  private float armor;
+  public float Armor {
+    get { return armor; }
+    set {
+      armor = value;
+      StatChangedEvent?.Invoke(this);
+    }
+  }
+  public float BaseSpeed { get { return data.speed; } }
+  public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
+  public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public bool Crippled { get; set; }
+  public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
+  public int Damage {
+    get { return data.damage; }
+    set {
+      data.damage = value;
+      StatChangedEvent?.Invoke(this);
+    }
+  }
+  public EnemyData.DazzleProperties? Dazzle {
+    get { return data.dazzle; }
+    set { data.dazzle = value; }
+  }
+  public bool Flying { get { return data.properties == EnemyData.Properties.FLYING; } }
+  public float GroundedTime { get; private set; }
+  private float hp;
+  public float HP {
+    get { return hp; }
+    set {
+      hp = value;
+      StatChangedEvent?.Invoke(this);
+      if (hp <= 0.0f) {
+        // TODO: Award the player Nu
+        if (data.carrier != null) {
+          var carrier = data.carrier.Value;
+          SpawnChildren(carrier.childKey, carrier.num);
+        }
+        ConditionalContextReset();
+        ObjectPool.Instance.DestroyEnemy(gameObject);
+      }
+    }
+  }
+  // The enemy's unmodified core speed. This is not what is called to determine move speed.
+  public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
+  public float MaxArmor { get { return data.maxArmor; } }
+  public float MaxHp { get { return data.maxHP; } }
+  public int Nu {
+    get { return data.nu; }
+    set {
+      data.nu = value;
+      StatChangedEvent?.Invoke(this);
+    }
+  }
+  public EnemyData.Size Size { get { return data.size; } }
+  public EnemyData.SlimeProperties? Slime {
+    get { return data.slime; }
+    set { data.slime = value; }
+  }
+  public float SlowDuration {
+    get { return data.slowDuration; }
+    private set { data.slowDuration = value; }
+  }
+  public float SlowPower {
+    get { return data.slowPower; }
+    private set {
+      data.slowPower = value;
+      StatChangedEvent?.Invoke(this);
+    }
+  }
+  public float Speed { get { return data.speed * (1 - SlowPower); } }
+  public float StunTime {
+    get { return data.stunTime; }
+    private set { data.stunTime = value; }
+  }
+  public EnemyData.Type Type { get { return data.type; } }
+
+  #endregion
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
   public float DamageEnemy(float damage, float armorPierce, bool continuous = false) {
     float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
     HP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
-    if (HP <= 0.0f) {
-      // TODO: Award the player Nu
-      if (data.carrier != null) {
-        var carrier = data.carrier.Value;
-        SpawnChildren(carrier.childKey, carrier.num);
-      }
-      ObjectPool.Instance.DestroyEnemy(gameObject);
-    }
     return HP;
   }
-  
+
   // Return the new armor total after the tear is applied.
   public float TearArmor(float armorTear) {
     Armor = Mathf.Max(Armor - armorTear, 0.0f);
@@ -264,7 +307,16 @@ public class Enemy : MonoBehaviour {
     FinishPath();
   }
 
+  // Reset the contextual panel if an enemy dies or completes its path.
+  private void ConditionalContextReset() {
+    if (EnemyClickManager.SelectedEnemy == this) {
+      TerrariumContextUI.Instance.DesbuscribeToEnemyStateBroadcast(this);
+      TerrariumContextUI.Instance.SetNoContextPanel();
+    }
+  }
+
   private void FinishPath() {
+    ConditionalContextReset();
     GameStateManager.Instance.DealDamage(Damage);
     ObjectPool.Instance.DestroyEnemy(gameObject);
   }
@@ -293,7 +345,7 @@ public class Enemy : MonoBehaviour {
 
   private IEnumerator Spawn() {
     EnemyData.SpawnerProperties properties = data.spawner.Value;
-    while(true) {
+    while (true) {
       yield return new WaitForSeconds(properties.interval);
       SpawnChildren(properties.childKey, properties.num);
     }
@@ -303,5 +355,12 @@ public class Enemy : MonoBehaviour {
     for (int i = 0; i < num; i++) {
       Spawner.Instance.Spawn(childKey, NextWaypoint, transform);
     }
+  }
+
+  public override string ToString() {
+    return data.type + "\n"
+        + "  Current HP: " + HP + "\n"
+        + "  Current Armor: " + Armor + "\n"
+        + data.ToString();
   }
 }

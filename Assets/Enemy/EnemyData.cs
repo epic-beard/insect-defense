@@ -98,11 +98,12 @@ public struct EnemyData {
   public CarrierProperties? carrier;
   public DazzleProperties? dazzle;
   public SlimeProperties? slime;
+
   public override string ToString() {
     return "EnemyData:" + "\nType: " + type + "\nSize: " + size
-      + "\nMax HP" + maxHP + "\nMax Armor: " + maxArmor
-      + "\nSpeed: " + speed + "\nDamage: " + damage + "\nnu: " + nu
-      + "\nProperties: " + properties + "\n" + "Spawner:\n" + spawner
-      + "\n" + "Carrier:\n" + carrier;
+      + "\nMax HP: " + maxHP + "\nMax Armor: " + maxArmor
+      + "\nBase Speed: " + speed + "\nDamage: " + damage + "\nnu: " + nu
+      + "\nProperties: " + properties + "\n" + "Spawner: \n" + spawner
+      + "\n" + "Carrier: \n" + carrier;
   }
 }
