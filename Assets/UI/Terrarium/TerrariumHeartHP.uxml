@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="hp__visualelement" style="flex-direction: row; justify-content: center;">
-        <ui:Label text="❤" display-tooltip-when-elided="true" name="heart__label" style="font-size: 50%;" />
-        <ui:Label text="100" display-tooltip-when-elided="true" name="hp__label" style="font-size: 50%;" />
+        <ui:Label text="❤" display-tooltip-when-elided="true" name="heart__label" style="font-size: 50%; color: rgb(217, 0, 0);" />
+        <ui:Label text="100" display-tooltip-when-elided="true" name="hp__label" style="font-size: 50%; color: rgb(217, 0, 0);" />
     </ui:VisualElement>
 </ui:UXML>
