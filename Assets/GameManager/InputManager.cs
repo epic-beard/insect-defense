@@ -50,7 +50,7 @@ public class InputManager : MonoBehaviour {
   }
 
   void ZoomCamera(InputAction.CallbackContext context) {
-    CameraManager.Instance.ZoomCamera(context.ReadValue<float>());
+    CameraManager.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
   }
 
   void EnterSettingsScreen(InputAction.CallbackContext context) {
