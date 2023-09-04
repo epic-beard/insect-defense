@@ -10,7 +10,6 @@ public class Terrarium : MonoBehaviour {
   void OnEnable() {
     Debug.Log(PlayerState.Instance.CurrentLevel);
     if (PlayerState.Instance.CurrentLevel < level) {
-      Debug.Log("help");
       var mat = GetComponent<Renderer>().material;
       mat.SetColor("_Color", Color.gray);
     }
