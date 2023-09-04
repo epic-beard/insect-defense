@@ -7,17 +7,19 @@ public class Terrarium : MonoBehaviour {
 
   [SerializeField] private int level;
 
-  // Start is called before the first frame update
-  void Start() {
+  void OnEnable() {
+    Debug.Log(PlayerState.Instance.CurrentLevel);
     if (PlayerState.Instance.CurrentLevel < level) {
+      Debug.Log("help");
       var mat = GetComponent<Renderer>().material;
-      mat.SetColor("Color", Color.gray);
-      enabled = false;
+      mat.SetColor("_Color", Color.gray);
     }
   }
 
   private void OnMouseDown() {
-    string levelName = "Level" + level;
-    SceneManager.LoadScene(levelName);
+    if (PlayerState.Instance.CurrentLevel >= level) {
+      string levelName = "Level" + level;
+      SceneManager.LoadScene(levelName);
+    }
   }
 }
