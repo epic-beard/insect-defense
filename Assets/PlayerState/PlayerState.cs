@@ -14,6 +14,6 @@ public class PlayerState {
 
   public string Id;
   public string SaveName;
-  public int HighestLevelBeat = 0;
+  public int CurrentLevel = 0;
   public Settings Settings = new();
 }

@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 
 public class LoadScreen : MonoBehaviour {
   public static LoadScreen Instance;
-  public static event Action<bool> OnLoadScreenOpen;
   readonly private string saveListViewName = "save__list_view";
 
   UIDocument loadMenu;
@@ -43,7 +42,7 @@ public class LoadScreen : MonoBehaviour {
     var levelLabel = item.Q<Label>(Save.LevelLabelName);
 
     nameLabel.text = playerStates[i].SaveName;
-    levelLabel.text = (playerStates[i].HighestLevelBeat + 1).ToString();
+    levelLabel.text = (playerStates[i].CurrentLevel + 1).ToString();
 
     item.RegisterCallback<ClickEvent>(OnLoadSave);
   }
