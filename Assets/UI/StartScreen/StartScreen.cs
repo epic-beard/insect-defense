@@ -33,4 +33,19 @@ public class StartScreen : MonoBehaviour {
     quitButton = rootElement.Q<Button>(quitButtonName);
     settingsButton = rootElement.Q<Button>(settingsButtonName);
   }
+
+  private void Start() {
+    RegisterCallbacks();
+  }
+
+  private void RegisterCallbacks() {
+    quitButton.RegisterCallback<ClickEvent>(HandleQuitCallback);
+  }
+
+  private void HandleQuitCallback(ClickEvent evt) {
+    Button quitButton = evt.target as Button;
+    if (quitButton == null) { return; }
+
+    Application.Quit();
+  }
 }
