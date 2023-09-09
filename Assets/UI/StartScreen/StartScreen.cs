@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour {
+  #region PrivateMembers
   readonly private string continueButtonName = "continue__button";
   readonly private string loadGameButtonName = "load_game__button";
   readonly private string newGameButtonName = "new_game__button";
@@ -18,6 +19,7 @@ public class StartScreen : MonoBehaviour {
   private Button newGameButton;
   private Button quitButton;
   private Button settingsButton;
+  #endregion
 
   private void Awake() {
     SetVisualElements();
