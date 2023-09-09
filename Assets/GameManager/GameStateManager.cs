@@ -6,9 +6,9 @@ using UnityEngine;
 
 // This class is a catch-all for gamestate management that doesn't have a better home elsewhere.
 public class GameStateManager : MonoBehaviour {
-  public static GameStateManager Instance;
-  public static event Action GameOver;
-  public static event Action<int> HealthChanged;
+  public static GameStateManager Instance = new();
+  public static event Action GameOver = delegate { };
+  public static event Action<int> HealthChanged = delegate { };
   // The type of tower currently selected by the user for construction.
   public static GameObject? SelectedTowerType;
 
@@ -43,6 +43,7 @@ public class GameStateManager : MonoBehaviour {
     if (Health <= 0) GameOver?.Invoke();
   }
 
+  // Add a tower to the active tower tracking map.
   public void AddTower(Vector2Int coordinates, Tower tower) {
     activeTowerMap.Add(coordinates, tower);
   }
