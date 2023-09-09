@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour {
-  static public ObjectPool Instance;
+  static public ObjectPool Instance = new();
 
   // An ugly artifact, just a pair class.
   // [TODO: nnewsom] get rid of this with Addressables or a SerializableDictionary.
   [Serializable]
   public class EnemyEntry {
     [SerializeField] public EnemyData.Type type;
-    [SerializeField] public GameObject prefab;
+    [SerializeField] public GameObject prefab = new();
   }
 
   [SerializeField] private int startingSize = 20;

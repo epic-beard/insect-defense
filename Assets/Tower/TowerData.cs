@@ -45,6 +45,10 @@ public struct TowerData {
       return false;
     }
 
+    public override int GetHashCode() {
+      return Tuple.Create(first, second, third).GetHashCode();
+    }
+
     public override string ToString() {
       return "\n"
           + "first upgrade path name: " + first + "\n"
