@@ -47,6 +47,8 @@ public class StartScreen : MonoBehaviour {
     Button newGameButton = evt.target as Button;
     if (newGameButton == null) { return; }
 
+    PlayerState.Instance = new PlayerState();
+    SaveManager.Instance.Save(PlayerState.Instance);
     SceneManager.LoadScene(labSceneName);
   }
 

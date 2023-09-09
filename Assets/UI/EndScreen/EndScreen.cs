@@ -55,6 +55,7 @@ public class EndScreen : MonoBehaviour {
     endScreen.rootVisualElement.style.display = DisplayStyle.Flex;
   }
 
+  // TODO(nnewsom): Conduct necessary checks, metadata tracking, and save the player state.
   private void OnLevelComplete() {
     PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.HideUI();
