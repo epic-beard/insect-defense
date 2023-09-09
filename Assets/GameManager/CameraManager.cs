@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -8,7 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour {
   public static CameraManager Instance;
 
-  private Camera camera;
+  new private Camera camera;
   // This is how much padding, in world space, we give to the map.
   // This value was made up whole cloth without much thought, but it doesn't look bad.
   private float screenOffset = 20;

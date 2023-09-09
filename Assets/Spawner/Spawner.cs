@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -10,8 +9,8 @@ using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
-  public static event Action OnLevelComplete;
-  static public Spawner Instance;
+  public static event Action OnLevelComplete = delegate { };
+  static public Spawner Instance = new();
 
   [SerializeField] private List<Waypoint> spawnLocations = new();
   [SerializeField] private string filename = "";
