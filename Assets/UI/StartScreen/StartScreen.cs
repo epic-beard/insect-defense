@@ -1,8 +1,6 @@
-using Codice.Client.Common.GameUI;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour {
   readonly private string continueButtonName = "continue__button";
@@ -10,6 +8,8 @@ public class StartScreen : MonoBehaviour {
   readonly private string newGameButtonName = "new_game__button";
   readonly private string quitButtonName = "quit__button";
   readonly private string settingsButtonName = "settings__button";
+
+  readonly private string labSceneName = "Lab";
 
   private UIDocument startScreen;
 
@@ -39,10 +39,18 @@ public class StartScreen : MonoBehaviour {
   }
 
   private void RegisterCallbacks() {
-    quitButton.RegisterCallback<ClickEvent>(HandleQuitCallback);
+    quitButton.RegisterCallback<ClickEvent>(QuitCallback);
+    newGameButton.RegisterCallback<ClickEvent>(NewGameCallback);
   }
 
-  private void HandleQuitCallback(ClickEvent evt) {
+  private void NewGameCallback(ClickEvent evt) {
+    Button newGameButton = evt.target as Button;
+    if (newGameButton == null) { return; }
+
+    SceneManager.LoadScene(labSceneName);
+  }
+
+  private void QuitCallback(ClickEvent evt) {
     Button quitButton = evt.target as Button;
     if (quitButton == null) { return; }
 
