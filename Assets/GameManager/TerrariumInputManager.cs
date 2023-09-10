@@ -57,7 +57,13 @@ public class TerrariumInputManager : InputManager {
     TerrariumContextUI.Instance.SetNoContextPanel();
   }
   protected void EnterSettingsScreen(InputAction.CallbackContext context) {
-    SettingsScreen.Instance.OpenSettings();
+    OpenSettings();
+  }
+
+  public override void OpenSettings() {
+    PauseManager.Instance.HandleScreenPause();
+    TerrariumUI.Instance.HideUI();
+    base.OpenSettings();
   }
 
   protected void EnterLoadScreen(InputAction.CallbackContext context) {
@@ -75,6 +81,13 @@ public class TerrariumInputManager : InputManager {
   }
 
   protected void ExitSettingsScreen(InputAction.CallbackContext context) {
-    SettingsScreen.Instance.CloseSettings();
+    CloseSettings();
+  }
+
+  public override void CloseSettings() {
+    PauseManager.Instance.HandleScreenPause();
+    TerrariumUI.Instance.ShowUI();
+    base.CloseSettings();
+    SwitchToActionMap("Player");
   }
 }

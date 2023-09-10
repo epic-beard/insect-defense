@@ -37,9 +37,11 @@ public class SoundSettingsScreen : MonoBehaviour {
     SetVisualElements();
     RegisterCallbacks();
 
-    SetLabels(PlayerState.Instance.Settings);
-
     playSfxButton.clicked += PlaySfx;
+  }
+
+  private void Start() {
+    SetLabels(PlayerState.Instance.Settings);
   }
 
   private void OnDisable() {

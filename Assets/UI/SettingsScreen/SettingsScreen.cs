@@ -19,23 +19,17 @@ public class SettingsScreen : MonoBehaviour {
 
   public void ToggleSettings() {
     if (settingsScreen.rootVisualElement.style.display == DisplayStyle.None) {
-      OpenSettings();
+      InputManager.Instance.OpenSettings();
     } else {
-      CloseSettings();
+      InputManager.Instance.CloseSettings();
     }
   }
 
-  public void OpenSettings() {
-    PauseManager.Instance.HandleScreenPause();
-    InputManager.Instance.SwitchToActionMap("SettingsScreen");
+  public void ShowSettings() {
     settingsScreen.rootVisualElement.style.display = DisplayStyle.Flex;
-    TerrariumUI.Instance.HideUI();
   }
 
-  public void CloseSettings() {
-    PauseManager.Instance.HandleScreenPause();
-    InputManager.Instance.SwitchToSceneActionMap();
+  public void HideSettings() {
     settingsScreen.rootVisualElement.style.display = DisplayStyle.None;
-    TerrariumUI.Instance.ShowUI();
   }
 }

@@ -1,0 +1,112 @@
+{
+    "name": "StartInputs",
+    "maps": [
+        {
+            "name": "LoadScreen",
+            "id": "be7f319d-349b-47bd-8b0c-1908e51ce2be",
+            "actions": [
+                {
+                    "name": "LoadScreen_Close",
+                    "type": "Button",
+                    "id": "fea9fc92-fc5f-43fb-936e-d2bb11264c0b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "570cb489-1a31-4d89-8269-c7e4810aba66",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LoadScreen_Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "688415fe-cff2-4347-a2e8-8625500069aa",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LoadScreen_Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "SettingsScreen",
+            "id": "9498d387-33a9-4e72-a830-d6f68ff08546",
+            "actions": [
+                {
+                    "name": "SettingsScreen_Close",
+                    "type": "Button",
+                    "id": "657a44ce-5f3c-4046-8c95-1c9eca2269cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "30cc4392-ba7d-4c45-8bf6-2a3bb002a8ea",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SettingsScreen_Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "267dfc3a-a1fd-46bd-b8d3-a90bced74568",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SettingsScreen_Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "StartScreen",
+            "id": "8cb6f90d-1738-4ac8-b8ab-f5ca8bd7ac11",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "fd9be499-5f0d-4916-8836-75b09e16fb85",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e4be7e3b-899a-4e1b-9290-6e0617cde104",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
