@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -13,7 +10,6 @@ public class LoadScreen : MonoBehaviour {
   UIDocument loadMenu;
   private ListView saveList;
   private List<PlayerState> playerStates = new();
-  //private InputActionMap loadScreenActions;
 
   private void Awake() {
     Instance = this;
