@@ -92,12 +92,7 @@ public class StartScreen : MonoBehaviour {
   private void SetContinueButtion() {
     List<PlayerState> playerStates = SaveManager.Instance.GetSaves();
     if (playerStates.Count > 0) {
-      playerStates.Sort(
-        (PlayerState one, PlayerState two) => {
-          if (one.lastSavedTime > two.lastSavedTime) return 1;
-          if (two.lastSavedTime > one.lastSavedTime) return -1;
-          return 0;
-        });
+      playerStates.Sort((PlayerState one, PlayerState two) => one.lastSavedTime.CompareTo(two.lastSavedTime));
       continuePlayerState = playerStates[0];
       continueButton.style.display = DisplayStyle.Flex;
       continueButton.RegisterCallback<ClickEvent>(ContinueCallback);

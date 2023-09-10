@@ -88,5 +88,6 @@ public class TerrariumInputManager : InputManager {
     PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.ShowUI();
     base.CloseSettings();
+    SwitchToActionMap("Player");
   }
 }
