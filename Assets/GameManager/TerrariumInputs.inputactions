@@ -1,5 +1,5 @@
 {
-    "name": "InsectDefenseInputs",
+    "name": "TerrariumInputs",
     "maps": [
         {
             "name": "Player",
@@ -268,54 +268,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "SettingsScreen_Close",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Lab",
-            "id": "21a33038-7127-484d-ad78-bb4c94ef4116",
-            "actions": [
-                {
-                    "name": "Lab_Load",
-                    "type": "Button",
-                    "id": "354afb95-6c4f-43f5-9541-13820503266e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Lab_Settings",
-                    "type": "Button",
-                    "id": "38659155-2f90-4dc0-8374-3e8b00d71c4a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "0672a798-0bc2-415d-b161-18cba65743f3",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lab_Load",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fd452e17-cf59-4d45-b202-991011c03560",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lab_Settings",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
