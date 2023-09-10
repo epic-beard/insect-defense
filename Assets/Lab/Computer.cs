@@ -5,14 +5,14 @@ using UnityEngine;
 public class Computer : MonoBehaviour {
   [SerializeField] private Vector3 computerLocation;
   [SerializeField] private Quaternion computerRotation;
-  private LabCamera camera;
+  private LabCamera labCamera;
 
   private void OnEnable() {
-    camera = FindObjectOfType<LabCamera>();
+    labCamera = FindObjectOfType<LabCamera>();
   }
 
   private void OnMouseDown() {
-    Debug.Log("mouse clicked");
-    camera.MoveTo(computerLocation, computerRotation);
+    labCamera.MoveTo(computerLocation, computerRotation);
+    InputManager.Instance.SwitchToActionMap("Selected");
   }
 }
