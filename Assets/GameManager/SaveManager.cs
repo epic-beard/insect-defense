@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -35,6 +36,7 @@ public class SaveManager : MonoBehaviour {
   }
 
   public void Save(PlayerState state) {
+    state.lastSavedTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
     string fileName = state.SaveName + state.Id + ".sav";
     string saveFile = Path.Combine(SaveLocation, fileName);
     Serialize<PlayerState>(state, saveFile);

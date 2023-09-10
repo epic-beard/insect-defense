@@ -16,4 +16,5 @@ public class PlayerState {
   public string SaveName;
   public int CurrentLevel = 0;
   public Settings Settings = new();
+  public long lastSavedTime;
 }
