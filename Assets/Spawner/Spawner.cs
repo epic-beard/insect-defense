@@ -10,8 +10,9 @@ using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
   public static event Action OnLevelComplete = delegate { };
-  static public Spawner? Instance;
-
+#pragma warning disable 8618
+  static public Spawner Instance;
+#pragma warning restore 8618
   [SerializeField] private List<Waypoint> spawnLocations = new();
   [SerializeField] private string filename = "";
 

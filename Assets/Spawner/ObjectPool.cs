@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour {
-  static public ObjectPool? Instance;
+#pragma warning disable 8618
+  static public ObjectPool Instance;
+#pragma warning restore 8618
 
   // An ugly artifact, just a pair class.
   // [TODO: nnewsom] get rid of this with Addressables or a SerializableDictionary.
   [Serializable]
   public class EnemyEntry {
     [SerializeField] public EnemyData.Type type;
-    [SerializeField] public GameObject? prefab;
+#pragma warning disable 8618
+    [SerializeField] public GameObject prefab;
+#pragma warning restore 8618
   }
 
   [SerializeField] private int startingSize = 20;
