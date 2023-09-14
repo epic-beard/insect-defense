@@ -6,7 +6,7 @@ using UnityEngine;
 
 // This class is a catch-all for gamestate management that doesn't have a better home elsewhere.
 public class GameStateManager : MonoBehaviour {
-  public static GameStateManager Instance = new();
+  public static GameStateManager? Instance;
   public static event Action GameOver = delegate { };
   public static event Action<int> HealthChanged = delegate { };
   // The type of tower currently selected by the user for construction.
