@@ -29,6 +29,8 @@ public class LabInputManager : InputManager {
     input.actions["Lab_Settings"].started += EnterSettingsScreen;
 
     input.actions["Selected_Back"].started += ReturnCamera;
+
+    input.actions["Terrarium_Back"].started += LeaveTerrarium;
   }
 
   private void EnterSettingsScreen(InputAction.CallbackContext context) {
@@ -53,5 +55,9 @@ public class LabInputManager : InputManager {
   private void ReturnCamera(InputAction.CallbackContext context) {
     LabCamera.Instance.ReturnCamera();
     SwitchToActionMap("Lab");
+  }
+
+  private void LeaveTerrarium(InputAction.CallbackContext context) {
+    Terrarium.Selected?.CloseScreen();
   }
 }

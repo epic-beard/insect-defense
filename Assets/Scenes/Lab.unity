@@ -611,6 +611,10 @@ PrefabInstance:
       propertyPath: State.SaveName
       value: Test
       objectReference: {fileID: 0}
+    - target: {fileID: 2831304521689816808, guid: 4c2253518f01b3943a52397ff7079b09, type: 3}
+      propertyPath: State.CurrentLevel
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2831304521689816822, guid: 4c2253518f01b3943a52397ff7079b09, type: 3}
       propertyPath: m_Name
       value: DebugLoader
@@ -719,6 +723,150 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1512966422402991436, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512966422402991436, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512966422402991436, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512966422402991436, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512966422402991436, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804070357850523084, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804070357850523084, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804070357850523084, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804070357850523084, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804070357850523084, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997477553794709799, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997477553794709799, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997477553794709799, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997477553794709799, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997477553794709799, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337746035569173666, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337746035569173666, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337746035569173666, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337746035569173666, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337746035569173666, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2554329866231747560, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199641242236515093, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199641242236515093, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 11.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199641242236515093, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199641242236515093, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199641242236515093, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473395491834458361, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473395491834458361, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 8.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473395491834458361, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473395491834458361, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473395491834458361, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522596517714643151, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522596517714643151, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522596517714643151, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522596517714643151, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522596517714643151, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4804737929109829279, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -763,9 +911,161 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5760900706363112838, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760900706363112838, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 8.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760900706363112838, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760900706363112838, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760900706363112838, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773628676688459979, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773628676688459979, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 11.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773628676688459979, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773628676688459979, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092341863487104533, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092341863487104533, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 11.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092341863487104533, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092341863487104533, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092341863487104533, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7399188739491368697, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
       propertyPath: m_Name
       value: Bookshelf
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674443449513985819, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674443449513985819, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 8.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674443449513985819, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674443449513985819, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674443449513985819, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104804111025041127, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104804111025041127, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104804111025041127, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104804111025041127, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8104804111025041127, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279269105778326611, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279269105778326611, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279269105778326611, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279269105778326611, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279269105778326611, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336623143377215307, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336623143377215307, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336623143377215307, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336623143377215307, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530236603759926675, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: cameraOffsetZ
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530236603759926675, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.x
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530236603759926675, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.y
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530236603759926675, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumLocation.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530236603759926675, guid: c2fcd9cad8c1d8c49a6fa614b873c65d, type: 3}
+      propertyPath: terrariumRotation.w
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -918,25 +1218,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0.25}
---- !u!1 &1364334507 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1434012558337152318, guid: d81ae564085ccc441b71cf4829d76077, type: 3}
-  m_PrefabInstance: {fileID: 1515073298}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1364334509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1364334507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0be75c7da41e0664080011d320b24e28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardLocation: {x: 2.5, y: 5, z: 8.5}
-  boardRotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!1001 &1515073298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -996,10 +1277,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1434012558337152318, guid: d81ae564085ccc441b71cf4829d76077, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1364334509}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d81ae564085ccc441b71cf4829d76077, type: 3}
 --- !u!1 &1548181961
 GameObject:

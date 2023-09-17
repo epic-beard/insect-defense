@@ -143,6 +143,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Terrarium",
+            "id": "7a0a0da8-c07c-4623-978c-ae62f59872c7",
+            "actions": [
+                {
+                    "name": "Terrarium_Back",
+                    "type": "Button",
+                    "id": "357d9c41-372b-4030-863b-f9ce52f0fa8e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4f33ca8d-d016-493a-9507-c71f454b7a03",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Terrarium_Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73655634-2f89-4762-ac44-3a7e5fca698c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Terrarium_Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
