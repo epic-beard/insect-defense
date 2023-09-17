@@ -57,7 +57,6 @@ public class LabInputManager : InputManager {
   }
 
   private void LeaveTerrarium(InputAction.CallbackContext context) {
-    LabCamera.Instance.ReturnCamera();
     Terrarium.Selected?.CloseScreen();
   }
 }
