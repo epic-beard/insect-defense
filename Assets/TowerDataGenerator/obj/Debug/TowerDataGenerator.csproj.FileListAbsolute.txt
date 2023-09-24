@@ -1,0 +1,3 @@
+D:\Repos\InsectTowerDefense\Assets\TowerDataGenerator\obj\Debug\TowerDataGenerator.csproj.AssemblyReference.cache
+D:\Repos\InsectTowerDefense\Assets\TowerDataGenerator\obj\Debug\TowerDataGenerator.csproj.SuggestedBindingRedirects.cache
+D:\Repos\InsectTowerDefense\Assets\TowerDataGenerator\obj\Debug\TowerDataGenerator.csproj.CoreCompileInputs.cache
