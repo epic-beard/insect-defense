@@ -334,7 +334,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271509503493177319, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
+      value: 9
+=======
       value: 13
+>>>>>>> parent of 5dbeb46 (Basic preparation for the mantis tower and a minor refactor to remove ProcessDamageAndEffects from the Tower superclass.)
       objectReference: {fileID: 0}
     - target: {fileID: 5271509503493177319, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
       propertyPath: m_LocalPosition.x
