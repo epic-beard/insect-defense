@@ -4,6 +4,7 @@ using System;
 [Serializable]
 public struct TowerData {
   public enum Type {
+    MANTIS_TOWER,
     SPITTING_ANT_TOWER,
     WEB_SHOOTING_SPIDER_TOWER,
   }

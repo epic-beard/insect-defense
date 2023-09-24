@@ -48,7 +48,7 @@ public class WebShootingSpiderTower : Tower {
     }
   }
 
-  protected override void ProcessDamageAndEffects(Enemy target) {
+  private void ProcessDamageAndEffects(Enemy target) {
     if (SlowStun && !target.webShootingTowerStuns.Contains(this)) {
       target.AddStunTime(StunTime);
       target.webShootingTowerStuns.Add(this);
