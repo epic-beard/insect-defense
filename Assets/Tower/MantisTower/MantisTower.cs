@@ -10,11 +10,8 @@ public class MantisTower : Tower {
 
   private Enemy enemy;
   private bool firing = false;
-  protected ObjectPool objectPool;
 
   private void Start() {
-    objectPool = FindAnyObjectByType<ObjectPool>();
-
     // TODO (eric): remove once the towerdata is out and loading is done.
     DamageOverTime = 0.0f;
   }
@@ -52,7 +49,7 @@ public class MantisTower : Tower {
   protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
-      enemies: objectPool.GetActiveEnemies(),
+      enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,

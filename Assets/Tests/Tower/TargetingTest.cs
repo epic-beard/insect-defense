@@ -235,7 +235,7 @@ public class TargetingTest {
   Enemy CreateEnemy(
       Vector3 position,
       float armor = 0.0f,
-      float hp = 0.0f,
+      float hp = 1.0f,
       EnemyData.Properties properties = EnemyData.Properties.NONE) {
     GameObject gameObject = new();
     gameObject.SetActive(true);

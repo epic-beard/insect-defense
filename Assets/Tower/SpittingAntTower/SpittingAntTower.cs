@@ -29,10 +29,8 @@ public class SpittingAntTower : Tower {
   private Enemy enemy;
   private bool firing = false;
   private ProjectileHandler projectileHandler;
-  protected ObjectPool objectPool;
 
   private void Start() {
-    objectPool = FindObjectOfType<ObjectPool>();
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
     StartCoroutine(SplashShoot());
@@ -108,7 +106,7 @@ public class SpittingAntTower : Tower {
       acidExplosion.Play();
 
       float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStackPerSecond;
-      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(objectPool.GetActiveEnemies(), target, AcidExplosionRange);
+      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(ObjectPool.Instance.GetActiveEnemies(), target, AcidExplosionRange);
 
       // Cause totalAcidDamage to all enemies in range (including target).
       foreach (Enemy enemy in enemiesInAoe) {
@@ -126,7 +124,7 @@ public class SpittingAntTower : Tower {
     splashExplosion.Play();
 
     // Get a list of enemies caught in the AoE that are not the enemy targeted.
-    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(objectPool.GetActiveEnemies(), target, SplashExplosionRange);
+    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(ObjectPool.Instance.GetActiveEnemies(), target, SplashExplosionRange);
 
     foreach (Enemy enemy in enemiesInAoe) {
       enemy.DamageEnemy(onHitDamage, ArmorPierce);
@@ -140,7 +138,7 @@ public class SpittingAntTower : Tower {
   protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
-      enemies: objectPool.GetActiveEnemies(),
+      enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,

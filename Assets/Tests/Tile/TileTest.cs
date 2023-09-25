@@ -124,6 +124,7 @@ public class TileTest {
     EnemyData data = new() {
       properties = properties,
       size = EnemyData.Size.NORMAL,
+      maxHP = 1.0f,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
