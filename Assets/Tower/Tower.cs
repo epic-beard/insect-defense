@@ -6,7 +6,7 @@ using System.Linq;
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
 
-  #region public properties
+  #region PublicProperties
   public float AttackSpeed {
     get { return data[TowerData.Stat.ATTACK_SPEED]; }
     set { data[TowerData.Stat.ATTACK_SPEED] = value; }
