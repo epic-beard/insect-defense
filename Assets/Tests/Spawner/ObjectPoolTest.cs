@@ -22,6 +22,7 @@ public class ObjectPoolTest {
     objectPool.SetStartingSize(1);
 
     enemyData = new EnemyData() {
+      maxHP = 10,
       type = EnemyData.Type.BEETLE
     };
 

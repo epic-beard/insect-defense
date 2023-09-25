@@ -90,6 +90,7 @@ public class EnemySubwaveTest {
     spawner.AddStartingLocation(spawnLocation);
 
     enemyData = new EnemyData() {
+      maxHP = 10,
       type = EnemyData.Type.BEETLE
     };
   }
