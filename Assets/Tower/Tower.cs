@@ -5,6 +5,8 @@ using System.Linq;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
+
+  #region PublicProperties
   public float AttackSpeed {
     get { return data[TowerData.Stat.ATTACK_SPEED]; }
     set { data[TowerData.Stat.ATTACK_SPEED] = value; }
@@ -86,6 +88,8 @@ public abstract class Tower : MonoBehaviour {
     get { return towerAbilities[TowerAbility.Type.CRIPPLE]; }
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
+  #endregion
+
   protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
   public int[] UpgradeLevels { get { return upgradeLevels; } }
 
