@@ -10,7 +10,7 @@ public class SpittingAntTowerPlayModeTest {
   Waypoint enemyInRangeWaypoint;
   Waypoint enemyOutOfRangeWaypoint;
 
-  readonly float enemyHP = 100000.0f;
+  readonly float hp = 100000.0f;
   readonly float enemyArmor = 90.0f;
   readonly float targetArmor = 85.0f;
 
@@ -27,13 +27,13 @@ public class SpittingAntTowerPlayModeTest {
     // Set up enemy data.
     normalData = new() {
       maxArmor = enemyArmor,
-      maxHP = enemyHP,
+      maxHP = hp,
       size = EnemyData.Size.NORMAL,
       speed = 0.0f,
     };
     targetData = new() {
       maxArmor = targetArmor,
-      maxHP = enemyHP,
+      maxHP = hp,
       size = EnemyData.Size.NORMAL,
       speed = 0.0f,
     };
@@ -99,11 +99,11 @@ public class SpittingAntTowerPlayModeTest {
     yield return null;
     yield return new WaitForEndOfFrame();
 
-    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.HP, Is.LessThan(hp));
     Assert.That(target.Armor, Is.LessThan(targetArmor));
-    Assert.That(enemyInRange.HP, Is.LessThan(enemyHP));
+    Assert.That(enemyInRange.HP, Is.LessThan(hp));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
     yield return null;
@@ -136,11 +136,11 @@ public class SpittingAntTowerPlayModeTest {
     yield return null;
     yield return new WaitForEndOfFrame();
 
-    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.HP, Is.LessThan(hp));
     Assert.That(target.Armor, Is.LessThan(targetArmor));
-    Assert.That(enemyInRange.HP, Is.LessThan(enemyHP));
+    Assert.That(enemyInRange.HP, Is.LessThan(hp));
     Assert.That(enemyInRange.Armor, Is.LessThan(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
     yield return null;
@@ -175,12 +175,12 @@ public class SpittingAntTowerPlayModeTest {
     yield return null;
     yield return new WaitForEndOfFrame();
 
-    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.HP, Is.LessThan(hp));
     Assert.That(target.Armor, Is.LessThan(enemyArmor));
     Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHP));
+    Assert.That(enemyInRange.HP, Is.EqualTo(hp));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
     yield return null;
@@ -216,12 +216,12 @@ public class SpittingAntTowerPlayModeTest {
     yield return null;
     yield return new WaitForEndOfFrame();
 
-    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.HP, Is.LessThan(hp));
     Assert.That(target.Armor, Is.LessThan(targetArmor));
     Assert.That(target.SlowDuration, Is.GreaterThan(0.0f));
-    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHP));
+    Assert.That(enemyInRange.HP, Is.EqualTo(hp));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
     yield return null;
@@ -257,12 +257,12 @@ public class SpittingAntTowerPlayModeTest {
     yield return null;
     yield return new WaitForEndOfFrame();
 
-    Assert.That(target.HP, Is.LessThan(enemyHP));
+    Assert.That(target.HP, Is.LessThan(hp));
     Assert.That(target.Armor, Is.LessThanOrEqualTo(targetArmor));
     Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(enemyInRange.HP, Is.LessThan(enemyHP));
+    Assert.That(enemyInRange.HP, Is.LessThan(hp));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
+    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
 
     yield return null;
