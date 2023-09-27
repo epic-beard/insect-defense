@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -7,19 +6,49 @@ using UnityEngine.TestTools;
 public class WebShootingSpiderTowerPlayModeTest {
 
   WebShootingSpiderTower wssTower;
-  Enemy target;
-  Enemy enemyInRange;
-  Enemy enemyOutOfRange;
+  Waypoint targetWaypoint;
+  Waypoint enemyInRangeWaypoint;
+  Waypoint enemyOutOfRangeWaypoint;
 
-  readonly float armor = 10.0f;
   readonly float baseEnemySpeed = 10.0f;
+  readonly float enemyArmor = 90.0f;
+  readonly float targetArmor = 85.0f;
+
+  EnemyData normalData;
+  EnemyData targetData;
+
+  [OneTimeSetUp]
+  public void OneTimeSetUp() {
+    // Create the waypoints for enemies to be spawned on.
+    targetWaypoint = CreateWaypoint(Vector3.right);
+    enemyInRangeWaypoint = CreateWaypoint(Vector3.right * 2);
+    enemyOutOfRangeWaypoint = CreateWaypoint(Vector3.right * 100);
+
+    // Set up enemy data.
+    normalData = new() {
+      maxArmor = enemyArmor,
+      maxHP = 1.0f,
+      properties = EnemyData.Properties.FLYING,
+      size = EnemyData.Size.NORMAL,
+      speed = baseEnemySpeed,
+    };
+    targetData = new() {
+      maxArmor = targetArmor,
+      maxHP = 1.0f,
+      properties = EnemyData.Properties.FLYING,
+      size = EnemyData.Size.NORMAL,
+      speed = baseEnemySpeed,
+    };
+
+    // Setup the Object Pool
+    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
+    ObjectPool.Instance = objectPool;
+    objectPool.AddPrefab(EnemyData.Type.ANT, CreateEnemyPrefab());
+    objectPool.InvokeInitializeObjectPool();
+  }
 
   [SetUp]
   public void SetUp() {
-    target = CreateEnemy(Vector3.right, armor: (armor - 5.0f), speed: baseEnemySpeed);
-    enemyInRange = CreateEnemy(Vector3.right * 2, armor: armor, speed: baseEnemySpeed);
-    enemyOutOfRange = CreateEnemy(Vector3.right * 100, armor: armor, speed: baseEnemySpeed);
-
     wssTower = CreateWebShootingSpiderTower(Vector3.zero);
 
     // Mandatory setup.
@@ -31,10 +60,12 @@ public class WebShootingSpiderTowerPlayModeTest {
 
     ParticleSystem secondaryWebShot = new GameObject().AddComponent<ParticleSystem>();
     wssTower.SetSecondaryWebShot(secondaryWebShot);
+  }
 
-    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
-    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-    objectPool.SetActiveEnemies(activeEnemies);
+  [TearDown]
+  public void TearDown() {
+    wssTower.gameObject.SetActive(false);
+    ObjectPool.Instance.DestroyAllEnemies();
   }
 
   // The most basic playtest, this is a slow tower without any special abilities.
@@ -48,6 +79,10 @@ public class WebShootingSpiderTowerPlayModeTest {
         range: 1.0f,
         slowDuration: 10.0f,
         slowPower: slowPower);
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+
     Time.captureDeltaTime = 0.001f;
     // Yield once to target enemy.
     yield return null;
@@ -68,7 +103,7 @@ public class WebShootingSpiderTowerPlayModeTest {
 
     yield return null;
   }
-
+  
   // Test to make sure that the stuntime functions as expected and is only applied once.
   [UnityTest]
   public IEnumerator ProcessDamageAndEffects_StunTarget() {
@@ -82,6 +117,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowPower: 0.8f,
         stunTime: stunTime);
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_1_3_SLOW_STUN);
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
 
     Assert.That(target.StunTime, Is.EqualTo(0.0f));
     Assert.That(enemyInRange.StunTime, Is.EqualTo(0.0f));
@@ -129,6 +167,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowDuration: 10.0f,
         slowPower: slowPower);
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_1_5_PERMANENT_SLOW);
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
 
     Assert.That(target.BaseSpeed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyInRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
@@ -168,6 +209,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowPower: slowPower);
     TowerAbility ability = CreateTowerAbility(secondarySlowPower, 2.0f);
     wssTower.Upgrade(ability);
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
 
     Assert.That(target.Speed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyInRange.Speed, Is.EqualTo(baseEnemySpeed));
@@ -201,6 +245,10 @@ public class WebShootingSpiderTowerPlayModeTest {
         range: 1.0f,
         slowDuration: 10.0f,
         slowPower: 0.8f);
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_GROUNDING_SHOT);
 
     Assert.That(target.Flying, Is.EqualTo(true));
@@ -238,6 +286,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowDuration: 10.0f,
         slowPower: 0.8f);
     float secondarySlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
 
     Assert.That(target.SlowPower, Is.EqualTo(0.0f));
     Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
@@ -265,7 +316,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyOutOfRange.SlowDuration, Is.EqualTo(0.0f));
     yield return null;
   }
-
+  
   #region TestHelperMethods
 
   // Create a web shooting spider tower with all the values explicitly set for clarity.
@@ -302,31 +353,13 @@ public class WebShootingSpiderTowerPlayModeTest {
     wssTower.StunTime = stunTime;
   }
 
-  // Create and return an enemy with optional args
-  private Enemy CreateEnemy(
-      Vector3 position,
-      float armor = 1.0f,
-      float speed = 1.0f,
-      EnemyData.Size size = EnemyData.Size.NORMAL) {
-    GameObject gameObject = new();
-    gameObject.SetActive(false);
+  // Create an enemy prefab.
+  private GameObject CreateEnemyPrefab() {
+    GameObject prefab = new();
+    prefab.SetActive(false);
+    prefab.AddComponent<Enemy>();
 
-    gameObject.transform.position = position;
-    Enemy enemy = gameObject.AddComponent<Enemy>();
-    Waypoint waypoint = CreateWaypoint(position);
-    enemy.PrevWaypoint = waypoint;
-
-    EnemyData data = new() {
-      properties = EnemyData.Properties.FLYING,
-      maxArmor = armor,
-      maxHP = 1.0f,
-      speed = speed,
-      size = size,
-    };
-    enemy.Data = data;
-    gameObject.SetActive(true);
-
-    return enemy;
+    return prefab;
   }
 
   Waypoint CreateWaypoint(Vector3 position) {

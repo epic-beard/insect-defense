@@ -78,6 +78,6 @@ public class AssassinBug : Tower {
     }
   }
 
-  protected override void ProcessDamageAndEffects(Enemy target) {
+  private void ProcessDamageAndEffects(Enemy target) {
   }
   }
