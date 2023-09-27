@@ -67,6 +67,17 @@ public class ObjectPool : MonoBehaviour {
     objectPools[type].Enqueue(gameObject);
   }
 
+  // Deactivates all enemies and enqueues them back on the correctInsular77686 objectPool.
+  public void DestroyAllEnemies() {
+    foreach (Enemy enemy in activeEnemies) {
+      GameObject enemyObject = enemy.gameObject;
+      enemyObject.SetActive(false);
+      enemy.enabled = false;
+      objectPools[enemy.Data.type].Enqueue(gameObject);
+    }
+    activeEnemies.Clear();
+  }
+
   // This returns the active enemies. Individual enemies may be modified but the
   // list istself should never be modified outside the ObjectPool class.
   public HashSet<Enemy> GetActiveEnemies() {
