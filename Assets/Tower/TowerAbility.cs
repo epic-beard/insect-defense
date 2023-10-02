@@ -24,6 +24,13 @@ public struct TowerAbility {
     WSS_2_5_LINGERING_SLOW,  // Web Shooting Spider Tower, AoE upgrade tree level 5.
     WSS_3_3_ANTI_AIR,  // Web Shooting Spider Tower, Utility upgrade tree level 3.
     WSS_3_5_GROUNDING_SHOT,  // Web Shooting Spider Tower, Utility upgrade tree level 5.
+    AB_1_3_ARMORED_ENEMY_BONUS, // Assassin Bug Tower, Armor Pen upgrade tree level 3.
+    AB_1_5_ARMOR_DEPLETION_BONUS, // Assassin Bug Tower, Armor Pen upgrade tree level 5.
+    AB_2_3_ANTI_AIR, // Assassin Bug Tower, Utility upgrade tree level 3.
+    AB_2_4_CAMO_SIGHT, // Assassin Bug Tower, Utility upgrade tree level 4.
+    AB_2_5_ELASTIC_SPINERETTES, // Assassin Bug Tower, Utility upgrade tree level 5.
+    AB_3_3_CONSECUTIVE_HITS, // Assassin Bug Tower, Damage upgrade tree level 3.
+    AB_3_5_COMBO_FINISHER, // Assassin Bug Tower, Damage upgrade tree level 5.
   }
 
   public enum Mode {

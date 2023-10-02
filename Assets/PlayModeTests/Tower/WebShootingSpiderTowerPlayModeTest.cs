@@ -338,7 +338,7 @@ public class WebShootingSpiderTowerPlayModeTest {
   private TowerAbility CreateTowerAbility(float secondarySlow, float secondaryTargets) {
     TowerAbility ability = new();
     ability.attributeModifiers = new TowerAbility.AttributeModifier[2];
-    ability.attributeModifiers[0].attribute = TowerData.Stat.SECDONARY_SLOW_POTENCY;
+    ability.attributeModifiers[0].attribute = TowerData.Stat.SECONDARY_SLOW_POTENCY;
     ability.attributeModifiers[0].mode = TowerAbility.Mode.SET;
     ability.attributeModifiers[0].mod = secondarySlow;
     ability.attributeModifiers[1].attribute = TowerData.Stat.SECONDARY_SLOW_TARGETS;
