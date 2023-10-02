@@ -5,6 +5,7 @@ using System;
 public struct TowerData {
   public enum Type {
     ASSASSIN_BUG_TOWER,
+    MANTIS_TOWER,
     SPITTING_ANT_TOWER,
     WEB_SHOOTING_SPIDER_TOWER,
   }

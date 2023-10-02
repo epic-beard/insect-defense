@@ -124,7 +124,6 @@ public class SpittingAntTowerTest {
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
-    spittingAntTower.SetObjectPool(objectPool);
 
     List<Enemy> expectedEnemiesInRange = new() { enemyInRange };
 
@@ -184,9 +183,9 @@ public class SpittingAntTowerTest {
     spittingAntTower.SetAcidExplosion(acidExplosion);
 
     ObjectPool objectPool = CreateObjectPool();
+    ObjectPool.Instance = objectPool;
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
-    spittingAntTower.SetObjectPool(objectPool);
 
     float expectedEnemyHP = enemyHP - (target.MaxAcidStacks * target.AcidDamagePerStackPerSecond);
 
@@ -221,9 +220,9 @@ public class SpittingAntTowerTest {
     }
 
     ObjectPool objectPool = CreateObjectPool();
+    ObjectPool.Instance = objectPool;
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
-    spittingAntTower.SetObjectPool(objectPool);
 
     float expectedDamage = spittingAntTower.Damage;
 
@@ -296,9 +295,9 @@ public class SpittingAntTowerTest {
     spittingAntTower.SetSplashExplosion(splashExplosion);
 
     ObjectPool objectPool = CreateObjectPool();
+    ObjectPool.Instance = objectPool;
     HashSet<Enemy> activeEnemies = new() { target };
     objectPool.SetActiveEnemies(activeEnemies);
-    spittingAntTower.SetObjectPool(objectPool);
 
     spittingAntTower.Damage = 1.0f;
     spittingAntTower.AttackSpeed = 1.0f;
@@ -396,12 +395,6 @@ public static class SpittingAntTowerUtils {
     typeof(SpittingAntTower)
         .GetField("acidExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, range);
-  }
-
-  public static void SetObjectPool(this SpittingAntTower spittingAntTower, ObjectPool objectPool) {
-    typeof(SpittingAntTower)
-        .GetField("objectPool", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, objectPool);
   }
 
   public static void SetBeam(this SpittingAntTower spittingAntTower, LineRenderer lineRenderer) {

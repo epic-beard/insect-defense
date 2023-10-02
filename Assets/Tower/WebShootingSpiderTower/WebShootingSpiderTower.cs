@@ -22,10 +22,8 @@ public class WebShootingSpiderTower : Tower {
   private bool firing = false;
   private ProjectileHandler primaryProjectileHandler;
   private ProjectileHandler secondaryProjectileHandler;
-  protected ObjectPool objectPool;
 
   private void Start() {
-    objectPool = FindObjectOfType<ObjectPool>();
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
     StartCoroutine(WebShoot());
@@ -48,7 +46,7 @@ public class WebShootingSpiderTower : Tower {
     }
   }
 
-  protected override void ProcessDamageAndEffects(Enemy target) {
+  private void ProcessDamageAndEffects(Enemy target) {
     if (SlowStun && !target.webShootingTowerStuns.Contains(this)) {
       target.AddStunTime(StunTime);
       target.webShootingTowerStuns.Add(this);
@@ -73,7 +71,7 @@ public class WebShootingSpiderTower : Tower {
   }
 
   private void SlowNearbyEnemies(Enemy target) {
-    var closestEnemies = objectPool.GetActiveEnemies()
+    var closestEnemies = ObjectPool.Instance.GetActiveEnemies()
         .Where(e => Vector3.Distance(e.transform.position, target.transform.position) < AreaOfEffect)
         .Where(e => !e.Equals(target))
         .OrderBy(e => Vector3.Distance(target.transform.position, e.transform.position))
@@ -96,7 +94,7 @@ public class WebShootingSpiderTower : Tower {
   protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
-      enemies: objectPool.GetActiveEnemies(),
+      enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,

@@ -69,7 +69,6 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
-  public abstract TowerData.Type TowerType { get; set; }
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
     { TowerAbility.Type.ANTI_AIR, false },
@@ -130,7 +129,10 @@ public abstract class Tower : MonoBehaviour {
     TowerUpdate();
   }
 
+  // Abstract methods
   protected abstract void TowerUpdate();
+  public abstract TowerData.Type TowerType { get; set; }
+  public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
@@ -154,10 +156,6 @@ public abstract class Tower : MonoBehaviour {
 
     upgradeLevels[ability.upgradePath]++;
   }
-
-  public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
-
-  protected abstract void ProcessDamageAndEffects(Enemy target);
 
   // Fetch enemies in explosionRange of target. This excludes target itself.
   protected List<Enemy> GetEnemiesInExplosionRange(HashSet<Enemy> enemiesInRange, Enemy target, float explosionRange) {

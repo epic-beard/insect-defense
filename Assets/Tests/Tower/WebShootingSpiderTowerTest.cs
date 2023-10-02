@@ -122,9 +122,9 @@ public class WebShootingSpiderTowerTest {
     Enemy outOfRange = CreateEnemy(Vector3.right * 100);
 
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
+    ObjectPool.Instance = objectPool;
     HashSet<Enemy> activeEnemies = new() { target, outOfRange };
     objectPool.SetActiveEnemies(activeEnemies);
-    wssTower.SetObjectPool(objectPool);
 
     // Establish a baseline before invoking SlowNearbyEnemies
     Assert.That(target.SlowPower, Is.EqualTo(0.0f));
@@ -192,12 +192,6 @@ public static class WebShootingSpiderTowerUtils {
     typeof(WebShootingSpiderTower)
         .GetField("secondaryProjectileHandler", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(wssTower, projectileHandler);
-  }
-
-  public static void SetObjectPool(this WebShootingSpiderTower wssTower, ObjectPool pool) {
-    typeof(WebShootingSpiderTower)
-        .GetField("objectPool", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(wssTower, pool);
   }
 
   public static void SetMesh(this WebShootingSpiderTower wssTower, MeshRenderer meshRenderer) {
