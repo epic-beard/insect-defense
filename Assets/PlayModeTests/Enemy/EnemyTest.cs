@@ -29,7 +29,6 @@ public class EnemyTest {
     gameStateManager.AddTower(2 * Vector2Int.left, spittingAntOutOfRange);
     gameStateManager.AddTower(Vector2Int.right, webShootingSpiderInRange);
     gameStateManager.AddTower(2 * Vector2Int.right, webShootingSpiderOutOfRange);
-    Debug.Log(GameStateManager.Instance.activeTowerMap.Count);
     enemy = CreateEnemy(Vector3.zero);
 
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
