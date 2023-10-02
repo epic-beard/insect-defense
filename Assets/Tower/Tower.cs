@@ -48,8 +48,8 @@ public abstract class Tower : MonoBehaviour {
     set { data[TowerData.Stat.PROJECTILE_SPEED] = value; }
   }
   public float SecondarySlowPotency {
-    get { return data[TowerData.Stat.SECDONARY_SLOW_POTENCY]; }
-    set { data[TowerData.Stat.SECDONARY_SLOW_POTENCY] = value; }
+    get { return data[TowerData.Stat.SECONDARY_SLOW_POTENCY]; }
+    set { data[TowerData.Stat.SECONDARY_SLOW_POTENCY] = value; }
   }
   public int SecondarySlowTargets {
     get { return (int)data[TowerData.Stat.SECONDARY_SLOW_TARGETS]; }
