@@ -435,7 +435,7 @@ public class TowerDataManagerTest {
                   mod = 1.0f
                 },
                 new TowerAbility.AttributeModifier() {
-                  attribute = TowerData.Stat.SECDONARY_SLOW_POTENCY,
+                  attribute = TowerData.Stat.SECONDARY_SLOW_POTENCY,
                   mode = TowerAbility.Mode.SET,
                   mod = 0.75f
                 }
@@ -449,7 +449,7 @@ public class TowerDataManagerTest {
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
                 new TowerAbility.AttributeModifier() {
-                  attribute = TowerData.Stat.SECDONARY_SLOW_POTENCY,
+                  attribute = TowerData.Stat.SECONDARY_SLOW_POTENCY,
                   mode = TowerAbility.Mode.SET,
                   mod = 1.0f
                 }
