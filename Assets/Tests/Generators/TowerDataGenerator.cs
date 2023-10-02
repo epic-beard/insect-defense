@@ -15,6 +15,7 @@ public class TowerDataGenerator {
     TowerDictionary dictionary = new();
     dictionary[TowerData.Type.SPITTING_ANT_TOWER] = GetSpittingAntTowerData();
     dictionary[TowerData.Type.WEB_SHOOTING_SPIDER_TOWER] = GetWebShootingSpiderTowerData();
+    dictionary[TowerData.Type.ASSASSIN_BUG_TOWER] = GetAssassinBugTowerData();
     Serialize<TowerDictionary>(dictionary, "data.towers");
   }
 
