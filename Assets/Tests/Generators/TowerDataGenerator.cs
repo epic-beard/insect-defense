@@ -477,7 +477,7 @@ public class TowerDataGenerator {
     };
 
     TowerData data = new() {
-      type = TowerData.Type.SPITTING_ANT_TOWER,
+      type = TowerData.Type.ASSASSIN_BUG_TOWER,
       upgradeTreeData = new() {
         first = "Armor Penetration",
         second = "Utility",
@@ -491,11 +491,11 @@ public class TowerDataGenerator {
       area_of_effect = 0,
       armor_pierce = 0.2f,
       armor_tear = 0,
-      attack_speed = 0.5,
-      damage = 10,
+      attack_speed = 0.5f,
+      damage = 30,
       damage_over_time = 0,
-      projectile_speed = 0,
-      range = 0,
+      projectile_speed = 20,
+      range = 80,
       secondary_slow_potency = 0,
       secondary_slow_targets = 0,
       slow_duration = 0,

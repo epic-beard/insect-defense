@@ -17,6 +17,12 @@ public class AssassinBug : Tower {
   private Enemy enemy;
   private bool returning;
   private bool attacking;
+  private Vector3 startingPosition;
+  private float attackRange = 3.0f;
+
+  private void Start() {
+    startingPosition = assassinMesh.position;
+  }
 
   protected override void TowerUpdate() {
     // If we are in the process of attacking or returning do nothing.
@@ -29,7 +35,7 @@ public class AssassinBug : Tower {
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
-    if (enemy != null ) {
+    if (enemy != null) {
       StartCoroutine(Approach());
       attacking = true;
     }
@@ -41,16 +47,15 @@ public class AssassinBug : Tower {
 
   IEnumerator Approach() {
     while (enemy != null) {
-      Vector3 startPosition = assassinMesh.position;
-      Vector3 endPosition = enemy.transform.position;
+      Vector3 endPosition = enemy.AimPoint;
       assassinMesh.LookAt(endPosition);
 
-      if (MoveTo(startPosition, endPosition)) {
+      if (MoveTo(endPosition)) {
         break;
       }
       yield return null;
     }
-    // Deal damage
+    ProcessDamageAndEffects(enemy);
     attacking = false;
     returning = true;
     StartCoroutine(Return());
@@ -58,7 +63,7 @@ public class AssassinBug : Tower {
 
   IEnumerator Return() {
     while (true) {
-      if (MoveTo(assassinMesh.position, transform.position)) {
+      if (MoveTo(startingPosition)) {
         break;
       }
       yield return null;
@@ -66,18 +71,21 @@ public class AssassinBug : Tower {
     returning = false;
   }
 
-  private bool MoveTo(Vector3 startPosition, Vector3 endPosition) {
-    float delta = Time.deltaTime * AttackSpeed;
+  private bool MoveTo(Vector3 endPosition) {
+    Vector3 startPosition = assassinMesh.position;
+    float delta = Time.deltaTime * ProjectileSpeed;
     float distance = (endPosition - startPosition).magnitude;
-    if (distance < delta) {
-      assassinMesh.transform.position = endPosition;
+    if (distance < attackRange) {
       return true;
     } else {
-      assassinMesh.transform.position += delta * (endPosition - startPosition);
+      assassinMesh.Translate(delta * (endPosition - startPosition).normalized);
       return false;
     }
   }
 
   private void ProcessDamageAndEffects(Enemy target) {
+    Debug.Log("hit: " + target.HP);
+    target.DamageEnemy(Damage, ArmorPierce);
+    Debug.Log("after hit: " + target.HP);
   }
   }

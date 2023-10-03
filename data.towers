@@ -42,9 +42,8 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_1_3_ARMOR_TEAR_STUN</specialAbility>
-              <attributeModifiers />
               <name>Stunning Reveal</name>
-              <description>If an enemy's armor is reduced to 0, it is briefly stunned.</description>
+              <description>When enemy's armor is reduced to 0, it is breifly stunned.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -64,7 +63,6 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_1_5_ARMOR_TEAR_EXPLOSION</specialAbility>
-              <attributeModifiers />
               <name>Armor Tear Explosion</name>
               <description>Armor tear now applies to all enemies caught in the splash explosion.</description>
               <upgradePath>0</upgradePath>
@@ -102,7 +100,6 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_2_3_DOT_SLOW</specialAbility>
-              <attributeModifiers />
               <name>Hindering Acid</name>
               <description>If acid stacks reach max, apply a 20% slow for 2 seconds.</description>
               <upgradePath>1</upgradePath>
@@ -124,9 +121,8 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_2_5_DOT_EXPLOSION</specialAbility>
-              <attributeModifiers />
               <name>Acid Explosion</name>
-              <description>If acid stacks reach max, an explosion of acid is triggered. This explosion does damage equal to the full duration damage of all acid stacks and clears acid stacks from the target</description>
+              <description>When acid stacks reach max, an explosion of acid is triggered, applying all acid stacks instantly and clearing them.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -142,7 +138,7 @@
                 </AttributeModifier>
               </attributeModifiers>
               <name>Bigger Booms</name>
-              <description>Increases area of effects by 1%.</description>
+              <description>Increases area of effect by 10%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -162,9 +158,8 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_3_3_ANTI_AIR</specialAbility>
-              <attributeModifiers />
               <name>Elevated Shots</name>
-              <description>This tower gains the anti air ability.</description>
+              <description>The tower gains the anti-air ability.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -184,9 +179,8 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_3_5_CONSTANT_FIRE</specialAbility>
-              <attributeModifiers />
-              <name>Continous Stream</name>
-              <description>This tower's attack becomes single-target and constantly fires.</description>
+              <name>Continuous Stream</name>
+              <description>This tower's attack becomes single-target and constantly fires</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -215,10 +209,10 @@
     </Key>
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <type>WEB_SHOOTING_SPIDER_TOWER</type>
+        <type>SPITTING_ANT_TOWER</type>
         <upgradeTreeData>
           <first>Improved Slow</first>
-          <second>Area Slow</second>
+          <second>AoE Slow</second>
           <third>Utility</third>
           <firstPathUpgrades>
             <TowerAbility>
@@ -236,7 +230,7 @@
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
-              <description>Increases slow effectiveness by 10%.</description>
+              <description>Increasses slow effectiveness and duration by 10%.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -255,13 +249,12 @@
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
-              <description>Increases slow effectiveness by 20%.</description>
+              <description>Increase slow effectiveness and duration by 20%.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_1_3_SLOW_STUN</specialAbility>
-              <attributeModifiers />
               <name>Stunning Slow</name>
               <description>Stuns an enemy the first time it is hit by this tower.</description>
               <upgradePath>0</upgradePath>
@@ -282,15 +275,14 @@
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
-              <description>Increases slow effectiveness by 30%.</description>
+              <description>Increase slow effectiveness and duration by 30%.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_1_5_PERMANENT_SLOW</specialAbility>
-              <attributeModifiers />
-              <name>Permanent Slow</name>
-              <description>When first slowing an enemy, this tower permanently reduces their movement speed. This effect can apply at most once per enemy per tower.</description>
+              <name>Enduring Webs</name>
+              <description>Permanently reduces enemy speed the first time it is slowed.  This effect is applied once per enemy per tower.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -305,7 +297,7 @@
                   <mod>1</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Area Slow</name>
+              <name>AoE Slow</name>
               <description>1/2 slow also hits the enemy nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
@@ -319,7 +311,7 @@
                   <mod>1</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Area Slow</name>
+              <name>AoE Slow</name>
               <description>1/2 slow also hits the 2 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
@@ -333,13 +325,13 @@
                   <mod>1</mod>
                 </AttributeModifier>
                 <AttributeModifier>
-                  <attribute>SECDONARY_SLOW_POTENCY</attribute>
+                  <attribute>SECONDARY_SLOW_POTENCY</attribute>
                   <mode>SET</mode>
                   <mod>0.75</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Superior Secondary Threads</name>
-              <description>3/4 slow also hits the 3 enemies nearest the target within its AoE</description>
+              <description>3/4 slow also hits the 3 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -347,19 +339,18 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>SECDONARY_SLOW_POTENCY</attribute>
+                  <attribute>SECONDARY_SLOW_POTENCY</attribute>
                   <mode>SET</mode>
                   <mod>1</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Perfect Secondary Threads</name>
-              <description>100% slow also hits the 3 enemies nearest the target within its AoE</description>
+              <description>100% slow also hits the 3 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_2_5_LINGERING_SLOW</specialAbility>
-              <attributeModifiers />
               <name>Enduring Threads</name>
               <description>Tower shots leave behind webs that slow the next enemy entering them.</description>
               <upgradePath>1</upgradePath>
@@ -377,7 +368,7 @@
                 </AttributeModifier>
               </attributeModifiers>
               <name>Faster Spinnerets</name>
-              <description>Increases Attack Speed by 10%</description>
+              <description>Increases Attack Speed by 10%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -397,7 +388,6 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_3_3_ANTI_AIR</specialAbility>
-              <attributeModifiers />
               <name>Elevated Shots</name>
               <description>This tower gains the anti air ability.</description>
               <upgradePath>2</upgradePath>
@@ -419,7 +409,6 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_3_5_GROUNDING_SHOT</specialAbility>
-              <attributeModifiers />
               <name>Grounding Shot</name>
               <description>Any enemy hit by this tower briefly loses the flying ability.</description>
               <upgradePath>2</upgradePath>
@@ -440,6 +429,202 @@
         <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>2</slow_duration>
         <slow_power>0.4</slow_power>
+        <stun_time>0</stun_time>
+      </TowerData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <Type>ASSASSIN_BUG_TOWER</Type>
+    </Key>
+    <Value>
+      <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>ASSASSIN_BUG_TOWER</type>
+        <upgradeTreeData>
+          <first>Armor Penetration</first>
+          <second>Utility</second>
+          <third>Trophy and Damage</third>
+          <firstPathUpgrades>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>ARMOR_PIERCE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.1</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Armor Penetration</name>
+              <description>Increases armor penetration by 10%.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>ARMOR_PIERCE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Armor Penetration</name>
+              <description>Increases armor penetration by 20%.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>AB_1_3_ARMORED_ENEMY_BONUS</specialAbility>
+              <name>Wall Cracker</name>
+              <description>Doubles damage to armored enemies.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>ARMOR_TEAR</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.3</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Armor Tear</name>
+              <description>Increases armor tear by 30%.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>AB_1_5_ARMOR_DEPLETION_BONUS</specialAbility>
+              <name>Depletion Bonus</name>
+              <description>Doubles damage to enemies which have lost their armor.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+          </firstPathUpgrades>
+          <secondPathUpgrades>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>PROJECTILE_SPEED</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.1</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Flight Speed</name>
+              <description>Increases movement speed by 10%.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>PROJECTILE_SPEED</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Flight Speed</name>
+              <description>Increases movement speed by 20%.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>AB_2_3_ANTI_AIR</specialAbility>
+              <name>Anti Air</name>
+              <description>Allows the tower to target flying enemies. Bonus speed when returning from flying enemies.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>AB_2_4_CAMO_SIGHT</specialAbility>
+              <name>Camo Sight</name>
+              <description>Allows the tower to target camo enemies.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>AB_2_5_ELASTIC_SPINERETTES</specialAbility>
+              <name>Elastic Spinerrettes</name>
+              <description>The tower has a bungie that returns it a percentage of the distance back to its lair.  Scales with trophies collected.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+          </secondPathUpgrades>
+          <thirdPathUpgrades>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.1</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Damage Increase</name>
+              <description>Increases damage by 10%.</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Damage Increase</name>
+              <description>Increases damage by 20%.</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>AB_3_3_CONSECUTIVE_HITS</specialAbility>
+              <name>Punishing Hits</name>
+              <description>Consecutive hits against the same enemy do 20% more damage, stacking up to 5 times.</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.3</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Damage Increase</name>
+              <description>Increase damage by 10%.</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>AB_3_5_COMBO_FINISHER</specialAbility>
+              <name>Combo Finisher</name>
+              <description>Double damage against enemyies with max consecutive hits.</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+          </thirdPathUpgrades>
+        </upgradeTreeData>
+        <name>Assassin Bug</name>
+        <area_of_effect>0</area_of_effect>
+        <armor_pierce>0.2</armor_pierce>
+        <armor_tear>0</armor_tear>
+        <attack_speed>0.5</attack_speed>
+        <damage>30</damage>
+        <damage_over_time>0</damage_over_time>
+        <projectile_speed>20</projectile_speed>
+        <range>80</range>
+        <secondary_slow_potency>0</secondary_slow_potency>
+        <secondary_slow_targets>0</secondary_slow_targets>
+        <slow_duration>0</slow_duration>
+        <slow_power>0</slow_power>
         <stun_time>0</stun_time>
       </TowerData>
     </Value>
