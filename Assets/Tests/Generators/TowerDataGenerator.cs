@@ -16,6 +16,7 @@ public class TowerDataGenerator {
     dictionary[TowerData.Type.SPITTING_ANT_TOWER] = GetSpittingAntTowerData();
     dictionary[TowerData.Type.WEB_SHOOTING_SPIDER_TOWER] = GetWebShootingSpiderTowerData();
     dictionary[TowerData.Type.ASSASSIN_BUG_TOWER] = GetAssassinBugTowerData();
+    dictionary[TowerData.Type.MANTIS_TOWER] = GetMantisTowerData();
     Serialize<TowerDictionary>(dictionary, "data.towers");
   }
 
@@ -491,11 +492,176 @@ public class TowerDataGenerator {
       area_of_effect = 0,
       armor_pierce = 0.2f,
       armor_tear = 0,
-      attack_speed = 0.5,
+      attack_speed = 0.5f,
       damage = 10,
       damage_over_time = 0,
       projectile_speed = 0,
       range = 0,
+      secondary_slow_potency = 0,
+      secondary_slow_targets = 0,
+      slow_duration = 0,
+      slow_power = 0,
+      stun_time = 0,
+    };
+
+    return data;
+  }
+
+  private TowerData GetMantisTowerData() {
+    var firstPathUpgrades = new TowerAbility[] {
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.1f),
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.1f)
+        },
+        name = "Damage and Armor Pen",
+        description = "Increases damage and armor penetration by 10%.",
+        upgradePath = 0,
+        cost = 10,
+      },
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.2f),
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.2f)
+        },
+        name = "Damage and Armor Pen",
+        description = "Increases damage and armor penetration by 20%.",
+        upgradePath = 0,
+        cost = 10,
+      },
+      new() {
+        specialAbility = SpecialAbility.M_1_3_DOUBLE_SLASH,
+        name = "Double Slash",
+        description = "The Mantis attacks with both its scythe claws, from each direction.",
+        upgradePath = 0,
+        cost = 10,
+      },
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.3f),
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.3f)
+        },
+        name = "Damage and Armor Pen",
+        description = "Increases damage and armor penetration by 30%.",
+        upgradePath = 0,
+        cost = 10,
+      },
+      new() {
+        specialAbility = SpecialAbility.M_1_5_FOUR_ARMS,
+        name = "Make it Double!",
+        description = "The Mantis grows a second pair of scythe arms, each of which attacks normally.",
+        upgradePath = 0,
+        cost = 10,
+      }
+    };
+    var secondPathUpgrades = new TowerAbility[] {
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 10)
+        },
+        name = "Vicious Claws",
+        description = "Attacks now inflict bleed",
+        upgradePath = 1,
+        cost = 10,
+      },
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.2f)
+        },
+        name = "Anticoagulant Microstructures",
+        description = "Bleed is 20% stronger.",
+        upgradePath = 1,
+        cost = 10,
+      },
+      new() {
+        specialAbility = SpecialAbility.M_2_3_JAGGED_CLAWS,
+        name = "Jagged Claws",
+        description = "Enemies dealt full damage are crippled. This applies only to the first enemy hit if that enemy" +
+            " has low enough armor to take full damage.",
+        upgradePath = 1,
+        cost = 10,
+      },
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.4f)
+        },
+        name = "Anticoagulant Chemicals",
+        description = "Bleed is 40% stronger.",
+        upgradePath = 1,
+        cost = 10,
+      },
+      new() {
+        specialAbility = SpecialAbility.M_2_5_SERRATED_CLAWS,
+        name = "Serrated Claws",
+        description = "Grants the 'Cripple' special ability on a short cooldown.",
+        upgradePath = 1,
+        cost = 10,
+      },
+    };
+    var thirdPathUpgrades = new TowerAbility[] {
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.1f)
+        },
+        name = "Improved Attack Speed",
+        description = "Increases attack speed by 10%",
+        upgradePath = 2,
+        cost = 10,
+      },
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 1)
+        },
+        name = "Durable Claws",
+        description = "Attacks hit one more enemy than normal.",
+        upgradePath = 2,
+        cost = 10,
+      },
+      new() {
+        specialAbility = SpecialAbility.M_3_3_CAMO_SIGHT,
+        name = "Camo Sight",
+        description = "The Tower gains camo sight",
+        upgradePath = 2,
+        cost = 10,
+      },
+      new() {
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.4f)
+        },
+        name = "Greater Attack Speed",
+        description = "Increases attack speed by 40%",
+        upgradePath = 2,
+        cost = 10,
+      },
+      new() {
+        specialAbility = SpecialAbility.M_3_5_LONG_CLAWS,
+        name = "Long Claws",
+        description = "The Mantis' arms grow twice as long, doubling range.",
+        upgradePath = 2,
+        cost = 10,
+      },
+    };
+
+    TowerData data = new() {
+      type = TowerData.Type.MANTIS_TOWER,
+      upgradeTreeData = new UpgradeTreeData {
+        first = "Damage",
+        second = "Debilitation",
+        third = "Utility",
+        firstPathUpgrades = firstPathUpgrades,
+        secondPathUpgrades = secondPathUpgrades,
+        thirdPathUpgrades = thirdPathUpgrades,
+      },
+
+      name = "Mantis",
+      area_of_effect = 0,
+      armor_pierce = 0.1f,
+      armor_tear = 0,
+      attack_speed = 1.0f,
+      damage = 10,
+      damage_over_time = 0,
+      projectile_speed = 0,
+      range = 10.0f,
       secondary_slow_potency = 0,
       secondary_slow_targets = 0,
       slow_duration = 0,
