@@ -319,7 +319,7 @@ public class TowerDataGenerator {
     };
 
     TowerData data = new() {
-      type = TowerData.Type.SPITTING_ANT_TOWER,
+      type = TowerData.Type.WEB_SHOOTING_SPIDER_TOWER,
       upgradeTreeData = new() {
         first = "Improved Slow",
         second = "AoE Slow",
@@ -478,7 +478,7 @@ public class TowerDataGenerator {
     };
 
     TowerData data = new() {
-      type = TowerData.Type.SPITTING_ANT_TOWER,
+      type = TowerData.Type.ASSASSIN_BUG_TOWER,
       upgradeTreeData = new() {
         first = "Armor Penetration",
         second = "Utility",
@@ -493,7 +493,7 @@ public class TowerDataGenerator {
       armor_pierce = 0.2f,
       armor_tear = 0,
       attack_speed = 0.5f,
-      damage = 10,
+      damage = 30,
       damage_over_time = 0,
       projectile_speed = 0,
       range = 0,
