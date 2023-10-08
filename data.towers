@@ -842,7 +842,7 @@
         <damage>10</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
-        <range>10</range>
+        <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>

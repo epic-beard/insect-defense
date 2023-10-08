@@ -14,12 +14,7 @@ public class MantisTower : Tower {
 
   private void Start() {
     animator = GetComponent<Animator>();
-    //animator.Play("", 0);
-    //animator.SetTrigger("Attack");
 
-    // TODO (eric): remove once the towerdata is out and loading is done.
-    DamageOverTime = 0.0f;
-    Range = 20.0f;
     StartCoroutine(BasicAttack());
   }
 
@@ -48,9 +43,8 @@ public class MantisTower : Tower {
     }
   }
 
-  private void ProcessDamageAndEffects(Enemy target) {
-    // Cause damage, modified by armor pen
-    // Cause bleed, if necessary.
+  public void ProcessDamageAndEffects(Enemy target) {
+    target.DamageEnemy(Damage, ArmorPierce, false);
   }
 
   protected override void TowerUpdate() {
