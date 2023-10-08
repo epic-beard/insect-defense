@@ -16,6 +16,7 @@ public struct TowerData {
     ATTACK_SPEED,  // The number of attacks per second.
     DAMAGE,  // The raw damage this tower inflicts per attack.
     DAMAGE_OVER_TIME,  // Damage per second.
+    ENEMIES_HIT,  // How many enemies can be hit
     PROJECTILE_SPEED,  // How quickly the projectile this tower fires will move towards the targeted enemy.
     RANGE,  // The maximum range of a tower's attacks.
     SECONDARY_SLOW_POTENCY,  // The percentage of the regular slow to apply.
@@ -69,6 +70,7 @@ public struct TowerData {
   public Type type;
   public UpgradeTreeData upgradeTreeData;
   public string name;
+  public int enemies_hit;
   public float area_of_effect;
   public float armor_pierce;
   public float armor_tear;
@@ -82,6 +84,7 @@ public struct TowerData {
   public float slow_duration;
   public float slow_power;
   public float stun_time;
+
 
   public float this[Stat stat] {
     get {

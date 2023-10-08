@@ -187,6 +187,7 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Spitting Ant Tower</name>
+        <enemies_hit>0</enemies_hit>
         <area_of_effect>5</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>5</armor_tear>
@@ -209,7 +210,7 @@
     </Key>
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <type>SPITTING_ANT_TOWER</type>
+        <type>WEB_SHOOTING_SPIDER_TOWER</type>
         <upgradeTreeData>
           <first>Improved Slow</first>
           <second>AoE Slow</second>
@@ -417,6 +418,7 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Web Shooting Spider Tower</name>
+        <enemies_hit>0</enemies_hit>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
@@ -613,14 +615,234 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Assassin Bug</name>
+        <enemies_hit>0</enemies_hit>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0.2</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
         <damage>30</damage>
         <damage_over_time>0</damage_over_time>
-        <projectile_speed>20</projectile_speed>
-        <range>80</range>
+        <projectile_speed>0</projectile_speed>
+        <range>0</range>
+        <secondary_slow_potency>0</secondary_slow_potency>
+        <secondary_slow_targets>0</secondary_slow_targets>
+        <slow_duration>0</slow_duration>
+        <slow_power>0</slow_power>
+        <stun_time>0</stun_time>
+      </TowerData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <Type>MANTIS_TOWER</Type>
+    </Key>
+    <Value>
+      <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>MANTIS_TOWER</type>
+        <upgradeTreeData>
+          <first>Damage</first>
+          <second>Debilitation</second>
+          <third>Utility</third>
+          <firstPathUpgrades>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.1</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>ARMOR_PIERCE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.1</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Damage and Armor Pen</name>
+              <description>Increases damage and armor penetration by 10%.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>ARMOR_PIERCE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Damage and Armor Pen</name>
+              <description>Increases damage and armor penetration by 20%.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>M_1_3_DOUBLE_SLASH</specialAbility>
+              <name>Double Slash</name>
+              <description>The Mantis attacks with both its scythe claws, from each direction.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.3</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>ARMOR_PIERCE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.3</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Damage and Armor Pen</name>
+              <description>Increases damage and armor penetration by 30%.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>M_1_5_FOUR_ARMS</specialAbility>
+              <name>Make it Double!</name>
+              <description>The Mantis grows a second pair of scythe arms, each of which attacks normally.</description>
+              <upgradePath>0</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+          </firstPathUpgrades>
+          <secondPathUpgrades>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>10</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Vicious Claws</name>
+              <description>Attacks now inflict bleed</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Anticoagulant Microstructures</name>
+              <description>Bleed is 20% stronger.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>M_2_3_JAGGED_CLAWS</specialAbility>
+              <name>Jagged Claws</name>
+              <description>Enemies dealt full damage are crippled. This applies only to the first enemy hit if that enemy has low enough armor to take full damage.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.4</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Anticoagulant Chemicals</name>
+              <description>Bleed is 40% stronger.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>M_2_5_SERRATED_CLAWS</specialAbility>
+              <name>Serrated Claws</name>
+              <description>Grants the 'Cripple' special ability on a short cooldown.</description>
+              <upgradePath>1</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+          </secondPathUpgrades>
+          <thirdPathUpgrades>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>ATTACK_SPEED</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.1</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Improved Attack Speed</name>
+              <description>Increases attack speed by 10%</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>ENEMIES_HIT</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>1</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Durable Claws</name>
+              <description>Attacks hit one more enemy than normal.</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>M_3_3_CAMO_SIGHT</specialAbility>
+              <name>Camo Sight</name>
+              <description>The Tower gains camo sight</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>NONE</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>ATTACK_SPEED</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.4</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Greater Attack Speed</name>
+              <description>Increases attack speed by 40%</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>M_3_5_LONG_CLAWS</specialAbility>
+              <name>Long Claws</name>
+              <description>The Mantis' arms grow twice as long, doubling range.</description>
+              <upgradePath>2</upgradePath>
+              <cost>10</cost>
+            </TowerAbility>
+          </thirdPathUpgrades>
+        </upgradeTreeData>
+        <name>Mantis</name>
+        <enemies_hit>0</enemies_hit>
+        <area_of_effect>0</area_of_effect>
+        <armor_pierce>0.1</armor_pierce>
+        <armor_tear>0</armor_tear>
+        <attack_speed>1</attack_speed>
+        <damage>10</damage>
+        <damage_over_time>0</damage_over_time>
+        <projectile_speed>0</projectile_speed>
+        <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>

@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using static TowerAbility;
 
 public class MantisTower : Tower {
   [SerializeField] Transform bodyMesh;
-  [SerializeField] Transform rightScytheMesh;
-  [SerializeField] Transform leftScytheMesh;
+
+  Animator animator;
 
   public override TowerData.Type TowerType { get; set; } = TowerData.Type.MANTIS_TOWER;
 
@@ -12,12 +13,13 @@ public class MantisTower : Tower {
   private bool firing = false;
 
   private void Start() {
-    // TODO (eric): remove once the towerdata is out and loading is done.
-    DamageOverTime = 0.0f;
+    animator = GetComponent<Animator>();
+
+    StartCoroutine(BasicAttack());
   }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
-    switch(ability) {
+    switch (ability) {
       case SpecialAbility.M_1_3_DOUBLE_SLASH:
         // Second scythe arm now attacks.
         break;
@@ -41,9 +43,8 @@ public class MantisTower : Tower {
     }
   }
 
-  private void ProcessDamageAndEffects(Enemy target) {
-    // Cause damage, modified by armor pen
-    // Cause bleed, if necessary.
+  public void ProcessDamageAndEffects(Enemy target) {
+    target.DamageEnemy(Damage, ArmorPierce, false);
   }
 
   protected override void TowerUpdate() {
@@ -58,8 +59,19 @@ public class MantisTower : Tower {
     if (enemy == null) {
       firing = false;
     } else {
-      bodyMesh.LookAt(enemy.AimPoint);
+      bodyMesh.LookAt(enemy.AimPoint - (Vector3.up * 4));
       firing = true;
+    }
+  }
+
+  private IEnumerator BasicAttack() {
+    while (true) {
+      while (firing && DazzleTime <= 0.0f) {
+        animator.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
+      }
+      yield return new WaitUntil(() => firing);
     }
   }
 }
