@@ -1,24 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using static TowerAbility;
+using Codice.CM.WorkspaceServer.DataStore;
 
-public class AssassinBug : Tower {
+public class AssassinBugTower : Tower {
   [SerializeField] Transform assassinMesh;
 
   public bool ArmoredEnemyBonus { get; private set; } = false;
   public bool ArmorDepletionBonus { get; private set; } = false;
-  public bool AntiAirSpeedBonus { get; private set; } = false;
   public bool Bungy { get; private set; } = false;
   public bool MultiHitBonus { get; private set; } = false;
-  public bool BetterMultiHit { get; private set; } = false;
   public bool CriticalMultiHit { get; private set; } = false;
   public override TowerData.Type TowerType { get; set; } = TowerData.Type.ASSASSIN_BUG_TOWER;
 
   private Enemy enemy;
+  private Enemy oldEnemy;
   private bool returning;
   private bool attacking;
   private Vector3 startingPosition;
   private float attackRange = 3.0f;
+  private int multiHit = 0;
 
   private void Start() {
     startingPosition = assassinMesh.position;
@@ -27,7 +29,6 @@ public class AssassinBug : Tower {
   protected override void TowerUpdate() {
     // If we are in the process of attacking or returning do nothing.
     if (returning || attacking) return;
-
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: ObjectPool.Instance.GetActiveEnemies(),
@@ -42,7 +43,24 @@ public class AssassinBug : Tower {
   }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
-    throw new System.NotImplementedException();
+    switch (ability) {
+      case SpecialAbility.AB_1_3_ARMORED_ENEMY_BONUS:
+        ArmoredEnemyBonus = true; break;
+      case SpecialAbility.AB_1_5_ARMOR_DEPLETION_BONUS:
+        ArmorDepletionBonus = true; break;
+      case SpecialAbility.AB_2_3_ANTI_AIR:
+        AntiAir = true; break;
+      case SpecialAbility.AB_2_4_CAMO_SIGHT:
+        CamoSight = true; break;
+      case SpecialAbility.AB_2_5_ELASTIC_SPINERETTES:
+        Bungy = true; break;
+      case SpecialAbility.AB_3_3_CONSECUTIVE_HITS:
+        MultiHitBonus = true; break;
+      case SpecialAbility.AB_3_5_COMBO_FINISHER:
+        CriticalMultiHit = true; break;
+      default:
+        break;
+    }
   }
 
   IEnumerator Approach() {
@@ -50,7 +68,7 @@ public class AssassinBug : Tower {
       Vector3 endPosition = enemy.AimPoint;
       assassinMesh.LookAt(endPosition);
 
-      if (MoveTo(endPosition)) {
+      if (MoveTo(endPosition, ProjectileSpeed)) {
         break;
       }
       yield return null;
@@ -62,8 +80,12 @@ public class AssassinBug : Tower {
   }
 
   IEnumerator Return() {
+    float distance = (startingPosition - assassinMesh.position).magnitude;
     while (true) {
-      if (MoveTo(startingPosition)) {
+      float speed =
+        (Bungy && (startingPosition - assassinMesh.position).magnitude > 0.5 * distance)
+        ? ProjectileSpeed * 4 : ProjectileSpeed;
+      if (MoveTo(startingPosition, speed)) {
         break;
       }
       yield return null;
@@ -71,9 +93,9 @@ public class AssassinBug : Tower {
     returning = false;
   }
 
-  private bool MoveTo(Vector3 endPosition) {
+  private bool MoveTo(Vector3 endPosition, float speed) {
     Vector3 startPosition = assassinMesh.position;
-    float delta = Time.deltaTime * ProjectileSpeed;
+    float delta = Time.deltaTime * speed;
     float distance = (endPosition - startPosition).magnitude;
     if (distance < attackRange) {
       return true;
@@ -83,9 +105,21 @@ public class AssassinBug : Tower {
     }
   }
 
-  private void ProcessDamageAndEffects(Enemy target) {
-    Debug.Log("hit: " + target.HP);
-    target.DamageEnemy(Damage, ArmorPierce);
-    Debug.Log("after hit: " + target.HP);
+  private float ProcessDamageAndEffects(Enemy target) {
+    if (target != oldEnemy) multiHit = 0;
+    float damage = Damage;
+    if (ArmoredEnemyBonus && target.Armor > 0) damage *= 2;
+    if (ArmorDepletionBonus && target.MaxArmor > 0 && target.Armor == 0) damage *= 2;
+    if (MultiHitBonus) damage *= (1 + 0.2f * multiHit);
+    Debug.Log(damage);
+    if (CriticalMultiHit && multiHit == 5) damage *= 2;
+    Debug.Log("crit: " + damage);
+    target.DamageEnemy(damage, ArmorPierce);
+    if (MultiHitBonus) {
+      multiHit++;
+      multiHit = Math.Min(5, multiHit);
+    }
+    oldEnemy = target;
+    return damage;
   }
   }
