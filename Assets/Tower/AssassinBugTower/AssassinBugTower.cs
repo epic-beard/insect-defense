@@ -93,14 +93,22 @@ public class AssassinBugTower : Tower {
     returning = false;
   }
 
+  // Moves a frame dependent distance, based on speed, in the direction of
+  // endPosition, stopping when in attack range.
+  // Returns true if in attack range.
   private bool MoveTo(Vector3 endPosition, float speed) {
     Vector3 startPosition = assassinMesh.position;
     float delta = Time.deltaTime * speed;
     float distance = (endPosition - startPosition).magnitude;
-    if (distance < attackRange) {
+    Vector3 direction = (endPosition - startPosition).normalized;
+
+    // If moving delta brings us within attack range, stop at the attack range.
+    if (distance - delta < attackRange) {
+      float travel = distance - attackRange;
+      assassinMesh.Translate(travel * direction);
       return true;
     } else {
-      assassinMesh.Translate(delta * (endPosition - startPosition).normalized);
+      assassinMesh.Translate(delta * direction);
       return false;
     }
   }
@@ -111,9 +119,7 @@ public class AssassinBugTower : Tower {
     if (ArmoredEnemyBonus && target.Armor > 0) damage *= 2;
     if (ArmorDepletionBonus && target.MaxArmor > 0 && target.Armor == 0) damage *= 2;
     if (MultiHitBonus) damage *= (1 + 0.2f * multiHit);
-    Debug.Log(damage);
     if (CriticalMultiHit && multiHit == 5) damage *= 2;
-    Debug.Log("crit: " + damage);
     target.DamageEnemy(damage, ArmorPierce);
     if (MultiHitBonus) {
       multiHit++;

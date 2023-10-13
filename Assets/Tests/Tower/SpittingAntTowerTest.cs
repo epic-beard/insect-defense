@@ -40,7 +40,7 @@ public class SpittingAntTowerTest {
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
-    Assert.That(false, Is.EqualTo(spittingAntTower.DotSlow)); 
+    Assert.That(false, Is.EqualTo(spittingAntTower.DotSlow));
   }
 
   // Test setting DotSlow.
