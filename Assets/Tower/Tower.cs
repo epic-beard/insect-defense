@@ -35,6 +35,10 @@ public abstract class Tower : MonoBehaviour {
     set { data[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
   }
   public float DazzleTime { get; set; }
+  public virtual int EnemiesHit {
+    get { return data.enemies_hit; }
+    set { data.enemies_hit = value; }
+  }
   public string Name {
     get { return data.name; }
     set { data.name = value; }
@@ -140,17 +144,19 @@ public abstract class Tower : MonoBehaviour {
       SpecialAbilityUpgrade(ability.specialAbility);
     }
 
-    foreach (TowerAbility.AttributeModifier modifier in ability.attributeModifiers) {
-      switch (modifier.mode) {
-        case TowerAbility.Mode.MULTIPLICATIVE:
-          data[modifier.attribute] *= modifier.mod;
-          break;
-        case TowerAbility.Mode.ADDITIVE:
-          data[modifier.attribute] += modifier.mod;
-          break;
-        case TowerAbility.Mode.SET:
-          data[modifier.attribute] = modifier.mod;
-          break;
+    if (ability.attributeModifiers != null) {
+      foreach (TowerAbility.AttributeModifier modifier in ability.attributeModifiers) {
+        switch (modifier.mode) {
+          case TowerAbility.Mode.MULTIPLICATIVE:
+            data[modifier.attribute] *= modifier.mod;
+            break;
+          case TowerAbility.Mode.ADDITIVE:
+            data[modifier.attribute] += modifier.mod;
+            break;
+          case TowerAbility.Mode.SET:
+            data[modifier.attribute] = modifier.mod;
+            break;
+        }
       }
     }
 
