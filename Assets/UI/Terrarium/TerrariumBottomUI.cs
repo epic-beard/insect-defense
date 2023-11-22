@@ -6,10 +6,12 @@ public class TerrariumBottomUI : MonoBehaviour {
 
   readonly private string playPauseButtonName = "play_pause__button";
   readonly private string settingsButtonName = "settings__button";
+  readonly private string nuLabelName = "nu_amount__label";
 
   private UIDocument terrariumScreen;
   private Button playPauseButton;
   private Button settingsButton;
+  private Label nuLabel;
 
   private void Awake() {
     terrariumScreen = GetComponent<UIDocument>();
@@ -17,6 +19,7 @@ public class TerrariumBottomUI : MonoBehaviour {
 
     playPauseButton = rootElement.Q<Button>(playPauseButtonName);
     settingsButton = rootElement.Q<Button>(settingsButtonName);
+    nuLabel = rootElement.Q<Label>(nuLabelName);
 
     Instance = this;
   }
@@ -38,5 +41,9 @@ public class TerrariumBottomUI : MonoBehaviour {
     } else {
       playPauseButton.text = "Pause";
     }
+  }
+
+  public void UpdateNu() {
+    nuLabel.text = GameStateManager.Instance.Nu.ToString();
   }
 }

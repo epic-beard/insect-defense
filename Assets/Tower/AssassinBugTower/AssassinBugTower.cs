@@ -104,7 +104,7 @@ public class AssassinBugTower : Tower {
 
     // If moving delta brings us within attack range, stop at the attack range.
     if (distance - delta < attackRange) {
-      float travel = distance - attackRange;
+      float travel = Math.Max(0, distance - attackRange);
       assassinMesh.Translate(travel * direction);
       return true;
     } else {

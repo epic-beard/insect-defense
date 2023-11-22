@@ -14,6 +14,7 @@ public struct TowerData {
     ARMOR_PIERCE,  // The amount of enemy armor each attack ignores.
     ARMOR_TEAR,  // The amount by which this tower permanently reduces enemy armor.
     ATTACK_SPEED,  // The number of attacks per second.
+    COST, // Cost to build this tower.
     DAMAGE,  // The raw damage this tower inflicts per attack.
     DAMAGE_OVER_TIME,  // Damage per second.
     PROJECTILE_SPEED,  // How quickly the projectile this tower fires will move towards the targeted enemy.
@@ -73,6 +74,7 @@ public struct TowerData {
   public float armor_pierce;
   public float armor_tear;
   public float attack_speed;
+  public float cost;
   public float damage;
   public float damage_over_time;
   public float projectile_speed;
@@ -90,6 +92,7 @@ public struct TowerData {
         Stat.ARMOR_PIERCE => armor_pierce,
         Stat.ARMOR_TEAR => armor_tear,
         Stat.ATTACK_SPEED => attack_speed,
+        Stat.COST => cost,
         Stat.DAMAGE => damage,
         Stat.DAMAGE_OVER_TIME => damage_over_time,
         Stat.PROJECTILE_SPEED => projectile_speed,
@@ -108,6 +111,7 @@ public struct TowerData {
         case Stat.ARMOR_PIERCE: armor_pierce = value; break;
         case Stat.ARMOR_TEAR: armor_tear = value; break;
         case Stat.ATTACK_SPEED: attack_speed = value; break;
+        case Stat.COST: cost = value; break;
         case Stat.DAMAGE: damage = value; break;
         case Stat.DAMAGE_OVER_TIME: damage_over_time = value; break;
         case Stat.PROJECTILE_SPEED: projectile_speed = value; break;
