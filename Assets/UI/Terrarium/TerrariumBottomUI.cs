@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TerrariumBottomUI : MonoBehaviour {
-  public static TerrariumBottomUI Instance;
-
   readonly private string playPauseButtonName = "play_pause__button";
   readonly private string settingsButtonName = "settings__button";
   readonly private string nuLabelName = "nu_amount__label";
@@ -20,12 +18,11 @@ public class TerrariumBottomUI : MonoBehaviour {
     playPauseButton = rootElement.Q<Button>(playPauseButtonName);
     settingsButton = rootElement.Q<Button>(settingsButtonName);
     nuLabel = rootElement.Q<Label>(nuLabelName);
-
-    Instance = this;
   }
 
   private void Start() {
     RegisterCallbacks();
+    PauseManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
   }
 
   private void RegisterCallbacks() {
@@ -33,17 +30,18 @@ public class TerrariumBottomUI : MonoBehaviour {
       (ClickEvent) => { PauseManager.Instance.HandlePause(); });
     settingsButton.RegisterCallback<ClickEvent>(
     (ClickEvent) => { SettingsScreen.Instance.ToggleSettings(); });
+    GameStateManager.OnNuChanged += UpdateNu;
   }
 
-  public void KeepPlayPauseButtonNameCorrect() {
-    if (Time.timeScale == 0) {
+  public void KeepPlayPauseButtonNameCorrect(bool paused) {
+    if (paused) {
       playPauseButton.text = "Play";
     } else {
       playPauseButton.text = "Pause";
     }
   }
 
-  public void UpdateNu() {
-    nuLabel.text = GameStateManager.Instance.Nu.ToString();
+  public void UpdateNu(int nu) {
+    nuLabel.text = nu.ToString();
   }
 }

@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PauseManager : MonoBehaviour {
   public static PauseManager Instance;
 
+  public static event Action<bool> OnPauseChanged = delegate { };
   private bool paused;
   private bool screenPaused;
 
@@ -14,7 +16,7 @@ public class PauseManager : MonoBehaviour {
   public void HandlePause() {
     paused = !paused;
     Time.timeScale = paused || screenPaused ? 0 : 1;
-    TerrariumBottomUI.Instance.KeepPlayPauseButtonNameCorrect();
+    OnPauseChanged?.Invoke(paused);
   }
 
   public void HandleScreenPause() {
