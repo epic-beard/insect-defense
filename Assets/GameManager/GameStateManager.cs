@@ -30,6 +30,7 @@ public class GameStateManager : MonoBehaviour {
       TerrariumTowerSelectionUI.Instance?.UpdateAffordableTowers();
       TerrariumBottomUI.Instance?.UpdateNu();
 
+      // If we can no longer afford the selected tower, deselect it.
       if (SelectedTowerType != null) {
         Tower tower = SelectedTowerType.GetComponent<Tower>();
         if (Nu < GetTowerCost(tower.TowerType, tower.Cost)) {
