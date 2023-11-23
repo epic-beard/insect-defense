@@ -192,6 +192,7 @@
         <armor_pierce>0</armor_pierce>
         <armor_tear>5</armor_tear>
         <attack_speed>1</attack_speed>
+        <cost>50</cost>
         <damage>5</damage>
         <damage_over_time>5</damage_over_time>
         <projectile_speed>20</projectile_speed>
@@ -423,6 +424,7 @@
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>1</attack_speed>
+        <cost>50</cost>
         <damage>0</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>20</projectile_speed>
@@ -620,6 +622,7 @@
         <armor_pierce>0.2</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
+        <cost>50</cost>
         <damage>30</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>

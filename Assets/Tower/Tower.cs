@@ -26,6 +26,12 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.ARMOR_TEAR]; }
     set { data[TowerData.Stat.ARMOR_TEAR] = value; }
   }
+
+  public float Cost {
+    get { return data[TowerData.Stat.COST]; }
+    set { data[TowerData.Stat.COST] = value; }
+  }
+
   public float Damage {
     get { return data[TowerData.Stat.DAMAGE]; }
     set { data[TowerData.Stat.DAMAGE] = value; }

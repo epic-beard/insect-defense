@@ -6,7 +6,7 @@ using TowerDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData
 public class TowerDataManager : MonoBehaviour {
   public static TowerDataManager Instance;
 
-  [SerializeField] private string towerDataFilename;
+  [SerializeField] private string towerDataFilename = "data.towers";
   private TowerDictionary towers = new();
 
   private void Awake() {

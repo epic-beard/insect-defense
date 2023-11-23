@@ -123,6 +123,7 @@ public class Enemy : MonoBehaviour {
         }
         ConditionalContextReset();
         ObjectPool.Instance.DestroyEnemy(gameObject);
+        GameStateManager.Instance.Nu += data.nu;
       }
     }
   }
