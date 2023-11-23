@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 public class EnemyTest {
   Enemy enemy;
@@ -14,21 +14,25 @@ public class EnemyTest {
   WebShootingSpiderTower webShootingSpiderOutOfRange;
   GameStateManager gameStateManager;
 
+  private readonly int tileSpacing = 10;
+
   [SetUp]
   public void SetUp() {
-    Vector3 inRange = Vector3.left;
-    Vector3 outOfRange = 2 * Vector3.left;
-    spittingAntInRange = CreateSpittingAnt(inRange);
-    spittingAntOutOfRange = CreateSpittingAnt(outOfRange);
+    Waypoint left = CreateWaypoint(tileSpacing * Vector3.left);
+    Waypoint farLeft = CreateWaypoint(2 * tileSpacing * Vector3.left);
+    spittingAntInRange = CreateSpittingAnt(left.transform.position);
+    spittingAntOutOfRange = CreateSpittingAnt(farLeft.transform.position);
 
-    webShootingSpiderInRange = CreateWebShootingSpider(inRange);
-    webShootingSpiderOutOfRange = CreateWebShootingSpider(outOfRange);
+    Waypoint right = CreateWaypoint(tileSpacing * Vector3.right);
+    Waypoint farRight = CreateWaypoint(2 * tileSpacing * Vector3.right);
+    webShootingSpiderInRange = CreateWebShootingSpider(right.transform.position);
+    webShootingSpiderOutOfRange = CreateWebShootingSpider(farRight.transform.position);
 
     gameStateManager = CreateGameStateManager();
-    gameStateManager.AddTower(Vector2Int.left, spittingAntInRange);
-    gameStateManager.AddTower(2 * Vector2Int.left, spittingAntOutOfRange);
-    gameStateManager.AddTower(Vector2Int.right, webShootingSpiderInRange);
-    gameStateManager.AddTower(2 * Vector2Int.right, webShootingSpiderOutOfRange);
+    gameStateManager.InvokeAddTower(left.GetCoordinates(), spittingAntInRange);
+    gameStateManager.InvokeAddTower(farLeft.GetCoordinates(), spittingAntOutOfRange);
+    gameStateManager.InvokeAddTower(right.GetCoordinates(), webShootingSpiderInRange);
+    gameStateManager.InvokeAddTower(farRight.GetCoordinates(), webShootingSpiderOutOfRange);
     enemy = CreateEnemy(Vector3.zero);
 
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
@@ -41,8 +45,10 @@ public class EnemyTest {
     enemy.Dazzle = new() {
       duration = 10.0f,
       interval = 1.0f,
-      range = 1.0f
+      range = 10.0f
     };
+    Time.captureDeltaTime = 1.0f;
+
     enemy.gameObject.SetActive(true);
 
     Assert.That(spittingAntInRange.DazzleTime, Is.EqualTo(0.0f));
@@ -50,7 +56,6 @@ public class EnemyTest {
     Assert.That(webShootingSpiderInRange.DazzleTime, Is.EqualTo(0.0f));
     Assert.That(webShootingSpiderOutOfRange.DazzleTime, Is.EqualTo(0.0f));
 
-    Time.captureDeltaTime = 1.0f;
     // Start the timer to the first shot.
     yield return null;
     // Activate the ability.
@@ -60,10 +65,10 @@ public class EnemyTest {
     Assert.That(webShootingSpiderInRange.DazzleTime, Is.EqualTo(10.0f));
     Assert.That(webShootingSpiderOutOfRange.DazzleTime, Is.EqualTo(0.0f));
 
-    // Move the enemy out of range of all the towers.
-    enemy.transform.position = 10 * Vector3.left;
-
     Time.captureDeltaTime = 10.0f;
+    // Move the enemy out of range of all the towers.
+    enemy.transform.position = 10 * Vector3.up;
+
     yield return new WaitForEndOfFrame();
     Assert.That(spittingAntInRange.DazzleTime, Is.EqualTo(0.0f));
     Assert.That(spittingAntOutOfRange.DazzleTime, Is.EqualTo(0.0f));
@@ -76,9 +81,11 @@ public class EnemyTest {
     enemy.Slime = new() {
       duration = 10.0f,
       interval = 1.0f,
-      range = 1.0f,
+      range = 10.0f,
       power = 0.5f,
     };
+    Time.captureDeltaTime = 1.0f;
+
     enemy.gameObject.SetActive(true);
 
     Assert.That(spittingAntInRange.SlimeTime, Is.EqualTo(0.0f));
@@ -90,7 +97,6 @@ public class EnemyTest {
     Assert.That(webShootingSpiderOutOfRange.SlimeTime, Is.EqualTo(0.0f));
     Assert.That(webShootingSpiderOutOfRange.SlimePower, Is.EqualTo(1.0f));
 
-    Time.captureDeltaTime = 1.0f;
     // Start the timer to the first shot.
     yield return null;
     // Activate the ability.
@@ -105,7 +111,7 @@ public class EnemyTest {
     Assert.That(webShootingSpiderOutOfRange.SlimePower, Is.EqualTo(1.0f));
 
     // Move the enemy out of range of all the towers.
-    enemy.transform.position = 10 * Vector3.left;
+    enemy.transform.position = 10 * Vector3.up;
 
     Time.captureDeltaTime = 10.0f;
     yield return new WaitForEndOfFrame();
@@ -183,6 +189,12 @@ public class EnemyTest {
     enemy.PrevWaypoint = new GameObject().AddComponent<Waypoint>();
 
     return enemy;
+  }
+
+  private Waypoint CreateWaypoint(Vector3 position) {
+    Waypoint waypoint = new GameObject().AddComponent<Waypoint>();
+    waypoint.transform.position = position;
+    return waypoint;
   }
 
   private TerrariumHealthUI CreateTerrariumHealthUI() {

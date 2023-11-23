@@ -20,12 +20,34 @@ public class GameStateManager : MonoBehaviour {
 
   [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
-  public int nu;
+  private int nu;
+  public int Nu { 
+    get {
+      return nu;
+    } 
+    set {
+      nu = value;
+      TerrariumTowerSelectionUI.Instance?.UpdateAffordableTowers();
+      TerrariumBottomUI.Instance?.UpdateNu();
+
+      // If we can no longer afford the selected tower, deselect it.
+      if (SelectedTowerType != null) {
+        Tower tower = SelectedTowerType.GetComponent<Tower>();
+        if (Nu < GetTowerCost(tower.TowerType, tower.Cost)) {
+          SelectedTowerType = null;
+        } 
+      }
+    }
+  }
   private int health;
+  private Dictionary<TowerData.Type, int> towerCounts = new();
+  private readonly float towerScalingFactor = 1.2f;
 
   private void Awake() {
     Instance = this;
+    Nu = startingNu;
   }
+
   public int Health {
     get { return health; }
     private set {
@@ -35,9 +57,9 @@ public class GameStateManager : MonoBehaviour {
     }
   }
 
-  private void Start () {
+  private void Start() {
     Health = maxHealth;
-    nu = startingNu;
+    Nu = startingNu;
   }
 
   public void DealDamage(int damage) {
@@ -45,9 +67,39 @@ public class GameStateManager : MonoBehaviour {
     if (Health <= 0) GameOver?.Invoke();
   }
 
-  // Add a tower to the active tower tracking map.
-  public void AddTower(Vector2Int coordinates, Tower tower) {
+  // Builds a tower at the given waypoint, after checking that the player has
+  // enough Nu.  Returns true if the tower was constructed.
+  public bool BuildTower(Waypoint waypoint) {
+    if (SelectedTowerType == null) { return false; }
+
+    TowerData.Type towerType = SelectedTowerType.GetComponent<Tower>().TowerType;
+    TowerData data = TowerDataManager.Instance.GetTowerData(towerType);
+    
+    return BuildTower(waypoint, SelectedTowerType, data);
+  }
+
+  public bool BuildTower(Waypoint waypoint, GameObject prefab, TowerData data) {
+    int cost = GetTowerCost(data.type, data.cost);
+    if (Nu < cost) { return false; }
+    GameObject towerObj = Instantiate(
+      prefab,
+      waypoint.transform.position,
+      Quaternion.identity);
+    Tower tower = towerObj.GetComponent<Tower>();
+    tower.SetTowerData(data);
+
+    AddTower(waypoint.GetCoordinates(), tower);
+
+    Nu -= cost;
+    return true;
+  }
+
+  private void AddTower(Vector2Int coordinates, Tower tower) {
     activeTowerMap.Add(coordinates, tower);
+    if (!towerCounts.ContainsKey(tower.TowerType)) {
+      towerCounts[tower.TowerType] = 0;
+    }
+    towerCounts[tower.TowerType]++;
   }
 
   public List<Tower> GetTowersInRange(float range, Vector3 pos) {
@@ -62,5 +114,14 @@ public class GameStateManager : MonoBehaviour {
   public void ClearSelection() {
     SelectedTowerType = null;
     SelectedTower = null;
+  }
+
+  public int GetTowerCost(TowerData.Type type, float cost) {
+    if (!towerCounts.ContainsKey(type)) {
+      towerCounts[type] = 0;
+    }
+
+    return Mathf.RoundToInt(
+      cost * Mathf.Pow(towerScalingFactor, towerCounts[type]));
   }
 }

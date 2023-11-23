@@ -82,17 +82,11 @@ public class Tile : MonoBehaviour {
   private void OnMouseDown() {
     if (!isTowerPlaceable) { return; }
     if (!isTowerPresent) {
-      if (GameStateManager.SelectedTowerType == null) {
-        return;
-      }
-      GameObject completeTower = Instantiate(GameStateManager.SelectedTowerType, transform.position, Quaternion.identity);
-      Tower tower = completeTower.GetComponent<Tower>();
-      tower.SetTowerData(TowerDataManager.Instance.GetTowerData(tower.TowerType));
-      GameStateManager.Instance.AddTower(waypoint.GetCoordinates(), tower);
-      isTowerPresent = true;
+      isTowerPresent = GameStateManager.Instance.BuildTower(waypoint);
+      if (!isTowerPresent) { return; }
     }
     GameStateManager.Instance.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
     TerrariumContextUI.Instance.SetTowerContextPanel();
-    TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
-  }
+    TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);  }
 }
+
