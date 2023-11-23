@@ -5,7 +5,7 @@ using UnityEngine;
 using static TowerAbility;
 
 public class MantisTower : Tower {
-  [SerializeField] Transform bodyMesh;
+  [SerializeField] public Transform bodyMesh;
 
   Animator animator;
 
@@ -22,14 +22,14 @@ public class MantisTower : Tower {
     set { base.EnemiesHit = value; }
   }
 
-  public bool ApexAttack { get; set; } = false;
-  public bool CrippleAtFullDamage { get; set; } = false;
+  public bool ApexAttack { get; private set; } = false;
+  public bool CrippleAtFullDamage { get; private set; } = false;
   public float CrippleCooldownTime {
     get { return AttackSpeed; }
   }
-  public bool CanCrippleEnemy { get; set; } = false;
-  public bool SecondAttack { get; set; } = false;
-  public bool VorpalClaw { get; set; } = false;
+  public bool CanCrippleEnemy { get; private set; } = false;
+  public bool SecondAttack { get; private set; } = false;
+  public bool VorpalClaw { get; private set; } = false;
 
   public float damageDegredation;
   // Tracker for the Mantis blade's damage degredation.
