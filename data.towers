@@ -854,6 +854,7 @@
         <armor_pierce>0.1</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>1</attack_speed>
+        <cost>50</cost>
         <damage>10</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>

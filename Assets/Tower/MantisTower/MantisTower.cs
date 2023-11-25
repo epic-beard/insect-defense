@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,7 +85,6 @@ public class MantisTower : Tower {
       CanCrippleEnemy = false;
     }
     // Calculate damage, keeping the "Vorpal Claws" upgrade in mind.
-
     if (VorpalClaw) {
       target.DamageEnemy(Damage, ArmorPierce, false);
     } else if (0.0f < Attacks[attackType]) {
@@ -113,12 +111,17 @@ public class MantisTower : Tower {
   }
 
   private void Swing() {
+    Attacks[MantisAttackType.UPPER_RIGHT] = 1.0f;
     animator.Play("First Attack Layer.MantisAttack");
     if (SecondAttack) {
+      Attacks[MantisAttackType.UPPER_LEFT] = 1.0f;
       animator.Play("Second Attack Layer.SecondMantisAttack");
     }
     if (ApexAttack) {
+      Attacks[MantisAttackType.LOWER_RIGHT] = 1.0f;
       animator.Play("Third Attack Layer.ThirdMantisAttack");
+
+      Attacks[MantisAttackType.LOWER_LEFT] = 1.0f;
       animator.Play("Fourth Attack Layer.FourthMantisAttack");
     }
   }
@@ -126,7 +129,6 @@ public class MantisTower : Tower {
   private IEnumerator Attack() {
     while (true) {
       while (firing && DazzleTime <= 0.0f) {
-        Attacks[MantisAttackType.UPPER_RIGHT] = 1.0f;
         Swing();
 
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
