@@ -6,15 +6,6 @@ using static TowerAbility;
 public class MantisTower : Tower {
   [SerializeField] public Transform bodyMesh;
 
-  Animator animator;
-
-  public enum MantisAttackType {
-    UPPER_RIGHT,
-    UPPER_LEFT,
-    LOWER_RIGHT,
-    LOWER_LEFT,
-  }
-
   public override TowerData.Type TowerType { get; set; } = TowerData.Type.MANTIS_TOWER;
   public override int EnemiesHit {
     get { return base.EnemiesHit; }
@@ -23,16 +14,22 @@ public class MantisTower : Tower {
 
   public bool ApexAttack { get; private set; } = false;
   public bool CrippleAtFullDamage { get; private set; } = false;
-  public float CrippleCooldownTime {
-    get { return AttackSpeed; }
-  }
+  public float CrippleCooldownTime { get { return AttackSpeed; } }
   public bool CanCrippleEnemy { get; private set; } = false;
   public bool SecondAttack { get; private set; } = false;
   public bool VorpalClaw { get; private set; } = false;
 
   public float damageDegredation;
+  public enum MantisAttackType {
+    UPPER_RIGHT,
+    UPPER_LEFT,
+    LOWER_RIGHT,
+    LOWER_LEFT,
+  }
   // Tracker for the Mantis blade's damage degredation.
   private Dictionary<MantisAttackType, float> Attacks = new();
+
+  private Animator animator;
   private Enemy enemy;
   private bool firing = false;
 
@@ -110,6 +107,7 @@ public class MantisTower : Tower {
     }
   }
 
+  // Launch the animations that swing the mantis arms.
   private void Swing() {
     Attacks[MantisAttackType.UPPER_RIGHT] = 1.0f;
     animator.Play("First Attack Layer.MantisAttack");
@@ -138,6 +136,7 @@ public class MantisTower : Tower {
   }
 
 
+  // Monitor and refresh the cripple ability as needed.
   private IEnumerator CrippleCooldown() {
     while (true) {
       while (!CanCrippleEnemy) {

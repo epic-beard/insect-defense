@@ -215,10 +215,6 @@ public class MantisTowerTest {
     return enemy;
   }
 
-  private ObjectPool CreateObjectPool() {
-    return new GameObject().AddComponent<ObjectPool>();
-  }
-
   #endregion
 }
 
