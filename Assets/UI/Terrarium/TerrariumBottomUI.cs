@@ -22,7 +22,6 @@ public class TerrariumBottomUI : MonoBehaviour {
 
   private void Start() {
     RegisterCallbacks();
-    PauseManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
   }
 
   private void RegisterCallbacks() {
@@ -31,6 +30,7 @@ public class TerrariumBottomUI : MonoBehaviour {
     settingsButton.RegisterCallback<ClickEvent>(
     (ClickEvent) => { SettingsScreen.Instance.ToggleSettings(); });
     GameStateManager.OnNuChanged += UpdateNu;
+    PauseManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
   }
 
   public void KeepPlayPauseButtonNameCorrect(bool paused) {
