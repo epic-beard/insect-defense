@@ -33,7 +33,7 @@ public class MantisTowerTest {
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_1_3_DOUBLE_SLASH);
 
-    Assert.That(true, Is.EqualTo(mantisTower.SecondAttack));
+    Assert.True(mantisTower.SecondAttack);
   }
 
   [Test]
@@ -42,7 +42,7 @@ public class MantisTowerTest {
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_1_5_FOUR_ARMS);
 
-    Assert.That(true, Is.EqualTo(mantisTower.ApexAttack));
+    Assert.True(mantisTower.ApexAttack);
   }
 
   [Test]
@@ -51,7 +51,7 @@ public class MantisTowerTest {
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_3_JAGGED_CLAWS);
 
-    Assert.That(true, Is.EqualTo(mantisTower.CrippleAtFullDamage));
+    Assert.True(mantisTower.CrippleAtFullDamage);
   }
 
   [Test]
@@ -60,7 +60,7 @@ public class MantisTowerTest {
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_5_SERRATED_CLAWS);
 
-    Assert.That(true, Is.EqualTo(mantisTower.CanCrippleEnemy));
+    Assert.True(mantisTower.CanCrippleEnemy);
   }
 
   [Test]
@@ -69,7 +69,7 @@ public class MantisTowerTest {
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_3_CAMO_SIGHT);
 
-    Assert.That(true, Is.EqualTo(mantisTower.CamoSight));
+    Assert.True(mantisTower.CamoSight);
   }
 
   [Test]
@@ -78,7 +78,7 @@ public class MantisTowerTest {
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_5_VORPAL_CLAWS);
 
-    Assert.That(true, Is.EqualTo(mantisTower.VorpalClaw));
+    Assert.True(mantisTower.VorpalClaw);
   }
 
   #endregion
@@ -102,13 +102,13 @@ public class MantisTowerTest {
 
     mantisTower.ProcessDamageAndEffects(enemy, MantisAttackType.UPPER_RIGHT);
 
-    float hpAfterOneHit = enemyHp - mantisTower.Damage;
-    Assert.That(enemy.HP, Is.EqualTo(hpAfterOneHit));
+    Assert.That(enemy.HP, Is.EqualTo(enemyHp - mantisTower.Damage));
 
     mantisTower.ProcessDamageAndEffects(enemy, MantisAttackType.UPPER_RIGHT);
 
     float hpAfterTwoHits =
-      hpAfterOneHit - (mantisTower.Damage * mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_RIGHT]);
+        (enemyHp - mantisTower.Damage)
+        - (mantisTower.Damage * mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_RIGHT]);
     Assert.That(enemy.HP, Is.EqualTo(hpAfterTwoHits));
   }
 
@@ -156,7 +156,7 @@ public class MantisTowerTest {
 
     mantisTower.ProcessDamageAndEffects(enemy, MantisTower.MantisAttackType.UPPER_RIGHT);
 
-    Assert.That(enemy.Crippled, Is.True);
+    Assert.True(enemy.Crippled);
   }
 
   [Test]
@@ -167,7 +167,7 @@ public class MantisTowerTest {
 
     mantisTower.ProcessDamageAndEffects(enemy, MantisTower.MantisAttackType.UPPER_RIGHT);
 
-    Assert.That(enemy.Crippled, Is.False);
+    Assert.False(enemy.Crippled);
   }
 
   [Test]

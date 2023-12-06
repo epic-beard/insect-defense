@@ -14,7 +14,7 @@ public class MantisTower : Tower {
 
   public bool ApexAttack { get; private set; } = false;
   public bool CrippleAtFullDamage { get; private set; } = false;
-  public float CrippleCooldownTime { get { return AttackSpeed; } }
+  public float CrippleCooldownSpeed { get { return AttackSpeed; } }
   public bool CanCrippleEnemy { get; private set; } = false;
   public bool SecondAttack { get; private set; } = false;
   public bool VorpalClaw { get; private set; } = false;
@@ -37,20 +37,15 @@ public class MantisTower : Tower {
     animator = GetComponent<Animator>();
     damageDegredation = 1 / EnemiesHit;
 
-    Attacks[MantisAttackType.UPPER_RIGHT] = 1.0f;
-
     StartCoroutine(Attack());
   }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
     switch (ability) {
       case SpecialAbility.M_1_3_DOUBLE_SLASH:
-        Attacks[MantisAttackType.UPPER_LEFT] = 1.0f;
         SecondAttack = true;
         break;
       case SpecialAbility.M_1_5_FOUR_ARMS:
-        Attacks[MantisAttackType.LOWER_RIGHT] = 1.0f;
-        Attacks[MantisAttackType.LOWER_LEFT] = 1.0f;
         ApexAttack = true;
         break;
       case SpecialAbility.M_2_3_JAGGED_CLAWS:
@@ -142,7 +137,7 @@ public class MantisTower : Tower {
       while (!CanCrippleEnemy) {
         CanCrippleEnemy = true;
 
-        yield return new WaitForSeconds(1 / CrippleCooldownTime);
+        yield return new WaitForSeconds(1 / CrippleCooldownSpeed);
       }
       yield return new WaitUntil(() => !CanCrippleEnemy);
     }
