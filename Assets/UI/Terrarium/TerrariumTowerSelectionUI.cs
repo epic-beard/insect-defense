@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TerrariumTowerSelectionUI : MonoBehaviour {
-  public static TerrariumTowerSelectionUI Instance;
-
   readonly private string towerSelectionListviewName = "tower_selection__listview";
 
   [SerializeField] List<GameObject> prefabs;
@@ -18,11 +16,11 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     VisualElement rootElement = terrariumScreen.rootVisualElement;
 
     towerSelectionListView = rootElement.Q<ListView>(towerSelectionListviewName);
-    Instance = this;
   }
 
   private void Start() {
     ConstructTowerSelectionListView();
+    GameStateManager.OnNuChanged += UpdateAffordableTowers;
   }
 
   private void ConstructTowerSelectionListView() {
@@ -51,7 +49,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     TerrariumContextUI.Instance.SetContextTowerName(GameStateManager.SelectedTowerType.name);
   }
 
-  public void UpdateAffordableTowers() {
+  public void UpdateAffordableTowers(int nu) {
     ConstructTowerSelectionListView();
   }
 }

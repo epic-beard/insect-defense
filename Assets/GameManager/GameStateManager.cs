@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour {
 #pragma warning restore 8618
   public static event Action GameOver = delegate { };
   public static event Action<int> HealthChanged = delegate { };
+  public static event Action<int> OnNuChanged = delegate { };
   // The type of tower currently selected by the user for construction.
   public static GameObject? SelectedTowerType;
 
@@ -27,8 +28,7 @@ public class GameStateManager : MonoBehaviour {
     } 
     set {
       nu = value;
-      TerrariumTowerSelectionUI.Instance?.UpdateAffordableTowers();
-      TerrariumBottomUI.Instance?.UpdateNu();
+      OnNuChanged?.Invoke(nu);
 
       // If we can no longer afford the selected tower, deselect it.
       if (SelectedTowerType != null) {
