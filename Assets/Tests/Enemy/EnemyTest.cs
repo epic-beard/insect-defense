@@ -100,6 +100,28 @@ public class EnemyTest {
     Assert.That(enemy.Speed, Is.EqualTo(expectedNewSpeed));
   }
 
+  // Test crippling.
+  [Test]
+  public void ApplyCripple() {
+    float enemySpeed = 10.0f;
+    Enemy enemy = CreateEnemy(Vector3.zero, speed: enemySpeed);
+
+    enemy.ApplyCripple();
+
+    Assert.That(enemySpeed * enemy.CrippleSlow, Is.EqualTo(enemy.Speed));
+  }
+
+  [Test]
+  public void ApplyCrippleToImmuneEnemy() {
+    float enemySpeed = 10.0f;
+    Enemy enemy = CreateEnemy(Vector3.zero, speed: enemySpeed);
+    enemy.SetCrippleImmunity(true);
+
+    enemy.ApplyCripple();
+
+    Assert.That(enemySpeed, Is.EqualTo(enemy.Speed));
+  }
+
   #endregion
 
   // Test GetClosestWaypoint in the situation where PrevWaypoint is closest.
@@ -182,6 +204,11 @@ public class EnemyTest {
 // Extension methods to hold reflection-based calls to access private fields, properties, or methods
 // of Enemy.
 public static class EnemyUtils {
+  public static void SetCrippleImmunity(this Enemy enemy,  bool isImmunity) {
+    typeof(Enemy)
+        .GetProperty("CrippleImmunity")
+        .SetValue(enemy, isImmunity);
+  }
   public static void SetTarget(this Enemy enemy, Transform target) {
     typeof(Enemy)
         .GetField("target", BindingFlags.Instance | BindingFlags.NonPublic)
