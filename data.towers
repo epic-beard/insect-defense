@@ -821,27 +821,40 @@
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.4</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>ENEMIES_HIT</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>1</mod>
+                </AttributeModifier>
               </attributeModifiers>
-              <name>Greater Attack Speed</name>
-              <description>Increases attack speed by 40%</description>
+              <name>Synergetic Claws</name>
+              <description>Increases attack speed by 20% and increase number of enemies hit by 1</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>M_3_5_LONG_CLAWS</specialAbility>
-              <name>Long Claws</name>
-              <description>The Mantis' arms grow twice as long, doubling range.</description>
+              <specialAbility>M_3_5_VORPAL_CLAWS</specialAbility>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Vorpal Claws</name>
+              <description>There is no limit on enemies hit. Previous limit bonuses increase damage by 10% each.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Mantis</name>
-        <enemies_hit>0</enemies_hit>
+        <enemies_hit>4</enemies_hit>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0.1</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>1</attack_speed>
+        <cost>50</cost>
         <damage>10</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>

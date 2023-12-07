@@ -9,6 +9,7 @@ public struct TowerAbility {
     SLOW,
     STUN,
   }
+
   // Each divergent ability (usually at upgrades 3 and 5) should have its own entry in this enum.
   public enum SpecialAbility {
     NONE,
@@ -24,7 +25,7 @@ public struct TowerAbility {
     M_2_3_JAGGED_CLAWS,  // Mantis Tower, Debilitation upgrade tree level 3.
     M_2_5_SERRATED_CLAWS, // Mantis Tower, Debilitation upgrade tree level 5.
     M_3_3_CAMO_SIGHT,  // Mantis Tower, Utility upgrade tree level 3.
-    M_3_5_LONG_CLAWS,  // Mantis Tower, Utility upgrade tree level 5.
+    M_3_5_VORPAL_CLAWS,  // Mantis Tower, Utility upgrade tree level 5.
     SA_1_3_ARMOR_TEAR_STUN,  // Spitting Ant Tower, Armor Tear upgrade tree level 3.
     SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Tower, Armor Tear upgrade tree level 5.
     SA_2_3_DOT_SLOW,  // Spitting Ant Tower, Acid DoT upgrade tree level 3.

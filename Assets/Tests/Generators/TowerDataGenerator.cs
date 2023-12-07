@@ -170,6 +170,7 @@ public class TowerDataGenerator {
       cost = 50,
       damage = 5,
       damage_over_time = 5,
+      enemies_hit = 0,
       projectile_speed = 20,
       range = 20,
       secondary_slow_potency = 0,
@@ -338,6 +339,7 @@ public class TowerDataGenerator {
       cost = 50,
       damage = 0,
       damage_over_time = 0,
+      enemies_hit = 0,
       projectile_speed = 20,
       range = 20,
       secondary_slow_potency = 0.5f,
@@ -498,6 +500,7 @@ public class TowerDataGenerator {
       cost = 50,
       damage = 30,
       damage_over_time = 0,
+      enemies_hit = 0,
       projectile_speed = 0,
       range = 0,
       secondary_slow_potency = 0,
@@ -629,17 +632,21 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.4f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.4f),
+          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 1)
         },
-        name = "Greater Attack Speed",
-        description = "Increases attack speed by 40%",
+        name = "Synergetic Claws",
+        description = "Increases attack speed by 20% and increase number of enemies hit by 1",
         upgradePath = 2,
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.M_3_5_LONG_CLAWS,
-        name = "Long Claws",
-        description = "The Mantis' arms grow twice as long, doubling range.",
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.2f)
+        },
+        specialAbility = SpecialAbility.M_3_5_VORPAL_CLAWS,
+        name = "Vorpal Claws",
+        description = "There is no limit on enemies hit. Previous limit bonuses increase damage by 10% each.",
         upgradePath = 2,
         cost = 10,
       },
@@ -663,8 +670,9 @@ public class TowerDataGenerator {
       attack_speed = 1.0f,
       damage = 10,
       damage_over_time = 0,
+      enemies_hit = 4,
       projectile_speed = 0,
-      range = 10.0f,
+      range = 20.0f,
       secondary_slow_potency = 0,
       secondary_slow_targets = 0,
       slow_duration = 0,
