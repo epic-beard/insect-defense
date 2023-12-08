@@ -69,11 +69,11 @@ public class MantisTower : Tower {
   public void ProcessDamageAndEffects(Enemy target, MantisAttackType attackType) {
     // Handle the "Jagged Claws" upgrade.
     if (CrippleAtFullDamage && target.Armor <= ArmorPierce && !target.Crippled) {
-      target.Crippled = true;
+      target.ApplyCripple();
     }
     // Handle the "Serrated Claws" upgrade.
     if (CanCrippleEnemy && !target.Crippled) {
-      target.Crippled = true;
+      target.ApplyCripple();
       CanCrippleEnemy = false;
     }
     // Calculate damage, keeping the "Vorpal Claws" upgrade in mind.
