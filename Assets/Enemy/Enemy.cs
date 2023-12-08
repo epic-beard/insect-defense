@@ -95,8 +95,14 @@ public class Enemy : MonoBehaviour {
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
   public bool Crippled { get; private set; }
   public bool CrippleImmunity {
-    get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; }
-    set { if (value) data.properties = EnemyData.Properties.CRIPPLE_IMMUNITY; }
+    get { return (data.properties & EnemyData.Properties.CRIPPLE_IMMUNITY) != 0; }
+    set {
+      if (value) {
+        data.properties |= EnemyData.Properties.CRIPPLE_IMMUNITY;
+      } else {
+        data.properties &= ~EnemyData.Properties.CRIPPLE_IMMUNITY;
+      }
+    }
  }
   public float CrippleSlow { get; private set; } = 0.8f;
   public int Damage {
