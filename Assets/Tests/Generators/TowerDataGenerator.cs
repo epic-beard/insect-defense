@@ -33,10 +33,10 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 5.0f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 2.0f)
         },
         name = "Armor Tear",
-        description = "Increases armor tear to 5.",
+        description = "Increases armor tear to 2.",
         upgradePath = 0,
         cost = 10,
       },
@@ -49,10 +49,10 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 10.0f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 5.0f)
         },
         name = "Armor Tear",
-        description = "Increases armor tear to 10.",
+        description = "Increases armor tear to 5.",
         upgradePath = 0,
         cost = 10,
       },
