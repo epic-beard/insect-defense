@@ -24,35 +24,35 @@ public class TowerDataGenerator {
     var firstPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 1.0f)
         },
         name = "Armor Tear",
-        description = "Increases armor tear by 10%.",
+        description = "Adds 1 point of armor tear.",
         upgradePath = 0,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 2.0f)
         },
         name = "Armor Tear",
-        description = "Increases armor tear by 20%.",
+        description = "Increases armor tear to 2.",
         upgradePath = 0,
         cost = 10,
       },
       new() {
         specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_STUN,
         name = "Stunning Reveal",
-        description = "When enemy's armor is reduced to 0, it is breifly stunned.",
+        description = "When enemy's armor is reduced to 0, it stunned for 5 seconds.",
         upgradePath = 0,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.MULTIPLICATIVE, 1.3f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 5.0f)
         },
         name = "Armor Tear",
-        description = "Increases armor tear by 30%.",
+        description = "Increases armor tear to 5.",
         upgradePath = 0,
         cost = 10,
       },
@@ -67,10 +67,10 @@ public class TowerDataGenerator {
     var secondPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10.0f)
         },
         name = "Acid Power",
-        description = "Increases acid build rate by 10%.",
+        description = "Attacks inflict 10 second of acid damage.",
         upgradePath = 1,
         cost = 10,
       },
@@ -110,10 +110,10 @@ public class TowerDataGenerator {
     var thirdPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.AREA_OF_EFFECT, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.AREA_OF_EFFECT, Mode.SET, 5.0f)
         },
-        name = "Bigger Booms",
-        description = "Increases area of effect by 10%.",
+        name = "Explosive shot",
+        description = "Attacks now generate an explosion of radius 5.",
         upgradePath = 2,
         cost = 10,
       },
@@ -163,13 +163,13 @@ public class TowerDataGenerator {
       },
 
       name = "Spitting Ant Tower",
-      area_of_effect = 5,
+      area_of_effect = 0,
       armor_pierce = 0,
-      armor_tear = 5,
+      armor_tear = 0,
       attack_speed = 1,
       cost = 50,
-      damage = 5,
-      damage_over_time = 5,
+      damage = 10,
+      damage_over_time = 0,
       enemies_hit = 0,
       projectile_speed = 20,
       range = 20,
@@ -177,7 +177,7 @@ public class TowerDataGenerator {
       secondary_slow_targets = 0,
       slow_duration = 2,
       slow_power = 0.2f,
-      stun_time = 1,
+      stun_time = 5,
     };
 
     return data;
