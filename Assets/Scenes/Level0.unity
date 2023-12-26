@@ -9070,10 +9070,10 @@ PrefabInstance:
       addedObject: {fileID: 97919302000182412}
     - targetCorrespondingSourceObject: {fileID: 3770796850854829353, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 97919302000182418}
+      addedObject: {fileID: 97919302000182419}
     - targetCorrespondingSourceObject: {fileID: 3770796850854829353, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 97919302000182419}
+      addedObject: {fileID: 97919302000182421}
   m_SourcePrefab: {fileID: 100100000, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
 --- !u!1 &97919302000182410 stripped
 GameObject:
@@ -9123,18 +9123,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &97919302000182418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97919302000182410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e030fb1dd5f0b8428048d137796c6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &97919302000182419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9161,6 +9149,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerDataFilename: data.towers
+--- !u!114 &97919302000182421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97919302000182410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20fcc5539594ab41937e51bd616eec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &858941084334537144
 PrefabInstance:
   m_ObjectHideFlags: 0

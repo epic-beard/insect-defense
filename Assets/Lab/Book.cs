@@ -8,6 +8,6 @@ public class Book : MonoBehaviour {
 
   private void OnMouseDown() {
     LabCamera.Instance.MoveTo(bookLocation, bookRotation);
-    InputManager.Instance.SwitchToActionMap("Selected");
+    LabInputManager.Instance.EnableSelectedActionMap();
   }
 }
