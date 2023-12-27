@@ -62,7 +62,7 @@ public class StartScreen : MonoBehaviour {
 
     LoadScreen.Instance.OpenMenu();
     startScreen.rootVisualElement.style.display = DisplayStyle.None;
-    InputManager.Instance.SwitchToActionMap("LoadScreen");
+    StartScreenInputManager.Instance.OpenLoadScreen();
   }
 
   private void NewGameCallback(ClickEvent evt) {
@@ -84,9 +84,8 @@ public class StartScreen : MonoBehaviour {
     Button settingsButton = evt.target as Button;
     if (settingsButton == null) { return; }
 
-    InputManager.Instance.OpenSettings();
+    StartScreenInputManager.Instance.OpenSettings();
     startScreen.rootVisualElement.style.display = DisplayStyle.None;
-    InputManager.Instance.SwitchToActionMap("SettingsScreen");
   }
 
   private void SetContinueButtion() {

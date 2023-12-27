@@ -17,14 +17,6 @@ public class SettingsScreen : MonoBehaviour {
     settingsScreen = GetComponent<UIDocument>();
   }
 
-  public void ToggleSettings() {
-    if (settingsScreen.rootVisualElement.style.display == DisplayStyle.None) {
-      InputManager.Instance.OpenSettings();
-    } else {
-      InputManager.Instance.CloseSettings();
-    }
-  }
-
   public void ShowSettings() {
     settingsScreen.rootVisualElement.style.display = DisplayStyle.Flex;
   }

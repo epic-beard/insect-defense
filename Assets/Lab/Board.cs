@@ -8,6 +8,6 @@ public class Board : MonoBehaviour {
 
   private void OnMouseDown() {
     LabCamera.Instance.MoveTo(boardLocation, boardRotation);
-    InputManager.Instance.SwitchToActionMap("Selected");
+    LabInputManager.Instance.EnableSelectedActionMap();
   }
 }

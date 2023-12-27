@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class TerrariumInputManager : InputManager {
-  private InputAction playerLook;
+public class TerrariumInputManager : MonoBehaviour{
+  private TerrariumInputs actions;
+  public static TerrariumInputManager Instance;
 
   private void Awake() {
+    actions = new();
     Instance = this;
-    input = GetComponent<PlayerInput>();
-    playerLook = input.actions["Player_Look"];
   }
 
   private void Update() {
@@ -18,76 +18,88 @@ public class TerrariumInputManager : InputManager {
   }
 
   private void OnEnable() {
-    SwitchToActionMap("Lab");
-    input.actions["Player_Pause"].started += PauseGame;
-    input.actions["Player_Settings"].started += EnterSettingsScreen;
-    input.actions["Player_Load"].started += EnterLoadScreen;
-    input.actions["Player_Deselect"].started += Deselect;
-    input.actions["Player_Zoom"].started += ZoomCamera;
+    actions.Player.Enable();
+    actions.Player.Player_Pause.started += OnPauseGame;
+    actions.Player.Player_Settings.started += OnOpenSettings;
+    actions.Player.Player_Load.started += OnOpenLoadScreen;
+    actions.Player.Player_Deselect.started += OnDeselect;
+    actions.Player.Player_Zoom.started += OnZoomCamera;
 
     // [TODO] input keyboard navigation of load screen.
     //Input.actions["LoadScreen_Navigate"].started += LoadScreenNavigate;
     //Input.actions["LoadScreen_Select"].started += LoadScreenSelect;
-    input.actions["LoadScreen_Close"].started += ExitLoadScreen;
+    actions.LoadScreen.LoadScreen_Close.started += OnCloseLoadScreen;
 
     // [TODO] input keyboard navigation of settings screen.
     //Input.actions["SettingsScreen_Navigate"].started += SettingsScreenNavigate;
     //Input.actions["SettingsScreen_Select"].started += SettingsScreenSelect;
     //Input.actions["SettingsScreen_Back"].started += SettingsScreenBack;
-    input.actions["SettingsScreen_Close"].started += ExitSettingsScreen;
+    actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
   }
 
   void HandleCameraMovement() {
-    Vector2 move = playerLook.ReadValue<Vector2>();
+    Vector2 move = actions.Player.Player_Look.ReadValue<Vector2>();
     if (move.sqrMagnitude >= 0.1) {
       CameraManager.Instance.MoveCamera(move);
     }
   }
 
-  void ZoomCamera(InputAction.CallbackContext context) {
+  void OnZoomCamera(InputAction.CallbackContext context) {
     CameraManager.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
   }
 
-  void PauseGame(InputAction.CallbackContext context) {
+  void OnPauseGame(InputAction.CallbackContext context) {
     PauseManager.Instance.HandlePause();
   }
 
-  void Deselect(InputAction.CallbackContext context) {
+  void OnDeselect(InputAction.CallbackContext context) {
     GameStateManager.Instance.ClearSelection();
     TerrariumContextUI.Instance.SetNoContextPanel();
   }
-  protected void EnterSettingsScreen(InputAction.CallbackContext context) {
-    OpenSettings();
-  }
 
-  public override void OpenSettings() {
+  protected void OnOpenLoadScreen(InputAction.CallbackContext context) {
     PauseManager.Instance.HandleScreenPause();
-    TerrariumUI.Instance.HideUI();
-    base.OpenSettings();
-  }
-
-  protected void EnterLoadScreen(InputAction.CallbackContext context) {
-    PauseManager.Instance.HandleScreenPause();
-    input.SwitchCurrentActionMap("LoadScreen");
     LoadScreen.Instance.OpenMenu();
     TerrariumUI.Instance.HideUI();
+    actions.Player.Disable();
+    actions.LoadScreen.Enable();
   }
 
-  protected void ExitLoadScreen(InputAction.CallbackContext context) {
+  protected void OnCloseLoadScreen(InputAction.CallbackContext context) {
     PauseManager.Instance.HandleScreenPause();
     LoadScreen.Instance.CloseMenu();
-    SwitchToSceneActionMap();
     TerrariumUI.Instance.ShowUI();
+    actions.LoadScreen.Disable();
+    actions.Player.Enable();
   }
 
-  protected void ExitSettingsScreen(InputAction.CallbackContext context) {
+  protected void OnOpenSettings(InputAction.CallbackContext context) {
+    OpenSettings();
+  }
+  public void OpenSettings() {
+    PauseManager.Instance.HandleScreenPause();
+    TerrariumUI.Instance.HideUI();
+    SettingsScreen.Instance.ShowSettings();
+    actions.Player.Disable();
+    actions.SettingsScreen.Enable();
+  }
+
+  protected void OnCloseSettings(InputAction.CallbackContext context) {
     CloseSettings();
   }
-
-  public override void CloseSettings() {
+  public void CloseSettings() {
     PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.ShowUI();
-    base.CloseSettings();
-    SwitchToActionMap("Player");
+    SettingsScreen.Instance.HideSettings();
+    actions.SettingsScreen.Disable();
+    actions.Player.Enable();
+  }
+
+  public void ToggleSettings() {
+    if (actions.SettingsScreen.enabled) {
+      CloseSettings();
+    } else {
+      OpenSettings();
+    }
   }
 }
