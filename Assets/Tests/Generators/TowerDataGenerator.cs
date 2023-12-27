@@ -41,7 +41,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_STUN,
+        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
         name = "Stunning Reveal",
         description = "When enemy's armor is reduced to 0, it stunned for 5 seconds.",
         upgradePath = 0,
@@ -84,7 +84,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_2_3_DOT_SLOW,
+        specialAbility = SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
         name = "Hindering Acid",
         description = "If acid stacks reach max, apply a 20% slow for 2 seconds.",
         upgradePath = 1,
@@ -100,7 +100,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_2_5_DOT_EXPLOSION,
+        specialAbility = SpecialAbility.SA_2_5_DOT_ENHANCEMENT,
         name = "Acid Explosion",
         description = "When acid stacks reach max, an explosion of acid is triggered, applying all acid stacks instantly and clearing them.",
         upgradePath = 1,
@@ -705,7 +705,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_STUN,
+        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
         name = "",
         description = "",
         upgradePath = 0,
@@ -748,7 +748,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_2_3_DOT_SLOW,
+        specialAbility = SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
         name = "",
         description = "",
         upgradePath = 1,
@@ -764,7 +764,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_2_5_DOT_EXPLOSION,
+        specialAbility = SpecialAbility.SA_2_5_DOT_ENHANCEMENT,
         name = "",
         description = "",
         upgradePath = 1,

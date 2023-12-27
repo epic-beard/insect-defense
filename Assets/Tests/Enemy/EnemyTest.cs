@@ -1,6 +1,8 @@
+using System;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 public class EnemyTest {
 
@@ -29,26 +31,19 @@ public class EnemyTest {
     Assert.That(resultArmor, Is.EqualTo(remainingArmor));
   }
 
+
   // Test AddAcidStacks to make sure that it returns true when at max stacks and false when it doesn't.
   [Test, Sequential]
-  public void AddAcidStackMax(
-      [Values(1.0f, 10000.0f)] float acidStacks,
-      [Values(false, true)] bool isMaxStacks) {
-    Enemy enemy = CreateEnemy(Vector3.zero);
+  public void AcidExplosion(
+      [Values(10, 30, 50, 80, 120)] int acidStacks,
+      [Values(EnemyData.Size.TINY, EnemyData.Size.SMALL, EnemyData.Size.NORMAL, EnemyData.Size.LARGE, EnemyData.Size.HUGE)] EnemyData.Size enemySize) {
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: acidStacks * 2, size: enemySize);
 
-    bool isCurrentMaxStacks = enemy.AddAcidStacks(acidStacks);
-    Assert.That(isCurrentMaxStacks, Is.EqualTo(isMaxStacks));
-  }
+    enemy.AddAcidStacks(acidStacks);
 
-  // Make sure ResetAcidStacks performs as expected.
-  [Test]
-  public void ResetAcidStacks() {
-    Enemy enemy = CreateEnemy(Vector3.zero);
-
-    bool isCurrentMaxStacks = enemy.AddAcidStacks(enemy.MaxAcidStacks);
-    Assert.That(isCurrentMaxStacks, Is.EqualTo(true));
-    enemy.ResetAcidStacks();
-    Assert.That(0.0f, Is.EqualTo(enemy.AcidStacks));
+    // Since a frame has passed, a little more than the acid explosion is expected.
+    Assert.That(enemy.HP, Is.InRange(acidStacks - (acidStacks * 0.1), acidStacks));
+    Assert.That(enemy.AcidStacks, Is.EqualTo(0.0f));
   }
 
   // Test AddStunTime.
@@ -173,7 +168,9 @@ public class EnemyTest {
       Vector3 position,
       float armor = 0.0f,
       float hp = 1.0f,
-      float speed = 0.0f) {
+      float speed = 0.0f,
+      EnemyData.Size size = EnemyData.Size.NORMAL
+    ) {
     GameObject gameObject = new();
     gameObject.transform.position = position;
 
@@ -181,7 +178,7 @@ public class EnemyTest {
       maxArmor = armor,
       maxHP = hp,
       speed = speed,
-      size = EnemyData.Size.NORMAL,
+      size = size,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
@@ -213,6 +210,16 @@ public static class EnemyUtils {
     typeof(Enemy)
         .GetField("target", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(enemy, target);
+  }
+
+  public static void InvokeUpdate(this Enemy enemy) {
+    object[] args = {};
+    Type[] argTypes = {};
+    MethodInfo update = typeof(Enemy).GetMethod(
+        "Update",
+        BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    update.Invoke(enemy, args);
   }
 }
 

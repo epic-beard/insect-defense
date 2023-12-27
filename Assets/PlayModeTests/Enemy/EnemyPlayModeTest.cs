@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class EnemyTest {
+public class EnemyPlayModeTest {
   Enemy enemy;
   SpittingAntTower spittingAntInRange;
   SpittingAntTower spittingAntOutOfRange;

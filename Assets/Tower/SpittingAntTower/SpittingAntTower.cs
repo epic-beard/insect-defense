@@ -13,7 +13,7 @@ public class SpittingAntTower : Tower {
   [SerializeField] float splashExplosionMultiplier = 1.0f;
   [SerializeField] float acidExplosionMultiplier = 1.0f;
 
-  public bool ArmorTearStun { get; private set; } = false;
+  public bool ArmorTearAcidBonus { get; private set; } = false;
   public bool ArmorTearExplosion { get; private set; } = false;
   public bool ContinuousAttack { get; private set; } = false;
   public bool DotSlow { get; private set; } = false;
@@ -38,16 +38,16 @@ public class SpittingAntTower : Tower {
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
     switch (ability) {
-      case SpecialAbility.SA_1_3_ARMOR_TEAR_STUN:
-        ArmorTearStun = true;
+      case SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS:
+        ArmorTearAcidBonus = true;
         break;
       case SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION:
         ArmorTearExplosion = true;
         break;
-      case SpecialAbility.SA_2_3_DOT_SLOW:
+      case SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS:
         DotSlow = true;
         break;
-      case SpecialAbility.SA_2_5_DOT_EXPLOSION:
+      case SpecialAbility.SA_2_5_DOT_ENHANCEMENT:
         DotExplosion = true;
         break;
       case SpecialAbility.SA_3_3_ANTI_AIR:
@@ -78,14 +78,17 @@ public class SpittingAntTower : Tower {
     }
 
     // Armor tear effects.
-    if (ApplyArmorTearAndCheckForArmorTearStun(target, armorTear)) {
-      target.AddStunTime(data[TowerData.Stat.STUN_TIME]);
+    if (ArmorTearAcidBonus && target.AcidStacks <= target.AcidStackExplosionThreshold) {
+      target.TearArmor(armorTear * 1.5f);
+    } else {
+      target.TearArmor(armorTear);
+    }
+    if (ArmorTearExplosion) {
+      // TODO: Trigger armor tear explosion.
     }
 
     // Acid DoT effects.
-    if (target.AddAcidStacks(acidStacks)) {
-      HandleMaxAcidStackEffects(target);
-    }
+    target.AddAcidStacks(acidStacks);
 
     // Splash explosion handling, unnecessary if the tower is continuous attack.
     if (!ContinuousAttack) {
@@ -93,30 +96,6 @@ public class SpittingAntTower : Tower {
     }
 
     target.DamageEnemy(onHitDamage, armorPierce, ContinuousAttack);
-  }
-
-  // This is only called when the target's acid stacks are at max.
-  private void HandleMaxAcidStackEffects(Enemy target) {
-    if (DotSlow && !target.spittingAntTowerSlows.Contains(this)) {
-      target.ApplySlow(data[TowerData.Stat.SLOW_POWER], data[TowerData.Stat.SLOW_DURATION]);
-      target.spittingAntTowerSlows.Add(this);
-    }
-    if (DotExplosion) {
-      acidExplosion.transform.position = target.AimPoint;
-      acidExplosion.Play();
-
-      float totalAcidDamage = target.MaxAcidStacks * target.AcidDamagePerStackPerSecond;
-      List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(ObjectPool.Instance.GetActiveEnemies(), target, AcidExplosionRange);
-
-      // Cause totalAcidDamage to all enemies in range (including target).
-      foreach (Enemy enemy in enemiesInAoe) {
-        enemy.DamageEnemy(totalAcidDamage, 0.0f);
-      }
-      // Target is excluded from enemiesInAoe, so make sure to cause the damage here.
-      target.DamageEnemy(totalAcidDamage, 0.0f);
-
-      target.ResetAcidStacks();
-    }
   }
 
   private void HandleSplashEffects(Enemy target, float onHitDamage) {
@@ -129,9 +108,9 @@ public class SpittingAntTower : Tower {
     foreach (Enemy enemy in enemiesInAoe) {
       enemy.DamageEnemy(onHitDamage, ArmorPierce);
 
-      if (ArmorTearExplosion && ApplyArmorTearAndCheckForArmorTearStun(enemy, ArmorTear)) {
-        enemy.AddStunTime(data[TowerData.Stat.STUN_TIME]);
-      }
+      //if (ArmorTearExplosion && ApplyArmorTearAndCheckForArmorTearStun(enemy, ArmorTear)) {
+      //  enemy.AddStunTime(data[TowerData.Stat.STUN_TIME]);
+      //}
     }
   }
 
@@ -176,11 +155,5 @@ public class SpittingAntTower : Tower {
       }
       yield return new WaitUntil(() => firing);
     }
-  }
-
-  // Apply Armor tear to an enemy and simultaneously check to see if it should be stunned as a result of 
-  // SA_1_3_ARMOR_TEAR_STUN.
-  private bool ApplyArmorTearAndCheckForArmorTearStun(Enemy enemy, float armorTear) {
-    return 0.0f < enemy.Armor && enemy.TearArmor(armorTear) == 0.0f && ArmorTearStun;
   }
 }
