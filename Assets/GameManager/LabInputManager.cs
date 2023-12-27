@@ -86,6 +86,7 @@ public class LabInputManager : MonoBehaviour {
   }
   public void EnableLabActionMap() {
     actions.Lab.Enable();
-    //TODO:nnewsom does this work, figure it out.
+    //TODO:nnewsom Do we need to disable before we enable action maps?
+    // Can two action maps be active at the same time?
   }
 }
