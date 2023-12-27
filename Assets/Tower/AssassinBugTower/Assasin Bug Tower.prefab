@@ -155,6 +155,7 @@ MonoBehaviour:
   data:
     type: 0
     name: 
+    enemies_hit: 0
     area_of_effect: 0
     armor_pierce: 0
     armor_tear: 0
