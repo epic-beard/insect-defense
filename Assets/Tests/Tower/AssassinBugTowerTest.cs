@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
+
 public class AssassinBugTowerTest {
   AssassinBugTower tower;
 
@@ -16,7 +15,9 @@ public class AssassinBugTowerTest {
 
     Time.captureDeltaTime = 1;
   }
+
   #region SpecialAbilityUpgradeTests
+
   [Test]
   public void ArmoredEnemyBonusTest() {
     tower.Damage = 1.0f;
@@ -109,6 +110,7 @@ public class AssassinBugTowerTest {
 
     Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 4));
   }
+
   #endregion
 
   [Test]

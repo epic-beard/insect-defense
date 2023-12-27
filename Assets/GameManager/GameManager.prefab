@@ -12,7 +12,11 @@ GameObject:
   - component: {fileID: 6361153872161190346}
   - component: {fileID: 97919302000182411}
   - component: {fileID: 4167615392457572297}
-  - component: {fileID: 1333951122199400389}
+  - component: {fileID: 1707813114564521829}
+  - component: {fileID: 2570446215409944690}
+  - component: {fileID: 4758083784310599901}
+  - component: {fileID: 5546002314339584012}
+  - component: {fileID: 1108349156654615366}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -33,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6361153872161190346
 MonoBehaviour:
@@ -71,11 +75,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb5fbcb37d1d7b49b162c5c6db876fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
-  startingHealth: 10
-  startingNu: 100
-  nu: 0
---- !u!114 &1333951122199400389
+  SelectedTower: {fileID: 0}
+  maxHealth: 2
+  startingNu: 1000
+--- !u!114 &1707813114564521829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,21 +87,75 @@ MonoBehaviour:
   m_GameObject: {fileID: 3770796850854829353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d27faf84dbbc0643949e0368fa9866d, type: 3}
+  m_Script: {fileID: 11500000, guid: f604d9b51fde22847bd08419d3973620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicGroup: {fileID: 1626779888496228386, guid: 9691b7a46b4e1e342974367fce383bb0, type: 2}
-  sfxGroup: {fileID: 9064424125080577741, guid: 9691b7a46b4e1e342974367fce383bb0, type: 2}
-  sounds:
-  - Name: sfx
-    Type: 0
-    Clip: {fileID: 8300000, guid: 6e4b12910df22014eaff268aef1e24d9, type: 3}
-    Loop: 0
-    PlayOnAwake: 0
-    Volume: 0.5
-  - Name: music
-    Type: 1
-    Clip: {fileID: 8300000, guid: 36cbbd92a0917994ab1b33bc98a296c6, type: 3}
-    Loop: 1
-    PlayOnAwake: 1
-    Volume: 0.5
+  filename: data.enemies
+--- !u!114 &2570446215409944690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770796850854829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a0010d9a30916418f2db3325332632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerDataFilename: data.towers
+--- !u!114 &4758083784310599901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770796850854829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f18eee53f32dd71478d251ed9bba8e73, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &5546002314339584012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770796850854829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e030fb1dd5f0b8428048d137796c6c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1108349156654615366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770796850854829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b315dcb0151baba42ae3d463deb8f1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveDirectory: \saves

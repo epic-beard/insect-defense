@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour {
   public HashSet<Tower> webShootingTowerStuns = new();
   public HashSet<Tower> webShootingTowerPermSlow = new();
 
-  private float crippleSlow = 0.8f;
   private Transform target;
 
   // PrevWaypoint should be set before OnEnable is called.
@@ -94,8 +93,18 @@ public class Enemy : MonoBehaviour {
   public float BaseSpeed { get { return data.speed; } }
   public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
-  public bool Crippled { get; set; }
-  public bool CrippleImmunity { get { return data.properties == EnemyData.Properties.CRIPPLE_IMMUNITY; } }
+  public bool Crippled { get; private set; }
+  public bool CrippleImmunity {
+    get { return (data.properties & EnemyData.Properties.CRIPPLE_IMMUNITY) != 0; }
+    set {
+      if (value) {
+        data.properties |= EnemyData.Properties.CRIPPLE_IMMUNITY;
+      } else {
+        data.properties &= ~EnemyData.Properties.CRIPPLE_IMMUNITY;
+      }
+    }
+ }
+  public float CrippleSlow { get; private set; } = 0.8f;
   public int Damage {
     get { return data.damage; }
     set {
@@ -219,7 +228,7 @@ public class Enemy : MonoBehaviour {
   public void ApplyCripple() {
     if (!CrippleImmunity && !Crippled) {
       // [TODO] nnewsom: handle removing the leg, or downing the flyer here.
-      data.speed *= crippleSlow;
+      data.speed *= CrippleSlow;
       Crippled = true;
     }
   }
