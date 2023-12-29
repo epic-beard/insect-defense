@@ -17,12 +17,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ARMOR_TEAR</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mode>SET</mode>
+                  <mod>1</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Armor Tear</name>
-              <description>Increases armor tear by 10%.</description>
+              <name>Armor Tear!</name>
+              <description>Adds 1 point of armor tear.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -31,19 +31,19 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ARMOR_TEAR</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>SET</mode>
+                  <mod>2</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Armor Tear</name>
-              <description>Increases armor tear by 20%.</description>
+              <name>More Armor Tear</name>
+              <description>Increases armor tear to 2.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_1_3_ARMOR_TEAR_STUN</specialAbility>
-              <name>Stunning Reveal</name>
-              <description>When enemy's armor is reduced to 0, it is breifly stunned.</description>
+              <specialAbility>SA_1_3_ARMOR_TEAR_ACID_BONUS</specialAbility>
+              <name>Acid Breakdown</name>
+              <description>When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -52,12 +52,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ARMOR_TEAR</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mode>SET</mode>
+                  <mod>5</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Armor Tear</name>
-              <description>Increases armor tear by 30%.</description>
+              <name>Max Armor Tear</name>
+              <description>Increases armor tear to 5.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -75,12 +75,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mode>SET</mode>
+                  <mod>5</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Acid Power</name>
-              <description>Increases acid build rate by 10%.</description>
+              <name>Acid!</name>
+              <description>Attacks inflict 5 stacks of acid.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -89,19 +89,19 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>SET</mode>
+                  <mod>10</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Acid Power</name>
-              <description>Increases acid build rate by 20%.</description>
+              <name>More Acid</name>
+              <description>Acid inflicted is raised to 10.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_2_3_DOT_SLOW</specialAbility>
-              <name>Hindering Acid</name>
-              <description>If acid stacks reach max, apply a 20% slow for 2 seconds.</description>
+              <specialAbility>SA_2_3_ACID_BUILDUP_BONUS</specialAbility>
+              <name>Armorless Acid</name>
+              <description>If an enemy has no armor, they gain 50% more acid stacks from this tower.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -110,17 +110,17 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mode>SET</mode>
+                  <mod>15</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Acid Power</name>
-              <description>Increases acid build rate by 30%.</description>
+              <name>Spray that acid</name>
+              <description>Acid inflicted is raised to 15</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_2_5_DOT_EXPLOSION</specialAbility>
+              <specialAbility>SA_2_5_DOT_ENHANCEMENT</specialAbility>
               <name>Acid Explosion</name>
               <description>When acid stacks reach max, an explosion of acid is triggered, applying all acid stacks instantly and clearing them.</description>
               <upgradePath>1</upgradePath>
@@ -132,13 +132,13 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>AREA_OF_EFFECT</attribute>
+                  <attribute>RANGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Bigger Booms</name>
-              <description>Increases area of effect by 10%.</description>
+              <name>Nozzle Control</name>
+              <description>Attacks gain 50% more range.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -146,13 +146,13 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>RANGE</attribute>
+                  <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Longer Shots</name>
-              <description>Increases range by 10%.</description>
+              <name>Shot Production Speed</name>
+              <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -169,11 +169,11 @@
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Faster Production</name>
-              <description>Increases attack speed by 20%.</description>
+              <name>Even Faster Production</name>
+              <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -199,9 +199,9 @@
         <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
-        <slow_duration>2</slow_duration>
-        <slow_power>0.2</slow_power>
-        <stun_time>1</stun_time>
+        <slow_duration>0</slow_duration>
+        <slow_power>0</slow_power>
+        <stun_time>0</stun_time>
       </TowerData>
     </Value>
   </KeyValuePair>

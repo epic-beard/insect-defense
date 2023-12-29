@@ -26,7 +26,7 @@ public class TowerDataGenerator {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 1.0f)
         },
-        name = "Armor Tear",
+        name = "Armor Tear!",
         description = "Adds 1 point of armor tear.",
         upgradePath = 0,
         cost = 10,
@@ -35,15 +35,15 @@ public class TowerDataGenerator {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 2.0f)
         },
-        name = "Armor Tear",
+        name = "More Armor Tear",
         description = "Increases armor tear to 2.",
         upgradePath = 0,
         cost = 10,
       },
       new() {
         specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
-        name = "Stunning Reveal",
-        description = "When enemy's armor is reduced to 0, it stunned for 5 seconds.",
+        name = "Acid Breakdown",
+        description = "When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.",
         upgradePath = 0,
         cost = 10,
       },
@@ -51,7 +51,7 @@ public class TowerDataGenerator {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 5.0f)
         },
-        name = "Armor Tear",
+        name = "Max Armor Tear",
         description = "Increases armor tear to 5.",
         upgradePath = 0,
         cost = 10,
@@ -67,35 +67,35 @@ public class TowerDataGenerator {
     var secondPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10.0f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 5.0f)
         },
-        name = "Acid Power",
-        description = "Attacks inflict 10 second of acid damage.",
+        name = "Acid!",
+        description = "Attacks inflict 5 stacks of acid.",
         upgradePath = 1,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10.0f)
         },
-        name = "Acid Power",
-        description = "Increases acid build rate by 20%.",
+        name = "More Acid",
+        description = "Acid inflicted is raised to 10.",
         upgradePath = 1,
         cost = 10,
       },
       new() {
         specialAbility = SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
-        name = "Hindering Acid",
-        description = "If acid stacks reach max, apply a 20% slow for 2 seconds.",
+        name = "Armorless Acid",
+        description = "If an enemy has no armor, they gain 50% more acid stacks from this tower.",
         upgradePath = 1,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.3f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15.0f)
         },
-        name = "Acid Power",
-        description = "Increases acid build rate by 30%.",
+        name = "Spray that acid",
+        description = "Acid inflicted is raised to 15",
         upgradePath = 1,
         cost = 10,
       },
@@ -110,19 +110,19 @@ public class TowerDataGenerator {
     var thirdPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.AREA_OF_EFFECT, Mode.SET, 5.0f)
+          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.5f)
         },
-        name = "Explosive shot",
-        description = "Attacks now generate an explosion of radius 5.",
+        name = "Nozzle Control",
+        description = "Attacks gain 50% more range.",
         upgradePath = 2,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
         },
-        name = "Longer Shots",
-        description = "Increases range by 10%.",
+        name = "Shot Production Speed",
+        description = "Increases attack speed by 50%.",
         upgradePath = 2,
         cost = 10,
       },
@@ -135,10 +135,10 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
         },
-        name = "Faster Production",
-        description = "Increases attack speed by 20%.",
+        name = "Even Faster Production",
+        description = "Increases attack speed by 50%.",
         upgradePath = 2,
         cost = 10,
       },
@@ -175,9 +175,9 @@ public class TowerDataGenerator {
       range = 20,
       secondary_slow_potency = 0,
       secondary_slow_targets = 0,
-      slow_duration = 2,
-      slow_power = 0.2f,
-      stun_time = 5,
+      slow_duration = 0,
+      slow_power = 0.0f,
+      stun_time = 0,
     };
 
     return data;

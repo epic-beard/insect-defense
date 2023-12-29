@@ -40,7 +40,7 @@ public class SpittingAntTowerTest {
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
-    Assert.That(false, Is.EqualTo(spittingAntTower.DotSlow));
+    Assert.That(false, Is.EqualTo(spittingAntTower.AcidBuildupBonus));
   }
 
   // Test setting DotSlow.
@@ -48,8 +48,8 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeDotSlow() {
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS);
 
-    Assert.That(true, Is.EqualTo(spittingAntTower.DotSlow));
-    Assert.That(false, Is.EqualTo(spittingAntTower.DotExplosion));
+    Assert.That(true, Is.EqualTo(spittingAntTower.AcidBuildupBonus));
+    Assert.That(false, Is.EqualTo(spittingAntTower.AcidEnhancement));
   }
 
   // Test setting DotExplosion.
@@ -57,7 +57,7 @@ public class SpittingAntTowerTest {
   public void SpecialAbilityUpgradeDotExplosion() {
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_5_DOT_ENHANCEMENT);
 
-    Assert.That(true, Is.EqualTo(spittingAntTower.DotExplosion));
+    Assert.That(true, Is.EqualTo(spittingAntTower.AcidEnhancement));
     Assert.That(false, Is.EqualTo(spittingAntTower.AntiAir));
   }
 
@@ -79,34 +79,6 @@ public class SpittingAntTowerTest {
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.ContinuousAttack));
-  }
-
-  #endregion
-
-  #region ApplyArmorTearAndCheckForAcidStunTests
-
-  // Make sure acid damage doesn't stun doesn't apply if AcidStun isn't set.
-  [Test]
-  public void ApplyArmorTearAndCheckForAcidStunDoesNotStunWithoutAcidStun() {
-    Enemy enemy = CreateEnemy(Vector3.zero, armor: 1.0f);
-
-    bool isStunned = spittingAntTower.InvokeApplyArmorTearAndCheckForArmorTearStun(enemy, 2.0f);
-
-    Assert.That(isStunned, Is.EqualTo(false));
-  }
-
-  // Confirm acid stun behavior with a variety of preconditions.
-  [Test, Sequential]
-  public void ApplyArmorTearAndCheckForArmorTearStun(
-      [Values(0.0f, 1.0f, 2.0f)] float enemyArmor,
-      [Values(1.0f, 1.0f, 1.0f)] float armorTear,
-      [Values(false, true, false)] bool expectedStun) {
-    Enemy enemy = CreateEnemy(Vector3.zero, armor: enemyArmor);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS);
-
-    bool isStunned = spittingAntTower.InvokeApplyArmorTearAndCheckForArmorTearStun(enemy, armorTear);
-
-    Assert.That(isStunned, Is.EqualTo(expectedStun));
   }
 
   #endregion
@@ -137,106 +109,33 @@ public class SpittingAntTowerTest {
 
   #region ProcessDamageAndEffectsTests
 
-  // Test the slow aspect of acid effects.
+  // Test HandleArmorTearExplosion.
   [Test]
-  public void HandleAcidEffectsSlows() {
-    spittingAntTower.SetDotSlow(true);
-    spittingAntTower.SetDotExplosion(false);
-    float slowPower = 0.5f;
-    float slowDuration = 10.0f;
-    spittingAntTower.SlowPower = slowPower;
-    spittingAntTower.SlowDuration = slowDuration;
-
-    Enemy target = CreateEnemy(Vector3.zero);
-
-    spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
-
-    // Make sure the target is slowed.
-    Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
-    Assert.That(target.SlowPower, Is.EqualTo(slowPower));
-
-    spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
-
-    // Make sure the slow is not applied more than once.
-    Assert.That(target.SlowDuration, Is.EqualTo(slowDuration));
-    Assert.That(target.SlowPower, Is.EqualTo(slowPower));
-  }
-
-  // Test that acid explosions have the desired effects.
-  //[Test]
-  //public void HandleAcidEffectsAcidExplosions() {
-  //  Enemy target = CreateEnemy(Vector3.zero);
-  //  Enemy enemyInRange = CreateEnemy(Vector3.zero);
-  //  Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
-  //  float enemyHP = 10000.0f;
-  //  target.HP = enemyHP;
-  //  enemyInRange.HP = enemyHP;
-  //  enemyOutOfRange.HP = enemyHP;
-
-  //  spittingAntTower.AreaOfEffect = 10.0f;
-  //  spittingAntTower.SetAcidExplosionRangeMultiplier(1.0f);
-  //  spittingAntTower.DamageOverTime = 1000.0f;
-  //  spittingAntTower.SetDotSlow(false);
-  //  spittingAntTower.SetDotExplosion(true);
-  //  spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS);
-  //  ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
-  //  spittingAntTower.SetAcidExplosion(acidExplosion);
-
-  //  ObjectPool objectPool = CreateObjectPool();
-  //  ObjectPool.Instance = objectPool;
-  //  HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-  //  objectPool.SetActiveEnemies(activeEnemies);
-
-  //  float expectedEnemyHP = enemyHP - (target.AcidStackExplosionThreshold * target.AcidDamagePerStackPerSecond);
-
-  //  spittingAntTower.InvokeHandleMaxAcidStackEffects(target);
-
-  //  Assert.That(target.HP, Is.EqualTo(expectedEnemyHP));
-  //  Assert.That(enemyInRange.HP, Is.EqualTo(expectedEnemyHP));
-  //  Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHP));
-  //}
-
-  // Test HandleSplashEffects with combinatorial arguments.
-  [Test]
-  public void HandleSplashEffects(
-      [Values(true, false)] bool armorTearExplosion,
-      [Values(true, false)] bool acidStun) {
-    Enemy target = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy enemyInRange = CreateEnemy(Vector3.zero, armor: 1.0f);
-    Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0), armor: 1.0f);
-    float enemyHp = 10000.0f;
-    target.HP = enemyHp;
-    enemyInRange.HP = enemyHp;
-    enemyOutOfRange.HP = enemyHp;
+  public void HandleArmorTearExplosion() {
+    float enemyArmor = 1000.0f;
+    Enemy target = CreateEnemy(Vector3.zero, hp: 10000.0f, armor: enemyArmor);
+    Enemy enemyInRange = CreateEnemy(Vector3.zero, hp: 10000.0f, armor: enemyArmor);
+    Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0), hp: 10000.0f, armor: enemyArmor);
 
     spittingAntTower.SetSplashExplosionRangeMultiplier(10.0f);
-    spittingAntTower.SetArmorTearExplosion(armorTearExplosion);
+
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplashExplosion(splashExplosion);
-    float expectedStunTime = 0.0f;
-    if (acidStun) {
-      spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS);
-      expectedStunTime = spittingAntTower.StunTime;
-    }
 
     ObjectPool objectPool = CreateObjectPool();
     ObjectPool.Instance = objectPool;
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
     objectPool.SetActiveEnemies(activeEnemies);
 
-    float expectedDamage = spittingAntTower.Damage;
+    float expectedArmorTear = 5.0f;
+    spittingAntTower.ArmorTear = expectedArmorTear;
 
-    spittingAntTower.InvokeHandleSplashEffects(target, expectedDamage);
+    spittingAntTower.InvokeHandleArmorTearExplosion(target, expectedArmorTear);
 
     // Ensure that the splash damage is applied appropriately regardless of ArmorTearExplosion.
-    Assert.That(target.HP, Is.EqualTo(enemyHp - expectedDamage));
-    Assert.That(enemyInRange.HP, Is.EqualTo(enemyHp - expectedDamage));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(enemyHp));
-
-    // Ensure that armor tear is applied appropriately only if ArmorTearExplosion is set.
-    Assert.That(target.StunTime, Is.EqualTo(expectedStunTime));
-    Assert.That(enemyInRange.StunTime, Is.EqualTo(expectedStunTime));
-    Assert.That(enemyOutOfRange.StunTime, Is.EqualTo(0.0f));
+    Assert.That(target.Armor, Is.EqualTo(enemyArmor));
+    Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor - expectedArmorTear));
+    Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
   }
 
   // Test continuous fire on an unarmored target.
@@ -349,23 +248,6 @@ public class SpittingAntTowerTest {
 // Extension methods to hold reflection-based calls to access private fields, properties, or methods of
 // SpittingAntTower.
 public static class SpittingAntTowerUtils {
-  public static void SetDotSlow(this SpittingAntTower spittingAntTower, bool dotSlow) {
-    typeof(SpittingAntTower)
-        .GetProperty("DotSlow")
-        .SetValue(spittingAntTower, dotSlow);
-  }
-
-  public static void SetDotExplosion(this SpittingAntTower spittingAntTower, bool dotExplosion) {
-    typeof(SpittingAntTower)
-        .GetProperty("DotExplosion")
-        .SetValue(spittingAntTower, dotExplosion);
-  }
-
-  public static void SetArmorTearExplosion(this SpittingAntTower spittingAntTower, bool tearExplosion) {
-    typeof(SpittingAntTower)
-        .GetProperty("ArmorTearExplosion")
-        .SetValue(spittingAntTower, tearExplosion);
-  }
 
   public static void SetSplash(this SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
     typeof(SpittingAntTower)
@@ -382,18 +264,6 @@ public static class SpittingAntTowerUtils {
   public static void SetSplashExplosionRangeMultiplier(this SpittingAntTower spittingAntTower, float range) {
     typeof(SpittingAntTower)
         .GetField("splashExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, range);
-  }
-
-  public static void SetAcidExplosion(this SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
-    typeof(SpittingAntTower)
-        .GetField("acidExplosion", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, particleSystem);
-  }
-
-  public static void SetAcidExplosionRangeMultiplier(this SpittingAntTower spittingAntTower, float range) {
-    typeof(SpittingAntTower)
-        .GetField("acidExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, range);
   }
 
@@ -425,22 +295,12 @@ public static class SpittingAntTowerUtils {
     processDamageAndEffects.Invoke(spittingAntTower, args);
   }
 
-  public static void InvokeHandleMaxAcidStackEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {
-    object[] args = { enemy };
-    Type[] argTypes = { typeof(Enemy) };
-    MethodInfo handleMaxAcidStackEffects = typeof(SpittingAntTower).GetMethod(
-        "HandleMaxAcidStackEffects",
-        BindingFlags.NonPublic | BindingFlags.Instance,
-        null, CallingConventions.Standard, argTypes, null);
-    handleMaxAcidStackEffects.Invoke(spittingAntTower, args);
-  }
-
-  public static void InvokeHandleSplashEffects(
-      this SpittingAntTower spittingAntTower, Enemy enemy, float onHitDamage) {
-    object[] args = { enemy, onHitDamage };
+  public static void InvokeHandleArmorTearExplosion(
+      this SpittingAntTower spittingAntTower, Enemy enemy, float armorTear) {
+    object[] args = { enemy, armorTear };
     Type[] argTypes = { typeof(Enemy), typeof(float) };
     MethodInfo handleSplashEffects = typeof(SpittingAntTower).GetMethod(
-        "HandleSplashEffects",
+        "HandleArmorTearExplosion",
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
     handleSplashEffects.Invoke(spittingAntTower, args);
@@ -455,17 +315,6 @@ public static class SpittingAntTowerUtils {
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
     return (List<Enemy>)getEnemiesInExplosionRange.Invoke(spittingAntTower, args);
-  }
-
-  public static bool InvokeApplyArmorTearAndCheckForArmorTearStun(
-      this SpittingAntTower spittingAntTower, Enemy enemy, float armorTear) {
-    object[] args = { enemy, armorTear };
-    Type[] argTypes = { typeof(Enemy), typeof(float) };
-    MethodInfo applyArmorTearAndCheckForAcidStun = typeof(SpittingAntTower).GetMethod(
-        "ApplyArmorTearAndCheckForArmorTearStun",
-        BindingFlags.NonPublic | BindingFlags.Instance,
-        null, CallingConventions.Standard, argTypes, null);
-    return (bool)applyArmorTearAndCheckForAcidStun.Invoke(spittingAntTower, args);
   }
 }
 

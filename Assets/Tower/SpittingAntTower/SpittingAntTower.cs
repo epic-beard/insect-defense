@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,22 +8,18 @@ public class SpittingAntTower : Tower {
   [SerializeField] Transform upperMesh;
   [SerializeField] ParticleSystem splash;
   [SerializeField] ParticleSystem splashExplosion;
-  [SerializeField] ParticleSystem acidExplosion;
   [SerializeField] LineRenderer beam;
 
   [SerializeField] float splashExplosionMultiplier = 1.0f;
-  [SerializeField] float acidExplosionMultiplier = 1.0f;
 
   public bool ArmorTearAcidBonus { get; private set; } = false;
   public bool ArmorTearExplosion { get; private set; } = false;
   public bool ContinuousAttack { get; private set; } = false;
-  public bool DotSlow { get; private set; } = false;
-  public bool DotExplosion { get; private set; } = false;
+  public bool AcidBuildupBonus { get; private set; } = false;
+  public bool AcidEnhancement { get; private set; } = false;
+  public float AcidDecayDelay { get; private set; } = 10.0f;
   public float SplashExplosionRange {
     get { return data[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
-  }
-  public float AcidExplosionRange {
-    get { return data[TowerData.Stat.AREA_OF_EFFECT] * acidExplosionMultiplier; }
   }
   public override TowerData.Type TowerType { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
 
@@ -45,10 +42,10 @@ public class SpittingAntTower : Tower {
         ArmorTearExplosion = true;
         break;
       case SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS:
-        DotSlow = true;
+        AcidBuildupBonus = true;
         break;
       case SpecialAbility.SA_2_5_DOT_ENHANCEMENT:
-        DotExplosion = true;
+        AcidEnhancement = true;
         break;
       case SpecialAbility.SA_3_3_ANTI_AIR:
         AntiAir = true;
@@ -78,39 +75,43 @@ public class SpittingAntTower : Tower {
     }
 
     // Armor tear effects.
-    if (ArmorTearAcidBonus && target.AcidStacks <= target.AcidStackExplosionThreshold) {
+    if (ArmorTearAcidBonus && (target.AcidStackExplosionThreshold / 2) <= target.AcidStacks) {
       target.TearArmor(armorTear * 1.5f);
     } else {
       target.TearArmor(armorTear);
     }
     if (ArmorTearExplosion) {
-      // TODO: Trigger armor tear explosion.
+      HandleArmorTearExplosion(target, armorTear);
     }
 
     // Acid DoT effects.
-    target.AddAcidStacks(acidStacks);
+    if (AcidBuildupBonus && target.Armor <= 0.0f) {
+      target.AddAcidStacks(acidStacks * 1.5f, AcidEnhancement);
+    } else {
+      target.AddAcidStacks(acidStacks, AcidEnhancement);
+    }
 
-    // Splash explosion handling, unnecessary if the tower is continuous attack.
-    if (!ContinuousAttack) {
-      HandleSplashEffects(target, onHitDamage);
+    if (AcidEnhancement) {
+      target.AddAdvancedAcidDecayDelay(this, AcidDecayDelay);
     }
 
     target.DamageEnemy(onHitDamage, armorPierce, ContinuousAttack);
   }
 
-  private void HandleSplashEffects(Enemy target, float onHitDamage) {
+  private void HandleArmorTearExplosion(Enemy target, float armorTear) {
     splashExplosion.transform.position = target.AimPoint;
     splashExplosion.Play();
 
     // Get a list of enemies caught in the AoE that are not the enemy targeted.
-    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(ObjectPool.Instance.GetActiveEnemies(), target, SplashExplosionRange);
+    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(ObjectPool.Instance.GetActiveEnemies(), target, splashExplosionMultiplier);
 
     foreach (Enemy enemy in enemiesInAoe) {
-      enemy.DamageEnemy(onHitDamage, ArmorPierce);
-
-      //if (ArmorTearExplosion && ApplyArmorTearAndCheckForArmorTearStun(enemy, ArmorTear)) {
-      //  enemy.AddStunTime(data[TowerData.Stat.STUN_TIME]);
-      //}
+      // Any tower that has armor tear explosion, also has armor tear acid bonus.
+      if ((enemy.AcidStackExplosionThreshold / 2) <= enemy.AcidStacks) {
+        enemy.TearArmor(armorTear * 1.5f);
+      } else {
+        enemy.TearArmor(armorTear);
+      }
     }
   }
 

@@ -135,9 +135,6 @@ public class EnemyPlayModeTest {
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplashExplosion(splashExplosion);
 
-    ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetAcidExplosion(acidExplosion);
-
     LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
     spittingAntTower.SetBeam(beam);
 

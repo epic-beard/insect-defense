@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour {
   public HashSet<Tower> spittingAntTowerSlows = new();
   public HashSet<Tower> webShootingTowerStuns = new();
   public HashSet<Tower> webShootingTowerPermSlow = new();
+  // Map of SpittingAntTowers to the duration of their acid decay delay.
   public Dictionary<Tower, float> AdvancedAcidDecayDelay = new();
 
   private Transform target;
@@ -186,11 +187,12 @@ public class Enemy : MonoBehaviour {
     return Armor;
   }
 
-  public void AddAcidStacks(float stacks) {
+  // Add acid stacks to this enemy, and react appropriately to the acid capstone.
+  public void AddAcidStacks(float stacks, bool acidEnhancement) {
     AcidStacks += stacks;
     if (AcidStackExplosionThreshold <= AcidStacks) {
       // TODO(emonzon): Trigger explosion animation.
-      HP -= AcidStacks;
+      HP -= acidEnhancement ? AcidStacks * 2.0f : AcidStacks;
       AcidStacks = 0.0f;
     }
   }
@@ -274,7 +276,7 @@ public class Enemy : MonoBehaviour {
       int tenStacks = (int)AcidStacks / 10;
       float damage = (tenStacks + 1) * Time.deltaTime;
       HP -= damage;
-      AcidStacks -= damage;
+      AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
     }
   }
 

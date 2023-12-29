@@ -37,14 +37,50 @@ public class EnemyTest {
   public void AcidExplosion(
       [Values(10, 30, 50, 80, 120)] int acidStacks,
       [Values(EnemyData.Size.TINY, EnemyData.Size.SMALL, EnemyData.Size.NORMAL, EnemyData.Size.LARGE, EnemyData.Size.HUGE)] EnemyData.Size enemySize) {
-    Enemy enemy = CreateEnemy(Vector3.zero, hp: acidStacks * 2, size: enemySize);
+    float enemyHp = acidStacks * 2;
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: enemyHp, size: enemySize);
 
-    enemy.AddAcidStacks(acidStacks);
+    enemy.AddAcidStacks(acidStacks, false);
 
-    // Since a frame has passed, a little more than the acid explosion is expected.
-    Assert.That(enemy.HP, Is.InRange(acidStacks - (acidStacks * 0.1), acidStacks));
+    Assert.That(enemy.HP, Is.EqualTo(enemyHp - ((int)enemySize * Enemy.acidExplosionStackMultiplier)));
     Assert.That(enemy.AcidStacks, Is.EqualTo(0.0f));
   }
+
+  [Test]
+  public void AcidDecayNormal([Values(5, 15, 25, 35)] int acidStacks) {
+    Time.captureDeltaTime = 1.0f;
+    float hp = 1000.0f;
+
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: hp, size: EnemyData.Size.HUGE);
+
+    enemy.AddAcidStacks(acidStacks, false);
+    enemy.InvokeUpdate();
+
+    float expectedAcidReduction = ((acidStacks / 10) + 1) * Time.deltaTime;
+
+    Assert.That(enemy.AcidStacks, Is.EqualTo(acidStacks - expectedAcidReduction));
+  }
+
+  [Test]
+  public void AcidDecayAdvanced() {
+    Time.captureDeltaTime = 1.0f;
+    float hp = 1000.0f;
+    float acidStacks = 50;
+    GameObject gameObject = new();
+    SpittingAntTower tower = gameObject.AddComponent<SpittingAntTower>(); ;
+
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: hp, size: EnemyData.Size.HUGE);
+
+    enemy.AddAcidStacks(acidStacks, false);
+    enemy.AddAdvancedAcidDecayDelay(tower, 10.0f);
+    enemy.InvokeUpdate();
+
+    float expectedAcidReduction = Mathf.Max(0.0f, (((acidStacks / 10) + 1) * Time.deltaTime) - Time.deltaTime);
+    Debug.Log(expectedAcidReduction);
+
+    Assert.That(enemy.AcidStacks, Is.EqualTo(acidStacks - expectedAcidReduction));
+  }
+
 
   // Test AddStunTime.
   [Test]
