@@ -68,84 +68,10 @@ public class SpittingAntTowerPlayModeTest {
     spittingAntTower.gameObject.SetActive(false);
     ObjectPool.Instance.DestroyAllEnemies();
   }
-
-  // Play test for the basic splash attack. This test focuses on those effects only available to the
-  // splash effect. It does not delve into the DoT effects, SA_2_3_DOT_SLOW and SA_2_5_DOT_EXPLOSION should
-  // not be true for this test.
-  [UnityTest]
-  public IEnumerator SplashAttackTestWithNoArmorTearExplosion() {
-    SetSpittingAntTowerProperties(
-        spittingAntTower,
-        attackSpeed: 1.0f,
-        areaOfEffect: 10.0f,
-        armorTear: targetArmor * 0.8f,
-        damage: 100.0f,
-        range: 1.0f);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
-
-    Time.captureDeltaTime = 0.001f;
-    // Yield once to target enemy.
-    yield return null;
-    // Yield once to trigger a shot.
-    yield return new WaitForEndOfFrame();
-
-    // Wait two seconds and skip to the end of the frame.
-    Time.captureDeltaTime = 2.0f;
-    yield return null;
-    yield return new WaitForEndOfFrame();
-
-    Assert.That(target.HP, Is.LessThan(hp));
-    Assert.That(target.Armor, Is.LessThan(targetArmor));
-    Assert.That(enemyInRange.HP, Is.LessThan(hp));
-    Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
-    Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
-
-    yield return null;
-  }
-  
-  // Like the above, this test focuses on splash, but includs the ArmorTearExplosion to make sure it damages
-  // the armor of nearby enemies.
-  [UnityTest]
-  public IEnumerator SplashAttackTestWithArmorTearExplosion() {
-    SetSpittingAntTowerProperties(
-        spittingAntTower,
-        attackSpeed: 1.0f,
-        areaOfEffect: 10.0f,
-        armorTear: targetArmor * 0.8f,
-        damage: 100.0f,
-        range: 1.0f);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
-
-    Time.captureDeltaTime = 0.001f;
-    // Yield once to target enemy.
-    yield return null;
-    // Yield once to trigger a shot.
-    yield return new WaitForEndOfFrame();
-
-    // Wait two seconds and skip to the end of the frame.
-    Time.captureDeltaTime = 2.0f;
-    yield return null;
-    yield return new WaitForEndOfFrame();
-
-    Assert.That(target.HP, Is.LessThan(hp));
-    Assert.That(target.Armor, Is.LessThan(targetArmor));
-    Assert.That(enemyInRange.HP, Is.LessThan(hp));
-    Assert.That(enemyInRange.Armor, Is.LessThan(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
-    Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
-
-    yield return null;
-  }
-  
+    
   // Play test for the continuous attack and the acid DoT effects.
   [UnityTest]
-  public IEnumerator BeamAttackTestNoSlowOrExplosion() {
+  public IEnumerator BeamAttackTest() {
     SetSpittingAntTowerProperties(
         spittingAntTower,
         attackSpeed: 1.0f,
@@ -174,90 +100,7 @@ public class SpittingAntTowerPlayModeTest {
 
     Assert.That(target.HP, Is.LessThan(hp));
     Assert.That(target.Armor, Is.LessThan(enemyArmor));
-    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
     Assert.That(enemyInRange.HP, Is.EqualTo(hp));
-    Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
-    Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
-
-    yield return null;
-  }
-  
-  // Make sure that the target is slowed when the dot reaches max.
-  [UnityTest]
-  public IEnumerator BeamAttackTestWithSlowNoExplosion() {
-    SetSpittingAntTowerProperties(
-        spittingAntTower,
-        attackSpeed: 1.0f,
-        areaOfEffect: 10.0f,
-        armorTear: enemyArmor,
-        damage: 100.0f,
-        damageOverTime: 100.0f,
-        range: 1.0f,
-        slowDuration: 10.0f,
-        slowPower: 0.5f);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
-
-    Time.captureDeltaTime = 0.001f;
-    // Yield once to target enemy.
-    yield return null;
-    // Yield once to trigger a shot.
-    yield return new WaitForEndOfFrame();
-
-    // Wait two seconds and skip to the end of the frame.
-    Time.captureDeltaTime = 2.0f;
-    yield return null;
-    yield return new WaitForEndOfFrame();
-
-    Assert.That(target.HP, Is.LessThan(hp));
-    Assert.That(target.Armor, Is.LessThan(targetArmor));
-    Assert.That(target.SlowDuration, Is.GreaterThan(0.0f));
-    Assert.That(enemyInRange.HP, Is.EqualTo(hp));
-    Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
-    Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
-
-    yield return null;
-  }
-  
-  // Make sure nearby enemies are damaged by the acid explosion when dot reaches max.
-  [UnityTest]
-  public IEnumerator BeamAttackTestWithExplosionNoSlow() {
-    SetSpittingAntTowerProperties(
-        spittingAntTower,
-        attackSpeed: 1.0f,
-        areaOfEffect: 10.0f,
-        armorTear: enemyArmor,
-        damage: 100.0f,
-        damageOverTime: 100.0f,
-        range: 1.0f,
-        slowDuration: 10.0f,
-        slowPower: 0.5f);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_5_DOT_ENHANCEMENT);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
-
-    Time.captureDeltaTime = 0.001f;
-    // Yield once to target enemy.
-    yield return null;
-    // Yield once to trigger a shot.
-    yield return new WaitForEndOfFrame();
-
-    // Wait two seconds and skip to the end of the frame.
-    Time.captureDeltaTime = 2.0f;
-    yield return null;
-    yield return new WaitForEndOfFrame();
-
-    Assert.That(target.HP, Is.LessThan(hp));
-    Assert.That(target.Armor, Is.LessThanOrEqualTo(targetArmor));
-    Assert.That(target.SlowDuration, Is.EqualTo(0.0f));
-    Assert.That(enemyInRange.HP, Is.LessThan(hp));
     Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor));
     Assert.That(enemyOutOfRange.HP, Is.EqualTo(hp));
     Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));

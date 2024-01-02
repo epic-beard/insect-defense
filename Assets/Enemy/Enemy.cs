@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
@@ -259,7 +258,11 @@ public class Enemy : MonoBehaviour {
   }
 
   public void AddAdvancedAcidDecayDelay(SpittingAntTower tower, float delay) {
-    AdvancedAcidDecayDelay.Add(tower, delay);
+    if (AdvancedAcidDecayDelay.ContainsKey(tower)) {
+      AdvancedAcidDecayDelay[tower] = delay;
+    } else {
+      AdvancedAcidDecayDelay.Add(tower, delay);
+    }
   }
 
   private void Update() {
@@ -272,7 +275,7 @@ public class Enemy : MonoBehaviour {
     }
 
     // Handle acid damage.
-    if (0.0f < AcidStacks) {
+    if (AcidStacks > 0.0f) {
       int tenStacks = (int)AcidStacks / 10;
       float damage = (tenStacks + 1) * Time.deltaTime;
       HP -= damage;
@@ -297,6 +300,7 @@ public class Enemy : MonoBehaviour {
           AdvancedAcidDecayDelay.Remove(tower);
         }
       }
+      yield return null;
     }
   }
 
