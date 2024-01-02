@@ -20,11 +20,12 @@ public class Enemy : MonoBehaviour {
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
 
-  public static int acidStackMaxMultiplier = 25;
-  public static float acidDamagePerStackPerSecond = 1.0f;
+  public static int acidExplosionStackMultiplier = 10;
   public HashSet<Tower> spittingAntTowerSlows = new();
   public HashSet<Tower> webShootingTowerStuns = new();
   public HashSet<Tower> webShootingTowerPermSlow = new();
+  // Map of SpittingAntTowers to the duration of their acid decay delay.
+  public Dictionary<Tower, float> AdvancedAcidDecayDelay = new();
 
   private Transform target;
 
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour {
     }
 
     StartCoroutine(HandleStun());
+    StartCoroutine(HandleAdvancedAcidDecay());
 
     if (Flying) {
       StartCoroutine(GroundFlierForDuration());
@@ -68,11 +70,11 @@ public class Enemy : MonoBehaviour {
 
   #region Properties
 
-  public float AcidDamagePerStackPerSecond { get { return acidDamagePerStackPerSecond; } }
   public float AcidStacks {
     get { return data.acidStacks; }
     private set { data.acidStacks = value; }
   }
+  public float AcidStackExplosionThreshold { get { return (int)data.size * acidExplosionStackMultiplier; } }
   public Vector3 AimPoint {
     get {
       if (target != null) {
@@ -136,8 +138,6 @@ public class Enemy : MonoBehaviour {
       }
     }
   }
-  // The enemy's unmodified core speed. This is not what is called to determine move speed.
-  public float MaxAcidStacks { get { return (int)data.size * acidStackMaxMultiplier; } }
   public float MaxArmor { get { return data.maxArmor; } }
   public float MaxHp { get { return data.maxHP; } }
   public int Nu {
@@ -186,10 +186,14 @@ public class Enemy : MonoBehaviour {
     return Armor;
   }
 
-  // Returns true if stacks are at max.
-  public bool AddAcidStacks(float stacks) {
-    AcidStacks = Mathf.Min(AcidStacks + stacks, MaxAcidStacks);
-    return AcidStacks == MaxAcidStacks;
+  // Add acid stacks to this enemy, and react appropriately to the acid capstone.
+  public void AddAcidStacks(float stacks, bool acidEnhancement) {
+    AcidStacks += stacks;
+    if (AcidStackExplosionThreshold <= AcidStacks) {
+      // TODO(emonzon): Trigger explosion animation.
+      HP -= acidEnhancement ? AcidStacks * 2.0f : AcidStacks;
+      AcidStacks = 0.0f;
+    }
   }
 
   public void ResetAcidStacks() {
@@ -253,6 +257,14 @@ public class Enemy : MonoBehaviour {
     return Vector3.Distance(transform.position, NextWaypoint.transform.position) + NextWaypoint.DistanceToEnd;
   }
 
+  public void AddAdvancedAcidDecayDelay(SpittingAntTower tower, float delay) {
+    if (AdvancedAcidDecayDelay.ContainsKey(tower)) {
+      AdvancedAcidDecayDelay[tower] = delay;
+    } else {
+      AdvancedAcidDecayDelay.Add(tower, delay);
+    }
+  }
+
   private void Update() {
     // Handle slows.
     if (0.0f < SlowDuration) {
@@ -263,10 +275,32 @@ public class Enemy : MonoBehaviour {
     }
 
     // Handle acid damage.
-    if (0.0f < AcidStacks) {
-      float acidDamage = AcidDamagePerStackPerSecond * Time.deltaTime;
-      AcidStacks = Mathf.Max(AcidStacks - Time.deltaTime, 0.0f);
-      HP -= acidDamage;
+    if (AcidStacks > 0.0f) {
+      int tenStacks = (int)AcidStacks / 10;
+      float damage = (tenStacks + 1) * Time.deltaTime;
+      HP -= damage;
+      AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
+    }
+  }
+
+  // Handle ensuring that the advanced acid decay delay decays at the appropriate pace.
+  private IEnumerator HandleAdvancedAcidDecay() {
+    while (true) {
+      if (AdvancedAcidDecayDelay.Count > 0) {
+        HashSet<Tower> towersToBeDeleted = new();
+        foreach (var tower in AdvancedAcidDecayDelay.Keys) {
+          // Reduce the timer.
+          AdvancedAcidDecayDelay[tower] -= Time.deltaTime;
+          if (AdvancedAcidDecayDelay[tower] <= 0.0f) {
+            towersToBeDeleted.Add(tower);
+          }
+        }
+        // Remove those towers that are no longer affecting this enemy from the mapping.
+        foreach (Tower tower in towersToBeDeleted) {
+          AdvancedAcidDecayDelay.Remove(tower);
+        }
+      }
+      yield return null;
     }
   }
 
@@ -295,6 +329,7 @@ public class Enemy : MonoBehaviour {
       data.speed = originalSpeed;
     }
   }
+
 
   private IEnumerator FollowPath() {
     while (NextWaypoint != null) {

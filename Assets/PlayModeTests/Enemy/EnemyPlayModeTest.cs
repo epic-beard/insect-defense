@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class EnemyTest {
+public class EnemyPlayModeTest {
   Enemy enemy;
   SpittingAntTower spittingAntInRange;
   SpittingAntTower spittingAntOutOfRange;
@@ -136,9 +134,6 @@ public class EnemyTest {
 
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplashExplosion(splashExplosion);
-
-    ParticleSystem acidExplosion = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetAcidExplosion(acidExplosion);
 
     LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
     spittingAntTower.SetBeam(beam);

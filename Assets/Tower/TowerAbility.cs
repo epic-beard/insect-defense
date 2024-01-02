@@ -26,10 +26,10 @@ public struct TowerAbility {
     M_2_5_SERRATED_CLAWS, // Mantis Tower, Debilitation upgrade tree level 5.
     M_3_3_CAMO_SIGHT,  // Mantis Tower, Utility upgrade tree level 3.
     M_3_5_VORPAL_CLAWS,  // Mantis Tower, Utility upgrade tree level 5.
-    SA_1_3_ARMOR_TEAR_STUN,  // Spitting Ant Tower, Armor Tear upgrade tree level 3.
+    SA_1_3_ARMOR_TEAR_ACID_BONUS,  // Spitting Ant Tower, Armor Tear upgrade tree level 3.
     SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Tower, Armor Tear upgrade tree level 5.
-    SA_2_3_DOT_SLOW,  // Spitting Ant Tower, Acid DoT upgrade tree level 3.
-    SA_2_5_DOT_EXPLOSION,  // Spitting Ant Tower, Acid DoT upgrade tree level 5.
+    SA_2_3_ACID_BUILDUP_BONUS,  // Spitting Ant Tower, Acid DoT upgrade tree level 3.
+    SA_2_5_DOT_ENHANCEMENT,  // Spitting Ant Tower, Acid DoT upgrade tree level 5.
     SA_3_3_ANTI_AIR,  // Spitting Ant Tower, Utility upgrade tree level 3.
     SA_3_5_CONSTANT_FIRE,  // Spitting Ant Tower, Utility upgrade tree level 5.
     WSS_1_3_SLOW_STUN,  // Web Shooting Spider Tower, Slow upgrade tree level 3.

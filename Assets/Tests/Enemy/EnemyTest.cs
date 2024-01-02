@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
@@ -29,27 +30,55 @@ public class EnemyTest {
     Assert.That(resultArmor, Is.EqualTo(remainingArmor));
   }
 
+
   // Test AddAcidStacks to make sure that it returns true when at max stacks and false when it doesn't.
   [Test, Sequential]
-  public void AddAcidStackMax(
-      [Values(1.0f, 10000.0f)] float acidStacks,
-      [Values(false, true)] bool isMaxStacks) {
-    Enemy enemy = CreateEnemy(Vector3.zero);
+  public void AcidExplosion(
+      [Values(10, 30, 50, 80, 120)] int acidStacks,
+      [Values(EnemyData.Size.TINY, EnemyData.Size.SMALL, EnemyData.Size.NORMAL, EnemyData.Size.LARGE, EnemyData.Size.HUGE)] EnemyData.Size enemySize) {
+    float enemyHp = acidStacks * 2;
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: enemyHp, size: enemySize);
 
-    bool isCurrentMaxStacks = enemy.AddAcidStacks(acidStacks);
-    Assert.That(isCurrentMaxStacks, Is.EqualTo(isMaxStacks));
+    enemy.AddAcidStacks(acidStacks, false);
+
+    Assert.That(enemy.HP, Is.EqualTo(enemyHp - ((int)enemySize * Enemy.acidExplosionStackMultiplier)));
+    Assert.That(enemy.AcidStacks, Is.EqualTo(0.0f));
   }
 
-  // Make sure ResetAcidStacks performs as expected.
   [Test]
-  public void ResetAcidStacks() {
-    Enemy enemy = CreateEnemy(Vector3.zero);
+  public void AcidDecayNormal([Values(5, 15, 25, 35)] int acidStacks) {
+    Time.captureDeltaTime = 1.0f;
+    float hp = 1000.0f;
 
-    bool isCurrentMaxStacks = enemy.AddAcidStacks(enemy.MaxAcidStacks);
-    Assert.That(isCurrentMaxStacks, Is.EqualTo(true));
-    enemy.ResetAcidStacks();
-    Assert.That(0.0f, Is.EqualTo(enemy.AcidStacks));
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: hp, size: EnemyData.Size.HUGE);
+
+    enemy.AddAcidStacks(acidStacks, false);
+    enemy.InvokeUpdate();
+
+    float expectedAcidReduction = ((acidStacks / 10) + 1) * Time.deltaTime;
+
+    Assert.That(enemy.AcidStacks, Is.EqualTo(acidStacks - expectedAcidReduction));
   }
+
+  [Test]
+  public void AcidDecayAdvanced() {
+    Time.captureDeltaTime = 1.0f;
+    float hp = 1000.0f;
+    float acidStacks = 50;
+    GameObject gameObject = new();
+    SpittingAntTower tower = gameObject.AddComponent<SpittingAntTower>(); ;
+
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: hp, size: EnemyData.Size.HUGE);
+
+    enemy.AddAcidStacks(acidStacks, false);
+    enemy.AddAdvancedAcidDecayDelay(tower, 10.0f);
+    enemy.InvokeUpdate();
+
+    float expectedAcidReduction = Mathf.Max(0.0f, (((acidStacks / 10) + 1) * Time.deltaTime) - Time.deltaTime);
+
+    Assert.That(enemy.AcidStacks, Is.EqualTo(acidStacks - expectedAcidReduction));
+  }
+
 
   // Test AddStunTime.
   [Test]
@@ -173,7 +202,9 @@ public class EnemyTest {
       Vector3 position,
       float armor = 0.0f,
       float hp = 1.0f,
-      float speed = 0.0f) {
+      float speed = 0.0f,
+      EnemyData.Size size = EnemyData.Size.NORMAL
+    ) {
     GameObject gameObject = new();
     gameObject.transform.position = position;
 
@@ -181,7 +212,7 @@ public class EnemyTest {
       maxArmor = armor,
       maxHP = hp,
       speed = speed,
-      size = EnemyData.Size.NORMAL,
+      size = size,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
@@ -213,6 +244,16 @@ public static class EnemyUtils {
     typeof(Enemy)
         .GetField("target", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(enemy, target);
+  }
+
+  public static void InvokeUpdate(this Enemy enemy) {
+    object[] args = {};
+    Type[] argTypes = {};
+    MethodInfo update = typeof(Enemy).GetMethod(
+        "Update",
+        BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    update.Invoke(enemy, args);
   }
 }
 

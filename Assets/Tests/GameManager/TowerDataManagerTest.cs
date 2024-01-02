@@ -39,7 +39,7 @@ public class TowerDataManagerTest {
     };
 
     TowerAbility ability = new() {
-      specialAbility = TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_STUN,
+      specialAbility = TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
       attributeModifiers = new TowerAbility.AttributeModifier[] {
         modifier,
       },
@@ -137,7 +137,7 @@ public class TowerDataManagerTest {
             },
             // Armor Tear path, upgrade 3
             new TowerAbility {
-              specialAbility = TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_STUN,
+              specialAbility = TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
               attributeModifiers = new TowerAbility.AttributeModifier[0],
               name = "Stunning Reveal",
               description = "If an enemy's armor is reduced to 0, it is briefly stunned.",
@@ -200,7 +200,7 @@ public class TowerDataManagerTest {
             },
             // Acid Power path, upgrade 3
             new TowerAbility {
-              specialAbility = TowerAbility.SpecialAbility.SA_2_3_DOT_SLOW,
+              specialAbility = TowerAbility.SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
               attributeModifiers = new TowerAbility.AttributeModifier[0],
               name = "Hindering Acid",
               description = "If acid stacks reach max, apply a 20% slow for 2 seconds.",
@@ -223,7 +223,7 @@ public class TowerDataManagerTest {
             },
             // Acid Power path, upgrade 5
             new TowerAbility {
-              specialAbility = TowerAbility.SpecialAbility.SA_2_5_DOT_EXPLOSION,
+              specialAbility = TowerAbility.SpecialAbility.SA_2_5_DOT_ENHANCEMENT,
               attributeModifiers = new TowerAbility.AttributeModifier[0],
               name = "Acid Explosion",
               description = "If acid stacks reach max, an explosion of acid is triggered. This explosion does damage"

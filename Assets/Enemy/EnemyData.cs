@@ -18,10 +18,10 @@ public struct EnemyData {
 
   public enum Size {
     TINY = 1,
-    SMALL = 2,
-    NORMAL = 4,
+    SMALL = 3,
+    NORMAL = 5,
     LARGE = 8,
-    COLOSSAL = 12
+    HUGE = 12
   }
 
   [Flags]
