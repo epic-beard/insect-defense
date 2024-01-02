@@ -76,7 +76,6 @@ public class EnemyTest {
     enemy.InvokeUpdate();
 
     float expectedAcidReduction = Mathf.Max(0.0f, (((acidStacks / 10) + 1) * Time.deltaTime) - Time.deltaTime);
-    Debug.Log(expectedAcidReduction);
 
     Assert.That(enemy.AcidStacks, Is.EqualTo(acidStacks - expectedAcidReduction));
   }

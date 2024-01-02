@@ -91,7 +91,7 @@ public class SpittingAntTowerTest {
     Enemy target = CreateEnemy(Vector3.zero);
     Enemy enemyInRange = CreateEnemy(Vector3.zero);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0));
-    spittingAntTower.SetSplashExplosionRangeMultiplier(10.0f);
+    spittingAntTower.SetAreaofEffect(10.0f);
 
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
@@ -117,7 +117,7 @@ public class SpittingAntTowerTest {
     Enemy enemyInRange = CreateEnemy(Vector3.zero, hp: 10000.0f, armor: enemyArmor);
     Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0), hp: 10000.0f, armor: enemyArmor);
 
-    spittingAntTower.SetSplashExplosionRangeMultiplier(10.0f);
+    spittingAntTower.SetAreaofEffect(10.0f);
 
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplashExplosion(splashExplosion);
@@ -261,12 +261,6 @@ public static class SpittingAntTowerUtils {
         .SetValue(spittingAntTower, particleSystem);
   }
 
-  public static void SetSplashExplosionRangeMultiplier(this SpittingAntTower spittingAntTower, float range) {
-    typeof(SpittingAntTower)
-        .GetField("splashExplosionMultiplier", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(spittingAntTower, range);
-  }
-
   public static void SetBeam(this SpittingAntTower spittingAntTower, LineRenderer lineRenderer) {
     typeof(SpittingAntTower)
         .GetField("beam", BindingFlags.Instance | BindingFlags.NonPublic)
@@ -283,6 +277,12 @@ public static class SpittingAntTowerUtils {
     typeof(SpittingAntTower)
         .GetField("projectileHandler", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, projectileHandler);
+  }
+
+  public static void SetAreaofEffect(this SpittingAntTower spittingAntTower, float aoe) {
+    typeof(SpittingAntTower)
+        .GetProperty("AreaOfEffect")
+        .SetValue(spittingAntTower, aoe);
   }
 
   public static void InvokeProcessDamageAndEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {

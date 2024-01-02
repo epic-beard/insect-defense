@@ -188,7 +188,7 @@
         </upgradeTreeData>
         <name>Spitting Ant Tower</name>
         <enemies_hit>0</enemies_hit>
-        <area_of_effect>0</area_of_effect>
+        <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>1</attack_speed>

@@ -163,7 +163,7 @@ public class TowerDataGenerator {
       },
 
       name = "Spitting Ant Tower",
-      area_of_effect = 0,
+      area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,
       attack_speed = 1,

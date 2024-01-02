@@ -1,4 +1,3 @@
-using Codice.Client.BaseCommands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -103,7 +102,8 @@ public class SpittingAntTower : Tower {
     splashExplosion.Play();
 
     // Get a list of enemies caught in the AoE that are not the enemy targeted.
-    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(ObjectPool.Instance.GetActiveEnemies(), target, splashExplosionMultiplier);
+    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(
+        ObjectPool.Instance.GetActiveEnemies(), target, SplashExplosionRange);
 
     foreach (Enemy enemy in enemiesInAoe) {
       // Any tower that has armor tear explosion, also has armor tear acid bonus.
