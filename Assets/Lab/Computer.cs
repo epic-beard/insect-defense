@@ -8,6 +8,6 @@ public class Computer : MonoBehaviour {
 
   private void OnMouseDown() {
     LabCamera.Instance.MoveTo(computerLocation, computerRotation);
-    InputManager.Instance.SwitchToActionMap("Selected");
+    LabInputManager.Instance.EnableSelectedActionMap();
   }
 }

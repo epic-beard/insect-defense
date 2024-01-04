@@ -6,21 +6,26 @@ using UnityEngine;
 
 // This class is a catch-all for gamestate management that doesn't have a better home elsewhere.
 public class GameStateManager : MonoBehaviour {
+  [SerializeField] private int maxHealth = 100;
+  [SerializeField] private int startingNu = 100;
+  private Dictionary<TowerData.Type, int> towerCounts = new();
+  private readonly float towerScalingFactor = 1.2f;
+
 #pragma warning disable 8618
   public static GameStateManager Instance;
 #pragma warning restore 8618
+
   public static event Action GameOver = delegate { };
   public static event Action<int> HealthChanged = delegate { };
   public static event Action<int> OnNuChanged = delegate { };
+
   // The type of tower currently selected by the user for construction.
   public static GameObject? SelectedTowerType;
-
   // The specific tower the user clicked on in the map.
   public Tower? SelectedTower;
+  // Each tower, keyed by its waypoint coordinates.
   public Dictionary<Vector2Int, Tower> activeTowerMap = new();
 
-  [SerializeField] private int maxHealth = 100;
-  [SerializeField] private int startingNu = 100;
   private int nu;
   public int Nu { 
     get {
@@ -29,7 +34,7 @@ public class GameStateManager : MonoBehaviour {
     set {
       nu = value;
       OnNuChanged?.Invoke(nu);
-
+      //TODO:nnewsom this isn't working.
       // If we can no longer afford the selected tower, deselect it.
       if (SelectedTowerType != null) {
         Tower tower = SelectedTowerType.GetComponent<Tower>();
@@ -39,15 +44,8 @@ public class GameStateManager : MonoBehaviour {
       }
     }
   }
+
   private int health;
-  private Dictionary<TowerData.Type, int> towerCounts = new();
-  private readonly float towerScalingFactor = 1.2f;
-
-  private void Awake() {
-    Instance = this;
-    Nu = startingNu;
-  }
-
   public int Health {
     get { return health; }
     private set {
@@ -55,6 +53,10 @@ public class GameStateManager : MonoBehaviour {
       // Update the ui health label.
       HealthChanged?.Invoke(health);
     }
+  }
+
+  private void Awake() {
+    Instance = this;
   }
 
   private void Start() {
