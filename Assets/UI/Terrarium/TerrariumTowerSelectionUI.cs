@@ -25,6 +25,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
 
   private void ConstructTowerSelectionListView() {
     towerSelectionListView.Clear();
+    towerNameToPrefab.Clear();
     towerSelectionListView.makeItem = () => new Button();
     towerSelectionListView.bindItem = (e, i) => {
       Button towerButton = (Button)e;
@@ -36,7 +37,9 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
       }
 
       towerButton.text = towerName;
-      towerNameToPrefab.Add(towerName, prefabs[i]);
+      if (!towerNameToPrefab.ContainsKey(towerName)) {
+        towerNameToPrefab.Add(towerName, prefabs[i]);
+      }
       towerButton.RegisterCallback<ClickEvent>(TowerClickEvent);
     };
     towerSelectionListView.itemsSource = prefabs;
@@ -50,6 +53,11 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   }
 
   public void UpdateAffordableTowers(int nu) {
-    ConstructTowerSelectionListView();
+    for (int i = 0; i < prefabs.Count; i++) { 
+      Tower tower = prefabs[i].GetComponent<Tower>();
+      int cost = GameStateManager.Instance.GetTowerCost(tower.TowerType, tower.Cost);
+      var item = towerSelectionListView.ElementAt(i);  
+      item.SetEnabled(cost <= GameStateManager.Instance.Nu);
+    }
   }
 }
