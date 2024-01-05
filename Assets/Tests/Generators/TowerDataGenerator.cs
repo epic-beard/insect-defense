@@ -538,7 +538,7 @@ public class TowerDataGenerator {
       new() {
         specialAbility = SpecialAbility.M_1_3_DOUBLE_SLASH,
         name = "Double Slash",
-        description = "The Mantis attacks with both its scythe claws, one from the left, the other right.",
+        description = "The Mantis attacks with both its scythe claws, from both sides.",
         upgradePath = 0,
         cost = 10,
       },
@@ -619,7 +619,7 @@ public class TowerDataGenerator {
           GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 2)
         },
         name = "Durable Claws",
-        description = "Attacks hit two more enemy than normal.",
+        description = "Attacks hit two more enemies than normal.",
         upgradePath = 2,
         cost = 10,
       },
