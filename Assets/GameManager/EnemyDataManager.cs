@@ -17,32 +17,6 @@ public class EnemyDataManager : MonoBehaviour {
     Instance = this;
   }
   void Start() {
-    //----------------------------------------
-    //EnemyData testData1 = new() {
-    //  maxArmor = 1,
-    //  maxHP = 20,
-    //  size = EnemyData.Size.NORMAL,
-    //  nu = 20,
-    //  type = EnemyData.Type.ANT,
-    //  speed = 1.0f
-    //  damage = 1
-    //};
-    //EnemyData testData2 = new() {
-    //  maxArmor = 5,
-    //  maxHP = 5,
-    //  size = EnemyData.Size.TINY,
-    //  nu = 10,
-    //  type = EnemyData.Type.BEETLE,
-    //  speed = 0.5f
-    //  damage = 2
-    //};
-    //EnemyDictionary testEnemies = new() {
-    //  { "ant", testData1 },
-    //  { "beetle", testData2 },
-    //};
-
-    //Serialize<EnemyDictionary>(testEnemies, filename);
-    //----------------------------------------
     enemies = Deserialize<EnemyDictionary>(filename);
   }
 

@@ -8,6 +8,7 @@ public class TowerDataGenerator {
   // Comment this out when not in use.
   [Test]
   public void TowerDataGeneratorTest() {
+    // This does the tower data generation, it is not a test.
     GenerateTowerData();
   }
 

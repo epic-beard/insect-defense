@@ -2,54 +2,64 @@
 <SerializableDictionaryOfStringEnemyData>
   <KeyValuePair>
     <Key>
-      <string>ant</string>
+      <string>Ant</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>ANT</type>
-        <size>NORMAL</size>
-        <currHP>0</currHP>
+        <size>SMALL</size>
         <maxHP>20</maxHP>
-        <currArmor>0</currArmor>
         <maxArmor>1</maxArmor>
         <speed>1</speed>
-        <damage>1</damage>
+        <damage>5</damage>
         <nu>20</nu>
         <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
       </EnemyData>
     </Value>
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>beetle</string>
+      <string>Aphid</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>APHID</type>
+        <size>TINY</size>
+        <maxHP>5</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>1</speed>
+        <damage>1</damage>
+        <nu>4</nu>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Beetle</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>BEETLE</type>
-        <size>TINY</size>
-        <maxHP>5</maxHP>
+        <size>SMALL</size>
+        <maxHP>30</maxHP>
         <maxArmor>5</maxArmor>
         <speed>0.5</speed>
-        <damage>2</damage>
-        <nu>10</nu>
+        <damage>10</damage>
+        <nu>40</nu>
         <properties>NONE</properties>
-      </EnemyData>
-    </Value>
-  </KeyValuePair>
-  <KeyValuePair>
-    <Key>
-      <string>aphid</string>
-    </Key>
-    <Value>
-      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <type>ANT</type>
-        <size>TINY</size>
-        <maxHP>1</maxHP>
-        <maxArmor>0</maxArmor>
-        <speed>0.5</speed>
-        <damage>1</damage>
-        <nu>2</nu>
-        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
       </EnemyData>
     </Value>
   </KeyValuePair>
