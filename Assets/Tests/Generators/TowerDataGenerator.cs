@@ -517,28 +517,28 @@ public class TowerDataGenerator {
     var firstPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.1f),
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Damage and Armor Pen",
-        description = "Increases damage and armor penetration by 10%.",
+        description = "Increases damage and armor penetration by 50%.",
         upgradePath = 0,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.2f),
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Damage and Armor Pen",
-        description = "Increases damage and armor penetration by 20%.",
+        description = "Increases damage and armor penetration by 50%.",
         upgradePath = 0,
         cost = 10,
       },
       new() {
         specialAbility = SpecialAbility.M_1_3_DOUBLE_SLASH,
         name = "Double Slash",
-        description = "The Mantis attacks with both its scythe claws, from each direction.",
+        description = "The Mantis attacks with both its scythe claws, one from the left, the other right.",
         upgradePath = 0,
         cost = 10,
       },
@@ -563,19 +563,19 @@ public class TowerDataGenerator {
     var secondPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 10)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10)
         },
         name = "Vicious Claws",
-        description = "Attacks now inflict bleed",
+        description = "Attacks now inflict 10 bleed.",
         upgradePath = 1,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 20)
         },
         name = "Anticoagulant Microstructures",
-        description = "Bleed is 20% stronger.",
+        description = "Bleed inflicted is 20.",
         upgradePath = 1,
         cost = 10,
       },
@@ -589,10 +589,10 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.4f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 40)
         },
         name = "Anticoagulant Chemicals",
-        description = "Bleed is 40% stronger.",
+        description = "Bleed inflicted is 40.",
         upgradePath = 1,
         cost = 10,
       },
@@ -607,19 +607,19 @@ public class TowerDataGenerator {
     var thirdPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Improved Attack Speed",
-        description = "Increases attack speed by 10%",
+        description = "Increases attack speed by 50%",
         upgradePath = 2,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 1)
+          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 2)
         },
         name = "Durable Claws",
-        description = "Attacks hit one more enemy than normal.",
+        description = "Attacks hit two more enemy than normal.",
         upgradePath = 2,
         cost = 10,
       },
@@ -632,11 +632,11 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.4f),
-          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 1)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f),
+          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 2)
         },
         name = "Synergetic Claws",
-        description = "Increases attack speed by 20% and increase number of enemies hit by 1",
+        description = "Increases attack speed by 50% and increase number of enemies hit by 2.",
         upgradePath = 2,
         cost = 10,
       },
