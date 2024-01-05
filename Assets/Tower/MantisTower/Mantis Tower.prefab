@@ -249,7 +249,7 @@ Transform:
   m_GameObject: {fileID: 1051372436072416352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.6, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1091112591516479976}
@@ -520,7 +520,7 @@ Transform:
   m_GameObject: {fileID: 3435390920729551245}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.6, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1066920474194383706}
@@ -586,6 +586,7 @@ MonoBehaviour:
     armor_pierce: 0
     armor_tear: 0
     attack_speed: 0
+    cost: 0
     damage: 0
     damage_over_time: 0
     projectile_speed: 0
@@ -1139,7 +1140,7 @@ Transform:
   m_GameObject: {fileID: 6467062020603808951}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.6, y: 3, z: -0.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7757989291311996775}
@@ -1172,7 +1173,7 @@ Transform:
   m_GameObject: {fileID: 6853277351319292511}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.6, y: 3, z: -0.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3021987724305418902}
