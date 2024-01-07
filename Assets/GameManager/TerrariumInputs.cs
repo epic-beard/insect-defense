@@ -55,15 +55,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Player_Load"",
-                    ""type"": ""Button"",
-                    ""id"": ""b364da0d-ea37-4688-bc8a-51aa138da27e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Player_Deselect"",
                     ""type"": ""Button"",
                     ""id"": ""de95a48e-cca3-47e5-8cd0-e30ae2f5f8cc"",
@@ -97,7 +88,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8418f1b5-9ce5-42a3-93a1-99a5ae296caa"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -206,17 +197,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6d485a6d-e742-445b-a3f3-3df17d01cb73"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Load"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0fa80bb4-5696-4b5c-a079-78053a0241d7"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -240,34 +220,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""LoadScreen"",
-            ""id"": ""be7f319d-349b-47bd-8b0c-1908e51ce2be"",
-            ""actions"": [
-                {
-                    ""name"": ""LoadScreen_Close"",
-                    ""type"": ""Button"",
-                    ""id"": ""fea9fc92-fc5f-43fb-936e-d2bb11264c0b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""570cb489-1a31-4d89-8269-c7e4810aba66"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LoadScreen_Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""SettingsScreen"",
             ""id"": ""9498d387-33a9-4e72-a830-d6f68ff08546"",
             ""actions"": [
@@ -285,7 +237,18 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""30cc4392-ba7d-4c45-8bf6-2a3bb002a8ea"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SettingsScreen_Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18f5ae9d-b4f8-4294-bc56-aec9dc7b5afa"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -303,12 +266,8 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         m_Player_Player_Look = m_Player.FindAction("Player_Look", throwIfNotFound: true);
         m_Player_Player_Pause = m_Player.FindAction("Player_Pause", throwIfNotFound: true);
         m_Player_Player_Settings = m_Player.FindAction("Player_Settings", throwIfNotFound: true);
-        m_Player_Player_Load = m_Player.FindAction("Player_Load", throwIfNotFound: true);
         m_Player_Player_Deselect = m_Player.FindAction("Player_Deselect", throwIfNotFound: true);
         m_Player_Player_Zoom = m_Player.FindAction("Player_Zoom", throwIfNotFound: true);
-        // LoadScreen
-        m_LoadScreen = asset.FindActionMap("LoadScreen", throwIfNotFound: true);
-        m_LoadScreen_LoadScreen_Close = m_LoadScreen.FindAction("LoadScreen_Close", throwIfNotFound: true);
         // SettingsScreen
         m_SettingsScreen = asset.FindActionMap("SettingsScreen", throwIfNotFound: true);
         m_SettingsScreen_SettingsScreen_Close = m_SettingsScreen.FindAction("SettingsScreen_Close", throwIfNotFound: true);
@@ -376,7 +335,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Player_Look;
     private readonly InputAction m_Player_Player_Pause;
     private readonly InputAction m_Player_Player_Settings;
-    private readonly InputAction m_Player_Player_Load;
     private readonly InputAction m_Player_Player_Deselect;
     private readonly InputAction m_Player_Player_Zoom;
     public struct PlayerActions
@@ -386,7 +344,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         public InputAction @Player_Look => m_Wrapper.m_Player_Player_Look;
         public InputAction @Player_Pause => m_Wrapper.m_Player_Player_Pause;
         public InputAction @Player_Settings => m_Wrapper.m_Player_Player_Settings;
-        public InputAction @Player_Load => m_Wrapper.m_Player_Player_Load;
         public InputAction @Player_Deselect => m_Wrapper.m_Player_Player_Deselect;
         public InputAction @Player_Zoom => m_Wrapper.m_Player_Player_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -407,9 +364,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Settings.started += instance.OnPlayer_Settings;
             @Player_Settings.performed += instance.OnPlayer_Settings;
             @Player_Settings.canceled += instance.OnPlayer_Settings;
-            @Player_Load.started += instance.OnPlayer_Load;
-            @Player_Load.performed += instance.OnPlayer_Load;
-            @Player_Load.canceled += instance.OnPlayer_Load;
             @Player_Deselect.started += instance.OnPlayer_Deselect;
             @Player_Deselect.performed += instance.OnPlayer_Deselect;
             @Player_Deselect.canceled += instance.OnPlayer_Deselect;
@@ -429,9 +383,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Settings.started -= instance.OnPlayer_Settings;
             @Player_Settings.performed -= instance.OnPlayer_Settings;
             @Player_Settings.canceled -= instance.OnPlayer_Settings;
-            @Player_Load.started -= instance.OnPlayer_Load;
-            @Player_Load.performed -= instance.OnPlayer_Load;
-            @Player_Load.canceled -= instance.OnPlayer_Load;
             @Player_Deselect.started -= instance.OnPlayer_Deselect;
             @Player_Deselect.performed -= instance.OnPlayer_Deselect;
             @Player_Deselect.canceled -= instance.OnPlayer_Deselect;
@@ -455,52 +406,6 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-
-    // LoadScreen
-    private readonly InputActionMap m_LoadScreen;
-    private List<ILoadScreenActions> m_LoadScreenActionsCallbackInterfaces = new List<ILoadScreenActions>();
-    private readonly InputAction m_LoadScreen_LoadScreen_Close;
-    public struct LoadScreenActions
-    {
-        private @TerrariumInputs m_Wrapper;
-        public LoadScreenActions(@TerrariumInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LoadScreen_Close => m_Wrapper.m_LoadScreen_LoadScreen_Close;
-        public InputActionMap Get() { return m_Wrapper.m_LoadScreen; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(LoadScreenActions set) { return set.Get(); }
-        public void AddCallbacks(ILoadScreenActions instance)
-        {
-            if (instance == null || m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Add(instance);
-            @LoadScreen_Close.started += instance.OnLoadScreen_Close;
-            @LoadScreen_Close.performed += instance.OnLoadScreen_Close;
-            @LoadScreen_Close.canceled += instance.OnLoadScreen_Close;
-        }
-
-        private void UnregisterCallbacks(ILoadScreenActions instance)
-        {
-            @LoadScreen_Close.started -= instance.OnLoadScreen_Close;
-            @LoadScreen_Close.performed -= instance.OnLoadScreen_Close;
-            @LoadScreen_Close.canceled -= instance.OnLoadScreen_Close;
-        }
-
-        public void RemoveCallbacks(ILoadScreenActions instance)
-        {
-            if (m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(ILoadScreenActions instance)
-        {
-            foreach (var item in m_Wrapper.m_LoadScreenActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public LoadScreenActions @LoadScreen => new LoadScreenActions(this);
 
     // SettingsScreen
     private readonly InputActionMap m_SettingsScreen;
@@ -552,13 +457,8 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         void OnPlayer_Look(InputAction.CallbackContext context);
         void OnPlayer_Pause(InputAction.CallbackContext context);
         void OnPlayer_Settings(InputAction.CallbackContext context);
-        void OnPlayer_Load(InputAction.CallbackContext context);
         void OnPlayer_Deselect(InputAction.CallbackContext context);
         void OnPlayer_Zoom(InputAction.CallbackContext context);
-    }
-    public interface ILoadScreenActions
-    {
-        void OnLoadScreen_Close(InputAction.CallbackContext context);
     }
     public interface ISettingsScreenActions
     {

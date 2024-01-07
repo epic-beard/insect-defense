@@ -24,34 +24,6 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
     ""name"": ""LabInputs"",
     ""maps"": [
         {
-            ""name"": ""LoadScreen"",
-            ""id"": ""be7f319d-349b-47bd-8b0c-1908e51ce2be"",
-            ""actions"": [
-                {
-                    ""name"": ""LoadScreen_Close"",
-                    ""type"": ""Button"",
-                    ""id"": ""fea9fc92-fc5f-43fb-936e-d2bb11264c0b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""570cb489-1a31-4d89-8269-c7e4810aba66"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LoadScreen_Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""SettingsScreen"",
             ""id"": ""9498d387-33a9-4e72-a830-d6f68ff08546"",
             ""actions"": [
@@ -69,7 +41,18 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""30cc4392-ba7d-4c45-8bf6-2a3bb002a8ea"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SettingsScreen_Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""adc2d218-e6f6-4c3a-a64a-b7f08df831b9"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -84,15 +67,6 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
             ""id"": ""21a33038-7127-484d-ad78-bb4c94ef4116"",
             ""actions"": [
                 {
-                    ""name"": ""Lab_Load"",
-                    ""type"": ""Button"",
-                    ""id"": ""354afb95-6c4f-43f5-9541-13820503266e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Lab_Settings"",
                     ""type"": ""Button"",
                     ""id"": ""38659155-2f90-4dc0-8374-3e8b00d71c4a"",
@@ -105,19 +79,8 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""0672a798-0bc2-415d-b161-18cba65743f3"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Lab_Load"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""fd452e17-cf59-4d45-b202-991011c03560"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -208,15 +171,11 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // LoadScreen
-        m_LoadScreen = asset.FindActionMap("LoadScreen", throwIfNotFound: true);
-        m_LoadScreen_LoadScreen_Close = m_LoadScreen.FindAction("LoadScreen_Close", throwIfNotFound: true);
         // SettingsScreen
         m_SettingsScreen = asset.FindActionMap("SettingsScreen", throwIfNotFound: true);
         m_SettingsScreen_SettingsScreen_Close = m_SettingsScreen.FindAction("SettingsScreen_Close", throwIfNotFound: true);
         // Lab
         m_Lab = asset.FindActionMap("Lab", throwIfNotFound: true);
-        m_Lab_Lab_Load = m_Lab.FindAction("Lab_Load", throwIfNotFound: true);
         m_Lab_Lab_Settings = m_Lab.FindAction("Lab_Settings", throwIfNotFound: true);
         // Selected
         m_Selected = asset.FindActionMap("Selected", throwIfNotFound: true);
@@ -282,52 +241,6 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // LoadScreen
-    private readonly InputActionMap m_LoadScreen;
-    private List<ILoadScreenActions> m_LoadScreenActionsCallbackInterfaces = new List<ILoadScreenActions>();
-    private readonly InputAction m_LoadScreen_LoadScreen_Close;
-    public struct LoadScreenActions
-    {
-        private @LabInputs m_Wrapper;
-        public LoadScreenActions(@LabInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LoadScreen_Close => m_Wrapper.m_LoadScreen_LoadScreen_Close;
-        public InputActionMap Get() { return m_Wrapper.m_LoadScreen; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(LoadScreenActions set) { return set.Get(); }
-        public void AddCallbacks(ILoadScreenActions instance)
-        {
-            if (instance == null || m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Add(instance);
-            @LoadScreen_Close.started += instance.OnLoadScreen_Close;
-            @LoadScreen_Close.performed += instance.OnLoadScreen_Close;
-            @LoadScreen_Close.canceled += instance.OnLoadScreen_Close;
-        }
-
-        private void UnregisterCallbacks(ILoadScreenActions instance)
-        {
-            @LoadScreen_Close.started -= instance.OnLoadScreen_Close;
-            @LoadScreen_Close.performed -= instance.OnLoadScreen_Close;
-            @LoadScreen_Close.canceled -= instance.OnLoadScreen_Close;
-        }
-
-        public void RemoveCallbacks(ILoadScreenActions instance)
-        {
-            if (m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(ILoadScreenActions instance)
-        {
-            foreach (var item in m_Wrapper.m_LoadScreenActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public LoadScreenActions @LoadScreen => new LoadScreenActions(this);
-
     // SettingsScreen
     private readonly InputActionMap m_SettingsScreen;
     private List<ISettingsScreenActions> m_SettingsScreenActionsCallbackInterfaces = new List<ISettingsScreenActions>();
@@ -377,13 +290,11 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
     // Lab
     private readonly InputActionMap m_Lab;
     private List<ILabActions> m_LabActionsCallbackInterfaces = new List<ILabActions>();
-    private readonly InputAction m_Lab_Lab_Load;
     private readonly InputAction m_Lab_Lab_Settings;
     public struct LabActions
     {
         private @LabInputs m_Wrapper;
         public LabActions(@LabInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Lab_Load => m_Wrapper.m_Lab_Lab_Load;
         public InputAction @Lab_Settings => m_Wrapper.m_Lab_Lab_Settings;
         public InputActionMap Get() { return m_Wrapper.m_Lab; }
         public void Enable() { Get().Enable(); }
@@ -394,9 +305,6 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_LabActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_LabActionsCallbackInterfaces.Add(instance);
-            @Lab_Load.started += instance.OnLab_Load;
-            @Lab_Load.performed += instance.OnLab_Load;
-            @Lab_Load.canceled += instance.OnLab_Load;
             @Lab_Settings.started += instance.OnLab_Settings;
             @Lab_Settings.performed += instance.OnLab_Settings;
             @Lab_Settings.canceled += instance.OnLab_Settings;
@@ -404,9 +312,6 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(ILabActions instance)
         {
-            @Lab_Load.started -= instance.OnLab_Load;
-            @Lab_Load.performed -= instance.OnLab_Load;
-            @Lab_Load.canceled -= instance.OnLab_Load;
             @Lab_Settings.started -= instance.OnLab_Settings;
             @Lab_Settings.performed -= instance.OnLab_Settings;
             @Lab_Settings.canceled -= instance.OnLab_Settings;
@@ -519,17 +424,12 @@ public partial class @LabInputs: IInputActionCollection2, IDisposable
         }
     }
     public TerrariumActions @Terrarium => new TerrariumActions(this);
-    public interface ILoadScreenActions
-    {
-        void OnLoadScreen_Close(InputAction.CallbackContext context);
-    }
     public interface ISettingsScreenActions
     {
         void OnSettingsScreen_Close(InputAction.CallbackContext context);
     }
     public interface ILabActions
     {
-        void OnLab_Load(InputAction.CallbackContext context);
         void OnLab_Settings(InputAction.CallbackContext context);
     }
     public interface ISelectedActions

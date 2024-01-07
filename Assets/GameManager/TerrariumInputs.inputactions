@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Player_Load",
-                    "type": "Button",
-                    "id": "b364da0d-ea37-4688-bc8a-51aa138da27e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Player_Deselect",
                     "type": "Button",
                     "id": "de95a48e-cca3-47e5-8cd0-e30ae2f5f8cc",
@@ -75,7 +66,7 @@
                 {
                     "name": "",
                     "id": "8418f1b5-9ce5-42a3-93a1-99a5ae296caa",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -184,17 +175,6 @@
                 },
                 {
                     "name": "",
-                    "id": "6d485a6d-e742-445b-a3f3-3df17d01cb73",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Load",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0fa80bb4-5696-4b5c-a079-78053a0241d7",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -218,34 +198,6 @@
             ]
         },
         {
-            "name": "LoadScreen",
-            "id": "be7f319d-349b-47bd-8b0c-1908e51ce2be",
-            "actions": [
-                {
-                    "name": "LoadScreen_Close",
-                    "type": "Button",
-                    "id": "fea9fc92-fc5f-43fb-936e-d2bb11264c0b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "570cb489-1a31-4d89-8269-c7e4810aba66",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LoadScreen_Close",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "SettingsScreen",
             "id": "9498d387-33a9-4e72-a830-d6f68ff08546",
             "actions": [
@@ -263,7 +215,18 @@
                 {
                     "name": "",
                     "id": "30cc4392-ba7d-4c45-8bf6-2a3bb002a8ea",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SettingsScreen_Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18f5ae9d-b4f8-4294-bc56-aec9dc7b5afa",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

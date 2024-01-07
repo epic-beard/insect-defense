@@ -60,7 +60,6 @@ public class StartScreen : MonoBehaviour {
     Button loadGameButton = evt.target as Button;
     if (loadGameButton == null) { return; }
 
-    LoadScreen.Instance.OpenMenu();
     startScreen.rootVisualElement.style.display = DisplayStyle.None;
     StartScreenInputManager.Instance.OpenLoadScreen();
   }

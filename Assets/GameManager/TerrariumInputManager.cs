@@ -21,14 +21,8 @@ public class TerrariumInputManager : MonoBehaviour{
     actions.Player.Enable();
     actions.Player.Player_Pause.started += OnPauseGame;
     actions.Player.Player_Settings.started += OnOpenSettings;
-    actions.Player.Player_Load.started += OnOpenLoadScreen;
     actions.Player.Player_Deselect.started += OnDeselect;
     actions.Player.Player_Zoom.started += OnZoomCamera;
-
-    // [TODO] input keyboard navigation of load screen.
-    //Input.actions["LoadScreen_Navigate"].started += LoadScreenNavigate;
-    //Input.actions["LoadScreen_Select"].started += LoadScreenSelect;
-    actions.LoadScreen.LoadScreen_Close.started += OnCloseLoadScreen;
 
     // [TODO] input keyboard navigation of settings screen.
     //Input.actions["SettingsScreen_Navigate"].started += SettingsScreenNavigate;
@@ -57,29 +51,13 @@ public class TerrariumInputManager : MonoBehaviour{
     TerrariumContextUI.Instance.SetNoContextPanel();
   }
 
-  protected void OnOpenLoadScreen(InputAction.CallbackContext context) {
-    PauseManager.Instance.HandleScreenPause();
-    LoadScreen.Instance.OpenMenu();
-    TerrariumUI.Instance.HideUI();
-    actions.Player.Disable();
-    actions.LoadScreen.Enable();
-  }
-
-  protected void OnCloseLoadScreen(InputAction.CallbackContext context) {
-    PauseManager.Instance.HandleScreenPause();
-    LoadScreen.Instance.CloseMenu();
-    TerrariumUI.Instance.ShowUI();
-    actions.LoadScreen.Disable();
-    actions.Player.Enable();
-  }
-
   protected void OnOpenSettings(InputAction.CallbackContext context) {
     OpenSettings();
   }
   public void OpenSettings() {
     PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.HideUI();
-    SettingsScreen.Instance.ShowSettings();
+    SettingsScreen.Instance.OpenSettings();
     actions.Player.Disable();
     actions.SettingsScreen.Enable();
   }
@@ -90,7 +68,7 @@ public class TerrariumInputManager : MonoBehaviour{
   public void CloseSettings() {
     PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.ShowUI();
-    SettingsScreen.Instance.HideSettings();
+    SettingsScreen.Instance.CloseSettings();
     actions.SettingsScreen.Disable();
     actions.Player.Enable();
   }
