@@ -56,7 +56,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     for (int i = 0; i < prefabs.Count; i++) { 
       Tower tower = prefabs[i].GetComponent<Tower>();
       int cost = GameStateManager.Instance.GetTowerCost(tower.TowerType, tower.Cost);
-      var item = towerSelectionListView.ElementAt(i);  
+      var item = towerSelectionListView.ElementAt(i);
       item.SetEnabled(cost <= GameStateManager.Instance.Nu);
     }
   }
