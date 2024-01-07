@@ -4,7 +4,7 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using UnityEngine;
 using EnemyDictionary = EpicBeardLib.Containers.SerializableDictionary<string, EnemyData>;
 
-public class EnemyDataGenerator : MonoBehaviour {
+public class EnemyDataGenerator {
   // Comment this out when not in use.
   [Test]
   public void EnemyDataGeneratorTest() {

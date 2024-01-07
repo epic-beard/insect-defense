@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Waves">
+  <waves>
+    <Wave xsi:type="CannedEnemyWave">
+      <repetitions>4</repetitions>
+      <repeatDelay>3</repeatDelay>
+      <spawnLocation>0</spawnLocation>
+      <spawnAmmount>1</spawnAmmount>
+      <enemyDataKey>Ant</enemyDataKey>
+    </Wave>
+    <Wave xsi:type="ConcurrentWave">
+      <Subwaves>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>3</repetitions>
+          <repeatDelay>3</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>3</repetitions>
+          <repeatDelay>3</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>3</spawnAmmount>
+          <enemyDataKey>Aphid</enemyDataKey>
+        </Wave>
+      </Subwaves>
+    </Wave>
+    <Wave xsi:type="SequentialWave">
+      <Subwaves>
+        <Wave xsi:type="ConcurrentWave">
+          <Subwaves>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>3</repetitions>
+              <repeatDelay>2</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Ant</enemyDataKey>
+            </Wave>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>3</repetitions>
+              <repeatDelay>2</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>3</spawnAmmount>
+              <enemyDataKey>Aphid</enemyDataKey>
+            </Wave>
+          </Subwaves>
+        </Wave>
+        <Wave xsi:type="SpacerWave">
+          <delay>1</delay>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>1</repetitions>
+          <repeatDelay>0</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Beetle</enemyDataKey>
+        </Wave>
+      </Subwaves>
+    </Wave>
+  </waves>
+</Wave>
