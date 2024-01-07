@@ -24,45 +24,6 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
     ""name"": ""StartInputs"",
     ""maps"": [
         {
-            ""name"": ""LoadScreen"",
-            ""id"": ""be7f319d-349b-47bd-8b0c-1908e51ce2be"",
-            ""actions"": [
-                {
-                    ""name"": ""LoadScreen_Close"",
-                    ""type"": ""Button"",
-                    ""id"": ""fea9fc92-fc5f-43fb-936e-d2bb11264c0b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""570cb489-1a31-4d89-8269-c7e4810aba66"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LoadScreen_Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""688415fe-cff2-4347-a2e8-8625500069aa"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LoadScreen_Close"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""SettingsScreen"",
             ""id"": ""9498d387-33a9-4e72-a830-d6f68ff08546"",
             ""actions"": [
@@ -106,7 +67,7 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
             ""id"": ""8cb6f90d-1738-4ac8-b8ab-f5ca8bd7ac11"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Start_OpenSettings"",
                     ""type"": ""Button"",
                     ""id"": ""fd9be499-5f0d-4916-8836-75b09e16fb85"",
                     ""expectedControlType"": ""Button"",
@@ -119,11 +80,11 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e4be7e3b-899a-4e1b-9290-6e0617cde104"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Start_OpenSettings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -132,15 +93,12 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // LoadScreen
-        m_LoadScreen = asset.FindActionMap("LoadScreen", throwIfNotFound: true);
-        m_LoadScreen_LoadScreen_Close = m_LoadScreen.FindAction("LoadScreen_Close", throwIfNotFound: true);
         // SettingsScreen
         m_SettingsScreen = asset.FindActionMap("SettingsScreen", throwIfNotFound: true);
         m_SettingsScreen_SettingsScreen_Close = m_SettingsScreen.FindAction("SettingsScreen_Close", throwIfNotFound: true);
         // StartScreen
         m_StartScreen = asset.FindActionMap("StartScreen", throwIfNotFound: true);
-        m_StartScreen_Newaction = m_StartScreen.FindAction("New action", throwIfNotFound: true);
+        m_StartScreen_Start_OpenSettings = m_StartScreen.FindAction("Start_OpenSettings", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -199,52 +157,6 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // LoadScreen
-    private readonly InputActionMap m_LoadScreen;
-    private List<ILoadScreenActions> m_LoadScreenActionsCallbackInterfaces = new List<ILoadScreenActions>();
-    private readonly InputAction m_LoadScreen_LoadScreen_Close;
-    public struct LoadScreenActions
-    {
-        private @StartScreenInputs m_Wrapper;
-        public LoadScreenActions(@StartScreenInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LoadScreen_Close => m_Wrapper.m_LoadScreen_LoadScreen_Close;
-        public InputActionMap Get() { return m_Wrapper.m_LoadScreen; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(LoadScreenActions set) { return set.Get(); }
-        public void AddCallbacks(ILoadScreenActions instance)
-        {
-            if (instance == null || m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Add(instance);
-            @LoadScreen_Close.started += instance.OnLoadScreen_Close;
-            @LoadScreen_Close.performed += instance.OnLoadScreen_Close;
-            @LoadScreen_Close.canceled += instance.OnLoadScreen_Close;
-        }
-
-        private void UnregisterCallbacks(ILoadScreenActions instance)
-        {
-            @LoadScreen_Close.started -= instance.OnLoadScreen_Close;
-            @LoadScreen_Close.performed -= instance.OnLoadScreen_Close;
-            @LoadScreen_Close.canceled -= instance.OnLoadScreen_Close;
-        }
-
-        public void RemoveCallbacks(ILoadScreenActions instance)
-        {
-            if (m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(ILoadScreenActions instance)
-        {
-            foreach (var item in m_Wrapper.m_LoadScreenActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_LoadScreenActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public LoadScreenActions @LoadScreen => new LoadScreenActions(this);
-
     // SettingsScreen
     private readonly InputActionMap m_SettingsScreen;
     private List<ISettingsScreenActions> m_SettingsScreenActionsCallbackInterfaces = new List<ISettingsScreenActions>();
@@ -294,12 +206,12 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
     // StartScreen
     private readonly InputActionMap m_StartScreen;
     private List<IStartScreenActions> m_StartScreenActionsCallbackInterfaces = new List<IStartScreenActions>();
-    private readonly InputAction m_StartScreen_Newaction;
+    private readonly InputAction m_StartScreen_Start_OpenSettings;
     public struct StartScreenActions
     {
         private @StartScreenInputs m_Wrapper;
         public StartScreenActions(@StartScreenInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_StartScreen_Newaction;
+        public InputAction @Start_OpenSettings => m_Wrapper.m_StartScreen_Start_OpenSettings;
         public InputActionMap Get() { return m_Wrapper.m_StartScreen; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -309,16 +221,16 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_StartScreenActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_StartScreenActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @Start_OpenSettings.started += instance.OnStart_OpenSettings;
+            @Start_OpenSettings.performed += instance.OnStart_OpenSettings;
+            @Start_OpenSettings.canceled += instance.OnStart_OpenSettings;
         }
 
         private void UnregisterCallbacks(IStartScreenActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @Start_OpenSettings.started -= instance.OnStart_OpenSettings;
+            @Start_OpenSettings.performed -= instance.OnStart_OpenSettings;
+            @Start_OpenSettings.canceled -= instance.OnStart_OpenSettings;
         }
 
         public void RemoveCallbacks(IStartScreenActions instance)
@@ -336,16 +248,12 @@ public partial class @StartScreenInputs: IInputActionCollection2, IDisposable
         }
     }
     public StartScreenActions @StartScreen => new StartScreenActions(this);
-    public interface ILoadScreenActions
-    {
-        void OnLoadScreen_Close(InputAction.CallbackContext context);
-    }
     public interface ISettingsScreenActions
     {
         void OnSettingsScreen_Close(InputAction.CallbackContext context);
     }
     public interface IStartScreenActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnStart_OpenSettings(InputAction.CallbackContext context);
     }
 }

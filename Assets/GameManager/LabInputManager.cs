@@ -17,26 +17,16 @@ public class LabInputManager : MonoBehaviour {
   private void OnEnable() {
     actions.Lab.Enable();
 
-    // [TODO] input keyboard navigation of load screen.
-    //Input.actions["LoadScreen_Navigate"].started += LoadScreenNavigate;
-    //Input.actions["LoadScreen_Select"].started += LoadScreenSelect;
-    actions.LoadScreen.LoadScreen_Close.started += OnCloseLoadScreen;
-
     // [TODO] input keyboard navigation of settings screen.
     //Input.actions["SettingsScreen_Navigate"].started += SettingsScreenNavigate;
     //Input.actions["SettingsScreen_Select"].started += SettingsScreenSelect;
     //Input.actions["SettingsScreen_Back"].started += SettingsScreenBack;
     actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
 
-    actions.Lab.Lab_Load.started += OnOpenLoadScreen;
-    actions.Lab.Lab_Settings.started += Lab_Settings_started;
+    actions.Lab.Lab_Settings.started += OnOpenSettings;
 
     actions.Selected.Selected_Back.started += OnReturnCamera;
     actions.Terrarium.Terrarium_Back.started += OnCloseTerrarium;
-  }
-
-  private void Lab_Settings_started(InputAction.CallbackContext obj) {
-    throw new System.NotImplementedException();
   }
 
   private void OnOpenSettings(InputAction.CallbackContext context) {
@@ -45,24 +35,12 @@ public class LabInputManager : MonoBehaviour {
   public void OpenSettings() {
     actions.Lab.Disable();
     actions.SettingsScreen.Enable();
-    SettingsScreen.Instance.ShowSettings();
+    SettingsScreen.Instance.OpenSettings();
   }
 
   private void OnCloseSettings(InputAction.CallbackContext context) {
-    SettingsScreen.Instance.HideSettings();
+    SettingsScreen.Instance.CloseSettings();
     actions.SettingsScreen.Disable();
-    actions.Lab.Enable();
-  }
-
-  private void OnOpenLoadScreen(InputAction.CallbackContext context) {
-    actions.Lab.Disable();
-    actions.LoadScreen.Enable();
-    LoadScreen.Instance.OpenMenu();
-  }
-
-  private void OnCloseLoadScreen(InputAction.CallbackContext context) {
-    LoadScreen.Instance.CloseMenu();
-    actions.LoadScreen.Disable();
     actions.Lab.Enable();
   }
 
