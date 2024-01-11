@@ -22,7 +22,7 @@ public class SpittingAntTower : Tower {
   }
   public override TowerData.Type TowerType { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
 
-  private Enemy enemy;
+  public Enemy enemy;
   private bool firing = false;
   private ProjectileHandler projectileHandler;
 
