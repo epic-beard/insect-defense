@@ -37,30 +37,31 @@ public class ObjectPool : MonoBehaviour {
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
   public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Transform? parent = null) {
     var pool = objectPools[data.type];
+    
     GameObject gameObject;
     if (pool.Count != 0) {
       gameObject = pool.Dequeue();
       gameObject.SetActive(true);
     } else {
-      if (parent == null) {
-        gameObject = GameObject.Instantiate(prefabs[data.type], start.transform);
-      } else {
-        gameObject = GameObject.Instantiate(prefabs[data.type], parent);
-      }
+      gameObject = GameObject.Instantiate(prefabs[data.type]);
+    }
+    if (parent == null) {
+      gameObject.transform.position = start.transform.position;
+    } else {
+      gameObject.transform.position = parent.transform.position;
     }
     Vector3 position = gameObject.transform.position;
     float xVariance = UnityEngine.Random.Range(-3.0f, 3.0f);
-    float zVariacne = UnityEngine.Random.Range(-3.0f, 3.0f);
+    float zVariance = UnityEngine.Random.Range(-3.0f, 3.0f);
     position.x += xVariance;
-    position.z += zVariacne;
+    position.z += zVariance;
 
     Enemy enemy = gameObject.GetComponent<Enemy>();
     enemy.Data = data;
     enemy.PrevWaypoint = start;
-    enemy.enabled = true;
     enemy.transform.position = position;
+    enemy.enabled = true;
     activeEnemies.Add(enemy);
-
     return gameObject;
   }
 
