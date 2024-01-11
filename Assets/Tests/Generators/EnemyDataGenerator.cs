@@ -4,7 +4,7 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using UnityEngine;
 using EnemyDictionary = EpicBeardLib.Containers.SerializableDictionary<string, EnemyData>;
 
-public class EnemyDataGenerator : MonoBehaviour {
+public class EnemyDataGenerator {
   // Comment this out when not in use.
   [Test]
   public void EnemyDataGeneratorTest() {
@@ -25,7 +25,7 @@ public class EnemyDataGenerator : MonoBehaviour {
       type = EnemyData.Type.ANT,
       size = EnemyData.Size.SMALL,
       maxHP = 20.0f,
-      maxArmor = 1.0f,
+      maxArmor = 0.0f,
       speed = 1.0f,
       damage = 5,
       nu = 20,
@@ -55,7 +55,7 @@ public class EnemyDataGenerator : MonoBehaviour {
       type = EnemyData.Type.BEETLE,
       size = EnemyData.Size.SMALL,
       maxHP = 30.0f,
-      maxArmor = 5.0f,
+      maxArmor = 10.0f,
       speed = 0.5f,
       damage = 10,
       nu = 40,
