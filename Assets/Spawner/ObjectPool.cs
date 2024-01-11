@@ -43,15 +43,22 @@ public class ObjectPool : MonoBehaviour {
       gameObject.SetActive(true);
     } else {
       if (parent == null) {
-        gameObject = GameObject.Instantiate(prefabs[data.type]);
+        gameObject = GameObject.Instantiate(prefabs[data.type], start.transform);
       } else {
         gameObject = GameObject.Instantiate(prefabs[data.type], parent);
       }
     }
+    Vector3 position = gameObject.transform.position;
+    float xVariance = UnityEngine.Random.Range(-3.0f, 3.0f);
+    float zVariacne = UnityEngine.Random.Range(-3.0f, 3.0f);
+    position.x += xVariance;
+    position.z += zVariacne;
+
     Enemy enemy = gameObject.GetComponent<Enemy>();
     enemy.Data = data;
     enemy.PrevWaypoint = start;
     enemy.enabled = true;
+    enemy.transform.position = position;
     activeEnemies.Add(enemy);
 
     return gameObject;
