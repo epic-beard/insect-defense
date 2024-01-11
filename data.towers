@@ -24,7 +24,7 @@
               <name>Armor Tear!</name>
               <description>Adds 1 point of armor tear.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>50</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -82,7 +82,7 @@
               <name>Acid!</name>
               <description>Attacks inflict 5 stacks of acid.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>50</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -140,7 +140,7 @@
               <name>Nozzle Control</name>
               <description>Attacks gain 50% more range.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>30</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -192,10 +192,10 @@
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>1</attack_speed>
-        <cost>50</cost>
+        <cost>100</cost>
         <damage>10</damage>
         <damage_over_time>0</damage_over_time>
-        <projectile_speed>40</projectile_speed>
+        <projectile_speed>100</projectile_speed>
         <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
@@ -854,7 +854,7 @@
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>2</attack_speed>
-        <cost>50</cost>
+        <cost>150</cost>
         <damage>7</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
