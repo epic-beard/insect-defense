@@ -30,7 +30,7 @@ public class TowerDataGenerator {
         name = "Armor Tear!",
         description = "Adds 1 point of armor tear.",
         upgradePath = 0,
-        cost = 10,
+        cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
@@ -73,7 +73,7 @@ public class TowerDataGenerator {
         name = "Acid!",
         description = "Attacks inflict 5 stacks of acid.",
         upgradePath = 1,
-        cost = 10,
+        cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
@@ -116,7 +116,7 @@ public class TowerDataGenerator {
         name = "Nozzle Control",
         description = "Attacks gain 50% more range.",
         upgradePath = 2,
-        cost = 10,
+        cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
@@ -168,11 +168,11 @@ public class TowerDataGenerator {
       armor_pierce = 0,
       armor_tear = 0,
       attack_speed = 1,
-      cost = 50,
+      cost = 100,
       damage = 10,
       damage_over_time = 0,
       enemies_hit = 0,
-      projectile_speed = 40,
+      projectile_speed = 100,
       range = 20,
       secondary_slow_potency = 0,
       secondary_slow_targets = 0,
@@ -669,7 +669,7 @@ public class TowerDataGenerator {
       armor_pierce = 0.0f,
       armor_tear = 0,
       attack_speed = 2.0f,
-      cost = 50,
+      cost = 150,
       damage = 7,
       damage_over_time = 0,
       enemies_hit = 4,

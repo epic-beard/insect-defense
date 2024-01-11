@@ -73,7 +73,7 @@ public class ProjectileHandler {
 
       // Destroy any particles targeting an enemy that is no longer alive.
       Enemy enemy = particleIDsToEnemies[(int)particles[i].startLifetime];
-      if (!enemy.enabled) {
+      if (!enemy.isActiveAndEnabled) {
         particles[i].remainingLifetime = 0.0f;
         continue;
       }
