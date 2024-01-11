@@ -60,6 +60,7 @@ public class ObjectPool : MonoBehaviour {
     enemy.Data = data;
     enemy.PrevWaypoint = start;
     enemy.transform.position = position;
+    // This enabled must be the last thing set on the enemy or the data set may be lost. OnEnable is srs bsns.
     enemy.enabled = true;
     activeEnemies.Add(enemy);
     return gameObject;
