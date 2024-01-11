@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0); align-items: stretch; justify-content: flex-start; flex-direction: column; height: auto; width: auto; padding-top: 15px; padding-left: 5px; padding-right: 5px;">
+        <ui:Label text="Load Game" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+        <ui:VisualElement style="flex-direction: row; flex-grow: 0; justify-content: space-around; align-items: flex-start;">
+            <ui:Label text="Name" display-tooltip-when-elided="true" style="flex-grow: 3; align-items: flex-start; color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-right-width: 1px;" />
+            <ui:Label text="Level" display-tooltip-when-elided="true" style="flex-grow: 1; align-items: flex-start; color: rgb(255, 255, 255); margin-left: 5px;" />
+        </ui:VisualElement>
+        <ui:ListView focusable="true" name="save__list_view" fixed-item-height="64" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>

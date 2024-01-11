@@ -116,6 +116,10 @@ public class TerrariumContextUI : MonoBehaviour {
     if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
+    if (GameStateManager.Instance.Nu < upgrade.cost) {
+      return;
+    }
+    GameStateManager.Instance.Nu -= upgrade.cost;
     GameStateManager.Instance.SelectedTower.Upgrade(upgrade);
     SetContextForTower(GameStateManager.Instance.SelectedTower);
   }

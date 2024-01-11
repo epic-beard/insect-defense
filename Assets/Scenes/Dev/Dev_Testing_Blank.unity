@@ -216,7 +216,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
---- !u!1001 &165124262
+--- !u!1001 &881477588
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -271,14 +271,6 @@ PrefabInstance:
     - target: {fileID: 3770796850854829353, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4167615392457572297, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4167615392457572297, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
-      propertyPath: startingNu
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

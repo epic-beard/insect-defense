@@ -24,7 +24,7 @@
               <name>Armor Tear!</name>
               <description>Adds 1 point of armor tear.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>50</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -82,7 +82,7 @@
               <name>Acid!</name>
               <description>Attacks inflict 5 stacks of acid.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>50</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -140,7 +140,7 @@
               <name>Nozzle Control</name>
               <description>Attacks gain 50% more range.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>30</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -192,10 +192,10 @@
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>1</attack_speed>
-        <cost>50</cost>
+        <cost>100</cost>
         <damage>10</damage>
         <damage_over_time>0</damage_over_time>
-        <projectile_speed>20</projectile_speed>
+        <projectile_speed>100</projectile_speed>
         <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
@@ -653,16 +653,16 @@
                 <AttributeModifier>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Damage and Armor Pen</name>
-              <description>Increases damage and armor penetration by 10%.</description>
+              <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -672,23 +672,23 @@
                 <AttributeModifier>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Damage and Armor Pen</name>
-              <description>Increases damage and armor penetration by 20%.</description>
+              <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_1_3_DOUBLE_SLASH</specialAbility>
               <name>Double Slash</name>
-              <description>The Mantis attacks with both its scythe claws, from each direction.</description>
+              <description>The Mantis attacks with both its scythe claws, from both sides.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -725,12 +725,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>ADDITIVE</mode>
+                  <mode>SET</mode>
                   <mod>10</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Vicious Claws</name>
-              <description>Attacks now inflict bleed</description>
+              <description>Attacks now inflict 10 bleed.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -739,12 +739,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>SET</mode>
+                  <mod>20</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Anticoagulant Microstructures</name>
-              <description>Bleed is 20% stronger.</description>
+              <description>Bleed inflicted is 20.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -760,12 +760,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.4</mod>
+                  <mode>SET</mode>
+                  <mod>40</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Anticoagulant Chemicals</name>
-              <description>Bleed is 40% stronger.</description>
+              <description>Bleed inflicted is 40.</description>
               <upgradePath>1</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -784,11 +784,11 @@
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Attack Speed</name>
-              <description>Increases attack speed by 10%</description>
+              <description>Increases attack speed by 50%</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -798,11 +798,11 @@
                 <AttributeModifier>
                   <attribute>ENEMIES_HIT</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>1</mod>
+                  <mod>2</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Durable Claws</name>
-              <description>Attacks hit one more enemy than normal.</description>
+              <description>Attacks hit two more enemies than normal.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -819,16 +819,16 @@
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.4</mod>
+                  <mod>1.5</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>ENEMIES_HIT</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>1</mod>
+                  <mod>2</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Synergetic Claws</name>
-              <description>Increases attack speed by 20% and increase number of enemies hit by 1</description>
+              <description>Increases attack speed by 50% and increase number of enemies hit by 2.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -851,14 +851,14 @@
         <name>Mantis</name>
         <enemies_hit>4</enemies_hit>
         <area_of_effect>0</area_of_effect>
-        <armor_pierce>0.1</armor_pierce>
+        <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>1</attack_speed>
-        <cost>50</cost>
-        <damage>10</damage>
+        <attack_speed>2</attack_speed>
+        <cost>150</cost>
+        <damage>7</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
-        <range>20</range>
+        <range>14</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>

@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 1707813114564521829}
   - component: {fileID: 2570446215409944690}
   - component: {fileID: 4758083784310599901}
-  - component: {fileID: 5546002314339584012}
   - component: {fileID: 1108349156654615366}
+  - component: {fileID: -5136308199269468420}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -37,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6361153872161190346
 MonoBehaviour:
@@ -75,9 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb5fbcb37d1d7b49b162c5c6db876fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedTower: {fileID: 0}
   maxHealth: 2
   startingNu: 1000
+  SelectedTower: {fileID: 0}
 --- !u!114 &1707813114564521829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,18 +134,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5546002314339584012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770796850854829353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e030fb1dd5f0b8428048d137796c6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1108349156654615366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,3 +147,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveDirectory: \saves
+--- !u!114 &-5136308199269468420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770796850854829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20fcc5539594ab41937e51bd616eec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -2,45 +2,6 @@
     "name": "StartInputs",
     "maps": [
         {
-            "name": "LoadScreen",
-            "id": "be7f319d-349b-47bd-8b0c-1908e51ce2be",
-            "actions": [
-                {
-                    "name": "LoadScreen_Close",
-                    "type": "Button",
-                    "id": "fea9fc92-fc5f-43fb-936e-d2bb11264c0b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "570cb489-1a31-4d89-8269-c7e4810aba66",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LoadScreen_Close",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "688415fe-cff2-4347-a2e8-8625500069aa",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LoadScreen_Close",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "SettingsScreen",
             "id": "9498d387-33a9-4e72-a830-d6f68ff08546",
             "actions": [
@@ -84,7 +45,7 @@
             "id": "8cb6f90d-1738-4ac8-b8ab-f5ca8bd7ac11",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Start_OpenSettings",
                     "type": "Button",
                     "id": "fd9be499-5f0d-4916-8836-75b09e16fb85",
                     "expectedControlType": "Button",
@@ -97,11 +58,11 @@
                 {
                     "name": "",
                     "id": "e4be7e3b-899a-4e1b-9290-6e0617cde104",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Start_OpenSettings",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

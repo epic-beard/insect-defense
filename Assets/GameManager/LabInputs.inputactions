@@ -2,34 +2,6 @@
     "name": "LabInputs",
     "maps": [
         {
-            "name": "LoadScreen",
-            "id": "be7f319d-349b-47bd-8b0c-1908e51ce2be",
-            "actions": [
-                {
-                    "name": "LoadScreen_Close",
-                    "type": "Button",
-                    "id": "fea9fc92-fc5f-43fb-936e-d2bb11264c0b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "570cb489-1a31-4d89-8269-c7e4810aba66",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LoadScreen_Close",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "SettingsScreen",
             "id": "9498d387-33a9-4e72-a830-d6f68ff08546",
             "actions": [
@@ -47,7 +19,18 @@
                 {
                     "name": "",
                     "id": "30cc4392-ba7d-4c45-8bf6-2a3bb002a8ea",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SettingsScreen_Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "adc2d218-e6f6-4c3a-a64a-b7f08df831b9",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -62,15 +45,6 @@
             "id": "21a33038-7127-484d-ad78-bb4c94ef4116",
             "actions": [
                 {
-                    "name": "Lab_Load",
-                    "type": "Button",
-                    "id": "354afb95-6c4f-43f5-9541-13820503266e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Lab_Settings",
                     "type": "Button",
                     "id": "38659155-2f90-4dc0-8374-3e8b00d71c4a",
@@ -83,19 +57,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "0672a798-0bc2-415d-b161-18cba65743f3",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lab_Load",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fd452e17-cf59-4d45-b202-991011c03560",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
