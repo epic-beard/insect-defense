@@ -16,8 +16,8 @@ public class WaveGenerator {
   private void GenerateWave() {
     CannedEnemyWave firstWave = new() {
       enemyDataKey = ant,
-      repetitions = 4,
-      repeatDelay = 3.0f,
+      repetitions = 6,
+      repeatDelay = 2.0f,
       spawnLocation = 0,
       spawnAmmount = 1,
     };

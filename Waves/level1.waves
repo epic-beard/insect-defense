@@ -2,8 +2,8 @@
 <Wave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Waves">
   <waves>
     <Wave xsi:type="CannedEnemyWave">
-      <repetitions>4</repetitions>
-      <repeatDelay>3</repeatDelay>
+      <repetitions>6</repetitions>
+      <repeatDelay>2</repeatDelay>
       <spawnLocation>0</spawnLocation>
       <spawnAmmount>1</spawnAmmount>
       <enemyDataKey>Ant</enemyDataKey>
