@@ -335,6 +335,9 @@ public class Enemy : MonoBehaviour {
     while (NextWaypoint != null) {
       Vector3 startPosition = transform.position;
       Vector3 endPosition = NextWaypoint.transform.position;
+      float xVariance = UnityEngine.Random.Range(-3, 3);
+      float zVariance = UnityEngine.Random.Range(-3, 3);
+      endPosition += new Vector3(xVariance, 0, zVariance);
       float travelPercent = 0.0f;
 
       transform.LookAt(endPosition);
