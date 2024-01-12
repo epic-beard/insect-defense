@@ -8,7 +8,7 @@ public class EndScreen : MonoBehaviour {
   readonly private string restartButtonName = "restart__button";
   readonly private string labButtonName = "lab__button";
   
-  readonly private string labScene = "Scene/Lab";
+  readonly private string labScene = "Lab";
   UIDocument endScreen;
 
   Label endScreenLabel;
@@ -51,7 +51,7 @@ public class EndScreen : MonoBehaviour {
   }
 
   private void GoToLab(ClickEvent evt) {
-    SceneManager.LoadScene("Lab");
+    SceneManager.LoadScene(labScene);
   }
 
   private void OnGameOver() {
