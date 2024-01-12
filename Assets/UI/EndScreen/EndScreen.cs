@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -6,7 +7,8 @@ public class EndScreen : MonoBehaviour {
   readonly private string endScreenLabelName = "end-screen__label";
   readonly private string restartButtonName = "restart__button";
   readonly private string labButtonName = "lab__button";
-
+  
+  readonly private string labScene = "Scene/Lab";
   UIDocument endScreen;
 
   Label endScreenLabel;
@@ -39,12 +41,17 @@ public class EndScreen : MonoBehaviour {
 
   private void RegisterCallbacks() {
     restartButton.RegisterCallback<ClickEvent>(Restart);
+    labButton.RegisterCallback<ClickEvent>(GoToLab);
   }
 
   private void Restart(ClickEvent evt) {
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     //[TODO nnewsom] is this necessary
     //PauseManager.Instance.Unpause();
+  }
+
+  private void GoToLab(ClickEvent evt) {
+    SceneManager.LoadScene("Lab");
   }
 
   private void OnGameOver() {
