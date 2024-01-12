@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour {
   public Dictionary<Tower, float> AdvancedAcidDecayDelay = new();
 
   private Transform target;
+  private float xVariance;
+  private float zVariance;
 
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
@@ -65,6 +67,24 @@ public class Enemy : MonoBehaviour {
     }
 
     StartCoroutine(FollowPath());
+  }
+
+  private void Update() {
+    // Handle slows.
+    if (0.0f < SlowDuration) {
+      SlowDuration = Mathf.Max(SlowDuration - Time.deltaTime, 0.0f);
+      if (SlowDuration <= 0.0f) {
+        SlowPower = 0.0f;
+      }
+    }
+
+    // Handle acid damage.
+    if (AcidStacks > 0.0f) {
+      int tenStacks = (int)AcidStacks / 10;
+      float damage = (tenStacks + 1) * Time.deltaTime;
+      HP -= damage;
+      AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
+    }
   }
 
   #region Properties
@@ -264,22 +284,9 @@ public class Enemy : MonoBehaviour {
     }
   }
 
-  private void Update() {
-    // Handle slows.
-    if (0.0f < SlowDuration) {
-      SlowDuration = Mathf.Max(SlowDuration - Time.deltaTime, 0.0f);
-      if (SlowDuration <= 0.0f) {
-        SlowPower = 0.0f;
-      }
-    }
-
-    // Handle acid damage.
-    if (AcidStacks > 0.0f) {
-      int tenStacks = (int)AcidStacks / 10;
-      float damage = (tenStacks + 1) * Time.deltaTime;
-      HP -= damage;
-      AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
-    }
+  public void SetVariance(float x, float z) {
+    xVariance = x;
+    zVariance = z;
   }
 
   // Handle ensuring that the advanced acid decay delay decays at the appropriate pace.
@@ -334,6 +341,7 @@ public class Enemy : MonoBehaviour {
     while (NextWaypoint != null) {
       Vector3 startPosition = transform.position;
       Vector3 endPosition = NextWaypoint.transform.position;
+      endPosition += new Vector3(xVariance, 0, zVariance);
       float travelPercent = 0.0f;
 
       transform.LookAt(endPosition);
