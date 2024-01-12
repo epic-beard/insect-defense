@@ -71,6 +71,6 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="no_context__visualelement" style="color: rgb(231, 89, 0);">
-        <ui:Label text="Insect&#10;Defense" display-tooltip-when-elided="true" name="no_context__label" enable-rich-text="true" style="-unity-text-align: upper-center; -unity-font: url(&apos;project://database/Assets/MetalOnMetal-OBo.ttf?fileID=12800000&amp;guid=50a3b1befe1587140a9cffc3fb0148a2&amp;type=3#MetalOnMetal-OBo&apos;); text-overflow: clip; -unity-font-definition: url(&apos;project://database/Assets/MetalOnMetal-OBo%20SDF.asset?fileID=11400000&amp;guid=8b3b571a74664c147848b57b9170bd49&amp;type=2#MetalOnMetal-OBo SDF&apos;);" />
+        <ui:Label text="Insect&#10;Defense" display-tooltip-when-elided="true" name="no_context__label" enable-rich-text="true" style="-unity-text-align: upper-center; -unity-font: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo.ttf?fileID=12800000&amp;guid=50a3b1befe1587140a9cffc3fb0148a2&amp;type=3#MetalOnMetal-OBo&apos;); text-overflow: clip; -unity-font-definition: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo%20SDF.asset?fileID=11400000&amp;guid=8b3b571a74664c147848b57b9170bd49&amp;type=2#MetalOnMetal-OBo SDF&apos;);" />
     </ui:VisualElement>
 </ui:UXML>
