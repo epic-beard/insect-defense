@@ -208,7 +208,7 @@ public class TerrariumContextUI : MonoBehaviour {
 
       for (int j = 0; j < 5; j++) {
         towerUpgradeButtons[i, j].SetEnabled(false);
-        towerUpgradeButtons[i, j].text = tower.GetUpgradePath(i)[j].name;
+        towerUpgradeButtons[i, j].text = tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost;
         towerUpgradeButtons[i, j].tooltip = tower.GetUpgradePath(i)[j].description;
       }
 
