@@ -77,7 +77,7 @@ public class ObjectPool : MonoBehaviour {
     objectPools[type].Enqueue(gameObject);
   }
 
-  // Deactivates all enemies and enqueues them back on the correctInsular77686 objectPool.
+  // Deactivates all enemies and enqueues them back on the correct objectPool.
   public void DestroyAllEnemies() {
     foreach (Enemy enemy in activeEnemies) {
       GameObject enemyObject = enemy.gameObject;

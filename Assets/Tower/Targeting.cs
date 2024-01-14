@@ -58,20 +58,18 @@ public class Targeting {
         .Where(e => !e.Flying || antiAir)
         .Where(e => !e.Camo || camoSight)
         .ToList();
-    // This is a working copy to avoid extra work later in the case of no enemies found with the behavior filter.
-    List<Enemy> workingTargets = new();
 
     // Ensure the old target is within range of the tower.
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
+        && oldTarget.enabled
         && (Vector3.Distance(towerPosition, oldTarget.transform.position) < towerRange)
         && (!oldTarget.Camo || camoSight)
         && (!oldTarget.Flying || antiAir)) {
       return oldTarget;
     }
 
-    // Apply the behavior predicate to all potential targets.
-    workingTargets = targets.Where(e => behaviorPredicates[behavior](e)).ToList();
+    List<Enemy> workingTargets = targets.Where(e => behaviorPredicates[behavior](e)).ToList();
     // Only get the unfiltered list if we have used filters and there are no filtered results.
     if (workingTargets.Count == 0 && behavior != Behavior.ALL) {
       workingTargets = targets;

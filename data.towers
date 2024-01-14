@@ -140,7 +140,7 @@
               <name>Nozzle Control</name>
               <description>Attacks gain 50% more range.</description>
               <upgradePath>2</upgradePath>
-              <cost>30</cost>
+              <cost>50</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
