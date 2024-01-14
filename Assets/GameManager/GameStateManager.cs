@@ -123,7 +123,6 @@ public class GameStateManager : MonoBehaviour {
       towerCounts[type] = 0;
     }
 
-    return Mathf.RoundToInt(
-      cost * Mathf.Pow(towerScalingFactor, towerCounts[type]));
+    return Mathf.RoundToInt(cost * Mathf.Pow(towerScalingFactor, towerCounts[type]));
   }
 }

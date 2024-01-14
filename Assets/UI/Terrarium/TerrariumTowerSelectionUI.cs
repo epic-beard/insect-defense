@@ -10,6 +10,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   private UIDocument terrariumScreen;
   private ListView towerSelectionListView;
   private Dictionary<string, GameObject> towerNameToPrefab = new();
+  private Dictionary<TowerData.Type, Button> towerButtons = new();
 
   private void Awake() {
     terrariumScreen = GetComponent<UIDocument>();
@@ -26,22 +27,26 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   private void ConstructTowerSelectionListView() {
     towerSelectionListView.Clear();
     towerNameToPrefab.Clear();
+    towerButtons.Clear();
     towerSelectionListView.makeItem = () => new Button();
     towerSelectionListView.bindItem = (e, i) => {
       Button towerButton = (Button)e;
       Tower tower = prefabs[i].GetComponent<Tower>();
       string towerTypeName = tower.TowerType.ToString();
-      int cost = GameStateManager.Instance.GetTowerCost(tower.TowerType, tower.Cost);
+      int cost = GameStateManager.Instance.GetTowerCost(
+          tower.TowerType,
+          TowerDataManager.Instance.GetTowerData(tower.TowerType).cost);
       if (cost > GameStateManager.Instance.Nu) {
         towerButton.SetEnabled(false);
       }
       
-      towerButton.text = tower.name + " - " + Constants.nu + " " + tower.Cost;
+      SetTowerButtonText(towerButton, tower.name, cost);
       towerButton.tooltip = towerTypeName;
       if (!towerNameToPrefab.ContainsKey(towerTypeName)) {
         towerNameToPrefab.Add(towerTypeName, prefabs[i]);
       }
       towerButton.RegisterCallback<ClickEvent>(TowerClickEvent);
+      towerButtons.Add(tower.TowerType, towerButton);
     };
     towerSelectionListView.itemsSource = prefabs;
   }
@@ -54,14 +59,17 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   }
 
   public void UpdateAffordableTowers(int nu) {
-    for (int i = 0; i < prefabs.Count; i++) { 
-      Tower tower = prefabs[i].GetComponent<Tower>();
-      int cost = GameStateManager.Instance.GetTowerCost(tower.TowerType, tower.Cost);
-      var item = towerSelectionListView.ElementAt(i);
-      if (item == null) {
-        continue;
-      }
-      item.SetEnabled(cost <= GameStateManager.Instance.Nu);
+    foreach (var entry in towerButtons) {
+      TowerData towerData = TowerDataManager.Instance.GetTowerData(entry.Key);
+      int cost = GameStateManager.Instance.GetTowerCost(towerData.type, towerData.cost);
+
+      Button button = entry.Value;
+      SetTowerButtonText(button, towerData.name, cost);
+      button.SetEnabled(cost <= GameStateManager.Instance.Nu);
     }
+  }
+
+  public void SetTowerButtonText(Button button, string towerName, int cost) {
+    button.text = towerName + " - " + Constants.nu + " " + cost;
   }
 }
