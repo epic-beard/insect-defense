@@ -55,7 +55,7 @@ public class ProjectileHandler {
     for (int i = 0; i < numActiveParticles; i++) {
       particles[i].velocity = Vector3.zero;
 
-      // Add to the particle to enemy tracker if necessary. Tracking individual particles can be difficult because
+      // Add the particle to the enemy tracker if necessary. Tracking individual particles can be difficult because
       // ParticleSystem.GetParticles returns a value rather than a reference.
       if (particles[i].startLifetime < 100) {
         // Visual studio recommended '==' rather than 'is'. This could be a bug.
@@ -72,7 +72,8 @@ public class ProjectileHandler {
       }
 
       // Destroy any particles targeting an enemy that is no longer alive.
-      Enemy enemy = particleIDsToEnemies[(int)particles[i].startLifetime];
+      // The RountToInt call is important. Trying direct casting to (int) introduces a bug.
+      Enemy enemy = particleIDsToEnemies[Mathf.RoundToInt(particles[i].startLifetime)];
       if (!enemy.isActiveAndEnabled) {
         particles[i].remainingLifetime = 0.0f;
         continue;
