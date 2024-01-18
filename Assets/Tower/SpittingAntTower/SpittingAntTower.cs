@@ -23,8 +23,12 @@ public class SpittingAntTower : Tower {
   public override TowerData.Type TowerType { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
 
   private Enemy enemy;
-  private bool firing = false;
   private ProjectileHandler projectileHandler;
+  private bool canFire {
+    get {
+      return enemy != null && enemy.isActiveAndEnabled;
+    }
+  }
 
   private void Start() {
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
@@ -116,6 +120,10 @@ public class SpittingAntTower : Tower {
   }
 
   protected override void TowerUpdate() {
+    if (!ContinuousAttack) {
+      projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
+    }
+
     enemy = targeting.FindTarget(
       oldTarget: enemy,
       enemies: ObjectPool.Instance.GetActiveEnemies(),
@@ -125,12 +133,10 @@ public class SpittingAntTower : Tower {
       antiAir: AntiAir);
     // If there is no target, stop firing.
     if (enemy == null) {
-      firing = false;
       beam.enabled = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
       upperMesh.LookAt(enemy.AimPoint);
-      firing = true;
 
       if (ContinuousAttack) {
         beam.enabled = true;
@@ -141,20 +147,16 @@ public class SpittingAntTower : Tower {
         ProcessDamageAndEffects(enemy);
       }
     }
-
-    if (!ContinuousAttack) {
-      projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
-    }
   }
 
   // Handle the splash shot outside of the Update method, so it won't interrupt the program flow.
   private IEnumerator SplashShoot() {
     while (!ContinuousAttack) {
-      while (firing && DazzleTime == 0.0f) {
-        splash.Emit(1);
-        yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
+        while (canFire && DazzleTime == 0.0f) {
+          splash.Emit(1);
+          yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
-      yield return new WaitUntil(() => firing);
+      yield return new WaitUntil(() => canFire);
     }
   }
 }

@@ -1,3 +1,3 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:ListView focusable="true" name="tower_selection__listview" style="color: rgb(231, 88, 0);" />
+    <ui:ListView focusable="false" name="tower_selection__listview" style="color: rgb(231, 88, 0);" />
 </ui:UXML>
