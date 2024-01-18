@@ -65,6 +65,7 @@ public class Spawner : MonoBehaviour {
   [XmlInclude(typeof(EnemyWave))]
   [XmlInclude(typeof(CannedEnemyWave))]
   [XmlInclude(typeof(SpacerWave))]
+  [XmlInclude(typeof(DialogueBoxWave))]
   public abstract class Wave {
     // Starts the wave.  Meant to be called as a Coroutine.
     public abstract IEnumerator Start();
@@ -178,6 +179,16 @@ public class Spawner : MonoBehaviour {
       // Wait for delay seconds.
       yield return new WaitForSeconds(delay);
       Finished = true;
+    }
+  }
+
+  public class DialogueBoxWave : Wave {
+    public string message = "";
+
+    public override IEnumerator Start() {
+      TerrariumUI.Instance.ShowDialogue(message);
+      Finished = true;
+      yield return null;
     }
   }
 }

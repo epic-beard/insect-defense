@@ -13,6 +13,7 @@ public class PauseManager : MonoBehaviour {
     Instance = this;
   }
 
+  //TODO nnewsom have pause take a token.
   public void HandlePause() {
     paused = !paused;
     Time.timeScale = paused || screenPaused ? 0 : 1;

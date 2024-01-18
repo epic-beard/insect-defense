@@ -24,12 +24,10 @@ public class TerrariumInputManager : MonoBehaviour{
     actions.Player.Player_Deselect.started += OnDeselect;
     actions.Player.Player_Zoom.started += OnZoomCamera;
 
-    // [TODO] input keyboard navigation of settings screen.
-    //Input.actions["SettingsScreen_Navigate"].started += SettingsScreenNavigate;
-    //Input.actions["SettingsScreen_Select"].started += SettingsScreenSelect;
-    //Input.actions["SettingsScreen_Back"].started += SettingsScreenBack;
     actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
   }
+
+  // TODO nnewsom add message box input map.
 
   void HandleCameraMovement() {
     Vector2 move = actions.Player.Player_Look.ReadValue<Vector2>();

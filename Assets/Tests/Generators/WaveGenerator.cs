@@ -14,12 +14,20 @@ public class WaveGenerator {
   }
 
   private void GenerateWave() {
-    CannedEnemyWave firstWave = new() {
+    DialogueBoxWave greeting = new() {
+      message = "Hello"
+    };
+
+    CannedEnemyWave firstWaveAnt = new() {
       enemyDataKey = ant,
       repetitions = 6,
       repeatDelay = 2.0f,
       spawnLocation = 0,
       spawnAmmount = 1,
+    };
+
+    SequentialWave firstWave = new() {
+      Subwaves = { greeting, firstWaveAnt },
     };
 
     CannedEnemyWave secondWaveAnt = new() {
@@ -60,6 +68,9 @@ public class WaveGenerator {
     SpacerWave thirdWaveSpacer = new() {
       delay = 1.0f,
     };
+    DialogueBoxWave beetleWarning = new() {
+      message = "Beetles are armored enemies, make sure you have some armor tear or peirce to damage them!"
+    };
     CannedEnemyWave thirdWaveBeetle = new() {
       enemyDataKey = beetle,
       repetitions = 1,
@@ -68,7 +79,7 @@ public class WaveGenerator {
       spawnAmmount = 1,
     };
     SequentialWave thirdWave = new() {
-      Subwaves = { thirdWaveAntAphid, thirdWaveSpacer, thirdWaveBeetle },
+      Subwaves = { thirdWaveAntAphid, thirdWaveSpacer, beetleWarning, thirdWaveBeetle },
     };
 
     Waves waves = new() {
