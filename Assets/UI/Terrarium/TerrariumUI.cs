@@ -32,5 +32,6 @@ public class TerrariumUI : MonoBehaviour {
     PauseManager.Instance.HandleScreenPause();
     messageBoxLabel.text = message;
     messageBoxLabel.style.display = DisplayStyle.Flex;
+    // TODO nnewsom finish this.
   }
 }

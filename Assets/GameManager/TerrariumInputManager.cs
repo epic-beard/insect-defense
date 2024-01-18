@@ -64,6 +64,7 @@ public class TerrariumInputManager : MonoBehaviour{
     CloseSettings();
   }
   public void CloseSettings() {
+    // TODO nnewsom figure out closing settings to message box.
     PauseManager.Instance.HandleScreenPause();
     TerrariumUI.Instance.ShowUI();
     SettingsScreen.Instance.CloseSettings();
