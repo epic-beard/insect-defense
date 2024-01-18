@@ -15,7 +15,7 @@ public class WaveGenerator {
 
   private void GenerateWave() {
     DialogueBoxWave greeting = new() {
-      message = "Hello"
+      messages = { "Hello" }
     };
 
     CannedEnemyWave firstWaveAnt = new() {
@@ -69,7 +69,7 @@ public class WaveGenerator {
       delay = 1.0f,
     };
     DialogueBoxWave beetleWarning = new() {
-      message = "Beetles are armored enemies, make sure you have some armor tear or peirce to damage them!"
+      messages = { "Beetles are armored enemies, make sure you have some armor tear or peirce to damage them!", "Check the Spitting Ant Tower upgrades." }
     };
     CannedEnemyWave thirdWaveBeetle = new() {
       enemyDataKey = beetle,

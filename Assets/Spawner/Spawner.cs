@@ -23,6 +23,7 @@ public class Spawner : MonoBehaviour {
   void Start() {
     if (filename.Length == 0) return;
     Wave? wave = Deserialize<Wave>(filename);
+    Debug.Log(wave);
     if (wave != null)  SpawnWave(wave);
   }
 
@@ -99,6 +100,10 @@ public class Spawner : MonoBehaviour {
       }
       Finished = true;
     }
+
+    public override string ToString() {
+      return "Waves\n" + string.Join("\n\t", waves.ConvertAll(x => x.ToString()));
+    }
   }
 
   // A wave that calls its subwaves sequentially.
@@ -110,6 +115,9 @@ public class Spawner : MonoBehaviour {
         yield return Spawner.Instance.StartCoroutine(subwave.Start());
       }
       Finished = true;
+    }
+    public override string ToString() {
+      return "SequentialWave\n" + string.Join("\n\t", Subwaves.ConvertAll(x => x.ToString()));
     }
   }
 
@@ -124,6 +132,10 @@ public class Spawner : MonoBehaviour {
       // Wait until all the subwaves have finished.
       yield return new WaitUntil(() => Subwaves.All((s) => s.Finished));
       Finished = true;
+    }
+
+    public override string ToString() {
+      return "ConcurrentWave\n" + string.Join("\n\t", Subwaves.ConvertAll(x => x.ToString()));
     }
   }
 
@@ -145,6 +157,14 @@ public class Spawner : MonoBehaviour {
         yield return new WaitForSeconds(repeatDelay);
       }
       Finished = true;
+    }
+    public override string ToString() {
+      return "EnemyWave"
+        + "\nRepetitions " + repetitions
+        + "\nRepeat Delay: " + repeatDelay
+        + "\nSpawn Location: " + spawnLocation
+        + "\nSpawn Ammount: " + spawnAmmount
+        + "\nEnemy Data: " + data;
     }
   }
 
@@ -168,6 +188,15 @@ public class Spawner : MonoBehaviour {
       }
       Finished = true;
     }
+
+    public override string ToString() {
+      return "CannedEnemyWave"
+        + "\nRepetitions " + repetitions
+        + "\nRepeat Delay: " + repeatDelay
+        + "\nSpawn Location: " + spawnLocation
+        + "\nSpawn Ammount: " + spawnAmmount
+        + "\nEnemy Data Key: " + enemyDataKey;
+    }
   }
 
   // A wave that just waits for a given delay then finishes.
@@ -180,15 +209,24 @@ public class Spawner : MonoBehaviour {
       yield return new WaitForSeconds(delay);
       Finished = true;
     }
+    public override string ToString() {
+      return "SpacerWave\nDelay: " + delay + "\n";
+    }
   }
 
   public class DialogueBoxWave : Wave {
-    public string message = "";
+    public List<string> messages = new();
 
     public override IEnumerator Start() {
-      TerrariumUI.Instance.ShowDialogue(message);
+      Debug.Log(messages);
+      Debug.Log(MessageBox.Instance == null);
+      MessageBox.Instance.ShowDialogue(messages);
       Finished = true;
       yield return null;
+    }
+
+    public override string ToString() {
+      return "DialogueBoxWave\n" + string.Join(", ", messages);
     }
   }
 }

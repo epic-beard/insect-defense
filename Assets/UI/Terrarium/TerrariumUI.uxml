@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="TerrariumGameView" src="project://database/Assets/UI/Terrarium/TerrariumGameView.uxml?fileID=9197481963319205126&amp;guid=7ea4d8407eae82d489cea20a36656ae0&amp;type=3#TerrariumGameView" />
+    <ui:Template name="MessageBox" src="project://database/Assets/UI/Terrarium/MessageBox.uxml?fileID=9197481963319205126&amp;guid=2a5a2bb9ff7f4cb43a7e015010a7848d&amp;type=3#MessageBox" />
     <ui:Template name="TerrariumBottomPanel" src="project://database/Assets/UI/Terrarium/TerrariumBottomSettings.uxml?fileID=9197481963319205126&amp;guid=e4f00dad63298524aaf4b40c11f5f365&amp;type=3#TerrariumBottomSettings" />
     <ui:Template name="TerrariumHeartHP" src="project://database/Assets/UI/Terrarium/TerrariumHeartHP.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TerrariumHeartHP" />
     <ui:Template name="TerrariumContext" src="project://database/Assets/UI/Terrarium/TerrariumContext.uxml?fileID=9197481963319205126&amp;guid=b5492c09c7f44394fbc44bf6702ba2f2&amp;type=3#TerrariumContext" />
@@ -7,8 +8,8 @@
     <ui:VisualElement name="overall_terrarium_ui__visualelement" style="flex-direction: row; align-items: stretch; justify-content: space-around; flex-grow: 1;">
         <ui:VisualElement name="left__visualelement" style="justify-content: space-around; flex-grow: 1; visibility: visible;">
             <ui:Instance template="TerrariumGameView" name="TerrariumGameView" style="flex-grow: 1; visibility: visible;" />
-            <ui:VisualElement name="message_box__visualelement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; min-width: auto; min-height: auto; margin-left: 10%; margin-right: 10%; margin-top: 0; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
-                <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="message_box__label" style="background-color: rgba(0, 0, 255, 0.39); color: rgb(255, 255, 255); flex-grow: 8; flex-shrink: 1; display: none;" />
+            <ui:VisualElement name="message_box__visualelement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; min-width: auto; min-height: auto; margin-left: 10%; margin-right: 10%; margin-top: 0; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; justify-content: space-between; align-items: stretch; align-self: stretch;">
+                <ui:Instance template="MessageBox" name="MessageBox" style="flex-grow: 1;" />
             </ui:VisualElement>
             <ui:Instance template="TerrariumBottomPanel" name="TerrariumBottomPanel" style="flex-grow: 0; height: 50px; flex-shrink: 0; justify-content: flex-end; visibility: visible; -unity-text-outline-width: 0; background-color: rgb(0, 0, 0);" />
         </ui:VisualElement>
