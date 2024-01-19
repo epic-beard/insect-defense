@@ -38,14 +38,14 @@
               <name>More Armor Tear</name>
               <description>Increases armor tear to 2.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>200</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_1_3_ARMOR_TEAR_ACID_BONUS</specialAbility>
               <name>Acid Breakdown</name>
               <description>When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>800</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -94,16 +94,16 @@
                 </AttributeModifier>
               </attributeModifiers>
               <name>More Acid</name>
-              <description>Acid inflicted is raised to 10.</description>
+              <description>Acid stacks inflicted is raised to 10.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>200</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_2_3_ACID_BUILDUP_BONUS</specialAbility>
               <name>Armorless Acid</name>
               <description>If an enemy has no armor, they gain 50% more acid stacks from this tower.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>800</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -154,14 +154,14 @@
               <name>Shot Production Speed</name>
               <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>200</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_3_3_ANTI_AIR</specialAbility>
               <name>Elevated Shots</name>
               <description>The tower gains the anti-air ability.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>800</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>

@@ -39,14 +39,14 @@ public class TowerDataGenerator {
         name = "More Armor Tear",
         description = "Increases armor tear to 2.",
         upgradePath = 0,
-        cost = 10,
+        cost = 200,
       },
       new() {
         specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
         name = "Acid Breakdown",
         description = "When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.",
         upgradePath = 0,
-        cost = 10,
+        cost = 800,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
@@ -80,16 +80,16 @@ public class TowerDataGenerator {
           GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10.0f)
         },
         name = "More Acid",
-        description = "Acid inflicted is raised to 10.",
+        description = "Acid stacks inflicted is raised to 10.",
         upgradePath = 1,
-        cost = 10,
+        cost = 200,
       },
       new() {
         specialAbility = SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
         name = "Armorless Acid",
         description = "If an enemy has no armor, they gain 50% more acid stacks from this tower.",
         upgradePath = 1,
-        cost = 10,
+        cost = 800,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
@@ -125,14 +125,14 @@ public class TowerDataGenerator {
         name = "Shot Production Speed",
         description = "Increases attack speed by 50%.",
         upgradePath = 2,
-        cost = 10,
+        cost = 200,
       },
       new() {
         specialAbility = SpecialAbility.SA_3_3_ANTI_AIR,
         name = "Elevated Shots",
         description = "The tower gains the anti-air ability.",
         upgradePath = 2,
-        cost = 10,
+        cost = 800,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
