@@ -46,7 +46,9 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
         towerNameToPrefab.Add(towerTypeName, prefabs[i]);
       }
       towerButton.RegisterCallback<ClickEvent>(TowerClickEvent);
-      towerButtons.Add(tower.TowerType, towerButton);
+      if (!towerButtons.ContainsKey(tower.TowerType)) {
+        towerButtons.Add(tower.TowerType, towerButton);
+      }
     };
     towerSelectionListView.itemsSource = prefabs;
   }

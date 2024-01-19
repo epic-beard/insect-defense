@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class TerrariumInputManager : MonoBehaviour{
-  private TerrariumInputs actions;
+public class TerrariumInputManager : MonoBehaviour {
+  public static event Action OnAdvance = delegate { };
+
   public static TerrariumInputManager Instance;
+
+  private TerrariumInputs actions;
 
   private void Awake() {
     actions = new();
@@ -19,10 +23,13 @@ public class TerrariumInputManager : MonoBehaviour{
 
   private void OnEnable() {
     actions.Player.Enable();
-    actions.Player.Player_Pause.started += OnPauseGame;
-    actions.Player.Player_Settings.started += OnOpenSettings;
-    actions.Player.Player_Deselect.started += OnDeselect;
-    actions.Player.Player_Zoom.started += OnZoomCamera;
+    actions.Player.Player_Pause.started += PauseGame;
+    actions.Player.Player_Settings.started += OpenSettings;
+    actions.Player.Player_Deselect.started += Deselect;
+    actions.Player.Player_Zoom.started += ZoomCamera;
+
+    actions.MessageBox.Advance.started += Advance;
+    actions.MessageBox.Settings.started += OpenSettings;
 
     actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
   }
@@ -36,27 +43,31 @@ public class TerrariumInputManager : MonoBehaviour{
     }
   }
 
-  void OnZoomCamera(InputAction.CallbackContext context) {
+  void ZoomCamera(InputAction.CallbackContext context) {
     CameraManager.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
   }
 
-  void OnPauseGame(InputAction.CallbackContext context) {
+  void PauseGame(InputAction.CallbackContext context) {
     PauseManager.Instance.HandlePause();
   }
 
-  void OnDeselect(InputAction.CallbackContext context) {
+  void Deselect(InputAction.CallbackContext context) {
     GameStateManager.Instance.ClearSelection();
     TerrariumContextUI.Instance.SetNoContextPanel();
   }
 
-  protected void OnOpenSettings(InputAction.CallbackContext context) {
+  protected void OpenSettings(InputAction.CallbackContext context) {
     OpenSettings();
   }
   public void OpenSettings() {
     PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumUI.Instance.HideUI();
     SettingsScreen.Instance.OpenSettings();
-    actions.Player.Disable();
+    if (MessageBox.Instance.IsOpen()) {
+      actions.MessageBox.Disable();
+    } else {
+      actions.Player.Disable();
+    }
     actions.SettingsScreen.Enable();
   }
 
@@ -68,8 +79,14 @@ public class TerrariumInputManager : MonoBehaviour{
     PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumUI.Instance.ShowUI();
     SettingsScreen.Instance.CloseSettings();
-    actions.SettingsScreen.Disable();
-    actions.Player.Enable();
+
+    if (MessageBox.Instance.IsOpen()) {
+      actions.SettingsScreen.Disable();
+      actions.MessageBox.Enable();
+    } else {
+      actions.SettingsScreen.Disable();
+      actions.Player.Enable();
+    }
   }
 
   public void ToggleSettings() {
@@ -78,5 +95,19 @@ public class TerrariumInputManager : MonoBehaviour{
     } else {
       OpenSettings();
     }
+  }
+
+  private void Advance(InputAction.CallbackContext context) {
+    OnAdvance.Invoke();
+  }
+
+  public void EnableMessageBoxActionMap() {
+    actions.Player.Disable();
+    actions.MessageBox.Enable();
+  }
+
+  public void DisableMessageBoxActionMap() {
+    actions.MessageBox.Disable();
+    actions.Player.Enable();
   }
 }

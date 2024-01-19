@@ -235,6 +235,65 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "MessageBox",
+            "id": "868b74e1-8839-4e16-a148-64c05f49e179",
+            "actions": [
+                {
+                    "name": "Settings",
+                    "type": "Button",
+                    "id": "451a86b0-cb4b-437a-bbc1-6ca25c4194a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Advance",
+                    "type": "Button",
+                    "id": "f752bcb2-5baf-4a70-a0f9-5ed0edb9ce31",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8e8dc225-d708-4b61-bdcc-743807b578e1",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Settings",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "220b9f57-e8ea-48cb-8192-17d87d399bd7",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Advance",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6889a388-9f31-4a4d-9030-cd5d85bc9103",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Advance",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -46,8 +46,6 @@ public class EndScreen : MonoBehaviour {
 
   private void Restart(ClickEvent evt) {
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    //[TODO nnewsom] is this necessary
-    //PauseManager.Instance.Unpause();
   }
 
   private void GoToLab(ClickEvent evt) {

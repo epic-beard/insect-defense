@@ -1,4 +1,5 @@
 #nullable enable
+using Assets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,6 @@ public class Spawner : MonoBehaviour {
   void Start() {
     if (filename.Length == 0) return;
     Wave? wave = Deserialize<Wave>(filename);
-    Debug.Log(wave);
     if (wave != null)  SpawnWave(wave);
   }
 
@@ -102,7 +102,7 @@ public class Spawner : MonoBehaviour {
     }
 
     public override string ToString() {
-      return "Waves\n" + string.Join("\n\t", waves.ConvertAll(x => x.ToString()));
+      return "Waves\n" + string.Join("\n", waves.ConvertAll(x => x.ToString().TabMultiLine()));
     }
   }
 
@@ -117,7 +117,8 @@ public class Spawner : MonoBehaviour {
       Finished = true;
     }
     public override string ToString() {
-      return "SequentialWave\n" + string.Join("\n\t", Subwaves.ConvertAll(x => x.ToString()));
+      return "SequentialWave\n"
+          + string.Join("\n", Subwaves.ConvertAll(x => x.ToString().TabMultiLine()));
     }
   }
 
@@ -135,7 +136,8 @@ public class Spawner : MonoBehaviour {
     }
 
     public override string ToString() {
-      return "ConcurrentWave\n" + string.Join("\n\t", Subwaves.ConvertAll(x => x.ToString()));
+      return "ConcurrentWave\n"
+          + string.Join("\n", Subwaves.ConvertAll(x => x.ToString().TabMultiLine()));
     }
   }
 
@@ -160,11 +162,11 @@ public class Spawner : MonoBehaviour {
     }
     public override string ToString() {
       return "EnemyWave"
-        + "\nRepetitions " + repetitions
-        + "\nRepeat Delay: " + repeatDelay
-        + "\nSpawn Location: " + spawnLocation
-        + "\nSpawn Ammount: " + spawnAmmount
-        + "\nEnemy Data: " + data;
+        + "\n\tRepetitions " + repetitions
+        + "\n\tRepeat Delay: " + repeatDelay
+        + "\n\tSpawn Location: " + spawnLocation
+        + "\n\tSpawn Ammount: " + spawnAmmount
+        + "\n\tEnemy Data: " + data;
     }
   }
 
@@ -191,11 +193,11 @@ public class Spawner : MonoBehaviour {
 
     public override string ToString() {
       return "CannedEnemyWave"
-        + "\nRepetitions " + repetitions
-        + "\nRepeat Delay: " + repeatDelay
-        + "\nSpawn Location: " + spawnLocation
-        + "\nSpawn Ammount: " + spawnAmmount
-        + "\nEnemy Data Key: " + enemyDataKey;
+        + "\n\tRepetitions " + repetitions
+        + "\n\tRepeat Delay: " + repeatDelay
+        + "\n\tSpawn Location: " + spawnLocation
+        + "\n\tSpawn Ammount: " + spawnAmmount
+        + "\n\tEnemy Data Key: " + enemyDataKey;
     }
   }
 
@@ -210,7 +212,7 @@ public class Spawner : MonoBehaviour {
       Finished = true;
     }
     public override string ToString() {
-      return "SpacerWave\nDelay: " + delay + "\n";
+      return "SpacerWave\n\tDelay: " + delay;
     }
   }
 
@@ -218,15 +220,13 @@ public class Spawner : MonoBehaviour {
     public List<string> messages = new();
 
     public override IEnumerator Start() {
-      Debug.Log(messages);
-      Debug.Log(MessageBox.Instance == null);
       MessageBox.Instance.ShowDialogue(messages);
       Finished = true;
       yield return null;
     }
 
     public override string ToString() {
-      return "DialogueBoxWave\n" + string.Join(", ", messages);
+      return "DialogueBoxWave\n\t" + string.Join("\n\t", messages);
     }
   }
 }
