@@ -26,7 +26,6 @@ public class PauseManager : MonoBehaviour {
     return pauseState.Any(kvp => kvp.Value);
   }
 
-  //TODO nnewsom have pause take a token.
   public void HandlePause(PauseToken token = PauseToken.NONE) {
     if (!pauseState.ContainsKey(token)) pauseState.Add(token, true);
     else pauseState[token] = !pauseState[token];

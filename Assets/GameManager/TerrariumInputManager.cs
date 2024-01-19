@@ -34,8 +34,6 @@ public class TerrariumInputManager : MonoBehaviour {
     actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
   }
 
-  // TODO nnewsom add message box input map.
-
   void HandleCameraMovement() {
     Vector2 move = actions.Player.Player_Look.ReadValue<Vector2>();
     if (move.sqrMagnitude >= 0.1) {
@@ -75,7 +73,6 @@ public class TerrariumInputManager : MonoBehaviour {
     CloseSettings();
   }
   public void CloseSettings() {
-    // TODO nnewsom figure out closing settings to message box.
     PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumUI.Instance.ShowUI();
     SettingsScreen.Instance.CloseSettings();
