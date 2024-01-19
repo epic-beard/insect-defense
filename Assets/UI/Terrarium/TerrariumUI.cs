@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 public class TerrariumUI : MonoBehaviour {
   public static TerrariumUI Instance;
-  
+
   UIDocument terrariumUI;
 
   private void Awake() {
@@ -13,11 +13,13 @@ public class TerrariumUI : MonoBehaviour {
 
   void SetVisualElements() {
     terrariumUI = GetComponent<UIDocument>();
+    VisualElement rootElement = terrariumUI.rootVisualElement;
   }
 
   public void HideUI() {
     terrariumUI.rootVisualElement.style.display = DisplayStyle.None;
   }
+
   public void ShowUI() {
     terrariumUI.rootVisualElement.style.display = DisplayStyle.Flex;
   }

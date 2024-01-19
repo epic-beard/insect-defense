@@ -54,7 +54,7 @@ public class Terrarium : MonoBehaviour {
     Selected = null;
     LabCamera.Instance.ReturnCamera();
     terrariumScreen.rootVisualElement.style.display = DisplayStyle.None;
-    LabInputManager.Instance.EnableLabActionMap();
+    LabInputManager.Instance.DisableTerrariumActionMap();
   }
 
   private void GoToLevel() {

@@ -257,6 +257,65 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MessageBox"",
+            ""id"": ""868b74e1-8839-4e16-a148-64c05f49e179"",
+            ""actions"": [
+                {
+                    ""name"": ""Settings"",
+                    ""type"": ""Button"",
+                    ""id"": ""451a86b0-cb4b-437a-bbc1-6ca25c4194a9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Advance"",
+                    ""type"": ""Button"",
+                    ""id"": ""f752bcb2-5baf-4a70-a0f9-5ed0edb9ce31"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8e8dc225-d708-4b61-bdcc-743807b578e1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Settings"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""220b9f57-e8ea-48cb-8192-17d87d399bd7"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Advance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6889a388-9f31-4a4d-9030-cd5d85bc9103"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Advance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -271,6 +330,10 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         // SettingsScreen
         m_SettingsScreen = asset.FindActionMap("SettingsScreen", throwIfNotFound: true);
         m_SettingsScreen_SettingsScreen_Close = m_SettingsScreen.FindAction("SettingsScreen_Close", throwIfNotFound: true);
+        // MessageBox
+        m_MessageBox = asset.FindActionMap("MessageBox", throwIfNotFound: true);
+        m_MessageBox_Settings = m_MessageBox.FindAction("Settings", throwIfNotFound: true);
+        m_MessageBox_Advance = m_MessageBox.FindAction("Advance", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -452,6 +515,60 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         }
     }
     public SettingsScreenActions @SettingsScreen => new SettingsScreenActions(this);
+
+    // MessageBox
+    private readonly InputActionMap m_MessageBox;
+    private List<IMessageBoxActions> m_MessageBoxActionsCallbackInterfaces = new List<IMessageBoxActions>();
+    private readonly InputAction m_MessageBox_Settings;
+    private readonly InputAction m_MessageBox_Advance;
+    public struct MessageBoxActions
+    {
+        private @TerrariumInputs m_Wrapper;
+        public MessageBoxActions(@TerrariumInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Settings => m_Wrapper.m_MessageBox_Settings;
+        public InputAction @Advance => m_Wrapper.m_MessageBox_Advance;
+        public InputActionMap Get() { return m_Wrapper.m_MessageBox; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MessageBoxActions set) { return set.Get(); }
+        public void AddCallbacks(IMessageBoxActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MessageBoxActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MessageBoxActionsCallbackInterfaces.Add(instance);
+            @Settings.started += instance.OnSettings;
+            @Settings.performed += instance.OnSettings;
+            @Settings.canceled += instance.OnSettings;
+            @Advance.started += instance.OnAdvance;
+            @Advance.performed += instance.OnAdvance;
+            @Advance.canceled += instance.OnAdvance;
+        }
+
+        private void UnregisterCallbacks(IMessageBoxActions instance)
+        {
+            @Settings.started -= instance.OnSettings;
+            @Settings.performed -= instance.OnSettings;
+            @Settings.canceled -= instance.OnSettings;
+            @Advance.started -= instance.OnAdvance;
+            @Advance.performed -= instance.OnAdvance;
+            @Advance.canceled -= instance.OnAdvance;
+        }
+
+        public void RemoveCallbacks(IMessageBoxActions instance)
+        {
+            if (m_Wrapper.m_MessageBoxActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMessageBoxActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MessageBoxActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MessageBoxActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MessageBoxActions @MessageBox => new MessageBoxActions(this);
     public interface IPlayerActions
     {
         void OnPlayer_Look(InputAction.CallbackContext context);
@@ -463,5 +580,10 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
     public interface ISettingsScreenActions
     {
         void OnSettingsScreen_Close(InputAction.CallbackContext context);
+    }
+    public interface IMessageBoxActions
+    {
+        void OnSettings(InputAction.CallbackContext context);
+        void OnAdvance(InputAction.CallbackContext context);
     }
 }

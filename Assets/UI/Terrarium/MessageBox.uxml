@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="message_box__panel" style="flex-grow: 1; background-color: rgba(0, 0, 255, 0.39); flex-shrink: 1; min-width: auto; min-height: auto; justify-content: space-between; align-items: stretch; align-self: stretch;">
+        <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="message_box__label" style="color: rgb(255, 255, 255);" />
+        <ui:Button display-tooltip-when-elided="true" name="advance__button" enable-rich-text="true" style="flex-shrink: 1; align-self: center;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Waves">
   <waves>
-    <Wave xsi:type="CannedEnemyWave">
-      <repetitions>6</repetitions>
-      <repeatDelay>2</repeatDelay>
-      <spawnLocation>0</spawnLocation>
-      <spawnAmmount>1</spawnAmmount>
-      <enemyDataKey>Ant</enemyDataKey>
+    <Wave xsi:type="SequentialWave">
+      <Subwaves>
+        <Wave xsi:type="DialogueBoxWave">
+          <messages>
+            <string>Hello</string>
+          </messages>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>6</repetitions>
+          <repeatDelay>2</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+      </Subwaves>
     </Wave>
     <Wave xsi:type="ConcurrentWave">
       <Subwaves>
@@ -48,6 +57,12 @@
         </Wave>
         <Wave xsi:type="SpacerWave">
           <delay>1</delay>
+        </Wave>
+        <Wave xsi:type="DialogueBoxWave">
+          <messages>
+            <string>Beetles are armored enemies, make sure you have some armor tear or peirce to damage them!</string>
+            <string>Check the Spitting Ant Tower upgrades.</string>
+          </messages>
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>1</repetitions>
