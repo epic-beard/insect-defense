@@ -62,9 +62,8 @@ public class LabInputManager : MonoBehaviour {
     actions.Lab.Disable();
     actions.Terrarium.Enable();
   }
-  public void EnableLabActionMap() {
+  public void DisableTerrariumActionMap() {
+    actions.Terrarium.Disable();
     actions.Lab.Enable();
-    //TODO:nnewsom Do we need to disable before we enable action maps?
-    // Can two action maps be active at the same time?
   }
 }
