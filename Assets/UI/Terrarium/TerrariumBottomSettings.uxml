@@ -6,7 +6,7 @@
             <ui:Label text="0" display-tooltip-when-elided="true" name="nu_amount__label" style="font-size: 50%; color: rgb(255, 248, 13);" />
         </ui:VisualElement>
         <ui:VisualElement name="setting_speed__visualelement" style="flex-grow: 1; align-items: flex-end; flex-direction: row; justify-content: flex-end;">
-            <ui:Button text="Pause" display-tooltip-when-elided="true" name="play_pause__button" focusable="false" class="Button" style="color: rgb(255, 248, 13);" />
+            <ui:Button text="&lt;UNSET&gt;" display-tooltip-when-elided="true" name="play_pause__button" focusable="false" class="Button" style="color: rgb(255, 248, 13);" />
             <ui:Button text="Settings" display-tooltip-when-elided="true" name="settings__button" focusable="false" class="Button" style="color: rgb(255, 248, 13);" />
         </ui:VisualElement>
     </ui:VisualElement>

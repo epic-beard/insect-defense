@@ -67,6 +67,8 @@ public class Spawner : MonoBehaviour {
   [XmlInclude(typeof(CannedEnemyWave))]
   [XmlInclude(typeof(SpacerWave))]
   [XmlInclude(typeof(DialogueBoxWave))]
+  [XmlInclude(typeof(WaitUntilDeadWave))]
+
   public abstract class Wave {
     // Starts the wave.  Meant to be called as a Coroutine.
     public abstract IEnumerator Start();
@@ -82,10 +84,13 @@ public class Spawner : MonoBehaviour {
     // Starts the level logic.
     public override IEnumerator Start() {
       foreach (var wave in waves) {
-        // Wait for the signal to start the next level.
-        yield return new WaitUntil(() => Input.GetKey(KeyCode.N));
+        // Start the level immediately.
+        PauseManager.Instance.HandlePause();
+        yield return new WaitForSeconds(0.1f);
         // Run the wave and wait till it is complete.
         yield return wave.Start();
+
+        yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
       }
 
       // Sanity check, make sure all the waves have completed.
@@ -222,11 +227,21 @@ public class Spawner : MonoBehaviour {
     public override IEnumerator Start() {
       MessageBox.Instance.ShowDialogue(messages);
       Finished = true;
-      yield return null;
+      yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());
     }
 
     public override string ToString() {
       return "DialogueBoxWave\n\t" + string.Join("\n\t", messages);
+    }
+  }
+
+  public class WaitUntilDeadWave : Wave {
+    public override IEnumerator Start() {
+      yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
+    }
+
+    public override string ToString() {
+      return "WaitUntilDeadWave\n";
     }
   }
 }

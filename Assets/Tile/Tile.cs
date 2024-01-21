@@ -85,6 +85,7 @@ public class Tile : MonoBehaviour {
       isTowerPresent = GameStateManager.Instance.BuildTower(waypoint);
       if (!isTowerPresent) { return; }
     }
+    GameStateManager.SelectedTowerType = null;
     GameStateManager.Instance.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
     TerrariumContextUI.Instance.SetTowerContextPanel();
     TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);  }

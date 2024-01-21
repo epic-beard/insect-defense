@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,5 +40,9 @@ public class StartScreenInputManager : MonoBehaviour {
     StartScreen.Instance.ShowStartScreen();
     actions.SettingsScreen.Disable();
     actions.StartScreen.Enable();
+  }
+
+  public void OnDisable() {
+    actions.Disable();
   }
 }

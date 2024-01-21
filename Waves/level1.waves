@@ -35,7 +35,7 @@
         </Wave>
       </Subwaves>
     </Wave>
-    <Wave xsi:type="ConcurrentWave">
+    <Wave xsi:type="SequentialWave">
       <Subwaves>
         <Wave xsi:type="DialogueBoxWave">
           <messages>
@@ -45,19 +45,23 @@
             <string>I'll leave the next wave to you.</string>
           </messages>
         </Wave>
-        <Wave xsi:type="CannedEnemyWave">
-          <repetitions>5</repetitions>
-          <repeatDelay>3</repeatDelay>
-          <spawnLocation>0</spawnLocation>
-          <spawnAmmount>2</spawnAmmount>
-          <enemyDataKey>Ant</enemyDataKey>
-        </Wave>
-        <Wave xsi:type="CannedEnemyWave">
-          <repetitions>15</repetitions>
-          <repeatDelay>1</repeatDelay>
-          <spawnLocation>0</spawnLocation>
-          <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Aphid</enemyDataKey>
+        <Wave xsi:type="ConcurrentWave">
+          <Subwaves>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>5</repetitions>
+              <repeatDelay>3</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>2</spawnAmmount>
+              <enemyDataKey>Ant</enemyDataKey>
+            </Wave>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>15</repetitions>
+              <repeatDelay>1</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Aphid</enemyDataKey>
+            </Wave>
+          </Subwaves>
         </Wave>
       </Subwaves>
     </Wave>
@@ -97,6 +101,7 @@
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Beetle</enemyDataKey>
         </Wave>
+        <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
           <messages>
             <string>Congratulations! You beat the first level. Time to return to the lab and plan your next steps.</string>

@@ -48,7 +48,7 @@ public class WaveGenerator {
       },
     };
 
-    ConcurrentWave secondWave = new() {
+    SequentialWave secondWave = new() {
       Subwaves = {
         new DialogueBoxWave() {
           messages = { "It looks like you have some Nu left, it is about time to upgrade a tower.",
@@ -56,19 +56,23 @@ public class WaveGenerator {
                        "Now check out the available upgrades.",
                        "I'll leave the next wave to you." }
         },
-        new CannedEnemyWave() {
-          enemyDataKey = ant,
-          repetitions = 5,
-          repeatDelay = 3.0f,
-          spawnLocation = 0,
-          spawnAmmount = 2,
-        },
-        new CannedEnemyWave() {
-          enemyDataKey = aphid,
-          repetitions = 15,
-          repeatDelay = 1.0f,
-          spawnLocation = 0,
-          spawnAmmount = 1,
+        new ConcurrentWave {
+          Subwaves = {
+            new CannedEnemyWave() {
+              enemyDataKey = ant,
+              repetitions = 5,
+              repeatDelay = 3.0f,
+              spawnLocation = 0,
+              spawnAmmount = 2,
+            },
+            new CannedEnemyWave() {
+              enemyDataKey = aphid,
+              repetitions = 15,
+              repeatDelay = 1.0f,
+              spawnLocation = 0,
+              spawnAmmount = 1,
+            },
+          },
         },
       },
     };
@@ -109,6 +113,7 @@ public class WaveGenerator {
           spawnLocation = 0,
           spawnAmmount = 1,
         },
+        new WaitUntilDeadWave {},
         new DialogueBoxWave {
           messages = {
               "Congratulations! You beat the first level. Time to return to the lab and plan your next steps."

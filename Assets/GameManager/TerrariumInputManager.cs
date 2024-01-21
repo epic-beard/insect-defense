@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class TerrariumInputManager : MonoBehaviour {
   public static event Action OnAdvance = delegate { };
@@ -106,5 +103,9 @@ public class TerrariumInputManager : MonoBehaviour {
   public void DisableMessageBoxActionMap() {
     actions.MessageBox.Disable();
     actions.Player.Enable();
+  }
+
+  public void OnDisable() {
+    actions.Disable();
   }
 }
