@@ -97,6 +97,7 @@ public abstract class Tower : MonoBehaviour {
     get { return towerAbilities[TowerAbility.Type.CRIPPLE]; }
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
+  public Tile Tile { get; set; }
   #endregion
 
   protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
@@ -219,6 +220,14 @@ public abstract class Tower : MonoBehaviour {
     SlimePower = 1.0f;
     SlimeTime = 0.0f;
     yield return null;
+  }
+
+  public Tile GetTile() {
+    return Tile;
+  }
+
+  public void SetTile(Tile tile) {
+    Tile = tile;
   }
 
   public override string ToString() {
