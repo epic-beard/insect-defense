@@ -222,14 +222,6 @@ public abstract class Tower : MonoBehaviour {
     yield return null;
   }
 
-  public Tile GetTile() {
-    return Tile;
-  }
-
-  public void SetTile(Tile tile) {
-    Tile = tile;
-  }
-
   public override string ToString() {
     return Name + "\n"
         + "  Area of effect: " + AreaOfEffect + "\n"

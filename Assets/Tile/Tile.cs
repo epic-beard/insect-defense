@@ -13,6 +13,7 @@ public class Tile : MonoBehaviour {
   private LineRenderer webLineRenderer;
   private Waypoint waypoint;
   private Color basic;
+  private Material mat;
 
   // This class is used because structs are value type and c# does not deal well with changing value
   // types in a dictionary.
@@ -32,7 +33,8 @@ public class Tile : MonoBehaviour {
   private void Start() {
     webLineRenderer = GetComponentInChildren<LineRenderer>();
     waypoint = GetComponent<Waypoint>();
-    basic = this.transform.GetChild(1).GetComponent<Renderer>().material.color;
+    mat = this.transform.GetChild(1).GetComponent<Renderer>().material;
+    basic = mat.color;
   }
 
   // Add a lingering web to this tile. It can support multiple different towers adding a lingering web
@@ -98,12 +100,10 @@ public class Tile : MonoBehaviour {
   }
 
   public void SetUnselected() {
-    this.transform.GetChild(1).GetComponent<Renderer>().material.SetColor(
-        "_Color", basic);
+    mat.SetColor("_Color", basic);
   }
 
   public void SetSelected() {
-    this.transform.GetChild(1).GetComponent<Renderer>().material.SetColor(
-        "_Color", Color.yellow);
+    mat.SetColor("_Color", Color.yellow);
   }
 }

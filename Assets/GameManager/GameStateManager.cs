@@ -89,7 +89,7 @@ public class GameStateManager : MonoBehaviour {
       Quaternion.identity);
     Tower tower = towerObj.GetComponent<Tower>();
     tower.SetTowerData(data);
-    tower.SetTile(waypoint.GetComponent<Tile>());
+    tower.Tile = waypoint.GetComponent<Tile>();
 
     AddTower(waypoint.GetCoordinates(), tower);
 
@@ -117,7 +117,7 @@ public class GameStateManager : MonoBehaviour {
   public void ClearSelection() {
     SelectedTowerType = null;
     if (SelectedTower != null) {
-      SelectedTower.GetTile().SetUnselected();
+      SelectedTower.Tile.SetUnselected();
     }
     SelectedTower = null;
   }
@@ -135,7 +135,7 @@ public class GameStateManager : MonoBehaviour {
     if (SelectedTower != null) {
       SelectedTower.Tile.SetUnselected();
     }
-    tower.GetTile().SetSelected();
+    tower.Tile.SetSelected();
     SelectedTower = tower;
   }
 }
