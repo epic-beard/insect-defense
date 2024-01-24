@@ -18,6 +18,8 @@ public class TerrariumBottomUI : MonoBehaviour {
     playPauseButton = rootElement.Q<Button>(playPauseButtonName);
     settingsButton = rootElement.Q<Button>(settingsButtonName);
     nuLabel = rootElement.Q<Label>(nuLabelName);
+    GameStateManager.OnNuChanged += UpdateNu;
+    PauseManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
   }
 
   private void Start() {
@@ -26,11 +28,9 @@ public class TerrariumBottomUI : MonoBehaviour {
 
   private void RegisterCallbacks() {
     playPauseButton.RegisterCallback<ClickEvent>(
-      (ClickEvent) => { PauseManager.Instance.HandlePause(); });
+        (ClickEvent) => { PauseManager.Instance.HandlePause(); });
     settingsButton.RegisterCallback<ClickEvent>(
-    (ClickEvent) => { TerrariumInputManager.Instance.ToggleSettings(); });
-    GameStateManager.OnNuChanged += UpdateNu;
-    PauseManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
+        (ClickEvent) => { TerrariumInputManager.Instance.ToggleSettings(); });
   }
 
   public void KeepPlayPauseButtonNameCorrect(bool paused) {

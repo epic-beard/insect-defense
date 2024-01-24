@@ -4,12 +4,16 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
 
   [SerializeField] bool isTowerPlaceable;
+  [SerializeField] Material grass;
+  [SerializeField] Material selectedGrass;
 
   private bool isTowerPresent = false;
   private bool lingeringWebs = false;
   private Dictionary<Tower, LingeringSlow> lingeringSlows = new();
   private LineRenderer webLineRenderer;
   private Waypoint waypoint;
+  private Color basic;
+  private Material mat;
 
   // This class is used because structs are value type and c# does not deal well with changing value
   // types in a dictionary.
@@ -29,6 +33,8 @@ public class Tile : MonoBehaviour {
   private void Start() {
     webLineRenderer = GetComponentInChildren<LineRenderer>();
     waypoint = GetComponent<Waypoint>();
+    mat = this.transform.GetChild(1).GetComponent<Renderer>().material;
+    basic = mat.color;
   }
 
   // Add a lingering web to this tile. It can support multiple different towers adding a lingering web
@@ -85,8 +91,19 @@ public class Tile : MonoBehaviour {
       isTowerPresent = GameStateManager.Instance.BuildTower(waypoint);
       if (!isTowerPresent) { return; }
     }
-    GameStateManager.Instance.SelectedTower = GameStateManager.Instance.GetTower(waypoint.GetCoordinates());
+    
+    GameStateManager.SelectedTowerType = null;
+    GameStateManager.Instance.SetNewSelectedTower(
+        GameStateManager.Instance.GetTower(waypoint.GetCoordinates()));
     TerrariumContextUI.Instance.SetTowerContextPanel();
-    TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);  }
-}
+    TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
+  }
 
+  public void SetUnselected() {
+    mat.SetColor("_Color", basic);
+  }
+
+  public void SetSelected() {
+    mat.SetColor("_Color", Color.yellow);
+  }
+}

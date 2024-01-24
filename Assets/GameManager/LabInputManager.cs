@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.Windows;
 
 public class LabInputManager : MonoBehaviour {
   private LabInputs actions;
@@ -65,5 +61,9 @@ public class LabInputManager : MonoBehaviour {
   public void DisableTerrariumActionMap() {
     actions.Terrarium.Disable();
     actions.Lab.Enable();
+  }
+
+  public void OnDisable() {
+    actions.Disable();
   }
 }

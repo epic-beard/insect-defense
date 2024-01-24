@@ -59,7 +59,7 @@ public class Terrarium : MonoBehaviour {
 
   private void GoToLevel() {
     if (PlayerState.Instance.CurrentLevel >= level) {
-      string levelName = "Level" + level;
+      string levelName = "Level" + (level + 1);
       SceneManager.LoadScene(levelName);
     }
   }
