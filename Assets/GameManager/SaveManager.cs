@@ -39,6 +39,8 @@ public class SaveManager : MonoBehaviour {
     state.lastSavedTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
     string fileName = state.SaveName + state.Id + ".sav";
     string saveFile = Path.Combine(SaveLocation, fileName);
+    var dir = Path.GetDirectoryName(saveFile);
+    Directory.CreateDirectory(dir);
     Serialize<PlayerState>(state, saveFile);
   }
 }
