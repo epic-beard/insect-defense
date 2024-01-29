@@ -1,13 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/insect_defense_styles.uss?fileID=7433441132597879392&amp;guid=0808b06bea899484ab538ff82d137e71&amp;type=3#insect_defense_styles" />
+    <Style src="project://database/Assets/UI/Styles/insect_defense_theme.uss?fileID=7433441132597879392&amp;guid=4a78a77f12563234c9ef212b4399bda8&amp;type=3#insect_defense_theme" />
     <ui:VisualElement name="bottom_panel__visualelement" style="flex-direction: row; justify-content: flex-start; color: rgb(255, 248, 13);">
         <ui:VisualElement name="nu__visualelement" style="flex-grow: 1; align-items: flex-start; flex-direction: row;">
             <ui:Label text="ŋ" display-tooltip-when-elided="true" name="nu_symbol__label" style="font-size: 40%; flex-direction: column; align-items: stretch; justify-content: flex-start; -unity-font-style: italic; margin-right: 10px; color: rgb(255, 248, 13);" />
             <ui:Label text="0" display-tooltip-when-elided="true" name="nu_amount__label" style="font-size: 50%; color: rgb(255, 248, 13);" />
         </ui:VisualElement>
         <ui:VisualElement name="setting_speed__visualelement" style="flex-grow: 1; align-items: flex-end; flex-direction: row; justify-content: flex-end;">
-            <ui:Button text="&lt;UNSET&gt;" display-tooltip-when-elided="true" name="play_pause__button" focusable="false" class="Button" style="color: rgb(255, 248, 13);" />
-            <ui:Button text="Settings" display-tooltip-when-elided="true" name="settings__button" focusable="false" class="Button" style="color: rgb(255, 248, 13);" />
+            <ui:Button text="&lt;UNSET&gt;" display-tooltip-when-elided="true" name="play_pause__button" focusable="false" class="primary-button" />
+            <ui:Button text="Settings" display-tooltip-when-elided="true" name="settings__button" focusable="false" class="primary-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,3 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/insect_defense_theme.uss?fileID=7433441132597879392&amp;guid=4a78a77f12563234c9ef212b4399bda8&amp;type=3#insect_defense_theme" />
     <ui:VisualElement name="game_view__visualelement" style="flex-grow: 0;" />
 </ui:UXML>

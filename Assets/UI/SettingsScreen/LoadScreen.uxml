@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/insect_defense_theme.uss?fileID=7433441132597879392&amp;guid=4a78a77f12563234c9ef212b4399bda8&amp;type=3#insect_defense_theme" />
     <ui:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0); align-items: stretch; justify-content: flex-start; flex-direction: column; height: auto; width: auto; padding-top: 15px; padding-left: 5px; padding-right: 5px;">
         <ui:Label text="Load Game" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
         <ui:VisualElement style="flex-direction: row; flex-grow: 0; justify-content: space-around; align-items: flex-start;">

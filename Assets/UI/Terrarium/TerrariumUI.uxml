@@ -5,6 +5,7 @@
     <ui:Template name="TerrariumHeartHP" src="project://database/Assets/UI/Terrarium/TerrariumHeartHP.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TerrariumHeartHP" />
     <ui:Template name="TerrariumContext" src="project://database/Assets/UI/Terrarium/TerrariumContext.uxml?fileID=9197481963319205126&amp;guid=b5492c09c7f44394fbc44bf6702ba2f2&amp;type=3#TerrariumContext" />
     <ui:Template name="TerrariumTowerSelection" src="project://database/Assets/UI/Terrarium/TerrariumTowerSelection.uxml?fileID=9197481963319205126&amp;guid=3ade494c6fdabcd4585240bbd2de7115&amp;type=3#TerrariumTowerSelection" />
+    <Style src="project://database/Assets/UI/Styles/insect_defense_theme.uss?fileID=7433441132597879392&amp;guid=4a78a77f12563234c9ef212b4399bda8&amp;type=3#insect_defense_theme" />
     <ui:VisualElement name="overall_terrarium_ui__visualelement" style="flex-direction: row; align-items: stretch; justify-content: space-around; flex-grow: 1;">
         <ui:VisualElement name="left__visualelement" style="justify-content: space-around; flex-grow: 1; visibility: visible;">
             <ui:Instance template="TerrariumGameView" name="TerrariumGameView" style="flex-grow: 1; visibility: visible;" />
