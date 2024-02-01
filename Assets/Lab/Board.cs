@@ -6,8 +6,11 @@ public class Board : MonoBehaviour {
   [SerializeField] private Vector3 boardLocation;
   [SerializeField] private Quaternion boardRotation;
 
-  private void OnMouseDown() {
-    LabCamera.Instance.MoveTo(boardLocation, boardRotation);
-    LabInputManager.Instance.EnableSelectedActionMap();
+  private void OnMouseUp() {
+    if (!LabState.Instance.isFocused) {
+      LabCamera.Instance.MoveTo(boardLocation, boardRotation);
+      LabInputManager.Instance.EnableSelectedActionMap();
+      LabState.Instance.isFocused = true;
+    }
   }
 }

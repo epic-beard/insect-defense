@@ -6,8 +6,11 @@ public class Computer : MonoBehaviour {
   [SerializeField] private Vector3 computerLocation;
   [SerializeField] private Quaternion computerRotation;
 
-  private void OnMouseDown() {
-    LabCamera.Instance.MoveTo(computerLocation, computerRotation);
-    LabInputManager.Instance.EnableSelectedActionMap();
+  private void OnMouseUp() {
+    if (!LabState.Instance.isFocused) {
+      LabCamera.Instance.MoveTo(computerLocation, computerRotation);
+      LabInputManager.Instance.EnableSelectedActionMap();
+      LabState.Instance.isFocused = true;
+    }
   }
 }

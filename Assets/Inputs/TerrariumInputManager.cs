@@ -8,6 +8,8 @@ public class TerrariumInputManager : MonoBehaviour {
   public static TerrariumInputManager Instance;
 
   private TerrariumInputs actions;
+  private InputActionMap? oldMap;
+  private InputActionMap currMap;
 
   private void Awake() {
     actions = new();
@@ -20,6 +22,7 @@ public class TerrariumInputManager : MonoBehaviour {
 
   private void OnEnable() {
     actions.Player.Enable();
+    currMap = actions.Player;
     actions.Player.Player_Pause.started += PauseGame;
     actions.Player.Player_Settings.started += OpenSettings;
     actions.Player.Player_Deselect.started += Deselect;
@@ -58,12 +61,7 @@ public class TerrariumInputManager : MonoBehaviour {
     PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumUI.Instance.HideUI();
     SettingsScreen.Instance.OpenSettings();
-    if (MessageBox.Instance.IsOpen()) {
-      actions.MessageBox.Disable();
-    } else {
-      actions.Player.Disable();
-    }
-    actions.SettingsScreen.Enable();
+    UpdateActions(actions.SettingsScreen);
   }
 
   protected void OnCloseSettings(InputAction.CallbackContext context) {
@@ -73,14 +71,7 @@ public class TerrariumInputManager : MonoBehaviour {
     PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumUI.Instance.ShowUI();
     SettingsScreen.Instance.CloseSettings();
-
-    if (MessageBox.Instance.IsOpen()) {
-      actions.SettingsScreen.Disable();
-      actions.MessageBox.Enable();
-    } else {
-      actions.SettingsScreen.Disable();
-      actions.Player.Enable();
-    }
+    UpdateActions(oldMap);
   }
 
   public void ToggleSettings() {
@@ -96,16 +87,22 @@ public class TerrariumInputManager : MonoBehaviour {
   }
 
   public void EnableMessageBoxActionMap() {
-    actions.Player.Disable();
-    actions.MessageBox.Enable();
+    UpdateActions(actions.MessageBox);
   }
 
-  public void DisableMessageBoxActionMap() {
-    actions.MessageBox.Disable();
-    actions.Player.Enable();
+  public void EnablePlayerActionMap() {
+    UpdateActions(actions.Player);
   }
 
   public void OnDisable() {
     actions.Disable();
+  }
+
+  private void UpdateActions(InputActionMap map) {
+    oldMap = currMap;
+    oldMap?.Disable();
+
+    currMap = map;
+    currMap.Enable();
   }
 }
