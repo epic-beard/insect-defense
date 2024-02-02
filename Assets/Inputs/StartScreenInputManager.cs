@@ -2,8 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class StartScreenInputManager : MonoBehaviour {
-  StartScreenInputs actions;
   public static StartScreenInputManager Instance;
+
+  private StartScreenInputs actions;
+  private InputActionMap? oldMap;
+  private InputActionMap currMap;
+
   private void Awake() {
     Instance = this;
     actions = new();
@@ -11,38 +15,36 @@ public class StartScreenInputManager : MonoBehaviour {
 
   private void OnEnable() {
     actions.StartScreen.Enable();
+    currMap = actions.StartScreen;
 
-    // [TODO] input keyboard navigation of settings screen.
-    //Input.actions["SettingsScreen_Navigate"].started += SettingsScreenNavigate;
-    //Input.actions["SettingsScreen_Select"].started += SettingsScreenSelect;
-    //Input.actions["SettingsScreen_Back"].started += SettingsScreenBack;
     actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
   }
 
   public void OpenSettings() {
-    actions.StartScreen.Disable();
-    actions.SettingsScreen.Enable();
+    UpdateActions(actions.SettingsScreen);
     SettingsScreen.Instance.OpenSettings();
   }
 
   public void OpenLoadScreen() {
-    actions.StartScreen.Disable();
-    actions.SettingsScreen.Enable();
-    SettingsScreen.Instance.OpenSettings();
+    OpenSettings();
     SettingsScreen.Instance.OpenLoadOptions();
   }
 
   private void OnCloseSettings(InputAction.CallbackContext context) {
-    CloseSettings();
-  }
-  public void CloseSettings() {
     SettingsScreen.Instance.CloseSettings();
     StartScreen.Instance.ShowStartScreen();
-    actions.SettingsScreen.Disable();
-    actions.StartScreen.Enable();
+    UpdateActions(oldMap);
   }
 
   public void OnDisable() {
     actions.Disable();
+  }
+
+  private void UpdateActions(InputActionMap map) {
+    oldMap = currMap;
+    oldMap?.Disable();
+
+    currMap = map;
+    currMap.Enable();
   }
 }

@@ -20,6 +20,8 @@ public class LabCamera : MonoBehaviour {
 
   public void ReturnCamera() {
     MoveTo(cameraLocation, cameraRotation);
+    LabState.Instance.isFocused = false;
+    LabInputManager.Instance.EnableLabActionMap();
   }
 
   public void MoveTo(Vector3 position) {
