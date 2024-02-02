@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerSelectHandler : MonoBehaviour {
 
-  SpittingAntTower spittingAntTower;
+  Tower tower;
 
   private void Start() {
-    spittingAntTower = GetComponentInParent<SpittingAntTower>();
+    tower = GetComponentInParent<Tower>();
   }
 
   private void OnMouseUp() {
-    //GameStateManager.Instance.SetNewSelectedTower(spittingAntTower);
+    GameStateManager.Instance.SetNewSelectedTower(tower);
   }
 }
