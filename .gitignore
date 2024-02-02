@@ -38,6 +38,7 @@ ExportedObj/
 *.csproj
 *.mdb
 *.opendb
+*.orig
 *.pdb
 *.pidb
 *.unityproj
@@ -47,6 +48,7 @@ ExportedObj/
 *.user
 *.userprefs
 *.VC.db
+*.meta
 
 # Unity3D generated meta files
 *.pidb.meta
