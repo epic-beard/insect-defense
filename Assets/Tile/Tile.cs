@@ -85,7 +85,7 @@ public class Tile : MonoBehaviour {
   }
 
   // Handle tower placement and selection. Will automatically select a tower that has just been built.
-  private void OnMouseDown() {
+  private void OnMouseUp() {
     if (!isTowerPlaceable) { return; }
     if (!isTowerPresent) {
       isTowerPresent = GameStateManager.Instance.BuildTower(waypoint);

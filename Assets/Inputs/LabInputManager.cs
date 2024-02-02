@@ -2,8 +2,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LabInputManager : MonoBehaviour {
-  private LabInputs actions;
   public static LabInputManager Instance;
+
+  private LabInputs actions;
+  private InputActionMap? oldMap;
+  private InputActionMap currMap;
 
   private void Awake() {
     Instance = this;
@@ -12,11 +15,8 @@ public class LabInputManager : MonoBehaviour {
 
   private void OnEnable() {
     actions.Lab.Enable();
+    currMap = actions.Lab;
 
-    // [TODO] input keyboard navigation of settings screen.
-    //Input.actions["SettingsScreen_Navigate"].started += SettingsScreenNavigate;
-    //Input.actions["SettingsScreen_Select"].started += SettingsScreenSelect;
-    //Input.actions["SettingsScreen_Back"].started += SettingsScreenBack;
     actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
 
     actions.Lab.Lab_Settings.started += OnOpenSettings;
@@ -26,24 +26,16 @@ public class LabInputManager : MonoBehaviour {
   }
 
   private void OnOpenSettings(InputAction.CallbackContext context) {
-    OpenSettings();
-  }
-  public void OpenSettings() {
-    actions.Lab.Disable();
-    actions.SettingsScreen.Enable();
+    UpdateActions(actions.SettingsScreen);
     SettingsScreen.Instance.OpenSettings();
   }
-
   private void OnCloseSettings(InputAction.CallbackContext context) {
+    UpdateActions(oldMap);
     SettingsScreen.Instance.CloseSettings();
-    actions.SettingsScreen.Disable();
-    actions.Lab.Enable();
   }
 
   private void OnReturnCamera(InputAction.CallbackContext context) {
     LabCamera.Instance.ReturnCamera();
-    actions.Selected.Disable();
-    actions.Lab.Enable();
   }
 
   private void OnCloseTerrarium(InputAction.CallbackContext context) {
@@ -51,19 +43,24 @@ public class LabInputManager : MonoBehaviour {
   }
 
   public void EnableSelectedActionMap() {
-    actions.Lab.Disable();
-    actions.Selected.Enable();
+    UpdateActions(actions.Selected);
   }
   public void EnableTerrariumActionMap() {
-    actions.Lab.Disable();
-    actions.Terrarium.Enable();
+    UpdateActions(actions.Terrarium);
   }
-  public void DisableTerrariumActionMap() {
-    actions.Terrarium.Disable();
-    actions.Lab.Enable();
+  public void EnableLabActionMap() {
+    UpdateActions(actions.Lab);
   }
 
   public void OnDisable() {
     actions.Disable();
+  }
+
+  private void UpdateActions(InputActionMap map) {
+    oldMap = currMap;
+    oldMap?.Disable();
+
+    currMap = map;
+    currMap.Enable();
   }
 }

@@ -42,11 +42,12 @@ public class Terrarium : MonoBehaviour {
   }
 
   private void OnMouseUp() {
-    if (PlayerState.Instance.CurrentLevel >= level) {
+    if (PlayerState.Instance.CurrentLevel >= level && !LabState.Instance.isFocused) {
       Selected = this;
       LabCamera.Instance.MoveTo(transform.position + Vector3.forward * cameraOffsetZ);
       terrariumScreen.rootVisualElement.style.display = DisplayStyle.Flex;
       LabInputManager.Instance.EnableTerrariumActionMap();
+      LabState.Instance.isFocused = true;
     }
   }
 
@@ -54,7 +55,7 @@ public class Terrarium : MonoBehaviour {
     Selected = null;
     LabCamera.Instance.ReturnCamera();
     terrariumScreen.rootVisualElement.style.display = DisplayStyle.None;
-    LabInputManager.Instance.DisableTerrariumActionMap();
+    LabState.Instance.isFocused = false;
   }
 
   private void GoToLevel() {
