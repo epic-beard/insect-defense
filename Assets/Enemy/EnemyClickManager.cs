@@ -10,7 +10,7 @@ public class EnemyClickManager : MonoBehaviour {
   private void Start() {
     enemy = GetComponentInParent<Enemy>();
   }
-  private void OnMouseDown() {
+  private void OnMouseUp() {
     if (SelectedEnemy != null) {
       TerrariumContextUI.Instance.DesbuscribeToEnemyStateBroadcast(SelectedEnemy);
     }

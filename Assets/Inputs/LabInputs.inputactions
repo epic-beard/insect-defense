@@ -93,17 +93,6 @@
                     "action": "Selected_Back",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b0e280c6-68ae-49a6-8801-9aa343887a15",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Selected_Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
