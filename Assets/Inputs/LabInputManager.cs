@@ -35,7 +35,6 @@ public class LabInputManager : MonoBehaviour {
   }
 
   private void OnReturnCamera(InputAction.CallbackContext context) {
-    Debug.Log("help");
     LabCamera.Instance.ReturnCamera();
   }
 
