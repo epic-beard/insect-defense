@@ -49,10 +49,12 @@ MonoBehaviour:
   data:
     type: 0
     name: 
+    enemies_hit: 0
     area_of_effect: 0
     armor_pierce: 0
     armor_tear: 0
     attack_speed: 0
+    cost: 0
     damage: 0
     damage_over_time: 0
     projectile_speed: 0
@@ -9796,8 +9798,52 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4aba6e25a9b28c341ada92d43237c366, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6033410918113793826}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -4819223349682164798, guid: 4aba6e25a9b28c341ada92d43237c366, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9089487066046067100}
+    - targetCorrespondingSourceObject: {fileID: -4819223349682164798, guid: 4aba6e25a9b28c341ada92d43237c366, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624361819705855221}
   m_SourcePrefab: {fileID: 100100000, guid: 4aba6e25a9b28c341ada92d43237c366, type: 3}
+--- !u!1 &5679541590966583133 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 4aba6e25a9b28c341ada92d43237c366, type: 3}
+  m_PrefabInstance: {fileID: 8344999796287968415}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9089487066046067100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5679541590966583133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ae1ae31c1beea42ab38de62490cbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &624361819705855221
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5679541590966583133}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.023619263, y: 0.019646741, z: 0.018769454}
+  m_Center: {x: 0, y: -0.009172348, z: 0.0063376827}
 --- !u!4 &8378345006578987892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4aba6e25a9b28c341ada92d43237c366, type: 3}

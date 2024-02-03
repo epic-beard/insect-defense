@@ -113,17 +113,6 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "4f33ca8d-d016-493a-9507-c71f454b7a03",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Terrarium_Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "73655634-2f89-4762-ac44-3a7e5fca698c",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
