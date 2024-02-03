@@ -5,7 +5,7 @@ public class LabInputManager : MonoBehaviour {
   public static LabInputManager Instance;
 
   private LabInputs actions;
-  private InputActionMap? oldMap;
+  private InputActionMap oldMap;
   private InputActionMap currMap;
 
   private void Awake() {
@@ -35,6 +35,7 @@ public class LabInputManager : MonoBehaviour {
   }
 
   private void OnReturnCamera(InputAction.CallbackContext context) {
+    Debug.Log("help");
     LabCamera.Instance.ReturnCamera();
   }
 
@@ -58,7 +59,7 @@ public class LabInputManager : MonoBehaviour {
 
   private void UpdateActions(InputActionMap map) {
     oldMap = currMap;
-    oldMap?.Disable();
+    oldMap.Disable();
 
     currMap = map;
     currMap.Enable();
