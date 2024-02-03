@@ -18,7 +18,7 @@ public class Terrarium : MonoBehaviour {
   private Button startButton;
   private Button backButton;
 
-  void OnEnable() {
+  private void Start() {
     if (PlayerState.Instance.CurrentLevel < level) {
       var mat = GetComponent<Renderer>().material;
       mat.SetColor("_Color", Color.gray);
