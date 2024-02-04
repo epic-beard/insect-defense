@@ -192,9 +192,9 @@ public class EnemyPlayModeTest {
     return waypoint;
   }
 
-  private TerrariumHealthUI CreateTerrariumHealthUI() {
+  private TerrariumUpperUI CreateTerrariumHealthUI() {
     GameObject gameObject = new();
-    return gameObject.AddComponent<TerrariumHealthUI>();
+    return gameObject.AddComponent<TerrariumUpperUI>();
   }
   #endregion
 }
