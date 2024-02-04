@@ -20,6 +20,7 @@ public class PauseManager : MonoBehaviour {
   private void Awake() {
     Instance = this;
     pauseState[PauseToken.NONE] = false;
+    Time.timeScale = 1;
   }
 
   private bool IsPaused() {

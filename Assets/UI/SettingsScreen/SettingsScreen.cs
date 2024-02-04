@@ -72,6 +72,8 @@ public class SettingsScreen : MonoBehaviour {
     loadOptionsPanel.style.display = DisplayStyle.Flex;
   }
 
+  // Note, this doesn't unpause the game, but the pause manager handles ensuring new scenes
+  // have timescale of 1.
   public void quitToLab() {
     SceneManager.LoadScene(Constants.labSceneName);
   }
