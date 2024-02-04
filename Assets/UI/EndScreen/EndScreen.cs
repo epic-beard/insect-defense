@@ -20,14 +20,14 @@ public class EndScreen : MonoBehaviour {
     RegisterCallbacks();
 
     GameStateManager.GameOver += OnGameOver;
-    Spawner.OnLevelComplete += OnLevelComplete;
+    Spawner.LevelComplete += OnLevelComplete;
 
     endScreen.rootVisualElement.style.display = DisplayStyle.None;
   }
 
   private void OnDisable() {
     GameStateManager.GameOver -= OnGameOver;
-    Spawner.OnLevelComplete -= OnLevelComplete;
+    Spawner.LevelComplete -= OnLevelComplete;
   }
 
   private void SetVisualElements() {

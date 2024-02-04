@@ -14,6 +14,6 @@ public class DebugWaveSpawner : MonoBehaviour {
   }
 
   private void SpawnWave() {
-    Spawner.Instance.SpawnWave(Deserialize<Spawner.Wave>(filename));
+    Spawner.Instance.SpawnWave(Deserialize<Spawner.Waves>(filename));
   }
 }
