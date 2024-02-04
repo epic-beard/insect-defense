@@ -29,6 +29,7 @@ public class EnemyDataGenerator {
       damage = 5,
       nu = 20,
       properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.5f,
     };
 
     return data;
@@ -44,6 +45,7 @@ public class EnemyDataGenerator {
       damage = 1,
       nu = 4,
       properties = EnemyData.Properties.NONE,
+      spawnVariance = 3.0f,
     };
 
     return data;
@@ -59,6 +61,7 @@ public class EnemyDataGenerator {
       damage = 10,
       nu = 40,
       properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.5f,
     };
 
     return data;

@@ -18,6 +18,7 @@
         <carrier xsi:nil="true" />
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>
@@ -39,6 +40,7 @@
         <carrier xsi:nil="true" />
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
+        <spawnVariance>3</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>
@@ -60,6 +62,7 @@
         <carrier xsi:nil="true" />
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>

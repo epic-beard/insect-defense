@@ -50,16 +50,19 @@ public class ObjectPool : MonoBehaviour {
     } else {
       gameObject.transform.position = parent.transform.position;
     }
-    Vector3 position = gameObject.transform.position;
-    float xVariance = UnityEngine.Random.Range(-3.0f, 3.0f);
-    float zVariance = UnityEngine.Random.Range(-3.0f, 3.0f);
-    position.x += xVariance;
-    position.z += zVariance;
 
     Enemy enemy = gameObject.GetComponent<Enemy>();
     enemy.Data = data;
     enemy.PrevWaypoint = start;
+
+    float variance = enemy.Data.spawnVariance;
+    Vector3 position = gameObject.transform.position;
+    float xVariance = UnityEngine.Random.Range(-variance, variance);
+    float zVariance = UnityEngine.Random.Range(-variance, variance);
+    position.x += xVariance;
+    position.z += zVariance;
     enemy.transform.position = position;
+
     enemy.SetVariance(xVariance, zVariance);
     // This enabled must be the last thing set on the enemy or the data set may be lost. OnEnable is srs bsns.
     enemy.enabled = true;
