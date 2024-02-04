@@ -99,6 +99,7 @@ public struct EnemyData {
   public DazzleProperties? dazzle;
   public SlimeProperties? slime;
 
+  public float spawnVariance;
   public override string ToString() {
     return "EnemyData:" + "\nType: " + type + "\nSize: " + size
       + "\nMax HP: " + maxHP + "\nMax Armor: " + maxArmor
