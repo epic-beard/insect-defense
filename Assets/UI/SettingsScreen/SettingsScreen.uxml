@@ -13,11 +13,11 @@
                 <ui:VisualElement name="sound-settings--panel" style="flex-grow: 1; background-color: rgb(0, 0, 0); align-items: stretch; justify-content: flex-start; flex-direction: column; height: auto; width: auto; padding-top: 15px; padding-left: 5px; padding-right: 5px; align-self: stretch; display: flex;">
                     <ui:Instance name="sound-settings-menu--doc" template="SoundSettingsMenu" style="align-self: auto; flex-grow: 1;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="terrarium-specific--panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center;">
-                    <ui:Button text="Quit to Lab" display-tooltip-when-elided="true" name="quit-to-lab--button" style="align-items: center; justify-content: center;" />
-                </ui:VisualElement>
                 <ui:VisualElement name="load-options--panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; align-self: stretch; display: flex; visibility: visible;">
                     <ui:Instance template="LoadScreen" name="load-options--doc" style="align-self: stretch; justify-content: flex-start; flex-grow: 1;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="terrarium-specific--panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center;">
+                    <ui:Button text="Quit to Lab" display-tooltip-when-elided="true" name="quit-to-lab--button" style="align-items: center; justify-content: center;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
