@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Wave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Waves">
+<Waves xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <waves>
     <Wave xsi:type="SequentialWave">
       <Subwaves>
@@ -110,4 +110,4 @@
       </Subwaves>
     </Wave>
   </waves>
-</Wave>
+</Waves>

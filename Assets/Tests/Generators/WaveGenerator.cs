@@ -126,6 +126,6 @@ public class WaveGenerator {
       waves = { firstWave, secondWave, thirdWave },
     };
 
-    Serialize<Wave>(waves, filename);
+    Serialize<Waves>(waves, filename);
   }
 }

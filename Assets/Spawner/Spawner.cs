@@ -10,12 +10,16 @@ using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
-  public static event Action OnLevelComplete = delegate { };
+  public static event Action<int, int> WaveComplete = delegate { };
+  public static event Action LevelComplete = delegate { };
 #pragma warning disable 8618
   static public Spawner Instance;
 #pragma warning restore 8618
   [SerializeField] private List<Waypoint> spawnLocations = new();
   [SerializeField] private string filename = "";
+
+  public int CurrWave { get; set; } = 1;
+  public int NumWaves { get; set; }
 
   private void Awake() {
     Instance = this;
@@ -23,13 +27,15 @@ public class Spawner : MonoBehaviour {
 
   void Start() {
     if (filename.Length == 0) return;
-    Wave? wave = Deserialize<Wave>(filename);
-    if (wave != null)  SpawnWave(wave);
+    Waves? waves = Deserialize<Waves>(filename);
+    if (waves != null)  SpawnWave(waves);
   }
 
-  public void SpawnWave(Wave wave) {
+  public void SpawnWave(Waves waves) {
     ClearWave();
-    StartCoroutine(wave.Start());
+    NumWaves = waves.waves.Count();
+    TerrariumUpperUI.Instance.UpdateWaveLabel(CurrWave, NumWaves);
+    StartCoroutine(waves.Start());
   }
 
   public void ClearWave() {
@@ -91,6 +97,9 @@ public class Spawner : MonoBehaviour {
         yield return wave.Start();
 
         yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
+
+        Instance.CurrWave++;
+        WaveComplete.Invoke(Instance.CurrWave, Instance.NumWaves);
       }
 
       // Sanity check, make sure all the waves have completed.
@@ -101,7 +110,7 @@ public class Spawner : MonoBehaviour {
 
       // Make sure the players health didn't drop to zero getting rid of the last enemy.
       if (GameStateManager.Instance.Health > 0) {
-        OnLevelComplete.Invoke();
+        LevelComplete.Invoke();
       }
       Finished = true;
     }
