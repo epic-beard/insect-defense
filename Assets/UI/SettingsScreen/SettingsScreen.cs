@@ -47,7 +47,7 @@ public class SettingsScreen : MonoBehaviour {
     loadOptionsButton.RegisterCallback<ClickEvent>(
       (evt) => { OpenLoadOptions(); });
     quitToLabButton.RegisterCallback<ClickEvent>(
-      (evt) => { quitToLab(); });
+      (evt) => { QuitToLab(); });
   }
 
   public void OpenSettings(bool inGame = false) {
@@ -74,7 +74,7 @@ public class SettingsScreen : MonoBehaviour {
 
   // Note, this doesn't unpause the game, but the pause manager handles ensuring new scenes
   // have timescale of 1.
-  public void quitToLab() {
+  private void QuitToLab() {
     SceneManager.LoadScene(Constants.labSceneName);
   }
 }
