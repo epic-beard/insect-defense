@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
-public class LabState {
-  public static LabState Instance = new();
+public class LabState : MonoBehaviour {
+  public static LabState Instance;
   public bool isFocused = false;
+
+  private void Awake() {
+    Instance = this;
+  }
 }
