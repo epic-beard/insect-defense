@@ -4,21 +4,23 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class SettingsScreen : MonoBehaviour {
-  readonly private string soundSettingsButtonName = "sound-settings--button";
   readonly private string loadOptionsButtonName = "load-options--button";
   readonly private string quitToLabButtonName = "quit-to-lab--button";
-  readonly private string soundSettingsPanelName = "sound-settings--panel";
+  readonly private string restartLevelButtonName = "restart-level--button";
+  readonly private string soundSettingsButtonName = "sound-settings--button";
   readonly private string loadOptionsPanelName = "load-options--panel";
+  readonly private string soundSettingsPanelName = "sound-settings--panel";
   readonly private string terrariumSpecificPanelName = "terrarium-specific--panel";
 
   public static SettingsScreen Instance;
 
   private UIDocument settingsScreen;
-  private Button soundSettingsButton;
   private Button loadOptionsButton;
   private Button quitToLabButton;
-  private VisualElement soundSettingsPanel;
+  private Button restartLevelButton;
+  private Button soundSettingsButton;
   private VisualElement loadOptionsPanel;
+  private VisualElement soundSettingsPanel;
   private VisualElement terrariumSpecificPanel;
 
   private void Awake() {
@@ -33,21 +35,24 @@ public class SettingsScreen : MonoBehaviour {
     settingsScreen = GetComponent<UIDocument>();
     VisualElement rootElement = settingsScreen.rootVisualElement;
 
-    soundSettingsButton = rootElement.Q<Button>(soundSettingsButtonName);
     loadOptionsButton = rootElement.Q<Button>(loadOptionsButtonName);
     quitToLabButton = rootElement.Q<Button>(quitToLabButtonName);
-    soundSettingsPanel = rootElement.Q<VisualElement>(soundSettingsPanelName);
+    restartLevelButton = rootElement.Q<Button>(restartLevelButtonName);
+    soundSettingsButton = rootElement.Q<Button>(soundSettingsButtonName);
     loadOptionsPanel = rootElement.Q<VisualElement>(loadOptionsPanelName);
+    soundSettingsPanel = rootElement.Q<VisualElement>(soundSettingsPanelName);
     terrariumSpecificPanel = rootElement.Q<VisualElement>(terrariumSpecificPanelName);
   }
 
   private void RegisterCallbacks() {
-    soundSettingsButton.RegisterCallback<ClickEvent>(
-      (evt) => { OpenSoundSettings(); });
     loadOptionsButton.RegisterCallback<ClickEvent>(
       (evt) => { OpenLoadOptions(); });
     quitToLabButton.RegisterCallback<ClickEvent>(
       (evt) => { QuitToLab(); });
+    restartLevelButton.RegisterCallback<ClickEvent>(
+      (evt) => { RestartLevel(); });
+    soundSettingsButton.RegisterCallback<ClickEvent>(
+      (evt) => { OpenSoundSettings(); });
   }
 
   public void OpenSettings(bool inGame = false) {
@@ -72,9 +77,13 @@ public class SettingsScreen : MonoBehaviour {
     loadOptionsPanel.style.display = DisplayStyle.Flex;
   }
 
-  // Note, this doesn't unpause the game, but the pause manager handles ensuring new scenes
+  // Note: This doesn't unpause the game, but the pause manager handles ensuring new scenes
   // have timescale of 1.
   private void QuitToLab() {
     SceneManager.LoadScene(Constants.labSceneName);
+  }
+
+  private void RestartLevel() {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
   }
 }
