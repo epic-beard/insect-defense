@@ -17,6 +17,7 @@ public class TerrariumUpperUI : MonoBehaviour {
     SetVisualElements();
     GameStateManager.HealthChanged += OnHealthChanged;
     Spawner.WaveComplete += OnWaveComplete;
+    Spawner.WavesStarted += OnWavesStarted;
   }
 
   private void SetVisualElements() {
@@ -28,6 +29,10 @@ public class TerrariumUpperUI : MonoBehaviour {
 
   private void OnHealthChanged(int hp) {
     hpLabel.text = hp.ToString();
+  }
+
+  private void OnWavesStarted(int numWaves) {
+    UpdateWaveLabel(1, numWaves);
   }
 
   private void OnWaveComplete(int currWave, int numWaves) {
