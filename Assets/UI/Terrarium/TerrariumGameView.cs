@@ -27,7 +27,6 @@ public class TerrariumGameView : MonoBehaviour {
   }
 
   private IEnumerator ShowWaveComplete() {
-    Debug.Log("Coming into focus.");
     float opacity = 0.0f;
     while (opacity < 1.0f) {
       opacity += Time.deltaTime * fadeSpeed;
@@ -40,7 +39,6 @@ public class TerrariumGameView : MonoBehaviour {
   }
 
   private IEnumerator HideWaveComplete() {
-    Debug.Log("Fading away.");
     float opacity = 1.0f;
     while (opacity > 0.0f) {
       opacity -= Time.deltaTime * fadeSpeed;

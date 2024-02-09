@@ -100,6 +100,7 @@ public class Spawner : MonoBehaviour {
 
         yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
         WaveComplete.Invoke(++Instance.CurrWave, Instance.NumWaves);
+        //Wait long enough for the "Wave Complete" text to appear and disappear.
         yield return new WaitForSeconds(3);
       }
 
