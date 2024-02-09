@@ -794,6 +794,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a272bfa3dd4b447a0ea23b52904094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &329833211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329833195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13193e0fc7839f24f810fc42e4a69cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &361905918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1559,6 +1571,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 151608431126285262, guid: 51a2e86251e29cd4ca2adde4c3ddeca7, type: 3}
+      propertyPath: maxHeight
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 728897978175137934, guid: 51a2e86251e29cd4ca2adde4c3ddeca7, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1606,10 +1622,6 @@ PrefabInstance:
     - target: {fileID: 7041500573344681134, guid: 51a2e86251e29cd4ca2adde4c3ddeca7, type: 3}
       propertyPath: m_Name
       value: Main Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 8809457658828194765, guid: 51a2e86251e29cd4ca2adde4c3ddeca7, type: 3}
-      propertyPath: orthographic
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4526,4 +4538,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 978381130635441502, guid: 21a0dc9842c4fbe4c9978fc3926d33d0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 329833203}
+    - targetCorrespondingSourceObject: {fileID: 978381130635441502, guid: 21a0dc9842c4fbe4c9978fc3926d33d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 329833211}
   m_SourcePrefab: {fileID: 100100000, guid: 21a0dc9842c4fbe4c9978fc3926d33d0, type: 3}

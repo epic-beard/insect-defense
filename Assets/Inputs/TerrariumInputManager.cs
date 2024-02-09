@@ -39,6 +39,9 @@ public class TerrariumInputManager : MonoBehaviour {
     if (move.sqrMagnitude >= 0.1) {
       CameraManager.Instance.MoveCamera(move);
     }
+
+    float rotation = actions.Player.Player_Rotate.ReadValue<float>();
+    CameraManager.Instance.RotateCamera(rotation);
   }
 
   void ZoomCamera(InputAction.CallbackContext context) {

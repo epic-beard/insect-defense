@@ -15,4 +15,7 @@ public class Settings {
 
   [Range(0, 1)]
   public float ZoomSensitivity = 0.3f;
+
+  [Range(0, 1)]
+  public float RotationSensitivity = 0.3f;
 }
