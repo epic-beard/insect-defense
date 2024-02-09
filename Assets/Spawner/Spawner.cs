@@ -10,6 +10,7 @@ using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
+  public static event Action<int> WavesStarted = delegate { };
   public static event Action<int, int> WaveComplete = delegate { };
   public static event Action LevelComplete = delegate { };
 #pragma warning disable 8618
@@ -28,13 +29,13 @@ public class Spawner : MonoBehaviour {
   void Start() {
     if (filename.Length == 0) return;
     Waves? waves = Deserialize<Waves>(filename);
-    if (waves != null)  SpawnWave(waves);
+    if (waves != null)  SpawnWaves(waves);
   }
 
-  public void SpawnWave(Waves waves) {
+  public void SpawnWaves(Waves waves) {
     ClearWave();
-    NumWaves = waves.waves.Count();
-    TerrariumUpperUI.Instance.UpdateWaveLabel(CurrWave, NumWaves);
+    NumWaves = waves.NumWaves;
+    WavesStarted.Invoke(NumWaves);
     StartCoroutine(waves.Start());
   }
 
@@ -85,6 +86,7 @@ public class Spawner : MonoBehaviour {
 
   // The top level of the subwave heirarchy, describing a level.
   public class Waves : Wave {
+    public int NumWaves { get { return waves.Count(); } }
     // Each wave represents one round of combat.
     readonly public List<Wave> waves = new();
     // Starts the level logic.
@@ -97,9 +99,9 @@ public class Spawner : MonoBehaviour {
         yield return wave.Start();
 
         yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
-
-        Instance.CurrWave++;
-        WaveComplete.Invoke(Instance.CurrWave, Instance.NumWaves);
+        WaveComplete.Invoke(++Instance.CurrWave, Instance.NumWaves);
+        //Wait long enough for the "Wave Complete" text to appear and disappear.
+        yield return new WaitForSeconds(3);
       }
 
       // Sanity check, make sure all the waves have completed.
