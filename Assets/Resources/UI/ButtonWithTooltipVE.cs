@@ -4,14 +4,19 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-public class ButtonWithTooltipVE : VisualElement {
-
+public class ButtonWithTooltipVE : TooltipVE {
+  readonly private string buttonWithTooltipName = "button-with-tooltip--button";
+  readonly private string labelName = "tooltip--label";
   readonly private string templatePath = "UI/ButtonWithTooltipVE";
-  readonly private string buttonName = "button-with-tooltip--button";
+
+  public Button ButtonWithTooltip { get; private set; }
 
   public ButtonWithTooltipVE() {
     VisualTreeAsset buttonTree = Resources.Load<VisualTreeAsset>(templatePath);
+
     var buttonElement = buttonTree.CloneTree();
+    TooltipLabel = buttonElement.Q<Label>(labelName);
+    ButtonWithTooltip = buttonElement.Q<Button>(buttonWithTooltipName);
 
     Add(buttonElement);
   }

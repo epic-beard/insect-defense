@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="ButtonWithTooltipBasicElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
         <ui:Button text="Button" display-tooltip-when-elided="true" name="button-with-tooltip--button" />
+        <ui:Label tabindex="-1" text="[This is a default tooltip]" display-tooltip-when-elided="true" name="tooltip--label" style="display: none; position: absolute; top: 53px; left: 62px; visibility: visible;" />
     </ui:VisualElement>
 </ui:UXML>
