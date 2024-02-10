@@ -16,6 +16,10 @@
                 <ui:VisualElement name="load-options--panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; align-self: stretch; display: flex; visibility: visible;">
                     <ui:Instance template="LoadScreen" name="load-options--doc" style="align-self: stretch; justify-content: flex-start; flex-grow: 1;" />
                 </ui:VisualElement>
+                <ui:VisualElement name="terrarium-specific--panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center; flex-direction: row;">
+                    <ui:Button text="Restart Level" display-tooltip-when-elided="true" name="restart-level--button" />
+                    <ui:Button text="Quit to Lab" display-tooltip-when-elided="true" name="quit-to-lab--button" style="align-items: center; justify-content: center;" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.47);" />

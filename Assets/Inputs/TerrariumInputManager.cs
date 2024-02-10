@@ -63,7 +63,7 @@ public class TerrariumInputManager : MonoBehaviour {
   public void OpenSettings() {
     PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumUI.Instance.HideUI();
-    SettingsScreen.Instance.OpenSettings();
+    SettingsScreen.Instance.OpenSettings(inGame: true);
     UpdateActions(actions.SettingsScreen);
   }
 
