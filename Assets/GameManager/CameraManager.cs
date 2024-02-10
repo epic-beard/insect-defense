@@ -24,12 +24,6 @@ public class CameraManager : MonoBehaviour {
   // These mark the extents of the map in each of the four directions.
   private float minX, minZ, maxX, maxZ;
 
-  // This is how much padding, in world space, we give to the map
-  //private static readonly float cameraOffset = 20;
-  //private static readonly float speed = 100;
-  //private static readonly float rotateSpeed = 1;
-  //private static readonly float zoomSpeed = 10;
-
   private void Awake() {
     Instance = this;
     SetExtents();
@@ -46,17 +40,25 @@ public class CameraManager : MonoBehaviour {
   } 
 
   public void MoveCamera(Vector2 axis) {
+    // f is the forward direction of the camera with the y component removed and renormalized.
     Vector3 f = transform.forward;
+    f.y = 0;
+    f = f.normalized;
+    // f is the right direction of the camera with the y component removed and renormalized.
     Vector3 r = transform.right;
-    float d = transform.position.y * heightToBuffer;
-    Vector3 v = new(axis.x, 0.0f, axis.y);
-    float delta =
+    r.y = 0;
+    r = r.normalized;
+    // Distance traveled.
+    float d =
       Time.unscaledDeltaTime * speed * PlayerState.Instance.Settings.CameraSensitivity;
-    Vector3 newPosition = transform.position + delta * axis.y * f + delta * axis.x * r;
+    // Move the position d * axis.y in the forward direction and d * axis.x in the right direction.
+    Vector3 newPosition = transform.position + d * axis.y * f + d * axis.x * r;
 
-    newPosition.x = Math.Clamp(newPosition.x, minX - d, maxX + d);
-    newPosition.y = transform.position.y;
-    newPosition.z = Math.Clamp(newPosition.z, minZ - d, maxZ + d);
+    // The distance from the map edge the camera is allowed to move, dependent on camera height.
+    float buffer = transform.position.y * heightToBuffer;
+    // Clamp the new position to the min/max x/z modified by the buffer ammount.
+    newPosition.x = Math.Clamp(newPosition.x, minX - buffer, maxX + buffer);
+    newPosition.z = Math.Clamp(newPosition.z, minZ - buffer, maxZ + buffer);
 
     transform.position = newPosition;
   }
@@ -65,17 +67,20 @@ public class CameraManager : MonoBehaviour {
   public void ZoomCamera(float zoom) {
     Vector3 p = transform.position;
     Vector3 f = transform.forward;
-    float delta = zoom *zoomSpeed * PlayerState.Instance.Settings.ZoomSensitivity;
-    float deltaMax = (minHeight - p.y) / f.y;
-    float deltaMin = (maxHeight - p.y) / f.y;
-    delta = Math.Clamp(delta, deltaMin, deltaMax);
-    transform.position += delta * f;
+    // THe distance to move the camera.
+    float d = zoom *zoomSpeed * PlayerState.Instance.Settings.ZoomSensitivity;
+    // The maximum distance allowed.
+    float dMax = (minHeight - p.y) / f.y;
+    // The maximum distance allowed.
+    float dMin = (maxHeight - p.y) / f.y;
+    d = Math.Clamp(d, dMin, dMax);
+    // Translate the position in the f direction a distance d.
+    transform.position += d * f;
   }
 
   public void RotateCamera(float rotation) {
     float angle = rotation * rotationSpeed * PlayerState.Instance.Settings.RotationSensitivity;
     // Rotate about the y axis by angle degrees.
-
     transform.Rotate(0, angle, 0, Space.World);
   }
 }
