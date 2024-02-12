@@ -15,7 +15,6 @@ public class TerrariumBottomUI : MonoBehaviour {
     terrariumScreen = GetComponent<UIDocument>();
     VisualElement rootElement = terrariumScreen.rootVisualElement;
 
-
     playPauseButton = rootElement.Q<Button>(playPauseButtonName);
     settingsButton = rootElement.Q<Button>(settingsButtonName);
     nuLabel = rootElement.Q<Label>(nuLabelName);

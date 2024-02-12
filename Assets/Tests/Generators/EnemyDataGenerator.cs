@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using static EpicBeardLib.XmlSerializationHelpers;
-using UnityEngine;
 
 using EnemyDictionary = EpicBeardLib.Containers.SerializableDictionary<string, EnemyData>;
 
