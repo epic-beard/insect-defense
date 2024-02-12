@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class TooltipVE : VisualElement {
   public string TooltipText { get; protected set; }
-  public Label TooltipLabel { get; protected set; }
 
   public TooltipVE() {
     this.RegisterCallback<MouseEnterEvent>(OnMouseEnterEvent);
@@ -13,26 +12,23 @@ public class TooltipVE : VisualElement {
   }
 
   public void SetTooltipText(string tooltip) {
-    TooltipLabel.text = tooltip;
+    TerrariumUI.Instance.TooltipLabel.text = tooltip;
   }
-
 
   private void OnMouseEnterEvent(MouseEnterEvent evt) {
     TooltipVE button = evt.target as TooltipVE;
     if (button == null) return;
 
-    Label tooltip = button.TooltipLabel;
-
-    tooltip.style.display = DisplayStyle.Flex;
-    tooltip.style.left = evt.localMousePosition.x;
-    tooltip.style.top = evt.localMousePosition.y;
+    VisualElement tooltipVE = TerrariumUI.Instance.TooltipVE;
+    tooltipVE.style.left = evt.mousePosition.x;
+    tooltipVE.style.top = evt.mousePosition.y;
+    tooltipVE.style.display = DisplayStyle.Flex;
   }
 
   private void OnMouseLeaveEvent(MouseLeaveEvent evt) {
     if (evt.target is not TooltipVE buttonWithTooltip) return;
 
-    Label tooltip = buttonWithTooltip.TooltipLabel;
-
-    tooltip.style.display = DisplayStyle.None;
+    VisualElement tooltipVE = TerrariumUI.Instance.TooltipVE;
+    tooltipVE.style.display = DisplayStyle.None;
   }
 }

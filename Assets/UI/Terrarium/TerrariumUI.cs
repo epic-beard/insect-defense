@@ -4,6 +4,12 @@ using UnityEngine.UIElements;
 public class TerrariumUI : MonoBehaviour {
   public static TerrariumUI Instance;
 
+  readonly private string tooltipVisualElementName = "tooltip__visualelement";
+  readonly private string tooltipLabelName = "tooltip__label";
+
+  public VisualElement TooltipVE { get; private set; }
+  public Label TooltipLabel { get; private set; }
+
   UIDocument terrariumUI;
 
   private void Awake() {
@@ -14,6 +20,9 @@ public class TerrariumUI : MonoBehaviour {
   void SetVisualElements() {
     terrariumUI = GetComponent<UIDocument>();
     VisualElement rootElement = terrariumUI.rootVisualElement;
+
+    TooltipVE = rootElement.Q<VisualElement>(tooltipVisualElementName);
+    TooltipLabel = rootElement.Q<Label>(tooltipLabelName);
   }
 
   public void HideUI() {
