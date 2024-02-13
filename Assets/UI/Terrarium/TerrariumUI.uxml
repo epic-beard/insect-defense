@@ -2,7 +2,7 @@
     <ui:Template name="TerrariumGameView" src="project://database/Assets/UI/Terrarium/TerrariumGameView.uxml?fileID=9197481963319205126&amp;guid=7ea4d8407eae82d489cea20a36656ae0&amp;type=3#TerrariumGameView" />
     <ui:Template name="MessageBox" src="project://database/Assets/UI/Terrarium/MessageBox.uxml?fileID=9197481963319205126&amp;guid=2a5a2bb9ff7f4cb43a7e015010a7848d&amp;type=3#MessageBox" />
     <ui:Template name="TerrariumBottomPanel" src="project://database/Assets/UI/Terrarium/TerrariumBottomSettings.uxml?fileID=9197481963319205126&amp;guid=e4f00dad63298524aaf4b40c11f5f365&amp;type=3#TerrariumBottomSettings" />
-    <ui:Template name="TerrariumHeartHP" src="project://database/Assets/UI/Terrarium/TerrariumUpperUI.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TerrariumHeartHP" />
+    <ui:Template name="TerrariumHeartHP" src="project://database/Assets/UI/Terrarium/TerrariumUpperUI.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TerrariumUpperUI" />
     <ui:Template name="TerrariumContext" src="project://database/Assets/UI/Terrarium/TerrariumContext.uxml?fileID=9197481963319205126&amp;guid=b5492c09c7f44394fbc44bf6702ba2f2&amp;type=3#TerrariumContext" />
     <ui:Template name="TerrariumTowerSelection" src="project://database/Assets/UI/Terrarium/TerrariumTowerSelection.uxml?fileID=9197481963319205126&amp;guid=3ade494c6fdabcd4585240bbd2de7115&amp;type=3#TerrariumTowerSelection" />
     <ui:VisualElement name="overall_terrarium_ui__visualelement" style="flex-direction: row; align-items: stretch; justify-content: space-around; flex-grow: 1;">
@@ -18,5 +18,8 @@
             <ui:Instance template="TerrariumContext" name="TerrariumContext" style="height: auto; flex-grow: 0; max-height: 300px; min-width: auto;" />
             <ui:Instance template="TerrariumTowerSelection" name="TerrariumTowerSelection" />
         </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="tooltip__visualelement" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; display: flex; left: auto; top: auto;">
+        <ui:Label tabindex="-1" text="[Default tooltip text]" display-tooltip-when-elided="true" name="tooltip__label" picking-mode="Ignore" style="background-color: rgba(0, 0, 0, 0); color: rgb(231, 98, 16); overflow: hidden; visibility: visible;" />
     </ui:VisualElement>
 </ui:UXML>
