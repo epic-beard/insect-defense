@@ -8,6 +8,10 @@ public class ButtonWithTooltipVE : TooltipVE {
 
   public Button ButtonWithTooltip { get; private set; }
 
+  public void SetButtonText(string text) {
+    ButtonWithTooltip.text = text;
+  }
+
   public ButtonWithTooltipVE() {
     VisualTreeAsset buttonTree = Resources.Load<VisualTreeAsset>(templatePath);
 
