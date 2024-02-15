@@ -2,7 +2,11 @@ using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 public class TooltipVE : VisualElement {
+<<<<<<< HEAD
+  virtual public string TooltipText { get; protected set; }
+=======
   public string TooltipText { get; set; }
+>>>>>>> f52123d218cb37547030d55a8d2ac71d0f18d029
 
   public TooltipVE() {
     this.RegisterCallback<MouseEnterEvent>(OnMouseEnterEvent);

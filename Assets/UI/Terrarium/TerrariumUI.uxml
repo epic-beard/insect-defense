@@ -20,7 +20,7 @@
             <ui:Instance template="TerrariumTowerSelection" name="TerrariumTowerSelection" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="tooltip__visualelement" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; display: flex; left: auto; top: auto;">
-        <ui:Label tabindex="-1" text="[Default tooltip text]" display-tooltip-when-elided="true" name="tooltip__label" picking-mode="Ignore" style="background-color: rgba(0, 0, 0, 0); color: rgb(231, 98, 16); overflow: hidden; visibility: visible;" />
+    <ui:VisualElement name="tooltip__visualelement" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; display: none; left: auto; top: auto;">
+        <ui:Label tabindex="-1" text="[Default tooltip text]" display-tooltip-when-elided="true" name="tooltip__label" picking-mode="Ignore" style="background-color: rgb(0, 0, 0); color: rgb(231, 16, 154); overflow: hidden; visibility: visible; white-space: normal; max-width: 300px;" />
     </ui:VisualElement>
 </ui:UXML>

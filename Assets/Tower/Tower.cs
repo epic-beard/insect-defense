@@ -79,6 +79,9 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
+  public TowerData.Tooltip tooltip {
+    get { return data.tooltip; }
+  }
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
     { TowerAbility.Type.ANTI_AIR, false },
@@ -228,6 +231,7 @@ public abstract class Tower : MonoBehaviour {
         + "  Armor piercing: " + ArmorPierce + "\n"
         + "  Armor tear: " + ArmorTear + "\n"
         + "  Attack speed: " + AttackSpeed + "\n"
+        + "  Cost: " + Cost + "\n"
         + "  Damage: " + Damage + "\n"
         + "  Damage over time: " + DamageOverTime + "\n"
         + "  Projectile speed: " + ProjectileSpeed + "\n"

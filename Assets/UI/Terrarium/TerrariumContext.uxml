@@ -9,27 +9,27 @@
             <ui:VisualElement name="tower_upgrade_container__visualelement" style="flex-wrap: nowrap; flex-grow: 1;">
                 <ui:VisualElement name="tower_upgrade_tree_1__visual_element" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                     <ui:Label tabindex="-1" text="&lt;Tree 1&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_0__label" style="font-size: 12px; white-space: normal; text-overflow: clip; max-width: 50px;" />
-                    <ui:Button text="A 1" display-tooltip-when-elided="true" name="tree_0_upgrade_0__button" focusable="false" style="width: 50px; flex-grow: 1; white-space: normal; text-overflow: clip; font-size: 10px;" />
-                    <ui:Button text="A 2" display-tooltip-when-elided="true" name="tree_0_upgrade_1__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 3" display-tooltip-when-elided="true" name="tree_0_upgrade_2__button" focusable="true" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 4" display-tooltip-when-elided="true" name="tree_0_upgrade_3__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 5" display-tooltip-when-elided="true" name="tree_0_upgrade_4__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
+                    <ButtonWithTooltipVE name="tree_0_upgrade_0__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_0_upgrade_1__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_0_upgrade_2__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_0_upgrade_3__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_0_upgrade_4__button" style="width: 50px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="tower_upgrade_tree_2__visual_element" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                     <ui:Label tabindex="-1" text="&lt;Tree 2&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_1__label" style="white-space: normal; max-width: 50px; font-size: 12px;" />
-                    <ui:Button text="A 1" display-tooltip-when-elided="true" name="tree_1_upgrade_0__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 2" display-tooltip-when-elided="true" name="tree_1_upgrade_1__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 3" display-tooltip-when-elided="true" name="tree_1_upgrade_2__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 4" display-tooltip-when-elided="true" name="tree_1_upgrade_3__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 5" display-tooltip-when-elided="true" name="tree_1_upgrade_4__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
+                    <ButtonWithTooltipVE name="tree_1_upgrade_0__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_1_upgrade_1__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_1_upgrade_2__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_1_upgrade_3__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_1_upgrade_4__button" style="width: 50px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="tower_upgrade_tree_3__visual_element" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                     <ui:Label tabindex="-1" text="&lt;Tree 3&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_2__label" style="white-space: normal; max-width: 50px; font-size: 12px;" />
-                    <ui:Button text="A 1" display-tooltip-when-elided="true" name="tree_2_upgrade_0__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 2" display-tooltip-when-elided="true" name="tree_2_upgrade_1__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 3" display-tooltip-when-elided="true" name="tree_2_upgrade_2__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 4" display-tooltip-when-elided="true" name="tree_2_upgrade_3__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
-                    <ui:Button text="A 5" display-tooltip-when-elided="true" name="tree_2_upgrade_4__button" focusable="false" style="width: 50px; flex-grow: 1; font-size: 10px; white-space: normal;" />
+                    <ButtonWithTooltipVE name="tree_2_upgrade_0__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_2_upgrade_1__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_2_upgrade_2__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_2_upgrade_3__button" style="width: 50px;" />
+                    <ButtonWithTooltipVE name="tree_2_upgrade_4__button" style="width: 50px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
