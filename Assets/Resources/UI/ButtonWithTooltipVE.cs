@@ -6,15 +6,17 @@ public class ButtonWithTooltipVE : TooltipVE {
   readonly private string buttonWithTooltipName = "button_with_tooltip__button";
   readonly private string templatePath = "UI/ButtonWithTooltipVE";
 
-  public Button ButtonWithTooltip { get; private set; }
+  public Button Button { get; private set; }
+
+  public void SetButtonText(string text) {
+    Button.text = text;
+  }
 
   public ButtonWithTooltipVE() {
-    VisualTreeAsset buttonTree = Resources.Load<VisualTreeAsset>(templatePath);
+    var tree = Resources.Load<VisualTreeAsset>(templatePath).CloneTree();
+    Button = tree.Q<Button>(buttonWithTooltipName);
 
-    var buttonElement = buttonTree.CloneTree();
-    ButtonWithTooltip = buttonElement.Q<Button>(buttonWithTooltipName);
-
-    Add(buttonElement);
+    Add(tree);
   }
 
   #region UXML

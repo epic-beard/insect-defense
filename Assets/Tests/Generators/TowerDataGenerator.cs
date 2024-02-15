@@ -163,6 +163,10 @@ public class TowerDataGenerator {
         thirdPathUpgrades = thirdPathUpgrades,
       },
 
+      tooltip = new() {
+        tooltipText = "A ranged tower with moderate damage, armor tear, and acid DoTs.",
+      },
+
       name = "Spitting Ant Tower",
       area_of_effect = 10,
       armor_pierce = 0,
@@ -332,6 +336,10 @@ public class TowerDataGenerator {
         thirdPathUpgrades = thirdPathUpgrades,
       },
 
+      tooltip = new() {
+        tooltipText = "Melee tower with heavy damage, moderate armor pen, and bleed DoTs",
+      },
+
       name = "Web Shooting Spider Tower",
       area_of_effect = 10,
       armor_pierce = 0,
@@ -491,6 +499,10 @@ public class TowerDataGenerator {
         firstPathUpgrades = firstPathUpgrades,
         secondPathUpgrades = secondPathUpgrades,
         thirdPathUpgrades = thirdPathUpgrades,
+      },
+
+      tooltip = new() {
+        tooltipText = "Long range tower with massive damage and armor pen, but slow attack speed.",
       },
 
       name = "Assassin Bug",
@@ -662,6 +674,10 @@ public class TowerDataGenerator {
         firstPathUpgrades = firstPathUpgrades,
         secondPathUpgrades = secondPathUpgrades,
         thirdPathUpgrades = thirdPathUpgrades,
+      },
+
+      tooltip = new() {
+        tooltipText = "Support tower that slows enemy movement.",
       },
 
       name = "Mantis",

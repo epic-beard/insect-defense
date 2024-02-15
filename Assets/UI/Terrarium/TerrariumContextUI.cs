@@ -42,7 +42,7 @@ public class TerrariumContextUI : MonoBehaviour {
   private VisualElement towerContextVisualElement;
   private Label towerNameLabel;
   private DropdownField towerPriorityDropdown;
-  private Button[,] towerUpgradeButtons = new Button[3, 5];
+  private ButtonWithTooltipVE[,] towerUpgradeButtons = new ButtonWithTooltipVE[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
 
   private void Awake() {
@@ -76,7 +76,7 @@ public class TerrariumContextUI : MonoBehaviour {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 5; j++) {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
-        towerUpgradeButtons[i, j] = rootElement.Q<Button>(buttonName);
+        towerUpgradeButtons[i, j] = rootElement.Q<ButtonWithTooltipVE>(buttonName);
         towerUpgradeButtons[i, j].RegisterCallback<ClickEvent>(HandleTowerUpgradeCallback);
         towerUpgradeButtons[i, j].SetEnabled(false);
       }
@@ -208,13 +208,15 @@ public class TerrariumContextUI : MonoBehaviour {
 
       for (int j = 0; j < 5; j++) {
         towerUpgradeButtons[i, j].SetEnabled(false);
-        towerUpgradeButtons[i, j].text = tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost;
-        towerUpgradeButtons[i, j].tooltip = tower.GetUpgradePath(i)[j].description;
+        towerUpgradeButtons[i, j].SetButtonText(
+            tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost);
+        towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
       }
 
       for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++) {
         // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
-        towerUpgradeButtons[i, j].text += " Bought.";
+        towerUpgradeButtons[i, j].SetButtonText(
+            towerUpgradeButtons[i, j].Button.text + " Bought.");
       }
       if (tower.UpgradeLevels[i] < 5) {
         towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);
