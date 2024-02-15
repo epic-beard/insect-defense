@@ -81,6 +81,6 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   }
 
   public void SetTowerButtonTooltip(ButtonWithTooltipVE button, TowerData.Tooltip tooltip) {
-    button.TooltipTextString = tooltip.tooltipText;
+    button.TooltipText = tooltip.tooltipText;
   }
 }

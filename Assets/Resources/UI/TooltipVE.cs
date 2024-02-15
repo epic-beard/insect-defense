@@ -1,7 +1,7 @@
 using UnityEngine.UIElements;
 
 public class TooltipVE : VisualElement {
-  public string TooltipTextString { get; set; }
+  public string TooltipText { get; set; }
 
   public TooltipVE() {
     this.RegisterCallback<MouseEnterEvent>(OnMouseEnterEvent);
@@ -12,7 +12,7 @@ public class TooltipVE : VisualElement {
     TooltipVE button = evt.target as TooltipVE;
     if (button == null) return;
 
-    TerrariumUI.Instance.TooltipLabel.text = TooltipTextString;
+    TerrariumUI.Instance.TooltipLabel.text = TooltipText;
     VisualElement tooltipVE = TerrariumUI.Instance.TooltipVE;
     tooltipVE.style.left = evt.mousePosition.x;
     tooltipVE.style.top = evt.mousePosition.y;
