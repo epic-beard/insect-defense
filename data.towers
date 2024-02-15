@@ -190,6 +190,7 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Spitting Ant Tower</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
@@ -425,6 +426,7 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Web Shooting Spider Tower</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
@@ -626,6 +628,7 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Assassin Bug</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0.2</armor_pierce>
@@ -861,6 +864,7 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Mantis</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>4</enemies_hit>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0</armor_pierce>
