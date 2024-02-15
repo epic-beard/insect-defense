@@ -7,6 +7,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>SPITTING_ANT_TOWER</type>
+        <tooltip>
+          <tooltipText>A ranged tower with moderate damage, armor tear, and acid DoTs.</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Armor Tear</first>
           <second>Acid Power</second>
@@ -212,6 +215,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>WEB_SHOOTING_SPIDER_TOWER</type>
+        <tooltip>
+          <tooltipText>Melee tower with heavy damage, moderate armor pen, and bleed DoTs</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Improved Slow</first>
           <second>AoE Slow</second>
@@ -444,6 +450,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>ASSASSIN_BUG_TOWER</type>
+        <tooltip>
+          <tooltipText>Long range tower with massive damage and armor pen, but slow attack speed.</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Armor Penetration</first>
           <second>Utility</second>
@@ -642,6 +651,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>MANTIS_TOWER</type>
+        <tooltip>
+          <tooltipText>Support tower that slows enemy movement.</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Damage</first>
           <second>Debilitation</second>

@@ -27,6 +27,12 @@ public struct TowerData {
     STUN_TIME,  // Stun duration in seconds.
   }
 
+  public class Tooltip {
+    public string tooltipText = "";
+
+    public Tooltip() {}
+  }
+
   // This class is required because list and array equality checking look at references.
   public class UpgradeTreeData {
     public string first = "";
@@ -69,6 +75,7 @@ public struct TowerData {
   }
 
   public Type type;
+  public Tooltip tooltip;
   public UpgradeTreeData upgradeTreeData;
   public string name;
   public int enemies_hit;

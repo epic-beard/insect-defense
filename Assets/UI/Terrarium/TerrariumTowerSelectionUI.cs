@@ -10,7 +10,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   private UIDocument terrariumScreen;
   private ListView towerSelectionListView;
   private Dictionary<string, GameObject> towerNameToPrefab = new();
-  private Dictionary<TowerData.Type, Button> towerButtons = new();
+  private Dictionary<TowerData.Type, ButtonWithTooltipVE> towerButtons = new();
 
   private void Awake() {
     terrariumScreen = GetComponent<UIDocument>();
@@ -28,9 +28,9 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     towerSelectionListView.Clear();
     towerNameToPrefab.Clear();
     towerButtons.Clear();
-    towerSelectionListView.makeItem = () => new Button();
+    towerSelectionListView.makeItem = () => new ButtonWithTooltipVE();
     towerSelectionListView.bindItem = (e, i) => {
-      Button towerButton = (Button)e;
+      ButtonWithTooltipVE towerButton = (ButtonWithTooltipVE)e;
       Tower tower = prefabs[i].GetComponent<Tower>();
       string towerTypeName = tower.TowerType.ToString();
       int cost = GameStateManager.Instance.GetTowerCost(
@@ -41,7 +41,10 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
       }
       
       SetTowerButtonText(towerButton, tower.name, cost);
-      towerButton.tooltip = towerTypeName;
+      TowerData towerData = TowerDataManager.Instance.GetTowerData(tower.TowerType);
+      SetTowerButtonTooltip(towerButton, towerData.tooltip);
+      // Preserve information so the clickhandler knows what type of tower was selected.
+      towerButton.Button.tooltip = towerTypeName;
       if (!towerNameToPrefab.ContainsKey(towerTypeName)) {
         towerNameToPrefab.Add(towerTypeName, prefabs[i]);
       }
@@ -54,8 +57,10 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   }
 
   private void TowerClickEvent(ClickEvent evt) {
-    Button buttonPressed = evt.target as Button;
-    GameStateManager.SelectedTowerType = towerNameToPrefab[buttonPressed.tooltip];
+    Button button = evt.target as Button;
+    if (button == null) return;
+
+    GameStateManager.SelectedTowerType = towerNameToPrefab[button.tooltip];
     TerrariumContextUI.Instance.SetTowerContextPanel();
     TerrariumContextUI.Instance.SetContextTowerName(GameStateManager.SelectedTowerType.name);
   }
@@ -65,13 +70,17 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
       TowerData towerData = TowerDataManager.Instance.GetTowerData(entry.Key);
       int cost = GameStateManager.Instance.GetTowerCost(towerData.type, towerData.cost);
 
-      Button button = entry.Value;
+      ButtonWithTooltipVE button = entry.Value;
       SetTowerButtonText(button, towerData.name, cost);
       button.SetEnabled(cost <= GameStateManager.Instance.Nu);
     }
   }
 
-  public void SetTowerButtonText(Button button, string towerName, int cost) {
-    button.text = towerName + " - " + Constants.nu + " " + cost;
+  public void SetTowerButtonText(ButtonWithTooltipVE button, string towerName, int cost) {
+    button.SetButtonText(towerName + " - " + Constants.nu + " " + cost);
+  }
+
+  public void SetTowerButtonTooltip(ButtonWithTooltipVE button, TowerData.Tooltip tooltip) {
+    button.TooltipTextString = tooltip.tooltipText;
   }
 }

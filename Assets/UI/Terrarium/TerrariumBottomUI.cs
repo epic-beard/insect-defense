@@ -24,7 +24,7 @@ public class TerrariumBottomUI : MonoBehaviour {
 
     playPauseButton = rootElement.Q<ButtonWithTooltipVE>(playPauseButtonWithTooltipName);
     settingsButton = rootElement.Q<ButtonWithTooltipVE>(settingsButtonWithTooltipName);
-    settingsButton.ButtonWithTooltip.text = settingsString;
+    settingsButton.Button.text = settingsString;
     settingsButton.TooltipTextString = settingsTooltip;
     nuLabel = rootElement.Q<Label>(nuLabelName);
     GameStateManager.OnNuChanged += UpdateNu;
