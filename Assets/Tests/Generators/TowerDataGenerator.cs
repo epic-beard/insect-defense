@@ -168,6 +168,7 @@ public class TowerDataGenerator {
       },
 
       name = "Spitting Ant Tower",
+      icon_path = "Icons/test",
       area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,
@@ -341,6 +342,7 @@ public class TowerDataGenerator {
       },
 
       name = "Web Shooting Spider Tower",
+      icon_path = "Icons/test",
       area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,
@@ -506,6 +508,7 @@ public class TowerDataGenerator {
       },
 
       name = "Assassin Bug",
+      icon_path = "Icons/test",
       area_of_effect = 0,
       armor_pierce = 0.2f,
       armor_tear = 0,
@@ -681,6 +684,7 @@ public class TowerDataGenerator {
       },
 
       name = "Mantis",
+      icon_path = "Icons/test",
       area_of_effect = 0,
       armor_pierce = 0.0f,
       armor_tear = 0,
@@ -844,6 +848,7 @@ public class TowerDataGenerator {
       },
 
       name = "",
+      icon_path = "",
       area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,

@@ -78,6 +78,7 @@ public struct TowerData {
   public Tooltip tooltip;
   public UpgradeTreeData upgradeTreeData;
   public string name;
+  public string icon_path;
   public int enemies_hit;
   public float area_of_effect;
   public float armor_pierce;
