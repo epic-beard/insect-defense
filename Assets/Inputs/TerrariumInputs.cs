@@ -80,6 +80,15 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Player_Camera_Home"",
+                    ""type"": ""Button"",
+                    ""id"": ""f645af20-b4d1-451b-b38b-71b4fe605c62"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -258,6 +267,17 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Player_Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""797436f0-5b7e-4acd-a782-1fb12b235e3c"",
+                    ""path"": ""<Keyboard>/home"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player_Camera_Home"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -370,6 +390,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         m_Player_Player_Deselect = m_Player.FindAction("Player_Deselect", throwIfNotFound: true);
         m_Player_Player_Zoom = m_Player.FindAction("Player_Zoom", throwIfNotFound: true);
         m_Player_Player_Rotate = m_Player.FindAction("Player_Rotate", throwIfNotFound: true);
+        m_Player_Player_Camera_Home = m_Player.FindAction("Player_Camera_Home", throwIfNotFound: true);
         // SettingsScreen
         m_SettingsScreen = asset.FindActionMap("SettingsScreen", throwIfNotFound: true);
         m_SettingsScreen_SettingsScreen_Close = m_SettingsScreen.FindAction("SettingsScreen_Close", throwIfNotFound: true);
@@ -444,6 +465,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Player_Deselect;
     private readonly InputAction m_Player_Player_Zoom;
     private readonly InputAction m_Player_Player_Rotate;
+    private readonly InputAction m_Player_Player_Camera_Home;
     public struct PlayerActions
     {
         private @TerrariumInputs m_Wrapper;
@@ -454,6 +476,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         public InputAction @Player_Deselect => m_Wrapper.m_Player_Player_Deselect;
         public InputAction @Player_Zoom => m_Wrapper.m_Player_Player_Zoom;
         public InputAction @Player_Rotate => m_Wrapper.m_Player_Player_Rotate;
+        public InputAction @Player_Camera_Home => m_Wrapper.m_Player_Player_Camera_Home;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -481,6 +504,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Rotate.started += instance.OnPlayer_Rotate;
             @Player_Rotate.performed += instance.OnPlayer_Rotate;
             @Player_Rotate.canceled += instance.OnPlayer_Rotate;
+            @Player_Camera_Home.started += instance.OnPlayer_Camera_Home;
+            @Player_Camera_Home.performed += instance.OnPlayer_Camera_Home;
+            @Player_Camera_Home.canceled += instance.OnPlayer_Camera_Home;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -503,6 +529,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Rotate.started -= instance.OnPlayer_Rotate;
             @Player_Rotate.performed -= instance.OnPlayer_Rotate;
             @Player_Rotate.canceled -= instance.OnPlayer_Rotate;
+            @Player_Camera_Home.started -= instance.OnPlayer_Camera_Home;
+            @Player_Camera_Home.performed -= instance.OnPlayer_Camera_Home;
+            @Player_Camera_Home.canceled -= instance.OnPlayer_Camera_Home;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -628,6 +657,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         void OnPlayer_Deselect(InputAction.CallbackContext context);
         void OnPlayer_Zoom(InputAction.CallbackContext context);
         void OnPlayer_Rotate(InputAction.CallbackContext context);
+        void OnPlayer_Camera_Home(InputAction.CallbackContext context);
     }
     public interface ISettingsScreenActions
     {

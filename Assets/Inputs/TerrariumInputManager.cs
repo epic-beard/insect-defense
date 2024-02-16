@@ -27,6 +27,7 @@ public class TerrariumInputManager : MonoBehaviour {
     actions.Player.Player_Settings.started += OpenSettings;
     actions.Player.Player_Deselect.started += Deselect;
     actions.Player.Player_Zoom.started += ZoomCamera;
+    actions.Player.Player_Camera_Home.started += ResetCamera;
 
     actions.MessageBox.Advance.started += Advance;
     actions.MessageBox.Settings.started += OpenSettings;
@@ -46,6 +47,10 @@ public class TerrariumInputManager : MonoBehaviour {
 
   void ZoomCamera(InputAction.CallbackContext context) {
     CameraManager.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
+  }
+
+  void ResetCamera(InputAction.CallbackContext context) {
+    CameraManager.Instance.ResetCamera();
   }
 
   void PauseGame(InputAction.CallbackContext context) {
