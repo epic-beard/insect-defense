@@ -45,7 +45,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
       TowerData towerData = TowerDataManager.Instance.GetTowerData(tower.TowerType);
       towerButton.Name = towerData.name;
       towerButton.TooltipText = towerData.tooltip.tooltipText;
-      towerButton.Image = towerData.icon_path;
+      towerButton.ImagePath = towerData.icon_path;
 
       // Preserve information so the clickhandler knows what type of tower was selected.
       towerButton.TowerType = tower.TowerType;
@@ -81,6 +81,11 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     }
   }
 
+  // Technically the element clicked may be nested arbitrarily deep with respect to
+  // the TowerButton.  In my case it was nested 2 layers deep but rather than encode
+  // that here, I went for a general solution.
+  // This may return null if there is no ancestor TowerButton but we know there is
+  // one since that is what we registered our event to.
   public TowerButton GetTowerButtonParent(VisualElement ve) {
     while (ve != null && ve as TowerButton == null) {
       ve = ve.parent;

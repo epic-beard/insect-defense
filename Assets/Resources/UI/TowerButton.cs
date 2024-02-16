@@ -15,16 +15,16 @@ public class TowerButton : TooltipVE {
   private Label nameLabel;
   private Label costLabel;
 
-  private string image = "";
-  public string Image {
-    get { return image; }
+  private string imagePath = "";
+  public string ImagePath {
+    get { return imagePath; }
     set {
-      image = value;
-      imageVe.style.backgroundImage = Resources.Load<Texture2D>(image);
+      imagePath = value;
+      imageVe.style.backgroundImage = Resources.Load<Texture2D>(imagePath);
     }
   }
 
-  private string name = "";
+  private new string name = "";
   public string Name {
     get { return name; }
     set {
@@ -59,11 +59,11 @@ public class TowerButton : TooltipVE {
 
   [Preserve]
   public new class UxmlTraits : VisualElement.UxmlTraits {
-    UxmlStringAttributeDescription Image = new() { name = "image" };
+    UxmlStringAttributeDescription ImagePath = new() { name = "image" };
     public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc) {
       base.Init(ve, bag, cc);
       var towerButton = ve as TowerButton;
-      towerButton.Image = Image.GetValueFromBag(bag, cc);
+      towerButton.ImagePath = ImagePath.GetValueFromBag(bag, cc);
     }
   }
   #endregion
