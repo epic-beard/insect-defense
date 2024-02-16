@@ -46,6 +46,7 @@ public class CameraManager : MonoBehaviour {
   public void ResetCamera() {
     Vector3 newPosition = new((maxX + minX) / 2, 0, (maxZ + minZ) / 2);
     newPosition -= transform.forward * 100;
+    newPosition += Vector3.right * 15;
 
     transform.position = newPosition;
   }
