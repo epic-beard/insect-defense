@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Player_Camera_Home",
+                    "type": "Button",
+                    "id": "f645af20-b4d1-451b-b38b-71b4fe605c62",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -236,6 +245,17 @@
                     "action": "Player_Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "797436f0-5b7e-4acd-a782-1fb12b235e3c",
+                    "path": "<Keyboard>/home",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Player_Camera_Home",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

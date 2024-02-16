@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour {
   [SerializeField]
   private float speed = 200;
   [SerializeField]
-  private float rotationSpeed = 5;
+  private float rotationSpeed = 0.5f;
   [SerializeField]
   private float zoomSpeed = 0.25f;
   [SerializeField]
@@ -29,6 +29,10 @@ public class CameraManager : MonoBehaviour {
     SetExtents();
   }
 
+  private void Start() {
+    ResetCamera();
+  }
+
   private void SetExtents() {
     var positions = FindObjectsOfType<Tile>().Select((tile)=>tile.transform.position);
 
@@ -37,7 +41,14 @@ public class CameraManager : MonoBehaviour {
 
     minZ = positions.Min(p => p.z);
     maxZ = positions.Max(p => p.z);
-  } 
+  }
+
+  public void ResetCamera() {
+    Vector3 newPosition = new((maxX + minX) / 2, 0, (maxZ + minZ) / 2);
+    newPosition -= transform.forward * 100;
+
+    transform.position = newPosition;
+  }
 
   public void MoveCamera(Vector2 axis) {
     // f is the forward direction of the camera with the y component removed and renormalized.
@@ -67,7 +78,7 @@ public class CameraManager : MonoBehaviour {
   public void ZoomCamera(float zoom) {
     Vector3 p = transform.position;
     Vector3 f = transform.forward;
-    // THe distance to move the camera.
+    // The distance to move the camera.
     float d = zoom *zoomSpeed * PlayerState.Instance.Settings.ZoomSensitivity;
     // The maximum distance allowed.
     float dMax = (minHeight - p.y) / f.y;
