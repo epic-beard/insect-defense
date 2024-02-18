@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour {
   [SerializeField]
   private float speed = 200;
   [SerializeField]
-  private float rotationSpeed = 0.5f;
+  private float rotationSpeed = 20.0f;
   [SerializeField]
   private float zoomSpeed = 0.25f;
   [SerializeField]
@@ -80,7 +80,7 @@ public class CameraManager : MonoBehaviour {
     Vector3 p = transform.position;
     Vector3 f = transform.forward;
     // The distance to move the camera.
-    float d = zoom *zoomSpeed * PlayerState.Instance.Settings.ZoomSensitivity;
+    float d = zoom * zoomSpeed * PlayerState.Instance.Settings.ZoomSensitivity * Time.unscaledDeltaTime;
     // The maximum distance allowed.
     float dMax = (minHeight - p.y) / f.y;
     // The maximum distance allowed.
@@ -91,7 +91,7 @@ public class CameraManager : MonoBehaviour {
   }
 
   public void RotateCamera(float rotation) {
-    float angle = rotation * rotationSpeed * PlayerState.Instance.Settings.RotationSensitivity;
+    float angle = rotation * rotationSpeed * PlayerState.Instance.Settings.RotationSensitivity * Time.unscaledDeltaTime;
     // Rotate about the y axis by angle degrees.
     transform.Rotate(0, angle, 0, Space.World);
   }

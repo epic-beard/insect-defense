@@ -2,7 +2,7 @@ using NUnit.Framework;
 using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
 
-public class WaveGenerator {
+public class Level1WaveGenerator {
   public string aphid = "Aphid";
   public string ant = "Ant";
   public string beetle = "Beetle";

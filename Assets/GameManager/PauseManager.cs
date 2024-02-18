@@ -15,12 +15,13 @@ public class PauseManager : MonoBehaviour {
 
   public static event Action<bool> OnPauseChanged = delegate { };
   private Dictionary<PauseToken, bool> pauseState = new();
+  private float normalSpeed = 0.5f;
 
 
   private void Awake() {
     Instance = this;
     pauseState[PauseToken.NONE] = false;
-    Time.timeScale = 1;
+    Time.timeScale = normalSpeed;
   }
 
   private bool IsPaused() {
@@ -32,6 +33,6 @@ public class PauseManager : MonoBehaviour {
     else pauseState[token] = !pauseState[token];
 
     OnPauseChanged?.Invoke(pauseState[PauseToken.NONE]);
-    Time.timeScale = IsPaused() ? 0 : 1;
+    Time.timeScale = IsPaused() ? 0 : normalSpeed;
   }
 }
