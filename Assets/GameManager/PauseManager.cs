@@ -15,6 +15,7 @@ public class PauseManager : MonoBehaviour {
 
   public static event Action<bool> OnPauseChanged = delegate { };
   private Dictionary<PauseToken, bool> pauseState = new();
+  // TODO: Restore this to 1. This is a temporary testing measure.
   private float normalSpeed = 0.5f;
 
 

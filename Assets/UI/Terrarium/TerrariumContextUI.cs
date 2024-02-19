@@ -114,7 +114,6 @@ public class TerrariumContextUI : MonoBehaviour {
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
     ButtonWithTooltipVE button = Utilities.GetAncestor<ButtonWithTooltipVE>(evt.target as VisualElement);
-    Debug.Log(button);
     if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
@@ -131,10 +130,6 @@ public class TerrariumContextUI : MonoBehaviour {
     // 0____5_________15
     int upgradePath = (int)Char.GetNumericValue(buttonName[5]);
     int upgradeNum = (int)Char.GetNumericValue(buttonName[15]);
-
-    Debug.Log("Selected tower: " + GameStateManager.Instance.SelectedTower);
-    Debug.Log("upgradePath: " + upgradePath);
-    Debug.Log("upgradeNum: " + upgradeNum);
 
     return GameStateManager.Instance.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
   }
