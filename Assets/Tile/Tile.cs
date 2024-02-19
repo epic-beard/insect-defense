@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -92,11 +93,7 @@ public class Tile : MonoBehaviour {
       if (!isTowerPresent) { return; }
     }
     
-    GameStateManager.SelectedTowerType = null;
-    GameStateManager.Instance.SetNewSelectedTower(
-        GameStateManager.Instance.GetTower(waypoint.GetCoordinates()));
-    TerrariumContextUI.Instance.SetTowerContextPanel();
-    TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
+    Utilities.SetSelectedTower(GameStateManager.Instance.GetTower(waypoint.GetCoordinates()));
   }
 
   public void SetUnselected() {
