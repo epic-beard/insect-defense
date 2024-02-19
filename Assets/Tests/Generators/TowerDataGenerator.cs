@@ -338,7 +338,7 @@ public class TowerDataGenerator {
       },
 
       tooltip = new() {
-        tooltipText = "Melee tower with heavy damage, moderate armor pen, and bleed DoTs",
+        tooltipText = "Support tower that slows enemy movement.",
       },
 
       name = "Web Shooting Spider Tower",
@@ -680,7 +680,7 @@ public class TowerDataGenerator {
       },
 
       tooltip = new() {
-        tooltipText = "Support tower that slows enemy movement.",
+        tooltipText = "Melee tower with heavy damage, moderate armor pen, and bleed DoTs",
       },
 
       name = "Mantis",

@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -63,7 +64,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   private void TowerClickEvent(ClickEvent evt) {
     VisualElement ve = evt.target as VisualElement;
     if (ve == null) return;
-    TowerButton button = GetTowerButtonParent(ve);
+    TowerButton button = Utilities.GetAncestor<TowerButton>(ve);
 
     GameStateManager.SelectedTowerType = towerTypeToPrefab[button.TowerType];
     TerrariumContextUI.Instance.SetTowerContextPanel();
@@ -79,17 +80,5 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
       button.Cost = cost;
       button.SetEnabled(cost <= GameStateManager.Instance.Nu);
     }
-  }
-
-  // Technically the element clicked may be nested arbitrarily deep with respect to
-  // the TowerButton.  In my case it was nested 2 layers deep but rather than encode
-  // that here, I went for a general solution.
-  // This may return null if there is no ancestor TowerButton but we know there is
-  // one since that is what we registered our event to.
-  public TowerButton GetTowerButtonParent(VisualElement ve) {
-    while (ve != null && ve as TowerButton == null) {
-      ve = ve.parent;
-    }
-    return ve as TowerButton;
   }
 }
