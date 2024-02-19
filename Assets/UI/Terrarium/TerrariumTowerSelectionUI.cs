@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -63,7 +64,8 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   private void TowerClickEvent(ClickEvent evt) {
     VisualElement ve = evt.target as VisualElement;
     if (ve == null) return;
-    TowerButton button = GetTowerButtonParent(ve);
+    TowerButton button = Utilities.GetAncestor<TowerButton>(ve);
+    //TowerButton button = GetTowerButtonParent(ve);
 
     GameStateManager.SelectedTowerType = towerTypeToPrefab[button.TowerType];
     TerrariumContextUI.Instance.SetTowerContextPanel();

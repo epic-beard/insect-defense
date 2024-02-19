@@ -28,6 +28,9 @@ public class Level2WaveGenerator {
           spawnLocation = 0,
           spawnAmmount = 1,
         },
+        new SpacerWave() {
+          delay = 2.0f,
+        },
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 3,

@@ -10,6 +10,9 @@
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
         </Wave>
+        <Wave xsi:type="SpacerWave">
+          <delay>2</delay>
+        </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>3</repetitions>
           <repeatDelay>2</repeatDelay>
