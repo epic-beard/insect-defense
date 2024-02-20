@@ -9,6 +9,8 @@ public class MantisCollisionHandler : MonoBehaviour {
     mantisTower = GetComponentInParent<MantisTower>();
   }
   private void OnTriggerEnter(Collider other) {
-    mantisTower.ProcessDamageAndEffects(other.GetComponentInParent<Enemy>(), mantisAttackType);
+    Enemy enemy = other.GetComponentInParent<Enemy>();
+    if (enemy == null) return;
+    mantisTower.ProcessDamageAndEffects(enemy, mantisAttackType);
   }
 }

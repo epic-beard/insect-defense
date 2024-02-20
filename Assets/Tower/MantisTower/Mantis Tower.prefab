@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4366707366240872749}
   - component: {fileID: 1073878718856539922}
   - component: {fileID: 6546866253088661917}
+  - component: {fileID: 6684460592389921033}
   m_Layer: 0
   m_Name: Left Sickle
   m_TagString: Untagged
@@ -183,12 +184,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8, y: 1.2, z: 1}
+  m_Center: {x: -2, y: 0, z: 0}
 --- !u!114 &6546866253088661917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +203,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mantisAttackType: 1
+--- !u!114 &6684460592389921033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873196179297248534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ae1ae31c1beea42ab38de62490cbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1051372436072416352
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +261,7 @@ GameObject:
   - component: {fileID: 5667397690524792835}
   - component: {fileID: 3414643790503682030}
   - component: {fileID: 7785403141456493066}
+  - component: {fileID: 2481332877720816626}
   m_Layer: 0
   m_Name: Right Sickle
   m_TagString: Untagged
@@ -339,8 +353,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8, y: 1.2, z: 1}
+  m_Center: {x: 2, y: 0, z: 0}
 --- !u!114 &7785403141456493066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +368,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mantisAttackType: 0
+--- !u!114 &2481332877720816626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337694360401646513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ae1ae31c1beea42ab38de62490cbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2502456321574112275
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +393,7 @@ GameObject:
   - component: {fileID: 5307385630062909861}
   - component: {fileID: 8050316417085326494}
   - component: {fileID: 9060017144045101244}
+  - component: {fileID: 4646368738550877425}
   m_Layer: 0
   m_Name: Right Sickle
   m_TagString: Untagged
@@ -458,8 +485,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8, y: 1.2, z: 1}
+  m_Center: {x: 2, y: 0, z: 0}
 --- !u!114 &9060017144045101244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,6 +500,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mantisAttackType: 0
+--- !u!114 &4646368738550877425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502456321574112275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ae1ae31c1beea42ab38de62490cbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3435390920729551245
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +598,7 @@ MonoBehaviour:
   data:
     type: 0
     name: 
+    icon_path: 
     enemies_hit: 0
     area_of_effect: 0
     armor_pierce: 0
@@ -610,6 +650,7 @@ GameObject:
   - component: {fileID: 3448836411294133946}
   - component: {fileID: 6583430893633385114}
   - component: {fileID: 2313867874998752085}
+  - component: {fileID: 1566487351628476538}
   m_Layer: 0
   m_Name: Left Sickle
   m_TagString: Untagged
@@ -697,12 +738,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8, y: 1.2, z: 1}
+  m_Center: {x: -2, y: 0, z: 0}
 --- !u!114 &2313867874998752085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,6 +757,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mantisAttackType: 1
+--- !u!114 &1566487351628476538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915912719944977256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ae1ae31c1beea42ab38de62490cbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4619290505779254647
 GameObject:
   m_ObjectHideFlags: 0
