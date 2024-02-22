@@ -7,6 +7,8 @@ public class EndScreen : MonoBehaviour {
   readonly private string endScreenLabelName = "end-screen__label";
   readonly private string restartButtonName = "restart__button";
   readonly private string labButtonName = "lab__button";
+
+  readonly private string fanfare = "fanfare";
   
   UIDocument endScreen;
 
@@ -61,6 +63,7 @@ public class EndScreen : MonoBehaviour {
 
   // TODO(nnewsom): Conduct necessary checks, metadata tracking, and save the player state.
   private void OnLevelComplete() {
+    AudioManager.Instance.Play(fanfare);
     PauseManager.Instance.HandlePause(PauseToken.END);
     TerrariumUI.Instance.HideUI();
     endScreenLabel.text = "You Won!";

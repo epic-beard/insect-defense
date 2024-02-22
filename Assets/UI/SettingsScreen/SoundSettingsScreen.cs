@@ -42,6 +42,7 @@ public class SoundSettingsScreen : MonoBehaviour {
 
   private void Start() {
     SetLabels(PlayerState.Instance.Settings);
+    VolumeChanged();
   }
 
   private void OnDisable() {
@@ -71,6 +72,10 @@ public class SoundSettingsScreen : MonoBehaviour {
   }
 
   public void OnVolumeChanged(ChangeEvent<float> evt) {
+    VolumeChanged();
+  }
+
+  public void VolumeChanged() {
     Settings settings = PlayerState.Instance.Settings;
     settings.MasterVolume = masterVolumeSlider.value;
     settings.SfxVolume = sfxVolumeSlider.value;
