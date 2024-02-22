@@ -1,12 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto;">
-        <ui:Slider name="master-volume--slider" label="Master Volume" high-value="1" style="color: rgb(255, 255, 255); min-height: auto;">
+        <ui:Slider name="master-volume--slider" label="Master Volume" high-value="1" value="0.5" style="color: rgb(255, 255, 255); min-height: auto;">
             <ui:Label name="master-volume--label" text="Label" display-tooltip-when-elided="true" style="width: 50px; padding-left: 5px;" />
         </ui:Slider>
-        <ui:Slider name="music-volume--slider" label="Music Volume" high-value="1" style="color: rgb(255, 255, 255); min-height: auto;">
+        <ui:Slider name="music-volume--slider" label="Music Volume" high-value="1" value="0.5" style="color: rgb(255, 255, 255); min-height: auto;">
             <ui:Label name="music-volume--label" text="Label" display-tooltip-when-elided="true" style="width: 50px; padding-left: 5px;" />
         </ui:Slider>
-        <ui:Slider name="sfx-volume--slider" label="SFX Volume" high-value="1" style="color: rgb(255, 255, 255); min-height: auto;">
+        <ui:Slider name="sfx-volume--slider" label="SFX Volume" high-value="1" value="0.5" style="color: rgb(255, 255, 255); min-height: auto;">
             <ui:Label name="sfx-volume--label" text="Label" display-tooltip-when-elided="true" style="width: 50px; padding-left: 5px;" />
         </ui:Slider>
         <ui:Button text="Play SFX" display-tooltip-when-elided="true" name="play-sfx--button" enable-rich-text="false" />
