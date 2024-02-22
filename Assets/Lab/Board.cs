@@ -7,6 +7,7 @@ public class Board : MonoBehaviour {
   [SerializeField] private Quaternion boardRotation;
 
   private void OnMouseUp() {
+    if (GameStateManager.Instance.IsMouseOverUI) return;
     if (!LabState.Instance.isFocused) {
       LabCamera.Instance.MoveTo(boardLocation, boardRotation);
       LabInputManager.Instance.EnableSelectedActionMap();

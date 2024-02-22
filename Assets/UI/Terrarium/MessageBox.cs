@@ -5,12 +5,12 @@ using UnityEngine.UIElements;
 
 public class MessageBox : MonoBehaviour {
   public static MessageBox Instance;
-  readonly private string messageBoxPanelName = "message_box__panel";
-  readonly private string messageBoxLabelName = "message_box__label";
-  readonly private string advanceButtonName = "advance__button";
+  readonly private string messageBoxVEName = "i_message_box__ve";
+  readonly private string messageBoxLabelName = "i_message_box__label";
+  readonly private string advanceButtonName = "i_advance__button";
 
   UIDocument messageBox;
-  private VisualElement messageBoxPanel;
+  private VisualElement messageBoxVE;
   private Label messageBoxLabel;
   private Button advanceButton;
 
@@ -28,7 +28,7 @@ public class MessageBox : MonoBehaviour {
   private void SetVisualElements() {
     messageBox = GetComponent<UIDocument>();
     VisualElement rootElement = messageBox.rootVisualElement;
-    messageBoxPanel = rootElement.Q<VisualElement>(messageBoxPanelName);
+    messageBoxVE = rootElement.Q<VisualElement>(messageBoxVEName);
     messageBoxLabel = rootElement.Q<Label>(messageBoxLabelName);
     advanceButton = rootElement.Q<Button>(advanceButtonName);
   }
@@ -38,15 +38,15 @@ public class MessageBox : MonoBehaviour {
   }
 
   public bool IsOpen() {
-    return messageBoxPanel.style.display == DisplayStyle.Flex;
+    return messageBoxVE.style.display == DisplayStyle.Flex;
   }
 
   private void Show() {
-    messageBoxPanel.style.display = DisplayStyle.Flex;
+    messageBoxVE.style.display = DisplayStyle.Flex;
   }
 
   private void Hide() {
-    messageBoxPanel.style.display = DisplayStyle.None;
+    messageBoxVE.style.display = DisplayStyle.None;
   }
 
   private string GetAdvanceButtonText() {

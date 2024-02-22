@@ -42,6 +42,7 @@ public class Terrarium : MonoBehaviour {
   }
 
   private void OnMouseUp() {
+    if (GameStateManager.Instance.IsMouseOverUI) return;
     if (PlayerState.Instance.CurrentLevel >= level && !LabState.Instance.isFocused) {
       Selected = this;
       LabCamera.Instance.MoveTo(transform.position + Vector3.forward * cameraOffsetZ);

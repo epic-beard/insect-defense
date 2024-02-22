@@ -236,6 +236,7 @@ public class Spawner : MonoBehaviour {
     public List<string> messages = new();
 
     public override IEnumerator Start() {
+      GameStateManager.Instance.ClearSelection();
       MessageBox.Instance.ShowDialogue(messages);
       Finished = true;
       yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());
