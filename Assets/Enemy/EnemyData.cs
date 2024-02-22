@@ -9,6 +9,7 @@ public struct EnemyData {
     APHID,
     BEETLE,
     HERCULES_BEETLE,
+    LEAF_BUG,
     SLUG,
     SNAIL,
     STINK_BUG,

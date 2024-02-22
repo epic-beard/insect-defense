@@ -1,3 +1,4 @@
+using Assets;
 using UnityEngine;
 
 public class TowerSelectHandler : MonoBehaviour {
@@ -10,6 +11,6 @@ public class TowerSelectHandler : MonoBehaviour {
 
   private void OnMouseUp() {
     if (GameStateManager.Instance.IsMouseOverUI) return;
-    GameStateManager.Instance.SetNewSelectedTower(tower);
+    Utilities.SetSelectedTower(tower);
   }
 }

@@ -29,7 +29,12 @@ public class Spawner : MonoBehaviour {
   void Start() {
     if (filename.Length == 0) return;
     Waves? waves = Deserialize<Waves>(filename);
-    if (waves != null)  SpawnWaves(waves);
+    if (waves != null) {
+      SpawnWaves(waves);
+    } else {
+      // TODO: Make this an error.
+      Debug.Log("ERROR: Waves is null.");
+    }
   }
 
   public void SpawnWaves(Waves waves) {

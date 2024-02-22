@@ -1,3 +1,4 @@
+using Assets;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -112,7 +113,7 @@ public class TerrariumContextUI : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    Button button = evt.target as Button;
+    ButtonWithTooltipVE button = Utilities.GetAncestor<ButtonWithTooltipVE>(evt.target as VisualElement);
     if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
