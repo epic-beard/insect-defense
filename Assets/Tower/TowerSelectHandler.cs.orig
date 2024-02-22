@@ -10,7 +10,11 @@ public class TowerSelectHandler : MonoBehaviour {
   }
 
   private void OnMouseUp() {
+<<<<<<< HEAD
     if (GameStateManager.Instance.IsMouseOverUI) return;
+    GameStateManager.Instance.SetNewSelectedTower(tower);
+=======
     Utilities.SetSelectedTower(tower);
+>>>>>>> 044321c93e4723cf2e74d080f7931de0a995743f
   }
 }
