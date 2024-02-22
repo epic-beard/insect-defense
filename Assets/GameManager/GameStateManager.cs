@@ -26,6 +26,8 @@ public class GameStateManager : MonoBehaviour {
   // Each tower, keyed by its waypoint coordinates.
   public Dictionary<Vector2Int, Tower> activeTowerMap = new();
 
+  public bool IsMouseOverUI = false;
+
   private int nu;
   public int Nu { 
     get {
@@ -120,6 +122,7 @@ public class GameStateManager : MonoBehaviour {
       SelectedTower.Tile.SetUnselected();
     }
     SelectedTower = null;
+    TerrariumContextUI.Instance.SetNoContextPanel();
   }
 
   public int GetTowerCost(TowerData.Type type, float cost) {
@@ -137,5 +140,9 @@ public class GameStateManager : MonoBehaviour {
     }
     tower.Tile.SetSelected();
     SelectedTower = tower;
+  }
+
+  public bool CanClickGameScreen() {
+    return !IsMouseOverUI;
   }
 }

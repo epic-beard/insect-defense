@@ -59,7 +59,6 @@ public class TerrariumInputManager : MonoBehaviour {
 
   void Deselect(InputAction.CallbackContext context) {
     GameStateManager.Instance.ClearSelection();
-    TerrariumContextUI.Instance.SetNoContextPanel();
   }
 
   protected void OpenSettings(InputAction.CallbackContext context) {
