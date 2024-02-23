@@ -9,8 +9,6 @@ public class CameraManager : MonoBehaviour {
   [SerializeField]
   private float heightToBuffer = 1.0f;
   [SerializeField]
-  private float cameraOffset = 20;
-  [SerializeField]
   private float speed = 200;
   [SerializeField]
   private float rotationSpeed = 20.0f;

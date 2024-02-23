@@ -1,68 +1,26 @@
 #nullable enable
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Terrarium : MonoBehaviour {
+  public static event Action<Terrarium> TerrariumClicked = delegate { };
   public static Terrarium? Selected;
-  [SerializeField] private float cameraOffsetZ;
-  [SerializeField] private int level;
-
-  readonly private string levelLabelName = "level__label";
-  readonly private string startButtonName = "start__button";
-  readonly private string backButtonName = "back__button";
-
-  private UIDocument terrariumScreen;
-
-  private Label levelLabel;
-  private Button startButton;
-  private Button backButton;
+  public float cameraOffsetZ;
+  public int level;
 
   private void Start() {
     if (PlayerState.Instance.CurrentLevel < level) {
       var mat = GetComponent<Renderer>().material;
       mat.SetColor("_Color", Color.gray);
     }
-
-    SetVisualElements();
-
-    startButton.clicked += GoToLevel;
-    backButton.clicked += CloseScreen;
-    levelLabel.text = level.ToString();
-    terrariumScreen.rootVisualElement.style.display = DisplayStyle.None;
   }
 
-  private void SetVisualElements() {
-    terrariumScreen = GetComponentInChildren<UIDocument>();
-    VisualElement rootElement = terrariumScreen.rootVisualElement;
-
-    levelLabel = rootElement.Q<Label>(levelLabelName);
-    startButton = rootElement.Q<Button>(startButtonName);
-    backButton = rootElement.Q<Button>(backButtonName);
-  }
 
   private void OnMouseUp() {
-    if (GameStateManager.Instance.IsMouseOverUI) return;
-    if (PlayerState.Instance.CurrentLevel >= level && !LabState.Instance.isFocused) {
-      Selected = this;
-      LabCamera.Instance.MoveTo(transform.position + Vector3.forward * cameraOffsetZ);
-      terrariumScreen.rootVisualElement.style.display = DisplayStyle.Flex;
-      LabInputManager.Instance.EnableTerrariumActionMap();
-      LabState.Instance.isFocused = true;
-    }
-  }
-
-  public void CloseScreen() {
-    Selected = null;
-    LabCamera.Instance.ReturnCamera();
-    terrariumScreen.rootVisualElement.style.display = DisplayStyle.None;
-    LabState.Instance.isFocused = false;
-  }
-
-  private void GoToLevel() {
-    if (PlayerState.Instance.CurrentLevel >= level) {
-      string levelName = "Level" + (level + 1);
-      SceneManager.LoadScene(levelName);
-    }
+    if (!LabState.Instance.CanClickGameScreen()) return;
+    if (LabState.Instance.IsFocused) return;
+    lab.TerrariumUI.Instance.OpenScreen(this);
   }
 }

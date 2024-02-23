@@ -44,6 +44,10 @@ public class SettingsScreen : MonoBehaviour {
     terrariumSpecificPanel = rootElement.Q<VisualElement>(terrariumSpecificPanelName);
   }
 
+  public bool IsOpen() {
+    return settingsScreen.rootVisualElement.style.display == DisplayStyle.Flex;
+  }
+
   private void RegisterCallbacks() {
     loadOptionsButton.RegisterCallback<ClickEvent>(
       (evt) => { OpenLoadOptions(); });
