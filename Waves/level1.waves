@@ -12,7 +12,7 @@
           </messages>
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
-          <repetitions>6</repetitions>
+          <repetitions>7</repetitions>
           <repeatDelay>4</repeatDelay>
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
