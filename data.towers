@@ -195,7 +195,7 @@
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>1</attack_speed>
+        <attack_speed>0.5</attack_speed>
         <cost>100</cost>
         <damage>10</damage>
         <damage_over_time>0</damage_over_time>
@@ -431,7 +431,7 @@
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>1</attack_speed>
+        <attack_speed>0.5</attack_speed>
         <cost>50</cost>
         <damage>0</damage>
         <damage_over_time>0</damage_over_time>
@@ -869,7 +869,7 @@
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>2</attack_speed>
+        <attack_speed>1</attack_speed>
         <cost>150</cost>
         <damage>7</damage>
         <damage_over_time>0</damage_over_time>
