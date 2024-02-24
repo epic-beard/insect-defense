@@ -13,14 +13,12 @@
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>6</repetitions>
-          <repeatDelay>2</repeatDelay>
+          <repeatDelay>4</repeatDelay>
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
         </Wave>
-        <Wave xsi:type="SpacerWave">
-          <delay>2</delay>
-        </Wave>
+        <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
           <messages>
             <string>Now might be a good time to build a second tower.</string>
@@ -28,7 +26,7 @@
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>3</repetitions>
-          <repeatDelay>1</repeatDelay>
+          <repeatDelay>2</repeatDelay>
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>2</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
@@ -49,14 +47,14 @@
           <Subwaves>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>5</repetitions>
-              <repeatDelay>3</repeatDelay>
+              <repeatDelay>6</repeatDelay>
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>15</repetitions>
-              <repeatDelay>1</repeatDelay>
+              <repeatDelay>2</repeatDelay>
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
