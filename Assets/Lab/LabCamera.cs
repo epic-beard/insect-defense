@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -18,21 +19,31 @@ public class LabCamera : MonoBehaviour {
     cameraRotation = transform.rotation;
   }
 
+  public void MoveTo(Vector3 position, Quaternion rotation, Action onComplete) {
+    StartCoroutine(MoveCamera(position, rotation, onComplete));
+  }
+
+  public void MoveToFocus(Vector3 position, Quaternion rotation) {
+    LabState.Instance.IsFocused = true;
+    MoveTo(position, rotation,
+      () => {
+        FocusedUI.Instance.OpenScreen();
+        LabInputManager.Instance.EnableSelectedActionMap();
+      });
+  }
+
+  public void MoveToTerrarium(Terrarium terrarium, Action onComplete) {
+    LabState.Instance.IsFocused = true;
+    Vector3 pos = terrarium.transform.position + Vector3.forward * terrarium.cameraOffsetZ;
+    MoveTo(pos, terrarium.transform.rotation, onComplete);
+  }
+
   public void ReturnCamera() {
-    MoveTo(cameraLocation, cameraRotation);
-    LabState.Instance.isFocused = false;
+    MoveTo(cameraLocation, cameraRotation, ()=> LabState.Instance.IsFocused = false);
     LabInputManager.Instance.EnableLabActionMap();
   }
 
-  public void MoveTo(Vector3 position) {
-    MoveTo(position, transform.rotation);
-  }
-
-  public void MoveTo(Vector3 position, Quaternion rotation) {
-    StartCoroutine(MoveCamera(position, rotation));
-  }
-
-  private IEnumerator MoveCamera(Vector3 endPosition, Quaternion endRotation) {
+  private IEnumerator MoveCamera(Vector3 endPosition, Quaternion endRotation, Action onComplete) {
     Vector3 startingPosition = transform.position;
     Quaternion startingRotation = transform.rotation;
     float travelPercent = 0.0f;
@@ -44,5 +55,6 @@ public class LabCamera : MonoBehaviour {
         Quaternion.Slerp(startingRotation, endRotation, travelPercent));
       yield return null;
     }
+    onComplete();
   }
 }

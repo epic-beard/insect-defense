@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,7 @@ public class LabInputManager : MonoBehaviour {
     actions = new();
   }
 
-  private void OnEnable() {
+  private void Start() {
     actions.Lab.Enable();
     currMap = actions.Lab;
 
@@ -21,7 +22,7 @@ public class LabInputManager : MonoBehaviour {
 
     actions.Lab.Lab_Settings.started += OnOpenSettings;
 
-    actions.Selected.Selected_Back.started += OnReturnCamera;
+    actions.Selected.Selected_Back.started += OnCloseFocused;
     actions.Terrarium.Terrarium_Back.started += OnCloseTerrarium;
   }
 
@@ -34,12 +35,12 @@ public class LabInputManager : MonoBehaviour {
     SettingsScreen.Instance.CloseSettings();
   }
 
-  private void OnReturnCamera(InputAction.CallbackContext context) {
-    LabCamera.Instance.ReturnCamera();
+  private void OnCloseFocused(InputAction.CallbackContext context) {
+    FocusedUI.Instance.CloseScreen();
   }
 
   private void OnCloseTerrarium(InputAction.CallbackContext context) {
-    Terrarium.Selected?.CloseScreen();
+    lab.TerrariumUI.Instance.CloseScreen();
   }
 
   public void EnableSelectedActionMap() {
