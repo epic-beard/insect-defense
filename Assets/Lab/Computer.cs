@@ -7,11 +7,8 @@ public class Computer : MonoBehaviour {
   [SerializeField] private Quaternion computerRotation;
 
   private void OnMouseUp() {
-    if (GameStateManager.Instance.IsMouseOverUI) return;
-    if (!LabState.Instance.isFocused) {
-      LabCamera.Instance.MoveTo(computerLocation, computerRotation);
-      LabInputManager.Instance.EnableSelectedActionMap();
-      LabState.Instance.isFocused = true;
-    }
+    if (!LabState.Instance.CanClickGameScreen()) return;
+  
+    LabCamera.Instance.MoveToFocus(computerLocation, computerRotation);
   }
 }

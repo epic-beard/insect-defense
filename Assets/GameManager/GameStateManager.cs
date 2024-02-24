@@ -143,6 +143,6 @@ public class GameStateManager : MonoBehaviour {
   }
 
   public bool CanClickGameScreen() {
-    return !IsMouseOverUI;
+    return !IsMouseOverUI || !SettingsScreen.Instance.IsOpen();
   }
 }
