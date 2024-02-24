@@ -25,15 +25,11 @@ public class LabCamera : MonoBehaviour {
 
   public void MoveToFocus(Vector3 position, Quaternion rotation) {
     LabState.Instance.IsFocused = true;
-    MoveTo(position, rotation, () => FocusedUI.Instance.OpenScreen());
-    LabInputManager.Instance.EnableSelectedActionMap();
-  }
-
-  public void MoveToTerrarium(Terrarium terrarium) {
-    LabState.Instance.IsFocused = true;
-    Vector3 pos = terrarium.transform.position + Vector3.forward * terrarium.cameraOffsetZ; 
-    MoveTo(pos, terrarium.transform.rotation,
-      () => lab.TerrariumUI.Instance.OpenScreen(terrarium));
+    MoveTo(position, rotation,
+      () => {
+        FocusedUI.Instance.OpenScreen()
+        LabInputManager.Instance.EnableSelectedActionMap();
+      });
   }
 
   public void MoveToTerrarium(Terrarium terrarium, Action onComplete) {
