@@ -8,7 +8,6 @@ public class Computer : MonoBehaviour {
 
   private void OnMouseUp() {
     if (!LabState.Instance.CanClickGameScreen()) return;
-    if (LabState.Instance.IsFocused) return;
   
     LabCamera.Instance.MoveToFocus(computerLocation, computerRotation);
   }

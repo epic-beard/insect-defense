@@ -11,6 +11,6 @@ public class LabState : MonoBehaviour {
   }
 
   public bool CanClickGameScreen() {
-    return !SettingsScreen.Instance.IsOpen();
+    return !SettingsScreen.Instance.IsOpen() && !IsFocused;
   }
 }

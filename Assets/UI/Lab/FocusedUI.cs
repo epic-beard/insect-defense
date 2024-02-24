@@ -17,6 +17,7 @@ public class FocusedUI : MonoBehaviour {
     backButton.clicked += CloseScreen;
     focusedScreen.rootVisualElement.style.display = DisplayStyle.None;
   }
+
   private void SetVisualElements() {
     focusedScreen = GetComponent<UIDocument>();
     VisualElement rootElement = focusedScreen.rootVisualElement;

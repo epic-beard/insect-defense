@@ -17,10 +17,8 @@ public class Terrarium : MonoBehaviour {
     }
   }
 
-
   private void OnMouseUp() {
     if (!LabState.Instance.CanClickGameScreen()) return;
-    if (LabState.Instance.IsFocused) return;
     lab.TerrariumUI.Instance.OpenScreen(this);
   }
 }
