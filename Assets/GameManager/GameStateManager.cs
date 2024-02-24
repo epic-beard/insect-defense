@@ -8,7 +8,6 @@ using UnityEngine;
 public class GameStateManager : MonoBehaviour {
   [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
-  private Dictionary<TowerData.Type, int> towerCounts = new();
   private readonly float towerScalingFactor = 1.2f;
 
 #pragma warning disable 8618
@@ -24,7 +23,8 @@ public class GameStateManager : MonoBehaviour {
   // The specific tower the user clicked on in the map.
   public Tower? SelectedTower;
   // Each tower, keyed by its waypoint coordinates.
-  public Dictionary<Vector2Int, Tower> activeTowerMap = new();
+  public Dictionary<Vector2Int, Tower> ActiveTowerMap = new();
+  public Dictionary<TowerData.Type, Stack<int>> TowerPrices = new();
 
   public bool IsMouseOverUI = false;
 
@@ -40,7 +40,7 @@ public class GameStateManager : MonoBehaviour {
       // If we can no longer afford the selected tower, deselect it.
       if (SelectedTowerType != null) {
         Tower tower = SelectedTowerType.GetComponent<Tower>();
-        if (Nu < GetTowerCost(tower.TowerType, tower.Cost)) {
+        if (Nu < GetTowerCost(tower.Type, tower.Cost)) {
           SelectedTowerType = null;
         } 
       }
@@ -76,7 +76,7 @@ public class GameStateManager : MonoBehaviour {
   public bool BuildTower(Waypoint waypoint) {
     if (SelectedTowerType == null) { return false; }
 
-    TowerData.Type towerType = SelectedTowerType.GetComponent<Tower>().TowerType;
+    TowerData.Type towerType = SelectedTowerType.GetComponent<Tower>().Type;
     TowerData data = TowerDataManager.Instance.GetTowerData(towerType);
     
     return BuildTower(waypoint, SelectedTowerType, data);
@@ -93,27 +93,34 @@ public class GameStateManager : MonoBehaviour {
     tower.SetTowerData(data);
     tower.Tile = waypoint.GetComponent<Tile>();
 
-    AddTower(waypoint.GetCoordinates(), tower);
+    ActiveTowerMap.Add(waypoint.GetCoordinates(), tower);
+    if (!TowerPrices.ContainsKey(data.type)) {
+      TowerPrices.Add(data.type, new());
+    }
+    TowerPrices[data.type].Push(cost);
 
     Nu -= cost;
     return true;
   }
 
-  private void AddTower(Vector2Int coordinates, Tower tower) {
-    activeTowerMap.Add(coordinates, tower);
-    if (!towerCounts.ContainsKey(tower.TowerType)) {
-      towerCounts[tower.TowerType] = 0;
-    }
-    towerCounts[tower.TowerType]++;
-  }
-
   public List<Tower> GetTowersInRange(float range, Vector3 pos) {
-    return activeTowerMap.Values.Where(
+    return ActiveTowerMap.Values.Where(
       (tower) => Vector3.Distance(pos, tower.transform.position) <= range).ToList();
   }
 
   public Tower GetTower(Vector2Int coordinates) {
-    return activeTowerMap[coordinates];
+    return ActiveTowerMap[coordinates];
+  }
+
+  // Refund the tower's full cost (including upgrades) and remove the tower from the map.
+  public void RefundSelectedTower() {
+    if (SelectedTower == null) return;
+    int cost = SelectedTower.Value;
+    TowerPrices[SelectedTower.Type].Pop();
+    Nu += cost;
+    ActiveTowerMap.Remove(SelectedTower.Tile.GetCoordinates());
+    Destroy(SelectedTower.gameObject);
+    ClearSelection();
   }
 
   public void ClearSelection() {
@@ -126,11 +133,19 @@ public class GameStateManager : MonoBehaviour {
   }
 
   public int GetTowerCost(TowerData.Type type, float cost) {
-    if (!towerCounts.ContainsKey(type)) {
-      towerCounts[type] = 0;
+    if (!TowerPrices.ContainsKey(type) || TowerPrices[type].Count == 0) {
+      return Mathf.RoundToInt(cost);
     }
 
-    return Mathf.RoundToInt(cost * Mathf.Pow(towerScalingFactor, towerCounts[type]));
+    return Mathf.RoundToInt(GetPreviousTowerCost(type) * towerScalingFactor);
+  }
+
+  public int GetPreviousTowerCost(TowerData.Type type) {
+    if (!TowerPrices.ContainsKey(type) || TowerPrices[type].Count == 0) {
+      return Mathf.RoundToInt(TowerDataManager.Instance.GetTowerData(type).cost);
+    }
+
+    return TowerPrices[type].Peek();
   }
 
   // Set a new tower as the selected tower. Adjust the tile color to indicate selection as necessary.

@@ -28,6 +28,7 @@ public class TerrariumInputManager : MonoBehaviour {
     actions.Player.Player_Deselect.started += Deselect;
     actions.Player.Player_Zoom.started += ZoomCamera;
     actions.Player.Player_Camera_Home.started += ResetCamera;
+    actions.Player.Player_Delete_Tower.started += DeleteTower;
 
     actions.MessageBox.Advance.started += Advance;
     actions.MessageBox.Settings.started += OpenSettings;
@@ -59,6 +60,10 @@ public class TerrariumInputManager : MonoBehaviour {
 
   void Deselect(InputAction.CallbackContext context) {
     GameStateManager.Instance.ClearSelection();
+  }
+
+  void DeleteTower(InputAction.CallbackContext context) {
+    GameStateManager.Instance.RefundSelectedTower();
   }
 
   protected void OpenSettings(InputAction.CallbackContext context) {

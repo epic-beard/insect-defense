@@ -94,7 +94,11 @@ public class Tile : MonoBehaviour {
       if (!isTowerPresent) { return; }
     }
     
-    Utilities.SetSelectedTower(GameStateManager.Instance.GetTower(waypoint.GetCoordinates()));
+    Utilities.SetSelectedTower(GameStateManager.Instance.GetTower(GetCoordinates()));
+  }
+
+  public void ResetTile() {
+    isTowerPresent = false;
   }
 
   public void SetUnselected() {
@@ -103,5 +107,9 @@ public class Tile : MonoBehaviour {
 
   public void SetSelected() {
     mat.SetColor("_Color", Color.yellow);
+  }
+
+  public Vector2Int GetCoordinates() {
+    return waypoint.GetCoordinates();
   }
 }
