@@ -33,29 +33,29 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     towerSelectionListView.bindItem = (e, i) => {
       TowerButton towerButton = (TowerButton)e;
       Tower tower = prefabs[i].GetComponent<Tower>();
-      string towerTypeName = tower.TowerType.ToString();
+      string towerTypeName = tower.Type.ToString();
       int cost = GameStateManager.Instance.GetTowerCost(
-          tower.TowerType,
-          TowerDataManager.Instance.GetTowerData(tower.TowerType).cost);
+          tower.Type,
+          TowerDataManager.Instance.GetTowerData(tower.Type).cost);
       if (cost > GameStateManager.Instance.Nu) {
         towerButton.SetEnabled(false);
       }
       
       towerButton.Cost = cost;
       
-      TowerData towerData = TowerDataManager.Instance.GetTowerData(tower.TowerType);
+      TowerData towerData = TowerDataManager.Instance.GetTowerData(tower.Type);
       towerButton.Name = towerData.name;
       towerButton.TooltipText = towerData.tooltip.tooltipText;
       towerButton.ImagePath = towerData.icon_path;
 
       // Preserve information so the clickhandler knows what type of tower was selected.
-      towerButton.TowerType = tower.TowerType;
-      if (!towerTypeToPrefab.ContainsKey(tower.TowerType)) {
-        towerTypeToPrefab.Add(tower.TowerType, prefabs[i]);
+      towerButton.TowerType = tower.Type;
+      if (!towerTypeToPrefab.ContainsKey(tower.Type)) {
+        towerTypeToPrefab.Add(tower.Type, prefabs[i]);
       }
       towerButton.RegisterCallback<ClickEvent>(TowerClickEvent);
-      if (!towerButtons.ContainsKey(tower.TowerType)) {
-        towerButtons.Add(tower.TowerType, towerButton);
+      if (!towerButtons.ContainsKey(tower.Type)) {
+        towerButtons.Add(tower.Type, towerButton);
       }
     };
     towerSelectionListView.itemsSource = prefabs;

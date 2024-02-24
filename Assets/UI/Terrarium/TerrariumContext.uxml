@@ -33,6 +33,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:Button text="Sell" display-tooltip-when-elided="true" name="sell_tower__button" />
     </ui:VisualElement>
     <ui:VisualElement name="enemy_context__visualelement" style="color: rgb(231, 89, 0);">
         <ui:Label tabindex="-1" text="&lt;enemyname&gt;" display-tooltip-when-elided="true" name="enemy_name__label" style="-unity-text-align: upper-center;" />

@@ -6,7 +6,7 @@ using static TowerAbility;
 public class MantisTower : Tower {
   [SerializeField] public Transform bodyMesh;
 
-  public override TowerData.Type TowerType { get; set; } = TowerData.Type.MANTIS_TOWER;
+  public override TowerData.Type Type { get; set; } = TowerData.Type.MANTIS_TOWER;
   public override int EnemiesHit {
     get { return base.EnemiesHit; }
     set { base.EnemiesHit = value; }

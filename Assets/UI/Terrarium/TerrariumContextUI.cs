@@ -23,6 +23,7 @@ public class TerrariumContextUI : MonoBehaviour {
   readonly private string towerPriorityDropdownName = "tower_priority__dropdown";
   readonly private string towerUpgradeButtonNameTemplate = "tree_X_upgrade_Y__button";
   readonly private string towerUpgradeLabelNameTemplate = "tower_upgrade_tree_X__label";
+  readonly private string sellTowerButtonName = "sell_tower__button";
 
   private UIDocument terrariumScreen;
 
@@ -36,6 +37,7 @@ public class TerrariumContextUI : MonoBehaviour {
   private Label enemyNuLabel;
   private Label enemySizeLabel;
   private Label enemySpeedLabel;
+  private Button sellTowerButton;
 
   private VisualElement noContextVisualElement;
 
@@ -48,9 +50,15 @@ public class TerrariumContextUI : MonoBehaviour {
 
   private void Awake() {
     SetVisualElements();
+    RegisterCallbacks();
     ConstructDropdownChoices();
 
     Instance = this;
+  }
+
+  private void Start() {
+    RegisterCallbacks();
+    SetNoContextPanel();
   }
 
   private void SetVisualElements() {
@@ -67,6 +75,7 @@ public class TerrariumContextUI : MonoBehaviour {
     enemyNuLabel = rootElement.Q<Label>(enemyNuLabelName);
     enemySizeLabel = rootElement.Q<Label>(enemySizeLabelName);
     enemySpeedLabel = rootElement.Q<Label>(enemySpeedLabelName);
+    sellTowerButton = rootElement.Q<Button>(sellTowerButtonName);
 
     noContextVisualElement = rootElement.Q<VisualElement>(noContextVisualElementName);
 
@@ -74,6 +83,15 @@ public class TerrariumContextUI : MonoBehaviour {
     towerContextVisualElement = rootElement.Q<VisualElement>(towerContextVisualElementName);
     towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
     towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
+  }
+
+  private void RegisterCallbacks() {
+    towerBehaviorDropdown.RegisterCallback<ChangeEvent<string>>(BehaviorCallback);
+    towerPriorityDropdown.RegisterCallback<ChangeEvent<string>>(PriorityCallback);
+
+    sellTowerButton.RegisterCallback<ClickEvent>(OnSellTowerClick);
+
+    VisualElement rootElement = terrariumScreen.rootVisualElement;
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 5; j++) {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
@@ -125,6 +143,10 @@ public class TerrariumContextUI : MonoBehaviour {
     SetContextForTower(GameStateManager.Instance.SelectedTower);
   }
 
+  private void OnSellTowerClick(ClickEvent evt) {
+    GameStateManager.Instance.RefundSelectedTower();
+  }
+
   private TowerAbility GetUpgradeFromButtonName(string buttonName) {
     // tree_X_upgrade_Y__button
     // 0____5_________15
@@ -132,16 +154,6 @@ public class TerrariumContextUI : MonoBehaviour {
     int upgradeNum = (int)Char.GetNumericValue(buttonName[15]);
 
     return GameStateManager.Instance.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
-  }
-
-  private void Start() {
-    RegisterCallbacks();
-    SetNoContextPanel();
-  }
-
-  private void RegisterCallbacks() {
-    towerBehaviorDropdown.RegisterCallback<ChangeEvent<string>>(BehaviorCallback);
-    towerPriorityDropdown.RegisterCallback<ChangeEvent<string>>(PriorityCallback);
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {
