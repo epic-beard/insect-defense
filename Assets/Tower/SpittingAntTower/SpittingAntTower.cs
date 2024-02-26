@@ -20,7 +20,7 @@ public class SpittingAntTower : Tower {
   public float SplashExplosionRange {
     get { return data[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
   }
-  public override TowerData.Type TowerType { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
+  public override TowerData.Type Type { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
 
   private Enemy enemy;
   private ProjectileHandler projectileHandler;

@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!20 &8809457658828194765
 Camera:
@@ -63,12 +63,12 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0.75
+    height: 0.9
   near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 35
   m_Depth: -1
   m_CullingMask:
@@ -105,3 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d68b05ae4a6b941adf2ccced93bd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightToBuffer: 1
+  cameraOffset: 20
+  speed: 200
+  rotationSpeed: 5
+  zoomSpeed: 0.25
+  minHeight: 20
+  maxHeight: 100

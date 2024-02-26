@@ -163,11 +163,16 @@ public class TowerDataGenerator {
         thirdPathUpgrades = thirdPathUpgrades,
       },
 
+      tooltip = new() {
+        tooltipText = "A ranged tower with moderate damage, armor tear, and acid DoTs.",
+      },
+
       name = "Spitting Ant Tower",
+      icon_path = "Icons/test",
       area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,
-      attack_speed = 1,
+      attack_speed = 0.5f,
       cost = 100,
       damage = 10,
       damage_over_time = 0,
@@ -332,11 +337,16 @@ public class TowerDataGenerator {
         thirdPathUpgrades = thirdPathUpgrades,
       },
 
+      tooltip = new() {
+        tooltipText = "Support tower that slows enemy movement.",
+      },
+
       name = "Web Shooting Spider Tower",
+      icon_path = "Icons/test",
       area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,
-      attack_speed = 1,
+      attack_speed = 0.5f,
       cost = 50,
       damage = 0,
       damage_over_time = 0,
@@ -493,7 +503,12 @@ public class TowerDataGenerator {
         thirdPathUpgrades = thirdPathUpgrades,
       },
 
+      tooltip = new() {
+        tooltipText = "Long range tower with massive damage and armor pen, but slow attack speed.",
+      },
+
       name = "Assassin Bug",
+      icon_path = "Icons/test",
       area_of_effect = 0,
       armor_pierce = 0.2f,
       armor_tear = 0,
@@ -664,11 +679,16 @@ public class TowerDataGenerator {
         thirdPathUpgrades = thirdPathUpgrades,
       },
 
+      tooltip = new() {
+        tooltipText = "Melee tower with heavy damage, moderate armor pen, and bleed DoTs",
+      },
+
       name = "Mantis",
+      icon_path = "Icons/test",
       area_of_effect = 0,
       armor_pierce = 0.0f,
       armor_tear = 0,
-      attack_speed = 2.0f,
+      attack_speed = 1.0f,
       cost = 150,
       damage = 7,
       damage_over_time = 0,
@@ -828,6 +848,7 @@ public class TowerDataGenerator {
       },
 
       name = "",
+      icon_path = "",
       area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,

@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -86,17 +87,18 @@ public class Tile : MonoBehaviour {
 
   // Handle tower placement and selection. Will automatically select a tower that has just been built.
   private void OnMouseUp() {
+    if (GameStateManager.Instance.IsMouseOverUI) return;
     if (!isTowerPlaceable) { return; }
     if (!isTowerPresent) {
       isTowerPresent = GameStateManager.Instance.BuildTower(waypoint);
       if (!isTowerPresent) { return; }
     }
     
-    GameStateManager.SelectedTowerType = null;
-    GameStateManager.Instance.SetNewSelectedTower(
-        GameStateManager.Instance.GetTower(waypoint.GetCoordinates()));
-    TerrariumContextUI.Instance.SetTowerContextPanel();
-    TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
+    Utilities.SetSelectedTower(GameStateManager.Instance.GetTower(GetCoordinates()));
+  }
+
+  public void ResetTile() {
+    isTowerPresent = false;
   }
 
   public void SetUnselected() {
@@ -105,5 +107,9 @@ public class Tile : MonoBehaviour {
 
   public void SetSelected() {
     mat.SetColor("_Color", Color.yellow);
+  }
+
+  public Vector2Int GetCoordinates() {
+    return waypoint.GetCoordinates();
   }
 }

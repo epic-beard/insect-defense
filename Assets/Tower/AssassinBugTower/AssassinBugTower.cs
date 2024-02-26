@@ -11,7 +11,7 @@ public class AssassinBugTower : Tower {
   public bool Bungy { get; private set; } = false;
   public bool MultiHitBonus { get; private set; } = false;
   public bool CriticalMultiHit { get; private set; } = false;
-  public override TowerData.Type TowerType { get; set; } = TowerData.Type.ASSASSIN_BUG_TOWER;
+  public override TowerData.Type Type { get; set; } = TowerData.Type.ASSASSIN_BUG_TOWER;
 
   private Enemy enemy;
   private Enemy oldEnemy;

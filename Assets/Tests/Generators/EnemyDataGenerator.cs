@@ -16,6 +16,8 @@ public class EnemyDataGenerator {
     dictionary["Ant"] = GetAntEnemyData();
     dictionary["Aphid"] = GetAphidEnemyData();
     dictionary["Beetle"] = GetBeetleEnemyData();
+    dictionary["Tarantula"] = GetTarantulaEnemyData();
+    dictionary["Leaf Bug"] = GetLeafBugEnemyData();
     Serialize<EnemyDictionary>(dictionary, "data.enemies");
   }
 
@@ -25,10 +27,11 @@ public class EnemyDataGenerator {
       size = EnemyData.Size.SMALL,
       maxHP = 20.0f,
       maxArmor = 0.0f,
-      speed = 1.0f,
+      speed = 0.5f,
       damage = 5,
       nu = 20,
       properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.5f,
     };
 
     return data;
@@ -40,10 +43,11 @@ public class EnemyDataGenerator {
       size = EnemyData.Size.TINY,
       maxHP = 5.0f,
       maxArmor = 0.0f,
-      speed = 1.0f,
+      speed = 0.5f,
       damage = 1,
       nu = 4,
       properties = EnemyData.Properties.NONE,
+      spawnVariance = 3.0f,
     };
 
     return data;
@@ -55,10 +59,43 @@ public class EnemyDataGenerator {
       size = EnemyData.Size.SMALL,
       maxHP = 30.0f,
       maxArmor = 10.0f,
-      speed = 0.5f,
+      speed = 0.25f,
       damage = 10,
       nu = 40,
       properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.5f,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetTarantulaEnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.TARANTULA,
+      size = EnemyData.Size.LARGE,
+      maxHP = 60.0f,
+      maxArmor = 10.0f,
+      speed = 0.2f,
+      damage = 15,
+      nu = 75,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 1.0f,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetLeafBugEnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.LEAF_BUG,
+      size = EnemyData.Size.NORMAL,
+      maxHP = 20.0f,
+      maxArmor = 0.0f,
+      speed = 0.5f,
+      damage = 5,
+      nu = 25,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.5f,
     };
 
     return data;

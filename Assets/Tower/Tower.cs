@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
@@ -26,12 +27,10 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.ARMOR_TEAR]; }
     set { data[TowerData.Stat.ARMOR_TEAR] = value; }
   }
-
   public float Cost {
     get { return data[TowerData.Stat.COST]; }
     set { data[TowerData.Stat.COST] = value; }
   }
-
   public float Damage {
     get { return data[TowerData.Stat.DAMAGE]; }
     set { data[TowerData.Stat.DAMAGE] = value; }
@@ -79,6 +78,9 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
+  public TowerData.Tooltip tooltip {
+    get { return data.tooltip; }
+  }
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
     { TowerAbility.Type.ANTI_AIR, false },
@@ -98,6 +100,23 @@ public abstract class Tower : MonoBehaviour {
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
   public Tile Tile { get; set; }
+
+  // The total Nu the tower has cost the player.
+  public int Value {
+    get {
+      int value = GameStateManager.Instance.GetPreviousTowerCost(Type);
+
+      foreach (var level in UpgradeLevels) {
+        for (int i = 0; i < level; i++) {
+          value += GetUpgradePath(level)[i].cost;
+        }
+      }
+
+      return value;
+    }
+  }
+
+  public string IconPath { get { return data.icon_path; } set { data.icon_path = value; } }
   #endregion
 
   protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
@@ -140,9 +159,14 @@ public abstract class Tower : MonoBehaviour {
     TowerUpdate();
   }
 
+  private void OnDestroy() {
+    Tile.ResetTile();
+    GameStateManager.Instance.ActiveTowerMap.Remove(Tile.GetCoordinates());
+  }
+
   // Abstract methods
   protected abstract void TowerUpdate();
-  public abstract TowerData.Type TowerType { get; set; }
+  public abstract TowerData.Type Type { get; set; }
   public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
@@ -228,6 +252,7 @@ public abstract class Tower : MonoBehaviour {
         + "  Armor piercing: " + ArmorPierce + "\n"
         + "  Armor tear: " + ArmorTear + "\n"
         + "  Attack speed: " + AttackSpeed + "\n"
+        + "  Cost: " + Cost + "\n"
         + "  Damage: " + Damage + "\n"
         + "  Damage over time: " + DamageOverTime + "\n"
         + "  Projectile speed: " + ProjectileSpeed + "\n"

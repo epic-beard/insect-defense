@@ -4,4 +4,7 @@
         <ui:Label text="❤" display-tooltip-when-elided="true" name="heart__label" style="font-size: 50%; color: rgb(217, 0, 0);" />
         <ui:Label text="100" display-tooltip-when-elided="true" name="hp__label" style="font-size: 50%; color: rgb(217, 0, 0);" />
     </ui:VisualElement>
+    <ui:VisualElement name="wave_ve" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; align-items: stretch; align-self: center;">
+        <ui:Label tabindex="-1" text="Wave:" display-tooltip-when-elided="true" name="wave__label" style="flex-grow: 2; -unity-text-align: upper-right; font-size: 25px;" />
+    </ui:VisualElement>
 </ui:UXML>

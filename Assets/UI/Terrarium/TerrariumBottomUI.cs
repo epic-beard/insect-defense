@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TerrariumBottomUI : MonoBehaviour {
+  readonly private string nuLabelName = "nu_amount__label";
   readonly private string playPauseButtonName = "play_pause__button";
   readonly private string settingsButtonName = "settings__button";
-  readonly private string nuLabelName = "nu_amount__label";
+
+  readonly private string playString = "Play";
+  readonly private string pauseString = "Pause";
 
   private UIDocument terrariumScreen;
   private Button playPauseButton;
@@ -35,9 +38,9 @@ public class TerrariumBottomUI : MonoBehaviour {
 
   public void KeepPlayPauseButtonNameCorrect(bool paused) {
     if (paused) {
-      playPauseButton.text = "Play";
+      playPauseButton.text = playString;
     } else {
-      playPauseButton.text = "Pause";
+      playPauseButton.text = pauseString;
     }
   }
 

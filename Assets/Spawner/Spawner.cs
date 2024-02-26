@@ -10,12 +10,17 @@ using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 public class Spawner : MonoBehaviour {
-  public static event Action OnLevelComplete = delegate { };
+  public static event Action<int> WavesStarted = delegate { };
+  public static event Action<int, int> WaveComplete = delegate { };
+  public static event Action LevelComplete = delegate { };
 #pragma warning disable 8618
   static public Spawner Instance;
 #pragma warning restore 8618
   [SerializeField] private List<Waypoint> spawnLocations = new();
   [SerializeField] private string filename = "";
+
+  public int CurrWave { get; set; } = 1;
+  public int NumWaves { get; set; }
 
   private void Awake() {
     Instance = this;
@@ -23,13 +28,20 @@ public class Spawner : MonoBehaviour {
 
   void Start() {
     if (filename.Length == 0) return;
-    Wave? wave = Deserialize<Wave>(filename);
-    if (wave != null)  SpawnWave(wave);
+    Waves? waves = Deserialize<Waves>(filename);
+    if (waves != null) {
+      SpawnWaves(waves);
+    } else {
+      // TODO: Make this an error.
+      Debug.Log("ERROR: Waves is null.");
+    }
   }
 
-  public void SpawnWave(Wave wave) {
+  public void SpawnWaves(Waves waves) {
     ClearWave();
-    StartCoroutine(wave.Start());
+    NumWaves = waves.NumWaves;
+    WavesStarted.Invoke(NumWaves);
+    StartCoroutine(waves.Start());
   }
 
   public void ClearWave() {
@@ -79,6 +91,7 @@ public class Spawner : MonoBehaviour {
 
   // The top level of the subwave heirarchy, describing a level.
   public class Waves : Wave {
+    public int NumWaves { get { return waves.Count(); } }
     // Each wave represents one round of combat.
     readonly public List<Wave> waves = new();
     // Starts the level logic.
@@ -91,6 +104,9 @@ public class Spawner : MonoBehaviour {
         yield return wave.Start();
 
         yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
+        WaveComplete.Invoke(++Instance.CurrWave, Instance.NumWaves);
+        // Wait long enough for the "Wave Complete" text to appear and disappear.
+        yield return new WaitForSeconds(3);
       }
 
       // Sanity check, make sure all the waves have completed.
@@ -101,7 +117,7 @@ public class Spawner : MonoBehaviour {
 
       // Make sure the players health didn't drop to zero getting rid of the last enemy.
       if (GameStateManager.Instance.Health > 0) {
-        OnLevelComplete.Invoke();
+        LevelComplete.Invoke();
       }
       Finished = true;
     }
@@ -225,6 +241,7 @@ public class Spawner : MonoBehaviour {
     public List<string> messages = new();
 
     public override IEnumerator Start() {
+      GameStateManager.Instance.ClearSelection();
       MessageBox.Instance.ShowDialogue(messages);
       Finished = true;
       yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());

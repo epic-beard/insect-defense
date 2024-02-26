@@ -7,6 +7,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>SPITTING_ANT_TOWER</type>
+        <tooltip>
+          <tooltipText>A ranged tower with moderate damage, armor tear, and acid DoTs.</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Armor Tear</first>
           <second>Acid Power</second>
@@ -187,11 +190,12 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Spitting Ant Tower</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>1</attack_speed>
+        <attack_speed>0.5</attack_speed>
         <cost>100</cost>
         <damage>10</damage>
         <damage_over_time>0</damage_over_time>
@@ -212,6 +216,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>WEB_SHOOTING_SPIDER_TOWER</type>
+        <tooltip>
+          <tooltipText>Support tower that slows enemy movement.</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Improved Slow</first>
           <second>AoE Slow</second>
@@ -419,11 +426,12 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Web Shooting Spider Tower</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>1</attack_speed>
+        <attack_speed>0.5</attack_speed>
         <cost>50</cost>
         <damage>0</damage>
         <damage_over_time>0</damage_over_time>
@@ -444,6 +452,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>ASSASSIN_BUG_TOWER</type>
+        <tooltip>
+          <tooltipText>Long range tower with massive damage and armor pen, but slow attack speed.</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Armor Penetration</first>
           <second>Utility</second>
@@ -617,6 +628,7 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Assassin Bug</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0.2</armor_pierce>
@@ -642,6 +654,9 @@
     <Value>
       <TowerData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>MANTIS_TOWER</type>
+        <tooltip>
+          <tooltipText>Melee tower with heavy damage, moderate armor pen, and bleed DoTs</tooltipText>
+        </tooltip>
         <upgradeTreeData>
           <first>Damage</first>
           <second>Debilitation</second>
@@ -849,11 +864,12 @@
           </thirdPathUpgrades>
         </upgradeTreeData>
         <name>Mantis</name>
+        <icon_path>Icons/test</icon_path>
         <enemies_hit>4</enemies_hit>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>2</attack_speed>
+        <attack_speed>1</attack_speed>
         <cost>150</cost>
         <damage>7</damage>
         <damage_over_time>0</damage_over_time>

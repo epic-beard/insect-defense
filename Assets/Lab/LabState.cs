@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#nullable enable
+using System;
+using UnityEngine;
 
-public class LabState {
-  public static LabState Instance = new();
-  public bool isFocused = false;
+public class LabState : MonoBehaviour {
+  public static LabState Instance;
+
+  public bool IsFocused = false;
+  private void Awake() {
+    Instance = this;
+  }
+
+  public bool CanClickGameScreen() {
+    return !SettingsScreen.Instance.IsOpen() && !IsFocused;
+  }
 }

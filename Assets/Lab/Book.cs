@@ -7,9 +7,8 @@ public class Book : MonoBehaviour {
   [SerializeField] private Quaternion bookRotation;
 
   private void OnMouseUp() {
-    if (!LabState.Instance.isFocused) {
-      LabCamera.Instance.MoveTo(bookLocation, bookRotation);
-      LabInputManager.Instance.EnableSelectedActionMap();
-    }
+    if (!LabState.Instance.CanClickGameScreen()) return;
+
+    LabCamera.Instance.MoveToFocus(bookLocation, bookRotation);
   }
 }

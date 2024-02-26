@@ -2,7 +2,7 @@ using NUnit.Framework;
 using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
 
-public class WaveGenerator {
+public class Level1WaveGenerator {
   public string aphid = "Aphid";
   public string ant = "Ant";
   public string beetle = "Beetle";
@@ -25,15 +25,12 @@ public class WaveGenerator {
         },
         new CannedEnemyWave() {
           enemyDataKey = ant,
-          repetitions = 6,
-          repeatDelay = 2.0f,
+          repetitions = 7,
+          repeatDelay = 4.0f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
-        new SpacerWave() {
-          delay = 2.0f,
-
-        },
+        new WaitUntilDeadWave() {},
         new DialogueBoxWave() {
           messages = { "Now might be a good time to build a second tower." }
 
@@ -41,7 +38,7 @@ public class WaveGenerator {
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 3,
-          repeatDelay = 1.0f,
+          repeatDelay = 2.0f,
           spawnLocation = 0,
           spawnAmmount = 2,
         },
@@ -61,14 +58,14 @@ public class WaveGenerator {
             new CannedEnemyWave() {
               enemyDataKey = ant,
               repetitions = 5,
-              repeatDelay = 3.0f,
+              repeatDelay = 6.0f,
               spawnLocation = 0,
               spawnAmmount = 2,
             },
             new CannedEnemyWave() {
               enemyDataKey = aphid,
               repetitions = 15,
-              repeatDelay = 1.0f,
+              repeatDelay = 2.0f,
               spawnLocation = 0,
               spawnAmmount = 1,
             },
@@ -126,6 +123,6 @@ public class WaveGenerator {
       waves = { firstWave, secondWave, thirdWave },
     };
 
-    Serialize<Wave>(waves, filename);
+    Serialize<Waves>(waves, filename);
   }
 }

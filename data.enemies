@@ -10,7 +10,7 @@
         <size>SMALL</size>
         <maxHP>20</maxHP>
         <maxArmor>0</maxArmor>
-        <speed>1</speed>
+        <speed>0.5</speed>
         <damage>5</damage>
         <nu>20</nu>
         <properties>NONE</properties>
@@ -18,6 +18,7 @@
         <carrier xsi:nil="true" />
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>
@@ -31,7 +32,7 @@
         <size>TINY</size>
         <maxHP>5</maxHP>
         <maxArmor>0</maxArmor>
-        <speed>1</speed>
+        <speed>0.5</speed>
         <damage>1</damage>
         <nu>4</nu>
         <properties>NONE</properties>
@@ -39,6 +40,7 @@
         <carrier xsi:nil="true" />
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
+        <spawnVariance>3</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>
@@ -52,7 +54,7 @@
         <size>SMALL</size>
         <maxHP>30</maxHP>
         <maxArmor>10</maxArmor>
-        <speed>0.5</speed>
+        <speed>0.25</speed>
         <damage>10</damage>
         <nu>40</nu>
         <properties>NONE</properties>
@@ -60,6 +62,51 @@
         <carrier xsi:nil="true" />
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Tarantula</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>TARANTULA</type>
+        <size>LARGE</size>
+        <maxHP>60</maxHP>
+        <maxArmor>10</maxArmor>
+        <speed>0.2</speed>
+        <damage>15</damage>
+        <nu>75</nu>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>1</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Leaf Bug</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>LEAF_BUG</type>
+        <size>NORMAL</size>
+        <maxHP>20</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.5</speed>
+        <damage>5</damage>
+        <nu>25</nu>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>

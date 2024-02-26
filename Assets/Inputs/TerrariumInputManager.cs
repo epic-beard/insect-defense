@@ -27,6 +27,8 @@ public class TerrariumInputManager : MonoBehaviour {
     actions.Player.Player_Settings.started += OpenSettings;
     actions.Player.Player_Deselect.started += Deselect;
     actions.Player.Player_Zoom.started += ZoomCamera;
+    actions.Player.Player_Camera_Home.started += ResetCamera;
+    actions.Player.Player_Delete_Tower.started += DeleteTower;
 
     actions.MessageBox.Advance.started += Advance;
     actions.MessageBox.Settings.started += OpenSettings;
@@ -39,10 +41,17 @@ public class TerrariumInputManager : MonoBehaviour {
     if (move.sqrMagnitude >= 0.1) {
       CameraManager.Instance.MoveCamera(move);
     }
+
+    float rotation = actions.Player.Player_Rotate.ReadValue<float>();
+    CameraManager.Instance.RotateCamera(rotation);
   }
 
   void ZoomCamera(InputAction.CallbackContext context) {
     CameraManager.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
+  }
+
+  void ResetCamera(InputAction.CallbackContext context) {
+    CameraManager.Instance.ResetCamera();
   }
 
   void PauseGame(InputAction.CallbackContext context) {
@@ -51,7 +60,10 @@ public class TerrariumInputManager : MonoBehaviour {
 
   void Deselect(InputAction.CallbackContext context) {
     GameStateManager.Instance.ClearSelection();
-    TerrariumContextUI.Instance.SetNoContextPanel();
+  }
+
+  void DeleteTower(InputAction.CallbackContext context) {
+    GameStateManager.Instance.RefundSelectedTower();
   }
 
   protected void OpenSettings(InputAction.CallbackContext context) {
@@ -60,7 +72,7 @@ public class TerrariumInputManager : MonoBehaviour {
   public void OpenSettings() {
     PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumUI.Instance.HideUI();
-    SettingsScreen.Instance.OpenSettings();
+    SettingsScreen.Instance.OpenSettings(inGame: true);
     UpdateActions(actions.SettingsScreen);
   }
 

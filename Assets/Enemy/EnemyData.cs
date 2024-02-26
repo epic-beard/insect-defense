@@ -9,6 +9,7 @@ public struct EnemyData {
     APHID,
     BEETLE,
     HERCULES_BEETLE,
+    LEAF_BUG,
     SLUG,
     SNAIL,
     STINK_BUG,
@@ -99,6 +100,7 @@ public struct EnemyData {
   public DazzleProperties? dazzle;
   public SlimeProperties? slime;
 
+  public float spawnVariance;
   public override string ToString() {
     return "EnemyData:" + "\nType: " + type + "\nSize: " + size
       + "\nMax HP: " + maxHP + "\nMax Armor: " + maxArmor

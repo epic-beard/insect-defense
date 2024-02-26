@@ -7,8 +7,9 @@ public class EndScreen : MonoBehaviour {
   readonly private string endScreenLabelName = "end-screen__label";
   readonly private string restartButtonName = "restart__button";
   readonly private string labButtonName = "lab__button";
+
+  readonly private string fanfare = "fanfare";
   
-  readonly private string labScene = "Lab";
   UIDocument endScreen;
 
   Label endScreenLabel;
@@ -20,14 +21,14 @@ public class EndScreen : MonoBehaviour {
     RegisterCallbacks();
 
     GameStateManager.GameOver += OnGameOver;
-    Spawner.OnLevelComplete += OnLevelComplete;
+    Spawner.LevelComplete += OnLevelComplete;
 
     endScreen.rootVisualElement.style.display = DisplayStyle.None;
   }
 
   private void OnDisable() {
     GameStateManager.GameOver -= OnGameOver;
-    Spawner.OnLevelComplete -= OnLevelComplete;
+    Spawner.LevelComplete -= OnLevelComplete;
   }
 
   private void SetVisualElements() {
@@ -49,7 +50,7 @@ public class EndScreen : MonoBehaviour {
   }
 
   private void GoToLab(ClickEvent evt) {
-    SceneManager.LoadScene(labScene);
+    SceneManager.LoadScene(Constants.labSceneName);
   }
 
   private void OnGameOver() {
@@ -62,6 +63,7 @@ public class EndScreen : MonoBehaviour {
 
   // TODO(nnewsom): Conduct necessary checks, metadata tracking, and save the player state.
   private void OnLevelComplete() {
+    AudioManager.Instance.Play(fanfare);
     PauseManager.Instance.HandlePause(PauseToken.END);
     TerrariumUI.Instance.HideUI();
     endScreenLabel.text = "You Won!";

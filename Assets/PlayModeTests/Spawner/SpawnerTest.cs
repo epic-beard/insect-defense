@@ -91,7 +91,7 @@ public class EnemySubwaveTest {
 
     enemyData = new EnemyData() {
       maxHP = 10,
-      type = EnemyData.Type.BEETLE
+      type = EnemyData.Type.BEETLE,
     };
   }
 
