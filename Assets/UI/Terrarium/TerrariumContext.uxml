@@ -8,8 +8,8 @@
                 <ui:DropdownField label="Behavior" index="0" choices="All" name="tower_behavior__dropdown" focusable="false" style="flex-direction: column;" />
                 <ui:DropdownField label="Priority" index="0" choices="First" name="tower_priority__dropdown" focusable="false" style="flex-direction: column;" />
             </ui:VisualElement>
-            <ui:VisualElement name="tower_upgrade_container__visualelement" style="flex-wrap: nowrap; flex-grow: 1;">
-                <ui:VisualElement name="tower_upgrade_tree_1__visual_element" class="tower-upgrade-tree" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+            <ui:VisualElement name="tower_upgrade_container__visualelement" class="tower-upgrades-container">
+                <ui:VisualElement name="tower_upgrade_tree_1__visual_element" class="tower-upgrade-tree">
                     <ui:Label tabindex="-1" text="&lt;Tree 1&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_0__label" style="font-size: 12px; white-space: normal; text-overflow: clip; max-width: 50px;" />
                     <ButtonWithTooltipVE name="tree_0_upgrade_0__button" focusable="false" class="secondary-button upgrade-button" />
                     <ButtonWithTooltipVE name="tree_0_upgrade_1__button" focusable="false" class="secondary-button upgrade-button" />
@@ -17,7 +17,7 @@
                     <ButtonWithTooltipVE name="tree_0_upgrade_3__button" focusable="false" class="secondary-button upgrade-button" />
                     <ButtonWithTooltipVE name="tree_0_upgrade_4__button" focusable="false" class="secondary-button upgrade-button" />
                 </ui:VisualElement>
-                <ui:VisualElement name="tower_upgrade_tree_2__visual_element" class="tower-upgrade-tree" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:VisualElement name="tower_upgrade_tree_2__visual_element" class="tower-upgrade-tree">
                     <ui:Label tabindex="-1" text="&lt;Tree 2&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_1__label" style="white-space: normal; max-width: 50px; font-size: 12px;" />
                     <ButtonWithTooltipVE name="tree_1_upgrade_0__button" focusable="false" class="secondary-button upgrade-button" />
                     <ButtonWithTooltipVE name="tree_1_upgrade_1__button" focusable="false" class="secondary-button upgrade-button" />
@@ -25,7 +25,7 @@
                     <ButtonWithTooltipVE name="tree_1_upgrade_3__button" focusable="false" class="secondary-button upgrade-button" />
                     <ButtonWithTooltipVE name="tree_1_upgrade_4__button" focusable="false" class="secondary-button upgrade-button" />
                 </ui:VisualElement>
-                <ui:VisualElement name="tower_upgrade_tree_3__visual_element" class="tower-upgrade-tree" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:VisualElement name="tower_upgrade_tree_3__visual_element" class="tower-upgrade-tree">
                     <ui:Label tabindex="-1" text="&lt;Tree 3&gt;" display-tooltip-when-elided="true" name="tower_upgrade_tree_2__label" style="white-space: normal; max-width: 50px; font-size: 12px;" />
                     <ButtonWithTooltipVE name="tree_2_upgrade_0__button" focusable="false" class="secondary-button upgrade-button" />
                     <ButtonWithTooltipVE name="tree_2_upgrade_1__button" focusable="false" class="secondary-button upgrade-button" />
