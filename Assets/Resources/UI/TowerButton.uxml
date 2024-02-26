@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgb(255, 255, 255); flex-direction: row; max-height: 50px; height: 50px; min-height: 50px;">
         <ui:VisualElement name="image__ve" style="flex-grow: 1; background-color: rgb(255, 255, 255); background-image: resource(&apos;Icons/test&apos;); width: 50px; height: 50px; max-width: 50px; max-height: 50px; min-width: 50px; min-height: 50px;" />
         <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: flex-start; margin-left: 10px;">
