@@ -161,7 +161,6 @@ public abstract class Tower : MonoBehaviour {
 
   private void OnDestroy() {
     Tile.ResetTile();
-    GameStateManager.Instance.ActiveTowerMap.Remove(Tile.GetCoordinates());
   }
 
   // Abstract methods

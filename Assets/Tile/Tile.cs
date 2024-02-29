@@ -93,7 +93,9 @@ public class Tile : MonoBehaviour {
       isTowerPresent = GameStateManager.Instance.BuildTower(waypoint);
       if (!isTowerPresent) { return; }
     }
-    
+    // This happens while a tower is in the prcocess of being sold.
+    if (isTowerPresent && !GameStateManager.Instance.HasTower(GetCoordinates())) { return; }
+
     Utilities.SetSelectedTower(GameStateManager.Instance.GetTower(GetCoordinates()));
   }
 

@@ -36,14 +36,14 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
       string towerTypeName = tower.Type.ToString();
       int cost = GameStateManager.Instance.GetTowerCost(
           tower.Type,
-          TowerDataManager.Instance.GetTowerData(tower.Type).cost);
+          TowerManager.Instance.GetTowerData(tower.Type).cost);
       if (cost > GameStateManager.Instance.Nu) {
         towerButton.SetEnabled(false);
       }
       
       towerButton.Cost = cost;
       
-      TowerData towerData = TowerDataManager.Instance.GetTowerData(tower.Type);
+      TowerData towerData = TowerManager.Instance.GetTowerData(tower.Type);
       towerButton.Name = towerData.name;
       towerButton.TooltipText = towerData.tooltip.tooltipText;
       towerButton.ImagePath = towerData.icon_path;
@@ -73,7 +73,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
 
   public void UpdateAffordableTowers(int nu) {
     foreach (var entry in towerButtons) {
-      TowerData towerData = TowerDataManager.Instance.GetTowerData(entry.Key);
+      TowerData towerData = TowerManager.Instance.GetTowerData(entry.Key);
       int cost = GameStateManager.Instance.GetTowerCost(towerData.type, towerData.cost);
 
       TowerButton button = entry.Value;
