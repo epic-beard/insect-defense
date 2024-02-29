@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class GameStateManager : MonoBehaviour {
   [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
   private readonly float towerScalingFactor = 1.2f;
+  private readonly float buildDelay = 2.0f;
+  private readonly float sellDelay = 2.0f;
 
 #pragma warning disable 8618
   public static GameStateManager Instance;
@@ -77,30 +80,37 @@ public class GameStateManager : MonoBehaviour {
     if (SelectedTowerType == null) { return false; }
 
     TowerData.Type towerType = SelectedTowerType.GetComponent<Tower>().Type;
-    TowerData data = TowerDataManager.Instance.GetTowerData(towerType);
-    
-    return BuildTower(waypoint, SelectedTowerType, data);
-  }
-
-  public bool BuildTower(Waypoint waypoint, GameObject prefab, TowerData data) {
+    TowerData data = TowerManager.Instance.GetTowerData(towerType);
     int cost = GetTowerCost(data.type, data.cost);
     if (Nu < cost) { return false; }
+    Nu -= cost;
+    AddTowerPrice(data.type, cost);
+    StartCoroutine(BuildTower(waypoint, data));
+    return true;
+  }
+
+  private void AddTowerPrice(TowerData.Type type, int cost) {
+    if (!TowerPrices.ContainsKey(type)) {
+      TowerPrices.Add(type, new());
+    }
+    TowerPrices[type].Push(cost);
+  }
+
+  public IEnumerator BuildTower(Waypoint waypoint, TowerData data) {
+    string towerDataPath = TowerManager.Instance.GetTowerPrefabPath(data.type);
+    GameObject prefab = Resources.Load<GameObject>(towerDataPath);
     GameObject towerObj = Instantiate(
-      prefab,
-      waypoint.transform.position,
-      Quaternion.identity);
+        prefab,
+        waypoint.transform.position,
+        Quaternion.identity);
     Tower tower = towerObj.GetComponent<Tower>();
     tower.SetTowerData(data);
     tower.Tile = waypoint.GetComponent<Tile>();
+    tower.enabled = false;
 
     ActiveTowerMap.Add(waypoint.GetCoordinates(), tower);
-    if (!TowerPrices.ContainsKey(data.type)) {
-      TowerPrices.Add(data.type, new());
-    }
-    TowerPrices[data.type].Push(cost);
-
-    Nu -= cost;
-    return true;
+    yield return new WaitForSeconds(buildDelay);
+    tower.enabled = true;
   }
 
   public List<Tower> GetTowersInRange(float range, Vector3 pos) {
@@ -112,15 +122,25 @@ public class GameStateManager : MonoBehaviour {
     return ActiveTowerMap[coordinates];
   }
 
+  public bool HasTower(Vector2Int coordinates) {
+    return ActiveTowerMap.ContainsKey(coordinates);
+  }
+
   // Refund the tower's full cost (including upgrades) and remove the tower from the map.
   public void RefundSelectedTower() {
     if (SelectedTower == null) return;
-    int cost = SelectedTower.Value;
-    TowerPrices[SelectedTower.Type].Pop();
-    Nu += cost;
     ActiveTowerMap.Remove(SelectedTower.Tile.GetCoordinates());
-    Destroy(SelectedTower.gameObject);
+    StartCoroutine(DestroyTower(SelectedTower));
     ClearSelection();
+  }
+
+  private  IEnumerator DestroyTower(Tower tower) {
+    tower.enabled = false;
+    yield return new WaitForSeconds(sellDelay);
+    Destroy(tower.gameObject);
+    int cost = tower.Value;
+    TowerPrices[tower.Type].Pop();
+    Nu += cost;
   }
 
   public void ClearSelection() {
@@ -142,7 +162,7 @@ public class GameStateManager : MonoBehaviour {
 
   public int GetPreviousTowerCost(TowerData.Type type) {
     if (!TowerPrices.ContainsKey(type) || TowerPrices[type].Count == 0) {
-      return Mathf.RoundToInt(TowerDataManager.Instance.GetTowerData(type).cost);
+      return Mathf.RoundToInt(TowerManager.Instance.GetTowerData(type).cost);
     }
 
     return TowerPrices[type].Peek();

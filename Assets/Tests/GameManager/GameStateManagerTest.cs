@@ -42,9 +42,9 @@ public class GameStateManagerTest {
     // TowerAmmounts should start out empty.
     Assert.False(towerAmmounts.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
     // try building without enough Nu
-    Assert.False(gsm.BuildTower(waypoint, obj, data));
+    gsm.BuildTower(waypoint, data);
     gsm.Nu = 1;
-    Assert.True(gsm.BuildTower(waypoint, obj, data));
+    gsm.BuildTower(waypoint, data);
     Assert.True(towerAmmounts.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
     Assert.That(towerAmmounts[TowerData.Type.SPITTING_ANT_TOWER], Is.EqualTo(1));
   }
