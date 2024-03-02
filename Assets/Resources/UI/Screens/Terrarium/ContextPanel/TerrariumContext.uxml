@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
+    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/UI/Terrarium/TerrariumContext.uss?fileID=7433441132597879392&amp;guid=aa0ebe8a8c475124f9cf00b359f3778b&amp;type=3#TerrariumContext" />
     <ui:VisualElement name="tower_context__visualelement" style="flex-direction: column; color: rgb(231, 88, 0);">
         <ui:Label text="&lt;towername&gt;" display-tooltip-when-elided="true" name="tower_name__label" style="align-items: stretch; -unity-text-align: upper-center;" />

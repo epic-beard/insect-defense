@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public class ButtonWithTooltipVE : TooltipVE {
   readonly private string buttonWithTooltipName = "button_with_tooltip__button";
-  readonly private string templatePath = "UI/Components/ButtonWithTooltip/ButtonWithTooltipVE";
+  readonly private string templatePath = "UI/Components/ButtonWithTooltip/ButtonWithTooltip";
 
   public Button Button { get; private set; }
 

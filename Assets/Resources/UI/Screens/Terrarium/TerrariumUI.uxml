@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
+    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <ui:Template name="TerrariumGameView" src="project://database/Assets/UI/Terrarium/TerrariumGameView.uxml?fileID=9197481963319205126&amp;guid=7ea4d8407eae82d489cea20a36656ae0&amp;type=3#TerrariumGameView" />
     <ui:Template name="MessageBox" src="project://database/Assets/UI/Terrarium/MessageBox.uxml?fileID=9197481963319205126&amp;guid=2a5a2bb9ff7f4cb43a7e015010a7848d&amp;type=3#MessageBox" />
     <ui:Template name="TerrariumBottomPanel" src="project://database/Assets/UI/Terrarium/TerrariumBottomSettings.uxml?fileID=9197481963319205126&amp;guid=e4f00dad63298524aaf4b40c11f5f365&amp;type=3#TerrariumBottomSettings" />
