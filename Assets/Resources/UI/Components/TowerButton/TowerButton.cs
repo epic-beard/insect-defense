@@ -6,7 +6,7 @@ using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 public class TowerButton : TooltipVE {
-  readonly private string templatePath = "UI/TowerButton";
+  readonly private string templatePath = "UI/Components/TowerButton/TowerButton";
   readonly private string imageVeName = "image__ve";
   readonly private string nameLabelName = "name__label";
   readonly private string costLabelName = "cost__label";
