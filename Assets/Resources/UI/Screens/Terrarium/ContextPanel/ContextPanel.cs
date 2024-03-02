@@ -3,8 +3,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TerrariumContextUI : MonoBehaviour {
-  public static TerrariumContextUI Instance;
+public class ContextPanel : MonoBehaviour {
+  public static ContextPanel Instance;
 
   readonly private string enemyArmorCurrentArmorLabelName = "enemy_current_armor__label";
   readonly private string enemyArmorMaxArmorLabelName = "enemy_max_armor__label";
@@ -45,7 +45,7 @@ public class TerrariumContextUI : MonoBehaviour {
   private VisualElement towerContextVisualElement;
   private Label towerNameLabel;
   private DropdownField towerPriorityDropdown;
-  private ButtonWithTooltipVE[,] towerUpgradeButtons = new ButtonWithTooltipVE[3, 5];
+  private ButtonWithTooltip[,] towerUpgradeButtons = new ButtonWithTooltip[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
 
   private void Awake() {
@@ -95,7 +95,7 @@ public class TerrariumContextUI : MonoBehaviour {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 5; j++) {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
-        towerUpgradeButtons[i, j] = rootElement.Q<ButtonWithTooltipVE>(buttonName);
+        towerUpgradeButtons[i, j] = rootElement.Q<ButtonWithTooltip>(buttonName);
         towerUpgradeButtons[i, j].RegisterCallback<ClickEvent>(HandleTowerUpgradeCallback);
         towerUpgradeButtons[i, j].SetEnabled(false);
       }
@@ -131,7 +131,7 @@ public class TerrariumContextUI : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    ButtonWithTooltipVE button = Utilities.GetAncestor<ButtonWithTooltipVE>(evt.target as VisualElement);
+    ButtonWithTooltip button = Utilities.GetAncestor<ButtonWithTooltip>(evt.target as VisualElement);
     if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);

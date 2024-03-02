@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-public class ButtonWithTooltipVE : TooltipVE {
+public class ButtonWithTooltip : Tooltip {
   readonly private string buttonWithTooltipName = "button_with_tooltip__button";
   readonly private string templatePath = "UI/Components/ButtonWithTooltip/ButtonWithTooltip";
 
@@ -12,7 +12,7 @@ public class ButtonWithTooltipVE : TooltipVE {
     Button.text = text;
   }
 
-  public ButtonWithTooltipVE() {
+  public ButtonWithTooltip() {
     var tree = Resources.Load<VisualTreeAsset>(templatePath).CloneTree();
     Button = tree.Q<Button>(buttonWithTooltipName);
 
@@ -21,7 +21,7 @@ public class ButtonWithTooltipVE : TooltipVE {
 
   #region UXML
   [Preserve]
-  public new class UxmlFactory : UxmlFactory<ButtonWithTooltipVE, UxmlTraits> { }
+  public new class UxmlFactory : UxmlFactory<ButtonWithTooltip, UxmlTraits> { }
 
   [Preserve]
   public new class UxmlTraits : VisualElement.UxmlTraits { }

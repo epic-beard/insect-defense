@@ -19,6 +19,6 @@ public class Terrarium : MonoBehaviour {
 
   private void OnMouseUp() {
     if (!LabState.Instance.CanClickGameScreen()) return;
-    lab.TerrariumUI.Instance.OpenScreen(this);
+    lab.LevelSelectScreen.Instance.OpenScreen(this);
   }
 }

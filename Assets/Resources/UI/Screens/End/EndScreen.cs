@@ -55,7 +55,7 @@ public class EndScreen : MonoBehaviour {
 
   private void OnGameOver() {
     PauseManager.Instance.HandlePause(PauseToken.END);
-    TerrariumUI.Instance.HideUI();
+    TerrariumScreen.Instance.HideUI();
     endScreenLabel.text = "You Died";
     labButton.text = "Give Up";
     endScreen.rootVisualElement.style.display = DisplayStyle.Flex;
@@ -65,7 +65,7 @@ public class EndScreen : MonoBehaviour {
   private void OnLevelComplete() {
     AudioManager.Instance.Play(fanfare);
     PauseManager.Instance.HandlePause(PauseToken.END);
-    TerrariumUI.Instance.HideUI();
+    TerrariumScreen.Instance.HideUI();
     endScreenLabel.text = "You Won!";
     labButton.text = "Return";
     endScreen.rootVisualElement.style.display = DisplayStyle.Flex;

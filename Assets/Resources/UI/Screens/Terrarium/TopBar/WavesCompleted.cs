@@ -3,10 +3,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TerrariumGameView : MonoBehaviour {
+public class WavesCompleted : MonoBehaviour {
   readonly private string waveCompleteLabelName = "wave_complete__label";
 
-  private UIDocument terrariumGameView;
+  private UIDocument uiDocument;
   private Label waveCompleteLabel;
 
   private float fadeSpeed = 1.5f;
@@ -18,8 +18,8 @@ public class TerrariumGameView : MonoBehaviour {
   }
 
   private void SetVisualElements() {
-    terrariumGameView = GetComponent<UIDocument>();
-    VisualElement rootElement = terrariumGameView.rootVisualElement;
+    uiDocument = GetComponent<UIDocument>();
+    VisualElement rootElement = uiDocument.rootVisualElement;
     waveCompleteLabel = rootElement.Q<Label>(waveCompleteLabelName);
   }
   private void OnWaveComplete(int currWave, int numWaves) {

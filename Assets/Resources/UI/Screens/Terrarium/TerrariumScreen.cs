@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TerrariumUI : MonoBehaviour {
-  public static TerrariumUI Instance;
+public class TerrariumScreen : MonoBehaviour {
+  public static TerrariumScreen Instance;
 
   readonly private string tooltipVisualElementName = "tooltip__visualelement";
   readonly private string tooltipLabelName = "tooltip__label";
@@ -13,7 +13,7 @@ public class TerrariumUI : MonoBehaviour {
   public VisualElement TooltipVE { get; private set; }
   public Label TooltipLabel { get; private set; }
 
-  private UIDocument terrariumUI;
+  private UIDocument terrariumScreen;
   private VisualElement rightVE;
   private VisualElement bottomVE;
   private VisualElement messageBoxVE;
@@ -25,8 +25,8 @@ public class TerrariumUI : MonoBehaviour {
   }
 
   void SetVisualElements() {
-    terrariumUI = GetComponent<UIDocument>();
-    VisualElement rootElement = terrariumUI.rootVisualElement;
+    terrariumScreen = GetComponent<UIDocument>();
+    VisualElement rootElement = terrariumScreen.rootVisualElement;
 
     rightVE = rootElement.Q<VisualElement>(rightVEName);
     bottomVE = rootElement.Q<VisualElement>(bottomVEName);
@@ -55,10 +55,10 @@ public class TerrariumUI : MonoBehaviour {
   }
 
   public void HideUI() {
-    terrariumUI.rootVisualElement.style.display = DisplayStyle.None;
+    terrariumScreen.rootVisualElement.style.display = DisplayStyle.None;
   }
 
   public void ShowUI() {
-    terrariumUI.rootVisualElement.style.display = DisplayStyle.Flex;
+    terrariumScreen.rootVisualElement.style.display = DisplayStyle.Flex;
   }
 }

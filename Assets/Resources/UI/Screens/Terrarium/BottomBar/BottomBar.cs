@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TerrariumBottomUI : MonoBehaviour {
+public class BottomBar : MonoBehaviour {
   readonly private string nuLabelName = "nu_amount__label";
   readonly private string playPauseButtonName = "play_pause__button";
   readonly private string settingsButtonName = "settings__button";

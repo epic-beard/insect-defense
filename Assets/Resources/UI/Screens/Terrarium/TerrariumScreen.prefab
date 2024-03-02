@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2092597352656532214}
   - component: {fileID: 9143998456116230569}
   m_Layer: 5
-  m_Name: TerrariumUIScreen
+  m_Name: TerrariumScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

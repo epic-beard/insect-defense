@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TerrariumUpperUI : MonoBehaviour {
-  public static TerrariumUpperUI Instance;
+public class TopBar : MonoBehaviour {
+  public static TopBar Instance;
 
   readonly private string hpLabelName = "hp__label";
   readonly private string waveLabelName = "wave__label";

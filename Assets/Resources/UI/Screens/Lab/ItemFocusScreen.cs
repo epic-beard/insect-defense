@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FocusedUI : MonoBehaviour {
-  public static FocusedUI Instance;
+public class ItemFocusScreen : MonoBehaviour {
+  public static ItemFocusScreen Instance;
   readonly private string backButtonName = "back__button";
   
   private UIDocument focusedScreen;

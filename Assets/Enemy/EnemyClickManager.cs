@@ -13,11 +13,11 @@ public class EnemyClickManager : MonoBehaviour {
   private void OnMouseUp() {
     if (GameStateManager.Instance.IsMouseOverUI) return;
     if (SelectedEnemy != null) {
-      TerrariumContextUI.Instance.DesbuscribeToEnemyStateBroadcast(SelectedEnemy);
+      ContextPanel.Instance.DesbuscribeToEnemyStateBroadcast(SelectedEnemy);
     }
     SelectedEnemy = enemy;
-    TerrariumContextUI.Instance.SubscribeToEnemyStateBroadcast(enemy);
-    TerrariumContextUI.Instance.SetContextForEnemy(enemy);
-    TerrariumContextUI.Instance.SetEnemyContextPanel();
+    ContextPanel.Instance.SubscribeToEnemyStateBroadcast(enemy);
+    ContextPanel.Instance.SetContextForEnemy(enemy);
+    ContextPanel.Instance.SetEnemyContextPanel();
   }
 }

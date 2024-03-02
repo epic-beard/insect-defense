@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TerrariumTowerSelectionUI : MonoBehaviour {
+public class TowerSelector : MonoBehaviour {
   readonly private string towerSelectionListviewName = "tower_selection__listview";
 
   [SerializeField] List<GameObject> prefabs;
@@ -11,7 +11,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   private UIDocument terrariumScreen;
   private ListView towerSelectionListView;
   private Dictionary<TowerData.Type, GameObject> towerTypeToPrefab = new();
-  private Dictionary<TowerData.Type, TowerButton> towerButtons = new();
+  private Dictionary<TowerData.Type, SelectTowerButton> towerButtons = new();
 
   private void Awake() {
     terrariumScreen = GetComponent<UIDocument>();
@@ -29,9 +29,9 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
     towerSelectionListView.Clear();
     towerTypeToPrefab.Clear();
     towerButtons.Clear();
-    towerSelectionListView.makeItem = () => new TowerButton();
+    towerSelectionListView.makeItem = () => new SelectTowerButton();
     towerSelectionListView.bindItem = (e, i) => {
-      TowerButton towerButton = (TowerButton)e;
+      SelectTowerButton towerButton = (SelectTowerButton)e;
       Tower tower = prefabs[i].GetComponent<Tower>();
       string towerTypeName = tower.Type.ToString();
       int cost = GameStateManager.Instance.GetTowerCost(
@@ -64,11 +64,11 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
   private void TowerClickEvent(ClickEvent evt) {
     VisualElement ve = evt.target as VisualElement;
     if (ve == null) return;
-    TowerButton button = Utilities.GetAncestor<TowerButton>(ve);
+    SelectTowerButton button = Utilities.GetAncestor<SelectTowerButton>(ve);
 
     GameStateManager.SelectedTowerType = towerTypeToPrefab[button.TowerType];
-    TerrariumContextUI.Instance.SetTowerContextPanel();
-    TerrariumContextUI.Instance.SetContextTowerName(GameStateManager.SelectedTowerType.name);
+    ContextPanel.Instance.SetTowerContextPanel();
+    ContextPanel.Instance.SetContextTowerName(GameStateManager.SelectedTowerType.name);
   }
 
   public void UpdateAffordableTowers(int nu) {
@@ -76,7 +76,7 @@ public class TerrariumTowerSelectionUI : MonoBehaviour {
       TowerData towerData = TowerManager.Instance.GetTowerData(entry.Key);
       int cost = GameStateManager.Instance.GetTowerCost(towerData.type, towerData.cost);
 
-      TowerButton button = entry.Value;
+      SelectTowerButton button = entry.Value;
       button.Cost = cost;
       button.SetEnabled(cost <= GameStateManager.Instance.Nu);
     }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Save : VisualElement {
+public class SavedGameElement : VisualElement {
   public PlayerState PlayerState;
 
   public static string NameLabelName = "name__label";
   public static string LevelLabelName = "level__label";
 
-  public Save() {
+  public SavedGameElement() {
     VisualElement root = new();
     root.style.paddingTop = 3f;
     root.style.paddingRight = 3f;

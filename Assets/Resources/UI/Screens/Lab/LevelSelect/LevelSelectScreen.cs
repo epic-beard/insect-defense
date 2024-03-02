@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace lab {
-  public class TerrariumUI : MonoBehaviour {
-    public static TerrariumUI Instance;
+  public class LevelSelectScreen : MonoBehaviour {
+    public static LevelSelectScreen Instance;
     private int level;
     readonly private string levelLabelName = "level__label";
     readonly private string backButtonName = "back__button";

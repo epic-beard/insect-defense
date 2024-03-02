@@ -36,11 +36,11 @@ public class LabInputManager : MonoBehaviour {
   }
 
   private void OnCloseFocused(InputAction.CallbackContext context) {
-    FocusedUI.Instance.CloseScreen();
+    ItemFocusScreen.Instance.CloseScreen();
   }
 
   private void OnCloseTerrarium(InputAction.CallbackContext context) {
-    lab.TerrariumUI.Instance.CloseScreen();
+    lab.LevelSelectScreen.Instance.CloseScreen();
   }
 
   public void EnableSelectedActionMap() {

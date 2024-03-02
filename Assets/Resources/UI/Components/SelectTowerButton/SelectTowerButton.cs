@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-public class TowerButton : TooltipVE {
-  readonly private string templatePath = "UI/Components/TowerButton/TowerButton";
+public class SelectTowerButton : Tooltip {
+  readonly private string templatePath = "UI/Components/SelectTowerButton/SelectTowerButton";
   readonly private string imageVeName = "image__ve";
   readonly private string nameLabelName = "name__label";
   readonly private string costLabelName = "cost__label";
@@ -44,7 +44,7 @@ public class TowerButton : TooltipVE {
   
   public TowerData.Type TowerType { get; set; }
 
-  public TowerButton() {
+  public SelectTowerButton() {
     var tree = Resources.Load<VisualTreeAsset>(templatePath).CloneTree();
     imageVe = tree.Q<VisualElement>(imageVeName);
     nameLabel = tree.Q<Label>(nameLabelName);
@@ -55,14 +55,14 @@ public class TowerButton : TooltipVE {
 
   #region UXML
   [Preserve]
-  public new class UxmlFactory : UxmlFactory<TowerButton, UxmlTraits> { }
+  public new class UxmlFactory : UxmlFactory<SelectTowerButton, UxmlTraits> { }
 
   [Preserve]
   public new class UxmlTraits : VisualElement.UxmlTraits {
     UxmlStringAttributeDescription ImagePath = new() { name = "image" };
     public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc) {
       base.Init(ve, bag, cc);
-      var towerButton = ve as TowerButton;
+      var towerButton = ve as SelectTowerButton;
       towerButton.ImagePath = ImagePath.GetValueFromBag(bag, cc);
     }
   }
