@@ -15,8 +15,8 @@ namespace Assets {
     // Sets the full player context for a specific tower.
     public static void SetSelectedTower(Tower tower) {
       GameStateManager.Instance.SetNewSelectedTower(tower);
-      TerrariumContextUI.Instance.SetTowerContextPanel();
-      TerrariumContextUI.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
+      ContextPanel.Instance.SetTowerContextPanel();
+      ContextPanel.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
     }
   }
 

@@ -27,7 +27,7 @@ public class LabCamera : MonoBehaviour {
     LabState.Instance.IsFocused = true;
     MoveTo(position, rotation,
       () => {
-        FocusedUI.Instance.OpenScreen();
+        ItemFocusScreen.Instance.OpenScreen();
         LabInputManager.Instance.EnableSelectedActionMap();
       });
   }

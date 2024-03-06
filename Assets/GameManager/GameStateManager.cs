@@ -149,7 +149,7 @@ public class GameStateManager : MonoBehaviour {
       SelectedTower.Tile.SetUnselected();
     }
     SelectedTower = null;
-    TerrariumContextUI.Instance.SetNoContextPanel();
+    ContextPanel.Instance.SetNoContextPanel();
   }
 
   public int GetTowerCost(TowerData.Type type, float cost) {
