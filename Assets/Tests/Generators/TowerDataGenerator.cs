@@ -688,7 +688,7 @@ public class TowerDataGenerator {
       area_of_effect = 0,
       armor_pierce = 0.0f,
       armor_tear = 0,
-      attack_speed = 1.0f,
+      attack_speed = 0.5f,
       cost = 150,
       damage = 7,
       damage_over_time = 0,

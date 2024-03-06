@@ -85,6 +85,14 @@ public class MantisTower : Tower {
     }
   }
 
+  public void ProcessDamageAndEffects() {
+    Vector3 enemyPosition = enemy.transform.position;
+  }
+
+  private float GetSecondaryDamagePercentage(Vector2 centerOfDamage, Vector2 targetLocation) {
+    return 0.0f;
+  }
+
   protected override void TowerUpdate() {
     enemy = targeting.FindTarget(
       oldTarget: enemy,
@@ -103,7 +111,7 @@ public class MantisTower : Tower {
   }
 
   // Launch the animations that swing the mantis arms.
-  private void Swing() {
+  private void Stab() {
     Attacks[MantisAttackType.UPPER_RIGHT] = 1.0f;
     animator.Play("First Attack Layer.MantisAttack");
     if (SecondAttack) {
@@ -122,7 +130,7 @@ public class MantisTower : Tower {
   private IEnumerator Attack() {
     while (true) {
       while (firing && DazzleTime <= 0.0f) {
-        Swing();
+        Stab();
 
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
