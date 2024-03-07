@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
+    <ui:Template name="SoundSettingsMenu" src="project://database/Assets/UI/SettingsScreen/SoundSettingsScreen.uxml?fileID=9197481963319205126&amp;guid=42dca00b896394f47998f3b7fc90d502&amp;type=3#SoundSettingsScreen" />
+    <ui:Template name="LoadScreen" src="project://database/Assets/UI/SettingsScreen/LoadScreen.uxml?fileID=9197481963319205126&amp;guid=7f57d165fee5b574ca757f5555c5c463&amp;type=3#LoadScreen" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.47);" />
+        <ui:VisualElement name="VisualElement" style="flex-grow: 2; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement style="flex-grow: 2; background-color: rgba(0, 0, 0, 0.98); opacity: 1; display: flex;" />
+            <ui:VisualElement name="VisualElement" style="width: auto; height: auto; background-color: rgba(0, 0, 0, 0.59); align-items: center; flex-direction: column; flex-grow: 9; justify-content: flex-start;">
+                <ui:VisualElement name="button-array--panel" style="flex-grow: 0.05; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; flex-direction: row; justify-content: space-around; align-items: auto; align-self: auto;">
+                    <ui:Button text="Sound" display-tooltip-when-elided="true" name="sound-settings--button" style="background-color: rgb(80, 80, 80); color: rgb(255, 255, 255); align-self: stretch; flex-grow: 1; border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); -unity-font-style: bold; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; border-left-width: 5px; border-right-width: 2.5px; border-top-width: 0; border-bottom-width: 0;" />
+                    <ui:Button text="Load" display-tooltip-when-elided="true" name="load-options--button" style="background-color: rgb(80, 80, 80); color: rgb(255, 255, 255); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); align-self: stretch; flex-grow: 1; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; flex-direction: column; align-items: stretch; -unity-font-style: bold; border-left-width: 2.5px; border-right-width: 5px; border-top-width: 0; border-bottom-width: 0; border-right-color: rgb(0, 0, 0); border-left-color: rgb(0, 0, 0);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="sound-settings--panel" style="flex-grow: 1; background-color: rgb(0, 0, 0); align-items: stretch; justify-content: flex-start; flex-direction: column; height: auto; width: auto; padding-top: 15px; padding-left: 5px; padding-right: 5px; align-self: stretch; display: flex;">
+                    <ui:Instance name="sound-settings-menu--doc" template="SoundSettingsMenu" style="align-self: auto; flex-grow: 1;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="load-options--panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; align-self: stretch; display: flex; visibility: visible;">
+                    <ui:Instance template="LoadScreen" name="load-options--doc" style="align-self: stretch; justify-content: flex-start; flex-grow: 1;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="terrarium-specific--panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center; flex-direction: row;">
+                    <ui:Button text="Restart Level" display-tooltip-when-elided="true" name="restart-level--button" class="secondary-button" />
+                    <ui:Button text="Quit to Lab" display-tooltip-when-elided="true" name="quit-to-lab--button" class="primary-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.47);" />
+    </ui:VisualElement>
+</ui:UXML>
