@@ -2,12 +2,12 @@
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <ui:VisualElement name="bottom_panel__visualelement" style="flex-direction: row; justify-content: flex-start; color: rgb(255, 248, 13);">
         <ui:VisualElement name="nu__visualelement" style="flex-grow: 1; align-items: flex-start; flex-direction: row;">
-            <ui:Label text="ŋ" display-tooltip-when-elided="true" name="nu_symbol__label" style="font-size: 40%; flex-direction: column; align-items: stretch; justify-content: flex-start; -unity-font-style: italic; margin-right: 10px; color: rgb(255, 248, 13);" />
-            <ui:Label text="0" display-tooltip-when-elided="true" name="nu_amount__label" style="font-size: 50%; color: rgb(255, 248, 13);" />
+            <ui:Label text="ŋ" name="nu_symbol__label" style="font-size: 40%; flex-direction: column; align-items: stretch; justify-content: flex-start; -unity-font-style: italic; margin-right: 10px; color: rgb(255, 248, 13);" />
+            <ui:Label text="0" name="nu_amount__label" style="font-size: 50%; color: rgb(255, 248, 13);" />
         </ui:VisualElement>
         <ui:VisualElement name="setting_speed__visualelement" style="flex-grow: 1; align-items: flex-end; flex-direction: row; justify-content: flex-end;">
-            <ui:Button text="&lt;Default&gt;" display-tooltip-when-elided="true" name="play_pause__button" focusable="false" class="primary-button" />
-            <ui:Button text="Settings" display-tooltip-when-elided="true" name="settings__button" focusable="false" class="tertiary-button" />
+            <ui:Button text="&lt;Default&gt;" name="play_pause__button" focusable="false" class="primary-button" />
+            <ui:Button text="Settings" name="settings__button" focusable="false" class="tertiary-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
