@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,10 +33,23 @@ public class MantisTower : Tower {
   private Animator animator;
   private Enemy enemy;
   private bool firing = false;
+  private Dictionary<MantisAttackType, Transform> attackOriginMap = new();
+
+  private readonly string upperRightName = "UR Shoulder";
+  private readonly string upperLeftName = "UL Shoulder";
+  private readonly string lowerRightName = "LR Shoulder";
+  private readonly string lowerLeftName = "LL Shoulder";
 
   private void Start() {
     animator = GetComponent<Animator>();
     damageDegredation = 1 / EnemiesHit;
+
+    attackOriginMap = new() {
+      { MantisAttackType.UPPER_RIGHT, this.transform.Find(upperRightName).transform },
+      { MantisAttackType.UPPER_LEFT, this.transform.Find(upperLeftName).transform },
+      { MantisAttackType.LOWER_RIGHT, this.transform.Find(lowerRightName).transform },
+      { MantisAttackType.LOWER_LEFT, this.transform.Find(lowerLeftName).transform }
+    };
 
     StartCoroutine(Attack());
   }
@@ -85,8 +99,47 @@ public class MantisTower : Tower {
     }
   }
 
-  public void ProcessDamageAndEffects() {
-    Vector3 enemyPosition = enemy.transform.position;
+  // TODO(emonzon): To complete the Mantis Tower refactor:
+  //                - Remove scaling down damage, anything in AoE takes secondary damage.
+  //                - Rename and reorganize tower parts.
+  //                  - This includes makins sure the tower has origin points for the shoulders.
+  //                - Redo animations for the mantis tower.
+  //                - Add animation events to the animations, with the correct arguments.
+  //                - Update tests and add new tests if appropriate.
+  //                - Clean up class and remove unused code.
+
+  public void ProcessDamageAndEffects(MantisAttackType attackType) {
+    if (enemy.enabled) {
+      // Hurt the enemy. Maybe mock their fashion sense.
+    }
+
+    Vector3 A = attackOriginMap[attackType].position;
+    Vector3 B = enemy.transform.position;
+
+    A.y = 0;
+    B.y = 0;
+
+    List<Enemy> potentialVictims = targeting.GetAllValidEnemiesInRange(
+        enemies: ObjectPool.Instance.GetActiveEnemies(),
+        towerPosition: transform.position,
+        towerRange: Range,
+        camoSight: CamoSight,
+        antiAir: AntiAir);
+
+    foreach (Enemy pv in potentialVictims) {
+      Vector3 C = pv.transform.position;
+      C.y = 0;
+
+      Vector3 vHat = (B - A).normalized;
+      float x = Vector3.Dot(C - A, vHat);
+      if (x <= 0) continue;
+      Vector3 w = x * vHat;
+      float dist = (C - w - A).magnitude;
+
+      if (dist < this.AreaOfEffect) {
+        // Do secondary
+      }
+    }
   }
 
   private float GetSecondaryDamagePercentage(Vector2 centerOfDamage, Vector2 targetLocation) {
