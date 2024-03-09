@@ -26,6 +26,6 @@
     </ui:VisualElement>
 
     <ui:VisualElement name="tooltip-container" class="tooltip-container" picking-mode="Ignore">
-        <ui:Label name="tooltip-label" class="tooltip-label" tabindex="-1" text="[Default tooltip text]" picking-mode="Ignore" />
+        <ui:Label name="tooltip-label" class="tooltip-label" display-tooltip-when-elided="true" tabindex="-1" text="[Default tooltip text]" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>
