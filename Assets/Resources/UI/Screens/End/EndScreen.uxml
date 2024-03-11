@@ -1,10 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
-    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.59);">
-        <ui:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0); align-items: center; justify-content: center; flex-direction: column; height: auto; width: 300px;">
-            <ui:Label name="end-screen__label" text="You Died" style="font-size: 20px; -unity-font-style: bold; margin-bottom: 20px; color: rgb(255, 255, 255);" />
-            <ui:Button name="restart__button" text="Restart" class="secondary-button" />
-            <ui:Button name="lab__button" text="Give Up" class="primary-button" />
+    <Style src="project://database/Assets/Resources/UI/Screens/End/EndScreen.uss?fileID=7433441132597879392&amp;guid=5914b919a5050424cb5953f7dd59a26a&amp;type=3#EndScreen" />
+    
+    <ui:VisualElement class="end-screen-container">
+        <ui:VisualElement class="end-screen-sub-container">
+            <ui:Label name="end-screen-label" class="end-screen-label" text="You Died" />
+            <ui:Button name="restart-button" class="secondary-button" text="Restart" />
+            <ui:Button name="lab-button" class="primary-button" text="Give Up" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
