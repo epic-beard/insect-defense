@@ -1,15 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
-    <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); align-self: center; justify-content: flex-start; align-items: stretch; top: 40%;">
-        <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
-            <ui:Label tabindex="-1" text="Label" name="level__label" style="-unity-text-align: upper-center; font-size: 18px; -unity-font-style: bold;" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Lab/LevelSelect/LevelSelectScreen.uss?fileID=7433441132597879392&amp;guid=0caeb777ab00976408d49bbc1c67a136&amp;type=3#LevelSelectScreen" />
+    
+    <ui:VisualElement class="level-select-screen-container">
+        <ui:VisualElement class="level-label-container">
+            <ui:Label name="level-label" class="level-label" tabindex="-1" text="Label" />
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-            <ui:VisualElement name="back_ve" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
-                <ui:Button text="Back" name="back__button" style="background-color: rgba(255, 255, 255, 0); -unity-font-style: bold; font-size: 18px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px;" />
+        
+        <ui:VisualElement class="level-buttons-container">
+            <ui:VisualElement class="back-button-container">
+                <ui:Button name="level-select-back-button" class="level-select-back-button" text="Back" />
             </ui:VisualElement>
-            <ui:VisualElement name="start__ve" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-                <ui:Button text="Start" name="start__button" style="background-color: rgba(56, 56, 56, 0); -unity-font-style: bold; font-size: 18px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; color: rgb(255, 255, 255);" />
+            
+            <ui:VisualElement class="start-button-container">
+                <ui:Button name="start-button" class="start-button" text="Start" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
