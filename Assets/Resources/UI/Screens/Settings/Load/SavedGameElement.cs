@@ -6,8 +6,8 @@ using UnityEngine.UIElements;
 public class SavedGameElement : VisualElement {
   public PlayerState PlayerState;
 
-  public static string nameLabelName = "save-game-name-label";
-  public static string levelLabelName = "save-game-level-label";
+  readonly private string nameLabelName = "save-game-name-label";
+  readonly private string levelLabelName = "save-game-level-label";
 
   public SavedGameElement() {
     VisualElement root = new();
