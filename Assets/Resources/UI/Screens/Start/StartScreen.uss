@@ -1,0 +1,32 @@
+.start-screen-logo {
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    min-height: 150px;
+    min-width: 150px;
+    max-width: none;
+    max-height: none;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource('UI/images/Prototype splash screen');
+}
+
+.start-screen-logo {
+    padding-bottom: 20px;
+    padding-left: 4px;
+    font-size: 30px;
+    -unity-font-definition: url('/Assets/Font/MetalOnMetal-OBo SDF.asset');
+    -unity-text-align: middle-center;
+    -unity-font-style: normal;
+    text-overflow: clip;
+    color: rgb(231, 89, 0);
+}
+
+.start-screen-buttons-container {
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-self: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
