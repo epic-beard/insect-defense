@@ -85,7 +85,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MantisAttack
+  m_Name: UR Attack
   m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
@@ -99,7 +99,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6d73cfb3b15c7b14194bc23c2eaf7949, type: 2}
+  m_Motion: {fileID: 7400000, guid: c0dc5176136bcae458758bd653db46c1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -112,7 +112,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: First Attack Layer
+  m_Name: Basic Attack Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -7114809269888969953}
@@ -211,7 +211,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ThirdMantisAttack
+  m_Name: LR Attack
   m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
@@ -225,7 +225,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3c2061b5ac1a2d041a5589329ef2f17a, type: 2}
+  m_Motion: {fileID: 7400000, guid: edae7c13eaa1bd0409fee8bc5978ff95, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -266,7 +266,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
-    m_Name: First Attack Layer
+    m_Name: Basic Attack Layer
     m_StateMachine: {fileID: -6860772044579596153}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -394,7 +394,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SecondMantisAttack
+  m_Name: UL Attack
   m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
@@ -408,7 +408,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5fe4831c97b9c184fab9b6042cb24ff4, type: 2}
+  m_Motion: {fileID: 7400000, guid: 6874f322c952f1f4d882ebed53624aed, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -491,7 +491,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FourthMantisAttack
+  m_Name: LL Attack
   m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
@@ -505,7 +505,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b2cf8dd554ff5624a9b31f3ac9a42942, type: 2}
+  m_Motion: {fileID: 7400000, guid: f05e8bcb42c71d0429fd336440eb4fc5, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -685,7 +685,7 @@ public class TowerDataGenerator {
 
       name = "Mantis",
       icon_path = "Icons/test",
-      area_of_effect = 0,
+      area_of_effect = 3.0f,
       armor_pierce = 0.0f,
       armor_tear = 0,
       attack_speed = 0.5f,

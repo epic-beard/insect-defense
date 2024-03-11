@@ -53,6 +53,7 @@
             </Wave>
           </Subwaves>
         </Wave>
+        <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
             <Wave xsi:type="CannedEnemyWave">

@@ -866,7 +866,7 @@
         <name>Mantis</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>4</enemies_hit>
-        <area_of_effect>0</area_of_effect>
+        <area_of_effect>3</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>

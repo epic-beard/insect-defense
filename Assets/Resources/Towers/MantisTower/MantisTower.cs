@@ -1,4 +1,3 @@
-using Codice.Client.BaseCommands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +17,9 @@ public class MantisTower : Tower {
   public float CrippleCooldownSpeed { get { return AttackSpeed; } }
   public bool CanCrippleEnemy { get; private set; } = false;
   public bool SecondAttack { get; private set; } = false;
+  public float SecondaryDamage {
+    get { return Damage * secondaryDamageModifier; }
+  }
   public bool VorpalClaw { get; private set; } = false;
 
   public float damageDegredation;
@@ -34,6 +36,7 @@ public class MantisTower : Tower {
   private Enemy enemy;
   private bool firing = false;
   private Dictionary<MantisAttackType, Transform> attackOriginMap = new();
+  private float secondaryDamageModifier = 0.5f;
 
   private readonly string upperRightName = "UR Shoulder";
   private readonly string upperLeftName = "UL Shoulder";
@@ -80,6 +83,8 @@ public class MantisTower : Tower {
     }
   }
 
+
+  // TODO(emonzon): Delete this method once tests have been updated.
   public void ProcessDamageAndEffects(Enemy target, MantisAttackType attackType) {
     // Handle the "Jagged Claws" upgrade.
     if (CrippleAtFullDamage && target.Armor <= ArmorPierce && !target.Crippled) {
@@ -100,17 +105,15 @@ public class MantisTower : Tower {
   }
 
   // TODO(emonzon): To complete the Mantis Tower refactor:
-  //                - Remove scaling down damage, anything in AoE takes secondary damage.
   //                - Rename and reorganize tower parts.
   //                  - This includes makins sure the tower has origin points for the shoulders.
   //                - Redo animations for the mantis tower.
   //                - Add animation events to the animations, with the correct arguments.
   //                - Update tests and add new tests if appropriate.
   //                - Clean up class and remove unused code.
-
   public void ProcessDamageAndEffects(MantisAttackType attackType) {
     if (enemy.enabled) {
-      // Hurt the enemy. Maybe mock their fashion sense.
+      enemy.DamageEnemy(Damage, ArmorPierce, false);
     }
 
     Vector3 A = attackOriginMap[attackType].position;
@@ -137,13 +140,9 @@ public class MantisTower : Tower {
       float dist = (C - w - A).magnitude;
 
       if (dist < this.AreaOfEffect) {
-        // Do secondary
+        pv.DamageEnemy(SecondaryDamage, ArmorPierce, false);
       }
     }
-  }
-
-  private float GetSecondaryDamagePercentage(Vector2 centerOfDamage, Vector2 targetLocation) {
-    return 0.0f;
   }
 
   protected override void TowerUpdate() {
@@ -166,17 +165,17 @@ public class MantisTower : Tower {
   // Launch the animations that swing the mantis arms.
   private void Stab() {
     Attacks[MantisAttackType.UPPER_RIGHT] = 1.0f;
-    animator.Play("First Attack Layer.MantisAttack");
+    animator.Play("Basic Attack Layer.UR Attack");
     if (SecondAttack) {
       Attacks[MantisAttackType.UPPER_LEFT] = 1.0f;
-      animator.Play("Second Attack Layer.SecondMantisAttack");
+      animator.Play("Second Attack Layer.UL Attack");
     }
     if (ApexAttack) {
       Attacks[MantisAttackType.LOWER_RIGHT] = 1.0f;
-      animator.Play("Third Attack Layer.ThirdMantisAttack");
+      animator.Play("Third Attack Layer.LR Attack");
 
       Attacks[MantisAttackType.LOWER_LEFT] = 1.0f;
-      animator.Play("Fourth Attack Layer.FourthMantisAttack");
+      animator.Play("Fourth Attack Layer.LL Attack");
     }
   }
 
