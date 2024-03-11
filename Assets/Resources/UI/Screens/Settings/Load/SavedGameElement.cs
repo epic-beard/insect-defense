@@ -6,8 +6,8 @@ using UnityEngine.UIElements;
 public class SavedGameElement : VisualElement {
   public PlayerState PlayerState;
 
-  public static string NameLabelName = "name__label";
-  public static string LevelLabelName = "level__label";
+  public static string nameLabelName = "save-game-name-label";
+  public static string levelLabelName = "save-game-level-label";
 
   public SavedGameElement() {
     VisualElement root = new();
@@ -22,7 +22,7 @@ public class SavedGameElement : VisualElement {
     VisualElement nameContainer = new();
     nameContainer.style.flexGrow = 3f;
     nameContainer.style.alignItems = Align.FlexStart;
-    Label nameLabel = new() { name = NameLabelName };
+    Label nameLabel = new() { name = nameLabelName };
     nameLabel.style.color = Color.white;
     nameContainer.Add(nameLabel);
     root.Add(nameContainer);
@@ -33,7 +33,7 @@ public class SavedGameElement : VisualElement {
     levelContainer.style.paddingLeft = 5f;
     levelContainer.style.flexGrow = 1f;
     levelContainer.style.alignItems = Align.FlexStart;
-    Label levelLabel = new() { name = LevelLabelName };
+    Label levelLabel = new() { name = levelLabelName };
     levelLabel.style.color = Color.white;
     levelContainer.Add(levelLabel);
     root.Add(levelContainer);

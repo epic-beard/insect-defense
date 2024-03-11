@@ -1,15 +1,20 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto;">
-        <ui:Slider name="master-volume--slider" label="Master Volume" high-value="1" value="0.5" style="color: rgb(255, 255, 255); min-height: auto;">
-            <ui:Label name="master-volume--label" text="Label" style="width: 50px; padding-left: 5px;" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Settings/Sound/SoundSettingsScreen.uss?fileID=7433441132597879392&amp;guid=58579ad79f8853741b568972fbbe97be&amp;type=3#SoundSettingsScreen" />
+    
+    <ui:VisualElement class="sound-settings-screen-container">
+        <ui:Slider name="master-volume-slider" class="volume-slider" label="Master Volume" high-value="1" value="0.5">
+            <ui:Label name="master-volume-label" class="volume-label" text="Label" />
         </ui:Slider>
-        <ui:Slider name="music-volume--slider" label="Music Volume" high-value="1" value="0.5" style="color: rgb(255, 255, 255); min-height: auto;">
-            <ui:Label name="music-volume--label" text="Label" style="width: 50px; padding-left: 5px;" />
+        
+        <ui:Slider name="music-volume-slider" class="volume-slider" label="Music Volume" high-value="1" value="0.5">
+            <ui:Label name="music-volume-label" class="volume-label" text="Label" />
         </ui:Slider>
-        <ui:Slider name="sfx-volume--slider" label="SFX Volume" high-value="1" value="0.5" style="color: rgb(255, 255, 255); min-height: auto;">
-            <ui:Label name="sfx-volume--label" text="Label" style="width: 50px; padding-left: 5px;" />
+        
+        <ui:Slider name="sfx-volume-slider" class="volume-slider" label="SFX Volume" high-value="1" value="0.5">
+            <ui:Label name="sfx-volume-label" class="volume-label" text="Label" />
         </ui:Slider>
-        <ui:Button text="Play SFX" name="play-sfx--button" enable-rich-text="false" />
+        
+        <ui:Button  name="play-sfx-button" class="play-sfx-button tertiary-button" text="Play SFX" enable-rich-text="false" />
     </ui:VisualElement>
 </ui:UXML>
