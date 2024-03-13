@@ -1,0 +1,14 @@
+.wave-completed-container {
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-self: center;
+    top: auto;
+}
+
+.wave-completed {
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0);
+    font-size: 30px;
+    -unity-font-style: bold;
+    color: rgba(0, 0, 0, 0);
+}

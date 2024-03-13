@@ -4,12 +4,12 @@ using UnityEngine.UIElements;
 public class TopBar : MonoBehaviour {
   public static TopBar Instance;
 
-  readonly private string hpLabelName = "hp__label";
-  readonly private string waveLabelName = "wave__label";
+  readonly private string hpLabelName = "hp-label";
+  readonly private string waveLabelName = "wave-label";
 
-  private UIDocument terrariumScreen;
-  private Label hpLabel;
-  private Label waveLabel;
+  private UIDocument uiDocument;
+  private Label hpLabelVE;
+  private Label waveLabelVE;
 
   private void Awake() {
     Instance = this;
@@ -21,14 +21,14 @@ public class TopBar : MonoBehaviour {
   }
 
   private void SetVisualElements() {
-    terrariumScreen = GetComponent<UIDocument>();
-    VisualElement rootElement = terrariumScreen.rootVisualElement;
-    hpLabel = rootElement.Q<Label>(hpLabelName);
-    waveLabel = rootElement.Q<Label>(waveLabelName);
+    uiDocument = GetComponent<UIDocument>();
+    VisualElement rootElement = uiDocument.rootVisualElement;
+    hpLabelVE = rootElement.Q<Label>(hpLabelName);
+    waveLabelVE = rootElement.Q<Label>(waveLabelName);
   }
 
   private void OnHealthChanged(int hp) {
-    hpLabel.text = hp.ToString();
+    hpLabelVE.text = hp.ToString();
   }
 
   private void OnWavesStarted(int numWaves) {
@@ -40,6 +40,6 @@ public class TopBar : MonoBehaviour {
   }
 
   public void UpdateWaveLabel(int currWave, int numWaves) {
-    waveLabel.text = "Wave: " + currWave + "/" + numWaves;
+    waveLabelVE.text = "Wave: " + currWave + "/" + numWaves;
   }
 }

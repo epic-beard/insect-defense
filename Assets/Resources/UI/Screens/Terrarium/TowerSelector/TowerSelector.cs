@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TowerSelector : MonoBehaviour {
-  readonly private string towerSelectionListviewName = "tower_selection__listview";
+  readonly private string towerSelectionListviewName = "select-tower-list";
 
   [SerializeField] List<GameObject> prefabs;
 
-  private UIDocument terrariumScreen;
-  private ListView towerSelectionListView;
+  private UIDocument uiDocument;
+  private ListView towerSelectionListViewVE;
   private Dictionary<TowerData.Type, GameObject> towerTypeToPrefab = new();
   private Dictionary<TowerData.Type, SelectTowerButton> towerButtons = new();
 
   private void Awake() {
-    terrariumScreen = GetComponent<UIDocument>();
-    VisualElement rootElement = terrariumScreen.rootVisualElement;
+    uiDocument = GetComponent<UIDocument>();
+    VisualElement rootElement = uiDocument.rootVisualElement;
 
-    towerSelectionListView = rootElement.Q<ListView>(towerSelectionListviewName);
+    towerSelectionListViewVE = rootElement.Q<ListView>(towerSelectionListviewName);
   }
 
   private void Start() {
@@ -26,11 +26,11 @@ public class TowerSelector : MonoBehaviour {
   }
 
   private void ConstructTowerSelectionListView() {
-    towerSelectionListView.Clear();
+    towerSelectionListViewVE.Clear();
     towerTypeToPrefab.Clear();
     towerButtons.Clear();
-    towerSelectionListView.makeItem = () => new SelectTowerButton();
-    towerSelectionListView.bindItem = (e, i) => {
+    towerSelectionListViewVE.makeItem = () => new SelectTowerButton();
+    towerSelectionListViewVE.bindItem = (e, i) => {
       SelectTowerButton towerButton = (SelectTowerButton)e;
       Tower tower = prefabs[i].GetComponent<Tower>();
       string towerTypeName = tower.Type.ToString();
@@ -58,7 +58,7 @@ public class TowerSelector : MonoBehaviour {
         towerButtons.Add(tower.Type, towerButton);
       }
     };
-    towerSelectionListView.itemsSource = prefabs;
+    towerSelectionListViewVE.itemsSource = prefabs;
   }
 
   private void TowerClickEvent(ClickEvent evt) {

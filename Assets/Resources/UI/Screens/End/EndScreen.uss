@@ -1,0 +1,23 @@
+.end-screen-container {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.59);
+}
+
+.end-screen-sub-container {
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: auto;
+  background-color: #000000;
+}
+
+.end-screen-label {
+   margin-bottom: 20px;
+   color: #ffffff;
+   font-size: 20px;
+   -unity-font-style: bold;
+}

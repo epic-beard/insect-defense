@@ -1,26 +1,31 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <ui:Template name="WavesCompleted" src="project://database/Assets/Resources/UI/Screens/Terrarium/TopBar/WavesCompleted.uxml?fileID=9197481963319205126&amp;guid=7ea4d8407eae82d489cea20a36656ae0&amp;type=3#WavesCompleted" />
     <ui:Template name="MessageBox" src="project://database/Assets/Resources/UI/Components/MessageBox/MessageBox.uxml?fileID=9197481963319205126&amp;guid=2a5a2bb9ff7f4cb43a7e015010a7848d&amp;type=3#MessageBox" />
-    <ui:Template name="BottomBar" src="project://database/Assets/Resources/UI/Screens/Terrarium/BottomBar/TerrariumBottomSettings.uxml?fileID=9197481963319205126&amp;guid=e4f00dad63298524aaf4b40c11f5f365&amp;type=3#TerrariumBottomSettings" />
-    <ui:Template name="TopBar" src="project://database/Assets/Resources/UI/Screens/Terrarium/TopBar/TopBar.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TerrariumUpperUI" />
+    <ui:Template name="BottomBar" src="project://database/Assets/Resources/UI/Screens/Terrarium/BottomBar/BottomBar.uxml?fileID=9197481963319205126&amp;guid=e4f00dad63298524aaf4b40c11f5f365&amp;type=3#BottomBar" />
+    <ui:Template name="TopBar" src="project://database/Assets/Resources/UI/Screens/Terrarium/TopBar/TopBar.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TopBar" />
     <ui:Template name="ContextPanel" src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/ContextPanel.uxml?fileID=9197481963319205126&amp;guid=b5492c09c7f44394fbc44bf6702ba2f2&amp;type=3#ContextPanel" />
     <ui:Template name="TowerSelector" src="project://database/Assets/Resources/UI/Screens/Terrarium/TowerSelector/TowerSelector.uxml?fileID=9197481963319205126&amp;guid=3ade494c6fdabcd4585240bbd2de7115&amp;type=3#TowerSelector" />
-    <ui:VisualElement name="overall_terrarium_ui__ve" style="flex-direction: row; align-items: stretch; justify-content: space-around; flex-grow: 1;">
-        <ui:VisualElement name="left__ve" style="justify-content: space-around; flex-grow: 1; visibility: visible;">
-            <ui:Instance template="WavesCompleted" name="WavesCompleted" style="flex-grow: 1; visibility: visible;" />
-            <ui:VisualElement name="message_box__ve" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; min-width: auto; min-height: auto; margin-left: 10%; margin-right: 10%; margin-top: 0; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; justify-content: space-between; align-items: stretch; align-self: stretch;">
-                <ui:Instance template="MessageBox" name="message_box" style="flex-grow: 1;" />
+
+    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/TerrariumScreen.uss?fileID=7433441132597879392&amp;guid=caaa048355cbda54cbadbeda35a0919e&amp;type=3#TerrariumScreen" />
+    
+    <ui:VisualElement class="terrarium-screen-container">
+        <ui:VisualElement class="game-view">
+            <ui:Instance template="WavesCompleted" name="WavesCompleted" class="waves-completed" />
+            <ui:VisualElement class="message-box-parent">
+                <ui:Instance template="MessageBox" class="template-container" />
             </ui:VisualElement>
-            <ui:Instance template="BottomBar" name="bottom__ve" style="flex-grow: 0; height: 50px; flex-shrink: 0; justify-content: flex-end; visibility: visible; -unity-text-outline-width: 0; background-color: rgb(0, 0, 0);" />
+            <ui:Instance template="BottomBar" name="bottom-bar-parent" class="bottom-bar-parent" />
         </ui:VisualElement>
-        <ui:VisualElement name="right__ve" style="justify-content: space-around; flex-grow: 0; width: 400px; background-color: rgb(0, 0, 0);">
-            <ui:Instance template="TopBar" name="TerrariumUpperPanel" style="height: auto; flex-shrink: 0; flex-grow: 0;" />
-            <ui:Instance template="ContextPanel" name="ContextPanel" style="height: auto; flex-grow: 0; max-height: 300px; min-width: auto;" />
-            <ui:Instance template="TowerSelector" name="TowerSelector" />
+
+        <ui:VisualElement name="sidebar" class="sidebar">
+            <ui:Instance template="TopBar" class="top-bar-parent" />
+            <ui:Instance template="ContextPanel" class="context-panel-parent" />
+            <ui:Instance template="TowerSelector" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="tooltip__visualelement" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; display: none; left: auto; top: auto;">
-        <ui:Label tabindex="-1" text="[Default tooltip text]" display-tooltip-when-elided="true" name="tooltip__label" picking-mode="Ignore" style="background-color: rgb(0, 0, 0); color: rgb(231, 16, 154); overflow: hidden; visibility: visible; white-space: normal; max-width: 300px;" />
+
+    <ui:VisualElement name="tooltip-container" class="tooltip-container" picking-mode="Ignore">
+        <ui:Label name="tooltip-label" class="tooltip-label" display-tooltip-when-elided="true" tabindex="-1" text="[Default tooltip text]" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>

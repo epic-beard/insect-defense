@@ -3,7 +3,7 @@ using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 public class ButtonWithTooltip : Tooltip {
-  readonly private string buttonWithTooltipName = "button_with_tooltip__button";
+  readonly private string buttonWithTooltipName = "button-with-tooltip";
   readonly private string templatePath = "UI/Components/ButtonWithTooltip/ButtonWithTooltip";
 
   public Button Button { get; private set; }
