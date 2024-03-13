@@ -6,22 +6,22 @@ namespace lab {
   public class LevelSelectScreen : MonoBehaviour {
     public static LevelSelectScreen Instance;
     private int level;
-    readonly private string levelLabelName = "level__label";
-    readonly private string backButtonName = "back__button";
-    readonly private string startButtonName = "start__button";
+    readonly private string levelLabelName = "level-label";
+    readonly private string backButtonName = "level-select-back-button";
+    readonly private string startButtonName = "start-button";
 
     private UIDocument terrariumScreen;
 
-    private Label levelLabel;
-    private Button startButton;
-    private Button backButton;
+    private Label levelLabelVE;
+    private Button startButtonVE;
+    private Button backButtonVE;
 
     void Awake() {
       Instance = this;
 
       SetVisualElements();
-      startButton.clicked += GoToLevel;
-      backButton.clicked += CloseScreen;
+      startButtonVE.clicked += GoToLevel;
+      backButtonVE.clicked += CloseScreen;
       terrariumScreen.rootVisualElement.style.display = DisplayStyle.None;
       Terrarium.TerrariumClicked += OpenScreen;
     }
@@ -30,9 +30,9 @@ namespace lab {
       terrariumScreen = GetComponent<UIDocument>();
       VisualElement rootElement = terrariumScreen.rootVisualElement;
 
-      levelLabel = rootElement.Q<Label>(levelLabelName);
-      startButton = rootElement.Q<Button>(startButtonName);
-      backButton = rootElement.Q<Button>(backButtonName);
+      levelLabelVE = rootElement.Q<Label>(levelLabelName);
+      startButtonVE = rootElement.Q<Button>(startButtonName);
+      backButtonVE = rootElement.Q<Button>(backButtonName);
     }
 
     public void OpenScreen(Terrarium t) {
@@ -42,7 +42,7 @@ namespace lab {
           terrariumScreen.rootVisualElement.style.display = DisplayStyle.Flex;
           LabInputManager.Instance.EnableTerrariumActionMap();
         });
-      levelLabel.text = t.level.ToString();
+      levelLabelVE.text = t.level.ToString();
     }
 
     public void CloseScreen() {

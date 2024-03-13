@@ -6,21 +6,21 @@ using System.Collections.Generic;
 public class StartScreen : MonoBehaviour {
   public static StartScreen Instance;
   #region PrivateMembers
-  readonly private string continueButtonName = "continue__button";
-  readonly private string loadGameButtonName = "load_game__button";
-  readonly private string newGameButtonName = "new_game__button";
-  readonly private string quitButtonName = "quit__button";
-  readonly private string settingsButtonName = "settings__button";
+  readonly private string continueButtonName = "continue-button";
+  readonly private string loadGameButtonName = "load-game-button";
+  readonly private string newGameButtonName = "new-game-button";
+  readonly private string quitButtonName = "quit-button";
+  readonly private string settingsButtonName = "settings-button";
 
   readonly private string labSceneName = "Lab";
 
-  private UIDocument startScreen;
+  private UIDocument uiDocument;
 
-  private Button continueButton;
-  private Button loadGameButton;
-  private Button newGameButton;
-  private Button quitButton;
-  private Button settingsButton;
+  private Button continueButtonVE;
+  private Button loadGameButtonVE;
+  private Button newGameButtonVE;
+  private Button quitButtonVE;
+  private Button settingsButtonVE;
 
   private PlayerState continuePlayerState;
   #endregion
@@ -34,14 +34,14 @@ public class StartScreen : MonoBehaviour {
   }
 
   private void SetVisualElements() {
-    startScreen = GetComponent<UIDocument>();
-    VisualElement rootElement = startScreen.rootVisualElement;
+    uiDocument = GetComponent<UIDocument>();
+    VisualElement rootElement = uiDocument.rootVisualElement;
 
-    continueButton = rootElement.Q<Button>(continueButtonName);
-    loadGameButton = rootElement.Q<Button>(loadGameButtonName);
-    newGameButton = rootElement.Q<Button>(newGameButtonName);
-    quitButton = rootElement.Q<Button>(quitButtonName);
-    settingsButton = rootElement.Q<Button>(settingsButtonName);
+    continueButtonVE = rootElement.Q<Button>(continueButtonName);
+    loadGameButtonVE = rootElement.Q<Button>(loadGameButtonName);
+    newGameButtonVE = rootElement.Q<Button>(newGameButtonName);
+    quitButtonVE = rootElement.Q<Button>(quitButtonName);
+    settingsButtonVE = rootElement.Q<Button>(settingsButtonName);
   }
 
   private void Start() {
@@ -50,41 +50,41 @@ public class StartScreen : MonoBehaviour {
   }
 
   private void RegisterCallbacks() {
-    loadGameButton.RegisterCallback<ClickEvent>(LoadGameCallback);
-    newGameButton.RegisterCallback<ClickEvent>(NewGameCallback);
-    quitButton.RegisterCallback<ClickEvent>(QuitCallback);
-    settingsButton.RegisterCallback<ClickEvent>(SettingsCallback);
+    loadGameButtonVE.RegisterCallback<ClickEvent>(LoadGameCallback);
+    newGameButtonVE.RegisterCallback<ClickEvent>(NewGameCallback);
+    quitButtonVE.RegisterCallback<ClickEvent>(QuitCallback);
+    settingsButtonVE.RegisterCallback<ClickEvent>(SettingsCallback);
   }
 
   private void LoadGameCallback(ClickEvent evt) {
-    Button loadGameButton = evt.target as Button;
-    if (loadGameButton == null) { return; }
+    Button loadGameButtonVE = evt.target as Button;
+    if (loadGameButtonVE == null) { return; }
 
-    startScreen.rootVisualElement.style.display = DisplayStyle.None;
+    uiDocument.rootVisualElement.style.display = DisplayStyle.None;
     StartScreenInputManager.Instance.OpenLoadScreen();
   }
 
   private void NewGameCallback(ClickEvent evt) {
-    Button newGameButton = evt.target as Button;
-    if (newGameButton == null) { return; }
+    Button newGameButtonVE = evt.target as Button;
+    if (newGameButtonVE == null) { return; }
 
     SaveManager.Instance.Save(PlayerState.Instance);
     SceneManager.LoadScene(labSceneName);
   }
 
   private void QuitCallback(ClickEvent evt) {
-    Button quitButton = evt.target as Button;
-    if (quitButton == null) { return; }
+    Button quitButtonVE = evt.target as Button;
+    if (quitButtonVE == null) { return; }
 
     Application.Quit();
   }
 
   private void SettingsCallback(ClickEvent evt) {
-    Button settingsButton = evt.target as Button;
-    if (settingsButton == null) { return; }
+    Button settingsButtonVE = evt.target as Button;
+    if (settingsButtonVE == null) { return; }
 
     StartScreenInputManager.Instance.OpenSettings();
-    startScreen.rootVisualElement.style.display = DisplayStyle.None;
+    uiDocument.rootVisualElement.style.display = DisplayStyle.None;
   }
 
   private void SetContinueButtion() {
@@ -92,10 +92,10 @@ public class StartScreen : MonoBehaviour {
     if (playerStates.Count > 0) {
       playerStates.Sort((PlayerState one, PlayerState two) => one.lastSavedTime.CompareTo(two.lastSavedTime));
       continuePlayerState = playerStates[0];
-      continueButton.style.display = DisplayStyle.Flex;
-      continueButton.RegisterCallback<ClickEvent>(ContinueCallback);
+      continueButtonVE.style.display = DisplayStyle.Flex;
+      continueButtonVE.RegisterCallback<ClickEvent>(ContinueCallback);
     } else {
-      continueButton.style.display = DisplayStyle.None;
+      continueButtonVE.style.display = DisplayStyle.None;
     }
   }
 
@@ -106,6 +106,6 @@ public class StartScreen : MonoBehaviour {
   }
 
   public void ShowStartScreen() {
-    startScreen.rootVisualElement.style.display = DisplayStyle.Flex;
+    uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
   }
 }

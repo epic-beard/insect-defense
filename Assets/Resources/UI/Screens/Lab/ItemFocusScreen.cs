@@ -5,32 +5,32 @@ using UnityEngine.UIElements;
 
 public class ItemFocusScreen : MonoBehaviour {
   public static ItemFocusScreen Instance;
-  readonly private string backButtonName = "back__button";
+  readonly private string backButtonName = "item-focus-back-button";
   
-  private UIDocument focusedScreen;
+  private UIDocument uiDocument;
   
-  private Button backButton;
+  private Button backButtonVE;
 
   private void Awake() {
     Instance = this;
     SetVisualElements();
-    backButton.clicked += CloseScreen;
-    focusedScreen.rootVisualElement.style.display = DisplayStyle.None;
+    backButtonVE.clicked += CloseScreen;
+    uiDocument.rootVisualElement.style.display = DisplayStyle.None;
   }
 
   private void SetVisualElements() {
-    focusedScreen = GetComponent<UIDocument>();
-    VisualElement rootElement = focusedScreen.rootVisualElement;
+    uiDocument = GetComponent<UIDocument>();
+    VisualElement rootElement = uiDocument.rootVisualElement;
 
-    backButton = rootElement.Q<Button>(backButtonName);
+    backButtonVE = rootElement.Q<Button>(backButtonName);
   }
 
   public void OpenScreen() {
-    focusedScreen.rootVisualElement.style.display = DisplayStyle.Flex;
+    uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
   }
 
   public void CloseScreen() {
     LabCamera.Instance.ReturnCamera();
-    focusedScreen.rootVisualElement.style.display = DisplayStyle.None;
+    uiDocument.rootVisualElement.style.display = DisplayStyle.None;
   }
 }

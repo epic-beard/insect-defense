@@ -1,0 +1,35 @@
+.hp-container {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.heart {
+    font-size: 32px;
+    color: #d90000;
+}
+
+.hp {
+    font-size: 32px;
+    color: #d90000;
+}
+
+.wave-count-container {
+    flex-direction: row;
+    flex-grow: 0;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-self: center;
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.wave-count {
+    flex-grow: 1;
+    font-size: 24px;
+    -unity-text-align: upper-right;
+    color: #ffffff;
+}

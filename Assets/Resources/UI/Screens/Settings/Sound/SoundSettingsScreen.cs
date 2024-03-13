@@ -11,33 +11,33 @@ public class SoundSettingsScreen : MonoBehaviour {
 
   readonly private string soundSettingsMenuName = "sound-settings-menu--doc";
 
-  readonly private string masterVolumeSliderName = "master-volume--slider";
-  readonly private string masterVolumeLabelName = "master-volume--label";
+  readonly private string masterVolumeSliderName = "master-volume-slider";
+  readonly private string masterVolumeLabelName = "master-volume-label";
 
-  readonly private string sfxVolumeSliderName = "sfx-volume--slider";
-  readonly private string sfxVolumeLabelName = "sfx-volume--label";
+  readonly private string sfxVolumeSliderName = "sfx-volume-slider";
+  readonly private string sfxVolumeLabelName = "sfx-volume-label";
 
-  readonly private string musicVolumeSliderName = "music-volume--slider";
-  readonly private string musicVolumeLabelName = "music-volume--label";
+  readonly private string musicVolumeSliderName = "music-volume-slider";
+  readonly private string musicVolumeLabelName = "music-volume-label";
 
-  readonly private string playSfxButtonName = "play-sfx--button";
+  readonly private string playSfxButtonName = "play-sfx-button";
 
-  private Slider masterVolumeSlider;
-  private Label masterVolumeLabel;
+  private Slider masterVolumeSliderVE;
+  private Label masterVolumeLabelVE;
 
-  private Slider musicVolumeSlider;
-  private Label musicVolumeLabel;
+  private Slider musicVolumeSliderVE;
+  private Label musicVolumeLabelVE;
 
-  private Slider sfxVolumeSlider;
-  private Label sfxVolumeLabel;
+  private Slider sfxVolumeSliderVE;
+  private Label sfxVolumeLabelVE;
 
-  private Button playSfxButton;
+  private Button playSfxButtonVE;
 
   private void OnEnable() {
     SetVisualElements();
     RegisterCallbacks();
 
-    playSfxButton.clicked += PlaySfx;
+    playSfxButtonVE.clicked += PlaySfx;
   }
 
   private void Start() {
@@ -46,29 +46,29 @@ public class SoundSettingsScreen : MonoBehaviour {
   }
 
   private void OnDisable() {
-    playSfxButton.clicked -= PlaySfx;
+    playSfxButtonVE.clicked -= PlaySfx;
   }
 
   private void SetVisualElements() {
     UIDocument settingsMenu = GetComponent<UIDocument>();
     rootElement = settingsMenu.rootVisualElement.Q(soundSettingsMenuName);
 
-    masterVolumeSlider = rootElement.Q<Slider>(masterVolumeSliderName);
-    masterVolumeLabel = rootElement.Q<Label>(masterVolumeLabelName);
+    masterVolumeSliderVE = rootElement.Q<Slider>(masterVolumeSliderName);
+    masterVolumeLabelVE = rootElement.Q<Label>(masterVolumeLabelName);
 
-    sfxVolumeSlider = rootElement.Q<Slider>(sfxVolumeSliderName);
-    sfxVolumeLabel = rootElement.Q<Label>(sfxVolumeLabelName);
+    musicVolumeSliderVE = rootElement.Q<Slider>(musicVolumeSliderName);
+    musicVolumeLabelVE = rootElement.Q<Label>(musicVolumeLabelName);
     
-    musicVolumeSlider = rootElement.Q<Slider>(musicVolumeSliderName);
-    musicVolumeLabel = rootElement.Q<Label>(musicVolumeLabelName);
+    sfxVolumeSliderVE = rootElement.Q<Slider>(sfxVolumeSliderName);
+    sfxVolumeLabelVE = rootElement.Q<Label>(sfxVolumeLabelName);
 
-    playSfxButton = rootElement.Q<Button>(playSfxButtonName);
+    playSfxButtonVE = rootElement.Q<Button>(playSfxButtonName);
   }
 
   private void RegisterCallbacks() {
-    masterVolumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
-    sfxVolumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
-    musicVolumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
+    masterVolumeSliderVE.RegisterValueChangedCallback(OnVolumeChanged);
+    sfxVolumeSliderVE.RegisterValueChangedCallback(OnVolumeChanged);
+    musicVolumeSliderVE.RegisterValueChangedCallback(OnVolumeChanged);
   }
 
   public void OnVolumeChanged(ChangeEvent<float> evt) {
@@ -77,9 +77,9 @@ public class SoundSettingsScreen : MonoBehaviour {
 
   public void VolumeChanged() {
     Settings settings = PlayerState.Instance.Settings;
-    settings.MasterVolume = masterVolumeSlider.value;
-    settings.SfxVolume = sfxVolumeSlider.value;
-    settings.MusicVolume = musicVolumeSlider.value;
+    settings.MasterVolume = masterVolumeSliderVE.value;
+    settings.SfxVolume = sfxVolumeSliderVE.value;
+    settings.MusicVolume = musicVolumeSliderVE.value;
 
     SaveManager.Instance.Save(PlayerState.Instance);
 
@@ -93,9 +93,9 @@ public class SoundSettingsScreen : MonoBehaviour {
   }
 
   private void SetLabels(Settings settings) {
-    masterVolumeLabel.text = VolumeToDisplayText(settings.MasterVolume);
-    sfxVolumeLabel.text = VolumeToDisplayText(settings.SfxVolume);
-    musicVolumeLabel.text = VolumeToDisplayText(settings.MusicVolume);
+    masterVolumeLabelVE.text = VolumeToDisplayText(settings.MasterVolume);
+    sfxVolumeLabelVE.text = VolumeToDisplayText(settings.SfxVolume);
+    musicVolumeLabelVE.text = VolumeToDisplayText(settings.MusicVolume);
   }
 
   private string VolumeToDisplayText(float volume) {

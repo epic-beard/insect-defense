@@ -1,13 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
-    <ui:VisualElement name="title__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/UI/Prototype%20splash%20screen.png?fileID=2800000&amp;guid=a018d419129ce0b41a39cb92ba7f0d72&amp;type=3#Prototype splash screen&apos;); min-height: 150px; min-width: 150px; max-width: none; max-height: none; align-items: center; justify-content: center; align-self: center; flex-direction: column;">
-        <ui:Label tabindex="-1" text="Insect&#10;Defense" display-tooltip-when-elided="true" name="title__label" style="-unity-font: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo.ttf?fileID=12800000&amp;guid=50a3b1befe1587140a9cffc3fb0148a2&amp;type=3#MetalOnMetal-OBo&apos;); color: rgb(231, 89, 0); -unity-font-definition: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo%20SDF.asset?fileID=11400000&amp;guid=8b3b571a74664c147848b57b9170bd49&amp;type=2#MetalOnMetal-OBo SDF&apos;); -unity-text-align: middle-center; font-size: 30px; -unity-font-style: normal; text-overflow: clip; padding-left: 5px; margin-left: 2px; padding-top: 4px; padding-bottom: 18%;" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Start/StartScreen.uss?fileID=7433441132597879392&amp;guid=7a24951b71afb2f40b4079849c35d87b&amp;type=3#StartScreen" />
+    
+    <ui:VisualElement class="start-screen-logo">
+        <ui:Label class="start-screen-label" tabindex="-1" text="Insect&#10;Defense" />
     </ui:VisualElement>
-    <ui:VisualElement name="start_menu_buttons__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: center; justify-content: flex-start;">
-        <ui:Button text="Continue" display-tooltip-when-elided="true" name="continue__button" class="secondary-button" />
-        <ui:Button text="New Game" display-tooltip-when-elided="true" name="new_game__button" class="primary-button" />
-        <ui:Button text="Load Game" display-tooltip-when-elided="true" name="load_game__button" class="primary-button" />
-        <ui:Button text="Settings" display-tooltip-when-elided="true" name="settings__button" class="primary-button" />
-        <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit__button" class="primary-button" />
+    
+    <ui:VisualElement class="start-screen-buttons-container">
+        <ui:Button name="continue-button" class="secondary-button" text="Continue" />
+        <ui:Button name="new-game-button" class="primary-button" text="New Game" />
+        <ui:Button name="load-game-button" class="primary-button" text="Load Game" />
+        <ui:Button name="settings-button" class="primary-button" text="Settings" />
+        <ui:Button name="quit-button" class="primary-button" text="Quit" />
     </ui:VisualElement>
 </ui:UXML>

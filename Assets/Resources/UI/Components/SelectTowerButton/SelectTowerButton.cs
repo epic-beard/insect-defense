@@ -7,20 +7,20 @@ using UnityEngine.UIElements;
 
 public class SelectTowerButton : Tooltip {
   readonly private string templatePath = "UI/Components/SelectTowerButton/SelectTowerButton";
-  readonly private string imageVeName = "image__ve";
-  readonly private string nameLabelName = "name__label";
-  readonly private string costLabelName = "cost__label";
+  readonly private string imageName = "select-tower-image";
+  readonly private string nameLabelName = "select-tower-name";
+  readonly private string costLabelName = "select-tower-cost";
 
-  private VisualElement imageVe;
-  private Label nameLabel;
-  private Label costLabel;
+  private VisualElement imageVE;
+  private Label nameLabelVE;
+  private Label costLabelVE;
 
   private string imagePath = "";
   public string ImagePath {
     get { return imagePath; }
     set {
       imagePath = value;
-      imageVe.style.backgroundImage = Resources.Load<Texture2D>(imagePath);
+      imageVE.style.backgroundImage = Resources.Load<Texture2D>(imagePath);
     }
   }
 
@@ -29,7 +29,7 @@ public class SelectTowerButton : Tooltip {
     get { return name; }
     set {
       name = value;
-      nameLabel.text = name;
+      nameLabelVE.text = name;
     }
   }
 
@@ -38,7 +38,7 @@ public class SelectTowerButton : Tooltip {
     get { return cost; }
     set {
       cost = value;
-      costLabel.text = Constants.nu + cost;
+      costLabelVE.text = Constants.nu + cost;
     }
   }
   
@@ -46,9 +46,9 @@ public class SelectTowerButton : Tooltip {
 
   public SelectTowerButton() {
     var tree = Resources.Load<VisualTreeAsset>(templatePath).CloneTree();
-    imageVe = tree.Q<VisualElement>(imageVeName);
-    nameLabel = tree.Q<Label>(nameLabelName);
-    costLabel = tree.Q<Label>(costLabelName);
+    imageVE = tree.Q<VisualElement>(imageName);
+    nameLabelVE = tree.Q<Label>(nameLabelName);
+    costLabelVE = tree.Q<Label>(costLabelName);
 
     Add(tree);
   }

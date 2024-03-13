@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class WavesCompleted : MonoBehaviour {
-  readonly private string waveCompleteLabelName = "wave_complete__label";
+  readonly private string waveCompleteLabelName = "wave-completed-label";
 
   private UIDocument uiDocument;
-  private Label waveCompleteLabel;
+  private Label waveCompleteLabelVE;
 
   private float fadeSpeed = 1.5f;
   private Color labelColor = Color.white;
@@ -20,7 +20,7 @@ public class WavesCompleted : MonoBehaviour {
   private void SetVisualElements() {
     uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
-    waveCompleteLabel = rootElement.Q<Label>(waveCompleteLabelName);
+    waveCompleteLabelVE = rootElement.Q<Label>(waveCompleteLabelName);
   }
   private void OnWaveComplete(int currWave, int numWaves) {
     StartCoroutine(ShowWaveComplete());
@@ -31,7 +31,7 @@ public class WavesCompleted : MonoBehaviour {
     while (opacity < 1.0f) {
       opacity += Time.deltaTime * fadeSpeed;
       labelColor.a = opacity;
-      waveCompleteLabel.style.color = labelColor;
+      waveCompleteLabelVE.style.color = labelColor;
       yield return null;
     }
     yield return new WaitForSeconds(1);
@@ -43,7 +43,7 @@ public class WavesCompleted : MonoBehaviour {
     while (opacity > 0.0f) {
       opacity -= Time.deltaTime * fadeSpeed;
       labelColor.a = opacity;
-      waveCompleteLabel.style.color = labelColor;
+      waveCompleteLabelVE.style.color = labelColor;
       yield return null;
     }
   }
