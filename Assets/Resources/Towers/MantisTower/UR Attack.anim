@@ -294,27 +294,27 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.11666667
-        value: {x: 51.106, y: 0, z: 0}
-        inSlope: {x: 2905.1995, y: 0, z: 0}
-        outSlope: {x: 2905.1995, y: 0, z: 0}
+        value: {x: 51, y: 0, z: 0}
+        inSlope: {x: 2879.9995, y: 0, z: 0}
+        outSlope: {x: 2879.9995, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.13333334
-        value: {x: 96.84, y: 0, z: 0}
-        inSlope: {x: 2799.8997, y: 0, z: 0}
-        outSlope: {x: 2799.8997, y: 0, z: 0}
+        value: {x: 96, y: 0, z: 0}
+        inSlope: {x: 2789.9995, y: 0, z: 0}
+        outSlope: {x: 2789.9995, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.15
-        value: {x: 144.436, y: 0, z: 0}
-        inSlope: {x: 2404.8003, y: 0, z: 0}
-        outSlope: {x: 2404.8003, y: 0, z: 0}
+        value: {x: 144, y: 0, z: 0}
+        inSlope: {x: 2430.0002, y: 0, z: 0}
+        outSlope: {x: 2430.0002, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -1127,27 +1127,27 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.11666667
-        value: 51.106
-        inSlope: 2905.1995
-        outSlope: 2905.1995
+        value: 51
+        inSlope: 2879.9995
+        outSlope: 2879.9995
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.13333334
-        value: 96.84
-        inSlope: 2799.8997
-        outSlope: 2799.8997
+        value: 96
+        inSlope: 2789.9995
+        outSlope: 2789.9995
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.15
-        value: 144.436
-        inSlope: 2404.8003
-        outSlope: 2404.8003
+        value: 144
+        inSlope: 2430.0002
+        outSlope: 2430.0002
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -1400,7 +1400,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1412,7 +1412,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1424,7 +1424,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1472,7 +1472,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1484,7 +1484,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1496,7 +1496,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
