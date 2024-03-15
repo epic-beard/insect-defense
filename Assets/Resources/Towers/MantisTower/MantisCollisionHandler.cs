@@ -11,6 +11,6 @@ public class MantisCollisionHandler : MonoBehaviour {
   private void OnTriggerEnter(Collider other) {
     Enemy enemy = other.GetComponentInParent<Enemy>();
     if (enemy == null) return;
-    mantisTower.ProcessDamageAndEffects(enemy, mantisAttackType);
+    //mantisTower.ProcessDamageAndEffects(enemy, mantisAttackType);
   }
 }
