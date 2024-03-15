@@ -1,56 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="TowerDetail" src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/TowerDetail.uxml?fileID=9197481963319205126&amp;guid=7f065824e9f63234e9de3be96a9ab254&amp;type=3#TowerDetail" />
+    <ui:Template name="EnemyDetail" src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/EnemyDetail.uxml?fileID=9197481963319205126&amp;guid=603ae44d39d9d004ea8a04a002bbd912&amp;type=3#EnemyDetail" />
     
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/ContextPanel.uss?fileID=7433441132597879392&amp;guid=aa0ebe8a8c475124f9cf00b359f3778b&amp;type=3#ContextPanel" />
     
-    <ui:Instance template="TowerDetail" name="TowerDetail" />
-    
-    <ui:VisualElement name="enemy_context__visualelement" style="color: rgb(231, 89, 0);">
-        <ui:Label tabindex="-1" text="&lt;enemyname&gt;" name="enemy_name__label" style="-unity-text-align: upper-center;" />
-        
-        <ui:VisualElement name="enemy_context_content__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-            <ui:VisualElement name="enemy_attributes_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-width: 150px;">
-                <ui:VisualElement name="enemy_size_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Size:" name="enemy_size_label__label" />
-                    <ui:Label tabindex="-1" text="&lt;enemysize&gt;" name="enemy_size__label" />
-                </ui:VisualElement>
-                
-                <ui:VisualElement name="enemy_hp_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Hp:" name="enemy_hp_label__label" />
-                    <ui:Label tabindex="-1" text="0" name="enemy_current_hp__label" style="-unity-text-align: upper-right;" />
-                    <ui:Label tabindex="-1" text="/" name="enemy_hp_slash__label" style="-unity-text-align: upper-center;" />
-                    <ui:Label tabindex="-1" text="0" name="enemy_max_hp__label" />
-                </ui:VisualElement>
-                
-                <ui:VisualElement name="enemy_armor_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Armor:" name="enemy_armor_label__label" />
-                    <ui:Label tabindex="-1" text="0" name="enemy_current_armor__label" style="-unity-text-align: upper-right;" />
-                    <ui:Label tabindex="-1" text="/" name="ememy_armor_slash__label" style="-unity-text-align: upper-center;" />
-                    <ui:Label tabindex="-1" text="0" name="enemy_max_armor__label" />
-                </ui:VisualElement>
-                
-                <ui:VisualElement name="enemy_speed_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Speed:" name="enemy_speed_label__label" />
-                    <ui:Label tabindex="-1" text="&lt;enemyspeed&gt;" name="enemy_speed__label" />
-                </ui:VisualElement>
-                
-                <ui:VisualElement name="enemy_damage_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Damage:" name="enemy_damage_label__label" />
-                    <ui:Label tabindex="-1" text="&lt;enemydamage&gt;" name="enemy_damage__label" />
-                </ui:VisualElement>
-                
-                <ui:VisualElement name="enemy_nu_container__visualelement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                    <ui:Label tabindex="-1" text="Nu:" name="enemy_nu_label__label" />
-                    <ui:Label tabindex="-1" text="&lt;enemynu&gt;" name="enemy_nu__label" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            
-            <ui:VisualElement name="enemy_active_preview_container__visualelement" style="flex-grow: 1; background-color: rgb(0, 0, 0);" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-
     <ui:VisualElement name="no_context__visualelement" style="color: rgb(231, 89, 0);">
         <ui:Label text="Insect&#10;Defense" name="no_context__label" enable-rich-text="true" style="-unity-text-align: upper-center; -unity-font: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo.ttf?fileID=12800000&amp;guid=50a3b1befe1587140a9cffc3fb0148a2&amp;type=3#MetalOnMetal-OBo&apos;); text-overflow: clip; -unity-font-definition: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo%20SDF.asset?fileID=11400000&amp;guid=8b3b571a74664c147848b57b9170bd49&amp;type=2#MetalOnMetal-OBo SDF&apos;);" />
     </ui:VisualElement>
+
+    <ui:Instance template="TowerDetail" name="TowerDetail" />
+    <ui:Instance template="EnemyDetail" name="EnemyDetail" />
 </ui:UXML>
