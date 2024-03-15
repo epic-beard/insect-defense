@@ -1,0 +1,74 @@
+.context-panel-tower-container {
+    display: flex;
+    flex-direction: column;
+    color: #e75800;
+}
+
+.tower-name {
+    align-items: stretch;
+    -unity-text-align: upper-center;
+}
+
+.tower-control-panel {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.tower-commands-container {
+    flex-direction: row;
+    flex-grow: 1;
+    width: auto;
+    -unity-text-align: upper-center;
+}
+
+.tower-command-dropdown {
+  flex-direction: column;
+}
+
+.tower-upgrade-container {
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.tower-upgrade-tree {
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-around;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.tower-upgrade-tree-label {
+    max-width: 50px;
+    font-size: 12px;
+    white-space: normal;
+    text-overflow: clip;
+}
+
+.tower-upgrade-tree > .upgrade-button {
+    justify-content: center;
+    align-items: center;
+}
+
+.upgrade-button {
+    width: 48px;
+    height: 48px;
+    padding: 2px 2px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.upgrade-button .tooltip-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    padding: 0;
+    margin: 0;
+    -unity-text-align: middle-center;
+}
+
+.sell-tower-button {
+  margin-top: 12px;
+  width: 100%;
+}

@@ -9,7 +9,7 @@ public class SoundSettingsScreen : MonoBehaviour {
 
   readonly private string sfxName = "sfx";
 
-  readonly private string soundSettingsMenuName = "sound-settings-menu--doc";
+  readonly private string soundSettingsMenuName = "sound-settings-menu-doc";
 
   readonly private string masterVolumeSliderName = "master-volume-slider";
   readonly private string masterVolumeLabelName = "master-volume-label";

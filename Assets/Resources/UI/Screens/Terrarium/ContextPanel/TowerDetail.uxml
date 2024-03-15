@@ -1,0 +1,46 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/TowerDetail.uss?fileID=7433441132597879392&amp;guid=7c1ccc13d852bc94da6c6f21b61e5829&amp;type=3#TowerDetail" />
+
+    <ui:VisualElement name="tower_context__visualelement" class="context-panel-tower-container">
+        <ui:Label text="&lt;towername&gt;" name="tower_name__label" class="tower-name" />
+        
+        <ui:VisualElement class="tower-control-panel">
+            <ui:VisualElement class="tower-commands-container">
+                <ui:DropdownField name="tower_behavior__dropdown" class="tower-command-dropdown" label="Behavior" index="0" choices="All" focusable="false" />
+                <ui:DropdownField name="tower_priority__dropdown" class="tower-command-dropdown" label="Priority" index="0" choices="First" focusable="false" />
+            </ui:VisualElement>
+            
+            <ui:VisualElement class="tower-upgrades-container">
+                <ui:VisualElement class="tower-upgrade-tree">
+                    <ui:Label name="tower_upgrade_tree_0__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 1&gt;" />
+                    <ButtonWithTooltip name="tree_0_upgrade_0__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_0_upgrade_1__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_0_upgrade_2__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_0_upgrade_3__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_0_upgrade_4__button" class="secondary-button upgrade-button" focusable="false" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="tower-upgrade-tree">
+                    <ui:Label name="tower_upgrade_tree_1__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 2&gt;" />
+                    <ButtonWithTooltip name="tree_1_upgrade_0__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_1_upgrade_1__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_1_upgrade_2__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_1_upgrade_3__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_1_upgrade_4__button" class="secondary-button upgrade-button" focusable="false" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="tower-upgrade-tree">
+                    <ui:Label name="tower_upgrade_tree_2__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 3&gt;" />
+                    <ButtonWithTooltip name="tree_2_upgrade_0__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_2_upgrade_1__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_2_upgrade_2__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_2_upgrade_3__button" class="secondary-button upgrade-button" focusable="false" />
+                    <ButtonWithTooltip name="tree_2_upgrade_4__button" class="secondary-button upgrade-button" focusable="false" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <ui:Button text="Sell" name="sell_tower__button" class="sell-tower-button tertiary-button" />
+    </ui:VisualElement>
+</ui:UXML>
