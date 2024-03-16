@@ -52,12 +52,7 @@ public class Targeting {
       bool camoSight,
       bool antiAir) {
     // Ensure all enemies are viable targets.
-    List<Enemy> targets = enemies
-        .Where(e => e.enabled)
-        .Where(e => Vector3.Distance(towerPosition, e.transform.position) <= towerRange)
-        .Where(e => !e.Flying || antiAir)
-        .Where(e => !e.Camo || camoSight)
-        .ToList();
+    List<Enemy> targets = GetAllValidEnemiesInRange(enemies, towerPosition, towerRange, camoSight, antiAir);
 
     // Ensure the old target is within range of the tower.
     if (behavior == Behavior.STUBBORN
@@ -82,6 +77,21 @@ public class Targeting {
     // Sort the working list of targets according to the appropriate targeting priority.
     workingTargets.Sort(priorityPredicates[priority]);
     return workingTargets[0];
+  }
+
+  // Find and return all enemies within the given tower's range and given the twoer's limitations.
+  public List<Enemy> GetAllValidEnemiesInRange(
+      HashSet<Enemy> enemies,
+      Vector3 towerPosition,
+      float towerRange,
+      bool camoSight,
+      bool antiAir) {
+    return enemies
+        .Where(e => e.enabled)
+        .Where(e => Vector3.Distance(towerPosition, e.transform.position) <= towerRange)
+        .Where(e => !e.Flying || antiAir)
+        .Where(e => !e.Camo || camoSight)
+        .ToList();
   }
 
   // Compare two floats in the following manner:

@@ -5,6 +5,7 @@ using UnityEngine;
 using static MantisTower;
 
 public class MantisTowerTest {
+
   private MantisTower mantisTower;
   private float enemyHp = 100.0f;
 
@@ -14,13 +15,18 @@ public class MantisTowerTest {
     gameObject.transform.position = Vector3.zero;
     mantisTower = gameObject.AddComponent<MantisTower>();
 
-    mantisTower.EnemiesHit = 4;
     mantisTower.ArmorPierce = 0.0f;
     mantisTower.AttackSpeed = 1;
     mantisTower.Damage = 10;
     mantisTower.Range = 20;
-    mantisTower.damageDegredation = 1 / mantisTower.EnemiesHit;
-    mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_RIGHT] = 1.0f;
+    mantisTower.AreaOfEffect = 10.0f;
+    mantisTower.CamoSight = false;
+    mantisTower.AntiAir = false;
+
+    mantisTower.GetAttackOriginMap()[MantisAttackType.UPPER_RIGHT] = gameObject.transform;
+    mantisTower.GetAttackOriginMap()[MantisAttackType.UPPER_LEFT] = gameObject.transform;
+    mantisTower.GetAttackOriginMap()[MantisAttackType.LOWER_RIGHT] = gameObject.transform;
+    mantisTower.GetAttackOriginMap()[MantisAttackType.LOWER_LEFT] = gameObject.transform;
 
     Time.captureDeltaTime = 1;
   }
@@ -47,20 +53,20 @@ public class MantisTowerTest {
 
   [Test]
   public void SpecialAbilityUpgradeJaggedClaws() {
-    Assert.That(false, Is.EqualTo(mantisTower.CrippleAtFullDamage));
+    Assert.That(false, Is.EqualTo(mantisTower.CrippleAttack));
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_3_JAGGED_CLAWS);
 
-    Assert.True(mantisTower.CrippleAtFullDamage);
+    Assert.True(mantisTower.CrippleAttack);
   }
 
   [Test]
   public void SpecialAbilityUpgradeSerratedClaws() {
-    Assert.That(false, Is.EqualTo(mantisTower.CanCrippleEnemy));
+    Assert.That(false, Is.EqualTo(mantisTower.AoECrippleAttack));
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_5_SERRATED_CLAWS);
 
-    Assert.True(mantisTower.CanCrippleEnemy);
+    Assert.True(mantisTower.AoECrippleAttack);
   }
 
   [Test]
@@ -87,29 +93,16 @@ public class MantisTowerTest {
   public void SingleAttackSingleEnemy() {
     Enemy enemy = CreateEnemy(Vector3.right, hp: enemyHp);
 
-    Assert.That(enemy.HP, Is.EqualTo(enemyHp));
-
-    mantisTower.ProcessDamageAndEffects(enemy, MantisAttackType.UPPER_RIGHT);
-
-    Assert.That(enemy.HP, Is.EqualTo(enemyHp - mantisTower.Damage));
-  }
-
-  [Test]
-  public void TwoAttacksSingleEnemy() {
-    Enemy enemy = CreateEnemy(Vector3.right, hp: enemyHp);
+    ObjectPool objectPool = CreateObjectPool();
+    HashSet<Enemy> activeEnemies = new() { enemy };
+    objectPool.SetActiveEnemies(activeEnemies);
+    mantisTower.SetEnemy(enemy);
 
     Assert.That(enemy.HP, Is.EqualTo(enemyHp));
 
-    mantisTower.ProcessDamageAndEffects(enemy, MantisAttackType.UPPER_RIGHT);
+    mantisTower.ProcessDamageAndEffects(MantisAttackType.UPPER_RIGHT);
 
     Assert.That(enemy.HP, Is.EqualTo(enemyHp - mantisTower.Damage));
-
-    mantisTower.ProcessDamageAndEffects(enemy, MantisAttackType.UPPER_RIGHT);
-
-    float hpAfterTwoHits =
-        (enemyHp - mantisTower.Damage)
-        - (mantisTower.Damage * mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_RIGHT]);
-    Assert.That(enemy.HP, Is.EqualTo(hpAfterTwoHits));
   }
 
   [Test]
@@ -117,79 +110,75 @@ public class MantisTowerTest {
     Enemy firstEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
     Enemy secondEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
 
-    mantisTower.ProcessDamageAndEffects(firstEnemy, MantisAttackType.UPPER_RIGHT);
-    mantisTower.ProcessDamageAndEffects(secondEnemy, MantisAttackType.UPPER_RIGHT);
+    ObjectPool objectPool = CreateObjectPool();
+    HashSet<Enemy> activeEnemies = new() { firstEnemy, secondEnemy };
+    objectPool.SetActiveEnemies(activeEnemies);
+    mantisTower.SetEnemy(firstEnemy);
 
-    float expectedSecondEnemyHp =
-        enemyHp - (mantisTower.Damage * mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_RIGHT]);
+    mantisTower.ProcessDamageAndEffects(MantisAttackType.UPPER_RIGHT);
+
+    float expectedSecondEnemyHp = enemyHp - mantisTower.SecondaryDamage;
 
     Assert.That(firstEnemy.HP, Is.EqualTo(enemyHp - mantisTower.Damage));
     Assert.That(secondEnemy.HP, Is.EqualTo(expectedSecondEnemyHp));
   }
 
   [Test]
-  public void TwoAttacksTwoEnemies() {
-    Enemy firstEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
-    Enemy secondEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
-
-    mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_LEFT] = 1.0f;
-
-    mantisTower.ProcessDamageAndEffects(firstEnemy, MantisAttackType.UPPER_RIGHT);
-    mantisTower.ProcessDamageAndEffects(secondEnemy, MantisAttackType.UPPER_RIGHT);
-    mantisTower.ProcessDamageAndEffects(firstEnemy, MantisAttackType.UPPER_LEFT);
-    mantisTower.ProcessDamageAndEffects(secondEnemy, MantisAttackType.UPPER_LEFT);
-
-    float expectedSecondEnemyHp =
-        enemyHp -
-        (mantisTower.Damage * mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_RIGHT]) -
-        (mantisTower.Damage * mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_LEFT]);
-
-    Assert.That(firstEnemy.HP, Is.EqualTo(enemyHp - (mantisTower.Damage * 2)));
-    Assert.That(secondEnemy.HP, Is.EqualTo(expectedSecondEnemyHp));
-  }
-
-  [Test]
-  public void CrippleEnemyWithFullDamage() {
+  public void CrippleEnemyWhenOffCooldown() {
     Enemy enemy = CreateEnemy(Vector3.right, hp: enemyHp);
+
+    ObjectPool objectPool = CreateObjectPool();
+    HashSet<Enemy> activeEnemies = new() { enemy };
+    objectPool.SetActiveEnemies(activeEnemies);
+    mantisTower.SetEnemy(enemy);
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_3_JAGGED_CLAWS);
 
-    mantisTower.ProcessDamageAndEffects(enemy, MantisTower.MantisAttackType.UPPER_RIGHT);
+    mantisTower.ProcessDamageAndEffects(MantisTower.MantisAttackType.UPPER_RIGHT);
 
     Assert.True(enemy.Crippled);
   }
 
   [Test]
-  public void DoesNotCrippleEnemyWithoutFullDamage() {
-    Enemy enemy = CreateEnemy(Vector3.right, armor: 10.0f, hp: enemyHp); ;
+  public void DoesNotCrippleEnemyIfNotOnCooldown() {
+    Enemy firstEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
+    Enemy secondEnemy = CreateEnemy(Vector3.right * 100, hp: enemyHp);
+
+    ObjectPool objectPool = CreateObjectPool();
+    HashSet<Enemy> activeEnemies = new() { firstEnemy, secondEnemy };
+    objectPool.SetActiveEnemies(activeEnemies);
+    mantisTower.SetEnemy(firstEnemy);
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_3_JAGGED_CLAWS);
 
-    mantisTower.ProcessDamageAndEffects(enemy, MantisTower.MantisAttackType.UPPER_RIGHT);
+    mantisTower.ProcessDamageAndEffects(MantisAttackType.UPPER_RIGHT);
+    
+    Assert.True(firstEnemy.Crippled);
 
-    Assert.False(enemy.Crippled);
+    firstEnemy.transform.position = Vector3.right * 100;
+    secondEnemy.transform.position = Vector3.right;
+
+    mantisTower.SetEnemy(secondEnemy);
+    mantisTower.ProcessDamageAndEffects(MantisAttackType.UPPER_RIGHT);
+
+    Assert.False(secondEnemy.Crippled);
   }
 
   [Test]
   public void VorpalClaws() {
-    mantisTower.EnemiesHit = 1;
-    mantisTower.damageDegredation = 1;
     Enemy firstEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
     Enemy secondEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
 
-    mantisTower.ProcessDamageAndEffects(firstEnemy, MantisTower.MantisAttackType.UPPER_RIGHT);
-    mantisTower.ProcessDamageAndEffects(secondEnemy, MantisTower.MantisAttackType.UPPER_RIGHT);
+    ObjectPool objectPool = CreateObjectPool();
+    HashSet<Enemy> activeEnemies = new() { firstEnemy, secondEnemy };
+    objectPool.SetActiveEnemies(activeEnemies);
+    mantisTower.SetEnemy(firstEnemy);
 
-    Assert.That(firstEnemy.HP, Is.EqualTo(enemyHp - mantisTower.Damage));
-    Assert.That(secondEnemy.HP, Is.EqualTo(enemyHp));
-
-    mantisTower.GetAttacksDictionary()[MantisAttackType.UPPER_RIGHT] = 1.0f;
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_5_VORPAL_CLAWS);
 
-    mantisTower.ProcessDamageAndEffects(firstEnemy, MantisTower.MantisAttackType.UPPER_RIGHT);
-    mantisTower.ProcessDamageAndEffects(secondEnemy, MantisTower.MantisAttackType.UPPER_RIGHT);
+    mantisTower.ProcessDamageAndEffects(MantisTower.MantisAttackType.UPPER_RIGHT);
 
-    Assert.That(firstEnemy.HP, Is.EqualTo(enemyHp - (mantisTower.Damage * 2)));
+    Assert.That(firstEnemy.HP, Is.EqualTo(enemyHp - mantisTower.Damage));
     Assert.That(secondEnemy.HP, Is.EqualTo(enemyHp - mantisTower.Damage));
   }
 
@@ -215,17 +204,29 @@ public class MantisTowerTest {
     return enemy;
   }
 
+  private ObjectPool CreateObjectPool() {
+    ObjectPool pool = new GameObject().AddComponent<ObjectPool>();
+    ObjectPool.Instance = pool;
+    return pool;
+  }
+
   #endregion
 }
 
 #region MantisTowerUtils
 
 public static class MantisTowerUtils {
-  public static Dictionary<MantisAttackType, float> GetAttacksDictionary(this MantisTower mantisTower) {
-    return (Dictionary<MantisAttackType, float>)typeof(MantisTower)
-      .GetField("Attacks", BindingFlags.Instance | BindingFlags.NonPublic)
-      .GetValue(mantisTower);
 
+  public static void SetEnemy(this MantisTower mantisTower, Enemy enemy) {
+    typeof(MantisTower)
+        .GetField("enemy", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(mantisTower, enemy);
+  }
+
+  public static Dictionary<MantisAttackType, Transform> GetAttackOriginMap(this MantisTower mantisTower) {
+    return (Dictionary<MantisAttackType, Transform>)typeof(MantisTower)
+        .GetField("attackOriginMap", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetValue(mantisTower);
   }
 }
 
