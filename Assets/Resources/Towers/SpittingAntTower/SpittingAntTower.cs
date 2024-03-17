@@ -98,7 +98,7 @@ public class SpittingAntTower : Tower {
       target.AddAdvancedAcidDecayDelay(this, AcidDecayDelay);
     }
 
-    target.DamageEnemy(onHitDamage, armorPierce, ContinuousAttack);
+    target.DealPhysicalDamage(onHitDamage, armorPierce, ContinuousAttack);
   }
 
   private void HandleArmorTearExplosion(Enemy target, float armorTear) {

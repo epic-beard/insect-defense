@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour {
     if (AcidStacks > 0.0f) {
       int tenStacks = (int)AcidStacks / 10;
       float damage = (tenStacks + 1) * Time.deltaTime;
-      HP -= damage;
+      DealDamage(damage, DamageText.DamageType.ACID);
       AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
     }
   }
@@ -193,9 +193,10 @@ public class Enemy : MonoBehaviour {
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
-  public float DamageEnemy(float damage, float armorPierce, bool continuous = false) {
+  public float DealPhysicalDamage(float damage, float armorPierce, bool continuous = false) {
     float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
-    HP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
+    damage -= Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
+    DealDamage(damage, DamageText.DamageType.PHYSICAL);
     return HP;
   }
 
@@ -210,9 +211,22 @@ public class Enemy : MonoBehaviour {
     AcidStacks += stacks;
     if (AcidStackExplosionThreshold <= AcidStacks) {
       // TODO(emonzon): Trigger explosion animation.
-      HP -= acidEnhancement ? AcidStacks * 2.0f : AcidStacks;
+      float damage = acidEnhancement ? AcidStacks * 2.0f : AcidStacks;
+      
+      DealDamage(damage, DamageText.DamageType.ACID);
       AcidStacks = 0.0f;
     }
+  }
+
+  // To apply physical damage call DealPhysicalDamage, which will call this.
+  // Other sources of damage are calculated interanally so this is private.
+  private void DealDamage(float damage, DamageText.DamageType type) {
+    HP -= damage;
+    GameObject prefab = Resources.Load<GameObject>("UI/Screens/Terrarium/DamageText/DamageText");
+
+    GameObject gameObject = Instantiate(prefab, this.transform.position + 6*Vector3.up, this.transform.rotation);
+    DamageText damageText = gameObject.GetComponent<DamageText>();
+    damageText.DisplayDamage(Mathf.FloorToInt(damage), type);
   }
 
   public void ResetAcidStacks() {

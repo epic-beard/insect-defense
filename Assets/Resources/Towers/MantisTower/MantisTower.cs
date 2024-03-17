@@ -88,7 +88,7 @@ public class MantisTower : Tower {
   // This method is called by an AnimationEvent embedded within the Mantis' attack animations.
   public void ProcessDamageAndEffects(MantisAttackType attackType) {
     if (enemy.enabled) {
-      enemy.DamageEnemy(Damage, ArmorPierce, false);
+      enemy.DealPhysicalDamage(Damage, ArmorPierce, false);
       if (CrippleAttack) {
         enemy.ApplyCripple();
         CrippleAttack = false;
@@ -120,7 +120,7 @@ public class MantisTower : Tower {
       float dist = (C - w - A).magnitude;
 
       if (dist < this.AreaOfEffect) {
-        pv.DamageEnemy(SecondaryDamage, ArmorPierce, false);
+        pv.DealPhysicalDamage(SecondaryDamage, ArmorPierce, false);
         if (AoECrippleAttack) {
           enemy.ApplyCripple();
         }

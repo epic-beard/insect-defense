@@ -163,6 +163,10 @@ PrefabInstance:
       propertyPath: entries.Array.data[0].type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3179988103622298021, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
+      propertyPath: entries.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 966036596837160133, guid: 0bf87bef37ca9ba49a54268f45a46302, type: 3}
     - target: {fileID: 4874641005764432443, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: m_RootOrder
       value: 1
