@@ -5,8 +5,6 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
 
   [SerializeField] bool isTowerPlaceable;
-  [SerializeField] Material grass;
-  [SerializeField] Material selectedGrass;
 
   private bool isTowerPresent = false;
   private bool lingeringWebs = false;

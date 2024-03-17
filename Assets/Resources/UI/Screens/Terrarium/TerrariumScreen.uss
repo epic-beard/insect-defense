@@ -1,0 +1,88 @@
+.terrarium-screen-container {
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.game-view {
+  flex-grow: 1;
+  justify-content: space-around;
+  visibility: visible;
+}
+
+.waves-completed {
+  flex-grow: 1;
+  visibility: visible;
+}
+
+.message-box-parent {
+  flex-grow: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  align-self: stretch;
+  min-width: auto;
+  min-height: auto;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.message-box-parent > .template-container {
+  flex-grow: 1;
+}
+
+.bottom-bar-parent {
+   flex-grow: 0;
+   flex-shrink: 0;
+   justify-content: flex-end;
+   height: 50px;
+   visibility: visible;
+   background-color: #000000;
+   -unity-text-outline-width: 0;
+}
+
+.sidebar {
+  flex-grow: 0;
+  justify-content: space-around;
+  width: 400px;
+  background-color: #000000;
+}
+
+.top-bar-parent {
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: auto;
+}
+
+.context-panel-parent {
+  flex-grow: 0;
+  min-width: auto;
+  height: auto;
+  max-height: 300px;
+}
+
+.tooltip-container{
+  flex-grow: 1;
+  position: absolute;
+  display: none;
+  left: auto;
+  top: auto;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.tooltip-label {
+   max-width: 300px;
+   color: rgb(231, 16, 154);
+   background-color: #000000;
+   overflow: hidden;
+   visibility: visible;
+   white-space: normal;
+}

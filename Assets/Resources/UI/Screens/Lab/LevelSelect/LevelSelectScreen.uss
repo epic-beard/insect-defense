@@ -1,0 +1,53 @@
+.level-select-screen-container {
+     flex-grow: 0;
+     justify-content: flex-start;
+     align-self: center;
+     align-items: stretch;
+     top: 40%;
+     background-color: rgba(0, 0, 0, 0);
+}
+
+.level-label-container {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.level-label {
+   font-size: 18px;
+   -unity-text-align: upper-center;
+   -unity-font-style: bold;
+}
+
+.level-buttons-container {
+    flex-direction: row;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.back-button-container {
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.level-select-back-button {
+    font-size: 18px;
+    -unity-font-style: bold;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #000000;
+    border-width: 3px;
+}
+
+.start-button-container {
+     flex-grow: 1;
+     background-color: rgba(0, 0, 0, 0);
+}
+
+.start-button {
+    font-size: 18px;
+    -unity-font-style: bold;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #ffffff;
+    border-width: 3px;
+}

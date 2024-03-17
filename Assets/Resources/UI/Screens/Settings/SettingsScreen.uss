@@ -1,0 +1,93 @@
+.settings-screen-container {
+    flex-grow: 1;
+    flex-direction: row;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.settings-screen-side-pad {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.47);
+}
+
+.settings-panels-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5%;
+    width: 75%;
+    height: 90%;
+    background-color: rgba(0, 0, 0, 0.59);
+}
+
+.button-array-panel {
+    flex-direction: row;
+    flex-grow: 0.05;
+    justify-content: space-around;
+    align-items: auto;
+    align-self: auto;
+    min-width: auto;
+    min-height: auto;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.button-array-button {
+    flex-grow: 1;
+    align-self: stretch;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    -unity-font-style: bold;
+    color: #ffffff;
+    background-color: #505050;
+    border-color: #000000;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 5px;
+    border-right-width: 2.5px;
+}
+
+.sound-settings-panel {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-self: stretch;
+    height: auto;
+    width: auto;
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #000000;
+}
+
+.sound-settings-menu-doc {
+    flex-grow: 1;
+    align-self: auto;
+}
+
+.load-options-panel {
+    display: flex;
+    flex-grow: 1;
+    align-self: stretch;
+    min-width: auto;
+    min-height: auto;
+    background-color: rgba(0, 0, 0, 0);
+    visibility: visible;
+}
+
+.load-options-doc {
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-self: stretch;
+}
+
+.terrarium-settings-panel {
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+

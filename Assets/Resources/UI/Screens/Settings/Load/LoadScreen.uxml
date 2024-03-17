@@ -1,11 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0); align-items: stretch; justify-content: flex-start; flex-direction: column; height: auto; width: auto; padding-top: 15px; padding-left: 5px; padding-right: 5px;">
-        <ui:Label text="Load Game" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
-        <ui:VisualElement style="flex-direction: row; flex-grow: 0; justify-content: space-around; align-items: flex-start;">
-            <ui:Label text="Name" display-tooltip-when-elided="true" style="flex-grow: 3; align-items: flex-start; color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-right-width: 1px;" />
-            <ui:Label text="Level" display-tooltip-when-elided="true" style="flex-grow: 1; align-items: flex-start; color: rgb(255, 255, 255); margin-left: 5px;" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Settings/Load/LoadScreen.uss?fileID=7433441132597879392&amp;guid=61ce8ff2809feac4fb9d561513b6777a&amp;type=3#LoadScreen" />
+    
+    <ui:VisualElement class="load-screen-container">
+        <ui:Label class="load-game-label" text="Load Game" />
+        
+        <ui:VisualElement class="save-game-list-labels">
+            <ui:Label name="save-game-name-label" class="save-game-name-label" text="Name" />
+            <ui:Label name="save-game-level-label" class="save-game-level-label" text="Level" />
         </ui:VisualElement>
-        <ui:ListView focusable="true" name="save__list_view" fixed-item-height="64" style="flex-grow: 1;" />
+        
+        <ui:ListView class="save-game-list" focusable="true" fixed-item-height="64" />
     </ui:VisualElement>
 </ui:UXML>
