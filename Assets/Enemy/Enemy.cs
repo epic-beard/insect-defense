@@ -31,6 +31,14 @@ public class Enemy : MonoBehaviour {
   private float xVariance;
   private float zVariance;
 
+  private float accumulatedAcidDamage = 0.0f;
+  private float accumulatedPoisonDamage = 0.0f;
+  private float accumulatedBleedDamage = 0.0f;
+  private float accumulatedContinuousDamage = 0.0f;
+
+  [SerializeField] private float continuousDamagePollingDelay = 1.0f;
+  [SerializeField] private float statusDamagePollingDelay = 1.0f;
+
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
@@ -40,7 +48,8 @@ public class Enemy : MonoBehaviour {
 
     StartCoroutine(HandleStun());
     StartCoroutine(HandleAdvancedAcidDecay());
-
+    StartCoroutine(HandleContinuousDamage());
+    StartCoroutine(HandleStatusDamage());
     if (Flying) {
       StartCoroutine(GroundFlierForDuration());
     }
@@ -82,7 +91,7 @@ public class Enemy : MonoBehaviour {
     if (AcidStacks > 0.0f) {
       int tenStacks = (int)AcidStacks / 10;
       float damage = (tenStacks + 1) * Time.deltaTime;
-      DealDamage(damage, DamageText.DamageType.ACID);
+      accumulatedAcidDamage += damage;
       AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
     }
   }
@@ -196,7 +205,13 @@ public class Enemy : MonoBehaviour {
   public float DealPhysicalDamage(float damage, float armorPierce, bool continuous = false) {
     float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
     damage -= Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
-    DealDamage(damage, DamageText.DamageType.PHYSICAL);
+
+    if (continuous) {
+      accumulatedContinuousDamage += damage;
+    } else {
+      DealDamage(damage, DamageText.DamageType.PHYSICAL);
+    }
+
     return HP;
   }
 
@@ -371,6 +386,39 @@ public class Enemy : MonoBehaviour {
     }
 
     FinishPath();
+  }
+
+  private IEnumerator HandleContinuousDamage() {
+    while (true) {
+      if (accumulatedContinuousDamage > 1.0f) {
+        DealDamage(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
+        accumulatedContinuousDamage = 0.0f;
+      }
+
+      yield return new WaitForSeconds(continuousDamagePollingDelay);
+    }
+  }
+
+  private IEnumerator HandleStatusDamage() {
+    while (true) {
+      if (accumulatedAcidDamage > 1.0f) {
+        DealDamage(accumulatedAcidDamage, DamageText.DamageType.ACID);
+        accumulatedAcidDamage = 0.0f;
+      }
+      yield return new WaitForSeconds(statusDamagePollingDelay / 3);
+
+      if (accumulatedPoisonDamage > 1.0f) {
+        DealDamage(accumulatedPoisonDamage, DamageText.DamageType.ACID);
+        accumulatedPoisonDamage = 0.0f;
+      }
+      yield return new WaitForSeconds(statusDamagePollingDelay / 3);
+
+      if (accumulatedBleedDamage > 1.0f) {
+        DealDamage(accumulatedBleedDamage, DamageText.DamageType.ACID);
+        accumulatedBleedDamage = 0.0f;
+      }
+      yield return new WaitForSeconds(statusDamagePollingDelay / 3);
+    }
   }
 
   // Reset the contextual panel if an enemy dies or completes its path.
