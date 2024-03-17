@@ -31,6 +31,14 @@ public class Enemy : MonoBehaviour {
   private float xVariance;
   private float zVariance;
 
+  private float accumulatedAcidDamage = 0.0f;
+  private float accumulatedPoisonDamage = 0.0f;
+  private float accumulatedBleedDamage = 0.0f;
+  private float accumulatedContinuousDamage = 0.0f;
+
+  [SerializeField] private float continuousDamagePollingDelay = 1.0f;
+  [SerializeField] private float statusDamagePollingDelay = 1.0f;
+
   // PrevWaypoint should be set before OnEnable is called.
   void OnEnable() {
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
@@ -40,7 +48,8 @@ public class Enemy : MonoBehaviour {
 
     StartCoroutine(HandleStun());
     StartCoroutine(HandleAdvancedAcidDecay());
-
+    StartCoroutine(HandleContinuousDamage());
+    StartCoroutine(HandleStatusDamage());
     if (Flying) {
       StartCoroutine(GroundFlierForDuration());
     }
@@ -82,7 +91,7 @@ public class Enemy : MonoBehaviour {
     if (AcidStacks > 0.0f) {
       int tenStacks = (int)AcidStacks / 10;
       float damage = (tenStacks + 1) * Time.deltaTime;
-      HP -= damage;
+      accumulatedAcidDamage += damage;
       AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
     }
   }
@@ -193,9 +202,16 @@ public class Enemy : MonoBehaviour {
 
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
-  public float DamageEnemy(float damage, float armorPierce, bool continuous = false) {
+  public float DealPhysicalDamage(float damage, float armorPierce, bool continuous = false) {
     float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
-    HP -= damage - Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
+    damage -= Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
+
+    if (continuous) {
+      accumulatedContinuousDamage += damage;
+    } else {
+      DealDamage(damage, DamageText.DamageType.PHYSICAL);
+    }
+
     return HP;
   }
 
@@ -210,9 +226,22 @@ public class Enemy : MonoBehaviour {
     AcidStacks += stacks;
     if (AcidStackExplosionThreshold <= AcidStacks) {
       // TODO(emonzon): Trigger explosion animation.
-      HP -= acidEnhancement ? AcidStacks * 2.0f : AcidStacks;
+      float damage = acidEnhancement ? AcidStacks * 2.0f : AcidStacks;
+      
+      DealDamage(damage, DamageText.DamageType.ACID);
       AcidStacks = 0.0f;
     }
+  }
+
+  // To apply physical damage call DealPhysicalDamage, which will call this.
+  // Other sources of damage are calculated interanally so this is private.
+  private void DealDamage(float damage, DamageText.DamageType type) {
+    HP -= damage;
+    GameObject prefab = Resources.Load<GameObject>("UI/Screens/Terrarium/DamageText/DamageText");
+
+    GameObject gameObject = Instantiate(prefab, this.transform.position + 6*Vector3.up, this.transform.rotation);
+    DamageText damageText = gameObject.GetComponent<DamageText>();
+    damageText.DisplayDamage(Mathf.FloorToInt(damage), type);
   }
 
   public void ResetAcidStacks() {
@@ -357,6 +386,39 @@ public class Enemy : MonoBehaviour {
     }
 
     FinishPath();
+  }
+
+  private IEnumerator HandleContinuousDamage() {
+    while (true) {
+      if (accumulatedContinuousDamage > 1.0f) {
+        DealDamage(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
+        accumulatedContinuousDamage = 0.0f;
+      }
+
+      yield return new WaitForSeconds(continuousDamagePollingDelay);
+    }
+  }
+
+  private IEnumerator HandleStatusDamage() {
+    while (true) {
+      if (accumulatedAcidDamage > 1.0f) {
+        DealDamage(accumulatedAcidDamage, DamageText.DamageType.ACID);
+        accumulatedAcidDamage = 0.0f;
+      }
+      yield return new WaitForSeconds(statusDamagePollingDelay / 3);
+
+      if (accumulatedPoisonDamage > 1.0f) {
+        DealDamage(accumulatedPoisonDamage, DamageText.DamageType.ACID);
+        accumulatedPoisonDamage = 0.0f;
+      }
+      yield return new WaitForSeconds(statusDamagePollingDelay / 3);
+
+      if (accumulatedBleedDamage > 1.0f) {
+        DealDamage(accumulatedBleedDamage, DamageText.DamageType.ACID);
+        accumulatedBleedDamage = 0.0f;
+      }
+      yield return new WaitForSeconds(statusDamagePollingDelay / 3);
+    }
   }
 
   // Reset the contextual panel if an enemy dies or completes its path.

@@ -15,7 +15,7 @@ public class EnemyTest {
       [Values(0.0f, 1.0f, 8.0f)] float armorPierce,
       [Values(8.0f, 7.0f, 5.0f)] float resultHP) {
     Enemy enemy = CreateEnemy(Vector3.zero, hp: 10.0f, armor: 3.0f);
-    float remainigHP = enemy.DamageEnemy(damage, armorPierce);
+    float remainigHP = enemy.DealPhysicalDamage(damage, armorPierce);
     Assert.That(resultHP, Is.EqualTo(remainigHP));
   }
 
