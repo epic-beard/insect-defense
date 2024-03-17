@@ -8,10 +8,15 @@ using UnityEngine.TestTools.Utils;
 [TestFixture]
 public class GameStateManagerTest {
   GameStateManager gsm;
+  GameObject sat;
 
   [SetUp]
   public void SetUp() {
     gsm = new GameObject().AddComponent<GameStateManager>();
+    sat = new GameObject();
+    sat.AddComponent<SpittingAntTower>();
+
+    GameStateManager.SelectedTowerType = sat;
   }
 
   [Test]
@@ -19,9 +24,9 @@ public class GameStateManagerTest {
     var comparer = new FloatEqualityComparer(10e-6f);
     TowerData.Type type = TowerData.Type.SPITTING_ANT_TOWER;
     Assert.That(gsm.GetTowerCost(type, 10.0f), Is.EqualTo(10.0f).Using(comparer));
-    gsm.IncrementTowerCounts(type);
+    gsm.IncrementTowerCounts(type, 10);
     Assert.That(gsm.GetTowerCost(type, 10.0f), Is.EqualTo(12.0f).Using(comparer));
-    gsm.IncrementTowerCounts(type);
+    gsm.IncrementTowerCounts(type, 10);
     Assert.That(gsm.GetTowerCost(type, 10.0f), Is.EqualTo(14.0f).Using(comparer));
   }
 
@@ -37,42 +42,38 @@ public class GameStateManagerTest {
     data.type = TowerData.Type.SPITTING_ANT_TOWER;
 
     Waypoint waypoint = new GameObject().AddComponent<Waypoint>();
-    var towerAmmounts = gsm.GetTowerCounts();
+    var towerPrices = gsm.TowerPrices;
 
     // TowerAmmounts should start out empty.
-    Assert.False(towerAmmounts.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
+    Assert.False(towerPrices.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
     // try building without enough Nu
     gsm.BuildTower(waypoint, data);
     gsm.Nu = 1;
     gsm.BuildTower(waypoint, data);
-    Assert.True(towerAmmounts.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
-    Assert.That(towerAmmounts[TowerData.Type.SPITTING_ANT_TOWER], Is.EqualTo(1));
+    Assert.True(towerPrices.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
+    Assert.That(towerPrices[TowerData.Type.SPITTING_ANT_TOWER].Count, Is.EqualTo(1));
   }
 }
 
 #region GameStateManagerUtils
 public static class GameStateManagerUtils {
-  public static Dictionary<TowerData.Type, int> GetTowerCounts(this GameStateManager stateManager) {
-    return (Dictionary<TowerData.Type, int>)typeof(GameStateManager)
-      .GetField("towerCounts", BindingFlags.Instance | BindingFlags.NonPublic)
-      .GetValue(stateManager);
-  }
-  public static void InvokeAddTower(this GameStateManager manager, Vector2Int coordinates, Tower tower) {
+
+  public static void InvokeAddTower(this GameStateManager stateManager, Vector2Int coordinates, Tower tower) {
     object[] args = { coordinates, tower };
     Type[] argTypes = { typeof(Vector2Int), typeof(Tower) };
     MethodInfo addTower = typeof(GameStateManager).GetMethod(
       "AddTower",
       BindingFlags.NonPublic | BindingFlags.Instance,
       null, CallingConventions.Standard, argTypes, null);
-    addTower.Invoke(manager, args);
+    addTower.Invoke(stateManager, args);
   }
 
-  public static void IncrementTowerCounts(this GameStateManager stateManager, TowerData.Type type) {
-    var towerCounts = stateManager.GetTowerCounts();
-    if (!towerCounts.ContainsKey(type)) {
-      towerCounts.Add(type, 0);
+  public static void IncrementTowerCounts(this GameStateManager stateManager, TowerData.Type type, int cost) {
+    var towerPrices = stateManager.TowerPrices;
+    if (!towerPrices.ContainsKey(type)) {
+      towerPrices.Add(type, new());
     }
-    towerCounts[type]++;
+    towerPrices[type].Push(stateManager.GetTowerCost(type, cost));
   }
 }
 #endregion
