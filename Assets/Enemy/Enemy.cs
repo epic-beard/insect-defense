@@ -218,10 +218,12 @@ public class Enemy : MonoBehaviour {
     }
   }
 
+  // To apply physical damage call DealPhysicalDamage, which will call this.
+  // Other sources of damage are calculated interanally so this is private.
   private void DealDamage(float damage, DamageText.DamageType type) {
     HP -= damage;
     GameObject prefab = Resources.Load<GameObject>("UI/Screens/Terrarium/DamageText/DamageText");
-    //GameObject gameObject = Instantiate(prefab, this.transform);
+
     GameObject gameObject = Instantiate(prefab, this.transform.position + 6*Vector3.up, this.transform.rotation);
     DamageText damageText = gameObject.GetComponent<DamageText>();
     damageText.DisplayDamage(Mathf.FloorToInt(damage), type);
