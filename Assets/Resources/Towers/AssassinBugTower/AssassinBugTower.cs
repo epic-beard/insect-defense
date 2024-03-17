@@ -119,7 +119,7 @@ public class AssassinBugTower : Tower {
     if (ArmorDepletionBonus && target.MaxArmor > 0 && target.Armor == 0) damage *= 2;
     if (MultiHitBonus) damage *= (1 + 0.2f * multiHit);
     if (CriticalMultiHit && multiHit == 5) damage *= 2;
-    target.DamageEnemy(damage, ArmorPierce);
+    target.DealPhysicalDamage(damage, ArmorPierce);
     if (MultiHitBonus) {
       multiHit++;
       multiHit = Math.Min(5, multiHit);

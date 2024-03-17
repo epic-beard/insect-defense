@@ -78,9 +78,9 @@ public class MantisTower : Tower {
     }
     // Calculate damage, keeping the "Vorpal Claws" upgrade in mind.
     if (VorpalClaw) {
-      target.DamageEnemy(Damage, ArmorPierce, false);
+      target.DealPhysicalDamage(Damage, ArmorPierce, false);
     } else if (0.0f < Attacks[attackType]) {
-      target.DamageEnemy((Damage * Attacks[attackType]), ArmorPierce, false);
+      target.DealPhysicalDamage((Damage * Attacks[attackType]), ArmorPierce, false);
       Attacks[attackType] -= damageDegredation;
     }
   }
