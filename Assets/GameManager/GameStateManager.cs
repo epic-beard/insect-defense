@@ -10,8 +10,8 @@ public class GameStateManager : MonoBehaviour {
   [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
   private readonly float towerScalingFactor = 1.2f;
-  private readonly float buildDelay = 2.0f;
-  private readonly float sellDelay = 2.0f;
+  public readonly float buildDelay = 2.0f;
+  public readonly float sellDelay = 2.0f;
 
 #pragma warning disable 8618
   public static GameStateManager Instance;
@@ -83,8 +83,8 @@ public class GameStateManager : MonoBehaviour {
     TowerData data = TowerManager.Instance.GetTowerData(towerType);
     int cost = GetTowerCost(data.type, data.cost);
     if (Nu < cost) { return false; }
-    //Nu -= cost;
-    //AddTowerPrice(data.type, cost);
+    Nu -= cost;
+    AddTowerPrice(data.type, cost);
     StartCoroutine(BuildTower(waypoint, data));
     return true;
   }
@@ -97,10 +97,6 @@ public class GameStateManager : MonoBehaviour {
   }
 
   public IEnumerator BuildTower(Waypoint waypoint, TowerData data) {
-    int cost = GetTowerCost(data.type, data.cost);
-    Nu -= cost;
-    AddTowerPrice(data.type, cost);
-
     string towerDataPath = TowerManager.Instance.GetTowerPrefabPath(data.type);
     GameObject prefab = Resources.Load<GameObject>(towerDataPath);
     GameObject towerObj = Instantiate(

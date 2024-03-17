@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
@@ -28,30 +27,6 @@ public class GameStateManagerTest {
     Assert.That(gsm.GetTowerCost(type, 10.0f), Is.EqualTo(12.0f).Using(comparer));
     gsm.IncrementTowerCounts(type, 10);
     Assert.That(gsm.GetTowerCost(type, 10.0f), Is.EqualTo(14.0f).Using(comparer));
-  }
-
-  [Test]
-  public void BuildTowerWorks() {
-    GameObject obj = new();
-    GameStateManager.SelectedTowerType = obj;
-
-    Tower tower = obj.AddComponent<SpittingAntTower>();
-    
-    TowerData data = new();
-    data.cost = 1;
-    data.type = TowerData.Type.SPITTING_ANT_TOWER;
-
-    Waypoint waypoint = new GameObject().AddComponent<Waypoint>();
-    var towerPrices = gsm.TowerPrices;
-
-    // TowerAmmounts should start out empty.
-    Assert.False(towerPrices.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
-    // try building without enough Nu
-    gsm.BuildTower(waypoint, data);
-    gsm.Nu = 1;
-    gsm.BuildTower(waypoint, data);
-    Assert.True(towerPrices.ContainsKey(TowerData.Type.SPITTING_ANT_TOWER));
-    Assert.That(towerPrices[TowerData.Type.SPITTING_ANT_TOWER].Count, Is.EqualTo(1));
   }
 }
 
