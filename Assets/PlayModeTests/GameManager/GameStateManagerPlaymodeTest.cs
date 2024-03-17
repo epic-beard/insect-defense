@@ -28,7 +28,7 @@ public class GameStateManagerPlaymodeTest {
 
     Assert.That(gameStateManager.BuildTower(waypoint), Is.True);
 
-    yield return new WaitForSeconds(gameStateManager.buildDelay);
+    yield return new WaitForSeconds(gameStateManager.GetBuildDelay());
 
     Assert.That(gameStateManager.TowerPrices[TowerData.Type.SPITTING_ANT_TOWER].Count, Is.EqualTo(1));
   }

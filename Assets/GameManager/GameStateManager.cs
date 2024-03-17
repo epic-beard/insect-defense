@@ -10,8 +10,8 @@ public class GameStateManager : MonoBehaviour {
   [SerializeField] private int maxHealth = 100;
   [SerializeField] private int startingNu = 100;
   private readonly float towerScalingFactor = 1.2f;
-  public readonly float buildDelay = 2.0f;
-  public readonly float sellDelay = 2.0f;
+  private readonly float buildDelay = 2.0f;
+  private readonly float sellDelay = 2.0f;
 
 #pragma warning disable 8618
   public static GameStateManager Instance;

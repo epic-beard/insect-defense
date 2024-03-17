@@ -33,6 +33,13 @@ public class GameStateManagerTest {
 #region GameStateManagerUtils
 public static class GameStateManagerUtils {
 
+  public static float GetBuildDelay(this GameStateManager stateManager) {
+    return (float)typeof(GameStateManager)
+        .GetField("buildDelay", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetValue(stateManager);
+        
+  }
+
   public static void InvokeAddTower(this GameStateManager stateManager, Vector2Int coordinates, Tower tower) {
     object[] args = { coordinates, tower };
     Type[] argTypes = { typeof(Vector2Int), typeof(Tower) };
