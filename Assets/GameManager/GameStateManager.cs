@@ -97,18 +97,8 @@ public class GameStateManager : MonoBehaviour {
   }
 
   public IEnumerator BuildTower(Waypoint waypoint, TowerData data) {
-    string towerDataPath = TowerManager.Instance.GetTowerPrefabPath(data.type);
-    GameObject prefab = Resources.Load<GameObject>(towerDataPath);
-    GameObject towerObj = Instantiate(
-        prefab,
-        waypoint.transform.position,
-        Quaternion.identity);
-    Tower tower = towerObj.GetComponent<Tower>();
-    tower.SetTowerData(data);
-    tower.Tile = waypoint.GetComponent<Tile>();
-    tower.enabled = false;
+    Tower tower = TowerManager.Instance.ConstructTower(waypoint, data);
 
-    ActiveTowerMap.Add(waypoint.GetCoordinates(), tower);
     yield return new WaitForSeconds(buildDelay);
     tower.enabled = true;
   }

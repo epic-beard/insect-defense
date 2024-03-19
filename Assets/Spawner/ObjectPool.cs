@@ -77,6 +77,10 @@ public class ObjectPool : MonoBehaviour {
     activeEnemies.Remove(enemy);
     EnemyData.Type type = enemy.Data.type;
     enemy.enabled = false;
+    if (!objectPools.ContainsKey(type)) {
+      objectPools.Add(type, new Queue<GameObject>());
+      Debug.Log("WARNING: Missing type from ObjectPool.");
+    }
     objectPools[type].Enqueue(gameObject);
   }
 
