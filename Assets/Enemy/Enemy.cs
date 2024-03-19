@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour {
       int tenStacks = (int)AcidStacks / 10;
       float damage = (tenStacks + 1) * Time.deltaTime;
       accumulatedAcidDamage += damage;
+      HP -= damage;
       AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
     }
   }
@@ -208,6 +209,7 @@ public class Enemy : MonoBehaviour {
 
     if (continuous) {
       accumulatedContinuousDamage += damage;
+      HP -= damage;
     } else {
       DealDamage(damage, DamageText.DamageType.PHYSICAL);
     }
@@ -237,9 +239,15 @@ public class Enemy : MonoBehaviour {
   // Other sources of damage are calculated interanally so this is private.
   private void DealDamage(float damage, DamageText.DamageType type) {
     HP -= damage;
+    ShowDamageText(damage, type);
+  }
+
+  private void ShowDamageText(float damage, DamageText.DamageType type) {
+    if (!PlayerState.Instance.Settings.ShowDamageText) return;
+
     GameObject prefab = Resources.Load<GameObject>("UI/Screens/Terrarium/DamageText/DamageText");
 
-    GameObject gameObject = Instantiate(prefab, this.transform.position + 6*Vector3.up, this.transform.rotation);
+    GameObject gameObject = Instantiate(prefab, this.transform.position + 6 * Vector3.up, this.transform.rotation);
     DamageText damageText = gameObject.GetComponent<DamageText>();
     damageText.DisplayDamage(Mathf.FloorToInt(damage), type);
   }
@@ -391,7 +399,7 @@ public class Enemy : MonoBehaviour {
   private IEnumerator HandleContinuousDamage() {
     while (true) {
       if (accumulatedContinuousDamage > 1.0f) {
-        DealDamage(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
+        ShowDamageText(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
         accumulatedContinuousDamage = 0.0f;
       }
 
@@ -402,19 +410,19 @@ public class Enemy : MonoBehaviour {
   private IEnumerator HandleStatusDamage() {
     while (true) {
       if (accumulatedAcidDamage > 1.0f) {
-        DealDamage(accumulatedAcidDamage, DamageText.DamageType.ACID);
+        ShowDamageText(accumulatedAcidDamage, DamageText.DamageType.ACID);
         accumulatedAcidDamage = 0.0f;
       }
       yield return new WaitForSeconds(statusDamagePollingDelay / 3);
 
       if (accumulatedPoisonDamage > 1.0f) {
-        DealDamage(accumulatedPoisonDamage, DamageText.DamageType.ACID);
+        ShowDamageText(accumulatedPoisonDamage, DamageText.DamageType.POISON);
         accumulatedPoisonDamage = 0.0f;
       }
       yield return new WaitForSeconds(statusDamagePollingDelay / 3);
 
       if (accumulatedBleedDamage > 1.0f) {
-        DealDamage(accumulatedBleedDamage, DamageText.DamageType.ACID);
+        ShowDamageText(accumulatedBleedDamage, DamageText.DamageType.BLEED);
         accumulatedBleedDamage = 0.0f;
       }
       yield return new WaitForSeconds(statusDamagePollingDelay / 3);

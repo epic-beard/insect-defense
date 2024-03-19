@@ -40,16 +40,6 @@ public static class GameStateManagerUtils {
         
   }
 
-  public static void InvokeAddTower(this GameStateManager stateManager, Vector2Int coordinates, Tower tower) {
-    object[] args = { coordinates, tower };
-    Type[] argTypes = { typeof(Vector2Int), typeof(Tower) };
-    MethodInfo addTower = typeof(GameStateManager).GetMethod(
-      "AddTower",
-      BindingFlags.NonPublic | BindingFlags.Instance,
-      null, CallingConventions.Standard, argTypes, null);
-    addTower.Invoke(stateManager, args);
-  }
-
   public static void IncrementTowerCounts(this GameStateManager stateManager, TowerData.Type type, int cost) {
     var towerPrices = stateManager.TowerPrices;
     if (!towerPrices.ContainsKey(type)) {

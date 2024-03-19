@@ -61,6 +61,8 @@ public class SpittingAntTowerPlayModeTest {
 
     LineRenderer beam = new GameObject().AddComponent<LineRenderer>();
     spittingAntTower.SetBeam(beam);
+
+    CreateTestingPlayerState();
   }
 
   [TearDown]
@@ -157,6 +159,12 @@ public class SpittingAntTowerPlayModeTest {
     Waypoint waypoint = new GameObject().AddComponent<Waypoint>();
     waypoint.transform.position = position;
     return waypoint;
+  }
+
+  private void CreateTestingPlayerState() {
+    PlayerState state = new();
+    state.Settings.ShowDamageText = false;
+    PlayerState.Instance = state;
   }
 
   #endregion
