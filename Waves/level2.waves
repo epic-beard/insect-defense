@@ -35,6 +35,12 @@
           <enemyDataKey>Ant</enemyDataKey>
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
+        <Wave xsi:type="DialogueBoxWave">
+          <messages>
+            <string>The next few waves will have clustered enemies. The Mantis is great against those threats.</string>
+            <string>It does damage in an area around its punch and its damage upgrades very well.</string>
+          </messages>
+        </Wave>
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
             <Wave xsi:type="CannedEnemyWave">

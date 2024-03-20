@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 1817185821981283408}
   - component: {fileID: 413543259721128696}
   - component: {fileID: 8104526826175150846}
-  - component: {fileID: 2162037658771368041}
   - component: {fileID: 744781302877792728}
   m_Layer: 0
   m_Name: LR Lower
@@ -190,19 +189,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2162037658771368041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672106685900482624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb866530132bd8468db7f7ec082593a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mantisAttackType: 0
 --- !u!114 &744781302877792728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +339,6 @@ GameObject:
   - component: {fileID: 6976314606082884936}
   - component: {fileID: 7397876177955207778}
   - component: {fileID: 5307385630062909861}
-  - component: {fileID: 9060017144045101244}
   - component: {fileID: 4646368738550877425}
   m_Layer: 0
   m_Name: UR Lower
@@ -427,19 +412,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9060017144045101244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2502456321574112275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb866530132bd8468db7f7ec082593a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mantisAttackType: 0
 --- !u!114 &4646368738550877425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,7 +628,6 @@ MonoBehaviour:
   bodyMesh: {fileID: 278295868118214090}
   lowerLeftArm: {fileID: 610918509453719963}
   lowerRightArm: {fileID: 47075805856801496}
-  damageDegredation: 0
 --- !u!95 &4080237960483242092
 Animator:
   serializedVersion: 5
@@ -1257,7 +1228,6 @@ GameObject:
   - component: {fileID: 1652489267397381165}
   - component: {fileID: 2692006630700412328}
   - component: {fileID: 7744935602032417795}
-  - component: {fileID: 4405906814789603142}
   - component: {fileID: 2774859632237528053}
   m_Layer: 0
   m_Name: LL Lower
@@ -1331,19 +1301,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4405906814789603142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5991626965650216258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb866530132bd8468db7f7ec082593a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mantisAttackType: 0
 --- !u!114 &2774859632237528053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1505,7 +1462,6 @@ GameObject:
   - component: {fileID: 2631170502101362866}
   - component: {fileID: 4090227029659223160}
   - component: {fileID: 4282387969448419212}
-  - component: {fileID: 7944081563846147180}
   - component: {fileID: 8370940457444929928}
   m_Layer: 0
   m_Name: UL Lower
@@ -1579,19 +1535,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7944081563846147180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6345073857146201140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb866530132bd8468db7f7ec082593a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mantisAttackType: 0
 --- !u!114 &8370940457444929928
 MonoBehaviour:
   m_ObjectHideFlags: 0

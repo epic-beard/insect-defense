@@ -3304,6 +3304,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2831304521689816808, guid: 4c2253518f01b3943a52397ff7079b09, type: 3}
+      propertyPath: State.Settings.ShowDamageText
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2831304521689816822, guid: 4c2253518f01b3943a52397ff7079b09, type: 3}
       propertyPath: m_Name
       value: DebugLoader

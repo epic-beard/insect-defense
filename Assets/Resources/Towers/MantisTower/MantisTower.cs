@@ -15,6 +15,7 @@ public class MantisTower : Tower {
   public bool ApexAttack { get; private set; } = false;
   public bool CrippleAttack { get; private set; } = false;
   public float CrippleCooldownSpeed { get { return (AttackSpeed * 1.5f); } }
+  public bool FrozenTarget { get; private set; } = false;
   public bool AoECrippleAttack { get; private set; } = false;
   public bool SecondAttack { get; private set; } = false;
   public float SecondaryDamage {
@@ -30,7 +31,7 @@ public class MantisTower : Tower {
   }
 
   private Animator animator;
-  private Enemy enemy;
+  private Enemy target;
   private bool firing = false;
   private Dictionary<MantisAttackType, Transform> attackOriginMap = new();
   private float secondaryDamageModifier = 0.5f;
@@ -87,23 +88,24 @@ public class MantisTower : Tower {
 
   // This method is called by an AnimationEvent embedded within the Mantis' attack animations.
   public void ProcessDamageAndEffects(MantisAttackType attackType) {
-    if (enemy.enabled) {
-      enemy.DealPhysicalDamage(Damage, ArmorPierce, false);
+    if (target == null) return;
+    if (target.enabled) {
+      target.DealPhysicalDamage(Damage, ArmorPierce, false);
       if (CrippleAttack) {
-        enemy.ApplyCripple();
+        target.ApplyCripple();
         CrippleAttack = false;
       }
     }
 
     Vector3 A = attackOriginMap[attackType].position;
-    Vector3 B = enemy.transform.position;
+    Vector3 B = target.transform.position;
 
     A.y = 0;
     B.y = 0;
 
     // Ensure that the target enemy is not among those reviewed for secondary damage.
     List<Enemy> potentialVictims = targeting.GetAllValidEnemiesInRange(
-        enemies: ObjectPool.Instance.GetActiveEnemies().Where(e => !e.Equals(enemy)).ToHashSet(),
+        enemies: ObjectPool.Instance.GetActiveEnemies().Where(e => !e.Equals(target)).ToHashSet(),
         towerPosition: transform.position,
         towerRange: Range,
         camoSight: CamoSight,
@@ -122,7 +124,7 @@ public class MantisTower : Tower {
       if (dist < this.AreaOfEffect) {
         pv.DealPhysicalDamage(SecondaryDamage, ArmorPierce, false);
         if (AoECrippleAttack) {
-          enemy.ApplyCripple();
+          target.ApplyCripple();
         }
       }
     }
@@ -130,20 +132,34 @@ public class MantisTower : Tower {
     if (AoECrippleAttack) { AoECrippleAttack = false; }
   }
 
+  // These methods are intended to be called through AnimationEvents.
+  public void FreezeTarget() {
+    FrozenTarget = true;
+  }
+
+  public void UnFreezeTarget() {
+    FrozenTarget = false;
+  }
+
   protected override void TowerUpdate() {
-    enemy = targeting.FindTarget(
-      oldTarget: enemy,
+    if (!FrozenTarget) {
+
+      target = targeting.FindTarget(
+      oldTarget: target,
       enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
 
-    if (enemy == null) {
-      firing = false;
-    } else {
-      bodyMesh.LookAt(enemy.AimPoint - (Vector3.up * 4));
-      firing = true;
+      if (target == null) {
+        firing = false;
+      } else {
+        bodyMesh.LookAt(target.AimPoint - (Vector3.up * 4));
+        firing = true;
+      }
+    } else if (target != null) {
+      bodyMesh.LookAt(target.AimPoint - (Vector3.up * 4));
     }
   }
 
@@ -177,6 +193,7 @@ public class MantisTower : Tower {
         Stab();
 
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
+        UnFreezeTarget();
       }
       yield return new WaitUntil(() => firing);
     }

@@ -50,6 +50,11 @@ public class Level2WaveGenerator {
           spawnAmmount = 1,
         },
         new WaitUntilDeadWave() {},
+        new DialogueBoxWave() {
+          messages =
+              { "The next few waves will have clustered enemies. The Mantis is great against those threats.",
+                "It does damage in an area around its punch and its damage upgrades very well." }
+        },
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
