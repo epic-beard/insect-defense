@@ -23,9 +23,9 @@ public struct TowerAbility {
     M_1_3_DOUBLE_SLASH,  // Mantis Tower, Damage upgrade tree level 3.
     M_1_5_FOUR_ARMS,  // Mantis Tower, Damage upgrade tree level 5.
     M_2_3_JAGGED_CLAWS,  // Mantis Tower, Debilitation upgrade tree level 3.
-    M_2_5_SERRATED_CLAWS, // Mantis Tower, Debilitation upgrade tree level 5.
-    M_3_3_CAMO_SIGHT,  // Mantis Tower, Utility upgrade tree level 3.
-    M_3_5_VORPAL_CLAWS,  // Mantis Tower, Utility upgrade tree level 5.
+    M_2_5_BLOODY_EXECUTION, // Mantis Tower, Debilitation upgrade tree level 5.
+    M_3_2_CAMO_SIGHT,  // Mantis Tower, Utility upgrade tree level 3.
+    M_3_5_SHRIKE,  // Mantis Tower, Utility upgrade tree level 5.
     SA_1_3_ARMOR_TEAR_ACID_BONUS,  // Spitting Ant Tower, Armor Tear upgrade tree level 3.
     SA_1_5_ARMOR_TEAR_EXPLOSION,  // Spitting Ant Tower, Armor Tear upgrade tree level 5.
     SA_2_3_ACID_BUILDUP_BONUS,  // Spitting Ant Tower, Acid DoT upgrade tree level 3.

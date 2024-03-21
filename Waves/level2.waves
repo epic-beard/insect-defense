@@ -3,86 +3,21 @@
   <waves>
     <Wave xsi:type="SequentialWave">
       <Subwaves>
-        <Wave xsi:type="CannedEnemyWave">
-          <repetitions>3</repetitions>
-          <repeatDelay>2</repeatDelay>
-          <spawnLocation>0</spawnLocation>
-          <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Ant</enemyDataKey>
-        </Wave>
-        <Wave xsi:type="SpacerWave">
-          <delay>2</delay>
-        </Wave>
-        <Wave xsi:type="CannedEnemyWave">
-          <repetitions>3</repetitions>
-          <repeatDelay>2</repeatDelay>
-          <spawnLocation>1</spawnLocation>
-          <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Ant</enemyDataKey>
-        </Wave>
-        <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>4</repetitions>
-              <repeatDelay>3</repeatDelay>
-              <spawnLocation>0</spawnLocation>
-              <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Ant</enemyDataKey>
-            </Wave>
-            <Wave xsi:type="CannedEnemyWave">
-              <repetitions>4</repetitions>
-              <repeatDelay>3</repeatDelay>
+              <repeatDelay>4</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Ant</enemyDataKey>
+              <enemyDataKey>Beetle</enemyDataKey>
             </Wave>
-          </Subwaves>
-        </Wave>
-        <Wave xsi:type="ConcurrentWave">
-          <Subwaves>
-            <Wave xsi:type="SequentialWave">
-              <Subwaves>
-                <Wave xsi:type="SpacerWave">
-                  <delay>2</delay>
-                </Wave>
-                <Wave xsi:type="ConcurrentWave">
-                  <Subwaves>
-                    <Wave xsi:type="CannedEnemyWave">
-                      <repetitions>4</repetitions>
-                      <repeatDelay>4</repeatDelay>
-                      <spawnLocation>0</spawnLocation>
-                      <spawnAmmount>1</spawnAmmount>
-                      <enemyDataKey>Ant</enemyDataKey>
-                    </Wave>
-                    <Wave xsi:type="CannedEnemyWave">
-                      <repetitions>4</repetitions>
-                      <repeatDelay>4</repeatDelay>
-                      <spawnLocation>0</spawnLocation>
-                      <spawnAmmount>4</spawnAmmount>
-                      <enemyDataKey>Aphid</enemyDataKey>
-                    </Wave>
-                  </Subwaves>
-                </Wave>
-              </Subwaves>
-            </Wave>
-            <Wave xsi:type="ConcurrentWave">
-              <Subwaves>
-                <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>4</repetitions>
-                  <repeatDelay>4</repeatDelay>
-                  <spawnLocation>1</spawnLocation>
-                  <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Ant</enemyDataKey>
-                </Wave>
-                <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>4</repetitions>
-                  <repeatDelay>4</repeatDelay>
-                  <spawnLocation>1</spawnLocation>
-                  <spawnAmmount>4</spawnAmmount>
-                  <enemyDataKey>Aphid</enemyDataKey>
-                </Wave>
-              </Subwaves>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>2</repetitions>
+              <repeatDelay>5</repeatDelay>
+              <spawnLocation>1</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Tarantula</enemyDataKey>
             </Wave>
           </Subwaves>
         </Wave>

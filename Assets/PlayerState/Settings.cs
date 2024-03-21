@@ -3,6 +3,7 @@ using UnityEngine;
 
 [Serializable]
 public class Settings {
+  public bool ShowDamageText = true;
   [Range(0, 1)]
   public float MasterVolume;
   [Range(0, 1)]

@@ -239,12 +239,14 @@ public class Spawner : MonoBehaviour {
 
   public class DialogueBoxWave : Wave {
     public List<string> messages = new();
+    public float delay = 0.5f;
 
     public override IEnumerator Start() {
       GameStateManager.Instance.ClearSelection();
       MessageBox.Instance.ShowDialogue(messages);
       Finished = true;
       yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());
+      yield return new WaitForSeconds(delay);
     }
 
     public override string ToString() {

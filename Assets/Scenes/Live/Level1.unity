@@ -776,15 +776,15 @@ PrefabInstance:
     - target: {fileID: 2095149139777741097, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: entries.Array.data[0].prefab
       value: 
-      objectReference: {fileID: 4281334567815867203, guid: 732f98c099699234a870162fba428789, type: 3}
+      objectReference: {fileID: 966036596837160133, guid: 0bf87bef37ca9ba49a54268f45a46302, type: 3}
     - target: {fileID: 2095149139777741097, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: entries.Array.data[1].prefab
       value: 
-      objectReference: {fileID: 776612908395754560, guid: 0e6cac79d7da1ec4db259d2c3aa9491a, type: 3}
+      objectReference: {fileID: 4344558016110343677, guid: 873e1c24eafd29f428e217bde010d4a3, type: 3}
     - target: {fileID: 2095149139777741097, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: entries.Array.data[2].prefab
       value: 
-      objectReference: {fileID: 8039858956796069427, guid: 1b3a3b4003bc2914584856d698ee64f8, type: 3}
+      objectReference: {fileID: 4705923088120021052, guid: 1e63a44154d2c34499ac024319884a3f, type: 3}
     - target: {fileID: 8256458714520664759, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2869,15 +2869,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271509503493177319, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5271509503493177319, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5271509503493177319, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5271509503493177319, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3304,6 +3304,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2831304521689816808, guid: 4c2253518f01b3943a52397ff7079b09, type: 3}
+      propertyPath: State.Settings.ShowDamageText
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2831304521689816822, guid: 4c2253518f01b3943a52397ff7079b09, type: 3}
       propertyPath: m_Name
       value: DebugLoader

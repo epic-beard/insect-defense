@@ -18,14 +18,31 @@ public class TowerManager : MonoBehaviour {
 
   private void Awake() {
     Instance = this;
-  }
-
-  void Start() {
     towers = Deserialize<TowerDictionary>(towerDataFilename);
   }
 
   public TowerData GetTowerData(TowerData.Type type) {
     return towers[type];
+  }
+
+  public Tower ConstructTower(Waypoint waypoint, TowerData.Type type) {
+    return ConstructTower(waypoint, GetTowerData(type));
+  }
+
+  public Tower ConstructTower(Waypoint waypoint, TowerData data) {
+    string towerDataPath = TowerManager.Instance.GetTowerPrefabPath(data.type);
+    GameObject prefab = Resources.Load<GameObject>(towerDataPath);
+    GameObject towerObj = Instantiate(
+        prefab,
+        waypoint.transform.position,
+        Quaternion.identity);
+    Tower tower = towerObj.GetComponent<Tower>();
+    tower.SetTowerData(data);
+    tower.Tile = waypoint.GetComponent<Tile>();
+    tower.enabled = false;
+
+    GameStateManager.Instance.ActiveTowerMap.Add(waypoint.GetCoordinates(), tower);
+    return tower;
   }
 
   public string GetTowerPrefabPath(TowerData.Type type) {  return prefabMap[type]; }

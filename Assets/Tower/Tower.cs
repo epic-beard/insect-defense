@@ -160,7 +160,9 @@ public abstract class Tower : MonoBehaviour {
   }
 
   private void OnDestroy() {
-    Tile.ResetTile();
+    if (Tile != null) {
+      Tile.ResetTile();
+    }
   }
 
   // Abstract methods

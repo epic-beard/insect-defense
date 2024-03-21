@@ -679,7 +679,7 @@
               <name>Damage and Armor Pen</name>
               <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>50</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -698,14 +698,14 @@
               <name>Damage and Armor Pen</name>
               <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>200</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_1_3_DOUBLE_SLASH</specialAbility>
               <name>Double Slash</name>
               <description>The Mantis attacks with both its scythe claws, from both sides.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>800</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -747,7 +747,7 @@
               <name>Vicious Claws</name>
               <description>Attacks now inflict 10 bleed.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>50</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -761,14 +761,14 @@
               <name>Anticoagulant Microstructures</name>
               <description>Bleed inflicted is 20.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>200</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_2_3_JAGGED_CLAWS</specialAbility>
               <name>Jagged Claws</name>
               <description>Enemies dealt full damage are crippled. This applies only to the first enemy hit if that enemy has low enough armor to take full damage.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>800</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -785,7 +785,7 @@
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>M_2_5_SERRATED_CLAWS</specialAbility>
+              <specialAbility>M_2_5_BLOODY_EXECUTION</specialAbility>
               <name>Serrated Claws</name>
               <description>Grants the 'Cripple' special ability on a short cooldown.</description>
               <upgradePath>1</upgradePath>
@@ -803,30 +803,30 @@
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Attack Speed</name>
-              <description>Increases attack speed by 50%</description>
+              <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>50</cost>
+            </TowerAbility>
+            <TowerAbility>
+              <specialAbility>M_3_2_CAMO_SIGHT</specialAbility>
+              <name>Camo Sight</name>
+              <description>The Tower gains camo sight.</description>
+              <upgradePath>2</upgradePath>
+              <cost>150</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>ENEMIES_HIT</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>2</mod>
+                  <attribute>AREA_OF_EFFECT</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Durable Claws</name>
-              <description>Attacks hit two more enemies than normal.</description>
+              <name>Enhanced Spines</name>
+              <description>Mantis attack spines are reformed to fly further, increasing the AoE range by 50%.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
-            </TowerAbility>
-            <TowerAbility>
-              <specialAbility>M_3_3_CAMO_SIGHT</specialAbility>
-              <name>Camo Sight</name>
-              <description>The Tower gains camo sight</description>
-              <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>800</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -836,28 +836,16 @@
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
                 </AttributeModifier>
-                <AttributeModifier>
-                  <attribute>ENEMIES_HIT</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>2</mod>
-                </AttributeModifier>
               </attributeModifiers>
               <name>Synergetic Claws</name>
-              <description>Increases attack speed by 50% and increase number of enemies hit by 2.</description>
+              <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>M_3_5_VORPAL_CLAWS</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>DAMAGE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
-                </AttributeModifier>
-              </attributeModifiers>
-              <name>Vorpal Claws</name>
-              <description>There is no limit on enemies hit. Previous limit bonuses increase damage by 10% each.</description>
+              <specialAbility>M_3_5_SHRIKE</specialAbility>
+              <name>Shrike</name>
+              <description>Mantis attacks shed vicious spines, AoE damage equals main attack damage.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -865,16 +853,16 @@
         </upgradeTreeData>
         <name>Mantis</name>
         <icon_path>Icons/test</icon_path>
-        <enemies_hit>4</enemies_hit>
-        <area_of_effect>0</area_of_effect>
-        <armor_pierce>0</armor_pierce>
+        <enemies_hit>0</enemies_hit>
+        <area_of_effect>3</area_of_effect>
+        <armor_pierce>5</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>1</attack_speed>
+        <attack_speed>0.5</attack_speed>
         <cost>150</cost>
         <damage>7</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
-        <range>14</range>
+        <range>15</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>

@@ -14,8 +14,9 @@ public class EnemyTest {
       [Values(5.0f, 5.0f, 5.0f)] float damage,
       [Values(0.0f, 1.0f, 8.0f)] float armorPierce,
       [Values(8.0f, 7.0f, 5.0f)] float resultHP) {
+    CreateTestingPlayerState();
     Enemy enemy = CreateEnemy(Vector3.zero, hp: 10.0f, armor: 3.0f);
-    float remainigHP = enemy.DamageEnemy(damage, armorPierce);
+    float remainigHP = enemy.DealPhysicalDamage(damage, armorPierce);
     Assert.That(resultHP, Is.EqualTo(remainigHP));
   }
 
@@ -36,6 +37,7 @@ public class EnemyTest {
   public void AcidExplosion(
       [Values(10, 30, 50, 80, 120)] int acidStacks,
       [Values(EnemyData.Size.TINY, EnemyData.Size.SMALL, EnemyData.Size.NORMAL, EnemyData.Size.LARGE, EnemyData.Size.HUGE)] EnemyData.Size enemySize) {
+    CreateTestingPlayerState();
     float enemyHp = acidStacks * 2;
     Enemy enemy = CreateEnemy(Vector3.zero, hp: enemyHp, size: enemySize);
 
@@ -225,6 +227,12 @@ public class EnemyTest {
     Waypoint waypoint = new GameObject().AddComponent<Waypoint>();
     waypoint.transform.position = position;
     return waypoint;
+  }
+
+  private void CreateTestingPlayerState() {
+    PlayerState state = new();
+    state.Settings.ShowDamageText = false;
+    PlayerState.Instance = state;
   }
 
   #endregion
