@@ -61,12 +61,12 @@ public class MantisTowerTest {
   }
 
   [Test]
-  public void SpecialAbilityUpgradeSerratedClaws() {
-    Assert.That(false, Is.EqualTo(mantisTower.AoECrippleAttack));
+  public void SpecialAbilityUpgradeBloodyExecution() {
+    Assert.That(false, Is.EqualTo(mantisTower.BloodyExecution));
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_5_BLOODY_EXECUTION);
 
-    Assert.True(mantisTower.AoECrippleAttack);
+    Assert.True(mantisTower.BloodyExecution);
   }
 
   [Test]
@@ -96,7 +96,7 @@ public class MantisTowerTest {
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemy };
     objectPool.SetActiveEnemies(activeEnemies);
-    mantisTower.SetEnemy(enemy);
+    mantisTower.SetTarget(enemy);
 
     Assert.That(enemy.HP, Is.EqualTo(enemyHp));
 
@@ -113,7 +113,7 @@ public class MantisTowerTest {
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { firstEnemy, secondEnemy };
     objectPool.SetActiveEnemies(activeEnemies);
-    mantisTower.SetEnemy(firstEnemy);
+    mantisTower.SetTarget(firstEnemy);
 
     mantisTower.ProcessDamageAndEffects(MantisAttackType.UPPER_RIGHT);
 
@@ -130,7 +130,7 @@ public class MantisTowerTest {
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { enemy };
     objectPool.SetActiveEnemies(activeEnemies);
-    mantisTower.SetEnemy(enemy);
+    mantisTower.SetTarget(enemy);
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_3_JAGGED_CLAWS);
 
@@ -147,7 +147,7 @@ public class MantisTowerTest {
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { firstEnemy, secondEnemy };
     objectPool.SetActiveEnemies(activeEnemies);
-    mantisTower.SetEnemy(firstEnemy);
+    mantisTower.SetTarget(firstEnemy);
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_3_JAGGED_CLAWS);
 
@@ -158,21 +158,21 @@ public class MantisTowerTest {
     firstEnemy.transform.position = Vector3.right * 100;
     secondEnemy.transform.position = Vector3.right;
 
-    mantisTower.SetEnemy(secondEnemy);
+    mantisTower.SetTarget(secondEnemy);
     mantisTower.ProcessDamageAndEffects(MantisAttackType.UPPER_RIGHT);
 
     Assert.False(secondEnemy.Crippled);
   }
 
   [Test]
-  public void VorpalClaws() {
+  public void ShrikeTest() {
     Enemy firstEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
     Enemy secondEnemy = CreateEnemy(Vector3.right, hp: enemyHp);
 
     ObjectPool objectPool = CreateObjectPool();
     HashSet<Enemy> activeEnemies = new() { firstEnemy, secondEnemy };
     objectPool.SetActiveEnemies(activeEnemies);
-    mantisTower.SetEnemy(firstEnemy);
+    mantisTower.SetTarget(firstEnemy);
 
     mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_5_SHRIKE);
 
@@ -217,10 +217,10 @@ public class MantisTowerTest {
 
 public static class MantisTowerUtils {
 
-  public static void SetEnemy(this MantisTower mantisTower, Enemy enemy) {
+  public static void SetTarget(this MantisTower mantisTower, Enemy target) {
     typeof(MantisTower)
-        .GetField("enemy", BindingFlags.Instance | BindingFlags.NonPublic)
-        .SetValue(mantisTower, enemy);
+        .GetField("target", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(mantisTower, target);
   }
 
   public static Dictionary<MantisAttackType, Transform> GetAttackOriginMap(this MantisTower mantisTower) {

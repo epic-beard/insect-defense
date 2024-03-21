@@ -13,10 +13,10 @@ public class MantisTower : Tower {
 
   public float AoECrippleCooldownSpeed { get { return (AttackSpeed * 2f); } }
   public bool ApexAttack { get; private set; } = false;
+  public bool BloodyExecution { get; private set; } = false;
   public bool CrippleAttack { get; private set; } = false;
   public float CrippleCooldownSpeed { get { return (AttackSpeed * 1.5f); } }
   public bool FrozenTarget { get; private set; } = false;
-  public bool AoECrippleAttack { get; private set; } = false;
   public bool SecondAttack { get; private set; } = false;
   public float SecondaryDamage {
     get { return Damage * secondaryDamageModifier; }
@@ -71,8 +71,7 @@ public class MantisTower : Tower {
         CrippleAttack = true;
         break;
       case SpecialAbility.M_2_5_BLOODY_EXECUTION:
-        StartCoroutine(AoECrippleCooldown());
-        AoECrippleAttack = true;
+        BloodyExecution = true;
         break;
       case SpecialAbility.M_3_2_CAMO_SIGHT:
         CamoSight = true;
@@ -90,10 +89,15 @@ public class MantisTower : Tower {
   public void ProcessDamageAndEffects(MantisAttackType attackType) {
     if (target == null) return;
     if (target.enabled) {
-      target.DealPhysicalDamage(Damage, ArmorPierce, false);
-      if (CrippleAttack) {
-        target.ApplyCripple();
-        CrippleAttack = false;
+      if (BloodyExecution && target.IsDoomedByBlood()) {
+        target.DealDamage(target.HP, DamageText.DamageType.BLEED);
+      } else {
+        target.DealPhysicalDamage(Damage, ArmorPierce, false);
+        target.AddBleedStacks(DamageOverTime);
+        if (CrippleAttack) {
+          target.ApplyCripple();
+          CrippleAttack = false;
+        }
       }
     }
 
@@ -123,13 +127,8 @@ public class MantisTower : Tower {
 
       if (dist < this.AreaOfEffect) {
         pv.DealPhysicalDamage(SecondaryDamage, ArmorPierce, false);
-        if (AoECrippleAttack) {
-          target.ApplyCripple();
-        }
       }
     }
-
-    if (AoECrippleAttack) { AoECrippleAttack = false; }
   }
 
   // These methods are intended to be called through AnimationEvents.
@@ -208,17 +207,6 @@ public class MantisTower : Tower {
         yield return new WaitForSeconds(1 / CrippleCooldownSpeed);
       }
       yield return new WaitUntil(() => !CrippleAttack);
-    }
-  }
-
-  private IEnumerator AoECrippleCooldown() {
-    while (true) {
-      while (!AoECrippleAttack) {
-        AoECrippleAttack = true;
-
-        yield return new WaitForSeconds(1 / AoECrippleCooldownSpeed);
-      }
-      yield return new WaitUntil(() => !AoECrippleAttack);
     }
   }
 }

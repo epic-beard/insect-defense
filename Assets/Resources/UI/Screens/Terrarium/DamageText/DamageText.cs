@@ -44,9 +44,11 @@ public class DamageText : MonoBehaviour {
   }
 
   private void FaceCamera() {
-    Vector3 newForward = Camera.main.transform.forward;
-    newForward.y = 0;
-    transform.forward = newForward;
+    if (Camera.main != null) {
+      Vector3 newForward = Camera.main.transform.forward;
+      newForward.y = 0;
+      transform.forward = newForward;
+    }
   }
 
   private IEnumerator BounceUp(Vector3 start) {

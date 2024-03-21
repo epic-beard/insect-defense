@@ -31,6 +31,7 @@ public class EnemyTest {
     Assert.That(resultArmor, Is.EqualTo(remainingArmor));
   }
 
+  #region AcidDamageTests
 
   // Test AddAcidStacks to make sure that it returns true when at max stacks and false when it doesn't.
   [Test, Sequential]
@@ -43,12 +44,16 @@ public class EnemyTest {
 
     enemy.AddAcidStacks(acidStacks, false);
 
-    Assert.That(enemy.HP, Is.EqualTo(enemyHp - ((int)enemySize * Enemy.acidExplosionStackMultiplier)));
+    Assert.That(
+        enemy.HP,
+        Is.EqualTo(enemyHp - (
+            (int)EnemyData.SizeToAcidExplosionThreshold[enemy.Size] * enemy.AcidExplosionStackModifier)));
     Assert.That(enemy.AcidStacks, Is.EqualTo(0.0f));
   }
 
   [Test]
   public void AcidDecayNormal([Values(5, 15, 25, 35)] int acidStacks) {
+    CreateTestingPlayerState();
     Time.captureDeltaTime = 1.0f;
     float hp = 1000.0f;
 
@@ -64,6 +69,7 @@ public class EnemyTest {
 
   [Test]
   public void AcidDecayAdvanced() {
+    CreateTestingPlayerState();
     Time.captureDeltaTime = 1.0f;
     float hp = 1000.0f;
     float acidStacks = 50;
@@ -81,6 +87,24 @@ public class EnemyTest {
     Assert.That(enemy.AcidStacks, Is.EqualTo(acidStacks - expectedAcidReduction));
   }
 
+  #endregion
+
+  #region BleedDamageTests
+
+  [Test, Sequential]
+  public void TotalBleedDamage(
+      [Values(5, 50, 55)] float bleedStacks,
+      [Values(1, 30, 36)] float expectedTotalDamage) {
+    float hp = 1000.0f;
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: hp, size: EnemyData.Size.NORMAL);
+    Time.captureDeltaTime = 1.0f;
+
+    enemy.AddBleedStacks(bleedStacks);
+
+    Assert.That(enemy.TotalBleedDamage, Is.EqualTo(expectedTotalDamage));
+  }
+
+  #endregion
 
   // Test AddStunTime.
   [Test]
@@ -215,6 +239,8 @@ public class EnemyTest {
       maxHP = hp,
       speed = speed,
       size = size,
+      acidExplosionStackModifier = 1.0f,
+      coagulationModifier = 1.0f,
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();

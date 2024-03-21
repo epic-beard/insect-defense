@@ -741,11 +741,11 @@
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
                   <mode>SET</mode>
-                  <mod>10</mod>
+                  <mod>15</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Vicious Claws</name>
-              <description>Attacks now inflict 10 bleed.</description>
+              <description>Attacks now inflict 15 bleed.</description>
               <upgradePath>1</upgradePath>
               <cost>50</cost>
             </TowerAbility>
@@ -755,11 +755,11 @@
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
                   <mode>SET</mode>
-                  <mod>20</mod>
+                  <mod>30</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Anticoagulant Microstructures</name>
-              <description>Bleed inflicted is 20.</description>
+              <description>Bleed inflicted is 30.</description>
               <upgradePath>1</upgradePath>
               <cost>200</cost>
             </TowerAbility>
@@ -776,20 +776,27 @@
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
                   <mode>SET</mode>
-                  <mod>40</mod>
+                  <mod>60</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Anticoagulant Chemicals</name>
-              <description>Bleed inflicted is 40.</description>
+              <description>Bleed inflicted is 60.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>1600</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_2_5_BLOODY_EXECUTION</specialAbility>
-              <name>Serrated Claws</name>
-              <description>Grants the 'Cripple' special ability on a short cooldown.</description>
+              <attributeModifiers>
+                <AttributeModifier>
+                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <mode>SET</mode>
+                  <mod>80</mod>
+                </AttributeModifier>
+              </attributeModifiers>
+              <name>Bloody Execution</name>
+              <description>Execute doomed (too much bleed to survive) enemies. Bleed is now 80.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>3200</cost>
             </TowerAbility>
           </secondPathUpgrades>
           <thirdPathUpgrades>
