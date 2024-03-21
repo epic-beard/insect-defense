@@ -1,0 +1,9 @@
+.no-detail {
+    color: #e75900;
+}
+
+.no-detail-label {
+    text-overflow: clip;
+    -unity-font-definition: url('/Assets/Font/MetalOnMetal-OBo SDF.asset');
+    -unity-text-align: upper-center;
+}

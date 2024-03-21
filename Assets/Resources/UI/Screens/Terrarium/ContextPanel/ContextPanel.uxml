@@ -5,10 +5,10 @@
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/ContextPanel.uss?fileID=7433441132597879392&amp;guid=aa0ebe8a8c475124f9cf00b359f3778b&amp;type=3#ContextPanel" />
     
-    <ui:VisualElement name="no_context__visualelement" style="color: rgb(231, 89, 0);">
-        <ui:Label text="Insect&#10;Defense" name="no_context__label" enable-rich-text="true" style="-unity-text-align: upper-center; -unity-font: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo.ttf?fileID=12800000&amp;guid=50a3b1befe1587140a9cffc3fb0148a2&amp;type=3#MetalOnMetal-OBo&apos;); text-overflow: clip; -unity-font-definition: url(&apos;project://database/Assets/Font/MetalOnMetal-OBo%20SDF.asset?fileID=11400000&amp;guid=8b3b571a74664c147848b57b9170bd49&amp;type=2#MetalOnMetal-OBo SDF&apos;);" />
+    <ui:VisualElement name="no-detail" class="no-detail">
+        <ui:Label class="no-detail-label" text="Insect&#10;Defense" enable-rich-text="true" />
     </ui:VisualElement>
 
-    <ui:Instance template="TowerDetail" name="TowerDetail" />
-    <ui:Instance template="EnemyDetail" name="EnemyDetail" />
+    <ui:Instance template="TowerDetail" name="tower-detail" />
+    <ui:Instance template="EnemyDetail" name="enemy-detail" />
 </ui:UXML>

@@ -4,13 +4,13 @@ using UnityEngine.UIElements;
 public class ContextPanel : MonoBehaviour {
   public static ContextPanel Instance;
 
-  readonly private string noContextVisualElementName = "no_context__visualelement";
-  readonly private string towerDetailName = "TowerDetail";
-  readonly private string enemyDetailName = "EnemyDetail";
+  readonly private string noDetailName = "no-detail";
+  readonly private string towerDetailName = "tower-detail";
+  readonly private string enemyDetailName = "enemy-detail";
 
   private UIDocument uiDocument;
 
-  private VisualElement noContextVisualElement;
+  private VisualElement noDetailVE;
   private VisualElement towerDetailVE;
   private VisualElement enemyDetailVE;
 
@@ -27,31 +27,26 @@ public class ContextPanel : MonoBehaviour {
     uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
 
-    noContextVisualElement = rootElement.Q<VisualElement>(noContextVisualElementName);
+    noDetailVE = rootElement.Q<VisualElement>(noDetailName);
     towerDetailVE = rootElement.Q<VisualElement>(towerDetailName);
     enemyDetailVE = rootElement.Q<VisualElement>(enemyDetailName);
-  }
-
-  // Capitalize the first letter in a word and make all other letters lowercase.
-  private string ToTitleCase(string titleCase) {
-    return string.Concat(titleCase[..1].ToUpper(), titleCase[1..].ToLower());
   }
 
   public void SetNoContextPanel() {
     enemyDetailVE.style.display = DisplayStyle.None;
     towerDetailVE.style.display = DisplayStyle.None;
-    noContextVisualElement.style.display = DisplayStyle.Flex;
+    noDetailVE.style.display = DisplayStyle.Flex;
   }
 
   public void SetTowerContextPanel() {
     enemyDetailVE.style.display = DisplayStyle.None;
     towerDetailVE.style.display = DisplayStyle.Flex;
-    noContextVisualElement.style.display = DisplayStyle.None;
+    noDetailVE.style.display = DisplayStyle.None;
   }
 
   public void SetEnemyContextPanel() {
     enemyDetailVE.style.display = DisplayStyle.Flex;
     towerDetailVE.style.display = DisplayStyle.None;
-    noContextVisualElement.style.display = DisplayStyle.None;
+    noDetailVE.style.display = DisplayStyle.None;
   }
 }
