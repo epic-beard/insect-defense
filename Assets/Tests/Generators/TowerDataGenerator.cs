@@ -539,7 +539,7 @@ public class TowerDataGenerator {
         name = "Damage and Armor Pen",
         description = "Increases damage and armor penetration by 50%.",
         upgradePath = 0,
-        cost = 10,
+        cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
@@ -549,14 +549,14 @@ public class TowerDataGenerator {
         name = "Damage and Armor Pen",
         description = "Increases damage and armor penetration by 50%.",
         upgradePath = 0,
-        cost = 10,
+        cost = 200,
       },
       new() {
         specialAbility = SpecialAbility.M_1_3_DOUBLE_SLASH,
         name = "Double Slash",
         description = "The Mantis attacks with both its scythe claws, from both sides.",
         upgradePath = 0,
-        cost = 10,
+        cost = 800,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
@@ -579,21 +579,21 @@ public class TowerDataGenerator {
     var secondPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15)
         },
         name = "Vicious Claws",
-        description = "Attacks now inflict 10 bleed.",
+        description = "Attacks now inflict 15 bleed.",
         upgradePath = 1,
-        cost = 10,
+        cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 20)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 30)
         },
         name = "Anticoagulant Microstructures",
-        description = "Bleed inflicted is 20.",
+        description = "Bleed inflicted is 30.",
         upgradePath = 1,
-        cost = 10,
+        cost = 200,
       },
       new() {
         specialAbility = SpecialAbility.M_2_3_JAGGED_CLAWS,
@@ -601,23 +601,26 @@ public class TowerDataGenerator {
         description = "Enemies dealt full damage are crippled. This applies only to the first enemy hit if that enemy" +
             " has low enough armor to take full damage.",
         upgradePath = 1,
-        cost = 10,
+        cost = 800,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 40)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 60)
         },
         name = "Anticoagulant Chemicals",
-        description = "Bleed inflicted is 40.",
+        description = "Bleed inflicted is 60.",
         upgradePath = 1,
-        cost = 10,
+        cost = 1600,
       },
       new() {
-        specialAbility = SpecialAbility.M_2_5_SERRATED_CLAWS,
-        name = "Serrated Claws",
-        description = "Grants the 'Cripple' special ability on a short cooldown.",
+        attributeModifiers = new AttributeModifier[] {
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 80)
+        },
+        specialAbility = SpecialAbility.M_2_5_BLOODY_EXECUTION,
+        name = "Bloody Execution",
+        description = "Execute doomed (too much bleed to survive) enemies. Bleed is now 80.",
         upgradePath = 1,
-        cost = 10,
+        cost = 3200,
       },
     };
     var thirdPathUpgrades = new TowerAbility[] {
@@ -626,43 +629,39 @@ public class TowerDataGenerator {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Improved Attack Speed",
-        description = "Increases attack speed by 50%",
+        description = "Increases attack speed by 50%.",
         upgradePath = 2,
-        cost = 10,
+        cost = 50,
+      },
+      new() {
+        specialAbility = SpecialAbility.M_3_2_CAMO_SIGHT,
+        name = "Camo Sight",
+        description = "The Tower gains camo sight.",
+        upgradePath = 2,
+        cost = 150,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 2)
+          GetAttributeModifier(Stat.AREA_OF_EFFECT, Mode.MULTIPLICATIVE, 1.5f)
         },
-        name = "Durable Claws",
-        description = "Attacks hit two more enemies than normal.",
+        name = "Enhanced Spines",
+        description = "Mantis attack spines are reformed to fly further, increasing the AoE range by 50%.",
         upgradePath = 2,
-        cost = 10,
-      },
-      new() {
-        specialAbility = SpecialAbility.M_3_3_CAMO_SIGHT,
-        name = "Camo Sight",
-        description = "The Tower gains camo sight",
-        upgradePath = 2,
-        cost = 10,
+        cost = 800,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f),
-          GetAttributeModifier(Stat.ENEMIES_HIT, Mode.ADDITIVE, 2)
         },
         name = "Synergetic Claws",
-        description = "Increases attack speed by 50% and increase number of enemies hit by 2.",
+        description = "Increases attack speed by 50%.",
         upgradePath = 2,
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.2f)
-        },
-        specialAbility = SpecialAbility.M_3_5_VORPAL_CLAWS,
-        name = "Vorpal Claws",
-        description = "There is no limit on enemies hit. Previous limit bonuses increase damage by 10% each.",
+        specialAbility = SpecialAbility.M_3_5_SHRIKE,
+        name = "Shrike",
+        description = "Mantis attacks shed vicious spines, AoE damage equals main attack damage.",
         upgradePath = 2,
         cost = 10,
       },
@@ -686,15 +685,14 @@ public class TowerDataGenerator {
       name = "Mantis",
       icon_path = "Icons/test",
       area_of_effect = 3.0f,
-      armor_pierce = 0.0f,
+      armor_pierce = 5.0f,
       armor_tear = 0,
       attack_speed = 0.5f,
       cost = 150,
       damage = 7,
       damage_over_time = 0,
-      enemies_hit = 4,
       projectile_speed = 0,
-      range = 14.0f,
+      range = 15.0f,
       secondary_slow_potency = 0,
       secondary_slow_targets = 0,
       slow_duration = 0,

@@ -49,9 +49,11 @@ MonoBehaviour:
     SaveName: 
     CurrentLevel: 0
     Settings:
+      ShowDamageText: 1
       MasterVolume: 0
       MusicVolume: 0
       SfxVolume: 0
       CameraSensitivity: 0.3
       ZoomSensitivity: 0.3
+      RotationSensitivity: 0.3
     lastSavedTime: 0

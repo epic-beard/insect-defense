@@ -64,7 +64,7 @@ public class MantisTowerTest {
   public void SpecialAbilityUpgradeSerratedClaws() {
     Assert.That(false, Is.EqualTo(mantisTower.AoECrippleAttack));
 
-    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_5_SERRATED_CLAWS);
+    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_2_5_BLOODY_EXECUTION);
 
     Assert.True(mantisTower.AoECrippleAttack);
   }
@@ -73,18 +73,18 @@ public class MantisTowerTest {
   public void SpecialAbilityUpgradeCamoSight() {
     Assert.That(false, Is.EqualTo(mantisTower.CamoSight));
 
-    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_3_CAMO_SIGHT);
+    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_2_CAMO_SIGHT);
 
     Assert.True(mantisTower.CamoSight);
   }
 
   [Test]
   public void SpecialAbilityUpgradeVorpalClaws() {
-    Assert.That(false, Is.EqualTo(mantisTower.VorpalClaw));
+    Assert.That(false, Is.EqualTo(mantisTower.Shrike));
 
-    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_5_VORPAL_CLAWS);
+    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_5_SHRIKE);
 
-    Assert.True(mantisTower.VorpalClaw);
+    Assert.True(mantisTower.Shrike);
   }
 
   #endregion
@@ -174,7 +174,7 @@ public class MantisTowerTest {
     objectPool.SetActiveEnemies(activeEnemies);
     mantisTower.SetEnemy(firstEnemy);
 
-    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_5_VORPAL_CLAWS);
+    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_3_5_SHRIKE);
 
     mantisTower.ProcessDamageAndEffects(MantisTower.MantisAttackType.UPPER_RIGHT);
 
