@@ -21,7 +21,7 @@ public class MantisTower : Tower {
   public float SecondaryDamage {
     get { return Damage * secondaryDamageModifier; }
   }
-  public bool VorpalClaw { get; private set; } = false;
+  public bool Shrike { get; private set; } = false;
 
   public enum MantisAttackType {
     UPPER_RIGHT,
@@ -70,16 +70,16 @@ public class MantisTower : Tower {
         StartCoroutine(CrippleCooldown());
         CrippleAttack = true;
         break;
-      case SpecialAbility.M_2_5_SERRATED_CLAWS:
+      case SpecialAbility.M_2_5_BLOODY_EXECUTION:
         StartCoroutine(AoECrippleCooldown());
         AoECrippleAttack = true;
         break;
-      case SpecialAbility.M_3_3_CAMO_SIGHT:
+      case SpecialAbility.M_3_2_CAMO_SIGHT:
         CamoSight = true;
         break;
-      case SpecialAbility.M_3_5_VORPAL_CLAWS:
+      case SpecialAbility.M_3_5_SHRIKE:
         secondaryDamageModifier = 1.0f;
-        VorpalClaw = true;
+        Shrike = true;
         break;
       default:
         break;
