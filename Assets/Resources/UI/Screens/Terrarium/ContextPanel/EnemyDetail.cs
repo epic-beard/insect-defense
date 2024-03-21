@@ -1,5 +1,3 @@
-using Assets;
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
