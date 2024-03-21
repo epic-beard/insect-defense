@@ -47,8 +47,6 @@ public class DamageText : MonoBehaviour {
     Vector3 newForward = Camera.main.transform.forward;
     newForward.y = 0;
     transform.forward = newForward;
-
-    //transform.LookAt(-Camera.main.transform.position, Vector3.up);
   }
 
   private IEnumerator BounceUp(Vector3 start) {
