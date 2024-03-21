@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 [Serializable]
@@ -18,12 +19,28 @@ public struct EnemyData {
   }
 
   public enum Size {
-    TINY = 1,
-    SMALL = 3,
-    NORMAL = 5,
-    LARGE = 8,
-    HUGE = 12
+    TINY,
+    SMALL,
+    NORMAL,
+    LARGE,
+    HUGE
   }
+
+  public static Dictionary<Size, float> SizeToAcidExplosionThreshold = new() {
+    {Size.TINY, 10.0f},
+    {Size.SMALL, 30.0f},
+    {Size.NORMAL, 50.0f},
+    {Size.LARGE, 80.0f},
+    {Size.HUGE, 120.0f},
+  };
+
+  public static Dictionary<Size, float> SizeToCoagulation = new() {
+    {Size.TINY, 1.0f},
+    {Size.SMALL, 3.0f},
+    {Size.NORMAL, 5.0f},
+    {Size.LARGE, 8.0f},
+    {Size.HUGE, 12.0f},
+  };
 
   [Flags]
   public enum Properties {
@@ -79,6 +96,8 @@ public struct EnemyData {
 
   public int damage;
   public int nu;
+  public float coagulationModifier;
+  public float acidExplosionStackModifier;
 
   [XmlIgnore]
   public float slowPower;
@@ -89,6 +108,8 @@ public struct EnemyData {
 
   [XmlIgnore]
   public float acidStacks;
+  [XmlIgnore]
+  public float bleedStacks;
 
   public Properties properties;
   // Once enabled the Enemy will start a spawner coroutine if spawner is not null.

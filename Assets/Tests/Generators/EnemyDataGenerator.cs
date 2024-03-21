@@ -32,6 +32,8 @@ public class EnemyDataGenerator {
       nu = 20,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
+      coagulationModifier = 1.0f,
+      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -48,6 +50,8 @@ public class EnemyDataGenerator {
       nu = 4,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
+      coagulationModifier = 1.0f,
+      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -64,6 +68,8 @@ public class EnemyDataGenerator {
       nu = 40,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
+      coagulationModifier = 1.0f,
+      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -80,6 +86,8 @@ public class EnemyDataGenerator {
       nu = 75,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 1.0f,
+      coagulationModifier = 0.5f,
+      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -96,6 +104,8 @@ public class EnemyDataGenerator {
       nu = 25,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
+      coagulationModifier = 1.0f,
+      acidExplosionStackModifier = 1,
     };
 
     return data;

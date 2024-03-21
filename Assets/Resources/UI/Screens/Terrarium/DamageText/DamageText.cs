@@ -44,7 +44,9 @@ public class DamageText : MonoBehaviour {
   }
 
   private void FaceCamera() {
-    transform.LookAt(-Camera.main.transform.position, Vector3.up);
+    if (Camera.main != null) {
+      transform.LookAt(-Camera.main.transform.position, Vector3.up);
+    }
   }
 
   private IEnumerator BounceUp(Vector3 start) {

@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour {
   public Waypoint PrevWaypoint;
   public Waypoint NextWaypoint;
 
-  public static int acidExplosionStackMultiplier = 10;
   public HashSet<Tower> spittingAntTowerSlows = new();
   public HashSet<Tower> webShootingTowerStuns = new();
   public HashSet<Tower> webShootingTowerPermSlow = new();
@@ -39,71 +38,20 @@ public class Enemy : MonoBehaviour {
   [SerializeField] private float continuousDamagePollingDelay = 1.0f;
   [SerializeField] private float statusDamagePollingDelay = 1.0f;
 
-  // PrevWaypoint should be set before OnEnable is called.
-  void OnEnable() {
-    NextWaypoint = PrevWaypoint.GetNextWaypoint();
-    if (transform.childCount > 0) {
-      target = transform.GetChild(0).Find("target");
-    }
-
-    StartCoroutine(HandleStun());
-    StartCoroutine(HandleAdvancedAcidDecay());
-    StartCoroutine(HandleContinuousDamage());
-    StartCoroutine(HandleStatusDamage());
-    if (Flying) {
-      StartCoroutine(GroundFlierForDuration());
-    }
-
-    if (data.spawner != null) {
-      StartCoroutine(Spawn());
-    }
-
-    if (data.dazzle != null) {
-      EnemyData.DazzleProperties dazzle = data.dazzle.Value;
-      StartCoroutine(HandleAbility(
-          GetDazzleAction(dazzle.duration), dazzle.interval, dazzle.range));
-    }
-
-    if (data.slime != null) {
-      EnemyData.SlimeProperties slime = data.slime.Value;
-      StartCoroutine(HandleAbility(
-          GetSlimeAction(slime.duration, slime.power), slime.interval, slime.range));
-    }
-
-    if (NextWaypoint == null) {
-      Debug.Log("[ERROR] NextWaypoint not found.");
-      return;
-    }
-
-    StartCoroutine(FollowPath());
-  }
-
-  private void Update() {
-    // Handle slows.
-    if (0.0f < SlowDuration) {
-      SlowDuration = Mathf.Max(SlowDuration - Time.deltaTime, 0.0f);
-      if (SlowDuration <= 0.0f) {
-        SlowPower = 0.0f;
-      }
-    }
-
-    // Handle acid damage.
-    if (AcidStacks > 0.0f) {
-      int tenStacks = (int)AcidStacks / 10;
-      float damage = (tenStacks + 1) * Time.deltaTime;
-      accumulatedAcidDamage += damage;
-      HP -= damage;
-      AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
-    }
-  }
-
   #region Properties
 
   public float AcidStacks {
     get { return data.acidStacks; }
     private set { data.acidStacks = value; }
   }
-  public float AcidStackExplosionThreshold { get { return (int)data.size * acidExplosionStackMultiplier; } }
+  public float AcidExplosionStackModifier { get { return data.acidExplosionStackModifier; } }
+  public float AcidStackExplosionThreshold {
+    get {
+      return data.acidExplosionStackModifier == 0 
+          ? EnemyData.SizeToAcidExplosionThreshold[data.size]
+          : EnemyData.SizeToAcidExplosionThreshold[data.size] * data.acidExplosionStackModifier;
+    }
+  }
   public Vector3 AimPoint {
     get {
       if (target != null) {
@@ -123,7 +71,18 @@ public class Enemy : MonoBehaviour {
   }
   public float BaseSpeed { get { return data.speed; } }
   public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
+  public float BleedStacks {
+    get { return data.bleedStacks; }
+    private set { data.bleedStacks = value; }
+  }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public float Coagulation {
+    get {
+      return data.coagulationModifier == 0
+          ? EnemyData.SizeToCoagulation[data.size]
+          : EnemyData.SizeToCoagulation[data.size] * data.coagulationModifier;
+    }
+  }
   public bool Crippled { get; private set; }
   public bool CrippleImmunity {
     get { return (data.properties & EnemyData.Properties.CRIPPLE_IMMUNITY) != 0; }
@@ -134,7 +93,7 @@ public class Enemy : MonoBehaviour {
         data.properties &= ~EnemyData.Properties.CRIPPLE_IMMUNITY;
       }
     }
- }
+  }
   public float CrippleSlow { get; private set; } = 0.8f;
   public int Damage {
     get { return data.damage; }
@@ -201,6 +160,77 @@ public class Enemy : MonoBehaviour {
 
   #endregion
 
+  // PrevWaypoint should be set before OnEnable is called.
+  void OnEnable() {
+    NextWaypoint = PrevWaypoint.GetNextWaypoint();
+    if (transform.childCount > 0) {
+      target = transform.GetChild(0).Find("target");
+    }
+
+    StartCoroutine(HandleStun());
+    StartCoroutine(HandleAdvancedAcidDecay());
+    StartCoroutine(HandleContinuousDamage());
+    StartCoroutine(HandleStatusDamage());
+    if (Flying) {
+      StartCoroutine(GroundFlierForDuration());
+    }
+
+    if (data.spawner != null) {
+      StartCoroutine(Spawn());
+    }
+
+    if (data.dazzle != null) {
+      EnemyData.DazzleProperties dazzle = data.dazzle.Value;
+      StartCoroutine(HandleAbility(
+          GetDazzleAction(dazzle.duration), dazzle.interval, dazzle.range));
+    }
+
+    if (data.slime != null) {
+      EnemyData.SlimeProperties slime = data.slime.Value;
+      StartCoroutine(HandleAbility(
+          GetSlimeAction(slime.duration, slime.power), slime.interval, slime.range));
+    }
+
+    if (NextWaypoint == null) {
+      Debug.Log("[ERROR] NextWaypoint not found.");
+      return;
+    }
+
+    StartCoroutine(FollowPath());
+  }
+
+  private void Update() {
+    // Handle slows.
+    if (0.0f < SlowDuration) {
+      SlowDuration = Mathf.Max(SlowDuration - Time.deltaTime, 0.0f);
+      if (SlowDuration <= 0.0f) {
+        SlowPower = 0.0f;
+      }
+    }
+
+    // Handle acid damage.
+    if (AcidStacks > 0.0f) {
+      float damage = StacksToDamage(AcidStacks);
+      accumulatedAcidDamage += damage;
+      HP -= damage;
+      AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
+    }
+
+    // Handle bleed damage.
+    if (BleedStacks > 0.0f) {
+      float damage = StacksToDamage(BleedStacks);
+      accumulatedBleedDamage += damage;
+      HP -= damage;
+      BleedStacks = Mathf.Max(0.0f, BleedStacks - (Coagulation * Time.deltaTime));
+    }
+  }
+
+  // Convert stacks of [DAMAGE TYPE] to actual damage.
+  private float StacksToDamage(float stacks) {
+    int tenStacks = (int)AcidStacks / 10;
+    return (tenStacks + 1) * Time.deltaTime;
+  }
+
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
   public float DealPhysicalDamage(float damage, float armorPierce, bool continuous = false) {
@@ -229,21 +259,33 @@ public class Enemy : MonoBehaviour {
     if (AcidStackExplosionThreshold <= AcidStacks) {
       // TODO(emonzon): Trigger explosion animation.
       float damage = acidEnhancement ? AcidStacks * 2.0f : AcidStacks;
-      
+
       DealDamage(damage, DamageText.DamageType.ACID);
       AcidStacks = 0.0f;
     }
   }
 
+  public void AddBleedStacks(float stacks) {
+    BleedStacks += stacks;
+  }
+
+  public bool IsDoomedByBlood() {
+    return HP <= TotalBleedDamage();
+  }
+
+  public float TotalBleedDamage() {
+    float k = Mathf.Floor(BleedStacks / 10);
+    return (5 * k * (k + 1) + (BleedStacks % 10) * (k + 1) ) / Coagulation;
+  }
+
   // To apply physical damage call DealPhysicalDamage, which will call this.
-  // Other sources of damage are calculated interanally so this is private.
-  private void DealDamage(float damage, DamageText.DamageType type) {
+  public void DealDamage(float damage, DamageText.DamageType type) {
     HP -= damage;
     ShowDamageText(damage, type);
   }
 
   private void ShowDamageText(float damage, DamageText.DamageType type) {
-    if (!PlayerState.Instance.Settings.ShowDamageText) return;
+    if (PlayerState.Instance == null || !PlayerState.Instance.Settings.ShowDamageText) return;
 
     GameObject prefab = Resources.Load<GameObject>("UI/Screens/Terrarium/DamageText/DamageText");
 
