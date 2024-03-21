@@ -45,7 +45,9 @@ public class DamageText : MonoBehaviour {
 
   private void FaceCamera() {
     if (Camera.main != null) {
-      transform.LookAt(-Camera.main.transform.position, Vector3.up);
+      Vector3 newForward = Camera.main.transform.forward;
+      newForward.y = 0;
+      transform.forward = newForward;
     }
   }
 
