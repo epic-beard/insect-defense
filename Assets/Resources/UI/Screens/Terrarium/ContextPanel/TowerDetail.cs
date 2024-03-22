@@ -6,12 +6,12 @@ using UnityEngine.UIElements;
 public class TowerDetail : MonoBehaviour {
   public static TowerDetail Instance;
 
-  readonly private string towerBehaviorDropdownName = "tower_behavior__dropdown";
-  readonly private string towerNameLabelName = "tower_name__label";
-  readonly private string towerPriorityDropdownName = "tower_priority__dropdown";
+  readonly private string towerBehaviorDropdownName = "tower-behavior";
+  readonly private string towerPriorityDropdownName = "tower-priority";
+  readonly private string towerNameLabelName = "tower-name";
   readonly private string towerUpgradeButtonNameTemplate = "tree_X_upgrade_Y__button";
   readonly private string towerUpgradeLabelNameTemplate = "tower_upgrade_tree_X__label";
-  readonly private string sellTowerButtonName = "sell_tower__button";
+  readonly private string sellTowerButtonName = "sell-tower";
 
   private UIDocument uiDocument;
 

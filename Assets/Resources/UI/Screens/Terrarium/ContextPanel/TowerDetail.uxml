@@ -3,12 +3,12 @@
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/TowerDetail.uss?fileID=7433441132597879392&amp;guid=7c1ccc13d852bc94da6c6f21b61e5829&amp;type=3#TowerDetail" />
 
     <ui:VisualElement name="tower_context__visualelement" class="context-panel-tower-container">
-        <ui:Label text="&lt;towername&gt;" name="tower_name__label" class="tower-name" />
+        <ui:Label text="&lt;towername&gt;" name="tower-name" class="tower-name" />
         
         <ui:VisualElement class="tower-control-panel">
             <ui:VisualElement class="tower-commands-container">
-                <ui:DropdownField name="tower_behavior__dropdown" class="tower-command-dropdown" label="Behavior" index="0" choices="All" focusable="false" />
-                <ui:DropdownField name="tower_priority__dropdown" class="tower-command-dropdown" label="Priority" index="0" choices="First" focusable="false" />
+                <ui:DropdownField name="tower-behavior" class="tower-command-dropdown" label="Behavior" index="0" choices="All" focusable="false" />
+                <ui:DropdownField name="tower-priority" class="tower-command-dropdown" label="Priority" index="0" choices="First" focusable="false" />
             </ui:VisualElement>
             
             <ui:VisualElement class="tower-upgrades-container">
@@ -41,6 +41,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
         
-        <ui:Button text="Sell" name="sell_tower__button" class="sell-tower-button tertiary-button" />
+        <ui:Button text="Sell" name="sell-tower" class="sell-tower-button tertiary-button" />
     </ui:VisualElement>
 </ui:UXML>
