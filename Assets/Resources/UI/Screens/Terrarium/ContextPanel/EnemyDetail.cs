@@ -4,27 +4,27 @@ using UnityEngine.UIElements;
 public class EnemyDetail : MonoBehaviour {
   public static EnemyDetail Instance;
 
-  readonly private string enemyArmorCurrentArmorLabelName = "enemy_current_armor__label";
-  readonly private string enemyArmorMaxArmorLabelName = "enemy_max_armor__label";
-  readonly private string enemyDamageLabelName = "enemy_damage__label";
-  readonly private string enemyHpCurrentHpLabelName = "enemy_current_hp__label";
-  readonly private string enemyHpMaxHpLabelName = "enemy_max_hp__label";
-  readonly private string enemyNameLabelName = "enemy_name__label";
-  readonly private string enemyNuLabelName = "enemy_nu__label";
-  readonly private string enemySizeLabelName = "enemy_size__label";
-  readonly private string enemySpeedLabelName = "enemy_speed__label";
+  readonly private string enemyNameLabelName = "enemy-name";
+  readonly private string enemySizeLabelName = "enemy-size";
+  readonly private string enemyHpCurrentHpLabelName = "enemy-current-hp";
+  readonly private string enemyHpMaxHpLabelName = "enemy-max-hp";
+  readonly private string enemyArmorCurrentArmorLabelName = "enemy-current-armor";
+  readonly private string enemyArmorMaxArmorLabelName = "enemy-max-armor";
+  readonly private string enemySpeedLabelName = "enemy-speed";
+  readonly private string enemyDamageLabelName = "enemy-damage";
+  readonly private string enemyNuLabelName = "enemy-nu";
 
   private UIDocument uiDocument;
 
-  private Label enemyArmorCurrentArmorLabel;
-  private Label enemyArmorMaxArmorLabel;
-  private Label enemyDamageLabel;
-  private Label enemyHpCurrentHpLabel;
-  private Label enemyHpMaxHpLabel;
-  private Label enemyNameLabel;
-  private Label enemyNuLabel;
-  private Label enemySizeLabel;
-  private Label enemySpeedLabel;
+  private Label enemyNameLabelVE;
+  private Label enemySizeLabelVE;
+  private Label enemyHpCurrentHpLabelVE;
+  private Label enemyHpMaxHpLabelVE;
+  private Label enemyArmorCurrentArmorLabelVE;
+  private Label enemyArmorMaxArmorLabelVE;
+  private Label enemySpeedLabelVE;
+  private Label enemyDamageLabelVE;
+  private Label enemyNuLabelVE;
 
   private void Awake() {
     SetVisualElements();
@@ -35,15 +35,15 @@ public class EnemyDetail : MonoBehaviour {
     uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
 
-    enemyArmorCurrentArmorLabel = rootElement.Q<Label>(enemyArmorCurrentArmorLabelName);
-    enemyArmorMaxArmorLabel = rootElement.Q<Label>(enemyArmorMaxArmorLabelName);
-    enemyDamageLabel = rootElement.Q<Label>(enemyDamageLabelName);
-    enemyHpCurrentHpLabel = rootElement.Q<Label>(enemyHpCurrentHpLabelName);
-    enemyHpMaxHpLabel = rootElement.Q<Label>(enemyHpMaxHpLabelName);
-    enemyNameLabel = rootElement.Q<Label>(enemyNameLabelName);
-    enemyNuLabel = rootElement.Q<Label>(enemyNuLabelName);
-    enemySizeLabel = rootElement.Q<Label>(enemySizeLabelName);
-    enemySpeedLabel = rootElement.Q<Label>(enemySpeedLabelName);
+    enemyArmorCurrentArmorLabelVE = rootElement.Q<Label>(enemyArmorCurrentArmorLabelName);
+    enemyArmorMaxArmorLabelVE = rootElement.Q<Label>(enemyArmorMaxArmorLabelName);
+    enemyDamageLabelVE = rootElement.Q<Label>(enemyDamageLabelName);
+    enemyHpCurrentHpLabelVE = rootElement.Q<Label>(enemyHpCurrentHpLabelName);
+    enemyHpMaxHpLabelVE = rootElement.Q<Label>(enemyHpMaxHpLabelName);
+    enemyNameLabelVE = rootElement.Q<Label>(enemyNameLabelName);
+    enemyNuLabelVE = rootElement.Q<Label>(enemyNuLabelName);
+    enemySizeLabelVE = rootElement.Q<Label>(enemySizeLabelName);
+    enemySpeedLabelVE = rootElement.Q<Label>(enemySpeedLabelName);
   }
 
   // Capitalize the first letter in a word and make all other letters lowercase.
@@ -53,15 +53,15 @@ public class EnemyDetail : MonoBehaviour {
 
   // Set all appripriate text, pictures, and miscellaneous information for a specific enemy.
   public void SetContextForEnemy(Enemy enemy) {
-    enemyNameLabel.text = ToTitleCase(enemy.Type.ToString());
-    enemySizeLabel.text = ToTitleCase(enemy.Size.ToString());
-    enemyHpCurrentHpLabel.text = enemy.HP.ToString();
-    enemyHpMaxHpLabel.text = enemy.MaxHp.ToString();
-    enemyArmorCurrentArmorLabel.text = enemy.Armor.ToString();
-    enemyArmorMaxArmorLabel.text = enemy.MaxArmor.ToString();
-    enemySpeedLabel.text = enemy.Speed.ToString();
-    enemyDamageLabel.text = enemy.Damage.ToString();
-    enemyNuLabel.text = enemy.Nu.ToString();
+    enemyNameLabelVE.text = ToTitleCase(enemy.Type.ToString());
+    enemySizeLabelVE.text = ToTitleCase(enemy.Size.ToString());
+    enemyHpCurrentHpLabelVE.text = enemy.HP.ToString();
+    enemyHpMaxHpLabelVE.text = enemy.MaxHp.ToString();
+    enemyArmorCurrentArmorLabelVE.text = enemy.Armor.ToString();
+    enemyArmorMaxArmorLabelVE.text = enemy.MaxArmor.ToString();
+    enemySpeedLabelVE.text = enemy.Speed.ToString();
+    enemyDamageLabelVE.text = enemy.Damage.ToString();
+    enemyNuLabelVE.text = enemy.Nu.ToString();
   }
 
   public void SubscribeToEnemyStateBroadcast(Enemy enemy) {

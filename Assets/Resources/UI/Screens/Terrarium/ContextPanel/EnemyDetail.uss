@@ -1,1 +1,35 @@
-VisualElement {}
+.enemy-detail-container {
+    color: #e75900;
+}
+
+.enemy-detail-label {
+    -unity-text-align: upper-center;
+}
+
+.enemy-stats-container {
+    flex-direction: row;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.enemy-stats-subcontainer {
+    flex-grow: 1;
+    max-width: 150px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.enemy-stat-container {
+    flex-direction: row;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.enemy-current-hp,
+.enemy-current-armor {
+    -unity-text-align: upper-right;
+}
+
+.enemy-active-preview-container {
+    flex-grow: 1;
+    background-color: #000000;
+}
