@@ -1,35 +1,9 @@
-.tower-upgrade-container {
-    flex-grow: 1;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+.no-detail {
+    color: #e75900;
 }
 
-.tower-upgrade-tree {
-    flex-direction: row;
-    flex-grow: 1;
-    justify-content: space-around;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.tower-upgrade-tree > .upgrade-button {
-    justify-content: center;
-    align-items: center;
-}
-
-.upgrade-button {
-    width: 48px;
-    height: 48px;
-    padding: 2px 2px;
-    font-size: 12px;
-    border-radius: 4px;
-}
-
-.upgrade-button .tooltip-button {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-    padding: 0;
-    margin: 0;
-    -unity-text-align: middle-center;
+.no-detail-label {
+    text-overflow: clip;
+    -unity-font-definition: url('/Assets/Font/MetalOnMetal-OBo SDF.asset');
+    -unity-text-align: upper-center;
 }

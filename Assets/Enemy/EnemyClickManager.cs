@@ -13,11 +13,11 @@ public class EnemyClickManager : MonoBehaviour {
   private void OnMouseUp() {
     if (GameStateManager.Instance.IsMouseOverUI) return;
     if (SelectedEnemy != null) {
-      ContextPanel.Instance.DesbuscribeToEnemyStateBroadcast(SelectedEnemy);
+      EnemyDetail.Instance.DesbuscribeToEnemyStateBroadcast(SelectedEnemy);
     }
     SelectedEnemy = enemy;
-    ContextPanel.Instance.SubscribeToEnemyStateBroadcast(enemy);
-    ContextPanel.Instance.SetContextForEnemy(enemy);
+    EnemyDetail.Instance.SubscribeToEnemyStateBroadcast(enemy);
+    EnemyDetail.Instance.SetContextForEnemy(enemy);
     ContextPanel.Instance.SetEnemyContextPanel();
   }
 }

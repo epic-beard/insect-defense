@@ -474,7 +474,7 @@ public class Enemy : MonoBehaviour {
   // Reset the contextual panel if an enemy dies or completes its path.
   private void ConditionalContextReset() {
     if (EnemyClickManager.SelectedEnemy == this) {
-      ContextPanel.Instance.DesbuscribeToEnemyStateBroadcast(this);
+      EnemyDetail.Instance.DesbuscribeToEnemyStateBroadcast(this);
       ContextPanel.Instance.SetNoContextPanel();
     }
   }

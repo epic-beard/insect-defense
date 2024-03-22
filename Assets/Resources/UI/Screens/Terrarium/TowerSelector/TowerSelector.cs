@@ -68,7 +68,7 @@ public class TowerSelector : MonoBehaviour {
 
     GameStateManager.SelectedTowerType = towerTypeToPrefab[button.TowerType];
     ContextPanel.Instance.SetTowerContextPanel();
-    ContextPanel.Instance.SetContextTowerName(GameStateManager.SelectedTowerType.name);
+    TowerDetail.Instance.SetContextTowerName(GameStateManager.SelectedTowerType.name);
   }
 
   public void UpdateAffordableTowers(int nu) {

@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd">
+    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/EnemyDetail.uss?fileID=7433441132597879392&amp;guid=46f829f025f4b1d408638ee0a771d6ed&amp;type=3#EnemyDetail" />
+
+    <ui:VisualElement class="enemy-detail-container">
+        <ui:Label name="enemy-name" class="enemy-detail-label" tabindex="-1" text="&lt;enemyname&gt;" />
+        
+        <ui:VisualElement class="enemy-stats-container">
+            <ui:VisualElement class="enemy-stats-subcontainer">
+                <ui:VisualElement class="enemy-stat-container">
+                    <ui:Label tabindex="-1" text="Size:" />
+                    <ui:Label name="enemy-size" tabindex="-1" text="&lt;enemysize&gt;" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="enemy-stat-container">
+                    <ui:Label tabindex="-1" text="Hp:" />
+                    <ui:Label name="enemy-current-hp" class="enemy-current-hp" tabindex="-1" text="0" />
+                    <ui:Label class="enemy-detail-label" tabindex="-1" text="/" />
+                    <ui:Label name="enemy-max-hp" tabindex="-1" text="0" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="enemy-stat-container">
+                    <ui:Label tabindex="-1" text="Armor:" />
+                    <ui:Label name="enemy-current-armor" class="enemy-current-armor" tabindex="-1" text="0" />
+                    <ui:Label class="enemy-detail-label" tabindex="-1" text="/" />
+                    <ui:Label name="enemy-max-armor" tabindex="-1" text="0" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="enemy-stat-container">
+                    <ui:Label tabindex="-1" text="Speed:" />
+                    <ui:Label  name="enemy-speed" tabindex="-1" text="&lt;enemyspeed&gt;" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="enemy-stat-container">
+                    <ui:Label tabindex="-1" text="Damage:" />
+                    <ui:Label name="enemy-damage" tabindex="-1" text="&lt;enemydamage&gt;" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement class="enemy-stat-container">
+                    <ui:Label tabindex="-1" text="Nu:" />
+                    <ui:Label name="enemy-nu" tabindex="-1" text="&lt;enemynu&gt;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            
+            <ui:VisualElement class="enemy-active-preview-container" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
