@@ -12,7 +12,7 @@
         <maxArmor>0</maxArmor>
         <speed>0.5</speed>
         <damage>5</damage>
-        <nu>10</nu>
+        <nu>5</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
@@ -36,7 +36,7 @@
         <maxArmor>0</maxArmor>
         <speed>0.5</speed>
         <damage>1</damage>
-        <nu>2</nu>
+        <nu>1</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
@@ -60,7 +60,7 @@
         <maxArmor>10</maxArmor>
         <speed>0.25</speed>
         <damage>10</damage>
-        <nu>20</nu>
+        <nu>10</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
@@ -84,7 +84,7 @@
         <maxArmor>10</maxArmor>
         <speed>0.2</speed>
         <damage>15</damage>
-        <nu>40</nu>
+        <nu>20</nu>
         <coagulationModifier>0.5</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
@@ -108,7 +108,7 @@
         <maxArmor>0</maxArmor>
         <speed>0.5</speed>
         <damage>5</damage>
-        <nu>15</nu>
+        <nu>6</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>

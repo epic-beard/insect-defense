@@ -29,7 +29,7 @@ public class EnemyDataGenerator {
       maxArmor = 0.0f,
       speed = 0.5f,
       damage = 5,
-      nu = 10,
+      nu = 5,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
     };
@@ -45,7 +45,7 @@ public class EnemyDataGenerator {
       maxArmor = 0.0f,
       speed = 0.5f,
       damage = 1,
-      nu = 2,
+      nu = 1,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
     };
@@ -61,7 +61,7 @@ public class EnemyDataGenerator {
       maxArmor = 10.0f,
       speed = 0.25f,
       damage = 10,
-      nu = 20,
+      nu = 10,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
     };
@@ -77,7 +77,7 @@ public class EnemyDataGenerator {
       maxArmor = 10.0f,
       speed = 0.2f,
       damage = 15,
-      nu = 40,
+      nu = 20,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 1.0f,
       coagulationModifier = 0.5f,
@@ -94,7 +94,7 @@ public class EnemyDataGenerator {
       maxArmor = 0.0f,
       speed = 0.5f,
       damage = 5,
-      nu = 15,
+      nu = 6,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
     };

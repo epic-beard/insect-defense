@@ -39,6 +39,7 @@ public class Level2WaveGenerator {
           spawnAmmount = 1,
         },
         new WaitUntilDeadWave() {},
+        // Nu: 135
         new DialogueBoxWave() {
           messages =
               { "You don't have enough money for a new tower, but...",
@@ -59,11 +60,12 @@ public class Level2WaveGenerator {
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 2,
-          repeatDelay = 1.0f,
+          repeatDelay = 3.0f,
           spawnLocation = 1,
-          spawnAmmount = 1,
+          spawnAmmount = 2,
         },
         new WaitUntilDeadWave() {},
+        // Nu: 170
         new DialogueBoxWave() {
           messages =
               { "The next few waves will have clustered enemies, against whom the Mantis tower excels.",
@@ -72,15 +74,8 @@ public class Level2WaveGenerator {
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
-              enemyDataKey = ant,
-              repetitions = 4,
-              repeatDelay = 4.0f,
-              spawnLocation = 0,
-              spawnAmmount = 1,
-            },
-            new CannedEnemyWave() {
               enemyDataKey = aphid,
-              repetitions = 4,
+              repetitions = 6,
               repeatDelay = 4.0f,
               spawnLocation = 0,
               spawnAmmount = 4,
@@ -88,6 +83,7 @@ public class Level2WaveGenerator {
           },
         },
         new WaitUntilDeadWave() {},
+        // Nu: 312
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
@@ -124,6 +120,7 @@ public class Level2WaveGenerator {
             },
           },
         },
+        // Nu: 412
         new SpacerWave() {
           delay = 5.0f,
         },
@@ -143,10 +140,11 @@ public class Level2WaveGenerator {
               spawnLocation = 1,
               spawnAmmount = 5,
             },
-          }
-        }
+          },
+        },
       },
     };
+    // Nu: 462
 
     SequentialWave secondWave = new() {
       Subwaves = {

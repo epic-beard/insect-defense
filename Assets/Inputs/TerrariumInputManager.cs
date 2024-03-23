@@ -29,6 +29,7 @@ public class TerrariumInputManager : MonoBehaviour {
     actions.Player.Player_Zoom.started += ZoomCamera;
     actions.Player.Player_Camera_Home.started += ResetCamera;
     actions.Player.Player_Delete_Tower.started += DeleteTower;
+    actions.Player.Player_Turbo_Boost.started += ToggleTurboBoost;
 
     actions.MessageBox.Advance.started += Advance;
     actions.MessageBox.Settings.started += OpenSettings;
@@ -55,7 +56,7 @@ public class TerrariumInputManager : MonoBehaviour {
   }
 
   void PauseGame(InputAction.CallbackContext context) {
-    PauseManager.Instance.HandlePause();
+    GameSpeedManager.Instance.HandlePause();
   }
 
   void Deselect(InputAction.CallbackContext context) {
@@ -66,11 +67,23 @@ public class TerrariumInputManager : MonoBehaviour {
     GameStateManager.Instance.RefundSelectedTower();
   }
 
+  void TurboBoostOn(InputAction.CallbackContext context) {
+    GameSpeedManager.Instance.TurnOnTurboBoost();
+  }
+
+  void TurboBoostOff(InputAction.CallbackContext context) {
+    GameSpeedManager.Instance.TurnOffTurboBoost();
+  }
+
+  void ToggleTurboBoost(InputAction.CallbackContext context) {
+    GameSpeedManager.Instance.ToggleTurboBoost();
+  }
+
   protected void OpenSettings(InputAction.CallbackContext context) {
     OpenSettings();
   }
   public void OpenSettings() {
-    PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
+    GameSpeedManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumScreen.Instance.HideUI();
     SettingsScreen.Instance.OpenSettings(inGame: true);
     UpdateActions(actions.SettingsScreen);
@@ -80,7 +93,7 @@ public class TerrariumInputManager : MonoBehaviour {
     CloseSettings();
   }
   public void CloseSettings() {
-    PauseManager.Instance.HandlePause(PauseToken.SETTINGS);
+    GameSpeedManager.Instance.HandlePause(PauseToken.SETTINGS);
     TerrariumScreen.Instance.ShowUI();
     SettingsScreen.Instance.CloseSettings();
     UpdateActions(oldMap);

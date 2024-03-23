@@ -98,7 +98,7 @@ public class Spawner : MonoBehaviour {
     public override IEnumerator Start() {
       foreach (var wave in waves) {
         // Start the level immediately.
-        PauseManager.Instance.HandlePause();
+        GameSpeedManager.Instance.HandlePause();
         yield return new WaitForSeconds(0.1f);
         // Run the wave and wait till it is complete.
         yield return wave.Start();
