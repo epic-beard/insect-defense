@@ -32,8 +32,6 @@ public class EnemyDataGenerator {
       nu = 20,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -50,8 +48,6 @@ public class EnemyDataGenerator {
       nu = 4,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -68,8 +64,6 @@ public class EnemyDataGenerator {
       nu = 40,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -79,7 +73,7 @@ public class EnemyDataGenerator {
     EnemyData data = new() {
       type = EnemyData.Type.TARANTULA,
       size = EnemyData.Size.LARGE,
-      maxHP = 60.0f,
+      maxHP = 100.0f,
       maxArmor = 10.0f,
       speed = 0.2f,
       damage = 15,
@@ -87,7 +81,6 @@ public class EnemyDataGenerator {
       properties = EnemyData.Properties.NONE,
       spawnVariance = 1.0f,
       coagulationModifier = 0.5f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -104,8 +97,6 @@ public class EnemyDataGenerator {
       nu = 25,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;

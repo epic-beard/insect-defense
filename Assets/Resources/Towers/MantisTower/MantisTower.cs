@@ -159,6 +159,8 @@ public class MantisTower : Tower {
       }
     } else if (target != null) {
       bodyMesh.LookAt(target.AimPoint - (Vector3.up * 4));
+    } else if (target == null) {
+      firing = false;
     }
   }
 
@@ -190,9 +192,9 @@ public class MantisTower : Tower {
     while (true) {
       while (firing && DazzleTime <= 0.0f) {
         Stab();
+        FreezeTarget();
 
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
-        UnFreezeTarget();
       }
       yield return new WaitUntil(() => firing);
     }

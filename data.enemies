@@ -13,8 +13,8 @@
         <speed>0.5</speed>
         <damage>5</damage>
         <nu>20</nu>
-        <coagulationModifier>1</coagulationModifier>
-        <acidExplosionStackModifier>1</acidExplosionStackModifier>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -37,8 +37,8 @@
         <speed>0.5</speed>
         <damage>1</damage>
         <nu>4</nu>
-        <coagulationModifier>1</coagulationModifier>
-        <acidExplosionStackModifier>1</acidExplosionStackModifier>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -61,8 +61,8 @@
         <speed>0.25</speed>
         <damage>10</damage>
         <nu>40</nu>
-        <coagulationModifier>1</coagulationModifier>
-        <acidExplosionStackModifier>1</acidExplosionStackModifier>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -86,7 +86,7 @@
         <damage>15</damage>
         <nu>75</nu>
         <coagulationModifier>0.5</coagulationModifier>
-        <acidExplosionStackModifier>1</acidExplosionStackModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -109,8 +109,8 @@
         <speed>0.5</speed>
         <damage>5</damage>
         <nu>25</nu>
-        <coagulationModifier>1</coagulationModifier>
-        <acidExplosionStackModifier>1</acidExplosionStackModifier>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
