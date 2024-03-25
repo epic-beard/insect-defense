@@ -6,6 +6,7 @@ using static Spawner;
 
 public class Level2WaveGenerator {
   public string aphid = "Aphid";
+  public string slowAphid = "SlowAphid";
   public string ant = "Ant";
   public string beetle = "Beetle";
   public string tarantula = "Tarantula";
@@ -19,6 +20,7 @@ public class Level2WaveGenerator {
 
   private void GenerateWave() {
 
+    // Starting Nu: 140
     SequentialWave firstWave = new() {
       Subwaves = {
         new DialogueBoxWave() {
@@ -39,16 +41,13 @@ public class Level2WaveGenerator {
           spawnAmmount = 1,
         },
         new WaitUntilDeadWave() {},
-        // Nu: 135
         new DialogueBoxWave() {
+          delay = 2.0f,
           messages =
               { "You don't have enough money for a new tower, but...",
                 "You can sell this tower and build a new tower for the other track.",
                 "When you sell a tower, you get back all the Nu you spent on it (upgrades included).",
                 "Keep in mind: It takes a little time to tear down and then build a tower" }
-        },
-        new SpacerWave() {
-          delay = 3.0f,
         },
         new CannedEnemyWave() {
           enemyDataKey = ant,
@@ -60,12 +59,11 @@ public class Level2WaveGenerator {
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 2,
-          repeatDelay = 3.0f,
+          repeatDelay = 4.0f,
           spawnLocation = 1,
           spawnAmmount = 2,
         },
         new WaitUntilDeadWave() {},
-        // Nu: 170
         new DialogueBoxWave() {
           messages =
               { "The next few waves will have clustered enemies, against whom the Mantis tower excels.",
@@ -83,7 +81,9 @@ public class Level2WaveGenerator {
           },
         },
         new WaitUntilDeadWave() {},
-        // Nu: 312
+        new SpacerWave() {
+          delay = 4.0f,
+        },
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
@@ -102,25 +102,27 @@ public class Level2WaveGenerator {
             },
           },
         },
+        new SpacerWave() {
+          delay = 4.0f,
+        },
         new ConcurrentWave() {
           Subwaves = {
             new CannedEnemyWave() {
               enemyDataKey = ant,
-              repetitions = 1,
+              repetitions = 2,
+              repeatDelay = 1.0f,
+              spawnLocation = 1,
+              spawnAmmount = 1,
+            },
+            new CannedEnemyWave() {
+              enemyDataKey = aphid,
+              repetitions = 2,
               repeatDelay = 1.0f,
               spawnLocation = 1,
               spawnAmmount = 2,
             },
-            new CannedEnemyWave() {
-              enemyDataKey = aphid,
-              repetitions = 1,
-              repeatDelay = 1.0f,
-              spawnLocation = 1,
-              spawnAmmount = 4,
-            },
           },
         },
-        // Nu: 412
         new SpacerWave() {
           delay = 5.0f,
         },
@@ -128,46 +130,122 @@ public class Level2WaveGenerator {
           Subwaves = {
             new CannedEnemyWave() {
               enemyDataKey = beetle,
-              repetitions = 1,
-              repeatDelay = 1.0f,
+              repetitions = 3,
+              repeatDelay = 12.0f,
               spawnLocation = 1,
-              spawnAmmount = 2,
+              spawnAmmount = 1,
+            },
+            new DelayedWave() {
+              warmup = 36.0f,
+              wave = new CannedEnemyWave() {
+                enemyDataKey = beetle,
+                repetitions = 3,
+                repeatDelay = 6.0f,
+                spawnLocation = 1,
+                spawnAmmount = 1,
+              },
             },
             new CannedEnemyWave() {
-              enemyDataKey = aphid,
-              repetitions = 1,
+              enemyDataKey = slowAphid,
+              repetitions = 50,
               repeatDelay = 1.0f,
               spawnLocation = 1,
-              spawnAmmount = 5,
+              spawnAmmount = 1,
+            },
+            new DelayedWave() {
+              warmup = 1.0f,
+              wave = new CannedEnemyWave() {
+                enemyDataKey = slowAphid,
+                repetitions = 18,
+                repeatDelay = 2.6f,
+                spawnLocation = 1,
+                spawnAmmount = 2,
+              },
             },
           },
         },
       },
     };
-    // Nu: 462
+    // Nu: 440
 
     SequentialWave secondWave = new() {
       Subwaves = {
         new ConcurrentWave {
           Subwaves = {
-            new CannedEnemyWave() {
-              enemyDataKey = beetle,
-              repetitions = 4,
-              repeatDelay = 4.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-            },
-            new CannedEnemyWave() {
-              enemyDataKey = tarantula,
-              repetitions = 2,
-              repeatDelay = 5.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-            },
-          },
-        },
-      }
-    };
+            new SequentialWave {
+              Subwaves = {
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 5,
+                  repeatDelay = 4.0f,
+                  spawnLocation = 1,
+                  spawnAmmount = 1,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 6,
+                  repeatDelay = 2.8f,
+                  spawnLocation = 1,
+                  spawnAmmount = 1,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 6,
+                  repeatDelay = 2.8f,
+                  spawnLocation = 1,
+                  spawnAmmount = 2,
+                },
+                new SpacerWave() {
+                  delay = 3.0f,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 4,
+                  repeatDelay = 2.5f,
+                  spawnLocation = 1,
+                  spawnAmmount = 3,
+                },
+              },  // Subwaves
+            },  // SequentialWave
+            new SequentialWave {
+              Subwaves = {
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 5,
+                  repeatDelay = 4.0f,
+                  spawnLocation = 0,
+                  spawnAmmount = 1,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 6,
+                  repeatDelay = 2.8f,
+                  spawnLocation = 0,
+                  spawnAmmount = 1,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 6,
+                  repeatDelay = 2.8f,
+                  spawnLocation = 0,
+                  spawnAmmount = 2,
+                },
+                new SpacerWave() {
+                  delay = 3.0f,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 4,
+                  repeatDelay = 2.5f,
+                  spawnLocation = 0,
+                  spawnAmmount = 3,
+                },
+              },  // Subwaves
+            },  // SequentialWave
+          },  // Subwaves
+        },  // ConcurrentWave
+      },  // Subwaves
+    };  // SequentialWave
 
     // wave ideas:
     // beetles w/ tarantula miniboss

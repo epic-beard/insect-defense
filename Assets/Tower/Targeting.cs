@@ -34,7 +34,7 @@ public class Targeting {
     { Priority.LAST, (enemy1, enemy2) => CompareFloats(enemy2.GetDistanceToEnd(), enemy1.GetDistanceToEnd()) },
     { Priority.LEAST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy1.Armor, enemy2.Armor) },
     { Priority.LEAST_HP, (enemy1, enemy2) => CompareFloats(enemy1.HP, enemy2.HP) },
-    { Priority.MOST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy2.Armor, enemy1.Armor) },
+    { Priority.MOST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy2?.Armor??0.0f, enemy1?.Armor??0.0f) },
     { Priority.MOST_HP, (enemy1, enemy2) => CompareFloats(enemy2.HP, enemy1.HP) },
   };
 
@@ -74,6 +74,10 @@ public class Targeting {
       return null;
     }
 
+    if (workingTargets.Any((e) => e == null)) {
+      Debug.Log("ERROR: Targeting has a null reference in workingTargets.");
+    }
+
     // Sort the working list of targets according to the appropriate targeting priority.
     workingTargets.Sort(priorityPredicates[priority]);
     return workingTargets[0];
@@ -99,6 +103,7 @@ public class Targeting {
   //  return -1 if first is less than second.
   // Note that this algorithm will never produce a result describing equality. This is intentional.
   public static int CompareFloats(float first, float second) {
+    if (Mathf.Abs(first - second) <= Mathf.Epsilon) return 0;
     return (first > second) ? 1 : -1;
   }
 }

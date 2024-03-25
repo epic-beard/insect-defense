@@ -80,6 +80,7 @@ public class Spawner : MonoBehaviour {
   [XmlInclude(typeof(SpacerWave))]
   [XmlInclude(typeof(DialogueBoxWave))]
   [XmlInclude(typeof(WaitUntilDeadWave))]
+  [XmlInclude(typeof(DelayedWave))]
 
   public abstract class Wave {
     // Starts the wave.  Meant to be called as a Coroutine.
@@ -127,6 +128,21 @@ public class Spawner : MonoBehaviour {
     }
   }
 
+  public class DelayedWave : Wave {
+    public float warmup = 0.0f;
+    public Wave wave;
+    public float cooldown = 0.0f;
+
+    public override IEnumerator Start() {
+      if (warmup > 0.0f) yield return new WaitForSeconds(warmup);
+
+      Spawner.Instance.StartCoroutine(wave.Start());
+      yield return new WaitUntil(() => wave.Finished);
+
+      if (cooldown > 0.0f) yield return new WaitForSeconds(cooldown);
+    }
+  }
+
   // A wave that calls its subwaves sequentially.
   public class SequentialWave : Wave {
     readonly public List<Wave> Subwaves = new();
@@ -135,6 +151,7 @@ public class Spawner : MonoBehaviour {
         // Start the subwave and wait till it's finished.
         yield return Spawner.Instance.StartCoroutine(subwave.Start());
       }
+      
       Finished = true;
     }
     public override string ToString() {

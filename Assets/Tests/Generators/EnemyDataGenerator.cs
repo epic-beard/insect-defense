@@ -15,6 +15,7 @@ public class EnemyDataGenerator {
     EnemyDictionary dictionary = new();
     dictionary["Ant"] = GetAntEnemyData();
     dictionary["Aphid"] = GetAphidEnemyData();
+    dictionary["SlowAphid"] = GetSlowAphidEnemyData();
     dictionary["Beetle"] = GetBeetleEnemyData();
     dictionary["Tarantula"] = GetTarantulaEnemyData();
     dictionary["Leaf Bug"] = GetLeafBugEnemyData();
@@ -44,6 +45,23 @@ public class EnemyDataGenerator {
       maxHP = 5.0f,
       maxArmor = 0.0f,
       speed = 0.5f,
+      damage = 1,
+      nu = 1,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 3.0f,
+    };
+
+    return data;
+  }
+
+  // TODO(nnewsom): Handle this with overrides.
+  private EnemyData GetSlowAphidEnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.APHID,
+      size = EnemyData.Size.TINY,
+      maxHP = 5.0f,
+      maxArmor = 0.0f,
+      speed = 0.25f,
       damage = 1,
       nu = 1,
       properties = EnemyData.Properties.NONE,
