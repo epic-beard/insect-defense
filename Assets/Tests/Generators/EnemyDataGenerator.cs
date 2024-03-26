@@ -110,10 +110,10 @@ public class EnemyDataGenerator {
       size = EnemyData.Size.NORMAL,
       maxHP = 20.0f,
       maxArmor = 0.0f,
-      speed = 0.5f,
+      speed = 0.45f,
       damage = 5,
       nu = 6,
-      properties = EnemyData.Properties.NONE,
+      properties = EnemyData.Properties.CAMO,
       spawnVariance = 2.5f,
     };
 

@@ -140,6 +140,7 @@ public class Spawner : MonoBehaviour {
       yield return new WaitUntil(() => wave.Finished);
 
       if (cooldown > 0.0f) yield return new WaitForSeconds(cooldown);
+      Finished = true;
     }
   }
 
