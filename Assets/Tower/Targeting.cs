@@ -99,6 +99,7 @@ public class Targeting {
   //  return -1 if first is less than second.
   // Note that this algorithm will never produce a result describing equality. This is intentional.
   public static int CompareFloats(float first, float second) {
+    if (Mathf.Abs(first - second) <= Mathf.Epsilon) return 0;
     return (first > second) ? 1 : -1;
   }
 }

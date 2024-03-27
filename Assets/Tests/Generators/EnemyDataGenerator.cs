@@ -15,6 +15,7 @@ public class EnemyDataGenerator {
     EnemyDictionary dictionary = new();
     dictionary["Ant"] = GetAntEnemyData();
     dictionary["Aphid"] = GetAphidEnemyData();
+    dictionary["SlowAphid"] = GetSlowAphidEnemyData();
     dictionary["Beetle"] = GetBeetleEnemyData();
     dictionary["Tarantula"] = GetTarantulaEnemyData();
     dictionary["Leaf Bug"] = GetLeafBugEnemyData();
@@ -29,11 +30,9 @@ public class EnemyDataGenerator {
       maxArmor = 0.0f,
       speed = 0.5f,
       damage = 5,
-      nu = 20,
+      nu = 5,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -47,11 +46,26 @@ public class EnemyDataGenerator {
       maxArmor = 0.0f,
       speed = 0.5f,
       damage = 1,
-      nu = 4,
+      nu = 1,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
+    };
+
+    return data;
+  }
+
+  // TODO(nnewsom): Handle this with overrides.
+  private EnemyData GetSlowAphidEnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.APHID,
+      size = EnemyData.Size.TINY,
+      maxHP = 5.0f,
+      maxArmor = 0.0f,
+      speed = 0.25f,
+      damage = 1,
+      nu = 1,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 3.0f,
     };
 
     return data;
@@ -65,11 +79,9 @@ public class EnemyDataGenerator {
       maxArmor = 10.0f,
       speed = 0.25f,
       damage = 10,
-      nu = 40,
+      nu = 10,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -79,15 +91,14 @@ public class EnemyDataGenerator {
     EnemyData data = new() {
       type = EnemyData.Type.TARANTULA,
       size = EnemyData.Size.LARGE,
-      maxHP = 60.0f,
-      maxArmor = 10.0f,
-      speed = 0.2f,
+      maxHP = 100.0f,
+      maxArmor = 30.0f,
+      speed = 0.3f,
       damage = 15,
-      nu = 75,
+      nu = 50,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 1.0f,
       coagulationModifier = 0.5f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;
@@ -99,13 +110,11 @@ public class EnemyDataGenerator {
       size = EnemyData.Size.NORMAL,
       maxHP = 20.0f,
       maxArmor = 0.0f,
-      speed = 0.5f,
+      speed = 0.45f,
       damage = 5,
-      nu = 25,
-      properties = EnemyData.Properties.NONE,
+      nu = 6,
+      properties = EnemyData.Properties.CAMO,
       spawnVariance = 2.5f,
-      coagulationModifier = 1.0f,
-      acidExplosionStackModifier = 1,
     };
 
     return data;

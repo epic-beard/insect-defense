@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.Linq;
+using UnityEditor;
 
 public enum PauseToken {
   NONE = 0,
@@ -10,14 +11,13 @@ public enum PauseToken {
   END = 3,
 }
 
-public class PauseManager : MonoBehaviour {
-  public static PauseManager Instance;
+public class GameSpeedManager : MonoBehaviour {
+  public static GameSpeedManager Instance;
 
   public static event Action<bool> OnPauseChanged = delegate { };
   private Dictionary<PauseToken, bool> pauseState = new();
-  // TODO: Restore this to 1. This is a temporary testing measure.
   private float normalSpeed = 1.0f;
-
+  private float turboBoostTime = 4.0f;
 
   private void Awake() {
     Instance = this;
@@ -35,5 +35,14 @@ public class PauseManager : MonoBehaviour {
 
     OnPauseChanged?.Invoke(pauseState[PauseToken.NONE]);
     Time.timeScale = IsPaused() ? 0 : normalSpeed;
+  }
+
+  public void ToggleTurboBoost() {
+    if (Time.timeScale == 0) return;
+    if (Time.timeScale == turboBoostTime) {
+      Time.timeScale = normalSpeed;
+    } else {
+      Time.timeScale = turboBoostTime;
+    }
   }
 }

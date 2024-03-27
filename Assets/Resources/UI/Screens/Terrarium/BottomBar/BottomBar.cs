@@ -22,7 +22,7 @@ public class BottomBar : MonoBehaviour {
     settingsButtonVE = rootElement.Q<Button>(settingsButtonName);
     nuLabelVE = rootElement.Q<Label>(nuLabelName);
     GameStateManager.OnNuChanged += UpdateNu;
-    PauseManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
+    GameSpeedManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
   }
 
   private void Start() {
@@ -31,7 +31,7 @@ public class BottomBar : MonoBehaviour {
 
   private void RegisterCallbacks() {
     playPauseButtonVE.RegisterCallback<ClickEvent>(
-        (ClickEvent) => { PauseManager.Instance.HandlePause(); });
+        (ClickEvent) => { GameSpeedManager.Instance.HandlePause(); });
     settingsButtonVE.RegisterCallback<ClickEvent>(
         (ClickEvent) => { TerrariumInputManager.Instance.ToggleSettings(); });
   }
