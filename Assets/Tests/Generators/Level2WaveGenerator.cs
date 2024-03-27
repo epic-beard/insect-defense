@@ -28,8 +28,8 @@ public class Level2WaveGenerator {
         },
         new CannedEnemyWave() {
           enemyDataKey = ant,
-          repetitions = 5,
-          repeatDelay = 3.0f,
+          repetitions = 6,
+          repeatDelay = 3.5f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
@@ -51,15 +51,18 @@ public class Level2WaveGenerator {
         },
         new CannedEnemyWave() {
           enemyDataKey = ant,
-          repetitions = 5,
-          repeatDelay = 3.0f,
+          repetitions = 6,
+          repeatDelay = 3.5f,
           spawnLocation = 1,
           spawnAmmount = 1,
+        },
+        new SpacerWave() {
+          delay = 3.0f,
         },
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 2,
-          repeatDelay = 4.0f,
+          repeatDelay = 5.0f,
           spawnLocation = 1,
           spawnAmmount = 2,
         },
@@ -73,10 +76,10 @@ public class Level2WaveGenerator {
           Subwaves = {
             new CannedEnemyWave() {
               enemyDataKey = aphid,
-              repetitions = 6,
-              repeatDelay = 4.0f,
+              repetitions = 12,
+              repeatDelay = 2.25f,
               spawnLocation = 0,
-              spawnAmmount = 4,
+              spawnAmmount = 2,
             },
           },
         },
@@ -89,14 +92,14 @@ public class Level2WaveGenerator {
             new CannedEnemyWave() {
               enemyDataKey = ant,
               repetitions = 4,
-              repeatDelay = 4.0f,
+              repeatDelay = 5.0f,
               spawnLocation = 1,
               spawnAmmount = 1,
             },
             new CannedEnemyWave() {
               enemyDataKey = aphid,
               repetitions = 4,
-              repeatDelay = 4.0f,
+              repeatDelay = 5.0f,
               spawnLocation = 1,
               spawnAmmount = 4,
             },
@@ -131,23 +134,23 @@ public class Level2WaveGenerator {
             new CannedEnemyWave() {
               enemyDataKey = beetle,
               repetitions = 3,
-              repeatDelay = 12.0f,
+              repeatDelay = 15.0f,
               spawnLocation = 1,
               spawnAmmount = 1,
             },
             new DelayedWave() {
-              warmup = 36.0f,
+              warmup = 45.0f,
               wave = new CannedEnemyWave() {
                 enemyDataKey = beetle,
                 repetitions = 3,
-                repeatDelay = 6.0f,
+                repeatDelay = 8.0f,
                 spawnLocation = 1,
                 spawnAmmount = 1,
               },
             },
             new CannedEnemyWave() {
               enemyDataKey = slowAphid,
-              repetitions = 50,
+              repetitions = 70,
               repeatDelay = 1.0f,
               spawnLocation = 1,
               spawnAmmount = 1,
@@ -156,7 +159,7 @@ public class Level2WaveGenerator {
               warmup = 1.0f,
               wave = new CannedEnemyWave() {
                 enemyDataKey = slowAphid,
-                repetitions = 18,
+                repetitions = 28,
                 repeatDelay = 2.6f,
                 spawnLocation = 1,
                 spawnAmmount = 2,
@@ -166,9 +169,8 @@ public class Level2WaveGenerator {
         },
       },
     };
-    // Nu: 440
+    // Nu: 490
 
-    // Need more money.
     SequentialWave secondWave = new() {
       Subwaves = {
         new ConcurrentWave {
@@ -178,21 +180,21 @@ public class Level2WaveGenerator {
               Subwaves = {
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 4,
+                  repetitions = 3,
                   repeatDelay = 3.5f,
                   spawnLocation = 1,
                   spawnAmmount = 1,
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 6,
+                  repetitions = 3,
                   repeatDelay = 2.5f,
                   spawnLocation = 1,
                   spawnAmmount = 1,
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 6,
+                  repetitions = 8,
                   repeatDelay = 2.5f,
                   spawnLocation = 1,
                   spawnAmmount = 2,
@@ -202,7 +204,7 @@ public class Level2WaveGenerator {
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 4,
+                  repetitions = 7,
                   repeatDelay = 2.5f,
                   spawnLocation = 1,
                   spawnAmmount = 3,
@@ -214,22 +216,22 @@ public class Level2WaveGenerator {
               Subwaves = {
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 4,
+                  repetitions = 3,
                   repeatDelay = 3.5f,
                   spawnLocation = 0,
                   spawnAmmount = 1,
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 6,
+                  repetitions = 3,
                   repeatDelay = 2.5f,
                   spawnLocation = 0,
                   spawnAmmount = 1,
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = ant,
-                  repetitions = 6,
-                  repeatDelay = 2.5f,
+                  repetitions = 8,
+                  repeatDelay = 3.0f,
                   spawnLocation = 0,
                   spawnAmmount = 1,
                 },
@@ -239,7 +241,7 @@ public class Level2WaveGenerator {
                 new CannedEnemyWave() {
                   enemyDataKey = ant,
                   repetitions = 6,
-                  repeatDelay = 1.5f,
+                  repeatDelay = 2.0f,
                   spawnLocation = 0,
                   spawnAmmount = 1,
                 },
@@ -260,14 +262,14 @@ public class Level2WaveGenerator {
                       new CannedEnemyWave() {
                         enemyDataKey = beetle,
                         repetitions = 5,
-                        repeatDelay = 6.0f,
+                        repeatDelay = 8.0f,
                         spawnLocation = 1,
                         spawnAmmount = 2,
                       },  // CannedEnemyWave
                       new CannedEnemyWave() {
                         enemyDataKey = beetle,
                         repetitions = 4,
-                        repeatDelay = 6.0f,
+                        repeatDelay = 8.0f,
                         spawnLocation = 1,
                         spawnAmmount = 3,
                       },
@@ -280,15 +282,20 @@ public class Level2WaveGenerator {
                       },
                       new CannedEnemyWave() {
                         enemyDataKey = aphid,
-                        repetitions = 36,
-                        repeatDelay = 0.8f,
+                        repetitions = 40,
+                        repeatDelay = 0.6f,
                         spawnLocation = 1,
                         spawnAmmount = 1,
-                      },  // Wave CannedEnemyWave
-                      new DialogueBoxWave() {
-                        messages =
-                            { "It looks like the right side is out of enemies...",
-                              "This should free you up to sell some towers and reinforce the left." },
+                      },
+                      new SpacerWave() {
+                        delay = 10.0f,
+                      },
+                      new CannedEnemyWave() {
+                        enemyDataKey = aphid,
+                        repetitions = 31,
+                        repeatDelay = 0.6f,
+                        spawnLocation = 1,
+                        spawnAmmount = 1,
                       },
                     },  // Subwaves
                   },  // SequentialWave
@@ -305,13 +312,21 @@ public class Level2WaveGenerator {
                   spawnLocation = 0,
                   spawnAmmount = 1,
                 },
+                new SpacerWave {
+                  delay = 15.0f,
+                },
+                new DialogueBoxWave() {
+                  messages =
+                      { "It looks like the right side is out of enemies...",
+                        "This should free you up to sell some towers and reinforce the left." },
+                },
               },
             }  // SequentialWave
           }  // Subwaves
         },  // ConcurrentWave  End of subwave 2
       },  // Subwaves
     };  // SequentialWave
-    // Nu: 850
+    // Nu: 950
 
     SequentialWave thirdWave = new() {
       Subwaves = {
@@ -370,15 +385,15 @@ public class Level2WaveGenerator {
                         },
                         new CannedEnemyWave() {
                           enemyDataKey = aphid,
-                          repetitions = 10,
-                          repeatDelay = 2.5f,
+                          repetitions = 8,
+                          repeatDelay = 3.0f,
                           spawnLocation = 0,
                           spawnAmmount = 2,
                         },
                         new CannedEnemyWave() {
                           enemyDataKey = aphid,
-                          repetitions = 20,
-                          repeatDelay = 1.0f,
+                          repetitions = 12,
+                          repeatDelay = 1.5f,
                           spawnLocation = 0,
                           spawnAmmount = 1,
                         }
@@ -386,8 +401,8 @@ public class Level2WaveGenerator {
                     },
                     new CannedEnemyWave() {
                       enemyDataKey = leafBug,
-                      repetitions = 9,
-                      repeatDelay = 6.0f,
+                      repetitions = 7,
+                      repeatDelay = 8.0f,
                       spawnLocation = 0,
                       spawnAmmount = 1,
                     },
@@ -399,6 +414,18 @@ public class Level2WaveGenerator {
         },  // ConcurrentWave
       },  // Subwaves
     };  // SequentialWave
+    // Nu: 1156
+
+    // TODO(emonzon): Remove this before submitting.
+    SequentialWave totalingWave = new() {
+      Subwaves = {
+        new DialogueBoxWave() {
+          messages =
+            { "Total them points, bitches!" },
+          delay = 60.0f,
+        },
+      },
+    };
 
     Waves waves = new() {
       waves = { firstWave, secondWave, thirdWave },
