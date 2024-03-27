@@ -67,14 +67,6 @@ public class TerrariumInputManager : MonoBehaviour {
     GameStateManager.Instance.RefundSelectedTower();
   }
 
-  void TurboBoostOn(InputAction.CallbackContext context) {
-    GameSpeedManager.Instance.TurnOnTurboBoost();
-  }
-
-  void TurboBoostOff(InputAction.CallbackContext context) {
-    GameSpeedManager.Instance.TurnOffTurboBoost();
-  }
-
   void ToggleTurboBoost(InputAction.CallbackContext context) {
     GameSpeedManager.Instance.ToggleTurboBoost();
   }

@@ -34,7 +34,7 @@ public class Targeting {
     { Priority.LAST, (enemy1, enemy2) => CompareFloats(enemy2.GetDistanceToEnd(), enemy1.GetDistanceToEnd()) },
     { Priority.LEAST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy1.Armor, enemy2.Armor) },
     { Priority.LEAST_HP, (enemy1, enemy2) => CompareFloats(enemy1.HP, enemy2.HP) },
-    { Priority.MOST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy2?.Armor??0.0f, enemy1?.Armor??0.0f) },
+    { Priority.MOST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy2.Armor, enemy1.Armor) },
     { Priority.MOST_HP, (enemy1, enemy2) => CompareFloats(enemy2.HP, enemy1.HP) },
   };
 
@@ -72,10 +72,6 @@ public class Targeting {
 
     if (workingTargets.Count == 0) {
       return null;
-    }
-
-    if (workingTargets.Any((e) => e == null)) {
-      Debug.Log("ERROR: Targeting has a null reference in workingTargets.");
     }
 
     // Sort the working list of targets according to the appropriate targeting priority.
