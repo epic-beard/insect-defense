@@ -164,34 +164,24 @@
             <Wave xsi:type="SequentialWave">
               <Subwaves>
                 <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>3</repetitions>
+                  <repetitions>4</repetitions>
                   <repeatDelay>3.5</repeatDelay>
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>3</repetitions>
+                  <repetitions>4</repetitions>
                   <repeatDelay>2.5</repeatDelay>
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>8</repetitions>
+                  <repetitions>10</repetitions>
                   <repeatDelay>2.5</repeatDelay>
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>2</spawnAmmount>
-                  <enemyDataKey>Aphid</enemyDataKey>
-                </Wave>
-                <Wave xsi:type="SpacerWave">
-                  <delay>3</delay>
-                </Wave>
-                <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>7</repetitions>
-                  <repeatDelay>2.5</repeatDelay>
-                  <spawnLocation>1</spawnLocation>
-                  <spawnAmmount>3</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
                 </Wave>
               </Subwaves>
@@ -214,22 +204,33 @@
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>8</repetitions>
-                  <repeatDelay>3</repeatDelay>
-                  <spawnLocation>0</spawnLocation>
-                  <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Ant</enemyDataKey>
-                </Wave>
-                <Wave xsi:type="SpacerWave">
-                  <delay>3</delay>
-                </Wave>
-                <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>6</repetitions>
-                  <repeatDelay>2</repeatDelay>
+                  <repeatDelay>4</repeatDelay>
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Ant</enemyDataKey>
                 </Wave>
               </Subwaves>
+            </Wave>
+          </Subwaves>
+        </Wave>
+        <Wave xsi:type="SpacerWave">
+          <delay>3</delay>
+        </Wave>
+        <Wave xsi:type="ConcurrentWave">
+          <Subwaves>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>9</repetitions>
+              <repeatDelay>2.5</repeatDelay>
+              <spawnLocation>1</spawnLocation>
+              <spawnAmmount>3</spawnAmmount>
+              <enemyDataKey>Aphid</enemyDataKey>
+            </Wave>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>9</repetitions>
+              <repeatDelay>2.5</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Ant</enemyDataKey>
             </Wave>
           </Subwaves>
         </Wave>
@@ -244,14 +245,14 @@
                     <Subwaves>
                       <Wave xsi:type="CannedEnemyWave">
                         <repetitions>5</repetitions>
-                        <repeatDelay>8</repeatDelay>
+                        <repeatDelay>12</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>2</spawnAmmount>
                         <enemyDataKey>Beetle</enemyDataKey>
                       </Wave>
                       <Wave xsi:type="CannedEnemyWave">
                         <repetitions>4</repetitions>
-                        <repeatDelay>8</repeatDelay>
+                        <repeatDelay>12</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>3</spawnAmmount>
                         <enemyDataKey>Beetle</enemyDataKey>
@@ -274,7 +275,17 @@
                         <delay>10</delay>
                       </Wave>
                       <Wave xsi:type="CannedEnemyWave">
-                        <repetitions>31</repetitions>
+                        <repetitions>30</repetitions>
+                        <repeatDelay>0.6</repeatDelay>
+                        <spawnLocation>1</spawnLocation>
+                        <spawnAmmount>1</spawnAmmount>
+                        <enemyDataKey>Aphid</enemyDataKey>
+                      </Wave>
+                      <Wave xsi:type="SpacerWave">
+                        <delay>10</delay>
+                      </Wave>
+                      <Wave xsi:type="CannedEnemyWave">
+                        <repetitions>30</repetitions>
                         <repeatDelay>0.6</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>1</spawnAmmount>
@@ -295,9 +306,12 @@
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Ant</enemyDataKey>
                 </Wave>
+                <Wave xsi:type="SpacerWave">
+                  <delay>15</delay>
+                </Wave>
                 <Wave xsi:type="DialogueBoxWave">
                   <messages>
-                    <string>It looks like the right side is out of enemies...</string>
+                    <string>It looks like the right side is nearly out of enemies...</string>
                     <string>This should free you up to sell some towers and reinforce the left.</string>
                   </messages>
                   <delay>0.5</delay>
@@ -390,6 +404,24 @@
               </Subwaves>
             </Wave>
           </Subwaves>
+        </Wave>
+      </Subwaves>
+    </Wave>
+    <Wave xsi:type="SequentialWave">
+      <Subwaves>
+        <Wave xsi:type="DialogueBoxWave">
+          <messages>
+            <string>Something new is coming, it's much bigger than a beetle!</string>
+            <string>Consider using a mix of towers to take it on.</string>
+          </messages>
+          <delay>0.5</delay>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>2</repetitions>
+          <repeatDelay>5</repeatDelay>
+          <spawnLocation>1</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Tarantula</enemyDataKey>
         </Wave>
       </Subwaves>
     </Wave>

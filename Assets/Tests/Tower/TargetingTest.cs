@@ -1,7 +1,5 @@
 #nullable enable
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -221,10 +219,10 @@ public class TargetingTest {
     float second = 1.0f;
 
     float result = Targeting.CompareFloats(first, second);
-    Assert.That(result, Is.EqualTo(-1));
+    Assert.That(result, Is.EqualTo(0));
 
     result = Targeting.CompareFloats(second, first);
-    Assert.That(result, Is.EqualTo(-1));
+    Assert.That(result, Is.EqualTo(0));
   }
 
   #endregion

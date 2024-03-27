@@ -105,10 +105,10 @@
         <type>TARANTULA</type>
         <size>LARGE</size>
         <maxHP>100</maxHP>
-        <maxArmor>10</maxArmor>
-        <speed>0.2</speed>
+        <maxArmor>30</maxArmor>
+        <speed>0.3</speed>
         <damage>15</damage>
-        <nu>20</nu>
+        <nu>50</nu>
         <coagulationModifier>0.5</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <properties>NONE</properties>

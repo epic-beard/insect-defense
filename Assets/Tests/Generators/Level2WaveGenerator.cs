@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
@@ -180,34 +178,24 @@ public class Level2WaveGenerator {
               Subwaves = {
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 3,
+                  repetitions = 4,
                   repeatDelay = 3.5f,
                   spawnLocation = 1,
                   spawnAmmount = 1,
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 3,
+                  repetitions = 4,
                   repeatDelay = 2.5f,
                   spawnLocation = 1,
                   spawnAmmount = 1,
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = aphid,
-                  repetitions = 8,
+                  repetitions = 10,
                   repeatDelay = 2.5f,
                   spawnLocation = 1,
                   spawnAmmount = 2,
-                },
-                new SpacerWave() {
-                  delay = 3.0f,
-                },
-                new CannedEnemyWave() {
-                  enemyDataKey = aphid,
-                  repetitions = 7,
-                  repeatDelay = 2.5f,
-                  spawnLocation = 1,
-                  spawnAmmount = 3,
                 },
               },  // Subwaves
             },  // SequentialWave
@@ -231,24 +219,35 @@ public class Level2WaveGenerator {
                 new CannedEnemyWave() {
                   enemyDataKey = ant,
                   repetitions = 8,
-                  repeatDelay = 3.0f,
-                  spawnLocation = 0,
-                  spawnAmmount = 1,
-                },
-                new SpacerWave() {
-                  delay = 3.0f,
-                },
-                new CannedEnemyWave() {
-                  enemyDataKey = ant,
-                  repetitions = 6,
-                  repeatDelay = 2.0f,
+                  repeatDelay = 4.0f,
                   spawnLocation = 0,
                   spawnAmmount = 1,
                 },
               },  // Subwaves
             },  // SequentialWave
           },  // Subwaves
-        },  // ConcurrentWave  End of subwave 1
+        },  // ConcurrentWave
+        new SpacerWave() {
+          delay = 3.0f,
+        },
+        new ConcurrentWave {
+          Subwaves = {
+            new CannedEnemyWave() {
+              enemyDataKey = aphid,
+              repetitions = 9,
+              repeatDelay = 2.5f,
+              spawnLocation = 1,
+              spawnAmmount = 3,
+            },
+            new CannedEnemyWave() {
+              enemyDataKey = ant,
+              repetitions = 9,
+              repeatDelay = 2.5f,
+              spawnLocation = 0,
+              spawnAmmount = 1,
+            },
+          },
+        },  // ConcurrentWave -- End of subwave 1
         new WaitUntilDeadWave() {},
         new ConcurrentWave() {
           Subwaves = {
@@ -262,14 +261,14 @@ public class Level2WaveGenerator {
                       new CannedEnemyWave() {
                         enemyDataKey = beetle,
                         repetitions = 5,
-                        repeatDelay = 8.0f,
+                        repeatDelay = 12.0f,
                         spawnLocation = 1,
                         spawnAmmount = 2,
                       },  // CannedEnemyWave
                       new CannedEnemyWave() {
                         enemyDataKey = beetle,
                         repetitions = 4,
-                        repeatDelay = 8.0f,
+                        repeatDelay = 12.0f,
                         spawnLocation = 1,
                         spawnAmmount = 3,
                       },
@@ -292,7 +291,17 @@ public class Level2WaveGenerator {
                       },
                       new CannedEnemyWave() {
                         enemyDataKey = aphid,
-                        repetitions = 31,
+                        repetitions = 30,
+                        repeatDelay = 0.6f,
+                        spawnLocation = 1,
+                        spawnAmmount = 1,
+                      },
+                      new SpacerWave() {
+                        delay = 10.0f,
+                      },
+                      new CannedEnemyWave() {
+                        enemyDataKey = aphid,
+                        repetitions = 30,
                         repeatDelay = 0.6f,
                         spawnLocation = 1,
                         spawnAmmount = 1,
@@ -317,7 +326,7 @@ public class Level2WaveGenerator {
                 },
                 new DialogueBoxWave() {
                   messages =
-                      { "It looks like the right side is out of enemies...",
+                      { "It looks like the right side is nearly out of enemies...",
                         "This should free you up to sell some towers and reinforce the left." },
                 },
               },
@@ -326,7 +335,7 @@ public class Level2WaveGenerator {
         },  // ConcurrentWave  End of subwave 2
       },  // Subwaves
     };  // SequentialWave
-    // Nu: 950
+    // Nu: 956
 
     SequentialWave thirdWave = new() {
       Subwaves = {
@@ -416,6 +425,24 @@ public class Level2WaveGenerator {
     };  // SequentialWave
     // Nu: 1156
 
+    SequentialWave fourthWave = new() {
+      Subwaves = {
+        new DialogueBoxWave {
+          messages =
+            { "Something new is coming, it's much bigger than a beetle!",
+              "Consider using a mix of towers to take it on." },
+        },
+        new CannedEnemyWave() {
+          enemyDataKey = tarantula,
+          repetitions = 2,
+          repeatDelay = 5.0f,
+          spawnLocation = 1,
+          spawnAmmount = 1,
+        },  // CannedEnemyWave
+      },  // Subwaves - overall
+    };
+    // Nu: 1256
+
     // TODO(emonzon): Remove this before submitting.
     SequentialWave totalingWave = new() {
       Subwaves = {
@@ -428,7 +455,7 @@ public class Level2WaveGenerator {
     };
 
     Waves waves = new() {
-      waves = { firstWave, secondWave, thirdWave },
+      waves = { firstWave, secondWave, thirdWave, fourthWave },
     };
 
     Serialize<Waves>(waves, filename);
