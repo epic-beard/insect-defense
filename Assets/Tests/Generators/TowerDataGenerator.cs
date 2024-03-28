@@ -111,10 +111,11 @@ public class TowerDataGenerator {
     var thirdPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.3f),
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.2f)
         },
         name = "Nozzle Control",
-        description = "Attacks gain 50% more range.",
+        description = "Attacks gain 30% more range and 20% faster attacks.",
         upgradePath = 2,
         cost = 50,
       },

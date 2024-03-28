@@ -24,6 +24,28 @@ public class Level1WaveGenerator {
                 "For now, just build one Spitting Ant Tower." }
         },
         new CannedEnemyWave() {
+          enemyDataKey = aphid,
+          repetitions = 4,
+          repeatDelay = 3.0f,
+          spawnLocation = 0,
+          spawnAmmount = 1,
+        },
+        new CannedEnemyWave() {
+          enemyDataKey = aphid,
+          repetitions = 4,
+          repeatDelay = 2.0f,
+          spawnLocation = 0,
+          spawnAmmount = 1,
+        },
+        new CannedEnemyWave() {
+          enemyDataKey = aphid,
+          repetitions = 4,
+          repeatDelay = 2.0f,
+          spawnLocation = 0,
+          spawnAmmount = 2,
+        },
+        new WaitUntilDeadWave() {},
+        new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 7,
           repeatDelay = 4.0f,
@@ -32,47 +54,66 @@ public class Level1WaveGenerator {
         },
         new WaitUntilDeadWave() {},
         new DialogueBoxWave() {
-          messages = { "Now might be a good time to build a second tower." }
-
-        },
-        new CannedEnemyWave() {
-          enemyDataKey = ant,
-          repetitions = 3,
-          repeatDelay = 2.0f,
-          spawnLocation = 0,
-          spawnAmmount = 2,
-        },
-      },
-    };
-
-    SequentialWave secondWave = new() {
-      Subwaves = {
-        new DialogueBoxWave() {
           messages = { "It looks like you have some Nu left, it is about time to upgrade a tower.",
                        "First, click on the tower you wish to ugprade to select it.",
                        "Now check out the available upgrades.",
                        "I'll leave the next wave to you." }
         },
+        new CannedEnemyWave() {
+          enemyDataKey = ant,
+          repetitions = 4,
+          repeatDelay = 6.0f,
+          spawnLocation = 0,
+          spawnAmmount = 2,
+        },
+      },
+    };
+    // Nu: 191
+
+    SequentialWave secondWave = new() {
+      Subwaves = {
+        new CannedEnemyWave() {
+          enemyDataKey = ant,
+          repetitions = 6,
+          repeatDelay = 3.0f,
+          spawnLocation = 0,
+          spawnAmmount = 1,
+        },
+        new WaitUntilDeadWave() {},
+        new DialogueBoxWave() {
+          messages = { "Now try selling the upgrade you bought and build a new tower!" },
+        },
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
               enemyDataKey = ant,
-              repetitions = 5,
-              repeatDelay = 6.0f,
+              repetitions = 8,
+              repeatDelay = 3.0f,
               spawnLocation = 0,
-              spawnAmmount = 2,
+              spawnAmmount = 1,
             },
             new CannedEnemyWave() {
               enemyDataKey = aphid,
-              repetitions = 15,
+              repetitions = 12,
               repeatDelay = 2.0f,
               spawnLocation = 0,
               spawnAmmount = 1,
             },
           },
         },
+        new SpacerWave() {
+          delay = 6.0f,
+        },
+        new CannedEnemyWave {
+          enemyDataKey = ant,
+          repetitions = 3,
+          repeatDelay = 1.0f,
+          spawnLocation = 0,
+          spawnAmmount = 1,
+        }
       },
     };
+    // Nu: 288
 
     SequentialWave thirdWave = new() {
       Subwaves = {
@@ -81,16 +122,16 @@ public class Level1WaveGenerator {
             new CannedEnemyWave() {
               enemyDataKey = ant,
               repetitions = 3,
-              repeatDelay = 2.0f,
+              repeatDelay = 5.0f,
               spawnLocation = 0,
               spawnAmmount = 2,
             },
             new CannedEnemyWave() {
               enemyDataKey = aphid,
-              repetitions = 3,
+              repetitions = 8,
               repeatDelay = 2.0f,
               spawnLocation = 0,
-              spawnAmmount = 4,
+              spawnAmmount = 1,
             },
           },
         },

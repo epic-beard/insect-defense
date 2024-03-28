@@ -137,11 +137,16 @@
                 <AttributeModifier>
                   <attribute>RANGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.5</mod>
+                  <mod>1.3</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>ATTACK_SPEED</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.2</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Nozzle Control</name>
-              <description>Attacks gain 50% more range.</description>
+              <description>Attacks gain 30% more range and 20% faster attacks.</description>
               <upgradePath>2</upgradePath>
               <cost>50</cost>
             </TowerAbility>
