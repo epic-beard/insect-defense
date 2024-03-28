@@ -443,17 +443,6 @@ public class Level2WaveGenerator {
     };
     // Nu: 1256
 
-    // TODO(emonzon): Remove this before submitting.
-    SequentialWave totalingWave = new() {
-      Subwaves = {
-        new DialogueBoxWave() {
-          messages =
-            { "Total them points, bitches!" },
-          delay = 60.0f,
-        },
-      },
-    };
-
     Waves waves = new() {
       waves = { firstWave, secondWave, thirdWave, fourthWave },
     };
