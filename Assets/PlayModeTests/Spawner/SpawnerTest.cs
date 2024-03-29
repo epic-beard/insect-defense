@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -77,8 +78,8 @@ public class EnemySubwaveTest {
     prefab.AddComponent<Enemy>();
 
     objectPool = CreateObjectPool();
-    objectPool.AddPrefab(EnemyData.Type.BEETLE, prefab);
-    objectPool.InvokeInitializeObjectPool();
+    var types = new HashSet<EnemyData.Type>() { EnemyData.Type.BEETLE };
+    objectPool.InitializeObjectPool(types);
 
     spawner = new GameObject().AddComponent<Spawner>();
     Waypoint spawnLocation = new GameObject().AddComponent<Waypoint>();

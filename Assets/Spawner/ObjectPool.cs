@@ -27,10 +27,6 @@ public class ObjectPool : MonoBehaviour {
 
   void Awake() {
     Instance = this;
-
-    foreach (var kvp in enemyMap) {
-      prefabMap[kvp.Key] = Resources.Load<GameObject>(kvp.Value);
-    }
   }
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
@@ -107,6 +103,10 @@ public class ObjectPool : MonoBehaviour {
 
   // Creates startingSize enemies for each prefab, populating the objectPools map.
   public void InitializeObjectPool(HashSet<EnemyData.Type> enemyTypes) {
+    foreach (var kvp in enemyMap) {
+      prefabMap.Add(kvp.Key, Resources.Load<GameObject>(kvp.Value));
+    }
+
     foreach (var type in enemyTypes) {
       objectPools[type] = new Queue<GameObject>();
       for (int i = 0; i < startingSize; i++) {
