@@ -8,42 +8,46 @@ public class ObjectPool : MonoBehaviour {
   static public ObjectPool Instance;
 #pragma warning restore 8618
 
-  // An ugly artifact, just a pair class.
-  // [TODO: nnewsom] get rid of this with Addressables or a SerializableDictionary.
-  [Serializable]
-  public class EnemyEntry {
-    [SerializeField] public EnemyData.Type type;
-#pragma warning disable 8618
-    [SerializeField] public GameObject prefab;
-#pragma warning restore 8618
-  }
-
   [SerializeField] private int startingSize = 20;
-  [SerializeField] private List<EnemyEntry> entries = new();
   readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
-  readonly private Dictionary<EnemyData.Type, GameObject> prefabs = new();
   readonly private HashSet<Enemy> activeEnemies = new();
+  readonly private Dictionary<EnemyData.Type, string> enemyMap = new() {
+    { EnemyData.Type.ANT, "Enemies/Ant/Ant" },
+    { EnemyData.Type.APHID, "Enemies/Aphid/Aphid" },
+    { EnemyData.Type.BEETLE, "Enemies/Beetle/Beetle" },
+    { EnemyData.Type.HERCULES_BEETLE, "Enemies/Hercules Beetle/Hercules Beetle" },
+    { EnemyData.Type.LEAF_BUG, "Enemies/Leaf Bug/Leaf Bug" },
+    { EnemyData.Type.SLUG, "Enemies/Slug/Slug" },
+    { EnemyData.Type.STINK_BUG, "Enemies/Stink Bug/Stink Bug" },
+    { EnemyData.Type.TARANTULA, "Enemies/Tarantula/Tarantula" },
+    { EnemyData.Type.TERMITE, "Enemies/Termite/Termite" },
+    { EnemyData.Type.WOLF_SPIDER, "Enemies/Wolf Spider/Wolf Spider" },
+  };
+  readonly private Dictionary<EnemyData.Type, GameObject> prefabMap = new();
 
   void Awake() {
     Instance = this;
 
-    foreach (var entry in entries) {
-      prefabs[entry.type] = entry.prefab;
+    foreach (var kvp in enemyMap) {
+      prefabMap[kvp.Key] = Resources.Load<GameObject>(kvp.Value);
     }
-    InitializeObjectPool();
   }
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
   public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Transform? parent = null) {
+    if (!objectPools.ContainsKey(data.type)) {
+      objectPools.Add(data.type, new Queue<GameObject>());
+      Debug.Log("WARNING: missing object pool for type: " + data.type.ToString());
+    }
     var pool = objectPools[data.type];
-    
+
     GameObject gameObject;
     if (pool.Count != 0) {
       gameObject = pool.Dequeue();
       gameObject.SetActive(true);
     } else {
-      gameObject = GameObject.Instantiate(prefabs[data.type]);
+      gameObject = prefabMap[data.type];
     }
     if (parent == null) {
       gameObject.transform.position = start.transform.position;
@@ -102,11 +106,11 @@ public class ObjectPool : MonoBehaviour {
   }
 
   // Creates startingSize enemies for each prefab, populating the objectPools map.
-  private void InitializeObjectPool() {
-    foreach (var (type, prefab) in prefabs) {
+  public void InitializeObjectPool(HashSet<EnemyData.Type> enemyTypes) {
+    foreach (var type in enemyTypes) {
       objectPools[type] = new Queue<GameObject>();
       for (int i = 0; i < startingSize; i++) {
-        GameObject gameObject = Instantiate(prefab);
+        GameObject gameObject = Instantiate(prefabMap[type]);
         gameObject.SetActive(false);
         Enemy enemy = gameObject.GetComponent<Enemy>();
         enemy.enabled = false;
