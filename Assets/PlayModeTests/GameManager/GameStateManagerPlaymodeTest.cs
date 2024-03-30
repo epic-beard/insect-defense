@@ -6,12 +6,13 @@ using UnityEngine.TestTools;
 
 public class GameStateManagerPlaymodeTest {
   GameStateManager gameStateManager;
+  TowerManager towerManager;
 
   [SetUp]
   public void SetUp() {
     gameStateManager = CreateGameStateManager();
     
-    TowerManager towerManager = new GameObject().AddComponent<TowerManager>();
+    towerManager = new GameObject().AddComponent<TowerManager>();
     TowerManager.Instance = towerManager;
 
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
@@ -22,15 +23,15 @@ public class GameStateManagerPlaymodeTest {
   public IEnumerator BuildTowerWorks() {
     Waypoint waypoint = CreateWaypoint();
 
-    Assert.That(gameStateManager.BuildTower(waypoint), Is.False);
+    Assert.That(towerManager.BuildTower(waypoint), Is.False);
 
-    GameStateManager.SelectedTowerType = CreateGameObjectWithSpittingAntTower();
+    TowerManager.SelectedTowerType = TowerData.Type.SPITTING_ANT_TOWER;
 
-    Assert.That(gameStateManager.BuildTower(waypoint), Is.True);
+    Assert.That(towerManager.BuildTower(waypoint), Is.True);
 
-    yield return new WaitForSeconds(gameStateManager.GetBuildDelay());
+    yield return new WaitForSeconds(towerManager.GetBuildDelay());
 
-    Assert.That(gameStateManager.TowerPrices[TowerData.Type.SPITTING_ANT_TOWER].Count, Is.EqualTo(1));
+    Assert.That(towerManager.TowerPrices[TowerData.Type.SPITTING_ANT_TOWER].Count, Is.EqualTo(1));
   }
 
   #region TestHelperMethods

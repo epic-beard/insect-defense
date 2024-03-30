@@ -5,13 +5,18 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using TowerDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData.Type, TowerData>;
 using AbilityDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData.Type, TowerAbility[][]>;
 using UnityEngine;
+using UnityEngine.TestTools.Utils;
+using System.Reflection;
 
 public class TowerDataManagerTest {
+  TowerManager tm;
   TowerData towerData;
   TowerAbility[][] abilities;
 
   [SetUp]
   public void SetUp() {
+    tm = new GameObject().AddComponent<TowerManager>();
+
     towerData = new() {
       type = TowerData.Type.SPITTING_ANT_TOWER,
       upgradeTreeData = new() {
@@ -23,6 +28,7 @@ public class TowerDataManagerTest {
       armor_pierce = 2.0f,
       armor_tear = 3.0f,
       attack_speed = 4.0f,
+      cost = 10.0f,
       damage = 5.0f,
       damage_over_time = 6.0f,
       projectile_speed = 7.0f,
@@ -49,6 +55,16 @@ public class TowerDataManagerTest {
       cost = 4,
     };
     abilities = new TowerAbility[1][] { new TowerAbility[] { ability } };
+  }
+
+  [Test]
+  public void GetTowerCostWorks() {
+    var comparer = new FloatEqualityComparer(10e-6f);
+    Assert.That(tm.GetTowerCost(towerData), Is.EqualTo(10));
+    tm.IncrementTowerCounts(towerData);
+    Assert.That(tm.GetTowerCost(towerData), Is.EqualTo(12));
+    tm.IncrementTowerCounts(towerData);
+    Assert.That(tm.GetTowerCost(towerData), Is.EqualTo(14));
   }
 
   // Round trip a TowerData object.
@@ -558,3 +574,21 @@ public class TowerDataManagerTest {
     TowerDictionary towers = Deserialize<TowerDictionary>(filename);
   }
 }
+
+#region TowerManagerUtils
+public static class TowerManagerUtils {
+
+  public static float GetBuildDelay(this TowerManager stateManager) {
+    return (float)typeof(TowerManager)
+        .GetField("buildDelay", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetValue(stateManager);
+  }
+  public static void IncrementTowerCounts(this TowerManager towerManager, TowerData data) {
+    var towerPrices = towerManager.TowerPrices;
+    if (!towerPrices.ContainsKey(data.type)) {
+      towerPrices.Add(data.type, new());
+    }
+    towerPrices[data.type].Push(towerManager.GetTowerCost(data));
+  }
+}
+#endregion

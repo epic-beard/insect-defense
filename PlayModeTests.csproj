@@ -8,9 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
-    <ProjectGuid>{FE4D82B6-0F1C-5509-03D9-323CA7952623}</ProjectGuid>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{E0154A8A-4FFA-D768-7077-19D64B0D0043}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PlayModeTests</AssemblyName>
@@ -705,11 +704,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Code.csproj">
-      <Project>{346AE815-C61F-1345-B9B9-B6B0397F17FA}</Project>
+      <Project>{2BCE259E-72D6-F83B-080F-37F2F33D4F15}</Project>
       <Name>Code</Name>
     </ProjectReference>
     <ProjectReference Include="Tests.csproj">
-      <Project>{65F69217-C3DE-8451-F960-F005B277DBED}</Project>
+      <Project>{AF493EF0-6097-FFCE-D14C-D4621A4AE48E}</Project>
       <Name>Tests</Name>
     </ProjectReference>
   </ItemGroup>

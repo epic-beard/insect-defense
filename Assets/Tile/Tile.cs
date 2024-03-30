@@ -88,13 +88,13 @@ public class Tile : MonoBehaviour {
     if (GameStateManager.Instance.IsMouseOverUI) return;
     if (!isTowerPlaceable) { return; }
     if (!isTowerPresent) {
-      isTowerPresent = GameStateManager.Instance.BuildTower(waypoint);
+      isTowerPresent = TowerManager.Instance.BuildTower(waypoint);
       if (!isTowerPresent) { return; }
     }
     // This happens while a tower is in the prcocess of being sold.
-    if (isTowerPresent && !GameStateManager.Instance.HasTower(GetCoordinates())) { return; }
+    if (isTowerPresent && !TowerManager.Instance.HasTower(GetCoordinates())) { return; }
 
-    Utilities.SetSelectedTower(GameStateManager.Instance.GetTower(GetCoordinates()));
+    Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
   }
 
   public void ResetTile() {
