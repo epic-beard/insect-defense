@@ -60,11 +60,11 @@ public class TerrariumInputManager : MonoBehaviour {
   }
 
   void Deselect(InputAction.CallbackContext context) {
-    GameStateManager.Instance.ClearSelection();
+    TowerManager.Instance.ClearSelection();
   }
 
   void DeleteTower(InputAction.CallbackContext context) {
-    GameStateManager.Instance.RefundSelectedTower();
+    TowerManager.Instance.RefundSelectedTower();
   }
 
   void ToggleTurboBoost(InputAction.CallbackContext context) {

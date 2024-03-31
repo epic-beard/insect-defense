@@ -491,7 +491,7 @@ public class Enemy : MonoBehaviour {
     yield return new WaitForSeconds(UnityEngine.Random.Range(0, interval));
     while (true) {
       var towers =
-          GameStateManager.Instance.GetTowersInRange(range, transform.position);
+          TowerManager.Instance.GetTowersInRange(range, transform.position);
       foreach (var tower in towers) {
         ability(tower);
       }

@@ -34,9 +34,7 @@ public class TowerSelector : MonoBehaviour {
       SelectTowerButton towerButton = (SelectTowerButton)e;
       Tower tower = prefabs[i].GetComponent<Tower>();
       string towerTypeName = tower.Type.ToString();
-      int cost = GameStateManager.Instance.GetTowerCost(
-          tower.Type,
-          TowerManager.Instance.GetTowerData(tower.Type).cost);
+      int cost = TowerManager.Instance.GetTowerCost(TowerManager.Instance.GetTowerData(tower.Type));
       if (cost > GameStateManager.Instance.Nu) {
         towerButton.SetEnabled(false);
       }
@@ -66,15 +64,15 @@ public class TowerSelector : MonoBehaviour {
     if (ve == null) return;
     SelectTowerButton button = Utilities.GetAncestor<SelectTowerButton>(ve);
 
-    GameStateManager.SelectedTowerType = towerTypeToPrefab[button.TowerType];
+    TowerManager.SelectedTowerType = button.TowerType;
     ContextPanel.Instance.SetTowerContextPanel();
-    TowerDetail.Instance.SetContextTowerName(GameStateManager.SelectedTowerType.name);
+    TowerDetail.Instance.SetContextTowerName(button.name);
   }
 
   public void UpdateAffordableTowers(int nu) {
     foreach (var entry in towerButtons) {
       TowerData towerData = TowerManager.Instance.GetTowerData(entry.Key);
-      int cost = GameStateManager.Instance.GetTowerCost(towerData.type, towerData.cost);
+      int cost = TowerManager.Instance.GetTowerCost(towerData);
 
       SelectTowerButton button = entry.Value;
       button.Cost = cost;
