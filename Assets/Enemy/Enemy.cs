@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour {
     }
   }
   public float CrippleSlow { get; private set; } = 0.8f;
-  public int Damage {
+  public float Damage {
     get { return data.damage; }
     set {
       data.damage = value;
@@ -122,13 +122,13 @@ public class Enemy : MonoBehaviour {
         }
         ConditionalContextReset();
         ObjectPool.Instance.DestroyEnemy(gameObject);
-        GameStateManager.Instance.Nu += data.nu;
+        GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);
       }
     }
   }
   public float MaxArmor { get { return data.maxArmor; } }
   public float MaxHp { get { return data.maxHP; } }
-  public int Nu {
+  public float Nu {
     get { return data.nu; }
     set {
       data.nu = value;
@@ -368,6 +368,38 @@ public class Enemy : MonoBehaviour {
     zVariance = z;
   }
 
+  public void SetStat(EnemyData.Stat stat, float value) {
+    switch (stat) {
+    case EnemyData.Stat.MAX_HP: data.maxHP = value; break;
+    case EnemyData.Stat.MAX_ARMOR: data.maxArmor = value; break;
+    case EnemyData.Stat.SPEED: data.speed = value; break;
+    case EnemyData.Stat.DAMAGE: data.damage = value; break;
+    case EnemyData.Stat.NU: data.nu = value; break;
+    case EnemyData.Stat.COAGULATION_MODIFIER: data.coagulationModifier = value; break;
+    case EnemyData.Stat.ACID_EXPLOSION_STACK_MODIFIER: data.acidExplosionStackModifier = value; break;
+    }
+  }
+
+  public void SetCarrier(EnemyData.CarrierProperties carrier) {
+    data.carrier = carrier;
+  }
+
+  public void SetSpawner(EnemyData.SpawnerProperties spawner) {
+    data.spawner = spawner;
+  }
+
+  public void SetProperties(EnemyData.Properties properties) {
+    data.properties = properties;
+  }
+
+  public void SetDazzle(EnemyData.DazzleProperties dazzle) {
+    data.dazzle = dazzle;
+  }
+
+  public void SetSlime(EnemyData.SlimeProperties slime) {
+    data.slime = slime;
+  }
+
   // Handle ensuring that the advanced acid decay delay decays at the appropriate pace.
   private IEnumerator HandleAdvancedAcidDecay() {
     while (true) {
@@ -481,7 +513,7 @@ public class Enemy : MonoBehaviour {
 
   private void FinishPath() {
     ConditionalContextReset();
-    GameStateManager.Instance.DealDamage(Damage);
+    GameStateManager.Instance.DealDamage(Mathf.RoundToInt(Damage));
     ObjectPool.Instance.DestroyEnemy(gameObject);
   }
 
