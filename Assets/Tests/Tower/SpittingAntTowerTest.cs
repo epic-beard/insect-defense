@@ -152,7 +152,7 @@ public class SpittingAntTowerTest {
 
     float expectedHp = target.HP;
 
-    spittingAntTower.ProcessDamageAndEffects(target);
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.LessThan(expectedHp));
     Assert.That(target.Armor, Is.EqualTo(0.0f));
@@ -175,7 +175,7 @@ public class SpittingAntTowerTest {
     float expectedArmor = target.Armor - spittingAntTower.ArmorTear;
     float expectedHp = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - expectedArmor) / 100, 0.0f));
 
-    spittingAntTower.ProcessDamageAndEffects(target);
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedHp));
     Assert.That(target.Armor, Is.EqualTo(expectedArmor));
@@ -205,7 +205,7 @@ public class SpittingAntTowerTest {
     float expectedArmor = target.Armor - spittingAntTower.ArmorTear;
     float expectedHP = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - expectedArmor) / 100, 0.0f));
 
-    spittingAntTower.ProcessDamageAndEffects(target);
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedHP));
     Assert.That(target.Armor, Is.EqualTo(expectedArmor));
@@ -294,6 +294,16 @@ public static class SpittingAntTowerUtils {
         BindingFlags.NonPublic | BindingFlags.Instance,
         null, CallingConventions.Standard, argTypes, null);
     handleSplashEffects.Invoke(spittingAntTower, args);
+  }
+
+  public static void InvokeProcessDamageAndEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {
+    object[] args = { enemy };
+    Type[] argTypes = { typeof(Enemy) };
+    MethodInfo processDamageAndEffects = typeof(SpittingAntTower).GetMethod(
+        "ProcessDamageAndEffects",
+        BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    processDamageAndEffects.Invoke(spittingAntTower, args);
   }
 
   public static List<Enemy> InvokeGetEnemiesInExplosionRange(

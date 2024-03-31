@@ -63,7 +63,7 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  public void ProcessDamageAndEffects(Enemy target) {
+  private void ProcessDamageAndEffects(Enemy target) {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;
     float armorTear = ArmorTear;
