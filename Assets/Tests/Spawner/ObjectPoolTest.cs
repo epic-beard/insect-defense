@@ -11,14 +11,11 @@ public class ObjectPoolTest {
   private ObjectPool objectPool;
   private EnemyData enemyData;
   private Waypoint waypoint;
-
+  private HashSet<EnemyData.Type> types;
   [SetUp]
   public void SetUp() {
-    objectPool = CreateObjectPool();
-    GameObject prefab = new();
-    prefab.AddComponent<Enemy>();
-
-    objectPool.AddPrefab(EnemyData.Type.BEETLE, prefab);
+    objectPool = new GameObject().AddComponent<ObjectPool>();
+    types = new HashSet<EnemyData.Type>() { EnemyData.Type.BEETLE };
     objectPool.SetStartingSize(1);
 
     enemyData = new EnemyData() {
@@ -34,7 +31,7 @@ public class ObjectPoolTest {
   [Test]
   public void InitializeObjectPoolWorks([Values(0, 1, 10)] int startingSize) {
     objectPool.SetStartingSize(startingSize);
-    objectPool.InvokeInitializeObjectPool();
+    objectPool.InitializeObjectPool(types);
     var objectPools = objectPool.GetObjectPools();
 
     Assert.That(objectPools.Count, Is.EqualTo(1));
@@ -47,7 +44,7 @@ public class ObjectPoolTest {
   // enemy data.
   [Test]
   public void InstantiateEnemyWorks() {
-    objectPool.InvokeInitializeObjectPool();
+    objectPool.InitializeObjectPool(types);
     GameObject gameObject = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject.activeSelf);
@@ -61,7 +58,7 @@ public class ObjectPoolTest {
   [Test]
   public void DestroyEnemyWorks() {
     objectPool.SetStartingSize(1);
-    objectPool.InvokeInitializeObjectPool();
+    objectPool.InitializeObjectPool(types);
     GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     objectPool.DestroyEnemy(gameObject1);
     GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
@@ -74,18 +71,12 @@ public class ObjectPoolTest {
   [Test]
   public void ObjectPoolResizeWorks() {
     objectPool.SetStartingSize(1);
-    objectPool.InvokeInitializeObjectPool();
+    objectPool.InitializeObjectPool(types);
     GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject1, Is.Not.SameAs(gameObject2));
   }
-
-  private ObjectPool CreateObjectPool() {
-    return new GameObject().AddComponent<ObjectPool>();
-  }
-
-  
 }
 
 // Extension methods to hold reflection-based calls to access private fields, properties, or methods of
@@ -107,23 +98,5 @@ public static class ObjectPoolUtils {
     typeof(ObjectPool)
       .GetField("startingSize", BindingFlags.Instance | BindingFlags.NonPublic)
       .SetValue(objectPool, size);
-  }
-
-  public static void AddPrefab(this ObjectPool objectPool, EnemyData.Type type, GameObject prefab) {
-    var prefabs = (Dictionary<EnemyData.Type, GameObject>)typeof(ObjectPool)
-      .GetField("prefabs", BindingFlags.Instance | BindingFlags.NonPublic)
-      .GetValue(objectPool);
-    prefabs.Add(type, prefab);
-  }
-
-  public static void InvokeInitializeObjectPool(this ObjectPool objectPool) {
-    MethodInfo initializeObjectPool = typeof(ObjectPool).GetMethod(
-      name: "InitializeObjectPool",
-      bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance,
-      binder: null,
-      callConvention: CallingConventions.Standard,
-      types: new Type[0],
-      modifiers: null);
-    initializeObjectPool.Invoke(objectPool, new object[0]);
   }
 }
