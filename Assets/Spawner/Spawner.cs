@@ -30,6 +30,7 @@ public class Spawner : MonoBehaviour {
     if (filename.Length == 0) return;
     Waves? waves = Deserialize<Waves>(filename);
     if (waves != null) {
+      ObjectPool.Instance.InitializeObjectPool(waves.GetEnemyTypes());
       SpawnWaves(waves);
     } else {
       // TODO: Make this an error.
@@ -88,6 +89,8 @@ public class Spawner : MonoBehaviour {
     // Whether or not this wave has completed.
     [XmlIgnore]
     public bool Finished { get; set; }
+
+    public abstract HashSet<EnemyData.Type> GetEnemyTypes();
   }
 
   // The top level of the subwave heirarchy, describing a level.
@@ -105,7 +108,9 @@ public class Spawner : MonoBehaviour {
         yield return wave.Start();
 
         yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
-        WaveComplete.Invoke(++Instance.CurrWave, Instance.NumWaves);
+        if (++Instance.CurrWave != Instance.NumWaves) {
+          WaveComplete.Invoke(Instance.CurrWave, Instance.NumWaves);
+        }
         // Wait long enough for the "Wave Complete" text to appear and disappear.
         yield return new WaitForSeconds(3);
       }
@@ -126,6 +131,14 @@ public class Spawner : MonoBehaviour {
     public override string ToString() {
       return "Waves\n" + string.Join("\n", waves.ConvertAll(x => x.ToString().TabMultiLine()));
     }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      HashSet<EnemyData.Type> types = new();
+      foreach (var wave in waves) {
+        types.UnionWith(wave.GetEnemyTypes());
+      }
+      return types;
+    }
   }
 
   public class DelayedWave : Wave {
@@ -141,6 +154,10 @@ public class Spawner : MonoBehaviour {
 
       if (cooldown > 0.0f) yield return new WaitForSeconds(cooldown);
       Finished = true;
+    }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      return wave.GetEnemyTypes();
     }
   }
 
@@ -158,6 +175,14 @@ public class Spawner : MonoBehaviour {
     public override string ToString() {
       return "SequentialWave\n"
           + string.Join("\n", Subwaves.ConvertAll(x => x.ToString().TabMultiLine()));
+    }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      HashSet<EnemyData.Type> types = new();
+      foreach (var wave in Subwaves) {
+        types.UnionWith(wave.GetEnemyTypes());
+      }
+      return types;
     }
   }
 
@@ -177,6 +202,14 @@ public class Spawner : MonoBehaviour {
     public override string ToString() {
       return "ConcurrentWave\n"
           + string.Join("\n", Subwaves.ConvertAll(x => x.ToString().TabMultiLine()));
+    }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      HashSet<EnemyData.Type> types = new();
+      foreach (var wave in Subwaves) {
+        types.UnionWith(wave.GetEnemyTypes());
+      }
+      return types;
     }
   }
 
@@ -206,6 +239,10 @@ public class Spawner : MonoBehaviour {
         + "\n\tSpawn Location: " + spawnLocation
         + "\n\tSpawn Ammount: " + spawnAmmount
         + "\n\tEnemy Data: " + data;
+    }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      return new HashSet<EnemyData.Type>() { data.type };
     }
   }
 
@@ -238,6 +275,12 @@ public class Spawner : MonoBehaviour {
         + "\n\tSpawn Ammount: " + spawnAmmount
         + "\n\tEnemy Data Key: " + enemyDataKey;
     }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      EnemyData data = EnemyDataManager.Instance.GetEnemyData(enemyDataKey);
+
+      return new HashSet<EnemyData.Type>() { data.type };
+    }
   }
 
   // A wave that just waits for a given delay then finishes.
@@ -252,6 +295,10 @@ public class Spawner : MonoBehaviour {
     }
     public override string ToString() {
       return "SpacerWave\n\tDelay: " + delay;
+    }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      return new HashSet<EnemyData.Type>();
     }
   }
 
@@ -270,6 +317,10 @@ public class Spawner : MonoBehaviour {
     public override string ToString() {
       return "DialogueBoxWave\n\t" + string.Join("\n\t", messages);
     }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      return new HashSet<EnemyData.Type>();
+    }
   }
 
   public class WaitUntilDeadWave : Wave {
@@ -279,6 +330,10 @@ public class Spawner : MonoBehaviour {
 
     public override string ToString() {
       return "WaitUntilDeadWave\n";
+    }
+
+    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+      return new HashSet<EnemyData.Type>();
     }
   }
 }

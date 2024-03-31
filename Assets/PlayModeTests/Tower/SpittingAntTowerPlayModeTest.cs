@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -41,8 +42,8 @@ public class SpittingAntTowerPlayModeTest {
     // Setup the Object Pool
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     ObjectPool.Instance = objectPool;
-    objectPool.AddPrefab(EnemyData.Type.ANT, CreateEnemyPrefab());
-    objectPool.InvokeInitializeObjectPool();
+    var types = new HashSet<EnemyData.Type>() { EnemyData.Type.ANT};
+    objectPool.InitializeObjectPool(types);
   }
 
   [SetUp]
