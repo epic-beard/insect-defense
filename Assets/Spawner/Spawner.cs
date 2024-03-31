@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
-
 using static EpicBeardLib.XmlSerializationHelpers;
+
+using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -254,12 +255,39 @@ public class Spawner : MonoBehaviour {
     public int spawnLocation;
     public int spawnAmmount;
     public string enemyDataKey = "";
+    public EnemyStatOverrides overrides = new();
+    public EnemyData.Properties? properties;
+    public EnemyData.CarrierProperties? carrierOverride;
+    public EnemyData.SpawnerProperties? spawnerOverride;
+    public EnemyData.DazzleProperties? dazzleOverride;
+    public EnemyData.SlimeProperties? slimeOverride;
 
     public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {
         for (int j = 0; j < spawnAmmount; j++) {
           // Create the enemy.
-          Spawner.Instance.Spawn(enemyDataKey, spawnLocation);
+          GameObject obj = Spawner.Instance.Spawn(enemyDataKey, spawnLocation);
+          Enemy enemy = obj.GetComponent<Enemy>();
+          if (overrides != null) {
+            foreach (var kvp in overrides) {
+              enemy.SetStat(kvp.Key, kvp.Value);
+            }
+          }
+          if (properties != null) {
+            enemy.SetProperties(properties.Value);
+          }
+          if (carrierOverride != null) {
+            enemy.SetCarrier(carrierOverride.Value);
+          }
+          if (spawnerOverride != null) {
+            enemy.SetSpawner(spawnerOverride.Value);
+          }
+          if (dazzleOverride != null) {
+            enemy.SetDazzle(dazzleOverride.Value);
+          }
+          if (slimeOverride != null) {
+            enemy.SetSlime(slimeOverride.Value);
+          }
         }
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
