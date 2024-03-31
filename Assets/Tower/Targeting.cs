@@ -51,14 +51,16 @@ public class Targeting {
       float towerRange,
       bool camoSight,
       bool antiAir) {
+    Vector2 towerVector2Position = new Vector2(towerPosition.x, towerPosition.z);
     // Ensure all enemies are viable targets.
-    List<Enemy> targets = GetAllValidEnemiesInRange(enemies, towerPosition, towerRange, camoSight, antiAir);
+    List<Enemy> targets =
+        GetAllValidEnemiesInRange(enemies, towerVector2Position, towerRange, camoSight, antiAir);
 
     // Ensure the old target is within range of the tower.
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
         && oldTarget.enabled
-        && (Vector3.Distance(towerPosition, oldTarget.transform.position) < towerRange)
+        && (Vector2.Distance(towerVector2Position, Vector3DropY(oldTarget.transform.position)) < towerRange)
         && (!oldTarget.Camo || camoSight)
         && (!oldTarget.Flying || antiAir)) {
       return oldTarget;
@@ -82,16 +84,20 @@ public class Targeting {
   // Find and return all enemies within the given tower's range and given the twoer's limitations.
   public List<Enemy> GetAllValidEnemiesInRange(
       HashSet<Enemy> enemies,
-      Vector3 towerPosition,
+      Vector2 towerPosition,
       float towerRange,
       bool camoSight,
       bool antiAir) {
     return enemies
         .Where(e => e.enabled)
-        .Where(e => Vector3.Distance(towerPosition, e.transform.position) <= towerRange)
+        .Where(e => Vector2.Distance(towerPosition, Vector3DropY(e.transform.position)) <= towerRange)
         .Where(e => !e.Flying || antiAir)
         .Where(e => !e.Camo || camoSight)
         .ToList();
+  }
+
+  public static Vector2 Vector3DropY(Vector3 vector) {
+    return new Vector2(vector.x, vector.z);
   }
 
   // Compare two floats in the following manner:
