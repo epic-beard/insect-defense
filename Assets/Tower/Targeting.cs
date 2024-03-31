@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Assets;
 
 public class Targeting {
 
@@ -60,7 +61,7 @@ public class Targeting {
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
         && oldTarget.enabled
-        && (Vector2.Distance(towerVector2Position, Vector3DropY(oldTarget.transform.position)) < towerRange)
+        && (Vector2.Distance(towerVector2Position, Utilities.Vector3DropY(oldTarget.transform.position)) < towerRange)
         && (!oldTarget.Camo || camoSight)
         && (!oldTarget.Flying || antiAir)) {
       return oldTarget;
@@ -90,14 +91,10 @@ public class Targeting {
       bool antiAir) {
     return enemies
         .Where(e => e.enabled)
-        .Where(e => Vector2.Distance(towerPosition, Vector3DropY(e.transform.position)) <= towerRange)
+        .Where(e => Vector2.Distance(towerPosition, Utilities.Vector3DropY(e.transform.position)) <= towerRange)
         .Where(e => !e.Flying || antiAir)
         .Where(e => !e.Camo || camoSight)
         .ToList();
-  }
-
-  public static Vector2 Vector3DropY(Vector3 vector) {
-    return new Vector2(vector.x, vector.z);
   }
 
   // Compare two floats in the following manner:

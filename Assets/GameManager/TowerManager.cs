@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +90,9 @@ public class TowerManager : MonoBehaviour {
 
   public List<Tower> GetTowersInRange(float range, Vector3 pos) {
     return ActiveTowerMap.Values.Where(
-      (tower) => Vector3.Distance(pos, tower.transform.position) <= range).ToList();
+        (tower) => Vector2.Distance(
+            Utilities.Vector3DropY(pos),
+            Utilities.Vector3DropY(tower.transform.position)) <= range).ToList();
   }
 
   // Set a new tower as the selected tower. Adjust the tile color to indicate selection as necessary.

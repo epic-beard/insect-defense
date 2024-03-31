@@ -1,4 +1,5 @@
 ﻿using UnityEngine.UIElements;
+using UnityEngine;
 
 namespace Assets {
 
@@ -17,6 +18,11 @@ namespace Assets {
       TowerManager.Instance.SetNewSelectedTower(tower);
       ContextPanel.Instance.SetTowerContextPanel();
       TowerDetail.Instance.SetContextForTower(TowerManager.SelectedTower);
+    }
+
+    // Intended for use stripping the height out of positions.
+    public static Vector2 Vector3DropY(Vector3 vector) {
+      return new Vector2(vector.x, vector.z);
     }
   }
 
