@@ -63,18 +63,16 @@ public class SpittingAntTower : Tower {
     }
   }
 
-  private void ProcessDamageAndEffects(Enemy target) {
+  public void ProcessDamageAndEffects(Enemy target) {
     float onHitDamage = Damage;
     float acidStacks = DamageOverTime;
     float armorTear = ArmorTear;
-    float armorPierce = ArmorPierce;
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
       onHitDamage *= EffectiveAttackSpeed * Time.deltaTime;
       acidStacks *= EffectiveAttackSpeed * Time.deltaTime;
       armorTear *= EffectiveAttackSpeed * Time.deltaTime;
-      armorPierce *= EffectiveAttackSpeed * Time.deltaTime;
     }
 
     // Armor tear effects.
@@ -98,7 +96,7 @@ public class SpittingAntTower : Tower {
       target.AddAdvancedAcidDecayDelay(this, AcidDecayDelay);
     }
 
-    target.DealPhysicalDamage(onHitDamage, armorPierce, ContinuousAttack);
+    target.DealPhysicalDamage(onHitDamage, ArmorPierce, ContinuousAttack);
   }
 
   private void HandleArmorTearExplosion(Enemy target, float armorTear) {

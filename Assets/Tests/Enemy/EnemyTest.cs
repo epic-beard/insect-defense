@@ -11,13 +11,13 @@ public class EnemyTest {
   // to make sure that armor pierce cannot overflow and that damage is handled appropriately.
   [Test, Sequential]
   public void DamageEnemy(
-      [Values(5.0f, 5.0f, 5.0f)] float damage,
-      [Values(0.0f, 1.0f, 8.0f)] float armorPierce,
-      [Values(8.0f, 7.0f, 5.0f)] float resultHP) {
+      [Values(10.0f, 10.0f, 10.0f)] float damage,
+      [Values(0.0f, 10.0f, 30.0f)] float armorPierce,
+      [Values(12.0f, 11.0f, 10.0f)] float expectedHP) {
     CreateTestingPlayerState();
-    Enemy enemy = CreateEnemy(Vector3.zero, hp: 10.0f, armor: 3.0f);
+    Enemy enemy = CreateEnemy(Vector3.zero, hp: 20.0f, armor: 20.0f);
     float remainigHP = enemy.DealPhysicalDamage(damage, armorPierce);
-    Assert.That(resultHP, Is.EqualTo(remainigHP));
+    Assert.That(remainigHP, Is.EqualTo(expectedHP));
   }
 
   // Test armor tear to make sure it works as expected and with overflow.
@@ -25,10 +25,10 @@ public class EnemyTest {
   public void ArmorTear(
       [Values(3.0f, 10.0f)] float tear,
       [Values(5.0f, 5.0f)] float armor,
-      [Values(2.0f, 0.0f)] float resultArmor) {
+      [Values(2.0f, 0.0f)] float expectedArmor) {
     Enemy enemy = CreateEnemy(Vector3.zero, armor: armor);
     float remainingArmor = enemy.TearArmor(tear);
-    Assert.That(resultArmor, Is.EqualTo(remainingArmor));
+    Assert.That(remainingArmor, Is.EqualTo(expectedArmor));
   }
 
   #region AcidDamageTests

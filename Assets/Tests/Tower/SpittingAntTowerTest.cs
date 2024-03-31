@@ -152,7 +152,7 @@ public class SpittingAntTowerTest {
 
     float expectedHp = target.HP;
 
-    spittingAntTower.InvokeProcessDamageAndEffects(target);
+    spittingAntTower.ProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.LessThan(expectedHp));
     Assert.That(target.Armor, Is.EqualTo(0.0f));
@@ -172,13 +172,13 @@ public class SpittingAntTowerTest {
     spittingAntTower.AttackSpeed = 1.0f;
     spittingAntTower.ArmorTear = 1.0f;
 
-    float expectedHp = target.HP;
-    float expectedArmor = target.Armor;
+    float expectedArmor = target.Armor - spittingAntTower.ArmorTear;
+    float expectedHp = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - expectedArmor) / 100, 0.0f));
 
-    spittingAntTower.InvokeProcessDamageAndEffects(target);
+    spittingAntTower.ProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedHp));
-    Assert.That(target.Armor, Is.LessThan(expectedArmor));
+    Assert.That(target.Armor, Is.EqualTo(expectedArmor));
 
     return null;
   }
@@ -203,9 +203,9 @@ public class SpittingAntTowerTest {
     spittingAntTower.ArmorTear = 1.0f;
 
     float expectedArmor = target.Armor - spittingAntTower.ArmorTear;
-    float expectedHP = target.HP - (Mathf.Max(spittingAntTower.Damage - expectedArmor, 0.0f));
+    float expectedHP = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - expectedArmor) / 100, 0.0f));
 
-    spittingAntTower.InvokeProcessDamageAndEffects(target);
+    spittingAntTower.ProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedHP));
     Assert.That(target.Armor, Is.EqualTo(expectedArmor));
@@ -283,16 +283,6 @@ public static class SpittingAntTowerUtils {
     typeof(SpittingAntTower)
         .GetProperty("AreaOfEffect")
         .SetValue(spittingAntTower, aoe);
-  }
-
-  public static void InvokeProcessDamageAndEffects(this SpittingAntTower spittingAntTower, Enemy enemy) {
-    object[] args = { enemy };
-    Type[] argTypes = { typeof(Enemy) };
-    MethodInfo processDamageAndEffects = typeof(SpittingAntTower).GetMethod(
-        "ProcessDamageAndEffects",
-        BindingFlags.NonPublic | BindingFlags.Instance,
-        null, CallingConventions.Standard, argTypes, null);
-    processDamageAndEffects.Invoke(spittingAntTower, args);
   }
 
   public static void InvokeHandleArmorTearExplosion(
