@@ -140,7 +140,17 @@
               <repeatDelay>1</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>SlowAphid</enemyDataKey>
+              <enemyDataKey>Aphid</enemyDataKey>
+              <Overrides>
+                <KeyValuePair>
+                  <Key>
+                    <Stat>SPEED</Stat>
+                  </Key>
+                  <Value>
+                    <float>0.25</float>
+                  </Value>
+                </KeyValuePair>
+              </Overrides>
             </Wave>
             <Wave xsi:type="DelayedWave">
               <warmup>1</warmup>
@@ -149,7 +159,17 @@
                 <repeatDelay>2.6</repeatDelay>
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>2</spawnAmmount>
-                <enemyDataKey>SlowAphid</enemyDataKey>
+                <enemyDataKey>Aphid</enemyDataKey>
+                <Overrides>
+                  <KeyValuePair>
+                    <Key>
+                      <Stat>SPEED</Stat>
+                    </Key>
+                    <Value>
+                      <float>0.25</float>
+                    </Value>
+                  </KeyValuePair>
+                </Overrides>
               </wave>
               <cooldown>0</cooldown>
             </Wave>

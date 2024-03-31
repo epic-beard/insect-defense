@@ -87,6 +87,17 @@ public struct EnemyData {
     public float power;
   }
 
+  public enum Stat {
+    NONE,
+    MAX_HP,
+    MAX_ARMOR,
+    SPEED,
+    DAMAGE,
+    NU,
+    COAGULATION_MODIFIER,
+    ACID_EXPLOSION_STACK_MODIFIER,
+  }
+
   public Type type;
   public Size size;
 
@@ -95,8 +106,8 @@ public struct EnemyData {
 
   public float speed;
 
-  public int damage;
-  public int nu;
+  public float damage;
+  public float nu;
   public float coagulationModifier;
   public float acidExplosionStackModifier;
 

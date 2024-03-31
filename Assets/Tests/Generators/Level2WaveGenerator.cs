@@ -4,7 +4,6 @@ using static Spawner;
 
 public class Level2WaveGenerator {
   public string aphid = "Aphid";
-  public string slowAphid = "SlowAphid";
   public string ant = "Ant";
   public string beetle = "Beetle";
   public string tarantula = "Tarantula";
@@ -147,20 +146,22 @@ public class Level2WaveGenerator {
               },
             },
             new CannedEnemyWave() {
-              enemyDataKey = slowAphid,
+              enemyDataKey = aphid,
               repetitions = 70,
               repeatDelay = 1.0f,
               spawnLocation = 1,
               spawnAmmount = 1,
+              Overrides = { { EnemyData.Stat.SPEED, 0.25f } },
             },
             new DelayedWave() {
               warmup = 1.0f,
               wave = new CannedEnemyWave() {
-                enemyDataKey = slowAphid,
+                enemyDataKey = aphid,
                 repetitions = 28,
                 repeatDelay = 2.6f,
                 spawnLocation = 1,
                 spawnAmmount = 2,
+                Overrides = { { EnemyData.Stat.SPEED, 0.25f } },
               },
             },
           },
