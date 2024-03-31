@@ -107,6 +107,7 @@ public class TowerManager : MonoBehaviour {
   public void RefundSelectedTower() {
     RefundTower(SelectedTower);
   }
+
   // Refund the tower's full cost (including upgrades) and remove the tower from the map.
   public void RefundTower(Tower tower) {
     if (tower == null) return;
