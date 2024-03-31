@@ -61,7 +61,7 @@ public class Targeting {
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
         && oldTarget.enabled
-        && (Vector2.Distance(towerVector2Position, oldTarget.transform.position.DropY()) < towerRange)
+        && (Vector2.Distance(towerVector2Position, oldTarget.transform.position.DropY()) <= towerRange)
         && (!oldTarget.Camo || camoSight)
         && (!oldTarget.Flying || antiAir)) {
       return oldTarget;
