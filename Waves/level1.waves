@@ -3,6 +3,111 @@
   <waves>
     <Wave xsi:type="SequentialWave">
       <Subwaves>
+        <Wave xsi:type="DialogueBoxWave">
+          <messages>
+            <string>Welcome to Insect Defense, where you kill bugs, with bugs.</string>
+            <string>Select a tower from the right hand menu and click on a space of grass to build it.</string>
+            <string>Towers get much more expensive very quickly, be careful!</string>
+            <string>For now, just build one Spitting Ant Tower.</string>
+          </messages>
+          <delay>0.5</delay>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>4</repetitions>
+          <repeatDelay>3</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Aphid</enemyDataKey>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>4</repetitions>
+          <repeatDelay>2</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Aphid</enemyDataKey>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>4</repetitions>
+          <repeatDelay>2</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>2</spawnAmmount>
+          <enemyDataKey>Aphid</enemyDataKey>
+        </Wave>
+        <Wave xsi:type="WaitUntilDeadWave" />
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>7</repetitions>
+          <repeatDelay>4</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+        <Wave xsi:type="WaitUntilDeadWave" />
+        <Wave xsi:type="DialogueBoxWave">
+          <messages>
+            <string>It looks like you have some Nu left, it is about time to upgrade a tower.</string>
+            <string>First, click on the tower you wish to ugprade to select it.</string>
+            <string>Now check out the available upgrades.</string>
+            <string>I'll leave the next wave to you.</string>
+          </messages>
+          <delay>0.5</delay>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>4</repetitions>
+          <repeatDelay>6</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>2</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+      </Subwaves>
+    </Wave>
+    <Wave xsi:type="SequentialWave">
+      <Subwaves>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>6</repetitions>
+          <repeatDelay>3</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+        <Wave xsi:type="WaitUntilDeadWave" />
+        <Wave xsi:type="DialogueBoxWave">
+          <messages>
+            <string>Now try selling the upgrade you bought and build a new tower!</string>
+          </messages>
+          <delay>0.5</delay>
+        </Wave>
+        <Wave xsi:type="ConcurrentWave">
+          <Subwaves>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>8</repetitions>
+              <repeatDelay>3</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Ant</enemyDataKey>
+            </Wave>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>12</repetitions>
+              <repeatDelay>2</repeatDelay>
+              <spawnLocation>0</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Aphid</enemyDataKey>
+            </Wave>
+          </Subwaves>
+        </Wave>
+        <Wave xsi:type="SpacerWave">
+          <delay>6</delay>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>3</repetitions>
+          <repeatDelay>1</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+      </Subwaves>
+    </Wave>
+    <Wave xsi:type="SequentialWave">
+      <Subwaves>
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
             <Wave xsi:type="CannedEnemyWave">
