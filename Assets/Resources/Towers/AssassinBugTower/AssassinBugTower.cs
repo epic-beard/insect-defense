@@ -112,7 +112,7 @@ public class AssassinBugTower : Tower {
     }
   }
 
-  public float ProcessDamageAndEffects(Enemy target) {
+  private float ProcessDamageAndEffects(Enemy target) {
     if (target != oldEnemy) multiHit = 0;
     float damage = Damage;
     if (ArmoredEnemyBonus && target.Armor > 0) damage *= 2;

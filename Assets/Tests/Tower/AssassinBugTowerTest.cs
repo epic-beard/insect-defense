@@ -30,17 +30,17 @@ public class AssassinBugTowerTest {
     Enemy target = CreateEnemy(Vector3.zero);
     objectPool.SetActiveEnemies(new HashSet<Enemy> { target });
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
 
     Assert.False(tower.ArmoredEnemyBonus);
     tower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.AB_1_3_ARMORED_ENEMY_BONUS);
     Assert.True(tower.ArmoredEnemyBonus);
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 2));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 2));
 
     target.Armor = 0.0f;
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
   }
 
   [Test]
@@ -50,17 +50,17 @@ public class AssassinBugTowerTest {
     target.Armor = 0.0f;
     objectPool.SetActiveEnemies(new HashSet<Enemy> { target });
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
 
     Assert.False(tower.ArmorDepletionBonus);
     tower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.AB_1_5_ARMOR_DEPLETION_BONUS);
     Assert.True(tower.ArmorDepletionBonus);
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 2));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 2));
 
     target.Armor = 1.0f;
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
   }
 
   [Test]
@@ -70,7 +70,7 @@ public class AssassinBugTowerTest {
     objectPool.SetActiveEnemies(new HashSet<Enemy> { target });
 
     for (int i = 0; i <= 5; i++) {
-      Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
+      Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
     }
 
     Assert.False(tower.MultiHitBonus);
@@ -79,10 +79,10 @@ public class AssassinBugTowerTest {
 
     for (int i = 0; i <= 5; i++) {
       float hitBonus = 1.0f + 0.2f * i;
-      Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * hitBonus));
+      Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * hitBonus));
     }
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 2.0f));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 2.0f));
   }
 
   [Test]
@@ -96,10 +96,10 @@ public class AssassinBugTowerTest {
 
     for (int i = 0; i <= 5; i++) {
       float hitMult = 1.0f + 0.2f * i;
-      Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * hitMult));
+      Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * hitMult));
     }
 
-    Assert.That(tower.ProcessDamageAndEffects(alt), Is.EqualTo(tower.Damage));
+    Assert.That(tower.InvokeProcessDamageAndEffects(alt), Is.EqualTo(tower.Damage));
 
     Assert.False(tower.CriticalMultiHit);
     tower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.AB_3_5_COMBO_FINISHER);
@@ -107,10 +107,10 @@ public class AssassinBugTowerTest {
 
     for (int i = 0; i < 5; i++) {
       float hitMult = 1.0f + 0.2f * i;
-      Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * hitMult));
+      Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * hitMult));
     }
 
-    Assert.That(tower.ProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 4));
+    Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 4));
   }
 
   #endregion
@@ -168,15 +168,15 @@ public class AssassinBugTowerTest {
 
 #region AssassinBugTowerUtils
 public static class AssassinBugTowerUtils {
-  //public static float InvokeProcessDamageAndEffects(this AssassinBugTower tower, Enemy enemy) {
-  //  object[] args = { enemy };
-  //  Type[] argTypes = { typeof(Enemy) };
-  //  MethodInfo processDamageAndEffects = typeof(AssassinBugTower).GetMethod(
-  //    "ProcessDamageAndEffects",
-  //    BindingFlags.NonPublic | BindingFlags.Instance,
-  //    null, CallingConventions.Standard, argTypes, null);
-  //  return (float)processDamageAndEffects.Invoke(tower, args);
-  //}
+  public static float InvokeProcessDamageAndEffects(this AssassinBugTower tower, Enemy enemy) {
+    object[] args = { enemy };
+    Type[] argTypes = { typeof(Enemy) };
+    MethodInfo processDamageAndEffects = typeof(AssassinBugTower).GetMethod(
+      "ProcessDamageAndEffects",
+      BindingFlags.NonPublic | BindingFlags.Instance,
+      null, CallingConventions.Standard, argTypes, null);
+    return (float)processDamageAndEffects.Invoke(tower, args);
+  }
 
   public static bool InvokeMoveTo(this AssassinBugTower tower, Vector3 endPosition, float speed) {
     object[] args = { endPosition, speed };
