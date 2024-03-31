@@ -6,12 +6,18 @@ using UnityEngine;
 
 public class AssassinBugTowerTest {
   AssassinBugTower tower;
+  ObjectPool objectPool;
 
   [SetUp]
   public void SetUp() {
     GameObject gameObject = new();
     gameObject.transform.position = Vector3.zero;
     tower = gameObject.AddComponent<AssassinBugTower>();
+    objectPool = new GameObject().AddComponent<ObjectPool>();
+    ObjectPool.Instance = objectPool;
+
+    GameStateManager gsm = new GameObject().AddComponent<GameStateManager>();
+    GameStateManager.Instance = gsm;
 
     Time.captureDeltaTime = 1;
   }
@@ -22,7 +28,6 @@ public class AssassinBugTowerTest {
   public void ArmoredEnemyBonusTest() {
     tower.Damage = 1.0f;
     Enemy target = CreateEnemy(Vector3.zero);
-    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetActiveEnemies(new HashSet<Enemy> { target });
 
     Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
@@ -43,7 +48,6 @@ public class AssassinBugTowerTest {
     tower.Damage = 1.0f;
     Enemy target = CreateEnemy(Vector3.zero);
     target.Armor = 0.0f;
-    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetActiveEnemies(new HashSet<Enemy> { target });
 
     Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
@@ -63,7 +67,6 @@ public class AssassinBugTowerTest {
   public void MultiHitBonusTest() {
     tower.Damage = 1.0f;
     Enemy target = CreateEnemy(Vector3.zero);
-    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetActiveEnemies(new HashSet<Enemy> { target });
 
     for (int i = 0; i <= 5; i++) {
@@ -87,7 +90,6 @@ public class AssassinBugTowerTest {
     tower.Damage = 1.0f;
     Enemy target = CreateEnemy(Vector3.zero);
     Enemy alt = CreateEnemy(Vector3.right);
-    ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetActiveEnemies(new HashSet<Enemy> { target, alt });
 
     tower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.AB_3_3_CONSECUTIVE_HITS);

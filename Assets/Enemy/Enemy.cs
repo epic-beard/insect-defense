@@ -115,7 +115,6 @@ public class Enemy : MonoBehaviour {
       hp = value;
       StatChangedEvent?.Invoke(this);
       if (hp <= 0.0f) {
-        // TODO: Award the player Nu
         if (data.carrier != null) {
           var carrier = data.carrier.Value;
           SpawnChildren(carrier.childKey, carrier.num);
@@ -234,8 +233,9 @@ public class Enemy : MonoBehaviour {
   // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
   // No other method should try to handle Enemy death.
   public float DealPhysicalDamage(float damage, float armorPierce, bool continuous = false) {
-    float effectiveArmor = (continuous) ? Armor * Time.deltaTime : Armor;
-    damage -= Mathf.Clamp(effectiveArmor - armorPierce, 0.0f, damage);
+    float effectiveArmor = Mathf.Clamp(Armor - armorPierce, 0.0f, 100.0f);
+
+    damage *= (100.0f - effectiveArmor) / 100.0f;
 
     if (continuous) {
       accumulatedContinuousDamage += damage;
