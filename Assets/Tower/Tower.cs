@@ -104,7 +104,7 @@ public abstract class Tower : MonoBehaviour {
   // The total Nu the tower has cost the player.
   public int Value {
     get {
-      int value = GameStateManager.Instance.GetPreviousTowerCost(Type);
+      int value = TowerManager.Instance.GetPreviousTowerCost(Type);
 
       foreach (var level in UpgradeLevels) {
         for (int i = 0; i < level; i++) {

@@ -99,12 +99,12 @@ public class TowerDetail : MonoBehaviour {
       return;
     }
     GameStateManager.Instance.Nu -= upgrade.cost;
-    GameStateManager.Instance.SelectedTower.Upgrade(upgrade);
-    SetContextForTower(GameStateManager.Instance.SelectedTower);
+    TowerManager.SelectedTower.Upgrade(upgrade);
+    SetContextForTower(TowerManager.SelectedTower);
   }
 
   private void OnSellTowerClick(ClickEvent evt) {
-    GameStateManager.Instance.RefundSelectedTower();
+    TowerManager.Instance.RefundSelectedTower();
   }
 
   private TowerAbility GetUpgradeFromButtonName(string buttonName) {
@@ -113,11 +113,11 @@ public class TowerDetail : MonoBehaviour {
     int upgradePath = (int)Char.GetNumericValue(buttonName[5]);
     int upgradeNum = (int)Char.GetNumericValue(buttonName[15]);
 
-    return GameStateManager.Instance.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
+    return TowerManager.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {
-    if (GameStateManager.Instance.SelectedTower == null)
+    if (TowerManager.SelectedTower == null)
     {
       Debug.Log("[ERROR] No tower selected, but behavior change attempted.");
       return;
@@ -125,11 +125,11 @@ public class TowerDetail : MonoBehaviour {
     Targeting.Behavior behavior =
         (Targeting.Behavior)System.Enum.Parse(
             typeof(Targeting.Behavior), towerBehaviorDropdown.value.ToUpper());
-    GameStateManager.Instance.SelectedTower.Behavior = behavior;
+    TowerManager.SelectedTower.Behavior = behavior;
   }
 
   private void PriorityCallback(ChangeEvent<string> evt) {
-    if (GameStateManager.Instance.SelectedTower == null)
+    if (TowerManager.SelectedTower == null)
     {
       Debug.Log("[ERROR] No tower selected, but priority change attempted.");
       return;
@@ -137,7 +137,7 @@ public class TowerDetail : MonoBehaviour {
     Targeting.Priority priority =
         (Targeting.Priority)System.Enum.Parse(
             typeof(Targeting.Priority), towerPriorityDropdown.value.ToUpper().Replace(" ", "_"));
-    GameStateManager.Instance.SelectedTower.Priority = priority;
+    TowerManager.SelectedTower.Priority = priority;
   }
 
   // Set all appropriate text, pictures, and miscellaneous information for a specific tower.

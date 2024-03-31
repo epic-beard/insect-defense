@@ -14,9 +14,9 @@ namespace Assets {
 
     // Sets the full player context for a specific tower.
     public static void SetSelectedTower(Tower tower) {
-      GameStateManager.Instance.SetNewSelectedTower(tower);
+      TowerManager.Instance.SetNewSelectedTower(tower);
       ContextPanel.Instance.SetTowerContextPanel();
-      TowerDetail.Instance.SetContextForTower(GameStateManager.Instance.SelectedTower);
+      TowerDetail.Instance.SetContextForTower(TowerManager.SelectedTower);
     }
   }
 

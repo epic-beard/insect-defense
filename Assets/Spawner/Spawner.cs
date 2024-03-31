@@ -307,7 +307,7 @@ public class Spawner : MonoBehaviour {
     public float delay = 0.5f;
 
     public override IEnumerator Start() {
-      GameStateManager.Instance.ClearSelection();
+      TowerManager.Instance.ClearSelection();
       MessageBox.Instance.ShowDialogue(messages);
       Finished = true;
       yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());
