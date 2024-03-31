@@ -25,6 +25,8 @@ public class ObjectPool : MonoBehaviour {
   };
   readonly private Dictionary<EnemyData.Type, GameObject> prefabMap = new();
 
+  // InitializeObjectPool should be called before this class is used,
+  // otherwise the initial pool sizes will not be setup.
   void Awake() {
     Instance = this;
   }
