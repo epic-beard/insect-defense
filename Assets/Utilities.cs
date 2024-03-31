@@ -19,16 +19,16 @@ namespace Assets {
       ContextPanel.Instance.SetTowerContextPanel();
       TowerDetail.Instance.SetContextForTower(TowerManager.SelectedTower);
     }
-
-    // Intended for use stripping the height out of positions.
-    public static Vector2 Vector3DropY(Vector3 vector) {
-      return new Vector2(vector.x, vector.z);
-    }
   }
 
   public static class MyExtensions {
     public static string TabMultiLine(this string str) {
       return "\t" + string.Join("\n\t", str.Split("\n"));
+    }
+
+    // Intended for use stripping the height out of positions.
+    public static Vector2 DropY(this Vector3 vector) {
+      return new Vector2(vector.x, vector.z);
     }
   }
 }

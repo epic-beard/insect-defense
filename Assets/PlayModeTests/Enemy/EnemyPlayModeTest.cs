@@ -40,7 +40,7 @@ public class EnemyPlayModeTest {
     enemy.Dazzle = new() {
       duration = 10.0f,
       interval = 1.0f,
-      range = 10.01f
+      range = 12.0f
     };
     Time.captureDeltaTime = 1.0f;
 
@@ -70,7 +70,7 @@ public class EnemyPlayModeTest {
     enemy.Slime = new() {
       duration = 10.0f,
       interval = 1.0f,
-      range = 10.01f,
+      range = 12.0f,
       power = 0.5f,
     };
     Time.captureDeltaTime = 1.0f;

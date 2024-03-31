@@ -91,8 +91,8 @@ public class TowerManager : MonoBehaviour {
   public List<Tower> GetTowersInRange(float range, Vector3 pos) {
     return ActiveTowerMap.Values.Where(
         (tower) => Vector2.Distance(
-            Utilities.Vector3DropY(pos),
-            Utilities.Vector3DropY(tower.transform.position)) <= range).ToList();
+            pos.DropY(),
+            tower.transform.position.DropY()) <= range).ToList();
   }
 
   // Set a new tower as the selected tower. Adjust the tile color to indicate selection as necessary.

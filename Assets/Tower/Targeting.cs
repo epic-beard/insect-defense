@@ -52,7 +52,7 @@ public class Targeting {
       float towerRange,
       bool camoSight,
       bool antiAir) {
-    Vector2 towerVector2Position = new Vector2(towerPosition.x, towerPosition.z);
+    Vector2 towerVector2Position = towerPosition.DropY();
     // Ensure all enemies are viable targets.
     List<Enemy> targets =
         GetAllValidEnemiesInRange(enemies, towerVector2Position, towerRange, camoSight, antiAir);
@@ -61,7 +61,7 @@ public class Targeting {
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
         && oldTarget.enabled
-        && (Vector2.Distance(towerVector2Position, Utilities.Vector3DropY(oldTarget.transform.position)) < towerRange)
+        && (Vector2.Distance(towerVector2Position, oldTarget.transform.position.DropY()) < towerRange)
         && (!oldTarget.Camo || camoSight)
         && (!oldTarget.Flying || antiAir)) {
       return oldTarget;
@@ -91,7 +91,7 @@ public class Targeting {
       bool antiAir) {
     return enemies
         .Where(e => e.enabled)
-        .Where(e => Vector2.Distance(towerPosition, Utilities.Vector3DropY(e.transform.position)) <= towerRange)
+        .Where(e => Vector2.Distance(towerPosition, e.transform.position.DropY()) <= towerRange)
         .Where(e => !e.Flying || antiAir)
         .Where(e => !e.Camo || camoSight)
         .ToList();
