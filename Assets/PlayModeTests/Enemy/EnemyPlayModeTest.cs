@@ -40,7 +40,7 @@ public class EnemyPlayModeTest {
     enemy.Dazzle = new() {
       duration = 10.0f,
       interval = 1.0f,
-      range = 10.0f
+      range = 12.0f
     };
     Time.captureDeltaTime = 1.0f;
 
@@ -58,7 +58,7 @@ public class EnemyPlayModeTest {
 
     Time.captureDeltaTime = 10.0f;
     // Move the enemy out of range of all the towers.
-    enemy.transform.position = 10 * Vector3.up;
+    enemy.transform.position = 10 * Vector3.right;
 
     yield return new WaitForEndOfFrame();
     Assert.That(towerInRange.DazzleTime, Is.EqualTo(0.0f));
@@ -70,7 +70,7 @@ public class EnemyPlayModeTest {
     enemy.Slime = new() {
       duration = 10.0f,
       interval = 1.0f,
-      range = 10.0f,
+      range = 12.0f,
       power = 0.5f,
     };
     Time.captureDeltaTime = 1.0f;
@@ -92,7 +92,7 @@ public class EnemyPlayModeTest {
     Assert.That(towerOutOfRange.SlimePower, Is.EqualTo(1.0f));
 
     // Move the enemy out of range of all the towers.
-    enemy.transform.position = 10 * Vector3.up;
+    enemy.transform.position = 10 * Vector3.right;
 
     Time.captureDeltaTime = 10.0f;
     yield return new WaitForEndOfFrame();

@@ -1,4 +1,5 @@
 ﻿using UnityEngine.UIElements;
+using UnityEngine;
 
 namespace Assets {
 
@@ -23,6 +24,11 @@ namespace Assets {
   public static class MyExtensions {
     public static string TabMultiLine(this string str) {
       return "\t" + string.Join("\n\t", str.Split("\n"));
+    }
+
+    // Intended for use stripping the height out of positions.
+    public static Vector2 DropY(this Vector3 vector) {
+      return new Vector2(vector.x, vector.z);
     }
   }
 }
