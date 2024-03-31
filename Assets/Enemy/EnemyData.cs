@@ -27,8 +27,6 @@ public struct EnemyData {
     HUGE
   }
 
-
-
   public static Dictionary<Size, float> SizeToAcidExplosionThreshold = new() {
     {Size.TINY, 10.0f},
     {Size.SMALL, 30.0f},
@@ -88,6 +86,7 @@ public struct EnemyData {
     public float range;
     public float power;
   }
+
   public enum Stat {
     NONE,
     MAX_HP,
