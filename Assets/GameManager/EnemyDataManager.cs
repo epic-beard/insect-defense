@@ -15,8 +15,6 @@ public class EnemyDataManager : MonoBehaviour {
 
   private void Awake() {
     Instance = this;
-  }
-  void Start() {
     enemies = Deserialize<EnemyDictionary>(filename);
   }
 
