@@ -151,7 +151,7 @@ public class Level2WaveGenerator {
               repeatDelay = 1.0f,
               spawnLocation = 1,
               spawnAmmount = 1,
-              overrides = { { EnemyData.Stat.SPEED, 0.25f } },
+              Overrides = { { EnemyData.Stat.SPEED, 0.25f } },
             },
             new DelayedWave() {
               warmup = 1.0f,
@@ -161,7 +161,7 @@ public class Level2WaveGenerator {
                 repeatDelay = 2.6f,
                 spawnLocation = 1,
                 spawnAmmount = 2,
-                overrides = { { EnemyData.Stat.SPEED, 0.25f } },
+                Overrides = { { EnemyData.Stat.SPEED, 0.25f } },
               },
             },
           },

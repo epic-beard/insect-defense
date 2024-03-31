@@ -18,12 +18,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Aphid</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>4</repetitions>
@@ -31,12 +25,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Aphid</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>4</repetitions>
@@ -44,12 +32,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>2</spawnAmmount>
           <enemyDataKey>Aphid</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="CannedEnemyWave">
@@ -58,12 +40,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
@@ -81,12 +57,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>2</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
       </Subwaves>
     </Wave>
@@ -98,12 +68,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
@@ -120,12 +84,6 @@
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>12</repetitions>
@@ -133,12 +91,6 @@
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
           </Subwaves>
         </Wave>
@@ -151,12 +103,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
       </Subwaves>
     </Wave>
@@ -170,12 +116,6 @@
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>8</repetitions>
@@ -183,12 +123,6 @@
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
           </Subwaves>
         </Wave>
@@ -208,12 +142,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Beetle</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">

@@ -15,12 +15,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>2</repetitions>
@@ -28,12 +22,6 @@
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
@@ -51,12 +39,6 @@
           <spawnLocation>1</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="SpacerWave">
           <delay>3</delay>
@@ -67,12 +49,6 @@
           <spawnLocation>1</spawnLocation>
           <spawnAmmount>2</spawnAmmount>
           <enemyDataKey>Ant</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
@@ -90,12 +66,6 @@
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
           </Subwaves>
         </Wave>
@@ -111,12 +81,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>4</repetitions>
@@ -124,12 +88,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>4</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
           </Subwaves>
         </Wave>
@@ -144,12 +102,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>2</repetitions>
@@ -157,12 +109,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
           </Subwaves>
         </Wave>
@@ -177,12 +123,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Beetle</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="DelayedWave">
               <warmup>45</warmup>
@@ -192,12 +132,6 @@
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>1</spawnAmmount>
                 <enemyDataKey>Beetle</enemyDataKey>
-                <overrides />
-                <properties xsi:nil="true" />
-                <carrierOverride xsi:nil="true" />
-                <spawnerOverride xsi:nil="true" />
-                <dazzleOverride xsi:nil="true" />
-                <slimeOverride xsi:nil="true" />
               </wave>
               <cooldown>0</cooldown>
             </Wave>
@@ -207,7 +141,7 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
-              <overrides>
+              <Overrides>
                 <KeyValuePair>
                   <Key>
                     <Stat>SPEED</Stat>
@@ -216,12 +150,7 @@
                     <float>0.25</float>
                   </Value>
                 </KeyValuePair>
-              </overrides>
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
+              </Overrides>
             </Wave>
             <Wave xsi:type="DelayedWave">
               <warmup>1</warmup>
@@ -231,7 +160,7 @@
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>2</spawnAmmount>
                 <enemyDataKey>Aphid</enemyDataKey>
-                <overrides>
+                <Overrides>
                   <KeyValuePair>
                     <Key>
                       <Stat>SPEED</Stat>
@@ -240,12 +169,7 @@
                       <float>0.25</float>
                     </Value>
                   </KeyValuePair>
-                </overrides>
-                <properties xsi:nil="true" />
-                <carrierOverride xsi:nil="true" />
-                <spawnerOverride xsi:nil="true" />
-                <dazzleOverride xsi:nil="true" />
-                <slimeOverride xsi:nil="true" />
+                </Overrides>
               </wave>
               <cooldown>0</cooldown>
             </Wave>
@@ -265,12 +189,6 @@
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>4</repetitions>
@@ -278,12 +196,6 @@
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>10</repetitions>
@@ -291,12 +203,6 @@
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>2</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
               </Subwaves>
             </Wave>
@@ -308,12 +214,6 @@
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>3</repetitions>
@@ -321,12 +221,6 @@
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Aphid</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>8</repetitions>
@@ -334,12 +228,6 @@
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Ant</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
               </Subwaves>
             </Wave>
@@ -356,12 +244,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>3</spawnAmmount>
               <enemyDataKey>Aphid</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>9</repetitions>
@@ -369,12 +251,6 @@
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
           </Subwaves>
         </Wave>
@@ -393,12 +269,6 @@
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>2</spawnAmmount>
                         <enemyDataKey>Beetle</enemyDataKey>
-                        <overrides />
-                        <properties xsi:nil="true" />
-                        <carrierOverride xsi:nil="true" />
-                        <spawnerOverride xsi:nil="true" />
-                        <dazzleOverride xsi:nil="true" />
-                        <slimeOverride xsi:nil="true" />
                       </Wave>
                       <Wave xsi:type="CannedEnemyWave">
                         <repetitions>4</repetitions>
@@ -406,12 +276,6 @@
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>3</spawnAmmount>
                         <enemyDataKey>Beetle</enemyDataKey>
-                        <overrides />
-                        <properties xsi:nil="true" />
-                        <carrierOverride xsi:nil="true" />
-                        <spawnerOverride xsi:nil="true" />
-                        <dazzleOverride xsi:nil="true" />
-                        <slimeOverride xsi:nil="true" />
                       </Wave>
                     </Subwaves>
                   </Wave>
@@ -426,12 +290,6 @@
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>1</spawnAmmount>
                         <enemyDataKey>Aphid</enemyDataKey>
-                        <overrides />
-                        <properties xsi:nil="true" />
-                        <carrierOverride xsi:nil="true" />
-                        <spawnerOverride xsi:nil="true" />
-                        <dazzleOverride xsi:nil="true" />
-                        <slimeOverride xsi:nil="true" />
                       </Wave>
                       <Wave xsi:type="SpacerWave">
                         <delay>10</delay>
@@ -442,12 +300,6 @@
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>1</spawnAmmount>
                         <enemyDataKey>Aphid</enemyDataKey>
-                        <overrides />
-                        <properties xsi:nil="true" />
-                        <carrierOverride xsi:nil="true" />
-                        <spawnerOverride xsi:nil="true" />
-                        <dazzleOverride xsi:nil="true" />
-                        <slimeOverride xsi:nil="true" />
                       </Wave>
                       <Wave xsi:type="SpacerWave">
                         <delay>10</delay>
@@ -458,12 +310,6 @@
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>1</spawnAmmount>
                         <enemyDataKey>Aphid</enemyDataKey>
-                        <overrides />
-                        <properties xsi:nil="true" />
-                        <carrierOverride xsi:nil="true" />
-                        <spawnerOverride xsi:nil="true" />
-                        <dazzleOverride xsi:nil="true" />
-                        <slimeOverride xsi:nil="true" />
                       </Wave>
                     </Subwaves>
                   </Wave>
@@ -479,12 +325,6 @@
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Ant</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
                 <Wave xsi:type="SpacerWave">
                   <delay>15</delay>
@@ -512,12 +352,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>5</repetitions>
@@ -525,12 +359,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Beetle</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>8</repetitions>
@@ -538,12 +366,6 @@
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Beetle</enemyDataKey>
-              <overrides />
-              <properties xsi:nil="true" />
-              <carrierOverride xsi:nil="true" />
-              <spawnerOverride xsi:nil="true" />
-              <dazzleOverride xsi:nil="true" />
-              <slimeOverride xsi:nil="true" />
             </Wave>
             <Wave xsi:type="SequentialWave">
               <Subwaves>
@@ -556,12 +378,6 @@
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
                   <enemyDataKey>Leaf Bug</enemyDataKey>
-                  <overrides />
-                  <properties xsi:nil="true" />
-                  <carrierOverride xsi:nil="true" />
-                  <spawnerOverride xsi:nil="true" />
-                  <dazzleOverride xsi:nil="true" />
-                  <slimeOverride xsi:nil="true" />
                 </Wave>
                 <Wave xsi:type="SpacerWave">
                   <delay>6</delay>
@@ -586,12 +402,6 @@
                           <spawnLocation>0</spawnLocation>
                           <spawnAmmount>2</spawnAmmount>
                           <enemyDataKey>Aphid</enemyDataKey>
-                          <overrides />
-                          <properties xsi:nil="true" />
-                          <carrierOverride xsi:nil="true" />
-                          <spawnerOverride xsi:nil="true" />
-                          <dazzleOverride xsi:nil="true" />
-                          <slimeOverride xsi:nil="true" />
                         </Wave>
                         <Wave xsi:type="CannedEnemyWave">
                           <repetitions>12</repetitions>
@@ -599,12 +409,6 @@
                           <spawnLocation>0</spawnLocation>
                           <spawnAmmount>1</spawnAmmount>
                           <enemyDataKey>Aphid</enemyDataKey>
-                          <overrides />
-                          <properties xsi:nil="true" />
-                          <carrierOverride xsi:nil="true" />
-                          <spawnerOverride xsi:nil="true" />
-                          <dazzleOverride xsi:nil="true" />
-                          <slimeOverride xsi:nil="true" />
                         </Wave>
                       </Subwaves>
                     </Wave>
@@ -614,12 +418,6 @@
                       <spawnLocation>0</spawnLocation>
                       <spawnAmmount>1</spawnAmmount>
                       <enemyDataKey>Leaf Bug</enemyDataKey>
-                      <overrides />
-                      <properties xsi:nil="true" />
-                      <carrierOverride xsi:nil="true" />
-                      <spawnerOverride xsi:nil="true" />
-                      <dazzleOverride xsi:nil="true" />
-                      <slimeOverride xsi:nil="true" />
                     </Wave>
                   </Subwaves>
                 </Wave>
@@ -644,12 +442,6 @@
           <spawnLocation>1</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
           <enemyDataKey>Tarantula</enemyDataKey>
-          <overrides />
-          <properties xsi:nil="true" />
-          <carrierOverride xsi:nil="true" />
-          <spawnerOverride xsi:nil="true" />
-          <dazzleOverride xsi:nil="true" />
-          <slimeOverride xsi:nil="true" />
         </Wave>
       </Subwaves>
     </Wave>

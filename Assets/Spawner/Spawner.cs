@@ -3,6 +3,7 @@ using Assets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -255,12 +256,12 @@ public class Spawner : MonoBehaviour {
     public int spawnLocation;
     public int spawnAmmount;
     public string enemyDataKey = "";
-    public EnemyStatOverrides overrides = new();
-    public EnemyData.Properties? properties;
-    public EnemyData.CarrierProperties? carrierOverride;
-    public EnemyData.SpawnerProperties? spawnerOverride;
-    public EnemyData.DazzleProperties? dazzleOverride;
-    public EnemyData.SlimeProperties? slimeOverride;
+    public EnemyStatOverrides Overrides = new();
+    public EnemyData.Properties? Properties;
+    public EnemyData.CarrierProperties? CarrierOverride;
+    public EnemyData.SpawnerProperties? SpawnerOverride;
+    public EnemyData.DazzleProperties? DazzleOverride;
+    public EnemyData.SlimeProperties? SlimeOverride;
 
     public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {
@@ -268,25 +269,25 @@ public class Spawner : MonoBehaviour {
           // Create the enemy.
           GameObject obj = Spawner.Instance.Spawn(enemyDataKey, spawnLocation);
           Enemy enemy = obj.GetComponent<Enemy>();
-          if (overrides != null) {
-            foreach (var kvp in overrides) {
+          if (Overrides != null) {
+            foreach (var kvp in Overrides) {
               enemy.SetStat(kvp.Key, kvp.Value);
             }
           }
-          if (properties != null) {
-            enemy.SetProperties(properties.Value);
+          if (Properties.HasValue) {
+            enemy.SetProperties(Properties.Value);
           }
-          if (carrierOverride != null) {
-            enemy.SetCarrier(carrierOverride.Value);
+          if (CarrierOverride.HasValue) {
+            enemy.SetCarrier(CarrierOverride.Value);
           }
-          if (spawnerOverride != null) {
-            enemy.SetSpawner(spawnerOverride.Value);
+          if (SpawnerOverride.HasValue) {
+            enemy.SetSpawner(SpawnerOverride.Value);
           }
-          if (dazzleOverride != null) {
-            enemy.SetDazzle(dazzleOverride.Value);
+          if (DazzleOverride.HasValue) {
+            enemy.SetDazzle(DazzleOverride.Value);
           }
-          if (slimeOverride != null) {
-            enemy.SetSlime(slimeOverride.Value);
+          if (SlimeOverride.HasValue) {
+            enemy.SetSlime(SlimeOverride.Value);
           }
         }
         // Wait for repeat delay seconds.
@@ -309,6 +310,14 @@ public class Spawner : MonoBehaviour {
 
       return new HashSet<EnemyData.Type>() { data.type };
     }
+
+    // The following methods keep the various overrides from serializing when they are unset.
+    public bool ShouldSerializeOverrides() { return Overrides != null && Overrides.Count > 0; }
+    public bool ShouldSerializeProperties() { return Properties.HasValue; }
+    public bool ShouldSerializeCarrierOverride() { return CarrierOverride.HasValue; }
+    public bool ShouldSerializeSpawnerOverride() { return SpawnerOverride.HasValue; }
+    public bool ShouldSerializeDazzleOverride() { return DazzleOverride.HasValue; }
+    public bool ShouldSerializeSlimeOverride() { return SlimeOverride.HasValue; }
   }
 
   // A wave that just waits for a given delay then finishes.
