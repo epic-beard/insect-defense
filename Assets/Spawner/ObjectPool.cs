@@ -18,6 +18,7 @@ public class ObjectPool : MonoBehaviour {
     { EnemyData.Type.HERCULES_BEETLE, "Enemies/Hercules Beetle/Hercules Beetle" },
     { EnemyData.Type.LEAF_BUG, "Enemies/Leaf Bug/Leaf Bug" },
     { EnemyData.Type.SLUG, "Enemies/Slug/Slug" },
+    { EnemyData.Type.SNAIL, "Enemies/Snail/Snail"},
     { EnemyData.Type.STINK_BUG, "Enemies/Stink Bug/Stink Bug" },
     { EnemyData.Type.TARANTULA, "Enemies/Tarantula/Tarantula" },
     { EnemyData.Type.TERMITE, "Enemies/Termite/Termite" },
