@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Waves xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <waves>
+    <Wave xsi:type="SequentialWave">
+      <Subwaves>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>1</repetitions>
+          <repeatDelay>4</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+          <WaveTag>1</WaveTag>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>1</repetitions>
+          <repeatDelay>0</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+        <Wave xsi:type="WaitUntilDeadWave">
+          <WaveTag>1</WaveTag>
+        </Wave>
+        <Wave xsi:type="CannedEnemyWave">
+          <repetitions>1</repetitions>
+          <repeatDelay>0</repeatDelay>
+          <spawnLocation>0</spawnLocation>
+          <spawnAmmount>1</spawnAmmount>
+          <enemyDataKey>Ant</enemyDataKey>
+        </Wave>
+      </Subwaves>
+    </Wave>
+  </waves>
+</Waves>

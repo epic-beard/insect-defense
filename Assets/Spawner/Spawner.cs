@@ -221,13 +221,16 @@ public class Spawner : MonoBehaviour {
     public float repeatDelay;
     public int spawnLocation;
     public int spawnAmmount;
+    public int? WaveTag;
     public EnemyData data;
 
     public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {
         for (int j = 0; j < spawnAmmount; j++) {
           // Create the enemy.
-          Spawner.Instance.Spawn(data, spawnLocation);
+          GameObject obj = Spawner.Instance.Spawn(data, spawnLocation);
+          Enemy enemy = obj.GetComponent<Enemy>();
+          enemy.WaveTag = WaveTag;
         }
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
@@ -246,6 +249,9 @@ public class Spawner : MonoBehaviour {
     public override HashSet<EnemyData.Type> GetEnemyTypes() {
       return new HashSet<EnemyData.Type>() { data.type };
     }
+
+    // The following method keeps waveTag from serializing when null.
+    public bool ShouldSerializeWaveTag() { return WaveTag.HasValue; }
   }
 
   // Same as the EnemyWave but used canned stats looked up by a
@@ -256,6 +262,7 @@ public class Spawner : MonoBehaviour {
     public int spawnLocation;
     public int spawnAmmount;
     public string enemyDataKey = "";
+    public int? WaveTag;
     public EnemyStatOverrides Overrides = new();
     public EnemyData.Properties? Properties;
     public EnemyData.CarrierProperties? CarrierOverride;
@@ -289,6 +296,8 @@ public class Spawner : MonoBehaviour {
           if (SlimeOverride.HasValue) {
             enemy.SetSlime(SlimeOverride.Value);
           }
+
+          enemy.WaveTag = WaveTag;
         }
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
@@ -318,6 +327,7 @@ public class Spawner : MonoBehaviour {
     public bool ShouldSerializeSpawnerOverride() { return SpawnerOverride.HasValue; }
     public bool ShouldSerializeDazzleOverride() { return DazzleOverride.HasValue; }
     public bool ShouldSerializeSlimeOverride() { return SlimeOverride.HasValue; }
+    public bool ShouldSerializeWaveTag() { return WaveTag.HasValue; }
   }
 
   // A wave that just waits for a given delay then finishes.
@@ -361,9 +371,19 @@ public class Spawner : MonoBehaviour {
   }
 
   public class WaitUntilDeadWave : Wave {
+    public int? WaveTag;
     public override IEnumerator Start() {
-      yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
+      if (WaveTag == null) {
+        yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
+      } else {
+        yield return new WaitUntil(() =>
+            !ObjectPool.Instance.GetActiveEnemies().Any(
+                (e) => e.WaveTag == WaveTag));
+      }
     }
+
+    // The following method keeps waveTag from serializing when null.
+    public bool ShouldSerializeWaveTag() { return WaveTag.HasValue; }
 
     public override string ToString() {
       return "WaitUntilDeadWave\n";
