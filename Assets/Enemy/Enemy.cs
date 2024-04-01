@@ -157,6 +157,7 @@ public class Enemy : MonoBehaviour {
     private set { data.stunTime = value; }
   }
   public EnemyData.Type Type { get { return data.type; } }
+  public int? WaveTag { get; set; }
 
   #endregion
 
