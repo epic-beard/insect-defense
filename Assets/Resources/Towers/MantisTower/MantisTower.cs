@@ -164,6 +164,12 @@ public class MantisTower : Tower {
     }
   }
 
+  protected override void UpdateAnimationSpeed(float newAttackSpeed) {
+    if (animator != null) {
+      animator.SetFloat("Speed", newAttackSpeed);
+    }
+  }
+
   // Launch the Mantis' attack animations.
   private void Stab() {
     animator.Play("Basic Attack Layer.UR Attack");

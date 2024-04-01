@@ -111,6 +111,8 @@ public class WebShootingSpiderTower : Tower {
     secondaryProjectileHandler.UpdateParticles(null, ProcessSecondarySlowEffects);
   }
 
+  protected override void UpdateAnimationSpeed(float newAttackSpeed) {}
+
   private IEnumerator WebShoot() {
     while (true) {
       while (firing && DazzleTime == 0.0f) {

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
@@ -27,6 +26,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.ARMOR_TEAR]; }
     set { data[TowerData.Stat.ARMOR_TEAR] = value; }
   }
+  public float BaseAttackSpeed { get; private set; }
   public float Cost {
     get { return data[TowerData.Stat.COST]; }
     set { data[TowerData.Stat.COST] = value; }
@@ -169,6 +169,10 @@ public abstract class Tower : MonoBehaviour {
   protected abstract void TowerUpdate();
   public abstract TowerData.Type Type { get; set; }
   public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
+  // This method is intended to set the animation speed, thus newAttackSpeed is understood to be a
+  // percentage modifier of the base animation speed. Thus a newAttackSpeed of 2.0 would have the
+  // animation play twice as fast as the base speed.
+  protected abstract void UpdateAnimationSpeed(float newAttackSpeed);
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
@@ -181,6 +185,9 @@ public abstract class Tower : MonoBehaviour {
         switch (modifier.mode) {
           case TowerAbility.Mode.MULTIPLICATIVE:
             data[modifier.attribute] *= modifier.mod;
+            if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
+              UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
+            }
             break;
           case TowerAbility.Mode.ADDITIVE:
             data[modifier.attribute] += modifier.mod;
@@ -205,6 +212,11 @@ public abstract class Tower : MonoBehaviour {
 
   public void SetTowerData(TowerData data) {
     this.data = data;
+    BaseAttackSpeed = data[TowerData.Stat.ATTACK_SPEED];
+  }
+
+  public float GetAnimationSpeedMultiplier() {
+    return SlimePower * AttackSpeed / BaseAttackSpeed;
   }
 
   public void ApplyDazzle(float duration) {
@@ -229,12 +241,13 @@ public abstract class Tower : MonoBehaviour {
   public void ApplySlime(float duration, float power) {
     if (SlimeTime > 0) {
       SlimeTime = Mathf.Max(SlimeTime, duration);
-      SlimePower = Mathf.Max(SlimePower, power);
+      SlimePower = Mathf.Min(SlimePower, power);
     } else {
       SlimeTime = duration;
       SlimePower = power;
       StartCoroutine(HandleSlime());
     }
+    UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
   }
 
   private IEnumerator HandleSlime() {
@@ -243,6 +256,7 @@ public abstract class Tower : MonoBehaviour {
       SlimeTime -= Time.deltaTime;
     }
     SlimePower = 1.0f;
+    UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     SlimeTime = 0.0f;
     yield return null;
   }
