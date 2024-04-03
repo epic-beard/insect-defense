@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 public class TowerDetail : MonoBehaviour {
   public static TowerDetail Instance;
 
+  readonly private string towerNameLabelName = "tower-name";
   readonly private string towerBehaviorDropdownName = "tower-behavior";
   readonly private string towerPriorityDropdownName = "tower-priority";
-  readonly private string towerNameLabelName = "tower-name";
   readonly private string towerUpgradeButtonNameTemplate = "tree_X_upgrade_Y__button";
   readonly private string towerUpgradeLabelNameTemplate = "tower_upgrade_tree_X__label";
   readonly private string sellTowerButtonName = "sell-tower";
@@ -156,7 +156,7 @@ public class TowerDetail : MonoBehaviour {
         towerUpgradeButtons[i, j].SetEnabled(false);
         towerUpgradeButtons[i, j].SetButtonText(
             tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost);
-        towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
+        //towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
       }
 
       for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++)
