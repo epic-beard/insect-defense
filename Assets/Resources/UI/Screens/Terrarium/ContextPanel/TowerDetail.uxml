@@ -5,7 +5,7 @@
     <ui:VisualElement class="context-panel-tower-container">
         <ui:VisualElement class="tower-detail-top-bar">
             <ui:Label name="tower-name" class="tower-name" text="&lt;towername&gt;" />
-            <ui:Label class="tower-icon" text="TowerIcon" />
+            <ui:VisualElement class="tower-icon"></ui:VisualElement>
             <ui:Label class="tower-description" text="Tower Description" />
             <ui:Button text="Sell" name="sell-tower" class="sell-tower-button primary-button" />
         </ui:VisualElement>
@@ -17,41 +17,47 @@
 
         <ui:VisualElement class="tower-detail-stats-container">
             <ui:VisualElement class="tower-detail-stats-col">
-                <ui:VisualElement class="tower-detail-stat">Damage</ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stat">Attack Speed</ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stat">Range</ui:VisualElement>
+                <ui:Label class="tower-detail-stat-label" text="Damage" />
+                <ui:Label name="tower-stat-damage" class="tower-detail-stat-value" text="&lt;towerdamage&gt;" />
+                <ui:Label class="tower-detail-stat-label" text="Attack Speed" />
+                <ui:Label name="tower-stat-attack-speed" class="tower-detail-stat-value" text="&lt;towerattackspeed&gt;" />
+                <ui:Label class="tower-detail-stat-label" text="Range" />
+                <ui:Label name="tower-stat-range" class="tower-detail-stat-value" text="&lt;towerrange&gt;" />
             </ui:VisualElement>
             <ui:VisualElement class="tower-detail-stats-col">
-                <ui:VisualElement class="tower-detail-stat">Armor Pierce</ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stat">Area of Effect</ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stat">Damage Over Time</ui:VisualElement>
+                <ui:Label class="tower-detail-stat-label" text="Armor Pierce" />
+                <ui:Label name="tower-stat-armor-pierce" class="tower-detail-stat-value" text="&lt;towerarmorpierce&gt;" />
+                <ui:Label class="tower-detail-stat-label" text="Area of Effect" />
+                <ui:Label name="tower-stat-area-of-effect" class="tower-detail-stat-value" text="&lt;towerareaofeffect&gt;" />
+                <ui:Label class="tower-detail-stat-label" text="Damage Over Time" />
+                <ui:Label name="tower-stat-damage-over-time" class="tower-detail-stat-value" text="&lt;towerdamageovertime&gt;" />
             </ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement class="tower-detail-upgrades-container">
             <ui:VisualElement class="tower-upgrade-tree">
-                <ui:Button name="tree_0_upgrade_4__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_0_upgrade_3__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_0_upgrade_2__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_0_upgrade_1__button" class="secondary-button upgrade-button" focusable="false" />
+                <ui:Button name="tree_0_upgrade_4__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_0_upgrade_3__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_0_upgrade_2__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_0_upgrade_1__button" class="secondary-button upgrade-button hide" focusable="false" />
                 <ui:Button name="tree_0_upgrade_0__button" class="secondary-button upgrade-button" focusable="false" />
                 <ui:Label name="tower_upgrade_tree_0__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 1&gt;" />
             </ui:VisualElement>
                 
             <ui:VisualElement class="tower-upgrade-tree">
-                <ui:Button name="tree_1_upgrade_4__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_1_upgrade_3__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_1_upgrade_2__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_1_upgrade_1__button" class="secondary-button upgrade-button" focusable="false" />
+                <ui:Button name="tree_1_upgrade_4__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_1_upgrade_3__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_1_upgrade_2__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_1_upgrade_1__button" class="secondary-button upgrade-button hide" focusable="false" />
                 <ui:Button name="tree_1_upgrade_0__button" class="secondary-button upgrade-button" focusable="false" />
                 <ui:Label name="tower_upgrade_tree_1__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 2&gt;" />
             </ui:VisualElement>
                 
             <ui:VisualElement class="tower-upgrade-tree">
-                <ui:Button name="tree_2_upgrade_4__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_2_upgrade_3__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_2_upgrade_2__button" class="secondary-button upgrade-button" focusable="false" />
-                <ui:Button name="tree_2_upgrade_1__button" class="secondary-button upgrade-button" focusable="false" />
+                <ui:Button name="tree_2_upgrade_4__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_2_upgrade_3__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_2_upgrade_2__button" class="secondary-button upgrade-button hide" focusable="false" />
+                <ui:Button name="tree_2_upgrade_1__button" class="secondary-button upgrade-button hide" focusable="false" />
                 <ui:Button name="tree_2_upgrade_0__button" class="secondary-button upgrade-button" focusable="false" />
                 <ui:Label name="tower_upgrade_tree_2__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 3&gt;" />
             </ui:VisualElement>

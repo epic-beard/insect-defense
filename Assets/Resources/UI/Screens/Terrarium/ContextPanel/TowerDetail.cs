@@ -2,24 +2,47 @@ using Assets;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Targeting;
 
 public class TowerDetail : MonoBehaviour {
   public static TowerDetail Instance;
 
   readonly private string towerNameLabelName = "tower-name";
+  readonly private string towerIconElementName = "tower-icon";
+  readonly private string towerDescriptionLabelName = "tower-description";
+  readonly private string sellTowerButtonName = "sell-tower";
+
   readonly private string towerBehaviorDropdownName = "tower-behavior";
   readonly private string towerPriorityDropdownName = "tower-priority";
   readonly private string towerUpgradeButtonNameTemplate = "tree_X_upgrade_Y__button";
   readonly private string towerUpgradeLabelNameTemplate = "tower_upgrade_tree_X__label";
-  readonly private string sellTowerButtonName = "sell-tower";
+
+  readonly private string towerStatDamageName = "tower-stat-damage";
+  readonly private string towerStatAttackSpeedName = "tower-stat-attack-speed";
+  readonly private string towerStatRangeName = "tower-stat-range";
+  readonly private string towerStatArmorPierceName = "tower-stat-armor-pierce";
+  readonly private string towerStatAreaOfEffectName = "tower-stat-area-of-effect";
+  readonly private string towerStatDamageOverTimeName = "tower-stat-damage-over-time";
 
   private UIDocument uiDocument;
+  private VisualElement rootElement;
 
-  private Button sellTowerButton;
-  private DropdownField towerBehaviorDropdown;
   private Label towerNameLabel;
+  private VisualElement towerIconElement;
+  private Label towerDescriptionLabel;
+  private Button sellTowerButton;
+
+  private DropdownField towerBehaviorDropdown;
   private DropdownField towerPriorityDropdown;
-  private ButtonWithTooltip[,] towerUpgradeButtons = new ButtonWithTooltip[3, 5];
+
+  private Label towerStatDamage;
+  private Label towerStatAttackSpeed;
+  private Label towerStatRange;
+  private Label towerStatArmorPierce;
+  private Label towerStatAreaOfEffect;
+  private Label towerStatDamageOverTime;
+  
+  private Button[,] towerUpgradeButtons = new Button[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
 
   private void Awake() {
@@ -31,12 +54,23 @@ public class TowerDetail : MonoBehaviour {
 
   private void SetVisualElements() {
     uiDocument = GetComponent<UIDocument>();
-    VisualElement rootElement = uiDocument.rootVisualElement;
+    rootElement = uiDocument.rootVisualElement;
 
-    sellTowerButton = rootElement.Q<Button>(sellTowerButtonName);
-    towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
     towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
+    towerIconElement = rootElement.Q<VisualElement>(className: towerIconElementName);
+    towerDescriptionLabel = rootElement.Q<Label>(className: towerDescriptionLabelName);
+    sellTowerButton = rootElement.Q<Button>(sellTowerButtonName);
+
+    towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
     towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
+
+    towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
+    towerStatDamage = rootElement.Q<Label>(towerStatDamageName);
+    towerStatAttackSpeed = rootElement.Q<Label>(towerStatAttackSpeedName);
+    towerStatRange = rootElement.Q<Label>(towerStatRangeName);
+    towerStatArmorPierce = rootElement.Q<Label>(towerStatArmorPierceName);
+    towerStatAreaOfEffect = rootElement.Q<Label>(towerStatAreaOfEffectName);
+    towerStatDamageOverTime = rootElement.Q<Label>(towerStatDamageOverTimeName);
   }
 
   private void RegisterCallbacks() {
@@ -45,13 +79,12 @@ public class TowerDetail : MonoBehaviour {
 
     sellTowerButton.RegisterCallback<ClickEvent>(OnSellTowerClick);
 
-    VisualElement rootElement = uiDocument.rootVisualElement;
     for (int i = 0; i < 3; i++)
     {
       for (int j = 0; j < 5; j++)
       {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
-        towerUpgradeButtons[i, j] = rootElement.Q<ButtonWithTooltip>(buttonName);
+        towerUpgradeButtons[i, j] = rootElement.Q<Button>(buttonName);
         towerUpgradeButtons[i, j].RegisterCallback<ClickEvent>(HandleTowerUpgradeCallback);
         towerUpgradeButtons[i, j].SetEnabled(false);
       }
@@ -90,7 +123,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    ButtonWithTooltip button = Utilities.GetAncestor<ButtonWithTooltip>(evt.target as VisualElement);
+    Button button = Utilities.GetAncestor<Button>(evt.target as VisualElement);
     if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
@@ -143,6 +176,9 @@ public class TowerDetail : MonoBehaviour {
   // Set all appropriate text, pictures, and miscellaneous information for a specific tower.
   public void SetContextForTower(Tower tower) {
     towerNameLabel.text = tower.Name;
+    towerIconElement.style.backgroundImage = Resources.Load<Texture2D>("Icons/test");
+    towerDescriptionLabel.text = "placeholder";
+
     towerBehaviorDropdown.index = ((int)tower.Behavior);
     towerPriorityDropdown.index = ((int)tower.Priority);
 
@@ -153,17 +189,15 @@ public class TowerDetail : MonoBehaviour {
 
       for (int j = 0; j < 5; j++)
       {
-        towerUpgradeButtons[i, j].SetEnabled(false);
-        towerUpgradeButtons[i, j].SetButtonText(
-            tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost);
-        //towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
+        //towerUpgradeButtons[i, j].SetEnabled(false);
+        towerUpgradeButtons[i, j].text = 
+            tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost;
       }
 
       for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++)
       {
         // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
-        towerUpgradeButtons[i, j].SetButtonText(
-            towerUpgradeButtons[i, j].Button.text + " Bought.");
+        //towerUpgradeButtons[i, j].text = towerUpgradeButtons[i, j].text + " Bought.";
       }
       if (tower.UpgradeLevels[i] < 5)
       {

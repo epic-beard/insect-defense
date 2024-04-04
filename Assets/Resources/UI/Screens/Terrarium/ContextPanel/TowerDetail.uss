@@ -1,7 +1,7 @@
 .context-panel-tower-container {
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
 }
 
 .tower-detail-top-bar {
@@ -52,12 +52,6 @@
   width: 100%;
 }
 
-.tower-detail-stats-col {
-  flex-grow: 1;
-  flex-direction: column;
-  width: 100%;
-}
-
 .tower-detail-upgrades-container {
   display: flex;
   flex-direction: row;
@@ -74,4 +68,8 @@
 .tower-upgrade-button {
   width: 90%;
   height: 10px;
+}
+
+.hide {
+  display: none;
 }
