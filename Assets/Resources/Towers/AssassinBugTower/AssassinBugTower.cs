@@ -13,7 +13,6 @@ public class AssassinBugTower : Tower {
   public bool CriticalMultiHit { get; private set; } = false;
   public override TowerData.Type Type { get; set; } = TowerData.Type.ASSASSIN_BUG_TOWER;
 
-  private Enemy enemy;
   private Enemy oldEnemy;
   private bool returning;
   private bool attacking;
@@ -21,27 +20,35 @@ public class AssassinBugTower : Tower {
   private float attackRange = 3.0f;
   private int multiHit = 0;
 
-  private void Start() {
+  protected override void TowerStart() {
     startingPosition = assassinMesh.position;
   }
 
   protected override void TowerUpdate() {
     // If we are in the process of attacking or returning do nothing.
     if (returning || attacking) return;
-    enemy = targeting.FindTarget(
-      oldTarget: enemy,
+    Target = targeting.FindTarget(
+      oldTarget: Target,
       enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
-    if (enemy != null) {
+    if (Target != null) {
       StartCoroutine(Approach());
       attacking = true;
     }
   }
 
   protected override void UpdateAnimationSpeed(float newAttackSpeed) { }
+
+  protected override void MarkTarget(Enemy enemy) {
+    //
+  }
+
+  protected override void RemoveTargetMark(Enemy enemy) {
+    //
+  }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
     switch (ability) {
@@ -65,8 +72,8 @@ public class AssassinBugTower : Tower {
   }
 
   IEnumerator Approach() {
-    while (enemy != null) {
-      Vector3 endPosition = enemy.AimPoint;
+    while (Target != null) {
+      Vector3 endPosition = Target.AimPoint;
       assassinMesh.LookAt(endPosition);
 
       if (MoveTo(endPosition, ProjectileSpeed)) {
@@ -74,7 +81,7 @@ public class AssassinBugTower : Tower {
       }
       yield return null;
     }
-    ProcessDamageAndEffects(enemy);
+    ProcessDamageAndEffects(Target);
     attacking = false;
     returning = true;
     StartCoroutine(Return());

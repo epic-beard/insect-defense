@@ -100,6 +100,7 @@ public abstract class Tower : MonoBehaviour {
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
   public Tile Tile { get; set; }
+  public Enemy Target { get; protected set; }
 
   // The total Nu the tower has cost the player.
   public int Value {
@@ -155,8 +156,15 @@ public abstract class Tower : MonoBehaviour {
     };
   }
 
+  private void Start() {
+    TowerStart();
+  }
+
   private void Update() {
+    Enemy oldTarget = Target;
     TowerUpdate();
+    RemoveTargetMark(oldTarget);
+    MarkTarget(Target);
   }
 
   private void OnDestroy() {
@@ -167,12 +175,15 @@ public abstract class Tower : MonoBehaviour {
 
   // Abstract methods
   protected abstract void TowerUpdate();
+  protected abstract void TowerStart();
   public abstract TowerData.Type Type { get; set; }
   public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
   // This method is intended to set the animation speed, thus newAttackSpeed is understood to be a
   // percentage modifier of the base animation speed. Thus a newAttackSpeed of 2.0 would have the
   // animation play twice as fast as the base speed.
   protected abstract void UpdateAnimationSpeed(float newAttackSpeed);
+  protected abstract void MarkTarget(Enemy enemy);
+  protected abstract void RemoveTargetMark(Enemy enemy);
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
