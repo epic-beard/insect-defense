@@ -219,7 +219,7 @@ public static class MantisTowerUtils {
 
   public static void SetTarget(this MantisTower mantisTower, Enemy target) {
     typeof(MantisTower)
-        .GetField("target", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetProperty("Target")
         .SetValue(mantisTower, target);
   }
 
