@@ -112,14 +112,6 @@ public class WebShootingSpiderTower : Tower {
 
   protected override void UpdateAnimationSpeed(float newAttackSpeed) {}
 
-  protected override void MarkTarget(Enemy enemy) {
-    //
-  }
-
-  protected override void RemoveTargetMark(Enemy enemy) {
-    //
-  }
-
   private IEnumerator WebShoot() {
     while (true) {
       while (firing && DazzleTime == 0.0f) {

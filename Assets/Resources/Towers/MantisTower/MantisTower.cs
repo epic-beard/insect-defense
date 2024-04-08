@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,7 +110,7 @@ public class MantisTower : Tower {
     // Ensure that the target enemy is not among those reviewed for secondary damage.
     List<Enemy> potentialVictims = targeting.GetAllValidEnemiesInRange(
         enemies: ObjectPool.Instance.GetActiveEnemies().Where(e => !e.Equals(Target)).ToHashSet(),
-        towerPosition: transform.position,
+        towerPosition: transform.position.DropY(),
         towerRange: Range,
         camoSight: CamoSight,
         antiAir: AntiAir);
@@ -179,14 +180,6 @@ public class MantisTower : Tower {
       animator.Play("Third Attack Layer.LR Attack");
       animator.Play("Fourth Attack Layer.LL Attack");
     }
-  }
-
-  protected override void MarkTarget(Enemy enemy) {
-    //
-  }
-
-  protected override void RemoveTargetMark(Enemy enemy) {
-    //
   }
 
   private void MakeLowerArmsVisible(bool visible) {

@@ -148,14 +148,6 @@ public class SpittingAntTower : Tower {
 
   protected override void UpdateAnimationSpeed(float newAttackSpeed) { }
 
-  protected override void MarkTarget(Enemy enemy) {
-    //
-  }
-
-  protected override void RemoveTargetMark(Enemy enemy) {
-    //
-  }
-
   // Handle the splash shot outside of the Update method, so it won't interrupt the program flow.
   private IEnumerator SplashShoot() {
     while (!ContinuousAttack) {

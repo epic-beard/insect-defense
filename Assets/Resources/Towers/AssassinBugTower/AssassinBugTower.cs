@@ -42,14 +42,6 @@ public class AssassinBugTower : Tower {
 
   protected override void UpdateAnimationSpeed(float newAttackSpeed) { }
 
-  protected override void MarkTarget(Enemy enemy) {
-    //
-  }
-
-  protected override void RemoveTargetMark(Enemy enemy) {
-    //
-  }
-
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
     switch (ability) {
       case SpecialAbility.AB_1_3_ARMORED_ENEMY_BONUS:

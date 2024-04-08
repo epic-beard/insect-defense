@@ -1978,6 +1978,10 @@ PrefabInstance:
       propertyPath: exits.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3680971713284993166, guid: 0f8754147aa7d834d8eb40c5a3bbaa79, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6695109641285659238, guid: 0f8754147aa7d834d8eb40c5a3bbaa79, type: 3}
       propertyPath: m_Name
       value: Straight0 (4)
