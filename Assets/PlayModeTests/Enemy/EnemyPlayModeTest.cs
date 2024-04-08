@@ -25,8 +25,10 @@ public class EnemyPlayModeTest {
     // towerInRamge
     towerInRange = towerManager.ConstructTower(inRange, TowerData.Type.SPITTING_ANT_TOWER);
     towerInRange.enabled = true;
+    towerInRange.SetTargetingIndicator(null);
     towerOutOfRange = towerManager.ConstructTower(outOfRange, TowerData.Type.SPITTING_ANT_TOWER);
     towerOutOfRange.enabled = true;
+    towerOutOfRange.SetTargetingIndicator(null);
 
     enemy = CreateEnemy(Vector3.zero);
 
