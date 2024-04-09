@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
@@ -86,6 +87,7 @@ public class Spawner : MonoBehaviour {
   [XmlInclude(typeof(DelayedWave))]
 
   public abstract class Wave {
+    public static Action WaveChanged = delegate { };
     // Starts the wave.  Meant to be called as a Coroutine.
     public abstract IEnumerator Start();
     // Whether or not this wave has completed.
@@ -93,6 +95,12 @@ public class Spawner : MonoBehaviour {
     public bool Finished { get; set; }
 
     public abstract HashSet<EnemyData.Type> GetEnemyTypes();
+
+    public abstract void BindData(VisualElement ve);
+
+    public abstract IList<Wave> GetChildren();
+
+    public abstract bool AddWave(int index, Wave wave);
   }
 
   // The top level of the subwave heirarchy, describing a level.
@@ -141,6 +149,21 @@ public class Spawner : MonoBehaviour {
       }
       return types;
     }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      ve.Add(new Label("Waves"));
+    }
+
+    public override IList<Wave> GetChildren() {
+      return waves;
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      waves.Insert(index, wave);
+      WaveChanged.Invoke();
+      return true;
+    }
   }
 
   public class DelayedWave : Wave {
@@ -161,6 +184,37 @@ public class Spawner : MonoBehaviour {
     public override HashSet<EnemyData.Type> GetEnemyTypes() {
       return wave.GetEnemyTypes();
     }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      Foldout foldout = new();
+      foldout.text = "Delayed";
+
+      FloatField warmupField = new("Warmup: ");
+      warmupField.value = warmup;
+      warmupField.RegisterValueChangedCallback<float>(evt => {
+        warmup = evt.newValue;
+        WaveChanged.Invoke();
+      });
+      foldout.Add(warmupField);
+
+      FloatField cooldownField = new("Cooldown: ");
+      cooldownField.value = cooldown;
+      warmupField.RegisterValueChangedCallback<float>(evt => {
+        cooldown = evt.newValue;
+        WaveChanged.Invoke();
+      });
+      foldout.Add(cooldownField);
+      ve.Add(foldout);
+    }
+    public override IList<Wave> GetChildren() {
+      return new List<Wave>() { wave };
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      //what
+      return false;
+    }
   }
 
   // A wave that calls its subwaves sequentially.
@@ -171,7 +225,7 @@ public class Spawner : MonoBehaviour {
         // Start the subwave and wait till it's finished.
         yield return Spawner.Instance.StartCoroutine(subwave.Start());
       }
-      
+
       Finished = true;
     }
     public override string ToString() {
@@ -185,6 +239,20 @@ public class Spawner : MonoBehaviour {
         types.UnionWith(wave.GetEnemyTypes());
       }
       return types;
+    }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      ve.Add(new Label("Sequential"));
+    }
+    public override IList<Wave> GetChildren() {
+      return Subwaves;
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      Subwaves.Insert(index, wave);
+      WaveChanged.Invoke();
+      return true;
     }
   }
 
@@ -212,6 +280,21 @@ public class Spawner : MonoBehaviour {
         types.UnionWith(wave.GetEnemyTypes());
       }
       return types;
+    }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      ve.Add(new Label("Concurrent"));
+    }
+
+    public override IList<Wave> GetChildren() {
+      return Subwaves;
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      Subwaves.Insert(index, wave);
+      WaveChanged.Invoke();
+      return true;
     }
   }
 
@@ -248,6 +331,44 @@ public class Spawner : MonoBehaviour {
 
     public override HashSet<EnemyData.Type> GetEnemyTypes() {
       return new HashSet<EnemyData.Type>() { data.type };
+    }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      Foldout foldout = new();
+      foldout.text = "Enemy";
+
+      IntegerField repetitionsField = new("Repetitions: ");
+      repetitionsField.value = repetitions;
+      repetitionsField.RegisterValueChangedCallback<int>(evt => { repetitions = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(repetitionsField);
+
+      FloatField repeatDelayField = new("Repeat Delay: ");
+      repeatDelayField.value = repeatDelay;
+      repeatDelayField.RegisterValueChangedCallback<float>(evt => { repeatDelay = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(repeatDelayField);
+
+      IntegerField spawnLocationField = new("Spawn Location: ");
+      spawnLocationField.value = spawnLocation;
+      spawnLocationField.RegisterValueChangedCallback<int>(evt => { spawnLocation = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(spawnLocationField);
+
+      IntegerField spawnAmmountField = new("Spawn Location: ");
+      spawnAmmountField.value = spawnAmmount;
+      spawnAmmountField.RegisterValueChangedCallback<int>(evt => { spawnAmmount = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(spawnAmmountField);
+      ve.Add(foldout);
+
+      //WaveTag: we dont have a solution for nullables yet.
+      //Data: need a solution for this if we're going to support this type of wave.
+    }
+
+    public override IList<Wave> GetChildren() {
+      return new List<Wave>();
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      return false;
     }
 
     // The following method keeps waveTag from serializing when null.
@@ -320,6 +441,53 @@ public class Spawner : MonoBehaviour {
       return new HashSet<EnemyData.Type>() { data.type };
     }
 
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      Foldout foldout = new();
+      foldout.text = "Canned Enemy";
+
+      IntegerField repetitionsField = new("Repetitions: ");
+      repetitionsField.value = repetitions;
+      repetitionsField.RegisterValueChangedCallback<int>(evt => { repetitions = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(repetitionsField);
+
+      FloatField repeatDelayField = new("Repeat Delay: ");
+      repeatDelayField.value = repeatDelay;
+      repeatDelayField.RegisterValueChangedCallback<float>(evt => { repeatDelay = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(repeatDelayField);
+
+      IntegerField spawnLocationField = new("Spawn Location: ");
+      spawnLocationField.value = spawnLocation;
+      spawnLocationField.RegisterValueChangedCallback<int>(evt => { spawnLocation = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(spawnLocationField);
+
+      IntegerField spawnAmmountField = new("Spawn Location: ");
+      spawnAmmountField.value = spawnAmmount;
+      spawnAmmountField.RegisterValueChangedCallback<int>(evt => { spawnAmmount = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(spawnAmmountField);
+
+      TextField enemyDataKeyField = new("Enemy Data Key: ");
+      enemyDataKeyField.value = enemyDataKey;
+      enemyDataKeyField.RegisterValueChangedCallback<string>(evt => { enemyDataKey = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(enemyDataKeyField);
+      ve.Add(foldout);
+      //EnemyStatOverrides Overrides
+      //EnemyData.Properties? Properties;
+      //EnemyData.CarrierProperties? CarrierOverride;
+      //EnemyData.SpawnerProperties? SpawnerOverride;
+      //EnemyData.DazzleProperties? DazzleOverride;
+      //EnemyData.SlimeProperties? SlimeOverride;
+      //WaveTag: we dont have a solution for nullables yet.
+    }
+
+    public override IList<Wave> GetChildren() {
+      return new List<Wave>();
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      return false;
+    }
+
     // The following methods keep the various overrides from serializing when they are unset.
     public bool ShouldSerializeOverrides() { return Overrides != null && Overrides.Count > 0; }
     public bool ShouldSerializeProperties() { return Properties.HasValue; }
@@ -347,6 +515,25 @@ public class Spawner : MonoBehaviour {
     public override HashSet<EnemyData.Type> GetEnemyTypes() {
       return new HashSet<EnemyData.Type>();
     }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      Foldout foldout = new();
+      foldout.text = "Spacer";
+      FloatField delayField = new("Delay: ");
+      delayField.value = delay;
+      delayField.RegisterValueChangedCallback<float>(evt => { delay = evt.newValue; WaveChanged.Invoke(); });
+      foldout.Add(delayField);
+      ve.Add(foldout);
+    }
+
+    public override IList<Wave> GetChildren() {
+      return new List<Wave>();
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      return false;
+    }
   }
 
   public class DialogueBoxWave : Wave {
@@ -367,6 +554,28 @@ public class Spawner : MonoBehaviour {
 
     public override HashSet<EnemyData.Type> GetEnemyTypes() {
       return new HashSet<EnemyData.Type>();
+    }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      Foldout foldout = new();
+      foldout.text = "Dialogue Box";
+      FloatField delayField = new("Delay: ");
+      delayField.value = delay;
+      delayField.RegisterValueChangedCallback<float>(evt => {
+        delay = evt.newValue;
+        WaveChanged.Invoke();
+      });
+      foldout.Add(delayField);
+      ve.Add(foldout);
+    }
+
+    public override IList<Wave> GetChildren() {
+      return new List<Wave>();
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      return false;
     }
   }
 
@@ -391,6 +600,20 @@ public class Spawner : MonoBehaviour {
 
     public override HashSet<EnemyData.Type> GetEnemyTypes() {
       return new HashSet<EnemyData.Type>();
+    }
+
+    public override void BindData(VisualElement ve) {
+      ve.Clear();
+      ve.Add(new Label("Wait Until Dead"));
+      // WaveTag
+    }
+
+    public override IList<Wave> GetChildren() {
+      return new List<Wave>();
+    }
+
+    public override bool AddWave(int index, Wave wave) {
+      return false;
     }
   }
 }

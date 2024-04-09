@@ -5,27 +5,23 @@
     <ui:Template name="TopBar" src="project://database/Assets/Resources/UI/Screens/Terrarium/TopBar/TopBar.uxml?fileID=9197481963319205126&amp;guid=7f7028b60644e3c40879906cba418e71&amp;type=3#TopBar" />
     <ui:Template name="ContextPanel" src="project://database/Assets/Resources/UI/Screens/Terrarium/ContextPanel/ContextPanel.uxml?fileID=9197481963319205126&amp;guid=b5492c09c7f44394fbc44bf6702ba2f2&amp;type=3#ContextPanel" />
     <ui:Template name="TowerSelector" src="project://database/Assets/Resources/UI/Screens/Terrarium/TowerSelector/TowerSelector.uxml?fileID=9197481963319205126&amp;guid=3ade494c6fdabcd4585240bbd2de7115&amp;type=3#TowerSelector" />
-
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/TerrariumScreen.uss?fileID=7433441132597879392&amp;guid=caaa048355cbda54cbadbeda35a0919e&amp;type=3#TerrariumScreen" />
-    
-    <ui:VisualElement class="terrarium-screen-container">
-        <ui:VisualElement class="game-view">
-            <ui:Instance template="WavesCompleted" name="WavesCompleted" class="waves-completed" />
+    <ui:VisualElement picking-mode="Ignore" class="terrarium-screen-container">
+        <ui:VisualElement picking-mode="Ignore" class="game-view">
+            <ui:Instance template="WavesCompleted" name="WavesCompleted" picking-mode="Ignore" class="waves-completed" />
             <ui:VisualElement class="message-box-parent">
                 <ui:Instance template="MessageBox" class="template-container" />
             </ui:VisualElement>
             <ui:Instance template="BottomBar" name="bottom-bar-parent" class="bottom-bar-parent" />
         </ui:VisualElement>
-
         <ui:VisualElement name="sidebar" class="sidebar">
             <ui:Instance template="TopBar" class="top-bar-parent" />
             <ui:Instance template="ContextPanel" class="context-panel-parent" />
             <ui:Instance template="TowerSelector" />
         </ui:VisualElement>
     </ui:VisualElement>
-
-    <ui:VisualElement name="tooltip-container" class="tooltip-container" picking-mode="Ignore">
-        <ui:Label name="tooltip-label" class="tooltip-label" display-tooltip-when-elided="true" tabindex="-1" text="[Default tooltip text]" picking-mode="Ignore" />
+    <ui:VisualElement name="tooltip-container" picking-mode="Ignore" class="tooltip-container">
+        <ui:Label name="tooltip-label" display-tooltip-when-elided="true" tabindex="-1" text="[Default tooltip text]" picking-mode="Ignore" class="tooltip-label" />
     </ui:VisualElement>
 </ui:UXML>
