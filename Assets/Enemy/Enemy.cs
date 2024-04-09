@@ -1,4 +1,5 @@
 using System;
+using Assets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +48,7 @@ public class Enemy : MonoBehaviour {
   public float AcidExplosionStackModifier { get { return data.acidExplosionStackModifier; } }
   public float AcidStackExplosionThreshold {
     get {
-      return data.acidExplosionStackModifier == 0 
+      return data.acidExplosionStackModifier == 0
           ? EnemyData.SizeToAcidExplosionThreshold[data.size]
           : EnemyData.SizeToAcidExplosionThreshold[data.size] * data.acidExplosionStackModifier;
     }
@@ -76,6 +77,7 @@ public class Enemy : MonoBehaviour {
     private set { data.bleedStacks = value; }
   }
   public bool Camo { get { return data.properties == EnemyData.Properties.CAMO; } }
+  public float CamoTransparency { get; private set; } = 0.5f;
   public float Coagulation {
     get {
       return data.coagulationModifier == 0
@@ -191,6 +193,17 @@ public class Enemy : MonoBehaviour {
           GetSlimeAction(slime.duration, slime.power), slime.interval, slime.range));
     }
 
+    // Handle camo
+    if (Camo) {
+      Renderer[] rs = this.GetComponentsInChildren<Renderer>();
+      foreach (Renderer r in rs) {
+        r.material.ToFadeMode();
+        Color c = r.material.color;
+        Color nc = new Color(c.r, c.g, c.b, CamoTransparency);
+        r.material.SetColor("_Color", nc);
+      }
+    }
+
     if (NextWaypoint == null) {
       Debug.Log("[ERROR] NextWaypoint not found.");
       return;
@@ -276,7 +289,7 @@ public class Enemy : MonoBehaviour {
 
   public float TotalBleedDamage() {
     float k = Mathf.Floor(BleedStacks / 10);
-    return (5 * k * (k + 1) + (BleedStacks % 10) * (k + 1) ) / Coagulation;
+    return (5 * k * (k + 1) + (BleedStacks % 10) * (k + 1)) / Coagulation;
   }
 
   // To apply physical damage call DealPhysicalDamage, which will call this.
@@ -371,13 +384,13 @@ public class Enemy : MonoBehaviour {
 
   public void SetStat(EnemyData.Stat stat, float value) {
     switch (stat) {
-    case EnemyData.Stat.MAX_HP: data.maxHP = value; break;
-    case EnemyData.Stat.MAX_ARMOR: data.maxArmor = value; break;
-    case EnemyData.Stat.SPEED: data.speed = value; break;
-    case EnemyData.Stat.DAMAGE: data.damage = value; break;
-    case EnemyData.Stat.NU: data.nu = value; break;
-    case EnemyData.Stat.COAGULATION_MODIFIER: data.coagulationModifier = value; break;
-    case EnemyData.Stat.ACID_EXPLOSION_STACK_MODIFIER: data.acidExplosionStackModifier = value; break;
+      case EnemyData.Stat.MAX_HP: data.maxHP = value; break;
+      case EnemyData.Stat.MAX_ARMOR: data.maxArmor = value; break;
+      case EnemyData.Stat.SPEED: data.speed = value; break;
+      case EnemyData.Stat.DAMAGE: data.damage = value; break;
+      case EnemyData.Stat.NU: data.nu = value; break;
+      case EnemyData.Stat.COAGULATION_MODIFIER: data.coagulationModifier = value; break;
+      case EnemyData.Stat.ACID_EXPLOSION_STACK_MODIFIER: data.acidExplosionStackModifier = value; break;
     }
   }
 
