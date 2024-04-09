@@ -183,32 +183,6 @@ public abstract class Tower : MonoBehaviour {
   // percentage modifier of the base animation speed. Thus a newAttackSpeed of 2.0 would have the
   // animation play twice as fast as the base speed.
   protected abstract void UpdateAnimationSpeed(float newAttackSpeed);
-  private void MarkTarget(Enemy enemy) {
-    if (targetingIndicator != null && enemy != null) {
-      Bounds enemyBound = enemy.GetComponentInChildren<Renderer>().bounds;
-      float ratio = 1.5f;
-
-      Renderer[] renderers = enemy.GetComponentsInChildren<Renderer>();
-      foreach (Renderer r in renderers) {
-        enemyBound.Encapsulate(r.transform.position);
-      }
-
-      targetingIndicator.transform.position = new Vector3(enemyBound.center.x, 0, enemyBound.center.z);
-      targetingIndicator.transform.localScale =
-          new Vector3(
-              enemyBound.size.x * ratio,
-              1,
-              enemyBound.size.z * ratio);
-
-      targetingIndicator.LookAt(this.transform);
-    }
-  }
-  protected void RemoveTargetMark(Enemy enemy) {
-    if (targetingIndicator != null && enemy != null) {
-      targetingIndicator.transform.position = new Vector3(0, -1, 0);
-      targetingIndicator.transform.localScale = new Vector3(1, 1, 1);
-    }
-  }
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
@@ -295,6 +269,34 @@ public abstract class Tower : MonoBehaviour {
     UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     SlimeTime = 0.0f;
     yield return null;
+  }
+
+  private void MarkTarget(Enemy enemy) {
+    if (targetingIndicator != null && enemy != null) {
+      Bounds enemyBound = enemy.GetComponentInChildren<Renderer>().bounds;
+      float ratio = 1.5f;
+
+      Renderer[] renderers = enemy.GetComponentsInChildren<Renderer>();
+      foreach (Renderer r in renderers) {
+        enemyBound.Encapsulate(r.transform.position);
+      }
+
+      targetingIndicator.transform.position = new Vector3(enemyBound.center.x, 0, enemyBound.center.z);
+      targetingIndicator.transform.localScale =
+          new Vector3(
+              enemyBound.size.x * ratio,
+              1,
+              enemyBound.size.z * ratio);
+
+      targetingIndicator.LookAt(this.transform);
+    }
+  }
+
+  private void RemoveTargetMark(Enemy enemy) {
+    if (targetingIndicator != null && enemy != null) {
+      targetingIndicator.transform.position = new Vector3(0, -1, 0);
+      targetingIndicator.transform.localScale = new Vector3(1, 1, 1);
+    }
   }
 
   public override string ToString() {
