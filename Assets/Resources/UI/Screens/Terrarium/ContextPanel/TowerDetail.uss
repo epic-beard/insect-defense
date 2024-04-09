@@ -90,7 +90,8 @@
 
 .tower-upgrade-button {
   width: 90%;
-  height: 10px;
+  height: 40px;
+  margin-bottom: 8px;
 }
 
 .tower-upgrade-tree-label {
