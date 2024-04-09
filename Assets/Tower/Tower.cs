@@ -271,6 +271,7 @@ public abstract class Tower : MonoBehaviour {
     yield return null;
   }
 
+  // Sets a targeting texture beneath the given enemy.
   private void MarkTarget(Enemy enemy) {
     if (targetingIndicator != null && enemy != null) {
       Bounds enemyBound = enemy.GetComponentInChildren<Renderer>().bounds;
@@ -292,6 +293,7 @@ public abstract class Tower : MonoBehaviour {
     }
   }
 
+  // Hides the targeting texture.
   private void RemoveTargetMark(Enemy enemy) {
     if (targetingIndicator != null && enemy != null) {
       targetingIndicator.transform.position = new Vector3(0, -1, 0);
