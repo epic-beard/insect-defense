@@ -172,9 +172,9 @@ public class WebShootingSpiderTowerPlayModeTest {
     var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
     var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
 
-    Assert.That(target.BaseSpeed, Is.EqualTo(baseEnemySpeed));
-    Assert.That(enemyInRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
-    Assert.That(enemyOutOfRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
+    Assert.That(target.OriginalSpeed, Is.EqualTo(baseEnemySpeed));
+    Assert.That(enemyInRange.OriginalSpeed, Is.EqualTo(baseEnemySpeed));
+    Assert.That(enemyOutOfRange.OriginalSpeed, Is.EqualTo(baseEnemySpeed));
 
     Time.captureDeltaTime = 0.001f;
     // Yield once to target enemy.
@@ -187,10 +187,9 @@ public class WebShootingSpiderTowerPlayModeTest {
     yield return null;
     yield return new WaitForEndOfFrame();
 
-    Assert.That(target.BaseSpeed, Is.EqualTo(baseEnemySpeed * slowPower));
     Assert.That(target.Speed, Is.LessThan(baseEnemySpeed * slowPower));
-    Assert.That(enemyInRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
-    Assert.That(enemyOutOfRange.BaseSpeed, Is.EqualTo(baseEnemySpeed));
+    Assert.That(enemyInRange.OriginalSpeed, Is.EqualTo(baseEnemySpeed));
+    Assert.That(enemyOutOfRange.OriginalSpeed, Is.EqualTo(baseEnemySpeed));
 
     yield return null;
   }

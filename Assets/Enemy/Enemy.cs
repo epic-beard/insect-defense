@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour {
       HP = value.maxHP;
       Armor = value.maxArmor;
       data = value;
+      OriginalSpeed = value.speed;
     }
   }
 
@@ -26,6 +27,8 @@ public class Enemy : MonoBehaviour {
   public HashSet<Tower> webShootingTowerPermSlow = new();
   // Map of SpittingAntTowers to the duration of their acid decay delay.
   public Dictionary<Tower, float> AdvancedAcidDecayDelay = new();
+
+  private Animator animator;
 
   private Transform target;
   private float xVariance;
@@ -70,7 +73,6 @@ public class Enemy : MonoBehaviour {
       StatChangedEvent?.Invoke(this);
     }
   }
-  public float BaseSpeed { get { return data.speed; } }
   public bool BigTarget { get { return data.properties == EnemyData.Properties.BIG_TARGET; } }
   public float BleedStacks {
     get { return data.bleedStacks; }
@@ -136,6 +138,7 @@ public class Enemy : MonoBehaviour {
       StatChangedEvent?.Invoke(this);
     }
   }
+  public float OriginalSpeed { get; private set; }
   public EnemyData.Size Size { get { return data.size; } }
   public EnemyData.SlimeProperties? Slime {
     get { return data.slime; }
@@ -168,6 +171,7 @@ public class Enemy : MonoBehaviour {
     if (transform.childCount > 0) {
       target = transform.GetChild(0).Find("target");
     }
+    animator = this.GetComponentInChildren<Animator>();
 
     StartCoroutine(HandleStun());
     StartCoroutine(HandleAdvancedAcidDecay());
@@ -218,6 +222,7 @@ public class Enemy : MonoBehaviour {
       SlowDuration = Mathf.Max(SlowDuration - Time.deltaTime, 0.0f);
       if (SlowDuration <= 0.0f) {
         SlowPower = 0.0f;
+        UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
       }
     }
 
@@ -332,6 +337,7 @@ public class Enemy : MonoBehaviour {
       newDuration = SlowDuration + (incomingSlowDuration / multiplier);
     }
     SlowPower = Mathf.Max(SlowPower, incomingSlowPower);
+    UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     SlowDuration = newDuration;
   }
 
@@ -339,6 +345,7 @@ public class Enemy : MonoBehaviour {
   // slow is expected to be 0.0 - 1.0 and is used as a multiplier.
   public void ApplyPermanentSlow(float slow) {
     data.speed *= slow;
+    UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
   }
 
   public void ApplyCripple() {
@@ -414,6 +421,16 @@ public class Enemy : MonoBehaviour {
     data.slime = slime;
   }
 
+  private float GetAnimationSpeedMultiplier() {
+    return Speed / OriginalSpeed;
+  }
+
+  private void UpdateAnimationSpeed(float newSpeed) {
+    if (animator != null) {
+      animator.SetFloat("Speed", newSpeed);
+    }
+  }
+
   // Handle ensuring that the advanced acid decay delay decays at the appropriate pace.
   private IEnumerator HandleAdvancedAcidDecay() {
     while (true) {
@@ -454,13 +471,14 @@ public class Enemy : MonoBehaviour {
       // Wait until the enemy has a nonzero StunTime.
       yield return new WaitUntil(() => 0.0f < StunTime);
       data.speed = 0.0f;
+      UpdateAnimationSpeed(0.0f);
       float interimStunTime = StunTime;
       yield return new WaitForSeconds(interimStunTime);
       StunTime -= interimStunTime;
       data.speed = originalSpeed;
+      UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     }
   }
-
 
   private IEnumerator FollowPath() {
     while (NextWaypoint != null) {
