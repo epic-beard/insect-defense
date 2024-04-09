@@ -1,12 +1,16 @@
 .bottom-bar-container {
-    flex-direction: row;
-    justify-content: flex-start;
+    width: 100%;
     color: #fff80d;
 }
 
 .controls-container {
+    display: flex;
     flex-direction: row;
-    flex-grow: 1;
-    justify-content: flex-end;
-    align-items: flex-end;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.settings-button {
+    position: absolute;
+    right: 390px;
 }

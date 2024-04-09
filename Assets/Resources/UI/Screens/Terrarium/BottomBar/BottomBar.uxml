@@ -1,11 +1,11 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/BottomBar/BottomBar.uss?fileID=7433441132597879392&amp;guid=e8dd87e62615b4d43a2d9b62cb4750a6&amp;type=3#BottomBar" />
     
     <ui:VisualElement class="bottom-bar-container">
         <ui:VisualElement class="controls-container">
             <ui:Button name="play-pause-button" focusable="false" class="primary-button" text="&lt;Default&gt;" />
-            <ui:Button name="settings-button" focusable="false" class="tertiary-button" text="Settings" />
         </ui:VisualElement>
+        <ui:Button name="settings-button" focusable="false" class="settings-button tertiary-button" text="Settings" />
     </ui:VisualElement>
 </ui:UXML>

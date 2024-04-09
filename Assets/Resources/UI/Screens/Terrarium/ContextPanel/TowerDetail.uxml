@@ -6,8 +6,9 @@
         <ui:VisualElement class="tower-detail-top-bar">
             <ui:Label name="tower-name" class="tower-name" text="&lt;towername&gt;" />
             <ui:VisualElement class="tower-icon"></ui:VisualElement>
-            <ui:Label class="tower-description" text="Tower Description" />
-            <ui:Button text="Sell" name="sell-tower" class="sell-tower-button primary-button" />
+            <ui:VisualElement class="sell-tower-button-container">
+              <ui:Button text="Sell" name="sell-tower" class="sell-tower-button primary-button" />
+            </ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement class="tower-detail-targeting-container">
@@ -17,20 +18,32 @@
 
         <ui:VisualElement class="tower-detail-stats-container">
             <ui:VisualElement class="tower-detail-stats-col">
-                <ui:Label class="tower-detail-stat-label" text="Damage" />
-                <ui:Label name="tower-stat-damage" class="tower-detail-stat-value" text="&lt;towerdamage&gt;" />
-                <ui:Label class="tower-detail-stat-label" text="Attack Speed" />
-                <ui:Label name="tower-stat-attack-speed" class="tower-detail-stat-value" text="&lt;towerattackspeed&gt;" />
-                <ui:Label class="tower-detail-stat-label" text="Range" />
-                <ui:Label name="tower-stat-range" class="tower-detail-stat-value" text="&lt;towerrange&gt;" />
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ui:Label class="tower-detail-stat-label" text="D" />
+                    <ui:Label name="tower-stat-damage" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ui:Label class="tower-detail-stat-label" text="AS" />
+                    <ui:Label name="tower-stat-attack-speed" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ui:Label class="tower-detail-stat-label" text="R" />
+                    <ui:Label name="tower-stat-range" class="tower-detail-stat-value" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="tower-detail-stats-col">
-                <ui:Label class="tower-detail-stat-label" text="Armor Pierce" />
-                <ui:Label name="tower-stat-armor-pierce" class="tower-detail-stat-value" text="&lt;towerarmorpierce&gt;" />
-                <ui:Label class="tower-detail-stat-label" text="Area of Effect" />
-                <ui:Label name="tower-stat-area-of-effect" class="tower-detail-stat-value" text="&lt;towerareaofeffect&gt;" />
-                <ui:Label class="tower-detail-stat-label" text="Damage Over Time" />
-                <ui:Label name="tower-stat-damage-over-time" class="tower-detail-stat-value" text="&lt;towerdamageovertime&gt;" />
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ui:Label class="tower-detail-stat-label" text="AP" />
+                    <ui:Label name="tower-stat-armor-pierce" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ui:Label class="tower-detail-stat-label" text="AoE" />
+                    <ui:Label name="tower-stat-area-of-effect" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ui:Label class="tower-detail-stat-label" text="DoTS" />
+                    <ui:Label name="tower-stat-dot-stacks" class="tower-detail-stat-value" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
 

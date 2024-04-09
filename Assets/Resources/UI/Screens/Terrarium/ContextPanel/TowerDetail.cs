@@ -9,7 +9,6 @@ public class TowerDetail : MonoBehaviour {
 
   readonly private string towerNameLabelName = "tower-name";
   readonly private string towerIconElementName = "tower-icon";
-  readonly private string towerDescriptionLabelName = "tower-description";
   readonly private string sellTowerButtonName = "sell-tower";
 
   readonly private string towerBehaviorDropdownName = "tower-behavior";
@@ -22,14 +21,13 @@ public class TowerDetail : MonoBehaviour {
   readonly private string towerStatRangeName = "tower-stat-range";
   readonly private string towerStatArmorPierceName = "tower-stat-armor-pierce";
   readonly private string towerStatAreaOfEffectName = "tower-stat-area-of-effect";
-  readonly private string towerStatDamageOverTimeName = "tower-stat-damage-over-time";
+  readonly private string towerStatDotStacksName = "tower-stat-dot-stacks";
 
   private UIDocument uiDocument;
   private VisualElement rootElement;
 
   private Label towerNameLabel;
   private VisualElement towerIconElement;
-  private Label towerDescriptionLabel;
   private Button sellTowerButton;
 
   private DropdownField towerBehaviorDropdown;
@@ -40,7 +38,7 @@ public class TowerDetail : MonoBehaviour {
   private Label towerStatRange;
   private Label towerStatArmorPierce;
   private Label towerStatAreaOfEffect;
-  private Label towerStatDamageOverTime;
+  private Label towerStatDotStacks;
   
   private Button[,] towerUpgradeButtons = new Button[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
@@ -58,7 +56,6 @@ public class TowerDetail : MonoBehaviour {
 
     towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
     towerIconElement = rootElement.Q<VisualElement>(className: towerIconElementName);
-    towerDescriptionLabel = rootElement.Q<Label>(className: towerDescriptionLabelName);
     sellTowerButton = rootElement.Q<Button>(sellTowerButtonName);
 
     towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
@@ -69,7 +66,7 @@ public class TowerDetail : MonoBehaviour {
     towerStatRange = rootElement.Q<Label>(towerStatRangeName);
     towerStatArmorPierce = rootElement.Q<Label>(towerStatArmorPierceName);
     towerStatAreaOfEffect = rootElement.Q<Label>(towerStatAreaOfEffectName);
-    towerStatDamageOverTime = rootElement.Q<Label>(towerStatDamageOverTimeName);
+    towerStatDotStacks = rootElement.Q<Label>(towerStatDotStacksName);
   }
 
   private void RegisterCallbacks() {
@@ -176,12 +173,16 @@ public class TowerDetail : MonoBehaviour {
   public void SetContextForTower(Tower tower) {
     towerNameLabel.text = tower.Name;
     towerIconElement.style.backgroundImage = Resources.Load<Texture2D>("Icons/test");
-    towerDescriptionLabel.text = "placeholder";
 
     towerBehaviorDropdown.index = ((int)tower.Behavior);
     towerPriorityDropdown.index = ((int)tower.Priority);
 
     towerStatDamage.text = tower.Damage.ToString();
+    towerStatAttackSpeed.text = tower.AttackSpeed.ToString();
+    towerStatRange.text = tower.Range.ToString();
+    towerStatArmorPierce.text = tower.ArmorPierce.ToString();
+    towerStatAreaOfEffect.text = tower.AreaOfEffect.ToString();
+    towerStatDotStacks.text = tower.DamageOverTime.ToString();
 
     // Ensure only the correct button is enabled for clicking.
     for (int i = 0; i < 3; i++)
