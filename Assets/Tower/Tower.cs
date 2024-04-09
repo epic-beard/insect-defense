@@ -137,6 +137,8 @@ public abstract class Tower : MonoBehaviour {
     set { targeting.priority = value; }
   }
 
+  private MeshRenderer targetingIndicatorMeshRenderer;
+
   // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
   public string GetUpgradePathName(int index) {
     return index switch {
@@ -159,6 +161,7 @@ public abstract class Tower : MonoBehaviour {
 
   private void Start() {
     TowerStart();
+    targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
   }
 
   private void Update() {
@@ -274,6 +277,7 @@ public abstract class Tower : MonoBehaviour {
   // Sets a targeting texture beneath the given enemy.
   private void MarkTarget(Enemy enemy) {
     if (targetingIndicator != null && enemy != null) {
+      targetingIndicatorMeshRenderer.enabled = true;
       Bounds enemyBound = enemy.GetComponentInChildren<Renderer>().bounds;
       float ratio = 1.5f;
 
@@ -296,8 +300,7 @@ public abstract class Tower : MonoBehaviour {
   // Hides the targeting texture.
   private void RemoveTargetMark(Enemy enemy) {
     if (targetingIndicator != null && enemy != null) {
-      targetingIndicator.transform.position = new Vector3(0, -1, 0);
-      targetingIndicator.transform.localScale = new Vector3(1, 1, 1);
+      targetingIndicatorMeshRenderer.enabled = false;
     }
   }
 

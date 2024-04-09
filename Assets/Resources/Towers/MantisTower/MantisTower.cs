@@ -110,7 +110,7 @@ public class MantisTower : Tower {
     // Ensure that the target enemy is not among those reviewed for secondary damage.
     List<Enemy> potentialVictims = targeting.GetAllValidEnemiesInRange(
         enemies: ObjectPool.Instance.GetActiveEnemies().Where(e => !e.Equals(Target)).ToHashSet(),
-        towerPosition: transform.position.DropY(),
+        towerPosition: transform.position,
         towerRange: Range,
         camoSight: CamoSight,
         antiAir: AntiAir);
