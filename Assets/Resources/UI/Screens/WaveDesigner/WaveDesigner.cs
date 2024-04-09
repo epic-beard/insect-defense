@@ -55,7 +55,7 @@ public class WaveDesigner : MonoBehaviour {
       treeView.viewController.RebuildTree();
       int index = treeView.viewController.GetChildIndexForId(itemIdBeingMoved);
       if (!parent.AddWave(index, wave)) {
-        // reording didnt work so rebuild the tree.
+        // reordering didnt work so rebuild the tree.
         treeView.SetRootItems(GetRoots());
       }
     };
