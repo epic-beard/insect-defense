@@ -83,6 +83,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
       propertyPath: m_Name
       value: hercules beetle
@@ -186,7 +202,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2166917792933380144, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
       propertyPath: m_Name
-      value: Enemy Variant
+      value: Hercules Beetle
       objectReference: {fileID: 0}
     - target: {fileID: 2166917792933380302, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
       propertyPath: m_RootOrder
