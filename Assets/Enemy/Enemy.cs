@@ -161,7 +161,7 @@ public class Enemy : MonoBehaviour {
   #endregion
 
   // PrevWaypoint should be set before OnEnable is called.
-  void OnEnable() {
+  void Start() {
     NextWaypoint = PrevWaypoint.GetNextWaypoint();
     if (transform.childCount > 0) {
       target = transform.GetChild(0).Find("target");

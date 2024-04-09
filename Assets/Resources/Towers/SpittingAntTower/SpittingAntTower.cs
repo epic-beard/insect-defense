@@ -22,15 +22,14 @@ public class SpittingAntTower : Tower {
   }
   public override TowerData.Type Type { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
 
-  private Enemy enemy;
   private ProjectileHandler projectileHandler;
   private bool canFire {
     get {
-      return enemy != null && enemy.isActiveAndEnabled;
+      return Target != null && Target.isActiveAndEnabled;
     }
   }
 
-  private void Start() {
+  protected override void TowerStart() {
     projectileHandler = new(splash, ProjectileSpeed, hitRange);
 
     StartCoroutine(SplashShoot());
@@ -119,30 +118,30 @@ public class SpittingAntTower : Tower {
 
   protected override void TowerUpdate() {
     if (!ContinuousAttack) {
-      projectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
+      projectileHandler.UpdateParticles(Target, ProcessDamageAndEffects);
     }
 
-    enemy = targeting.FindTarget(
-      oldTarget: enemy,
+    Target = targeting.FindTarget(
+      oldTarget: Target,
       enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
     // If there is no target, stop firing.
-    if (enemy == null) {
+    if (Target == null) {
       beam.enabled = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      upperMesh.LookAt(enemy.AimPoint);
+      upperMesh.LookAt(Target.AimPoint);
 
       if (ContinuousAttack) {
         beam.enabled = true;
         beam.SetPosition(
             1,  // The end point of the line renderer.
-            enemy.AimPoint - beam.transform.position);  // The place to aim.
+            Target.AimPoint - beam.transform.position);  // The place to aim.
 
-        ProcessDamageAndEffects(enemy);
+        ProcessDamageAndEffects(Target);
       }
     }
   }

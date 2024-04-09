@@ -5,6 +5,7 @@ using System.Linq;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
+  [SerializeField] protected Transform targetingIndicator;
 
   #region PublicProperties
   public float AttackSpeed {
@@ -100,6 +101,7 @@ public abstract class Tower : MonoBehaviour {
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
   public Tile Tile { get; set; }
+  public Enemy Target { get; protected set; }
 
   // The total Nu the tower has cost the player.
   public int Value {
@@ -135,6 +137,8 @@ public abstract class Tower : MonoBehaviour {
     set { targeting.priority = value; }
   }
 
+  private MeshRenderer targetingIndicatorMeshRenderer;
+
   // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
   public string GetUpgradePathName(int index) {
     return index switch {
@@ -155,8 +159,16 @@ public abstract class Tower : MonoBehaviour {
     };
   }
 
+  private void Start() {
+    TowerStart();
+    targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
+  }
+
   private void Update() {
+    Enemy oldTarget = Target;
     TowerUpdate();
+    RemoveTargetMark(oldTarget);
+    MarkTarget(Target);
   }
 
   private void OnDestroy() {
@@ -167,6 +179,7 @@ public abstract class Tower : MonoBehaviour {
 
   // Abstract methods
   protected abstract void TowerUpdate();
+  protected abstract void TowerStart();
   public abstract TowerData.Type Type { get; set; }
   public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
   // This method is intended to set the animation speed, thus newAttackSpeed is understood to be a
@@ -259,6 +272,36 @@ public abstract class Tower : MonoBehaviour {
     UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     SlimeTime = 0.0f;
     yield return null;
+  }
+
+  // Sets a targeting texture beneath the given enemy.
+  private void MarkTarget(Enemy enemy) {
+    if (targetingIndicator != null && enemy != null) {
+      targetingIndicatorMeshRenderer.enabled = true;
+      Bounds enemyBound = enemy.GetComponentInChildren<Renderer>().bounds;
+      float ratio = 1.5f;
+
+      Renderer[] renderers = enemy.GetComponentsInChildren<Renderer>();
+      foreach (Renderer r in renderers) {
+        enemyBound.Encapsulate(r.transform.position);
+      }
+
+      targetingIndicator.transform.position = new Vector3(enemyBound.center.x, 0, enemyBound.center.z);
+      targetingIndicator.transform.localScale =
+          new Vector3(
+              enemyBound.size.x * ratio,
+              1,
+              enemyBound.size.z * ratio);
+
+      targetingIndicator.LookAt(this.transform);
+    }
+  }
+
+  // Hides the targeting texture.
+  private void RemoveTargetMark(Enemy enemy) {
+    if (targetingIndicator != null && enemy != null) {
+      targetingIndicatorMeshRenderer.enabled = false;
+    }
   }
 
   public override string ToString() {
