@@ -44,7 +44,9 @@ public class WaveDesigner : MonoBehaviour {
   }
 
   private void RegisterCallbacks() {
+    // If we have problems with the current system for rejecting a drag and drop we may need to implement this.
     //treeView.RegisterCallback<DragUpdatedEvent>(evt => {
+    //  // Check if we are over an invalid target.
     //  DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
     //});
     treeView.itemIndexChanged += (itemIdBeingMoved, newParentId) => {
