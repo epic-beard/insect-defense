@@ -18,12 +18,11 @@ public class WebShootingSpiderTower : Tower {
   public float GroundedTime { get; } = 0.5f;
   public override TowerData.Type Type { get; set; } = TowerData.Type.WEB_SHOOTING_SPIDER_TOWER;
 
-  private Enemy enemy;
   private bool firing = false;
   private ProjectileHandler primaryProjectileHandler;
   private ProjectileHandler secondaryProjectileHandler;
 
-  private void Start() {
+  protected override void TowerStart() {
     primaryProjectileHandler = new(primaryWebShot, ProjectileSpeed, hitRange);
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
     StartCoroutine(WebShoot());
@@ -92,24 +91,26 @@ public class WebShootingSpiderTower : Tower {
   }
 
   protected override void TowerUpdate() {
-    enemy = targeting.FindTarget(
-      oldTarget: enemy,
+    Target = targeting.FindTarget(
+      oldTarget: Target,
       enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
-    if (enemy == null) {
+    if (Target == null) {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
     } else {
-      mesh.LookAt(enemy.AimPoint);
+      mesh.LookAt(Target.AimPoint);
       firing = true;
     }
-    primaryProjectileHandler.UpdateParticles(enemy, ProcessDamageAndEffects);
+    primaryProjectileHandler.UpdateParticles(Target, ProcessDamageAndEffects);
     // Null is passed because secondaryProjectileHanlder should never have unassociated particles at this point.
     secondaryProjectileHandler.UpdateParticles(null, ProcessSecondarySlowEffects);
   }
+
+  protected override void UpdateAnimationSpeed(float newAttackSpeed) {}
 
   private IEnumerator WebShoot() {
     while (true) {

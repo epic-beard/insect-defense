@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
+  [SerializeField] protected Transform targetingIndicator;
 
   #region PublicProperties
   public float AttackSpeed {
@@ -27,6 +27,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.ARMOR_TEAR]; }
     set { data[TowerData.Stat.ARMOR_TEAR] = value; }
   }
+  public float BaseAttackSpeed { get; private set; }
   public float Cost {
     get { return data[TowerData.Stat.COST]; }
     set { data[TowerData.Stat.COST] = value; }
@@ -100,6 +101,7 @@ public abstract class Tower : MonoBehaviour {
     set { towerAbilities[TowerAbility.Type.CRIPPLE] = value; }
   }
   public Tile Tile { get; set; }
+  public Enemy Target { get; protected set; }
 
   // The total Nu the tower has cost the player.
   public int Value {
@@ -135,6 +137,8 @@ public abstract class Tower : MonoBehaviour {
     set { targeting.priority = value; }
   }
 
+  private MeshRenderer targetingIndicatorMeshRenderer;
+
   // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
   public string GetUpgradePathName(int index) {
     return index switch {
@@ -155,8 +159,16 @@ public abstract class Tower : MonoBehaviour {
     };
   }
 
+  private void Start() {
+    TowerStart();
+    targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
+  }
+
   private void Update() {
+    Enemy oldTarget = Target;
     TowerUpdate();
+    RemoveTargetMark(oldTarget);
+    MarkTarget(Target);
   }
 
   private void OnDestroy() {
@@ -167,8 +179,13 @@ public abstract class Tower : MonoBehaviour {
 
   // Abstract methods
   protected abstract void TowerUpdate();
+  protected abstract void TowerStart();
   public abstract TowerData.Type Type { get; set; }
   public abstract void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability);
+  // This method is intended to set the animation speed, thus newAttackSpeed is understood to be a
+  // percentage modifier of the base animation speed. Thus a newAttackSpeed of 2.0 would have the
+  // animation play twice as fast as the base speed.
+  protected abstract void UpdateAnimationSpeed(float newAttackSpeed);
 
   // TODO: Add an enforcement mechanic to make sure the player follows the 5-3-1 structure.
   public void Upgrade(TowerAbility ability) {
@@ -181,6 +198,9 @@ public abstract class Tower : MonoBehaviour {
         switch (modifier.mode) {
           case TowerAbility.Mode.MULTIPLICATIVE:
             data[modifier.attribute] *= modifier.mod;
+            if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
+              UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
+            }
             break;
           case TowerAbility.Mode.ADDITIVE:
             data[modifier.attribute] += modifier.mod;
@@ -205,6 +225,11 @@ public abstract class Tower : MonoBehaviour {
 
   public void SetTowerData(TowerData data) {
     this.data = data;
+    BaseAttackSpeed = data[TowerData.Stat.ATTACK_SPEED];
+  }
+
+  public float GetAnimationSpeedMultiplier() {
+    return SlimePower * AttackSpeed / BaseAttackSpeed;
   }
 
   public void ApplyDazzle(float duration) {
@@ -229,12 +254,13 @@ public abstract class Tower : MonoBehaviour {
   public void ApplySlime(float duration, float power) {
     if (SlimeTime > 0) {
       SlimeTime = Mathf.Max(SlimeTime, duration);
-      SlimePower = Mathf.Max(SlimePower, power);
+      SlimePower = Mathf.Min(SlimePower, power);
     } else {
       SlimeTime = duration;
       SlimePower = power;
       StartCoroutine(HandleSlime());
     }
+    UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
   }
 
   private IEnumerator HandleSlime() {
@@ -243,8 +269,39 @@ public abstract class Tower : MonoBehaviour {
       SlimeTime -= Time.deltaTime;
     }
     SlimePower = 1.0f;
+    UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     SlimeTime = 0.0f;
     yield return null;
+  }
+
+  // Sets a targeting texture beneath the given enemy.
+  private void MarkTarget(Enemy enemy) {
+    if (targetingIndicator != null && enemy != null) {
+      targetingIndicatorMeshRenderer.enabled = true;
+      Bounds enemyBound = enemy.GetComponentInChildren<Renderer>().bounds;
+      float ratio = 1.5f;
+
+      Renderer[] renderers = enemy.GetComponentsInChildren<Renderer>();
+      foreach (Renderer r in renderers) {
+        enemyBound.Encapsulate(r.transform.position);
+      }
+
+      targetingIndicator.transform.position = new Vector3(enemyBound.center.x, 0, enemyBound.center.z);
+      targetingIndicator.transform.localScale =
+          new Vector3(
+              enemyBound.size.x * ratio,
+              1,
+              enemyBound.size.z * ratio);
+
+      targetingIndicator.LookAt(this.transform);
+    }
+  }
+
+  // Hides the targeting texture.
+  private void RemoveTargetMark(Enemy enemy) {
+    if (targetingIndicator != null && enemy != null) {
+      targetingIndicatorMeshRenderer.enabled = false;
+    }
   }
 
   public override string ToString() {

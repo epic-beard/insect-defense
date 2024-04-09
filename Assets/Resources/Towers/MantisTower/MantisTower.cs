@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,6 @@ public class MantisTower : Tower {
   }
 
   private Animator animator;
-  private Enemy target;
   private bool firing = false;
   private Dictionary<MantisAttackType, Transform> attackOriginMap = new();
   private float secondaryDamageModifier = 0.5f;
@@ -43,7 +43,7 @@ public class MantisTower : Tower {
   private readonly string lowerRightName = "LR Arm Holder/LR Shoulder";
   private readonly string lowerLeftName = "LL Arm Holder/LL Shoulder";
 
-  private void Start() {
+  protected override void TowerStart() {
     animator = GetComponent<Animator>();
 
     attackOriginMap = new() {
@@ -87,29 +87,29 @@ public class MantisTower : Tower {
 
   // This method is called by an AnimationEvent embedded within the Mantis' attack animations.
   public void ProcessDamageAndEffects(MantisAttackType attackType) {
-    if (target == null) return;
-    if (target.enabled) {
-      if (BloodyExecution && target.IsDoomedByBlood()) {
-        target.DealDamage(target.HP, DamageText.DamageType.BLEED);
+    if (Target == null) return;
+    if (Target.enabled) {
+      if (BloodyExecution && Target.IsDoomedByBlood()) {
+        Target.DealDamage(Target.HP, DamageText.DamageType.BLEED);
       } else {
-        target.DealPhysicalDamage(Damage, ArmorPierce, false);
-        target.AddBleedStacks(DamageOverTime);
+        Target.DealPhysicalDamage(Damage, ArmorPierce, false);
+        Target.AddBleedStacks(DamageOverTime);
         if (CrippleAttack) {
-          target.ApplyCripple();
+          Target.ApplyCripple();
           CrippleAttack = false;
         }
       }
     }
 
     Vector3 A = attackOriginMap[attackType].position;
-    Vector3 B = target.transform.position;
+    Vector3 B = Target.transform.position;
 
     A.y = 0;
     B.y = 0;
 
     // Ensure that the target enemy is not among those reviewed for secondary damage.
     List<Enemy> potentialVictims = targeting.GetAllValidEnemiesInRange(
-        enemies: ObjectPool.Instance.GetActiveEnemies().Where(e => !e.Equals(target)).ToHashSet(),
+        enemies: ObjectPool.Instance.GetActiveEnemies().Where(e => !e.Equals(Target)).ToHashSet(),
         towerPosition: transform.position,
         towerRange: Range,
         camoSight: CamoSight,
@@ -143,24 +143,30 @@ public class MantisTower : Tower {
   protected override void TowerUpdate() {
     if (!FrozenTarget) {
 
-      target = targeting.FindTarget(
-      oldTarget: target,
+      Target = targeting.FindTarget(
+      oldTarget: Target,
       enemies: ObjectPool.Instance.GetActiveEnemies(),
       towerPosition: transform.position,
       towerRange: Range,
       camoSight: CamoSight,
       antiAir: AntiAir);
 
-      if (target == null) {
+      if (Target == null) {
         firing = false;
       } else {
-        bodyMesh.LookAt(target.AimPoint - (Vector3.up * 4));
+        bodyMesh.LookAt(Target.AimPoint - (Vector3.up * 4));
         firing = true;
       }
-    } else if (target != null) {
-      bodyMesh.LookAt(target.AimPoint - (Vector3.up * 4));
-    } else if (target == null) {
+    } else if (Target != null) {
+      bodyMesh.LookAt(Target.AimPoint - (Vector3.up * 4));
+    } else if (Target == null) {
       firing = false;
+    }
+  }
+
+  protected override void UpdateAnimationSpeed(float newAttackSpeed) {
+    if (animator != null) {
+      animator.SetFloat("Speed", newAttackSpeed);
     }
   }
 
