@@ -212,7 +212,6 @@ public class Spawner : MonoBehaviour {
     }
 
     public override bool AddWave(int index, Wave wave) {
-      //what
       return false;
     }
   }
@@ -359,8 +358,9 @@ public class Spawner : MonoBehaviour {
       foldout.Add(spawnAmmountField);
       ve.Add(foldout);
 
-      //WaveTag: we dont have a solution for nullables yet.
-      //Data: need a solution for this if we're going to support this type of wave.
+      // TODO(nnewsom) implement:
+      // WaveTag: we dont have a solution for nullables yet.
+      // Data: need a solution for this if we're going to support this type of wave.
     }
 
     public override IList<Wave> GetChildren() {
@@ -471,13 +471,15 @@ public class Spawner : MonoBehaviour {
       enemyDataKeyField.RegisterValueChangedCallback<string>(evt => { enemyDataKey = evt.newValue; WaveChanged.Invoke(); });
       foldout.Add(enemyDataKeyField);
       ve.Add(foldout);
-      //EnemyStatOverrides Overrides
-      //EnemyData.Properties? Properties;
-      //EnemyData.CarrierProperties? CarrierOverride;
-      //EnemyData.SpawnerProperties? SpawnerOverride;
-      //EnemyData.DazzleProperties? DazzleOverride;
-      //EnemyData.SlimeProperties? SlimeOverride;
-      //WaveTag: we dont have a solution for nullables yet.
+
+      // TODO(nnewsom) implement:
+      // EnemyStatOverrides Overrides
+      // EnemyData.Properties? Properties;
+      // EnemyData.CarrierProperties? CarrierOverride;
+      // EnemyData.SpawnerProperties? SpawnerOverride;
+      // EnemyData.DazzleProperties? DazzleOverride;
+      // EnemyData.SlimeProperties? SlimeOverride;
+      // WaveTag: we dont have a solution for nullables yet.
     }
 
     public override IList<Wave> GetChildren() {
@@ -605,6 +607,7 @@ public class Spawner : MonoBehaviour {
     public override void BindData(VisualElement ve) {
       ve.Clear();
       ve.Add(new Label("Wait Until Dead"));
+      // TODO(nnewsom) implement:
       // WaveTag
     }
 
