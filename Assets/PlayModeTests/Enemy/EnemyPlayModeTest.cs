@@ -22,7 +22,6 @@ public class EnemyPlayModeTest {
 
     towerManager = CreateTowerManager();
 
-    // towerInRamge
     towerInRange = towerManager.ConstructTower(inRange, TowerData.Type.SPITTING_ANT_TOWER);
     towerInRange.enabled = true;
     towerInRange.SetTargetingIndicator(null);
