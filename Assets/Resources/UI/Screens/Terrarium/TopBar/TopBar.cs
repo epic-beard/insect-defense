@@ -6,10 +6,12 @@ public class TopBar : MonoBehaviour {
 
   readonly private string hpLabelName = "hp-label";
   readonly private string waveLabelName = "wave-label";
+  readonly private string nuLabelName = "nu-amount-label";
 
   private UIDocument uiDocument;
   private Label hpLabelVE;
   private Label waveLabelVE;
+  private Label nuLabelVE;
 
   private void Awake() {
     Instance = this;
@@ -25,6 +27,8 @@ public class TopBar : MonoBehaviour {
     VisualElement rootElement = uiDocument.rootVisualElement;
     hpLabelVE = rootElement.Q<Label>(hpLabelName);
     waveLabelVE = rootElement.Q<Label>(waveLabelName);
+    nuLabelVE = rootElement.Q<Label>(nuLabelName);
+    GameStateManager.OnNuChanged += UpdateNu;
   }
 
   private void OnHealthChanged(int hp) {
@@ -41,5 +45,9 @@ public class TopBar : MonoBehaviour {
 
   public void UpdateWaveLabel(int currWave, int numWaves) {
     waveLabelVE.text = "Wave: " + currWave + "/" + numWaves;
+  }
+
+  public void UpdateNu(int nu) {
+    nuLabelVE.text = nu.ToString();
   }
 }

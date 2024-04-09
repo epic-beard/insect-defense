@@ -3,11 +3,6 @@
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/BottomBar/BottomBar.uss?fileID=7433441132597879392&amp;guid=e8dd87e62615b4d43a2d9b62cb4750a6&amp;type=3#BottomBar" />
     
     <ui:VisualElement class="bottom-bar-container">
-        <ui:VisualElement class="nu-container">
-            <ui:Label class="nu-symbol" text="ŋ" />
-            <ui:Label name="nu-amount-label" class="nu-amount" text="0" />
-        </ui:VisualElement>
-        
         <ui:VisualElement class="controls-container">
             <ui:Button name="play-pause-button" focusable="false" class="primary-button" text="&lt;Default&gt;" />
             <ui:Button name="settings-button" focusable="false" class="tertiary-button" text="Settings" />

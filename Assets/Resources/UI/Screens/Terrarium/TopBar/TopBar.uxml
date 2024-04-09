@@ -2,12 +2,17 @@
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/TopBar/TopBar.uss?fileID=7433441132597879392&amp;guid=da08b37f763386247ac830d31062ffac&amp;type=3#TopBar" />
     
-    <ui:VisualElement class="hp-container">
-        <ui:Label class="heart" text="❤" />
-        <ui:Label name="hp-label" class="hp" text="100" />
-    </ui:VisualElement>
-    
-    <ui:VisualElement class="wave-count-container">
+    <ui:VisualElement class="top-bar-container">
+        <ui:VisualElement class="hp-container">
+            <ui:Label class="heart" text="❤" />
+            <ui:Label name="hp-label" class="hp" text="100" />
+        </ui:VisualElement>
+
         <ui:Label name="wave-label" class="wave-count" text="Wave:" tabindex="-1" />
+
+        <ui:VisualElement class="nu-container">
+            <ui:Label class="nu-symbol" text="ŋ" />
+            <ui:Label name="nu-amount-label" class="nu-amount" text="0" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

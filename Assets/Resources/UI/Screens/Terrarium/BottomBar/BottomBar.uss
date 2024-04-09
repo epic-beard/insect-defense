@@ -4,27 +4,6 @@
     color: #fff80d;
 }
 
-.nu-container {
-    flex-direction: row;
-    flex-grow: 1;
-    align-items: flex-start;
-}
-
-.nu-symbol {
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    margin-right: 10px;
-    font-size: 32px;
-    -unity-font-style: italic;
-    color: #fff80d;
-}
-
-.nu-amount {
-    font-size: 36px;
-    color: #fff80d;
-}
-
 .controls-container {
     flex-direction: row;
     flex-grow: 1;

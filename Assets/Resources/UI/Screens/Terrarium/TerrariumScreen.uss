@@ -1,12 +1,13 @@
 .terrarium-screen-container {
   flex-direction: row;
-  flex-grow: 1;
-  align-items: stretch;
-  justify-content: space-around;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .game-view {
-  flex-grow: 1;
+  flex-grow: 4;
   justify-content: space-around;
   visibility: visible;
 }
@@ -50,9 +51,8 @@
 }
 
 .sidebar {
-  flex-grow: 0;
+  flex-grow: 1;
   justify-content: space-around;
-  width: 400px;
   background-color: #000000;
 }
 
@@ -70,7 +70,6 @@
 }
 
 .tooltip-container{
-  flex-grow: 1;
   position: absolute;
   display: none;
   left: auto;

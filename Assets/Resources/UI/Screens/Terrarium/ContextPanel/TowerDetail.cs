@@ -64,7 +64,6 @@ public class TowerDetail : MonoBehaviour {
     towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
     towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
 
-    towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
     towerStatDamage = rootElement.Q<Label>(towerStatDamageName);
     towerStatAttackSpeed = rootElement.Q<Label>(towerStatAttackSpeedName);
     towerStatRange = rootElement.Q<Label>(towerStatRangeName);
@@ -181,6 +180,8 @@ public class TowerDetail : MonoBehaviour {
 
     towerBehaviorDropdown.index = ((int)tower.Behavior);
     towerPriorityDropdown.index = ((int)tower.Priority);
+
+    towerStatDamage.text = tower.Damage.ToString();
 
     // Ensure only the correct button is enabled for clicking.
     for (int i = 0; i < 3; i++)
