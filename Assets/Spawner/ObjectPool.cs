@@ -108,13 +108,13 @@ public class ObjectPool : MonoBehaviour {
   public void InitializeObjectPool(HashSet<EnemyData.Type> enemyTypes) {
     foreach (var kvp in enemyMap) {
       prefabMap.Add(kvp.Key, Resources.Load<GameObject>(kvp.Value));
-      prefabMap[kvp.Key].SetActive(false);
     }
 
     foreach (var type in enemyTypes) {
       objectPools[type] = new Queue<GameObject>();
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefabMap[type]);
+        gameObject.SetActive(false);
         Enemy enemy = gameObject.GetComponent<Enemy>();
         enemy.enabled = false;
         objectPools[type].Enqueue(gameObject);
