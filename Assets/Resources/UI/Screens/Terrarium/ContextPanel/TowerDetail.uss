@@ -99,7 +99,7 @@
 .tower-upgrade-button {
   margin-left: auto;
   margin-right: auto;
-  width: 32px;
+  width: 96px;
   height: 32px;
   margin-bottom: 8px;
 }

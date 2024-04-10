@@ -119,7 +119,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    Button button = Utilities.GetAncestor<Button>(evt.target as VisualElement);
+    ButtonWithTooltip button = Utilities.GetAncestor<ButtonWithTooltip>(evt.target as VisualElement);
     if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
@@ -191,7 +191,7 @@ public class TowerDetail : MonoBehaviour {
 
       for (int j = 0; j < 5; j++)
       {
-        //towerUpgradeButtons[i, j].SetEnabled(false);
+        towerUpgradeButtons[i, j].SetEnabled(false);
         towerUpgradeButtons[i, j].SetButtonText( 
             tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost);
         towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;

@@ -114,25 +114,18 @@ public class TowerManager : MonoBehaviour {
   // Refund the tower's full cost (including upgrades) and remove the tower from the map.
   public void RefundTower(Tower tower) {
     if (tower == null) return;
-    Debug.Log("SELLING TOWER");
-    Debug.Log(tower);
     ActiveTowerMap.Remove(tower.Tile.GetCoordinates());
-    Debug.Log("TOWER REMOVED");
     StartCoroutine(DestroyTower(tower));
     ClearSelection();
   }
 
-  // private IEnumerator DestroyTower(Tower tower) {
-  private string DestroyTower(Tower tower) {
+   private IEnumerator DestroyTower(Tower tower) {
     tower.enabled = false;
-    //yield return new WaitForSeconds(sellDelay);
-    Debug.Log("SELLING TOWER");
-    Debug.Log(tower);
+    yield return new WaitForSeconds(sellDelay);
     Destroy(tower.gameObject);
     int cost = tower.Value;
     TowerPrices[tower.Type].Pop();
     GameStateManager.Instance.Nu += cost;
-    return "";
   }
 
   public void ClearSelection() {
