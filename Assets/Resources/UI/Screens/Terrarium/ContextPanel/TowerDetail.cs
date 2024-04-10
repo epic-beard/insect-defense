@@ -192,7 +192,7 @@ public class TowerDetail : MonoBehaviour {
       for (int j = 0; j < 5; j++)
       {
         towerUpgradeButtons[i, j].SetEnabled(false);
-        towerUpgradeButtons[i, j].SetButtonText( 
+        towerUpgradeButtons[i, j].SetButtonText(
             tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost);
         towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
       }
@@ -200,8 +200,8 @@ public class TowerDetail : MonoBehaviour {
       for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++)
       {
         // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
-        //towerUpgradeButtons[i, j].text = towerUpgradeButtons[i, j].text + " Bought.";
-      }
+        towerUpgradeButtons[i, j].SetButtonText(towerUpgradeButtons[i, j].Button.text + "\n" + "[Owned]");
+            }
       if (tower.UpgradeLevels[i] < 5)
       {
         towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);

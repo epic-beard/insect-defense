@@ -119,7 +119,7 @@ public class TowerManager : MonoBehaviour {
     ClearSelection();
   }
 
-   private IEnumerator DestroyTower(Tower tower) {
+  private IEnumerator DestroyTower(Tower tower) {
     tower.enabled = false;
     yield return new WaitForSeconds(sellDelay);
     Destroy(tower.gameObject);

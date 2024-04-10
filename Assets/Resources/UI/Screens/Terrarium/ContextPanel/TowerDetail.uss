@@ -1,75 +1,75 @@
 .context-panel-tower-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 740px;
-  color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 740px;
+    color: #ffffff;
 }
 
 .tower-detail-top-bar {
-  display: flex;
-  flex-direction: row;
-  flex-basis: 10%;
-  flex-grow: 1;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  border-top-width: 1px;
-  border-top-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-basis: 10%;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-top-width: 1px;
+    border-top-color: #ffffff;
 }
 
 .tower-name {
-  flex-basis: 40%;
-  flex-grow: 2;
+    flex-basis: 40%;
+    flex-grow: 2;
 }
 
 .tower-icon {
-  flex-grow: 1;
-  padding: 8px;
-  width: 32px;
-  height: 32px;
-  background-color: #ffffff;
+    flex-grow: 1;
+    padding: 8px;
+    width: 32px;
+    height: 32px;
+    background-color: #ffffff;
 }
 
 .sell-tower-button-container {
-  flex-basis: 40%;
-  flex-grow: 2;
+    flex-basis: 40%;
+    flex-grow: 2;
 }
 
 .sell-tower-button {
-  width: 50%;
-  margin-left: 45%;
+    width: 50%;
+    margin-left: 45%;
 }
 
 .tower-detail-targeting-container {
-  display: flex;
-  flex-direction: row;
-  flex-basis: 10%;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
-  border-top-width: 1px;
-  border-top-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-basis: 10%;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    border-top-width: 1px;
+    border-top-color: #ffffff;
 }
 
 .tower-targeting-dropdown {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .tower-detail-stats-container {
-  flex-basis: 30%;
-  flex-grow: 3;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  border-top-width: 1px;
-  border-top-color: #ffffff;
+    flex-basis: 30%;
+    flex-grow: 3;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    border-top-width: 1px;
+    border-top-color: #ffffff;
 }
 
 .tower-detail-stats-col {
-  flex-grow: 1;
-  flex-direction: column;
-  width: 100%;
+    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
 }
 
 .tower-detail-stats-row {
@@ -78,30 +78,30 @@
 }
 
 .tower-detail-upgrades-container {
-  display: flex;
-  flex-direction: row;
-  flex-basis: 50%;
-  flex-grow: 5;
-  justify-content: space-between;
-  align-content: flex-end;
-  align-items: flex-end;
-  width: 100%;
-  height: 100%;
-  border-top-width: 1px;
-  border-top-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-basis: 50%;
+    flex-grow: 5;
+    justify-content: space-between;
+    align-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    border-top-width: 1px;
+    border-top-color: #ffffff;
 }
 
 .tower-upgrade-tree {
-  flex-grow: 1;
-  width: 30%;
+    flex-grow: 1;
+    width: 30%;
 }
 
 .tower-upgrade-button {
-  margin-left: auto;
-  margin-right: auto;
-  width: 96px;
-  height: 32px;
-  margin-bottom: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 96px;
+    height: 32px;
+    margin-bottom: 8px;
 }
 
 .tower-upgrade-button .tooltip-button {
@@ -111,9 +111,5 @@
 }
 
 .tower-upgrade-tree-label {
-  -unity-text-align: middle-center;
-}
-
-.hide {
-  display: none;
+    -unity-text-align: middle-center;
 }
