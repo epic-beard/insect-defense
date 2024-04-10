@@ -40,7 +40,7 @@ public class TowerDetail : MonoBehaviour {
   private Label towerStatAreaOfEffect;
   private Label towerStatDotStacks;
   
-  private Button[,] towerUpgradeButtons = new Button[3, 5];
+  private ButtonWithTooltip[,] towerUpgradeButtons = new ButtonWithTooltip[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
 
   private void Awake() {
@@ -80,7 +80,7 @@ public class TowerDetail : MonoBehaviour {
       for (int j = 0; j < 5; j++)
       {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
-        towerUpgradeButtons[i, j] = rootElement.Q<Button>(buttonName);
+        towerUpgradeButtons[i, j] = rootElement.Q<ButtonWithTooltip>(buttonName);
         towerUpgradeButtons[i, j].RegisterCallback<ClickEvent>(HandleTowerUpgradeCallback);
         towerUpgradeButtons[i, j].SetEnabled(false);
       }
@@ -192,8 +192,9 @@ public class TowerDetail : MonoBehaviour {
       for (int j = 0; j < 5; j++)
       {
         //towerUpgradeButtons[i, j].SetEnabled(false);
-        towerUpgradeButtons[i, j].text = 
-            tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost;
+        towerUpgradeButtons[i, j].SetButtonText( 
+            tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost);
+        towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
       }
 
       for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++)

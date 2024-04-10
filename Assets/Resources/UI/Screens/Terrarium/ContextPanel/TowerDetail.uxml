@@ -49,29 +49,29 @@
 
         <ui:VisualElement class="tower-detail-upgrades-container">
             <ui:VisualElement class="tower-upgrade-tree">
-                <ui:Button name="tree_0_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_0_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_0_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_0_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_0_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_0_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_0_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_0_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_0_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_0_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
                 <ui:Label name="tower_upgrade_tree_0__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 1&gt;" />
             </ui:VisualElement>
                 
             <ui:VisualElement class="tower-upgrade-tree">
-                <ui:Button name="tree_1_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_1_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_1_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_1_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_1_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_1_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_1_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_1_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_1_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_1_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
                 <ui:Label name="tower_upgrade_tree_1__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 2&gt;" />
             </ui:VisualElement>
                 
             <ui:VisualElement class="tower-upgrade-tree">
-                <ui:Button name="tree_2_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_2_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_2_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_2_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ui:Button name="tree_2_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_2_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_2_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_2_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_2_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ButtonWithTooltip name="tree_2_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
                 <ui:Label name="tower_upgrade_tree_2__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 3&gt;" />
             </ui:VisualElement>
         </ui:VisualElement>
