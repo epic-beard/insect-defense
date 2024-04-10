@@ -41,6 +41,8 @@ public class WaveDesigner : MonoBehaviour {
     treeView.styleSheets.Add(style);
     treeView.reorderable = true;
     treeView.selectionType = SelectionType.Single;
+
+    rootElement.Add(new NullableField<int>());
   }
 
   private void RegisterCallbacks() {
