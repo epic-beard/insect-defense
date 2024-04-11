@@ -19,19 +19,21 @@ public class MouseManager : MonoBehaviour {
 
       // When the left mouse button is released.
       if (Input.GetMouseButtonUp(0)) {
+        // The player selected an area of the map instead of an enemy or tower. Check to see if building
+        // a tower is appropriate.
         if (hitObject.name.Equals("Map")) {
-          // Get the appropriate tile.
-          // Call BuildTowerIfPossible() on that tile.
-        }
+          Tile tile = hitInfo.transform.gameObject.GetComponentInParent<Tile>();
+          tile.BuildTowerIfPossible();
+        } else {
+          Enemy enemy = hitObject.GetComponent<Enemy>();
+          if (enemy != null) {
+            SetSelectedEnemy(enemy);
+          }
 
-        Enemy enemy = hitObject.GetComponent<Enemy>();
-        if (enemy != null) {
-          SetSelectedEnemy(enemy);
-        }
-
-        Tower tower = hitObject.GetComponent<Tower>();
-        if (tower != null) {
-          SetSelectedTower(tower);
+          Tower tower = hitObject.GetComponent<Tower>();
+          if (tower != null) {
+            SetSelectedTower(tower);
+          }
         }
       }
     }

@@ -139,6 +139,7 @@ public class Enemy : MonoBehaviour {
     }
   }
   public float OriginalSpeed { get; private set; }
+  public Renderer[] Renderers { get; private set; }
   public EnemyData.Size Size { get { return data.size; } }
   public EnemyData.SlimeProperties? Slime {
     get { return data.slime; }
@@ -172,6 +173,7 @@ public class Enemy : MonoBehaviour {
       target = transform.GetChild(0).Find("target");
     }
     animator = this.GetComponentInChildren<Animator>();
+    Renderers = this.GetComponentsInChildren<Renderer>();
 
     StartCoroutine(HandleStun());
     StartCoroutine(HandleAdvancedAcidDecay());
@@ -199,12 +201,9 @@ public class Enemy : MonoBehaviour {
 
     // Handle camo
     if (Camo) {
-      Renderer[] rs = this.GetComponentsInChildren<Renderer>();
-      foreach (Renderer r in rs) {
-        r.material.ToFadeMode();
-        Color c = r.material.color;
-        Color nc = new Color(c.r, c.g, c.b, CamoTransparency);
-        r.material.SetColor("_Color", nc);
+      foreach (Renderer r in Renderers) {
+        r.AllMaterialsToFadeMode();
+        r.AllMaterialsToTransluscent(CamoTransparency);
       }
     }
 
