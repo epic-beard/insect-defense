@@ -15,3 +15,7 @@
 .wave-designer-field > .unity-base-field__input {
     color: rgb(0, 0, 0);
 }
+
+.wave-designer-nullable-field > .nullable-field-base__field > .unity-base-field__input {
+    color: rgb(0,0,0);
+}
