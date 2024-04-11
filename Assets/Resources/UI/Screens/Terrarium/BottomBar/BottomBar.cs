@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class BottomBar : MonoBehaviour {
-  readonly private string nuLabelName = "nu-amount-label";
   readonly private string playPauseButtonName = "play-pause-button";
   readonly private string settingsButtonName = "settings-button";
 
@@ -12,7 +11,6 @@ public class BottomBar : MonoBehaviour {
   private UIDocument uiDocument;
   private Button playPauseButtonVE;
   private Button settingsButtonVE;
-  private Label nuLabelVE;
 
   private void Awake() {
     uiDocument = GetComponent<UIDocument>();
@@ -20,8 +18,6 @@ public class BottomBar : MonoBehaviour {
 
     playPauseButtonVE = rootElement.Q<Button>(playPauseButtonName);
     settingsButtonVE = rootElement.Q<Button>(settingsButtonName);
-    nuLabelVE = rootElement.Q<Label>(nuLabelName);
-    GameStateManager.OnNuChanged += UpdateNu;
     GameSpeedManager.OnPauseChanged += KeepPlayPauseButtonNameCorrect;
   }
 
@@ -42,9 +38,5 @@ public class BottomBar : MonoBehaviour {
     } else {
       playPauseButtonVE.text = pauseString;
     }
-  }
-
-  public void UpdateNu(int nu) {
-    nuLabelVE.text = nu.ToString();
   }
 }

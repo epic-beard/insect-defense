@@ -161,7 +161,9 @@ public abstract class Tower : MonoBehaviour {
 
   private void Start() {
     TowerStart();
-    targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
+    if (targetingIndicator != null) {
+      targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
+    }
   }
 
   private void Update() {
