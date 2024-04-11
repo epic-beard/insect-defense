@@ -1,33 +1,16 @@
 .bottom-bar-container {
-    flex-direction: row;
-    justify-content: flex-start;
-    color: #fff80d;
-}
-
-.nu-container {
-    flex-direction: row;
-    flex-grow: 1;
-    align-items: flex-start;
-}
-
-.nu-symbol {
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    margin-right: 10px;
-    font-size: 32px;
-    -unity-font-style: italic;
-    color: #fff80d;
-}
-
-.nu-amount {
-    font-size: 36px;
+    width: 100%;
     color: #fff80d;
 }
 
 .controls-container {
+    display: flex;
     flex-direction: row;
-    flex-grow: 1;
-    justify-content: flex-end;
-    align-items: flex-end;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.settings-button {
+    position: absolute;
+    right: 390px;
 }
