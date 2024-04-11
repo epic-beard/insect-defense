@@ -52,5 +52,27 @@ namespace Assets {
       material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
       material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
     }
+
+    public static void AllMaterialsToFadeMode(this Renderer renderer) {
+      foreach (Material material in renderer.materials) {
+        material.ToFadeMode();
+      }
+    }
+
+    public static void AllMaterialsToTransluscent(this Renderer renderer, float transluscency) {
+      foreach (Material material in renderer.materials) {
+        Color c = material.color;
+        Color nc = new Color(c.r, c.g, c.b, transluscency);
+        material.SetColor("_Color", nc);
+      }
+    }
+
+    public static void AllMaterialsOpaque(this Renderer renderer) {
+      foreach (Material material in renderer.materials) {
+        Color c = material.color;
+        Color nc = new Color(c.r, c.g, c.b, 1.0f);
+        material.SetColor("_Color", nc);
+      }
+    }
   }
 }

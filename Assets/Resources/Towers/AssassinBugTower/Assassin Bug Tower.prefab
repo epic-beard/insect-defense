@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1626171720535983424}
   - component: {fileID: 3131726008822680787}
   - component: {fileID: 9017217619045167623}
-  - component: {fileID: 6748658145081673213}
   m_Layer: 0
   m_Name: Assassin Bug
   m_TagString: Untagged
@@ -63,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8f23e2808518c794ea4e0f72dfb5b106, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,18 +105,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6748658145081673213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110057304052309415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ae1ae31c1beea42ab38de62490cbd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2916662960132310537
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +116,7 @@ GameObject:
   - component: {fileID: 2081751422146568008}
   - component: {fileID: 1382644327272981278}
   m_Layer: 0
-  m_Name: Assasin Bug Tower
+  m_Name: Assassin Bug Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +186,6 @@ GameObject:
   - component: {fileID: 6852427796313718166}
   - component: {fileID: 6581478034945271872}
   - component: {fileID: 812550355251194061}
-  - component: {fileID: 1241858242264767494}
   m_Layer: 0
   m_Name: Lower Mesh
   m_TagString: Untagged
@@ -250,7 +236,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8f23e2808518c794ea4e0f72dfb5b106, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -293,18 +279,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1241858242264767494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7171448751696889158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ae1ae31c1beea42ab38de62490cbd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7671353957804743162
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +332,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8f23e2808518c794ea4e0f72dfb5b106, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

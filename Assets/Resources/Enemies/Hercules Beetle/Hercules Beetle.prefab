@@ -83,6 +83,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2271502847731017999, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
       propertyPath: m_Name
       value: hercules beetle
@@ -97,9 +113,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8330666876342102226}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 677681134120224888}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18e0447a1bb2c8644ad566d5474c16e5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3926965927664366033}
@@ -132,18 +145,6 @@ CapsuleCollider:
   m_Height: 4.5013313
   m_Direction: 2
   m_Center: {x: 0.0041992664, y: -0.038268507, z: 0.14491177}
---- !u!114 &677681134120224888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2366588284292812292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa217f86be7c174387c991c4309d7f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &3926965927664366033
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -186,7 +187,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2166917792933380144, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
       propertyPath: m_Name
-      value: Enemy Variant
+      value: Hercules Beetle
       objectReference: {fileID: 0}
     - target: {fileID: 2166917792933380302, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
       propertyPath: m_RootOrder
