@@ -1,9 +1,4 @@
 .primary-button {
-    justify-content: flex-start;    
-    align-items: stretch;
-    width: 150px;
-    padding: 16px 24px;
-    font-size: 20px;
     color: #ffffff;
     background-color: #6b141e;
     border-radius: 8px;
@@ -20,11 +15,6 @@
 }
 
 .secondary-button {
-    justify-content: flex-start;
-    align-items: stretch;
-    width: 150px;
-    padding: 16px 24px;
-    font-size: 20px;
     color: #000000;
     background-color: #FFC300;
     border-radius: 8px;
@@ -41,11 +31,6 @@
 }
 
 .tertiary-button {
-    justify-content: flex-start;
-    align-items: stretch;
-    width: 150px;
-    padding: 8px 12px;
-    font-size: 16px;
     color: #ffffff;
     background-color: #333333;
     border-radius: 4px;

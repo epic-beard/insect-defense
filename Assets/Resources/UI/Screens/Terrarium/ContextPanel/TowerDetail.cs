@@ -2,23 +2,44 @@ using Assets;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Targeting;
 
 public class TowerDetail : MonoBehaviour {
   public static TowerDetail Instance;
 
-  readonly private string towerBehaviorDropdownName = "tower-behavior";
-  readonly private string towerPriorityDropdownName = "tower-priority";
   readonly private string towerNameLabelName = "tower-name";
-  readonly private string towerUpgradeButtonNameTemplate = "tree_X_upgrade_Y__button";
-  readonly private string towerUpgradeLabelNameTemplate = "tower_upgrade_tree_X__label";
+  readonly private string towerIconElementName = "tower-icon";
   readonly private string sellTowerButtonName = "sell-tower";
 
-  private UIDocument uiDocument;
+  readonly private string towerBehaviorDropdownName = "tower-behavior";
+  readonly private string towerPriorityDropdownName = "tower-priority";
+  readonly private string towerUpgradeButtonNameTemplate = "tree_X_upgrade_Y__button";
+  readonly private string towerUpgradeLabelNameTemplate = "tower_upgrade_tree_X__label";
 
-  private Button sellTowerButton;
-  private DropdownField towerBehaviorDropdown;
+  readonly private string towerStatDamageName = "tower-stat-damage";
+  readonly private string towerStatAttackSpeedName = "tower-stat-attack-speed";
+  readonly private string towerStatRangeName = "tower-stat-range";
+  readonly private string towerStatArmorPierceName = "tower-stat-armor-pierce";
+  readonly private string towerStatAreaOfEffectName = "tower-stat-area-of-effect";
+  readonly private string towerStatDotStacksName = "tower-stat-dot-stacks";
+
+  private UIDocument uiDocument;
+  private VisualElement rootElement;
+
   private Label towerNameLabel;
+  private VisualElement towerIconElement;
+  private Button sellTowerButton;
+
+  private DropdownField towerBehaviorDropdown;
   private DropdownField towerPriorityDropdown;
+
+  private Label towerStatDamage;
+  private Label towerStatAttackSpeed;
+  private Label towerStatRange;
+  private Label towerStatArmorPierce;
+  private Label towerStatAreaOfEffect;
+  private Label towerStatDotStacks;
+  
   private ButtonWithTooltip[,] towerUpgradeButtons = new ButtonWithTooltip[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
 
@@ -31,12 +52,21 @@ public class TowerDetail : MonoBehaviour {
 
   private void SetVisualElements() {
     uiDocument = GetComponent<UIDocument>();
-    VisualElement rootElement = uiDocument.rootVisualElement;
+    rootElement = uiDocument.rootVisualElement;
 
-    sellTowerButton = rootElement.Q<Button>(sellTowerButtonName);
-    towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
     towerNameLabel = rootElement.Q<Label>(towerNameLabelName);
+    towerIconElement = rootElement.Q<VisualElement>(className: towerIconElementName);
+    sellTowerButton = rootElement.Q<Button>(sellTowerButtonName);
+
+    towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
     towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
+
+    towerStatDamage = rootElement.Q<Label>(towerStatDamageName);
+    towerStatAttackSpeed = rootElement.Q<Label>(towerStatAttackSpeedName);
+    towerStatRange = rootElement.Q<Label>(towerStatRangeName);
+    towerStatArmorPierce = rootElement.Q<Label>(towerStatArmorPierceName);
+    towerStatAreaOfEffect = rootElement.Q<Label>(towerStatAreaOfEffectName);
+    towerStatDotStacks = rootElement.Q<Label>(towerStatDotStacksName);
   }
 
   private void RegisterCallbacks() {
@@ -45,7 +75,6 @@ public class TowerDetail : MonoBehaviour {
 
     sellTowerButton.RegisterCallback<ClickEvent>(OnSellTowerClick);
 
-    VisualElement rootElement = uiDocument.rootVisualElement;
     for (int i = 0; i < 3; i++)
     {
       for (int j = 0; j < 5; j++)
@@ -143,8 +172,17 @@ public class TowerDetail : MonoBehaviour {
   // Set all appropriate text, pictures, and miscellaneous information for a specific tower.
   public void SetContextForTower(Tower tower) {
     towerNameLabel.text = tower.Name;
+    towerIconElement.style.backgroundImage = Resources.Load<Texture2D>("Icons/test");
+
     towerBehaviorDropdown.index = ((int)tower.Behavior);
     towerPriorityDropdown.index = ((int)tower.Priority);
+
+    towerStatDamage.text = tower.Damage.ToString();
+    towerStatAttackSpeed.text = tower.AttackSpeed.ToString();
+    towerStatRange.text = tower.Range.ToString();
+    towerStatArmorPierce.text = tower.ArmorPierce.ToString();
+    towerStatAreaOfEffect.text = tower.AreaOfEffect.ToString();
+    towerStatDotStacks.text = tower.DamageOverTime.ToString();
 
     // Ensure only the correct button is enabled for clicking.
     for (int i = 0; i < 3; i++)
@@ -162,9 +200,8 @@ public class TowerDetail : MonoBehaviour {
       for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++)
       {
         // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
-        towerUpgradeButtons[i, j].SetButtonText(
-            towerUpgradeButtons[i, j].Button.text + " Bought.");
-      }
+        towerUpgradeButtons[i, j].SetButtonText(towerUpgradeButtons[i, j].Button.text + "\n" + "[Owned]");
+            }
       if (tower.UpgradeLevels[i] < 5)
       {
         towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);
