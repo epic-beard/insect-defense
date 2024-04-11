@@ -1,0 +1,52 @@
+using Assets;
+using UnityEngine;
+
+// This class manages mouse interaction with the game map only. It does not touch the overlaid UI.
+public class MouseManager : MonoBehaviour {
+  public static Enemy SelectedEnemy;
+
+  void Update() {
+    // Only do stuff if we aren't overlapping the UI.
+    if (GameStateManager.Instance.IsMouseOverUI) return;
+
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+    if (Physics.Raycast(ray, out RaycastHit hitInfo)) {
+      GameObject hitObject = hitInfo.transform.root.gameObject;
+      if (hitObject == null) {
+        Debug.Log("[ERROR] Mouse raycast found null Game Object.");
+      }
+
+      // When the left mouse button is released.
+      if (Input.GetMouseButtonUp(0)) {
+        if (hitObject.name.Equals("Map")) {
+          // Get the appropriate tile.
+          // Call BuildTowerIfPossible() on that tile.
+        }
+
+        Enemy enemy = hitObject.GetComponent<Enemy>();
+        if (enemy != null) {
+          SetSelectedEnemy(enemy);
+        }
+
+        Tower tower = hitObject.GetComponent<Tower>();
+        if (tower != null) {
+          SetSelectedTower(tower);
+        }
+      }
+    }
+  }
+
+  private void SetSelectedEnemy(Enemy enemy) {
+    if (SelectedEnemy != null) {
+      EnemyDetail.Instance.DesbuscribeToEnemyStateBroadcast(SelectedEnemy);
+    }
+    EnemyDetail.Instance.SubscribeToEnemyStateBroadcast(enemy);
+    EnemyDetail.Instance.SetContextForEnemy(enemy);
+    ContextPanel.Instance.SetEnemyContextPanel();
+  }
+
+  private void SetSelectedTower(Tower tower) {
+    Utilities.SetSelectedTower(tower);
+  }
+}

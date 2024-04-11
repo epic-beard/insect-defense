@@ -97,9 +97,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1636330733214d74a94cbe61d3faeb7f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9222047861210547132}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1636330733214d74a94cbe61d3faeb7f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2937673349186349114}
   m_SourcePrefab: {fileID: 100100000, guid: 1636330733214d74a94cbe61d3faeb7f, type: 3}
 --- !u!4 &1442334040469417538 stripped
 Transform:
@@ -134,18 +131,6 @@ CapsuleCollider:
   m_Height: 5.9643354
   m_Direction: 2
   m_Center: {x: 0, y: -0.3390906, z: -1.4045119}
---- !u!114 &2937673349186349114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256272109897676024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa217f86be7c174387c991c4309d7f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7085480465102269813
 PrefabInstance:
   m_ObjectHideFlags: 0

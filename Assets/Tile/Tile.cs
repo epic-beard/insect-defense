@@ -97,6 +97,18 @@ public class Tile : MonoBehaviour {
     Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
   }
 
+  private void BuildTowerIfPossible() {
+    if (!isTowerPlaceable) { return; }
+    if (!isTowerPresent) {
+      isTowerPresent = TowerManager.Instance.BuildTower(waypoint);
+      if (!isTowerPresent) { return; }
+    }
+    // This happens while a tower is in the prcocess of being sold.
+    if (isTowerPresent && !TowerManager.Instance.HasTower(GetCoordinates())) { return; }
+
+    Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
+  }
+
   public void ResetTile() {
     isTowerPresent = false;
   }
