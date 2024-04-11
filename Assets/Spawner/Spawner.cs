@@ -11,6 +11,7 @@ using UnityEngine.UIElements;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
+using NullableIntegerField = NullableField<int, UnityEngine.UIElements.IntegerField>;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -139,6 +140,13 @@ public class Spawner : MonoBehaviour {
       return label;
     }
 
+    protected NullableIntegerField GetNullableIntegerField(string name, int? value, Action<int?> callback) {
+      NullableIntegerField field = new(name);
+      field.Value = value;
+      field.AddToClassList("wave-designer-nullable-field");
+      field.OnValueChanged += callback;
+      return field;
+    }
   }
 
   // The top level of the subwave heirarchy, describing a level.
@@ -376,6 +384,9 @@ public class Spawner : MonoBehaviour {
       foldout.Add(GetIntegerField("Spawn Location:", spawnAmmount, evt => {
         spawnAmmount = evt.newValue; WaveChanged.Invoke(); }));
 
+      foldout.Add(GetNullableIntegerField("Wave Tag:", WaveTag, i => {
+        WaveTag = i; WaveChanged.Invoke(); }));
+
       ve.Add(foldout);
 
       // TODO(nnewsom) implement:
@@ -479,6 +490,10 @@ public class Spawner : MonoBehaviour {
 
       foldout.Add(GetStringField("Enemy Data Key:", enemyDataKey, evt => {
         enemyDataKey = evt.newValue; WaveChanged.Invoke(); }));
+
+      foldout.Add(GetNullableIntegerField("Wave Tag:", WaveTag, i => {
+        WaveTag = i; WaveChanged.Invoke();
+      }));
 
       ve.Add(foldout);
 

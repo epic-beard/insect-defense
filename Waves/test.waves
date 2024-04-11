@@ -20,6 +20,7 @@
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
               <enemyDataKey>Ant</enemyDataKey>
+              <WaveTag>0</WaveTag>
             </Wave>
             <Wave xsi:type="WaitUntilDeadWave" />
             <Wave xsi:type="DialogueBoxWave">
@@ -66,10 +67,10 @@
           <enemyDataKey>Aphid</enemyDataKey>
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
-          <repetitions>4</repetitions>
+          <repetitions>8</repetitions>
           <repeatDelay>2</repeatDelay>
           <spawnLocation>0</spawnLocation>
-          <spawnAmmount>1</spawnAmmount>
+          <spawnAmmount>2</spawnAmmount>
           <enemyDataKey>Aphid</enemyDataKey>
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
