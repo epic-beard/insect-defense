@@ -1,0 +1,17 @@
+.wave-designer {
+    flex-grow: 1;
+    background-color: rgb(0, 0, 0);
+    width: 500px;
+}
+
+.wave-designer-tree-view {
+    color: rgb(255, 255, 255);
+}
+
+.wave-designer-label {
+    color: rgb(255, 255, 255);
+}
+
+.wave-designer-field > .unity-base-field__input {
+    color: rgb(0, 0, 0);
+}
