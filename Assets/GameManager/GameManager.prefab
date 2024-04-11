@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4758083784310599901}
   - component: {fileID: 1108349156654615366}
   - component: {fileID: -5136308199269468420}
+  - component: {fileID: 3515865845595883114}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -77,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   startingNu: 1000
-  SelectedTower: {fileID: 0}
+  IsMouseOverUI: 0
 --- !u!114 &1707813114564521829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,5 +158,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f20fcc5539594ab41937e51bd616eec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3515865845595883114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770796850854829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95a19f74a1d40554d85581f2fc452c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

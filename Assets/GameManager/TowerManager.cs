@@ -21,6 +21,7 @@ public class TowerManager : MonoBehaviour {
   [SerializeField] private string towerDataFilename = "data.towers";
   private readonly float towerScalingFactor = 1.2f;
   private readonly float buildDelay = 2.0f;
+  private readonly float buildSellTransparency = 0.5f;
   private readonly float sellDelay = 2.0f;
   private TowerDictionary towers = new();
   private readonly Dictionary<TowerData.Type, string> prefabMap = new() {
@@ -83,8 +84,9 @@ public class TowerManager : MonoBehaviour {
 
   public IEnumerator BuildTower(Waypoint waypoint, TowerData data) {
     Tower tower = ConstructTower(waypoint, data);
-
+    MakeTowerTransluscent(tower);
     yield return new WaitForSeconds(buildDelay);
+    MakeTowerOpaque(tower);
     tower.enabled = true;
   }
 
@@ -115,6 +117,7 @@ public class TowerManager : MonoBehaviour {
   public void RefundTower(Tower tower) {
     if (tower == null) return;
     ActiveTowerMap.Remove(tower.Tile.GetCoordinates());
+    MakeTowerTransluscent(tower);
     StartCoroutine(DestroyTower(tower));
     ClearSelection();
   }
@@ -146,6 +149,7 @@ public class TowerManager : MonoBehaviour {
         Quaternion.identity);
     Tower tower = towerObj.GetComponent<Tower>();
     tower.SetTowerData(data);
+    tower.CacheTowerRenderers();
     tower.Tile = waypoint.GetComponent<Tile>();
     tower.enabled = false;
 
@@ -158,5 +162,17 @@ public class TowerManager : MonoBehaviour {
       TowerPrices.Add(type, new());
     }
     TowerPrices[type].Push(cost);
+  }
+
+  private void MakeTowerTransluscent(Tower tower) {
+    foreach (Renderer r in tower.Renderers) {
+      r.AllMaterialsToTransluscent(buildSellTransparency);
+    }
+  }
+
+  private void MakeTowerOpaque(Tower tower) {
+    foreach (Renderer r in tower.Renderers) {
+      r.AllMaterialsOpaque();
+    }
   }
 }

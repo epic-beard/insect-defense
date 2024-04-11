@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Assets;
 
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
@@ -53,6 +54,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.RANGE]; }
     set { data[TowerData.Stat.RANGE] = value; }
   }
+  public Renderer[] Renderers { get; private set; }
   public float ProjectileSpeed {
     get { return data[TowerData.Stat.PROJECTILE_SPEED]; }
     set { data[TowerData.Stat.PROJECTILE_SPEED] = value; }
@@ -230,6 +232,13 @@ public abstract class Tower : MonoBehaviour {
     BaseAttackSpeed = data[TowerData.Stat.ATTACK_SPEED];
   }
 
+  public void CacheTowerRenderers() {
+    Renderers = this.GetComponentsInChildren<Renderer>();
+    foreach (Renderer r in Renderers) {
+      r.AllMaterialsToFadeMode();
+    }
+  }
+
   public float GetAnimationSpeedMultiplier() {
     return SlimePower * AttackSpeed / BaseAttackSpeed;
   }
@@ -280,20 +289,20 @@ public abstract class Tower : MonoBehaviour {
   private void MarkTarget(Enemy enemy) {
     if (targetingIndicator != null && enemy != null) {
       targetingIndicatorMeshRenderer.enabled = true;
-      Bounds enemyBound = enemy.GetComponentInChildren<Renderer>().bounds;
+      Bounds enemyBound = enemy.Renderers[0].bounds;
       float ratio = 1.5f;
 
-      Renderer[] renderers = enemy.GetComponentsInChildren<Renderer>();
-      foreach (Renderer r in renderers) {
+      foreach (Renderer r in enemy.Renderers) {
         enemyBound.Encapsulate(r.transform.position);
       }
 
       targetingIndicator.transform.position = new Vector3(enemyBound.center.x, 0, enemyBound.center.z);
+      float radius = Mathf.Max(enemyBound.size.x, enemyBound.size.z);
       targetingIndicator.transform.localScale =
           new Vector3(
-              enemyBound.size.x * ratio,
+              radius * ratio,
               1,
-              enemyBound.size.z * ratio);
+              radius * ratio);
 
       targetingIndicator.LookAt(this.transform);
     }
