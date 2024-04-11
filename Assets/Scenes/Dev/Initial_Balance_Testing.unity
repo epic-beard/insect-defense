@@ -238,6 +238,10 @@ PrefabInstance:
       propertyPath: data.maxArmor
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
+      propertyPath: data.properties
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3179988103622298021, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: entries.Array.data[0].type
       value: 0

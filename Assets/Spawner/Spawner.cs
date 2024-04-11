@@ -101,6 +101,44 @@ public class Spawner : MonoBehaviour {
     public abstract IList<Wave> GetChildren();
 
     public abstract bool AddWave(int index, Wave wave);
+
+    protected Foldout GetFoldout(string name) {
+      Foldout foldout = new();
+      foldout.text = name;
+      foldout.AddToClassList("wave-designer-foldout");
+      return foldout;
+    }
+
+    protected IntegerField GetIntegerField(string name, int value, EventCallback<ChangeEvent<int>> callback) {
+      IntegerField field = new(name);
+      field.value = value;
+      field.AddToClassList("wave-designer-field");
+      field.RegisterValueChangedCallback<int>(callback);
+      return field;
+    }
+
+    protected FloatField GetFloatField(string name, float value, EventCallback<ChangeEvent<float>> callback) {
+      FloatField field = new(name);
+      field.value = value;
+      field.AddToClassList("wave-designer-field");
+      field.RegisterValueChangedCallback<float>(callback);
+      return field;
+    }
+
+    protected TextField GetStringField(string name, string value, EventCallback<ChangeEvent<string>> callback) {
+      TextField field = new(name);
+      field.value = value;
+      field.AddToClassList("wave-designer-field");
+      field.RegisterValueChangedCallback<string>(callback);
+      return field;
+    }
+
+    protected Label GetLabel(string text) {
+      Label label = new(text);
+      label.AddToClassList("wave-designer-label");
+      return label;
+    }
+
   }
 
   // The top level of the subwave heirarchy, describing a level.
@@ -152,7 +190,7 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      ve.Add(new Label("Waves"));
+      ve.Add(GetLabel("Waves"));
     }
 
     public override IList<Wave> GetChildren() {
@@ -187,24 +225,14 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      Foldout foldout = new();
-      foldout.text = "Delayed";
+      Foldout foldout = GetFoldout("Delayed");
 
-      FloatField warmupField = new("Warmup: ");
-      warmupField.value = warmup;
-      warmupField.RegisterValueChangedCallback<float>(evt => {
-        warmup = evt.newValue;
-        WaveChanged.Invoke();
-      });
-      foldout.Add(warmupField);
+      foldout.Add(GetFloatField("Warmup:", warmup, evt => {
+        warmup = evt.newValue; WaveChanged.Invoke(); }));
 
-      FloatField cooldownField = new("Cooldown: ");
-      cooldownField.value = cooldown;
-      warmupField.RegisterValueChangedCallback<float>(evt => {
-        cooldown = evt.newValue;
-        WaveChanged.Invoke();
-      });
-      foldout.Add(cooldownField);
+      foldout.Add(GetFloatField("Cooldown:", cooldown, evt => {
+        cooldown = evt.newValue; WaveChanged.Invoke(); }));
+
       ve.Add(foldout);
     }
     public override IList<Wave> GetChildren() {
@@ -242,7 +270,7 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      ve.Add(new Label("Sequential"));
+      ve.Add(GetLabel("Sequential"));
     }
     public override IList<Wave> GetChildren() {
       return Subwaves;
@@ -283,7 +311,7 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      ve.Add(new Label("Concurrent"));
+      ve.Add(GetLabel("Concurrent"));
     }
 
     public override IList<Wave> GetChildren() {
@@ -334,28 +362,20 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      Foldout foldout = new();
-      foldout.text = "Enemy";
+      Foldout foldout = GetFoldout("Enemy");
 
-      IntegerField repetitionsField = new("Repetitions: ");
-      repetitionsField.value = repetitions;
-      repetitionsField.RegisterValueChangedCallback<int>(evt => { repetitions = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(repetitionsField);
+      foldout.Add(GetIntegerField("Repetitions:", repetitions, evt => {
+        repetitions = evt.newValue; WaveChanged.Invoke(); }));
 
-      FloatField repeatDelayField = new("Repeat Delay: ");
-      repeatDelayField.value = repeatDelay;
-      repeatDelayField.RegisterValueChangedCallback<float>(evt => { repeatDelay = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(repeatDelayField);
+      foldout.Add(GetFloatField("Repeat Delay:", repeatDelay, evt => {
+        repeatDelay = evt.newValue; WaveChanged.Invoke(); }));
 
-      IntegerField spawnLocationField = new("Spawn Location: ");
-      spawnLocationField.value = spawnLocation;
-      spawnLocationField.RegisterValueChangedCallback<int>(evt => { spawnLocation = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(spawnLocationField);
+      foldout.Add(GetIntegerField("Spawn Location:", spawnLocation, evt => {
+        spawnLocation = evt.newValue; WaveChanged.Invoke(); }));
 
-      IntegerField spawnAmmountField = new("Spawn Location: ");
-      spawnAmmountField.value = spawnAmmount;
-      spawnAmmountField.RegisterValueChangedCallback<int>(evt => { spawnAmmount = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(spawnAmmountField);
+      foldout.Add(GetIntegerField("Spawn Location:", spawnAmmount, evt => {
+        spawnAmmount = evt.newValue; WaveChanged.Invoke(); }));
+
       ve.Add(foldout);
 
       // TODO(nnewsom) implement:
@@ -443,33 +463,23 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      Foldout foldout = new();
-      foldout.text = "Canned Enemy";
+      Foldout foldout = GetFoldout("Canned Enemy");
 
-      IntegerField repetitionsField = new("Repetitions: ");
-      repetitionsField.value = repetitions;
-      repetitionsField.RegisterValueChangedCallback<int>(evt => { repetitions = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(repetitionsField);
+      foldout.Add(GetIntegerField("Repetitions:", repetitions, evt => {
+        repetitions = evt.newValue; WaveChanged.Invoke(); }));
 
-      FloatField repeatDelayField = new("Repeat Delay: ");
-      repeatDelayField.value = repeatDelay;
-      repeatDelayField.RegisterValueChangedCallback<float>(evt => { repeatDelay = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(repeatDelayField);
+      foldout.Add(GetFloatField("Repeat Delay:", repeatDelay, evt => {
+        repeatDelay = evt.newValue; WaveChanged.Invoke(); }));
 
-      IntegerField spawnLocationField = new("Spawn Location: ");
-      spawnLocationField.value = spawnLocation;
-      spawnLocationField.RegisterValueChangedCallback<int>(evt => { spawnLocation = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(spawnLocationField);
+      foldout.Add(GetIntegerField("Spawn Location:", spawnLocation, evt => {
+        spawnLocation = evt.newValue; WaveChanged.Invoke(); }));
 
-      IntegerField spawnAmmountField = new("Spawn Location: ");
-      spawnAmmountField.value = spawnAmmount;
-      spawnAmmountField.RegisterValueChangedCallback<int>(evt => { spawnAmmount = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(spawnAmmountField);
+      foldout.Add(GetIntegerField("Spawn Ammount:", spawnAmmount, evt => {
+        spawnAmmount = evt.newValue; WaveChanged.Invoke(); }));
 
-      TextField enemyDataKeyField = new("Enemy Data Key: ");
-      enemyDataKeyField.value = enemyDataKey;
-      enemyDataKeyField.RegisterValueChangedCallback<string>(evt => { enemyDataKey = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(enemyDataKeyField);
+      foldout.Add(GetStringField("Enemy Data Key:", enemyDataKey, evt => {
+        enemyDataKey = evt.newValue; WaveChanged.Invoke(); }));
+
       ve.Add(foldout);
 
       // TODO(nnewsom) implement:
@@ -520,12 +530,11 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      Foldout foldout = new();
-      foldout.text = "Spacer";
-      FloatField delayField = new("Delay: ");
-      delayField.value = delay;
-      delayField.RegisterValueChangedCallback<float>(evt => { delay = evt.newValue; WaveChanged.Invoke(); });
-      foldout.Add(delayField);
+      Foldout foldout = GetFoldout("Spacer");
+
+      foldout.Add(GetFloatField("Delay:", delay, evt => {
+        delay = evt.newValue; WaveChanged.Invoke(); }));
+
       ve.Add(foldout);
     }
 
@@ -560,15 +569,11 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      Foldout foldout = new();
-      foldout.text = "Dialogue Box";
-      FloatField delayField = new("Delay: ");
-      delayField.value = delay;
-      delayField.RegisterValueChangedCallback<float>(evt => {
-        delay = evt.newValue;
-        WaveChanged.Invoke();
-      });
-      foldout.Add(delayField);
+      Foldout foldout = GetFoldout("Dialogue Box");
+
+      foldout.Add(GetFloatField("Delay:", delay, evt => {
+        delay = evt.newValue; WaveChanged.Invoke(); }));
+
       ve.Add(foldout);
     }
 
