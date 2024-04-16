@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour {
 
-  [SerializeField] bool isTowerPlaceable;
+  [SerializeField] public bool isTowerPlaceable;
 
   private bool isTowerPresent = false;
   private bool lingeringWebs = false;

@@ -1,4 +1,5 @@
 using Assets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ public class TowerManager : MonoBehaviour {
   private readonly float buildDelay = 2.0f;
   private readonly float buildSellTransparency = 0.5f;
   private readonly float sellDelay = 2.0f;
+  private readonly float towerPreviewTransparency = 0.3f;
   private TowerDictionary towers = new();
   private readonly Dictionary<TowerData.Type, string> prefabMap = new() {
     { TowerData.Type.SPITTING_ANT_TOWER, "Towers/SpittingAntTower/Spitting Ant Tower" },
@@ -30,10 +32,17 @@ public class TowerManager : MonoBehaviour {
     { TowerData.Type.ASSASSIN_BUG_TOWER, "Towers/AssassinBugTower/Assassin Bug Tower" },
     { TowerData.Type.WEB_SHOOTING_SPIDER_TOWER, "Towers/WebShootingSpiderTower/Web Shooting Spider Tower" },
   };
+  private Dictionary<TowerData.Type, Tower> previewTowers = new();
 
   private void Awake() {
     Instance = this;
     towers = Deserialize<TowerDictionary>(towerDataFilename);
+    foreach (TowerData.Type type in Enum.GetValues(typeof(TowerData.Type))) {
+      if (type == TowerData.Type.NONE) continue;
+
+      Tower tower = CreatePreviewTower(type);
+      previewTowers.Add(type, tower);
+    }
   }
 
   public Tower GetTower(Vector2Int coordinates) {
@@ -84,7 +93,7 @@ public class TowerManager : MonoBehaviour {
 
   public IEnumerator BuildTower(Waypoint waypoint, TowerData data) {
     Tower tower = ConstructTower(waypoint, data);
-    MakeTowerTransluscent(tower);
+    MakeTowerTransluscent(tower, buildSellTransparency);
     yield return new WaitForSeconds(buildDelay);
     MakeTowerOpaque(tower);
     tower.enabled = true;
@@ -106,8 +115,7 @@ public class TowerManager : MonoBehaviour {
     SelectedTower = tower;
   }
 
-  public string GetTowerPrefabPath(TowerData.Type type) {  return prefabMap[type]; }
-
+  public string GetTowerPrefabPath(TowerData.Type type) { return prefabMap[type]; }
 
   public void RefundSelectedTower() {
     RefundTower(SelectedTower);
@@ -117,7 +125,7 @@ public class TowerManager : MonoBehaviour {
   public void RefundTower(Tower tower) {
     if (tower == null) return;
     ActiveTowerMap.Remove(tower.Tile.GetCoordinates());
-    MakeTowerTransluscent(tower);
+    MakeTowerTransluscent(tower, buildSellTransparency);
     StartCoroutine(DestroyTower(tower));
     ClearSelection();
   }
@@ -131,13 +139,52 @@ public class TowerManager : MonoBehaviour {
     GameStateManager.Instance.Nu += cost;
   }
 
+  public void SetSelectedTowerType(TowerData.Type type) {
+    if (SelectedTowerType != null) {
+      previewTowers[SelectedTowerType ?? TowerData.Type.NONE].SetRenderersActivity(false);
+    }
+    SelectedTowerType = type;
+  }
+
   public void ClearSelection() {
-    SelectedTowerType = null;
+    if (SelectedTowerType != null) {
+      previewTowers[SelectedTowerType ?? TowerData.Type.NONE].SetRenderersActivity(false);
+      SelectedTowerType = null;
+    }
     if (SelectedTower != null) {
       SelectedTower.Tile.SetUnselected();
     }
     SelectedTower = null;
     ContextPanel.Instance.SetNoContextPanel();
+  }
+
+  public Tower CreatePreviewTower(TowerData.Type type) {
+    string towerDataPath = GetTowerPrefabPath(type);
+    GameObject prefab = Resources.Load<GameObject>(towerDataPath);
+    GameObject towerObj = Instantiate(
+        prefab,
+        Vector3.zero,
+        Quaternion.identity);
+    Tower tower = towerObj.GetComponent<Tower>();
+    tower.CacheTowerRenderers();
+    MakeTowerTransluscent(tower, towerPreviewTransparency);
+    tower.SetRenderersActivity(false);
+    return tower;
+  }
+
+  public void SetPreviewTowerPosition(Tile tile) {
+    if (SelectedTowerType != null && SelectedTowerType != TowerData.Type.NONE) {
+      Tower tower = previewTowers[SelectedTowerType ?? TowerData.Type.NONE];
+      tower.transform.position = tile.transform.position;
+      tower.SetRenderersActivity(true);
+    }
+  }
+
+  public void ClearTowerPreview() {
+    if (SelectedTowerType != null && SelectedTowerType != TowerData.Type.NONE) {
+      Tower tower = previewTowers[SelectedTowerType ?? TowerData.Type.NONE];
+      tower.SetRenderersActivity(false);
+    }
   }
 
   private Tower ConstructTower(Waypoint waypoint, TowerData data) {
@@ -164,9 +211,9 @@ public class TowerManager : MonoBehaviour {
     TowerPrices[type].Push(cost);
   }
 
-  private void MakeTowerTransluscent(Tower tower) {
+  private void MakeTowerTransluscent(Tower tower, float transluscency) {
     foreach (Renderer r in tower.Renderers) {
-      r.AllMaterialsToTransluscent(buildSellTransparency);
+      r.AllMaterialsToTransluscent(transluscency);
     }
   }
 

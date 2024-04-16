@@ -239,6 +239,12 @@ public abstract class Tower : MonoBehaviour {
     }
   }
 
+  public void SetRenderersActivity(bool active) {
+    foreach (Renderer r in Renderers) {
+      r.enabled = active;
+    }
+  }
+
   public float GetAnimationSpeedMultiplier() {
     return SlimePower * AttackSpeed / BaseAttackSpeed;
   }
