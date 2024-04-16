@@ -17,12 +17,18 @@ public class MouseManager : MonoBehaviour {
         Debug.Log("[ERROR] Mouse raycast found null Game Object.");
       }
 
+      // Do mouseover stuff.
+      Tile tile = null;
+      if (hitObject.name.Equals("Map")) {
+        tile = hitInfo.transform.gameObject.GetComponentInParent<Tile>();
+      }
+
       // When the left mouse button is released.
       if (Input.GetMouseButtonUp(0)) {
         // The player selected an area of the map instead of an enemy or tower. Check to see if building
         // a tower is appropriate.
         if (hitObject.name.Equals("Map")) {
-          Tile tile = hitInfo.transform.gameObject.GetComponentInParent<Tile>();
+          //Tile tile = hitInfo.transform.gameObject.GetComponentInParent<Tile>();
           tile.BuildTowerIfPossible();
         } else {
           Enemy enemy = hitObject.GetComponent<Enemy>();
