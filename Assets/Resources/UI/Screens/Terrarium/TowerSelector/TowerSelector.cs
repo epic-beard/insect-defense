@@ -64,7 +64,7 @@ public class TowerSelector : MonoBehaviour {
     if (ve == null) return;
     SelectTowerButton button = Utilities.GetAncestor<SelectTowerButton>(ve);
 
-    TowerManager.SelectedTowerType = button.TowerType;
+    TowerManager.Instance.SetSelectedTowerType(button.TowerType);
     ContextPanel.Instance.SetTowerContextPanel();
     TowerDetail.Instance.SetContextTowerName(button.name);
   }
