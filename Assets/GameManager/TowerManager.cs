@@ -41,6 +41,12 @@ public class TowerManager : MonoBehaviour {
       if (type == TowerData.Type.NONE) continue;
 
       Tower tower = CreatePreviewTower(type);
+
+      // Turn off all preview tower colliders to avoid confusion with the mouseover process.
+      Collider[] colliders = tower.GetComponentsInChildren<Collider>();
+      foreach(Collider collider in colliders) {
+        collider.enabled = false;
+      }
       previewTowers.Add(type, tower);
     }
   }
@@ -141,14 +147,14 @@ public class TowerManager : MonoBehaviour {
 
   public void SetSelectedTowerType(TowerData.Type type) {
     if (SelectedTowerType != null) {
-      previewTowers[SelectedTowerType ?? TowerData.Type.NONE].SetRenderersActivity(false);
+      previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
     }
     SelectedTowerType = type;
   }
 
   public void ClearSelection() {
     if (SelectedTowerType != null) {
-      previewTowers[SelectedTowerType ?? TowerData.Type.NONE].SetRenderersActivity(false);
+      previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
       SelectedTowerType = null;
     }
     if (SelectedTower != null) {
@@ -168,7 +174,7 @@ public class TowerManager : MonoBehaviour {
     Tower tower = towerObj.GetComponent<Tower>();
     tower.CacheTowerRenderers();
     MakeTowerTransluscent(tower, towerPreviewTransparency);
-    tower.SetRenderersActivity(false);
+    tower.gameObject.SetActive(false);
     return tower;
   }
 
@@ -176,14 +182,14 @@ public class TowerManager : MonoBehaviour {
     if (SelectedTowerType != null && SelectedTowerType != TowerData.Type.NONE) {
       Tower tower = previewTowers[SelectedTowerType ?? TowerData.Type.NONE];
       tower.transform.position = tile.transform.position;
-      tower.SetRenderersActivity(true);
+      tower.gameObject.SetActive(true);
     }
   }
 
   public void ClearTowerPreview() {
     if (SelectedTowerType != null && SelectedTowerType != TowerData.Type.NONE) {
       Tower tower = previewTowers[SelectedTowerType ?? TowerData.Type.NONE];
-      tower.SetRenderersActivity(false);
+      tower.gameObject.SetActive(false);
     }
   }
 
