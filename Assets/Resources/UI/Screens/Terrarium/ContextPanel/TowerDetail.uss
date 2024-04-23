@@ -75,6 +75,7 @@
 
 .tower-targeting-dropdown {
     flex-grow: 1;
+    font-size: 20px;
 }
 
 .tower-detail-stats-container {
