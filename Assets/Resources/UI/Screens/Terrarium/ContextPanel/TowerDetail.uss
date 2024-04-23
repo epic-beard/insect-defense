@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 740px;
-    -unity-font-definition: url("/Assets/Font/OldPrintingPressFreeVersion-8jd0 SDF.asset");
+    -unity-font-definition: url("/Assets/Font/OperationNapalm-nRBWO SDF.asset");
     -unity-text-align: middle-center;
     color: #ffffff;
 }
@@ -21,6 +21,9 @@
 .tower-name {
     flex-basis: 40%;
     flex-grow: 2;
+    background-image: resource("UI/images/bgs/metal_frame_texture_3");
+    background-size: 150px 25px;
+    background-repeat: no-repeat;
 }
 
 .tower-icon {
