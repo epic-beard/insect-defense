@@ -86,7 +86,9 @@
 
 .tooltip-label {
    max-width: 300px;
-   color: rgb(231, 16, 154);
+   max-height: 100px;
+   padding: 4px;
+   color: #ffffff;
    background-color: #000000;
    overflow: hidden;
    visibility: visible;

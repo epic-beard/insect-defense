@@ -39,8 +39,9 @@ public class TowerDetail : MonoBehaviour {
   private Label towerStatArmorPierce;
   private Label towerStatAreaOfEffect;
   private Label towerStatDotStacks;
-  
-  private ButtonWithTooltip[,] towerUpgradeButtons = new ButtonWithTooltip[3, 5];
+
+  private ButtonWithTooltip[,] towerUpgradeIcons = new ButtonWithTooltip[3, 5];
+  private Button[,] towerUpgradeSwitches = new Button[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
 
   private void Awake() {
@@ -80,9 +81,12 @@ public class TowerDetail : MonoBehaviour {
       for (int j = 0; j < 5; j++)
       {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
-        towerUpgradeButtons[i, j] = rootElement.Q<ButtonWithTooltip>(buttonName);
-        towerUpgradeButtons[i, j].RegisterCallback<ClickEvent>(HandleTowerUpgradeCallback);
-        towerUpgradeButtons[i, j].SetEnabled(false);
+
+        towerUpgradeIcons[i, j] = rootElement.Q<ButtonWithTooltip>(buttonName);
+
+        towerUpgradeSwitches[i, j] = rootElement.Q<Button>(buttonName);
+        towerUpgradeSwitches[i, j].RegisterCallback<ClickEvent>(HandleTowerUpgradeCallback);
+        towerUpgradeSwitches[i, j].SetEnabled(true);
       }
       string labelName = towerUpgradeLabelNameTemplate.Replace("X", i.ToString());
       towerUpgradeTreeLabels[i] = rootElement.Q<Label>(labelName);
@@ -119,15 +123,18 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    ButtonWithTooltip button = Utilities.GetAncestor<ButtonWithTooltip>(evt.target as VisualElement);
+    Button button = Utilities.GetAncestor<Button>(evt.target as VisualElement);
     if (button == null) return;
 
     TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
-    if (GameStateManager.Instance.Nu < upgrade.cost)
-    {
+
+    if (GameStateManager.Instance.Nu < upgrade.cost) {
       return;
     }
+
     GameStateManager.Instance.Nu -= upgrade.cost;
+    button.AddToClassList("rocker-switch-on");
+    button.RemoveFromClassList("rocker-switch-off");
     TowerManager.SelectedTower.Upgrade(upgrade);
     SetContextForTower(TowerManager.SelectedTower);
   }
@@ -184,27 +191,15 @@ public class TowerDetail : MonoBehaviour {
     towerStatAreaOfEffect.text = tower.AreaOfEffect.ToString();
     towerStatDotStacks.text = tower.DamageOverTime.ToString();
 
-    // Ensure only the correct button is enabled for clicking.
-    for (int i = 0; i < 3; i++)
-    {
-      towerUpgradeTreeLabels[i].text = tower.GetUpgradePathName(i);
+    for (int i = 0; i < 3; i++) {
+      string upgradePathName = tower.GetUpgradePathName(i);
+      towerUpgradeTreeLabels[i].text = upgradePathName;
 
-      for (int j = 0; j < 5; j++)
-      {
-        towerUpgradeButtons[i, j].SetEnabled(false);
-        towerUpgradeButtons[i, j].SetButtonText(
-            tower.GetUpgradePath(i)[j].name + "\n" + Constants.nu + " " + tower.GetUpgradePath(i)[j].cost);
-        towerUpgradeButtons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
-      }
-
-      for (int j = 0; j <= tower.UpgradeLevels[i] - 1; j++)
-      {
-        // TODO: There is probably a better way to notify the player that an upgrade has been purchased.
-        towerUpgradeButtons[i, j].SetButtonText(towerUpgradeButtons[i, j].Button.text + "\n" + "[Owned]");
-            }
-      if (tower.UpgradeLevels[i] < 5)
-      {
-        towerUpgradeButtons[i, tower.UpgradeLevels[i]].SetEnabled(true);
+    for (int j = 0; j < 5; j++) {
+        towerUpgradeIcons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
+        string imgPath = "UI/images/tower upgrades/" + tower.Name + "/" + upgradePathName.ToLower() + " " + j;
+        Debug.Log(imgPath);
+        towerUpgradeIcons[i, j].style.backgroundImage = Resources.Load<Texture2D>(imgPath);
       }
     }
   }

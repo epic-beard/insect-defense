@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: space-between;
     height: 740px;
+    -unity-font-definition: url("/Assets/Font/OldPrintingPressFreeVersion-8jd0 SDF.asset");
+    -unity-text-align: middle-center;
     color: #ffffff;
 }
 
@@ -32,11 +34,31 @@
 .sell-tower-button-container {
     flex-basis: 40%;
     flex-grow: 2;
+    flex-direction: row;
+}
+
+.sell-tower-label {
+    margin-left: 30%;
+    font-size: 24px;
 }
 
 .sell-tower-button {
-    width: 50%;
-    margin-left: 45%;
+    width: 80px;
+    height: 40px;
+    margin-left: -20px;
+    background-image: resource("UI/images/bgs/sell_button_texture_0");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0px;
+}
+
+.sell-tower-button:hover {
+    background-image: resource("UI/images/bgs/sell_button_texture_hover_0");
+}
+
+.sell-tower-button:active {
+    background-image: resource("UI/images/bgs/sell_button_texture_active_0");
 }
 
 .tower-detail-targeting-container {
@@ -88,18 +110,43 @@
     width: 30%;
 }
 
-.tower-upgrade-button {
-    margin-left: auto;
-    margin-right: auto;
-    width: 96px;
-    height: 32px;
-    margin-bottom: 8px;
+.tower-upgrade-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
 }
 
-.tower-upgrade-button .tooltip-button {
+.tower-upgrade-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    background-color: #000000;
+}
+
+.tower-upgrade-icon .tooltip-button {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
     -unity-text-align: middle-center;
+}
+
+.rocker-switch-button {
+    width: 16px;
+    height: 48px;
+    border-width: 0px;
+}
+
+.rocker-switch-off {
+    background-image: resource("UI/images/bgs/rocker_switch_off_texture_0");
+}
+
+.rocker-switch-off:hover {
+    background-image: resource("UI/images/bgs/rocker_switch_off_hover_texture_0");
+}
+
+.rocker-switch-on {
+    background-image: resource("UI/images/bgs/rocker_switch_on_texture_0");
 }
 
 .tower-upgrade-tree-label {
