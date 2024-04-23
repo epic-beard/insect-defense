@@ -123,19 +123,25 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
-    Button button = Utilities.GetAncestor<Button>(evt.target as VisualElement);
-    if (button == null) return;
+    Button rockerSwitch = Utilities.GetAncestor<Button>(evt.target as VisualElement);
+    if (rockerSwitch == null) return;
+    if (rockerSwitch.ClassListContains("rocker-switch-on")) return;
 
-    TowerAbility upgrade = GetUpgradeFromButtonName(button.name);
+    ButtonWithTooltip icon = rootElement.Q<ButtonWithTooltip>(rockerSwitch.name);
+    if (icon == null) return;
+
+    TowerAbility upgrade = GetUpgradeFromButtonName(rockerSwitch.name);
 
     if (GameStateManager.Instance.Nu < upgrade.cost) {
       return;
     }
 
+    rockerSwitch.AddToClassList("rocker-switch-on");
+    rockerSwitch.RemoveFromClassList("rocker-switch-off");
+
     GameStateManager.Instance.Nu -= upgrade.cost;
-    button.AddToClassList("rocker-switch-on");
-    button.RemoveFromClassList("rocker-switch-off");
     TowerManager.SelectedTower.Upgrade(upgrade);
+
     SetContextForTower(TowerManager.SelectedTower);
   }
 
@@ -198,7 +204,6 @@ public class TowerDetail : MonoBehaviour {
     for (int j = 0; j < 5; j++) {
         towerUpgradeIcons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
         string imgPath = "UI/images/tower upgrades/" + tower.Name + "/" + upgradePathName.ToLower() + " " + j;
-        Debug.Log(imgPath);
         towerUpgradeIcons[i, j].style.backgroundImage = Resources.Load<Texture2D>(imgPath);
       }
     }
