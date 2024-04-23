@@ -1,1 +1,3 @@
 @import url("unity-theme://default");
+
+@import url("/Assets/Resources/UI/Screens/Terrarium/ContextPanel/TowerDetail.uss");

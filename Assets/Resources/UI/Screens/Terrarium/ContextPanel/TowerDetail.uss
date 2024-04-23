@@ -49,6 +49,7 @@
     width: 80px;
     height: 40px;
     margin-left: -20px;
+    background-color: rgba(0, 0, 0, 0);
     background-image: resource("UI/images/bgs/sell_button_texture_0");
     background-size: cover;
     background-repeat: no-repeat;
@@ -57,10 +58,12 @@
 }
 
 .sell-tower-button:hover {
+    background-color: rgba(0, 0, 0, 0);
     background-image: resource("UI/images/bgs/sell_button_texture_hover_0");
 }
 
 .sell-tower-button:active {
+    background-color: rgba(0, 0, 0, 0);
     background-image: resource("UI/images/bgs/sell_button_texture_active_0");
 }
 
@@ -74,8 +77,59 @@
 }
 
 .tower-targeting-dropdown {
-    flex-grow: 1;
-    font-size: 20px;
+    width: 50%;
+    font-size: 18px;
+}
+
+.tower-targeting-dropdown .unity-base-field__input {
+    border-width:0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource("UI/images/bgs/rusty_pipe_texture_0");
+    padding-left: 10%;
+}
+
+.unity-popup-field:hover .unity-popup-field__input,
+.unity-popup-field:active .unity-popup-field__input {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-popup-field:hover .unity-base-popup-field__arrow {
+    rotate: 90deg;
+}
+
+.unity-popup-field:active .unity-base-popup-field__arrow {
+    rotate: 180deg;
+}
+
+.unity-base-popup-field__arrow {
+    width: 20px;
+    height: 20px;
+    background-image: resource("UI/images/bgs/valve_wheel_texture_0");
+    -unity-background-image-tint-color: #ffffff;
+}
+
+.unity-base-dropdown .unity-scroll-view {
+    color: #ffffff;
+    border-width: 2px;
+    border-color: #000000;
+    background-image: resource("UI/images/bgs/rusty_metal_texture_0");
+    -unity-background-image-tint-color: #777777;
+}
+
+.unity-base-dropdown__item {
+}
+
+.unity-base-dropdown #unity-content-container {
+}
+
+.unity-base-dropdown__checkmark {
+    background-image: resource("UI/images/bgs/red_bulb_lit_texture_0");
+    background-size: cover;
+    background-repeat: no-repeat;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.unity-base-dropdown__container-outer {
 }
 
 .tower-detail-stats-container {
