@@ -144,7 +144,22 @@ public class TowerDetail : MonoBehaviour {
     ButtonWithTooltip icon = rootElement.Q<ButtonWithTooltip>(rockerSwitch.name);
     if (icon == null) return;
 
-    TowerAbility upgrade = GetUpgradeFromButtonName(rockerSwitch.name);
+    // tree_X_upgrade_Y__button
+    // 0____5_________15
+    int upgradePath = (int)Char.GetNumericValue(rockerSwitch.name[5]);
+    int upgradeNum = (int)Char.GetNumericValue(rockerSwitch.name[15]);
+
+    if (upgradeNum > 0) {
+        // get previous upgrade
+        string previousUpgradeName = "tree_" + upgradePath + "_upgrade_" + (upgradeNum - 1) + "__button";
+        Button previousUpgradeButton = rootElement.Q<Button>(previousUpgradeName);
+        // check if it is owned
+        if (previousUpgradeButton.ClassListContains("rocker-switch-off")) {
+            return;
+        }
+    }
+
+    TowerAbility upgrade = TowerManager.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
 
     if (GameStateManager.Instance.Nu < upgrade.cost) {
       return;
@@ -161,15 +176,6 @@ public class TowerDetail : MonoBehaviour {
 
   private void OnSellTowerClick(ClickEvent evt) {
     TowerManager.Instance.RefundSelectedTower();
-  }
-
-  private TowerAbility GetUpgradeFromButtonName(string buttonName) {
-    // tree_X_upgrade_Y__button
-    // 0____5_________15
-    int upgradePath = (int)Char.GetNumericValue(buttonName[5]);
-    int upgradeNum = (int)Char.GetNumericValue(buttonName[15]);
-
-    return TowerManager.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {

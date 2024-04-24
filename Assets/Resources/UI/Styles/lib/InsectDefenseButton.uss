@@ -45,3 +45,9 @@
     background-color: #3d3d3d;
     translate: 0 2px;
 }
+
+.tooltip-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    -unity-text-align: middle-center;
+}

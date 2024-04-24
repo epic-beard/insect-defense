@@ -39,17 +39,7 @@
     margin-left: 10px;
 }
 
-.top-bar-led-size {
+.led-screen {
     width: 100px;
     height: 50px;
-}
-
-.top-bar-led-screen {
-    -unity-font-definition: url("/Assets/Font/CursedTimerUlil-Aznm SDF.asset");
-    -unity-text-align: middle-center;
-    background-image: resource("UI/images/bgs/led_screen_texture_0");
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-width: 2px;
-    border-color: #000000;
 }

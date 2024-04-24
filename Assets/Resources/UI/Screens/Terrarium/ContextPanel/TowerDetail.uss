@@ -11,7 +11,7 @@
 .tower-detail-top-bar {
     display: flex;
     flex-direction: row;
-    flex-basis: 10%;
+    flex-basis: 8%;
     flex-grow: 1;
     justify-content: space-between;
     align-items: center;
@@ -21,8 +21,9 @@
 .tower-name {
     flex-basis: 40%;
     flex-grow: 2;
+    height: 80%;
     background-image: resource("UI/images/bgs/metal_frame_texture_3");
-    background-size: 150px 25px;
+    background-size: 150px 36px;
     background-repeat: no-repeat;
 }
 
@@ -82,15 +83,21 @@
 }
 
 .tower-targeting-dropdown .unity-base-field__input {
+    padding-left: 10%;
     border-width:0;
     background-color: rgba(0, 0, 0, 0);
     background-image: resource("UI/images/bgs/rusty_pipe_texture_0");
-    padding-left: 10%;
+    -unity-background-image-tint-color: #cccccc;
 }
 
 .unity-popup-field:hover .unity-popup-field__input,
 .unity-popup-field:active .unity-popup-field__input {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-base-popup-field__text {
+    margin-right: 0;
+    -unity-text-align: middle-center;
 }
 
 .unity-popup-field:hover .unity-base-popup-field__arrow {
@@ -140,17 +147,8 @@
     height: 75%;
     margin-left: auto;
     margin-right: auto;
-
     font-size: 18px;
     color: #55ddff;
-
-    -unity-font-definition: url("/Assets/Font/CursedTimerUlil-Aznm SDF.asset");
-    -unity-text-align: middle-center;
-    background-image: resource("UI/images/bgs/led_screen_texture_0");
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-width: 2px;
-    border-color: #000000;
 }
 
 .tower-detail-stats-col {
@@ -170,11 +168,6 @@
     width: 32px;
     height: 32px;
     -unity-background-image-tint-color: #ffffff;
-}
-
-.tower-detail-stat-icon .tooltip-button {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
 }
 
 .tower-stat-icon-damage {
@@ -215,7 +208,8 @@
 
 .tower-upgrade-tree {
     flex-grow: 1;
-    width: 30%;
+    align-items: center;
+    width: 33%;
 }
 
 .tower-upgrade-button-container {
@@ -223,9 +217,10 @@
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
+    width: 66%;
     margin-bottom: 2px;
     background-image: resource("UI/images/bgs/metal_frame_texture_0");
-    background-size: 90px 50px;
+    background-size: 100% 50px;
     background-repeat: no-repeat;
 }
 
@@ -235,12 +230,6 @@
     margin-bottom: 8px;
     border-radius: 4px;
     background-color: #000000;
-}
-
-.tower-upgrade-icon .tooltip-button {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-    -unity-text-align: middle-center;
 }
 
 .rocker-switch-button {
@@ -262,5 +251,8 @@
 }
 
 .tower-upgrade-tree-label {
+    width: 80%;
+    height: 30px;
+    background-image: resource("UI/images/bgs/metal_frame_texture_1");
     -unity-text-align: middle-center;
 }

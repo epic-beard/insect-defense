@@ -17,7 +17,7 @@
             <ui:DropdownField name="tower-priority" class="tower-targeting-dropdown" index="0" choices="First" focusable="false" />
         </ui:VisualElement>
 
-        <ui:VisualElement class="tower-detail-stats-container">
+        <ui:VisualElement class="tower-detail-stats-container led-screen">
             <ui:VisualElement class="tower-detail-stats-col">
                 <ui:VisualElement class="tower-detail-stats-row">
                     <ButtonWithTooltip name="tower-stat-damage" class="tower-detail-stat-icon tower-stat-icon-damage" />
