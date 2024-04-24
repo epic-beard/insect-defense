@@ -133,22 +133,72 @@
 }
 
 .tower-detail-stats-container {
-    flex-basis: 30%;
+    flex-basis: 10%;
     flex-grow: 3;
     flex-direction: row;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 75%;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 18px;
+    color: #55ddff;
+
+    -unity-font-definition: url("/Assets/Font/CursedTimerUlil-Aznm SDF.asset");
+    -unity-text-align: middle-center;
+    background-image: resource("UI/images/bgs/led_screen_texture_0");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-width: 2px;
+    border-color: #000000;
 }
 
 .tower-detail-stats-col {
     flex-grow: 1;
     flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     width: 100%;
 }
 
 .tower-detail-stats-row {
     display: flex;
     flex-direction: row;
+}
+
+.tower-detail-stat-icon {
+    width: 32px;
+    height: 32px;
+    -unity-background-image-tint-color: #ffffff;
+}
+
+.tower-detail-stat-icon .tooltip-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.tower-stat-icon-damage {
+    background-image: resource("UI/images/tower stats/damage_0");
+}
+
+.tower-stat-icon-attack-speed {
+    background-image: resource("UI/images/tower stats/attack_speed_0");
+}
+
+.tower-stat-icon-range {
+    background-image: resource("UI/images/tower stats/range_0");
+}
+
+.tower-stat-icon-area-of-effect {
+    background-image: resource("UI/images/tower stats/area_of_effect_0");
+}
+
+.tower-stat-icon-armor-pierce {
+    background-image: resource("UI/images/tower stats/armor_pierce_0");
+}
+
+.tower-stat-icon-dot-stacks {
+    background-image: resource("UI/images/tower stats/dot_stacks_0");
 }
 
 .tower-detail-upgrades-container {

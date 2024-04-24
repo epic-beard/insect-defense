@@ -33,6 +33,13 @@ public class TowerDetail : MonoBehaviour {
   private DropdownField towerBehaviorDropdown;
   private DropdownField towerPriorityDropdown;
 
+  private ButtonWithTooltip towerStatDamageIcon;
+  private ButtonWithTooltip towerStatAttackSpeedIcon;
+  private ButtonWithTooltip towerStatRangeIcon;
+  private ButtonWithTooltip towerStatArmorPierceIcon;
+  private ButtonWithTooltip towerStatAreaOfEffectIcon;
+  private ButtonWithTooltip towerStatDotStacksIcon;
+
   private Label towerStatDamage;
   private Label towerStatAttackSpeed;
   private Label towerStatRange;
@@ -61,6 +68,13 @@ public class TowerDetail : MonoBehaviour {
 
     towerBehaviorDropdown = rootElement.Q<DropdownField>(towerBehaviorDropdownName);
     towerPriorityDropdown = rootElement.Q<DropdownField>(towerPriorityDropdownName);
+
+    towerStatDamageIcon = rootElement.Q<ButtonWithTooltip>(towerStatDamageName);
+    towerStatAttackSpeedIcon = rootElement.Q<ButtonWithTooltip>(towerStatAttackSpeedName);
+    towerStatRangeIcon = rootElement.Q<ButtonWithTooltip>(towerStatRangeName);
+    towerStatArmorPierceIcon = rootElement.Q<ButtonWithTooltip>(towerStatArmorPierceName);
+    towerStatAreaOfEffectIcon = rootElement.Q<ButtonWithTooltip>(towerStatAreaOfEffectName);
+    towerStatDotStacksIcon = rootElement.Q<ButtonWithTooltip>(towerStatDotStacksName);
 
     towerStatDamage = rootElement.Q<Label>(towerStatDamageName);
     towerStatAttackSpeed = rootElement.Q<Label>(towerStatAttackSpeedName);
@@ -189,6 +203,13 @@ public class TowerDetail : MonoBehaviour {
 
     towerBehaviorDropdown.index = ((int)tower.Behavior);
     towerPriorityDropdown.index = ((int)tower.Priority);
+
+    towerStatDamageIcon.TooltipText = "Damage";
+    towerStatAttackSpeedIcon.TooltipText = "Attack Speed";
+    towerStatRangeIcon.TooltipText = "Range";
+    towerStatArmorPierceIcon.TooltipText = "Armor Pierce";
+    towerStatAreaOfEffectIcon.TooltipText = "Area of Effect";
+    towerStatDotStacksIcon.TooltipText = "Damage Over Time Stacks";
 
     towerStatDamage.text = tower.Damage.ToString();
     towerStatAttackSpeed.text = tower.AttackSpeed.ToString();

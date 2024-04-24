@@ -20,29 +20,31 @@
         <ui:VisualElement class="tower-detail-stats-container">
             <ui:VisualElement class="tower-detail-stats-col">
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="D" />
+                    <ButtonWithTooltip name="tower-stat-damage" class="tower-detail-stat-icon tower-stat-icon-damage" />
                     <ui:Label name="tower-stat-damage" class="tower-detail-stat-value" />
                 </ui:VisualElement>
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="AS" />
+                    <ButtonWithTooltip name="tower-stat-attack-speed" class="tower-detail-stat-icon tower-stat-icon-attack-speed" />
                     <ui:Label name="tower-stat-attack-speed" class="tower-detail-stat-value" />
-                </ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="R" />
-                    <ui:Label name="tower-stat-range" class="tower-detail-stat-value" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="tower-detail-stats-col">
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="AP" />
+                    <ButtonWithTooltip name="tower-stat-range" class="tower-detail-stat-icon tower-stat-icon-range" />
+                    <ui:Label name="tower-stat-range" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ButtonWithTooltip name="tower-stat-area-of-effect" class="tower-detail-stat-icon tower-stat-icon-area-of-effect" />
+                    <ui:Label name="tower-stat-area-of-effect" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="tower-detail-stats-col">
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ButtonWithTooltip name="tower-stat-armor-pierce" class="tower-detail-stat-icon tower-stat-icon-armor-pierce" />
                     <ui:Label name="tower-stat-armor-pierce" class="tower-detail-stat-value" />
                 </ui:VisualElement>
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="AoE" />
-                    <ui:Label name="tower-stat-area-of-effect" class="tower-detail-stat-value" />
-                </ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="DoTS" />
+                    <ButtonWithTooltip name="tower-stat-dot-stacks" class="tower-detail-stat-icon tower-stat-icon-dot-stacks" />
                     <ui:Label name="tower-stat-dot-stacks" class="tower-detail-stat-value" />
                 </ui:VisualElement>
             </ui:VisualElement>
