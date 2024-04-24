@@ -149,14 +149,9 @@ public class TowerDetail : MonoBehaviour {
     int upgradePath = (int)Char.GetNumericValue(rockerSwitch.name[5]);
     int upgradeNum = (int)Char.GetNumericValue(rockerSwitch.name[15]);
 
-    if (upgradeNum > 0) {
-        // get previous upgrade
-        string previousUpgradeName = "tree_" + upgradePath + "_upgrade_" + (upgradeNum - 1) + "__button";
-        Button previousUpgradeButton = rootElement.Q<Button>(previousUpgradeName);
-        // check if it is owned
-        if (previousUpgradeButton.ClassListContains("rocker-switch-off")) {
-            return;
-        }
+    // check that previous upgrade is owned
+    if (upgradeNum > 0 && towerUpgradeSwitches[upgradePath, upgradeNum - 1].ClassListContains("rocker-switch-off")) {
+        return;
     }
 
     TowerAbility upgrade = TowerManager.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
