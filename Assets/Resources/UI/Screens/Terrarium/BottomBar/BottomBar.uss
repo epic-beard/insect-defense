@@ -12,5 +12,5 @@
 
 .settings-button {
     position: absolute;
-    right: 390px;
+    right: 0px;
 }

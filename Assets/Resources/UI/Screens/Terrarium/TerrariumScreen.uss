@@ -38,7 +38,7 @@
 .bottom-bar-parent {
   position: absolute;
   bottom: 10px;
-  width: 100%;
+  width: 70%;
   height: 50px;
   visibility: visible;
   background-color: rgba(0, 0, 0, 0);
@@ -54,26 +54,34 @@
   background-image: resource("UI/images/bgs/metal_plate_texture_5");
   background-size: contain;
   background-repeat: repeat;
-}
-
-.sidebar > * {
-    background-color: rgba(0, 0, 0, .5);
+  -unity-background-image-tint-color: #777777;
 }
 
 .top-bar-parent {
   flex-basis: 10%;
-  flex-grow: 1;
 }
 
 .context-panel-parent {
   flex-basis: 70%;
-  flex-grow: 7;
+  min-height: 50px;
+}
+
+.tower-selector-border {
+  height: 12px;
+  background-image: resource("UI/images/bgs/metal_border_texture_0");
 }
 
 .tower-selector {
-  flex-basis: 20%;
-  flex-grow: 2;
-  padding-bottom: 12px;
+  flex-basis: 15%;
+  flex-grow: 7;
+  -unity-font-definition: url("/Assets/Font/OperationNapalm-nRBWO SDF.asset");
+  -unity-text-align: middle-center;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: resource("UI/images/bgs/metal_plate_texture_7");
+  background-size: cover;
+  background-repeat: no-repeat;
+  -unity-background-image-tint-color: #777777;
 }
 
 .tooltip-container{
@@ -89,7 +97,7 @@
    max-height: 100px;
    padding: 4px;
    color: #ffffff;
-   background-color: #000000;
+   background-color: rgba(0, 0, 0, 0.75);
    overflow: hidden;
    visibility: visible;
    white-space: normal;

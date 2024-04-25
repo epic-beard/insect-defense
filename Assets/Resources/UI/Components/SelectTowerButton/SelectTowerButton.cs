@@ -38,7 +38,7 @@ public class SelectTowerButton : Tooltip {
     get { return cost; }
     set {
       cost = value;
-      costLabelVE.text = Constants.nu + cost;
+      costLabelVE.text = Constants.nu + " " + cost;
     }
   }
   

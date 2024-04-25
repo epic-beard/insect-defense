@@ -32,7 +32,8 @@
     padding: 8px;
     width: 32px;
     height: 32px;
-    background-color: #ffffff;
+    border-radius: 4px;
+    background-color: #000000;
 }
 
 .sell-tower-button-container {

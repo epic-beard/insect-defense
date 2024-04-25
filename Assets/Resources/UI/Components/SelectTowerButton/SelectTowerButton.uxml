@@ -9,5 +9,7 @@
             <ui:Label name="select-tower-name" class="select-tower-name" tabindex="-1" text="Name" />
             <ui:Label name="select-tower-cost" class="select-tower-cost" tabindex="-1" text="Label" />
         </ui:VisualElement>
+
+        <ui:VisualElement class="select-tower-light"></ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
