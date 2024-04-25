@@ -1,35 +1,51 @@
 .enemy-detail-container {
-    color: #e75900;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
-.enemy-detail-label {
-    -unity-text-align: upper-center;
+.enemy-detail-name {
+    flex-basis: 15%;
+    height: 55px;
+    color: #ffffff;
+    font-size: 20px;
+    -unity-font-definition: url("/Assets/Font/OperationNapalm-nRBWO SDF.asset");
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    background-image: resource("UI/images/bgs/metal_frame_texture_3");
+    background-size: 200px 50px;
+    background-repeat: no-repeat;
 }
 
 .enemy-stats-container {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 40%;
+    justify-content: space-around;
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+    margin-bottom: 12px;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 18px;
+    color: #55ddff;
+}
+
+.enemy-stats-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.enemy-stats-row {
+    display: flex;
     flex-direction: row;
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
-}
-
-.enemy-stats-subcontainer {
-    flex-grow: 1;
-    max-width: 150px;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.enemy-stat-container {
-    flex-direction: row;
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.enemy-current-hp,
-.enemy-current-armor {
-    -unity-text-align: upper-right;
 }
 
 .enemy-active-preview-container {
+    flex-basis: 40%;
     flex-grow: 1;
+    width: 100%;
+    height: 200px;
     background-color: #000000;
 }

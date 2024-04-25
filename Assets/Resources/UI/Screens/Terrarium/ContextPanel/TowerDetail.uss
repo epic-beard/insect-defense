@@ -22,6 +22,7 @@
     flex-basis: 40%;
     flex-grow: 2;
     height: 80%;
+    -unity-font-style: bold;
     background-image: resource("UI/images/bgs/metal_frame_texture_3");
     background-size: 150px 36px;
     background-repeat: no-repeat;
