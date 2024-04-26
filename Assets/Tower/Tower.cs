@@ -289,13 +289,16 @@ public abstract class Tower : MonoBehaviour {
   private void MarkTarget(Enemy enemy) {
     if (targetingIndicator != null && enemy != null) {
       targetingIndicatorMeshRenderer.enabled = true;
-      Bounds enemyBound = enemy.Renderers[0].bounds;
-      float ratio = 1.5f;
 
-      foreach (Renderer r in enemy.Renderers) {
-        enemyBound.Encapsulate(r.transform.position);
+      Bounds enemyBound = new();
+      if (enemy.Renderers != null) {
+        enemyBound = enemy.Renderers.Length == 0 ? new() : enemy.Renderers[0].bounds;
+        foreach (Renderer r in enemy.Renderers) {
+          enemyBound.Encapsulate(r.transform.position);
+        }
       }
 
+      float ratio = 1.5f;
       targetingIndicator.transform.position = new Vector3(enemyBound.center.x, 0, enemyBound.center.z);
       float radius = Mathf.Max(enemyBound.size.x, enemyBound.size.z);
       targetingIndicator.transform.localScale =

@@ -3,24 +3,28 @@
     flex-direction: column;
     justify-content: space-between;
     height: 740px;
+    -unity-font-definition: url("/Assets/Font/OperationNapalm-nRBWO SDF.asset");
+    -unity-text-align: middle-center;
     color: #ffffff;
 }
 
 .tower-detail-top-bar {
     display: flex;
     flex-direction: row;
-    flex-basis: 10%;
+    flex-basis: 8%;
     flex-grow: 1;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    border-top-width: 1px;
-    border-top-color: #ffffff;
 }
 
 .tower-name {
     flex-basis: 40%;
     flex-grow: 2;
+    height: 80%;
+    background-image: resource("UI/images/bgs/metal_frame_texture_3");
+    background-size: 150px 36px;
+    background-repeat: no-repeat;
 }
 
 .tower-icon {
@@ -34,11 +38,34 @@
 .sell-tower-button-container {
     flex-basis: 40%;
     flex-grow: 2;
+    flex-direction: row;
+}
+
+.sell-tower-label {
+    margin-left: 30%;
+    font-size: 24px;
 }
 
 .sell-tower-button {
-    width: 50%;
-    margin-left: 45%;
+    width: 80px;
+    height: 40px;
+    margin-left: -20px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource("UI/images/bgs/sell_button_texture_0");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0px;
+}
+
+.sell-tower-button:hover {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource("UI/images/bgs/sell_button_texture_hover_0");
+}
+
+.sell-tower-button:active {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource("UI/images/bgs/sell_button_texture_active_0");
 }
 
 .tower-detail-targeting-container {
@@ -48,33 +75,123 @@
     flex-grow: 1;
     width: 100%;
     height: 100%;
-    border-top-width: 1px;
-    border-top-color: #ffffff;
 }
 
 .tower-targeting-dropdown {
-    flex-grow: 1;
+    width: 50%;
+    font-size: 18px;
+}
+
+.tower-targeting-dropdown .unity-base-field__input {
+    padding-left: 10%;
+    border-width:0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource("UI/images/bgs/rusty_pipe_texture_0");
+    -unity-background-image-tint-color: #cccccc;
+}
+
+.unity-popup-field:hover .unity-popup-field__input,
+.unity-popup-field:active .unity-popup-field__input {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-base-popup-field__text {
+    margin-right: 0;
+    -unity-text-align: middle-center;
+}
+
+.unity-popup-field:hover .unity-base-popup-field__arrow {
+    rotate: 90deg;
+}
+
+.unity-popup-field:active .unity-base-popup-field__arrow {
+    rotate: 180deg;
+}
+
+.unity-base-popup-field__arrow {
+    width: 20px;
+    height: 20px;
+    background-image: resource("UI/images/bgs/valve_wheel_texture_0");
+    -unity-background-image-tint-color: #ffffff;
+}
+
+.unity-base-dropdown .unity-scroll-view {
+    color: #ffffff;
+    border-width: 2px;
+    border-color: #000000;
+    background-image: resource("UI/images/bgs/rusty_metal_texture_0");
+    -unity-background-image-tint-color: #777777;
+}
+
+.unity-base-dropdown__item {
+}
+
+.unity-base-dropdown #unity-content-container {
+}
+
+.unity-base-dropdown__checkmark {
+    background-image: resource("UI/images/bgs/red_bulb_lit_texture_0");
+    background-size: cover;
+    background-repeat: no-repeat;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.unity-base-dropdown__container-outer {
 }
 
 .tower-detail-stats-container {
-    flex-basis: 30%;
+    flex-basis: 10%;
     flex-grow: 3;
     flex-direction: row;
-    width: 100%;
-    height: 100%;
-    border-top-width: 1px;
-    border-top-color: #ffffff;
+    width: 90%;
+    height: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    color: #55ddff;
 }
 
 .tower-detail-stats-col {
     flex-grow: 1;
     flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     width: 100%;
 }
 
 .tower-detail-stats-row {
     display: flex;
     flex-direction: row;
+}
+
+.tower-detail-stat-icon {
+    width: 32px;
+    height: 32px;
+    -unity-background-image-tint-color: #ffffff;
+}
+
+.tower-stat-icon-damage {
+    background-image: resource("UI/images/tower stats/damage_0");
+}
+
+.tower-stat-icon-attack-speed {
+    background-image: resource("UI/images/tower stats/attack_speed_0");
+}
+
+.tower-stat-icon-range {
+    background-image: resource("UI/images/tower stats/range_0");
+}
+
+.tower-stat-icon-area-of-effect {
+    background-image: resource("UI/images/tower stats/area_of_effect_0");
+}
+
+.tower-stat-icon-armor-pierce {
+    background-image: resource("UI/images/tower stats/armor_pierce_0");
+}
+
+.tower-stat-icon-dot-stacks {
+    background-image: resource("UI/images/tower stats/dot_stacks_0");
 }
 
 .tower-detail-upgrades-container {
@@ -87,29 +204,55 @@
     align-items: flex-end;
     width: 100%;
     height: 100%;
-    border-top-width: 1px;
-    border-top-color: #ffffff;
 }
 
 .tower-upgrade-tree {
     flex-grow: 1;
-    width: 30%;
+    align-items: center;
+    width: 33%;
 }
 
-.tower-upgrade-button {
-    margin-left: auto;
-    margin-right: auto;
-    width: 96px;
-    height: 32px;
+.tower-upgrade-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    width: 66%;
+    margin-bottom: 2px;
+    background-image: resource("UI/images/bgs/metal_frame_texture_0");
+    background-size: 100% 50px;
+    background-repeat: no-repeat;
+}
+
+.tower-upgrade-icon {
+    width: 40px;
+    height: 40px;
     margin-bottom: 8px;
+    border-radius: 4px;
+    background-color: #000000;
 }
 
-.tower-upgrade-button .tooltip-button {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-    -unity-text-align: middle-center;
+.rocker-switch-button {
+    width: 16px;
+    height: 48px;
+    border-width: 0px;
+}
+
+.rocker-switch-off {
+    background-image: resource("UI/images/bgs/rocker_switch_off_texture_0");
+}
+
+.rocker-switch-off:hover {
+    background-image: resource("UI/images/bgs/rocker_switch_off_hover_texture_0");
+}
+
+.rocker-switch-on {
+    background-image: resource("UI/images/bgs/rocker_switch_on_texture_0");
 }
 
 .tower-upgrade-tree-label {
+    width: 80%;
+    height: 30px;
+    background-image: resource("UI/images/bgs/metal_frame_texture_1");
     -unity-text-align: middle-center;
 }
