@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
-using NullableIntegerField = NullableField<int, UnityEngine.UIElements.IntegerField>;
+using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.IntegerField>;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -131,6 +131,7 @@ public class Spawner : MonoBehaviour {
       field.value = value;
       field.AddToClassList("wave-designer-field");
       field.RegisterValueChangedCallback<string>(callback);
+      field.focusable = true;
       return field;
     }
 
@@ -146,6 +147,13 @@ public class Spawner : MonoBehaviour {
       field.AddToClassList("wave-designer-nullable-field");
       field.OnValueChanged += callback;
       return field;
+    }
+
+    protected WDStringList GetStringList(string name, List<string> items, Action<List<string>> callback) {
+      WDStringList list = new(items, name);
+      list.AddToClassList("wave-designer-string-list");
+      list.OnItemsChanged += callback;
+      return list;
     }
   }
 
@@ -589,6 +597,9 @@ public class Spawner : MonoBehaviour {
       foldout.Add(GetFloatField("Delay:", delay, evt => {
         delay = evt.newValue; WaveChanged.Invoke(); }));
 
+      foldout.Add(GetStringList("Messages", messages, items => {
+        messages = items; WaveChanged.Invoke();
+      }));
       ve.Add(foldout);
     }
 
@@ -626,7 +637,7 @@ public class Spawner : MonoBehaviour {
 
     public override void BindData(VisualElement ve) {
       ve.Clear();
-      ve.Add(new Label("Wait Until Dead"));
+      ve.Add(GetLabel("Wait Until Dead"));
       // TODO(nnewsom) implement:
       // WaveTag
     }
