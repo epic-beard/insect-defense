@@ -1,5 +1,7 @@
 .select-tower-list {
     flex-grow: 1;
     min-height: 50px;
+    padding-left: 12px;
+    padding-right: 12px;
     color: #e75800;
 }

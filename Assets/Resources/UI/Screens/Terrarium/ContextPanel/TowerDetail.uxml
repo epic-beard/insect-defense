@@ -7,7 +7,8 @@
             <ui:Label name="tower-name" class="tower-name" text="&lt;towername&gt;" />
             <ui:VisualElement class="tower-icon"></ui:VisualElement>
             <ui:VisualElement class="sell-tower-button-container">
-              <ui:Button text="Sell" name="sell-tower" class="sell-tower-button primary-button" />
+              <ui:Label class="sell-tower-label" text="SELL" />
+              <ui:Button name="sell-tower" class="sell-tower-button" />
             </ui:VisualElement>
         </ui:VisualElement>
 
@@ -16,32 +17,34 @@
             <ui:DropdownField name="tower-priority" class="tower-targeting-dropdown" index="0" choices="First" focusable="false" />
         </ui:VisualElement>
 
-        <ui:VisualElement class="tower-detail-stats-container">
+        <ui:VisualElement class="tower-detail-stats-container led-screen">
             <ui:VisualElement class="tower-detail-stats-col">
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="D" />
+                    <ButtonWithTooltip name="tower-stat-damage" class="tower-detail-stat-icon tower-stat-icon-damage" />
                     <ui:Label name="tower-stat-damage" class="tower-detail-stat-value" />
                 </ui:VisualElement>
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="AS" />
+                    <ButtonWithTooltip name="tower-stat-attack-speed" class="tower-detail-stat-icon tower-stat-icon-attack-speed" />
                     <ui:Label name="tower-stat-attack-speed" class="tower-detail-stat-value" />
-                </ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="R" />
-                    <ui:Label name="tower-stat-range" class="tower-detail-stat-value" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="tower-detail-stats-col">
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="AP" />
+                    <ButtonWithTooltip name="tower-stat-range" class="tower-detail-stat-icon tower-stat-icon-range" />
+                    <ui:Label name="tower-stat-range" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ButtonWithTooltip name="tower-stat-area-of-effect" class="tower-detail-stat-icon tower-stat-icon-area-of-effect" />
+                    <ui:Label name="tower-stat-area-of-effect" class="tower-detail-stat-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="tower-detail-stats-col">
+                <ui:VisualElement class="tower-detail-stats-row">
+                    <ButtonWithTooltip name="tower-stat-armor-pierce" class="tower-detail-stat-icon tower-stat-icon-armor-pierce" />
                     <ui:Label name="tower-stat-armor-pierce" class="tower-detail-stat-value" />
                 </ui:VisualElement>
                 <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="AoE" />
-                    <ui:Label name="tower-stat-area-of-effect" class="tower-detail-stat-value" />
-                </ui:VisualElement>
-                <ui:VisualElement class="tower-detail-stats-row">
-                    <ui:Label class="tower-detail-stat-label" text="DoTS" />
+                    <ButtonWithTooltip name="tower-stat-dot-stacks" class="tower-detail-stat-icon tower-stat-icon-dot-stacks" />
                     <ui:Label name="tower-stat-dot-stacks" class="tower-detail-stat-value" />
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -49,29 +52,74 @@
 
         <ui:VisualElement class="tower-detail-upgrades-container">
             <ui:VisualElement class="tower-upgrade-tree">
-                <ButtonWithTooltip name="tree_0_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_0_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_0_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_0_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_0_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_0_upgrade_4__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_0_upgrade_4__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_0_upgrade_3__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_0_upgrade_3__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_0_upgrade_2__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_0_upgrade_2__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_0_upgrade_1__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_0_upgrade_1__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_0_upgrade_0__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_0_upgrade_0__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
                 <ui:Label name="tower_upgrade_tree_0__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 1&gt;" />
             </ui:VisualElement>
                 
             <ui:VisualElement class="tower-upgrade-tree">
-                <ButtonWithTooltip name="tree_1_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_1_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_1_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_1_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_1_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_1_upgrade_4__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_1_upgrade_4__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_1_upgrade_3__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_1_upgrade_3__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_1_upgrade_2__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_1_upgrade_2__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_1_upgrade_1__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_1_upgrade_1__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_1_upgrade_0__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_1_upgrade_0__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
                 <ui:Label name="tower_upgrade_tree_1__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 2&gt;" />
             </ui:VisualElement>
                 
             <ui:VisualElement class="tower-upgrade-tree">
-                <ButtonWithTooltip name="tree_2_upgrade_4__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_2_upgrade_3__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_2_upgrade_2__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_2_upgrade_1__button" class="secondary-button tower-upgrade-button" focusable="false" />
-                <ButtonWithTooltip name="tree_2_upgrade_0__button" class="secondary-button tower-upgrade-button" focusable="false" />
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_2_upgrade_4__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_2_upgrade_4__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_2_upgrade_3__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_2_upgrade_3__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_2_upgrade_2__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_2_upgrade_2__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_2_upgrade_1__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_2_upgrade_1__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tower-upgrade-button-container">
+                    <ButtonWithTooltip name="tree_2_upgrade_0__button" class="tower-upgrade-icon" focusable="false" />
+                    <ui:Button name="tree_2_upgrade_0__button" class="rocker-switch-button rocker-switch-off" focusable="false" />
+                </ui:VisualElement>
                 <ui:Label name="tower_upgrade_tree_2__label" class="tower-upgrade-tree-label" tabindex="-1" text="&lt;Tree 3&gt;" />
             </ui:VisualElement>
         </ui:VisualElement>

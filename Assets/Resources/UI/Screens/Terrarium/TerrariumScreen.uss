@@ -50,9 +50,14 @@
   flex-direction: column;
   justify-content: flex-start;
   max-width: 384px;
-  background-color: #000000;
-  border-left-width: 1px;
-  border-left-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: resource("UI/images/bgs/metal_plate_texture_5");
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.sidebar > * {
+    background-color: rgba(0, 0, 0, .5);
 }
 
 .top-bar-parent {
@@ -81,7 +86,9 @@
 
 .tooltip-label {
    max-width: 300px;
-   color: rgb(231, 16, 154);
+   max-height: 100px;
+   padding: 4px;
+   color: #ffffff;
    background-color: #000000;
    overflow: hidden;
    visibility: visible;

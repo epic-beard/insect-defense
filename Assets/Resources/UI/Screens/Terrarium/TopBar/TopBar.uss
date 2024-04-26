@@ -12,11 +12,12 @@
     flex-grow: 1;
     flex-direction: row;
     font-size: 24px;
-    color: #d90000;
+    color: #ff0000;
 }
 
 .wave-count {
     flex-grow: 1;
+    margin-top: 0px;
     font-size: 18px;
     color: #ffffff;
 }
@@ -25,10 +26,20 @@
     flex-grow: 1;
     flex-direction: row;
     font-size: 24px;
-    color: #fff80d;
+    color: #00ff00;
+    
 }
 
 .nu-symbol {
-    margin-right: 10px;
+    margin-bottom: 15px;
     -unity-font-style: italic;
+}
+
+.nu-amount {
+    margin-left: 10px;
+}
+
+.led-screen {
+    width: 100px;
+    height: 50px;
 }
