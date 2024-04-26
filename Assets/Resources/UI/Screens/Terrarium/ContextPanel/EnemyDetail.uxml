@@ -8,19 +8,19 @@
         <ui:VisualElement class="enemy-stats-container led-screen">
             <ui:VisualElement class="enemy-stats-col">
                 <ui:VisualElement class="enemy-stats-row">
-                    <ui:Label class="enemy-detail-stat-icon enemy-stat-icon-size" tabindex="-1" />
+                    <ButtonWithTooltip name="enemy-stat-icon-size" class="enemy-detail-stat-icon enemy-stat-icon-size" tabindex="-1" />
                     <ui:Label name="enemy-size" tabindex="-1" text="&lt;enemysize&gt;" />
                 </ui:VisualElement>
                 
                 <ui:VisualElement class="enemy-stats-row">
-                    <ui:Label class="enemy-detail-stat-icon enemy-stat-icon-hp" tabindex="-1" />
+                    <ButtonWithTooltip name="enemy-stat-icon-hp" class="enemy-detail-stat-icon enemy-stat-icon-hp" tabindex="-1" />
                     <ui:Label name="enemy-current-hp" class="enemy-current-hp" tabindex="-1" text="0" />
                     <ui:Label tabindex="-1" text="/" />
                     <ui:Label name="enemy-max-hp" tabindex="-1" text="0" />
                 </ui:VisualElement>
                 
                 <ui:VisualElement class="enemy-stats-row">
-                    <ui:Label class="enemy-detail-stat-icon enemy-stat-icon-armor" tabindex="-1" />
+                    <ButtonWithTooltip name="enemy-stat-icon-armor" class="enemy-detail-stat-icon enemy-stat-icon-armor" tabindex="-1" />
                     <ui:Label name="enemy-current-armor" class="enemy-current-armor" tabindex="-1" text="0" />
                     <ui:Label tabindex="-1" text="/" />
                     <ui:Label name="enemy-max-armor" tabindex="-1" text="0" />
@@ -29,17 +29,17 @@
                 
             <ui:VisualElement class="enemy-stats-col">
                 <ui:VisualElement class="enemy-stats-row">
-                    <ui:Label class="enemy-detail-stat-icon enemy-stat-icon-speed" tabindex="-1" />
+                    <ButtonWithTooltip name="enemy-stat-icon-speed" class="enemy-detail-stat-icon enemy-stat-icon-speed" tabindex="-1" />
                     <ui:Label  name="enemy-speed" tabindex="-1" text="&lt;enemyspeed&gt;" />
                 </ui:VisualElement>
                 
                 <ui:VisualElement class="enemy-stats-row">
-                    <ui:Label class="enemy-detail-stat-icon enemy-stat-icon-damage" tabindex="-1" />
+                    <ButtonWithTooltip name="enemy-stat-icon-damage" class="enemy-detail-stat-icon enemy-stat-icon-damage" tabindex="-1" />
                     <ui:Label name="enemy-damage" tabindex="-1" text="&lt;enemydamage&gt;" />
                 </ui:VisualElement>
                 
                 <ui:VisualElement class="enemy-stats-row">
-                    <ui:Label class="enemy-detail-stat-icon enemy-stat-icon-nu" tabindex="-1" />
+                    <ButtonWithTooltip name="enemy-stat-icon-nu" class="enemy-detail-stat-icon enemy-stat-icon-nu" tabindex="-1" />
                     <ui:Label name="enemy-nu" tabindex="-1" text="&lt;enemynu&gt;" />
                 </ui:VisualElement>
             </ui:VisualElement>
