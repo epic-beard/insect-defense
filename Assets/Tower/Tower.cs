@@ -123,7 +123,7 @@ public abstract class Tower : MonoBehaviour {
   public string IconPath { get { return data.icon_path; } set { data.icon_path = value; } }
   #endregion
 
-  protected int[] upgradeLevels = new int[] { 0, 0, 0 };  // Each entry in this array should be 0-4.
+  protected int[] upgradeLevels = new int[] { -1, -1, -1 };  // Each entry in this array should be -1-4.
   public int[] UpgradeLevels { get { return upgradeLevels; } }
 
   // How close a particle needs to get to consider it a hit.
