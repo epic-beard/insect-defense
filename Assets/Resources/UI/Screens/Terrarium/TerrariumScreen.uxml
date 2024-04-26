@@ -16,7 +16,9 @@
         <ui:VisualElement name="sidebar" class="sidebar">
             <ui:Instance template="TopBar" class="top-bar-parent" />
             <ui:Instance template="ContextPanel" class="context-panel-parent" />
+            <ui:VisualElement class="tower-selector-border"></ui:VisualElement>
             <ui:Instance template="TowerSelector" class="tower-selector" />
+            <ui:VisualElement class="tower-selector-border"></ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement class="message-box-parent">
