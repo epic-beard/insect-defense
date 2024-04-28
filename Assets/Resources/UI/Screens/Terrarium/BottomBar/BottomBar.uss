@@ -19,3 +19,7 @@
     background-color: rgba(0, 0, 0, 0);
     background-image: resource("UI/images/bgs/rusty_cog_texture_0");
 }
+
+.settings-button:hover {
+    background-image: resource("UI/images/bgs/rusty_cog_texture_1");
+}
