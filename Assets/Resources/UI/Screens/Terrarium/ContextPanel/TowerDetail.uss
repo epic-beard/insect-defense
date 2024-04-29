@@ -22,6 +22,7 @@
     flex-basis: 40%;
     flex-grow: 2;
     height: 80%;
+    -unity-font-style: bold;
     background-image: resource("UI/images/bgs/metal_frame_texture_3");
     background-size: 150px 36px;
     background-repeat: no-repeat;
@@ -172,27 +173,27 @@
 }
 
 .tower-stat-icon-damage {
-    background-image: resource("UI/images/tower stats/damage_0");
+    background-image: resource("UI/images/stat icons/damage_0");
 }
 
 .tower-stat-icon-attack-speed {
-    background-image: resource("UI/images/tower stats/attack_speed_0");
+    background-image: resource("UI/images/stat icons/attack_speed_0");
 }
 
 .tower-stat-icon-range {
-    background-image: resource("UI/images/tower stats/range_0");
+    background-image: resource("UI/images/stat icons/range_0");
 }
 
 .tower-stat-icon-area-of-effect {
-    background-image: resource("UI/images/tower stats/area_of_effect_0");
+    background-image: resource("UI/images/stat icons/area_of_effect_0");
 }
 
 .tower-stat-icon-armor-pierce {
-    background-image: resource("UI/images/tower stats/armor_pierce_0");
+    background-image: resource("UI/images/stat icons/armor_pierce_0");
 }
 
 .tower-stat-icon-dot-stacks {
-    background-image: resource("UI/images/tower stats/dot_stacks_0");
+    background-image: resource("UI/images/stat icons/dot_stacks_0");
 }
 
 .tower-detail-upgrades-container {

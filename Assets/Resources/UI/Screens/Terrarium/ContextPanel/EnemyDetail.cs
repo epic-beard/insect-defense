@@ -14,6 +14,13 @@ public class EnemyDetail : MonoBehaviour {
   readonly private string enemyDamageLabelName = "enemy-damage";
   readonly private string enemyNuLabelName = "enemy-nu";
 
+  readonly private string enemyStatSizeName = "enemy-stat-icon-size";
+  readonly private string enemyStatHpName = "enemy-stat-icon-hp";
+  readonly private string enemyStatArmorName = "enemy-stat-icon-armor";
+  readonly private string enemyStatSpeedName = "enemy-stat-icon-speed";
+  readonly private string enemyStatDamageName = "enemy-stat-icon-damage";
+  readonly private string enemyStatNuName = "enemy-stat-icon-nu";
+
   private UIDocument uiDocument;
 
   private Label enemyNameLabelVE;
@@ -25,6 +32,13 @@ public class EnemyDetail : MonoBehaviour {
   private Label enemySpeedLabelVE;
   private Label enemyDamageLabelVE;
   private Label enemyNuLabelVE;
+
+  private ButtonWithTooltip enemyStatSizeIcon;
+  private ButtonWithTooltip enemyStatHpIcon;
+  private ButtonWithTooltip enemyStatArmorIcon;
+  private ButtonWithTooltip enemyStatSpeedIcon;
+  private ButtonWithTooltip enemyStatDamageIcon;
+  private ButtonWithTooltip enemyStatNuIcon;
 
   private void Awake() {
     SetVisualElements();
@@ -44,6 +58,20 @@ public class EnemyDetail : MonoBehaviour {
     enemyNuLabelVE = rootElement.Q<Label>(enemyNuLabelName);
     enemySizeLabelVE = rootElement.Q<Label>(enemySizeLabelName);
     enemySpeedLabelVE = rootElement.Q<Label>(enemySpeedLabelName);
+
+    enemyStatSizeIcon = rootElement.Q<ButtonWithTooltip>(enemyStatSizeName);
+    enemyStatHpIcon = rootElement.Q<ButtonWithTooltip>(enemyStatHpName);
+    enemyStatArmorIcon = rootElement.Q<ButtonWithTooltip>(enemyStatArmorName);
+    enemyStatSpeedIcon = rootElement.Q<ButtonWithTooltip>(enemyStatSpeedName);
+    enemyStatDamageIcon = rootElement.Q<ButtonWithTooltip>(enemyStatDamageName);
+    enemyStatNuIcon = rootElement.Q<ButtonWithTooltip>(enemyStatNuName);
+
+    enemyStatSizeIcon.TooltipText = "Size";
+    enemyStatHpIcon.TooltipText = "Health";
+    enemyStatArmorIcon.TooltipText = "Armor";
+    enemyStatSpeedIcon.TooltipText = "Speed";
+    enemyStatDamageIcon.TooltipText = "Damage";
+    enemyStatNuIcon.TooltipText = "Nu";
   }
 
   // Capitalize the first letter in a word and make all other letters lowercase.

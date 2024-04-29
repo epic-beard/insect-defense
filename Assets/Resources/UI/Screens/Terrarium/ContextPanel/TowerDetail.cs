@@ -225,6 +225,8 @@ public class TowerDetail : MonoBehaviour {
     towerStatAreaOfEffect.text = tower.AreaOfEffect.ToString();
     towerStatDotStacks.text = tower.DamageOverTime.ToString();
 
+    // TODO (agaber): Set the correct rocker switches to on and off depending on owned upgrades
+
     for (int i = 0; i < 3; i++) {
       string upgradePathName = tower.GetUpgradePathName(i);
       towerUpgradeTreeLabels[i].text = upgradePathName;
