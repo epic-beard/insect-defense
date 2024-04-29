@@ -519,7 +519,7 @@ public class TowerDataGenerator {
       damage_over_time = 0,
       enemies_hit = 0,
       projectile_speed = 0,
-      range = 0,
+      range = 40,
       secondary_slow_potency = 0,
       secondary_slow_targets = 0,
       slow_duration = 0,

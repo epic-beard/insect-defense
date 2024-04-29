@@ -7,6 +7,7 @@ using Assets;
 public abstract class Tower : MonoBehaviour {
   [SerializeField] protected TowerData data;
   [SerializeField] protected Transform targetingIndicator;
+  [SerializeField] protected Transform rangeIndicator;
 
   #region PublicProperties
   public float AttackSpeed {
@@ -54,7 +55,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.RANGE]; }
     set { data[TowerData.Stat.RANGE] = value; }
   }
-  public Renderer[] Renderers { get; private set; }
+  public HashSet<Renderer> Renderers { get; private set; }
   public float ProjectileSpeed {
     get { return data[TowerData.Stat.PROJECTILE_SPEED]; }
     set { data[TowerData.Stat.PROJECTILE_SPEED] = value; }
@@ -105,6 +106,9 @@ public abstract class Tower : MonoBehaviour {
   public Tile Tile { get; set; }
   public Enemy Target { get; protected set; }
 
+  protected float normalRangeHeight = 2.0f;
+  protected float antiAirRangeHeight = 4.0f;
+
   // The total Nu the tower has cost the player.
   public int Value {
     get {
@@ -140,6 +144,7 @@ public abstract class Tower : MonoBehaviour {
   }
 
   private MeshRenderer targetingIndicatorMeshRenderer;
+  private Transform rangeIndicatorTransform;
 
   // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
   public string GetUpgradePathName(int index) {
@@ -165,6 +170,10 @@ public abstract class Tower : MonoBehaviour {
     TowerStart();
     if (targetingIndicator != null) {
       targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
+    }
+    if (rangeIndicator != null) {
+      rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+
     }
   }
 
@@ -205,6 +214,9 @@ public abstract class Tower : MonoBehaviour {
             if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
               UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
             }
+            if (modifier.attribute == TowerData.Stat.RANGE) {
+              rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+            }
             break;
           case TowerAbility.Mode.ADDITIVE:
             data[modifier.attribute] += modifier.mod;
@@ -233,7 +245,10 @@ public abstract class Tower : MonoBehaviour {
   }
 
   public void CacheTowerRenderers() {
-    Renderers = this.GetComponentsInChildren<Renderer>();
+    // Get only those renderers without the tag NoTowerTransluscencyChanges.
+    Renderers = this.GetComponentsInChildren<Renderer>()
+        .Where(r => !r.CompareTag("NoTowerTransluscencyChanges")).ToHashSet();
+
     foreach (Renderer r in Renderers) {
       r.AllMaterialsToFadeMode();
     }
@@ -316,6 +331,12 @@ public abstract class Tower : MonoBehaviour {
     if (targetingIndicator != null && enemy != null) {
       targetingIndicatorMeshRenderer.enabled = false;
     }
+  }
+
+  public void SetRangeIndicator(bool visible) {
+    if (rangeIndicator == null) return;
+
+    rangeIndicator.gameObject.SetActive(visible);
   }
 
   public override string ToString() {

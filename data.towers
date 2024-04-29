@@ -643,7 +643,7 @@
         <damage>30</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
-        <range>0</range>
+        <range>40</range>
         <secondary_slow_potency>0</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>
