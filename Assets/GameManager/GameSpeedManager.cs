@@ -25,7 +25,7 @@ public class GameSpeedManager : MonoBehaviour {
     Time.timeScale = normalSpeed;
   }
 
-  private bool IsPaused() {
+  public bool IsPaused() {
     return pauseState.Any(kvp => kvp.Value);
   }
 
@@ -44,5 +44,9 @@ public class GameSpeedManager : MonoBehaviour {
     } else {
       Time.timeScale = turboBoostTime;
     }
+  }
+
+  public void SetGameSpeed(float speedFactor) {
+     Time.timeScale = normalSpeed * speedFactor;
   }
 }
