@@ -4,8 +4,8 @@
     
     <ui:VisualElement class="bottom-bar-container">
         <ui:VisualElement class="controls-container">
-            <ui:Button name="play-pause-button" focusable="false" class="primary-button" text="&lt;Default&gt;" />
+            <ui:Button name="play-pause-button" class="primary-button" text="&lt;Default&gt;" focusable="false" />
         </ui:VisualElement>
-        <ui:Button name="settings-button" focusable="false" class="settings-button tertiary-button" text="Settings" />
+        <ui:Button name="settings-button" class="settings-button" focusable="false" />
     </ui:VisualElement>
 </ui:UXML>

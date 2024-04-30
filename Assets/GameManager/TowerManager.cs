@@ -49,6 +49,8 @@ public class TowerManager : MonoBehaviour {
       }
       previewTowers.Add(type, tower);
     }
+
+    StartCoroutine(HandleRangeIndicator());
   }
 
   public Tower GetTower(Vector2Int coordinates) {
@@ -172,6 +174,7 @@ public class TowerManager : MonoBehaviour {
         Vector3.zero,
         Quaternion.identity);
     Tower tower = towerObj.GetComponent<Tower>();
+    tower.SetTowerData(GetTowerData(type));
     tower.CacheTowerRenderers();
     MakeTowerTransluscent(tower, towerPreviewTransparency);
     tower.gameObject.SetActive(false);
@@ -226,6 +229,16 @@ public class TowerManager : MonoBehaviour {
   private void MakeTowerOpaque(Tower tower) {
     foreach (Renderer r in tower.Renderers) {
       r.AllMaterialsOpaque();
+    }
+  }
+
+  private IEnumerator HandleRangeIndicator() {
+    while (true) {
+      yield return new WaitUntil(() => SelectedTower != null);
+      Tower cachedTower = SelectedTower;
+      SelectedTower.SetRangeIndicator(true);
+      yield return new WaitUntil(() => !cachedTower.Equals(SelectedTower));
+      cachedTower.SetRangeIndicator(false);
     }
   }
 }

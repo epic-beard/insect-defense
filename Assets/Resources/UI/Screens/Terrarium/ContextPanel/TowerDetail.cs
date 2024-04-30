@@ -139,34 +139,40 @@ public class TowerDetail : MonoBehaviour {
   private void HandleTowerUpgradeCallback(ClickEvent evt) {
     Button rockerSwitch = Utilities.GetAncestor<Button>(evt.target as VisualElement);
     if (rockerSwitch == null) return;
-    if (rockerSwitch.ClassListContains("rocker-switch-on")) return;
 
     ButtonWithTooltip icon = rootElement.Q<ButtonWithTooltip>(rockerSwitch.name);
     if (icon == null) return;
+
+    Tower tower = TowerManager.SelectedTower;
+    if (tower == null) return;
 
     // tree_X_upgrade_Y__button
     // 0____5_________15
     int upgradePath = (int)Char.GetNumericValue(rockerSwitch.name[5]);
     int upgradeNum = (int)Char.GetNumericValue(rockerSwitch.name[15]);
 
-    // check that previous upgrade is owned
-    if (upgradeNum > 0 && towerUpgradeSwitches[upgradePath, upgradeNum - 1].ClassListContains("rocker-switch-off")) {
+    // check that current upgrade is not already owned
+    if (tower.UpgradeLevels[upgradePath] == upgradeNum) {
         return;
     }
 
-    TowerAbility upgrade = TowerManager.SelectedTower.GetUpgradePath(upgradePath)[upgradeNum];
+    // check that previous upgrade is owned
+    if (tower.UpgradeLevels[upgradePath] != upgradeNum - 1) {
+        return;
+    }
 
+    // check that player can afford the upgrade
+    TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[upgradeNum];
     if (GameStateManager.Instance.Nu < upgrade.cost) {
       return;
     }
 
-    rockerSwitch.AddToClassList("rocker-switch-on");
-    rockerSwitch.RemoveFromClassList("rocker-switch-off");
-
+    // all checks passed, continue with upgrade
+    SetRockerSwitchState(rockerSwitch, true);
     GameStateManager.Instance.Nu -= upgrade.cost;
-    TowerManager.SelectedTower.Upgrade(upgrade);
+    tower.Upgrade(upgrade);
 
-    SetContextForTower(TowerManager.SelectedTower);
+    SetContextForTower(tower);
   }
 
   private void OnSellTowerClick(ClickEvent evt) {
@@ -219,16 +225,30 @@ public class TowerDetail : MonoBehaviour {
     towerStatAreaOfEffect.text = tower.AreaOfEffect.ToString();
     towerStatDotStacks.text = tower.DamageOverTime.ToString();
 
+    // TODO (agaber): Set the correct rocker switches to on and off depending on owned upgrades
+
     for (int i = 0; i < 3; i++) {
       string upgradePathName = tower.GetUpgradePathName(i);
       towerUpgradeTreeLabels[i].text = upgradePathName;
-
     for (int j = 0; j < 5; j++) {
+        bool isOwned = j <= tower.UpgradeLevels[i];
+        SetRockerSwitchState(towerUpgradeSwitches[i, j], isOwned);
+
         towerUpgradeIcons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
         string imgPath = "UI/images/tower upgrades/" + tower.Name + "/" + upgradePathName.ToLower() + " " + j;
         towerUpgradeIcons[i, j].style.backgroundImage = Resources.Load<Texture2D>(imgPath);
       }
     }
+  }
+
+  private void SetRockerSwitchState(Button rockerSwitch, bool isOn) {
+      if (isOn) {
+          rockerSwitch.AddToClassList("rocker-switch-on");
+          rockerSwitch.RemoveFromClassList("rocker-switch-off");
+      } else {
+          rockerSwitch.AddToClassList("rocker-switch-off");
+          rockerSwitch.RemoveFromClassList("rocker-switch-on");
+      }
   }
 
   public void SetContextTowerName(string name) {
