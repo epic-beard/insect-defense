@@ -18,6 +18,14 @@
 .end-screen-label {
    margin-bottom: 20px;
    color: #ffffff;
-   font-size: 20px;
+   font-size: 48px;
+   -unity-font-definition: url("/Assets/Font/GlitchGoblin-2O87v SDF.asset");
    -unity-font-style: bold;
+}
+
+.end-screen-button {
+    width: 150px;
+    height: 60px;
+    border-width: 2px;
+    font-size: 24px;
 }

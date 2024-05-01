@@ -5,8 +5,8 @@
     <ui:VisualElement class="end-screen-container">
         <ui:VisualElement class="end-screen-sub-container">
             <ui:Label name="end-screen-label" class="end-screen-label" text="You Died" />
-            <ui:Button name="restart-button" class="button-base secondary-button" text="Restart" />
-            <ui:Button name="lab-button" class="button-base primary-button" text="Give Up" />
+            <ui:Button name="restart-button" class="end-screen-button button-base secondary-button" text="Restart" />
+            <ui:Button name="lab-button" class="end-screen-button button-base primary-button" text="Give Up" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
