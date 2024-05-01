@@ -20,7 +20,6 @@
    color: #ffffff;
    font-size: 48px;
    -unity-font-definition: url("/Assets/Font/GlitchGoblin-2O87v SDF.asset");
-   -unity-font-style: bold;
 }
 
 .end-screen-button {
