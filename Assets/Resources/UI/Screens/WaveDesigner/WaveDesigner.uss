@@ -6,10 +6,15 @@
 
 .wave-designer-tree-view {
     color: rgb(255, 255, 255);
+    selection-type: single;
 }
 
 .wave-designer-label {
     color: rgb(255, 255, 255);
+}
+
+.wave-designer-field {
+    focusable: true
 }
 
 .wave-designer-field > .unity-base-field__input {
@@ -17,5 +22,9 @@
 }
 
 .wave-designer-nullable-field > .nullable-field-base__field > .unity-base-field__input {
-    color: rgb(0,0,0);
+    color: rgb(0, 0, 0);
+}
+
+.wd-list-item-base__field {
+    color: rgb(0, 0, 0);
 }
