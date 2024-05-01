@@ -18,11 +18,13 @@ public class GameSpeedManager : MonoBehaviour {
   private Dictionary<PauseToken, bool> pauseState = new();
   private float normalSpeed = 1.0f;
   private float turboBoostTime = 4.0f;
+  private float previousSpeed = 0.0f;
 
   private void Awake() {
     Instance = this;
     pauseState[PauseToken.NONE] = false;
     Time.timeScale = normalSpeed;
+    previousSpeed = normalSpeed;
   }
 
   public bool IsPaused() {
@@ -34,7 +36,13 @@ public class GameSpeedManager : MonoBehaviour {
     else pauseState[token] = !pauseState[token];
 
     OnPauseChanged?.Invoke(pauseState[PauseToken.NONE]);
-    Time.timeScale = IsPaused() ? 0 : normalSpeed;
+
+    if (IsPaused()) {
+        previousSpeed = Time.timeScale;
+        Time.timeScale = 0;
+    } else {
+        Time.timeScale = previousSpeed;
+    }
   }
 
   public void ToggleTurboBoost() {
