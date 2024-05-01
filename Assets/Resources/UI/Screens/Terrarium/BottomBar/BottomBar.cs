@@ -44,7 +44,7 @@ public class BottomBar : MonoBehaviour {
       gameSpeedButton2VE.RegisterCallback<ClickEvent>(
           (ClickEvent) => { SetGameSpeedFromDial(2); });
       gameSpeedButton3VE.RegisterCallback<ClickEvent>(
-          (ClickEvent) => { SetGameSpeedFromDial(3); });
+          (ClickEvent) => { SetGameSpeedFromDial(4); });
       settingsButtonVE.RegisterCallback<ClickEvent>(
           (ClickEvent) => { TerrariumInputManager.Instance.ToggleSettings(); });
   }
