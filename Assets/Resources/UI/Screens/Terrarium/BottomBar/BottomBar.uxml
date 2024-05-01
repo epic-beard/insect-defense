@@ -4,7 +4,24 @@
     
     <ui:VisualElement class="bottom-bar-container">
         <ui:VisualElement class="controls-container">
-            <ui:Button name="play-pause-button" class="primary-button" text="&lt;Default&gt;" focusable="false" />
+            <ui:VisualElement class="game-speed-dial" focusable="false">
+                <ui:VisualElement class="game-speed-container" focusable="false">
+                    <ui:VisualElement class="game-speed-light game-speed-0-light"></ui:VisualElement>
+                    <ui:Button name="game-speed-0-button" class="game-speed-button" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="game-speed-container" focusable="false">
+                    <ui:VisualElement class="game-speed-light game-speed-1-light"></ui:VisualElement>
+                    <ui:Button name="game-speed-1-button" class="game-speed-button" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="game-speed-container" focusable="false">
+                    <ui:VisualElement class="game-speed-light game-speed-2-light"></ui:VisualElement>
+                    <ui:Button name="game-speed-2-button" class="game-speed-button" focusable="false" />
+                </ui:VisualElement>
+                <ui:VisualElement class="game-speed-container" focusable="false">
+                    <ui:VisualElement class="game-speed-light game-speed-3-light"></ui:VisualElement>
+                    <ui:Button name="game-speed-3-button" class="game-speed-button" focusable="false" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:Button name="settings-button" class="settings-button" focusable="false" />
     </ui:VisualElement>
