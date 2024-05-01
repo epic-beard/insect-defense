@@ -4,6 +4,6 @@
     
     <ui:VisualElement name="message-box-container" class="message-box">
         <ui:Label name="message-box-label" tabindex="-1" picking-mode="Ignore" />
-        <ui:Button name="message-box-button" class="tertiary-button" enable-rich-text="true" />
+        <ui:Button name="message-box-button" class="button-base tertiary-button" enable-rich-text="true" />
     </ui:VisualElement>
 </ui:UXML>

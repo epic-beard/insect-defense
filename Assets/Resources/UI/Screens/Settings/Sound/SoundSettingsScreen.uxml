@@ -15,6 +15,6 @@
             <ui:Label name="sfx-volume-label" class="volume-label" text="Label" />
         </ui:Slider>
         
-        <ui:Button  name="play-sfx-button" class="play-sfx-button tertiary-button" text="Play SFX" enable-rich-text="false" />
+        <ui:Button  name="play-sfx-button" class="play-sfx-button button-base tertiary-button" text="Play SFX" enable-rich-text="false" />
     </ui:VisualElement>
 </ui:UXML>
