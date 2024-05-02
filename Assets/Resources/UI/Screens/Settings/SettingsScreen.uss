@@ -44,13 +44,21 @@
     flex-grow: 1;
     align-self: stretch;
     margin-bottom: 0;
-    -unity-font-style: bold;
+    font-size: 28px;
     border-color: #555555;
     border-width: 2px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+}
+
+.sound-settings-tab {
+  border-bottom-color: #333333;
+}
+
+.load-options-tab {
+  background-color: #50141e;
 }
 
 .button-array-button-active {
@@ -63,12 +71,10 @@
   border-bottom-color: #555555;
 }
 
-.sound-settings-tab {
-  border-bottom-color: #333333;
-}
-
-.load-options-tab {
-  background-color: #50141e;
+.sound-settings-panel,
+.load-options-panel {
+    font-size: 20px;
+    -unity-font-definition: url("/Assets/Font/TruetypewriterPolyglott-mELa SDF.asset");
 }
 
 .sound-settings-panel {
@@ -112,5 +118,9 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
+}
+
+.terrarium-settings-button {
+    font-size: 28px;
 }
 
