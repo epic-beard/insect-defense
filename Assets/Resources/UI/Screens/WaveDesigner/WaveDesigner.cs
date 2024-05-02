@@ -32,15 +32,11 @@ public class WaveDesigner : MonoBehaviour {
     UIDocument uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
     treeView = rootElement.Q<TreeView>();
-    treeView.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
     treeView.SetRootItems(GetRoots());
     treeView.makeItem = () => new VisualElement ();
     treeView.bindItem = (VisualElement ve, int index) => {
       treeView.GetItemDataForIndex<Spawner.Wave>(index).BindData(ve);
     };
-    treeView.styleSheets.Add(style);
-    treeView.reorderable = true;
-    treeView.selectionType = SelectionType.Single;
   }
 
   private void RegisterCallbacks() {

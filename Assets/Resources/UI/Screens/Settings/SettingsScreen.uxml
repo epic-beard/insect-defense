@@ -23,8 +23,8 @@
             </ui:VisualElement>
                 
             <ui:VisualElement name="terrarium-settings-panel" class="terrarium-settings-panel">
-                <ui:Button name="restart-level-button" class="secondary-button" text="Restart Level" />
-                <ui:Button name="quit-to-lab-button" class="primary-button" text="Quit to Lab" />
+                <ui:Button name="restart-level-button" class="button-base secondary-button" text="Restart Level" />
+                <ui:Button name="quit-to-lab-button" class="button-base primary-button" text="Quit to Lab" />
             </ui:VisualElement>
         </ui:VisualElement>
         

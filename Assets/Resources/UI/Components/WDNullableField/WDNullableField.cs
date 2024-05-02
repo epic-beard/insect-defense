@@ -4,7 +4,7 @@ using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine.UIElements;
 using UnityEngine;
 
-public class NullableField<T, TField> : VisualElement where TField : TextInputBaseField<T>, new() where T : struct {
+public class WDNullableField<T, TField> : VisualElement where TField : TextInputBaseField<T>, new() where T : struct {
   public event Action<T?> OnValueChanged = delegate { };
   private T? value;
   public T? Value {
@@ -15,9 +15,9 @@ public class NullableField<T, TField> : VisualElement where TField : TextInputBa
   private RadioButton button = new();
   private TField field = new();
 
-  public NullableField() : this("") { }
+  public WDNullableField() : this("") { }
 
-  public NullableField(string name) {
+  public WDNullableField(string name) {
     this.style.flexDirection = FlexDirection.Row;
     this.Add(button);
     button.AddToClassList("nullable-field-base__button");

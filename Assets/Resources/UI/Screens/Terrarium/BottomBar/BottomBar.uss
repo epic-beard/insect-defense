@@ -1,4 +1,5 @@
 .bottom-bar-container {
+    justify-content: flex-end;
     width: 100%;
     color: #fff80d;
 }
@@ -8,6 +9,64 @@
     flex-direction: row;
     margin-left: auto;
     margin-right: auto;
+}
+
+.game-speed-dial {
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+    height: 120px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource("UI/images/bgs/speed_dial_texture_0");
+    border-width: 2px;
+    border-color: #333333;
+    border-radius: 2px;
+}
+
+.game-speed-container {
+    width: 38px;
+    height: 100%;
+}
+
+.game-speed-button {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0px;
+}
+
+.game-speed-light {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource("UI/images/bgs/red_bulb_unlit_texture_0");
+}
+
+.game-speed-container:hover .game-speed-light {
+    background-image: resource("UI/images/bgs/red_bulb_lit_texture_0");
+}
+
+.game-speed-0-light {
+    left: 7px;
+    top: 58px;
+}
+
+.game-speed-1-light {
+    left: 7px;
+    top: 25px;
+}
+
+.game-speed-2-light {
+    left: 25px;
+    top: 25px;
+}
+
+.game-speed-3-light {
+    left: 24px;
+    top: 58px;
 }
 
 .settings-button {

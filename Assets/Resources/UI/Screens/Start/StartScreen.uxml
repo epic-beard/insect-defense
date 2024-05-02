@@ -7,10 +7,10 @@
     </ui:VisualElement>
     
     <ui:VisualElement class="start-screen-buttons-container">
-        <ui:Button name="continue-button" class="secondary-button" text="Continue" />
-        <ui:Button name="new-game-button" class="primary-button" text="New Game" />
-        <ui:Button name="load-game-button" class="primary-button" text="Load Game" />
-        <ui:Button name="settings-button" class="primary-button" text="Settings" />
-        <ui:Button name="quit-button" class="primary-button" text="Quit" />
+        <ui:Button name="continue-button" class="start-screen-button button-base secondary-button" text="CONTINUE" />
+        <ui:Button name="new-game-button" class="start-screen-button button-base primary-button" text="NEW GAME" />
+        <ui:Button name="load-game-button" class="start-screen-button button-base primary-button" text="LOAD GAME" />
+        <ui:Button name="settings-button" class="start-screen-button button-base primary-button" text="SETTINGS" />
+        <ui:Button name="quit-button" class="start-screen-button button-base tertiary-button" text="QUIT" />
     </ui:VisualElement>
 </ui:UXML>

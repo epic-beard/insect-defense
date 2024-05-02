@@ -1,8 +1,16 @@
+.button-base {
+    border-radius: 8px;
+    -unity-font-definition: url("/Assets/Font/GlitchGoblin-2O87v SDF.asset");
+    -unity-text-align: middle-center;
+}
+
+.button-base:active {
+    translate: 0 2px;
+}
+
 .primary-button {
     color: #ffffff;
     background-color: #6b141e;
-    border-radius: 8px;
-    -unity-text-align: middle-center;
 }
 
 .primary-button:hover {
@@ -11,14 +19,11 @@
 
 .primary-button:active {
     background-color: #751722;
-    translate: 0 2px;
 }
 
 .secondary-button {
     color: #000000;
     background-color: #FFC300;
-    border-radius: 8px;
-    -unity-text-align: middle-center;
 }
 
 .secondary-button:hover {
@@ -27,14 +32,11 @@
 
 .secondary-button:active {
     background-color:  #d4ac0d ;
-    translate: 0 2px;
 }
 
 .tertiary-button {
     color: #ffffff;
     background-color: #333333;
-    border-radius: 4px;
-    -unity-text-align: middle-center;
 }
 
 .tertiary-button:hover {
@@ -43,7 +45,6 @@
 
 .tertiary-button:active {
     background-color: #3d3d3d;
-    translate: 0 2px;
 }
 
 .tooltip-button {

@@ -39,7 +39,7 @@
   position: absolute;
   bottom: 10px;
   width: 70%;
-  height: 50px;
+  height: 120px;
   visibility: visible;
   background-color: rgba(0, 0, 0, 0);
   -unity-text-outline-width: 0;
