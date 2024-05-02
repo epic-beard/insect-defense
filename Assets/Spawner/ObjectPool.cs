@@ -35,6 +35,7 @@ public class ObjectPool : MonoBehaviour {
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
   public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Transform? parent = null) {
     if (!objectPools.ContainsKey(data.type)) {
+      prefabMap.Add(data.type, Resources.Load<GameObject>(enemyMap[data.type]));
       objectPools.Add(data.type, new Queue<GameObject>());
       Debug.Log("WARNING: missing object pool for type: " + data.type.ToString());
     }
@@ -45,7 +46,7 @@ public class ObjectPool : MonoBehaviour {
       gameObject = pool.Dequeue();
       gameObject.SetActive(true);
     } else {
-      gameObject = prefabMap[data.type];
+      gameObject = Instantiate(prefabMap[data.type]);
     }
     if (parent == null) {
       gameObject.transform.position = start.transform.position;
@@ -64,11 +65,12 @@ public class ObjectPool : MonoBehaviour {
     position.x += xVariance;
     position.z += zVariance;
     enemy.transform.position = position;
-
     enemy.SetVariance(xVariance, zVariance);
-    // This enabled must be the last thing set on the enemy or the data set may be lost. OnEnable is srs bsns.
-    enemy.enabled = true;
+
+    enemy.Initialize(start);
+
     activeEnemies.Add(enemy);
+
     return gameObject;
   }
 
@@ -77,9 +79,9 @@ public class ObjectPool : MonoBehaviour {
     gameObject.SetActive(false);
     Enemy enemy = gameObject.GetComponent<Enemy>();
     activeEnemies.Remove(enemy);
-    EnemyData.Type type = enemy.Data.type;
-    enemy.enabled = false;
+    EnemyData.Type type = enemy.Type;
     if (!objectPools.ContainsKey(type)) {
+      prefabMap.Add(type, Resources.Load<GameObject>(enemyMap[type]));
       objectPools.Add(type, new Queue<GameObject>());
       Debug.Log("WARNING: Missing type from ObjectPool.");
     }
@@ -91,8 +93,12 @@ public class ObjectPool : MonoBehaviour {
     foreach (Enemy enemy in activeEnemies) {
       GameObject enemyObject = enemy.gameObject;
       enemyObject.SetActive(false);
-      enemy.enabled = false;
-      objectPools[enemy.Data.type].Enqueue(gameObject);
+      if (!objectPools.ContainsKey(enemy.Type)) {
+        prefabMap.Add(enemy.Type, Resources.Load<GameObject>(enemyMap[enemy.Type]));
+        objectPools.Add(enemy.Type, new Queue<GameObject>());
+        Debug.Log("WARNING: Missing type from ObjectPool.");
+      }
+      objectPools[enemy.Type].Enqueue(enemyObject);
     }
     activeEnemies.Clear();
   }
@@ -114,8 +120,7 @@ public class ObjectPool : MonoBehaviour {
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefabMap[type]);
         gameObject.SetActive(false);
-        Enemy enemy = gameObject.GetComponent<Enemy>();
-        enemy.enabled = false;
+        
         objectPools[type].Enqueue(gameObject);
       }
     }
