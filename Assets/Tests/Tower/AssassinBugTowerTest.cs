@@ -151,7 +151,7 @@ public class AssassinBugTowerTest {
     float hp = 10.0f;
     GameObject gameObject = new();
     gameObject.transform.position = position;
-    gameObject.SetActive(false);
+
     EnemyData data = new() {
       maxArmor = maxArmor,
       maxHP = hp,
@@ -161,7 +161,12 @@ public class AssassinBugTowerTest {
     Enemy enemy = gameObject.AddComponent<Enemy>();
     enemy.SetTarget(enemy.transform);
     enemy.Data = data;
-    gameObject.SetActive(true);
+
+    Waypoint start = new GameObject().AddComponent<Waypoint>();
+    start.transform.position = position;
+
+    enemy.Initialize(start);
+
     return enemy;
   }
 }

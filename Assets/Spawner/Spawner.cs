@@ -67,13 +67,13 @@ public class Spawner : MonoBehaviour {
     return Spawn(enemyDataKey, spawnLocations[spawnLocation]);
   }
   // Same as above but includes a Transform at which to spawn the enemy.
-  public GameObject Spawn(string enemyDataKey, Waypoint nextWaypoint, Transform? parent = null) {
+  public GameObject Spawn(string enemyDataKey, Waypoint startWaypoint, Transform? parent = null) {
     EnemyData data = EnemyDataManager.Instance.GetEnemyData(enemyDataKey);
-    return Spawn(data, nextWaypoint, parent);
+    return Spawn(data, startWaypoint, parent);
   }
 
-  public GameObject Spawn(EnemyData data, Waypoint nextWaypoint, Transform? parent = null) {
-    return ObjectPool.Instance.InstantiateEnemy(data, nextWaypoint, parent);
+  public GameObject Spawn(EnemyData data, Waypoint startWaypoint, Transform? parent = null) {
+    return ObjectPool.Instance.InstantiateEnemy(data, startWaypoint, parent);
   }
 
   // The interface for the Waves system.
