@@ -5,10 +5,10 @@
     align-items: stretch;
     height: auto;
     width: auto;
-    padding-top: 15px;
-    padding-left: 5px;
-    padding-right: 5px;
-    background-color: #000000;
+    border-color: #555555;
+    border-width: 2px;
+    border-radius: 8px;
+    background-color: #333333;
 }
 
 .load-game-label {

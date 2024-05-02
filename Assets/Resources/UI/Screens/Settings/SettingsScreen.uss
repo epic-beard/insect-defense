@@ -53,8 +53,22 @@
     border-bottom-right-radius: 0px;
 }
 
+.button-array-button-active {
+  background-color: #6b141e;
+  border-bottom-color: #333333;
+}
+
+.button-array-button-inactive {
+  background-color: #50141e;
+  border-bottom-color: #555555;
+}
+
 .sound-settings-tab {
   border-bottom-color: #333333;
+}
+
+.load-options-tab {
+  background-color: #50141e;
 }
 
 .sound-settings-panel {
@@ -68,7 +82,6 @@
     width: auto;
     margin-top: -3px;
     border-radius: 12px;
-    background-color: #000000;
 }
 
 .sound-settings-menu-doc {
@@ -82,8 +95,9 @@
     align-self: stretch;
     min-width: auto;
     min-height: auto;
-    background-color: rgba(0, 0, 0, 0);
     visibility: visible;
+    margin-top: -3px;
+    border-radius: 12px;
 }
 
 .load-options-doc {
