@@ -6,14 +6,7 @@
     <Style src="project://database/Assets/Resources/UI/Screens/Settings/SettingsScreen.uss?fileID=7433441132597879392&amp;guid=af2b8b3fe4ec9fb4d8bf307fe05bc7f0&amp;type=3#SettingsScreen" />
     
     <ui:VisualElement class="settings-screen-container">
-        <ui:VisualElement class="settings-screen-side-pad" />
-            
-        <ui:VisualElement class="settings-panels-container">
-            <ui:VisualElement name="button-array-panel" class="button-array-panel">
-                <ui:Button name="sound-settings-button" class="button-array-button" text="Sound" />
-                <ui:Button name="load-options-button" class="button-array-button" text="Load" />
-            </ui:VisualElement>
-                
+        <ui:VisualElement class="settings-panels-container">                
             <ui:VisualElement name="sound-settings-panel" class="sound-settings-panel">
                 <ui:Instance template="SoundSettingsMenu" name="sound-settings-menu-doc" class="sound-settings-menu-doc" />
             </ui:VisualElement>
@@ -26,8 +19,11 @@
                 <ui:Button name="restart-level-button" class="button-base secondary-button" text="Restart Level" />
                 <ui:Button name="quit-to-lab-button" class="button-base primary-button" text="Quit to Lab" />
             </ui:VisualElement>
+
+            <ui:VisualElement name="button-array-panel" class="button-array-panel">
+                <ui:Button name="sound-settings-button" class="sound-settings-tab button-array-button primary-button" text="Sound" />
+                <ui:Button name="load-options-button" class="load-tab button-array-button primary-button" text="Load" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        
-        <ui:VisualElement class="settings-screen-side-pad" />
     </ui:VisualElement>
 </ui:UXML>
