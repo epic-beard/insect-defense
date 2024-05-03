@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/Resources/UI/Components/MessageBox/MessageBox.uss?fileID=7433441132597879392&amp;guid=15a05e0f75642a94a99f54184bb69fd0&amp;type=3#MessageBox" />
     
     <ui:VisualElement name="message-box-container" class="message-box">
-        <ui:Label name="message-box-label" tabindex="-1" picking-mode="Ignore" />
+        <ui:Label name="message-box-label" class="message-box-text" tabindex="-1" picking-mode="Ignore" />
         <ui:Button name="message-box-button" class="button-base tertiary-button" enable-rich-text="true" />
     </ui:VisualElement>
 </ui:UXML>

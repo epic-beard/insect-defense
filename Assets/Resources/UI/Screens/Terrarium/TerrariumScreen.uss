@@ -18,13 +18,13 @@
 .message-box-parent {
   position: absolute;
   bottom: 80px;
-  left: 100px;
+  left: 30px;
   flex-grow: 0;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
   align-self: stretch;
-  width: 700px;
+  width: 840px;
   min-width: auto;
   min-height: auto;
   background-color: rgba(0, 0, 0, 0);
@@ -84,7 +84,7 @@
   -unity-background-image-tint-color: #777777;
 }
 
-.tooltip-container{
+.tooltip-container {
   position: absolute;
   display: none;
   left: auto;
@@ -98,6 +98,8 @@
    padding: 4px;
    color: #ffffff;
    background-color: rgba(0, 0, 0, 0.75);
+   font-size: 18px;
+   -unity-font-definition: url("/Assets/Font/TruetypewriterPolyglott-mELa SDF.asset");
    overflow: hidden;
    visibility: visible;
    white-space: normal;
