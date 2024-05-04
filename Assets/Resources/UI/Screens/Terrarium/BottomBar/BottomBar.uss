@@ -33,7 +33,7 @@
     rotate: -72deg;
 
     transition-property: rotate;
-    transition-duration: 0.1s;
+    transition-duration: var(--animation-duration-short);
     transition-timing-function: ease-out;
 }
 
@@ -109,7 +109,7 @@
     background-image: resource("UI/images/bgs/rusty_cog_texture_0");
     transition-property: rotate;
     transition-timing-function: ease-in-out;
-    transition-duration: 0.1s;
+    transition-duration: var(--animation-duration-short);
 }
 
 .settings-button:hover {

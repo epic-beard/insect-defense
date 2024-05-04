@@ -116,7 +116,7 @@
     background-image: resource("UI/images/bgs/valve_wheel_texture_0");
     -unity-background-image-tint-color: #ffffff;
     transition-property: rotate;
-    transition-duration: 0.1s;
+    transition-duration: var(--animation-duration-short);
     transition-timing-function: ease-in-out;
 }
 

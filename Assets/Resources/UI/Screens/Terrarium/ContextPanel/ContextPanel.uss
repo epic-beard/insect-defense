@@ -12,14 +12,14 @@
 .tower-detail,
 .enemy-detail {
   transition-property: display, translate;
-  transition-duration: 0.15s;
+  transition-duration: var(--animation-duration-standard);
 }
 
 .context-sub-panel-expanded {
     display: flex;
     translate: 0;
     transition-timing-function: ease-out;
-    transition-delay: 0.15s;
+    transition-delay: var(--animation-duration-standard);
 }
 
 .context-sub-panel-collapsed {
