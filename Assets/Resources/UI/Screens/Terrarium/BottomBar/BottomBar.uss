@@ -77,8 +77,11 @@
     border-width: 0;
     background-color: rgba(0, 0, 0, 0);
     background-image: resource("UI/images/bgs/rusty_cog_texture_0");
+    transition-property: rotate;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
 }
 
 .settings-button:hover {
-    background-image: resource("UI/images/bgs/rusty_cog_texture_1");
+    rotate: 90deg;
 }
