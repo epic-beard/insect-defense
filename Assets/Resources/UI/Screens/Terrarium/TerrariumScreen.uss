@@ -64,7 +64,7 @@
 .context-panel-parent,
 .tower-selector {
   transition-property: flex-basis;
-  transition-duration: 0.5s;
+  transition-duration: 0.15s;
   transition-timing-function: ease-out;
 }
 
@@ -75,7 +75,7 @@
 
 .context-panel-parent-collapsed {
     flex-basis: 10%;
-    transition-delay: 0.5s;
+    transition-delay: 0.15s;
 }
 
 .tower-selector-border {
@@ -94,7 +94,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   -unity-background-image-tint-color: #777777;
-  transition-delay: 0.5s;
+  transition-delay: 0.15s;
 }
 
 .tower-selector-collapsed {

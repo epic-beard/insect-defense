@@ -12,19 +12,19 @@
 .tower-detail,
 .enemy-detail {
   transition-property: display, translate;
-  transition-duration: 0.5s;
+  transition-duration: 0.15s;
 }
 
 .context-sub-panel-expanded {
     display: flex;
     translate: 0;
     transition-timing-function: ease-out;
-    transition-delay: 0.5s;
+    transition-delay: 0.15s;
 }
 
 .context-sub-panel-collapsed {
     display: none;
-    translate: 600px 0;
+    translate: 400px 0;
     transition-timing-function: ease-in;
     transition-delay: 0;
 }

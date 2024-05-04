@@ -79,7 +79,7 @@
     background-image: resource("UI/images/bgs/rusty_cog_texture_0");
     transition-property: rotate;
     transition-timing-function: ease-in-out;
-    transition-duration: 0.3s;
+    transition-duration: 0.1s;
 }
 
 .settings-button:hover {

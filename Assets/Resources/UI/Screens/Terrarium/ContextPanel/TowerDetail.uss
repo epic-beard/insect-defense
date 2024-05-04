@@ -115,6 +115,9 @@
     height: 20px;
     background-image: resource("UI/images/bgs/valve_wheel_texture_0");
     -unity-background-image-tint-color: #ffffff;
+    transition-property: rotate;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
 }
 
 .unity-base-dropdown .unity-scroll-view {
@@ -125,7 +128,10 @@
     -unity-background-image-tint-color: #777777;
 }
 
-.unity-base-dropdown__item {
+.unity-base-dropdown__item:hover {
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: #ffffff;
 }
 
 .unity-base-dropdown #unity-content-container {
