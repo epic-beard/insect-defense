@@ -61,9 +61,21 @@
   flex-basis: 10%;
 }
 
+.context-panel-parent,
+.tower-selector {
+  transition-property: flex-basis;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
+}
+
 .context-panel-parent {
   flex-basis: 70%;
   min-height: 50px;
+}
+
+.context-panel-parent-collapsed {
+    flex-basis: 10%;
+    transition-delay: 0.5s;
 }
 
 .tower-selector-border {
@@ -72,7 +84,7 @@
 }
 
 .tower-selector {
-  flex-basis: 15%;
+  flex-basis: 70%;
   flex-grow: 7;
   -unity-font-definition: url("/Assets/Font/OperationNapalm-nRBWO SDF.asset");
   -unity-text-align: middle-center;
@@ -82,6 +94,12 @@
   background-size: cover;
   background-repeat: no-repeat;
   -unity-background-image-tint-color: #777777;
+  transition-delay: 0.5s;
+}
+
+.tower-selector-collapsed {
+    flex-basis: 15%;
+    transition-delay: 0;
 }
 
 .tooltip-container{

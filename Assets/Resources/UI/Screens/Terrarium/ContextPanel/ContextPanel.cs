@@ -41,26 +41,44 @@ public class ContextPanel : MonoBehaviour {
     }
 
   public void SetNoContextPanel() {
-    enemyDetailVE.style.display = DisplayStyle.None;
-    towerDetailVE.style.display = DisplayStyle.None;
-    noDetailVE.style.display = DisplayStyle.Flex;
-    contextPanelParentVE.style.flexBasis = new StyleLength(Length.Percent(10));
-    towerSelectorVE.style.flexBasis = new StyleLength(Length.Percent(70));
+    enemyDetailVE.RemoveFromClassList("context-sub-panel-expanded");
+    enemyDetailVE.AddToClassList("context-sub-panel-collapsed");
+
+    towerDetailVE.RemoveFromClassList("context-sub-panel-expanded");
+    towerDetailVE.AddToClassList("context-sub-panel-collapsed");
+
+    noDetailVE.RemoveFromClassList("context-sub-panel-collapsed");
+    noDetailVE.AddToClassList("context-sub-panel-expanded");
+
+    contextPanelParentVE.AddToClassList("context-panel-parent-collapsed");
+    towerSelectorVE.RemoveFromClassList("tower-selector-collapsed");
   }
 
   public void SetTowerContextPanel() {
-    enemyDetailVE.style.display = DisplayStyle.None;
-    towerDetailVE.style.display = DisplayStyle.Flex;
-    noDetailVE.style.display = DisplayStyle.None;
-    contextPanelParentVE.style.flexBasis = new StyleLength(Length.Percent(70));
-    towerSelectorVE.style.flexBasis = new StyleLength(Length.Percent(15));
+    enemyDetailVE.RemoveFromClassList("context-sub-panel-expanded");
+    enemyDetailVE.AddToClassList("context-sub-panel-collapsed");
+
+    towerDetailVE.RemoveFromClassList("context-sub-panel-collapsed");
+    towerDetailVE.AddToClassList("context-sub-panel-expanded");
+
+    noDetailVE.RemoveFromClassList("context-sub-panel-expanded");
+    noDetailVE.AddToClassList("context-sub-panel-collapsed");
+
+    contextPanelParentVE.RemoveFromClassList("context-panel-parent-collapsed");
+    towerSelectorVE.AddToClassList("tower-selector-collapsed");
   }
 
   public void SetEnemyContextPanel() {
-    enemyDetailVE.style.display = DisplayStyle.Flex;
-    towerDetailVE.style.display = DisplayStyle.None;
-    noDetailVE.style.display = DisplayStyle.None;
-    contextPanelParentVE.style.flexBasis = new StyleLength(Length.Percent(70));
-    towerSelectorVE.style.flexBasis = new StyleLength(Length.Percent(15));
-    }
+    enemyDetailVE.RemoveFromClassList("context-sub-panel-collapsed");
+    enemyDetailVE.AddToClassList("context-sub-panel-expanded");
+
+    towerDetailVE.RemoveFromClassList("context-sub-panel-expanded");
+    towerDetailVE.AddToClassList("context-sub-panel-collapsed");
+
+    noDetailVE.RemoveFromClassList("context-sub-panel-expanded");
+    noDetailVE.AddToClassList("context-sub-panel-collapsed");
+
+    contextPanelParentVE.RemoveFromClassList("context-panel-parent-collapsed");
+    towerSelectorVE.AddToClassList("tower-selector-collapsed");
+  }
 }
