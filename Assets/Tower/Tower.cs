@@ -259,30 +259,30 @@ public abstract class Tower : MonoBehaviour {
   }
 
   public void ApplyDazzle(float duration) {
-    if (DazzleTime > 0) {
-      DazzleTime = Mathf.Max(DazzleTime, duration);
+    float time = Time.time + duration;
+    if (DazzleTime > Time.time) {
+      DazzleTime = Mathf.Max(DazzleTime, time);
     } else {
-      DazzleTime = duration;
+      DazzleTime = time;
       StartCoroutine(HandleDazzle());
     }
   }
 
   private IEnumerator HandleDazzle() {
-    while (DazzleTime > 0) {
-      yield return null;
-      DazzleTime -= Time.deltaTime;
+    float time = Time.time;
+    while (DazzleTime > time) {
+      yield return new WaitForSeconds(DazzleTime - time);
     }
-
-    DazzleTime = 0.0f;
     yield return null;
   }
 
   public void ApplySlime(float duration, float power) {
-    if (SlimeTime > 0) {
-      SlimeTime = Mathf.Max(SlimeTime, duration);
+    float time = Time.time + duration;
+    if (SlimeTime > Time.time) {
+      SlimeTime = Mathf.Max(SlimeTime, time);
       SlimePower = Mathf.Min(SlimePower, power);
     } else {
-      SlimeTime = duration;
+      SlimeTime = time;
       SlimePower = power;
       StartCoroutine(HandleSlime());
     }
@@ -290,13 +290,11 @@ public abstract class Tower : MonoBehaviour {
   }
 
   private IEnumerator HandleSlime() {
-    while (SlimeTime > 0) {
-      yield return null;
-      SlimeTime -= Time.deltaTime;
+    while (SlimeTime > Time.time) {
+      yield return new WaitForSeconds(SlimeTime - Time.time);
     }
     SlimePower = 1.0f;
     UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
-    SlimeTime = 0.0f;
     yield return null;
   }
 
