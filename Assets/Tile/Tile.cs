@@ -6,7 +6,8 @@ public class Tile : MonoBehaviour {
 
   [SerializeField] public bool isTowerPlaceable;
 
-  private bool isTowerPresent = false;
+  public bool IsTowerPresent { get; private set; } = false;
+
   private bool lingeringWebs = false;
   private Dictionary<Tower, LingeringSlow> lingeringSlows = new();
   private LineRenderer webLineRenderer;
@@ -85,18 +86,18 @@ public class Tile : MonoBehaviour {
 
   public void BuildTowerIfPossible() {
     if (!isTowerPlaceable) { return; }
-    if (!isTowerPresent) {
-      isTowerPresent = TowerManager.Instance.BuildTower(waypoint);
-      if (!isTowerPresent) { return; }
+    if (!IsTowerPresent) {
+      IsTowerPresent = TowerManager.Instance.BuildTower(waypoint);
+      if (!IsTowerPresent) { return; }
     }
     // This happens while a tower is in the prcocess of being sold.
-    if (isTowerPresent && !TowerManager.Instance.HasTower(GetCoordinates())) { return; }
+    if (IsTowerPresent && !TowerManager.Instance.HasTower(GetCoordinates())) { return; }
 
     Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
   }
 
   public void ResetTile() {
-    isTowerPresent = false;
+    IsTowerPresent = false;
   }
 
   public void SetUnselected() {
