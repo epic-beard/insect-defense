@@ -119,7 +119,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: UR Arm Holder
+    path: Mantis Mesh/UR Arm Holder
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -225,7 +225,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -331,7 +331,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
@@ -499,7 +499,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: UR Arm Holder
+    path: Mantis Mesh/UR Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -610,7 +610,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: UR Arm Holder
+    path: Mantis Mesh/UR Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -721,7 +721,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: UR Arm Holder
+    path: Mantis Mesh/UR Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -832,7 +832,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -943,7 +943,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1054,7 +1054,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1165,7 +1165,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1276,7 +1276,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1387,7 +1387,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1400,7 +1400,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1412,7 +1412,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1424,7 +1424,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: UR Arm Holder/UR Lower Arm Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1436,7 +1436,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: UR Arm Holder
+    path: Mantis Mesh/UR Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1448,7 +1448,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: UR Arm Holder
+    path: Mantis Mesh/UR Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1460,7 +1460,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: UR Arm Holder
+    path: Mantis Mesh/UR Arm Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1472,7 +1472,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1484,7 +1484,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -1496,7 +1496,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
+    path: Mantis Mesh/UR Arm Holder/UR Lower Arm Holder/UR Claw Holder
     classID: 4
     script: {fileID: 0}
     flags: 0
