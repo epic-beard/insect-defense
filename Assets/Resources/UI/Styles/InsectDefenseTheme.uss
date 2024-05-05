@@ -1,2 +1,3 @@
+@import url("/Assets/Resources/UI/Styles/lib/InsectDefenseAnimation.uss");
 @import url("/Assets/Resources/UI/Styles/lib/InsectDefenseButton.uss");
 @import url("/Assets/Resources/UI/Styles/lib/InsectDefenseLedScreen.uss");

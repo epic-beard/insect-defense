@@ -17,10 +17,40 @@
     width: 150px;
     height: 120px;
     background-color: rgba(0, 0, 0, 0);
-    background-image: resource("UI/images/bgs/speed_dial_texture_0");
+    background-image: resource("UI/images/bgs/speed_dial_base_texture_0");
     border-width: 2px;
     border-color: #333333;
     border-radius: 2px;
+}
+
+.game-speed-dial-pointer {
+    position: absolute;
+    width: 39px;
+    height: 80px;
+    left: 55px;
+    top: 38px;
+    background-image: resource("UI/images/bgs/speed_dial_pointer_texture_0");
+    rotate: -72deg;
+
+    transition-property: rotate;
+    transition-duration: var(--animation-duration-short);
+    transition-timing-function: ease-out;
+}
+
+.game-speed-dial-pointer-0 {
+    rotate: -72deg;
+}
+
+.game-speed-dial-pointer-1 {
+    rotate: -25deg;
+}
+
+.game-speed-dial-pointer-2 {
+    rotate: 42deg;
+}
+
+.game-speed-dial-pointer-4 {
+    rotate: 88deg;
 }
 
 .game-speed-container {
@@ -77,8 +107,11 @@
     border-width: 0;
     background-color: rgba(0, 0, 0, 0);
     background-image: resource("UI/images/bgs/rusty_cog_texture_0");
+    transition-property: rotate;
+    transition-timing-function: ease-in-out;
+    transition-duration: var(--animation-duration-short);
 }
 
 .settings-button:hover {
-    background-image: resource("UI/images/bgs/rusty_cog_texture_1");
+    rotate: 90deg;
 }

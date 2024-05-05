@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class BottomBar : MonoBehaviour {
-  readonly private string gameSpeedDialName = "game-speed-dial";
+  readonly private string gameSpeedDialPointerName = "game-speed-dial-pointer";
   readonly private string gameSpeedButton0Name = "game-speed-0-button";
   readonly private string gameSpeedButton1Name = "game-speed-1-button";
   readonly private string gameSpeedButton2Name = "game-speed-2-button";
@@ -10,9 +10,11 @@ public class BottomBar : MonoBehaviour {
 
   readonly private string settingsButtonName = "settings-button";
 
+  private string pointerRotationClass = "game-speed-dial-pointer-0";
+
   private UIDocument uiDocument;
 
-  private VisualElement gameSpeedDialVE;
+  private VisualElement gameSpeedDialPointerVE;
   private Button gameSpeedButton0VE;
   private Button gameSpeedButton1VE;
   private Button gameSpeedButton2VE;
@@ -24,7 +26,7 @@ public class BottomBar : MonoBehaviour {
     uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
 
-    gameSpeedDialVE = rootElement.Q<VisualElement>(className: gameSpeedDialName);
+    gameSpeedDialPointerVE = rootElement.Q<VisualElement>(className: gameSpeedDialPointerName);
     gameSpeedButton0VE = rootElement.Q<Button>(gameSpeedButton0Name);
     gameSpeedButton1VE = rootElement.Q<Button>(gameSpeedButton1Name);
     gameSpeedButton2VE = rootElement.Q<Button>(gameSpeedButton2Name);
@@ -59,6 +61,8 @@ public class BottomBar : MonoBehaviour {
         GameSpeedManager.Instance.SetGameSpeed(speed);
     }
 
-    gameSpeedDialVE.style.backgroundImage = Resources.Load<Texture2D>("UI/images/bgs/speed_dial_texture_" + speed.ToString());
+    gameSpeedDialPointerVE.RemoveFromClassList(pointerRotationClass);
+    pointerRotationClass = "game-speed-dial-pointer-" + speed.ToString();
+    gameSpeedDialPointerVE.AddToClassList(pointerRotationClass);
   }
 }

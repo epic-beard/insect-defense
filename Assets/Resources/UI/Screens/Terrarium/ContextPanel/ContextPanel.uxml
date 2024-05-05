@@ -9,6 +9,6 @@
         <ui:Label class="no-detail-label" text="Insect&#10;Defense" enable-rich-text="true" />
     </ui:VisualElement>
 
-    <ui:Instance template="TowerDetail" name="tower-detail" />
-    <ui:Instance template="EnemyDetail" name="enemy-detail" />
+    <ui:Instance template="TowerDetail" name="tower-detail" class="tower-detail" />
+    <ui:Instance template="EnemyDetail" name="enemy-detail" class="enemy-detail" />
 </ui:UXML>
