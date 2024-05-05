@@ -37,10 +37,10 @@ public class MantisTower : Tower {
 
   // Transform.Find explicitly does not recursively search for a given name. Thus, the name given
   // must include the path to that object within the heirarchy of the Mantis tower.
-  private readonly string upperRightName = "UR Arm Holder/UR Shoulder";
-  private readonly string upperLeftName = "UL Arm Holder/UL Shoulder";
-  private readonly string lowerRightName = "LR Arm Holder/LR Shoulder";
-  private readonly string lowerLeftName = "LL Arm Holder/LL Shoulder";
+  private readonly string upperRightName = "Mantis Mesh/UR Arm Holder/UR Shoulder";
+  private readonly string upperLeftName = "Mantis Mesh/UL Arm Holder/UL Shoulder";
+  private readonly string lowerRightName = "Mantis Mesh/LR Arm Holder/LR Shoulder";
+  private readonly string lowerLeftName = "Mantis Mesh/LL Arm Holder/LL Shoulder";
 
   protected override void TowerStart() {
     animator = GetComponent<Animator>();
