@@ -14,6 +14,11 @@
     border-width: 1px;
 }
 
+.message-box-text {
+    font-size: 22px;
+    -unity-font-definition: url("/Assets/Font/TruetypewriterPolyglott-mELa SDF.asset");
+}
+
 .message-box > .tertiary-button {
     align-self: center;
 }

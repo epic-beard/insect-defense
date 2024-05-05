@@ -2,5 +2,5 @@
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/TowerSelector/TowerSelector.uss?fileID=7433441132597879392&amp;guid=54109ed130933d1428037076006d0a19&amp;type=3#TowerSelector" />
     
-    <ui:ListView name="select-tower-list" class="select-tower-list" fixed-item-height="50" focusable="false" />
+    <ui:ListView name="select-tower-list" fixed-item-height="50" focusable="false" class="select-tower-list" />
 </ui:UXML>

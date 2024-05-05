@@ -74,11 +74,19 @@ public class SettingsScreen : MonoBehaviour {
   public void OpenSoundSettings() {
     soundSettingsPanelVE.style.display = DisplayStyle.Flex;
     loadOptionsPanelVE.style.display = DisplayStyle.None;
+    soundSettingsButtonVE.AddToClassList("button-array-button-active");
+    soundSettingsButtonVE.RemoveFromClassList("button-array-button-inactive");
+    loadOptionsButtonVE.AddToClassList("button-array-button-inactive");
+    loadOptionsButtonVE.RemoveFromClassList("button-array-button-active");
   }
 
   public void OpenLoadOptions() {
     soundSettingsPanelVE.style.display = DisplayStyle.None;
     loadOptionsPanelVE.style.display = DisplayStyle.Flex;
+    loadOptionsButtonVE.AddToClassList("button-array-button-active");
+    loadOptionsButtonVE.RemoveFromClassList("button-array-button-inactive");
+    soundSettingsButtonVE.AddToClassList("button-array-button-inactive");
+    soundSettingsButtonVE.RemoveFromClassList("button-array-button-active");
   }
 
   // Note: This doesn't unpause the game, but the pause manager handles ensuring new scenes

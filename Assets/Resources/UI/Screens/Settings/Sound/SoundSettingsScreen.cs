@@ -20,16 +20,21 @@ public class SoundSettingsScreen : MonoBehaviour {
   readonly private string musicVolumeSliderName = "music-volume-slider";
   readonly private string musicVolumeLabelName = "music-volume-label";
 
+  readonly private string unityDraggerName = "unity-dragger";
+
   readonly private string playSfxButtonName = "play-sfx-button";
 
   private Slider masterVolumeSliderVE;
   private Label masterVolumeLabelVE;
+  private VisualElement masterVolumeBar;
 
   private Slider musicVolumeSliderVE;
   private Label musicVolumeLabelVE;
+  private VisualElement musicVolumeBar;
 
   private Slider sfxVolumeSliderVE;
   private Label sfxVolumeLabelVE;
+  private VisualElement sfxVolumeBar;
 
   private Button playSfxButtonVE;
 
@@ -55,12 +60,21 @@ public class SoundSettingsScreen : MonoBehaviour {
 
     masterVolumeSliderVE = rootElement.Q<Slider>(masterVolumeSliderName);
     masterVolumeLabelVE = rootElement.Q<Label>(masterVolumeLabelName);
+    masterVolumeBar = new VisualElement();
+    masterVolumeSliderVE.Q<VisualElement>(unityDraggerName).Add(masterVolumeBar);
+    masterVolumeBar.AddToClassList("slider-bar");
 
     musicVolumeSliderVE = rootElement.Q<Slider>(musicVolumeSliderName);
     musicVolumeLabelVE = rootElement.Q<Label>(musicVolumeLabelName);
+    musicVolumeBar = new VisualElement();
+    musicVolumeSliderVE.Q<VisualElement>(unityDraggerName).Add(musicVolumeBar);
+    musicVolumeBar.AddToClassList("slider-bar");
     
     sfxVolumeSliderVE = rootElement.Q<Slider>(sfxVolumeSliderName);
     sfxVolumeLabelVE = rootElement.Q<Label>(sfxVolumeLabelName);
+    sfxVolumeBar = new VisualElement();
+    sfxVolumeSliderVE.Q<VisualElement>(unityDraggerName).Add(sfxVolumeBar);
+    sfxVolumeBar.AddToClassList("slider-bar");
 
     playSfxButtonVE = rootElement.Q<Button>(playSfxButtonName);
   }
