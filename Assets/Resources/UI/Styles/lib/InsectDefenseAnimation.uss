@@ -1,0 +1,4 @@
+:root {
+  --animation-duration-short: 0.1s;
+  --animation-duration-standard: 0.15s;
+}

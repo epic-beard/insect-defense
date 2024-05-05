@@ -7,3 +7,24 @@
     -unity-font-definition: url('/Assets/Font/MetalOnMetal-OBo SDF.asset');
     -unity-text-align: upper-center;
 }
+
+.no-detail,
+.tower-detail,
+.enemy-detail {
+  transition-property: display, translate;
+  transition-duration: var(--animation-duration-standard);
+}
+
+.context-sub-panel-expanded {
+    display: flex;
+    translate: 0;
+    transition-timing-function: ease-out;
+    transition-delay: var(--animation-duration-standard);
+}
+
+.context-sub-panel-collapsed {
+    display: none;
+    translate: 400px 0;
+    transition-timing-function: ease-in;
+    transition-delay: 0;
+}

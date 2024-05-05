@@ -5,6 +5,7 @@
     <ui:VisualElement class="bottom-bar-container">
         <ui:VisualElement class="controls-container">
             <ui:VisualElement class="game-speed-dial" focusable="false">
+                <ui:VisualElement class="game-speed-dial-pointer" focusable="false" />
                 <ui:VisualElement class="game-speed-container" focusable="false">
                     <ui:VisualElement class="game-speed-light game-speed-0-light"></ui:VisualElement>
                     <ui:Button name="game-speed-0-button" class="game-speed-button" focusable="false" />
