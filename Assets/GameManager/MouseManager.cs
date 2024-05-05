@@ -57,6 +57,7 @@ public class MouseManager : MonoBehaviour {
     if (SelectedEnemy != null) {
       EnemyDetail.Instance.DesbuscribeToEnemyStateBroadcast(SelectedEnemy);
     }
+    SelectedEnemy = enemy;
     EnemyDetail.Instance.SubscribeToEnemyStateBroadcast(enemy);
     EnemyDetail.Instance.SetContextForEnemy(enemy);
     ContextPanel.Instance.SetEnemyContextPanel();
