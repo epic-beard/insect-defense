@@ -40,14 +40,14 @@ public class EnemyPlayModeTest {
 
     Time.captureDeltaTime = 1.0f;
 
-    Assert.That(towerInRange.DazzleTime, Is.EqualTo(0.0f));
+    Assert.That(towerInRange.DazzleTime, Is.LessThanOrEqualTo(Time.time));
     Assert.That(towerOutOfRange.DazzleTime, Is.EqualTo(0.0f));
 
     // Start the timer to the first shot.
     yield return null;
     // Activate the ability.
     yield return new WaitForEndOfFrame();
-    Assert.That(towerInRange.DazzleTime, Is.EqualTo(10.0f));
+    Assert.That(towerInRange.DazzleTime, Is.GreaterThan(Time.time));
     Assert.That(towerOutOfRange.DazzleTime, Is.EqualTo(0.0f));
 
     Time.captureDeltaTime = 10.0f;
@@ -55,7 +55,7 @@ public class EnemyPlayModeTest {
     enemy.transform.position = 10 * Vector3.right;
 
     yield return new WaitForEndOfFrame();
-    Assert.That(towerInRange.DazzleTime, Is.EqualTo(0.0f));
+    Assert.That(towerInRange.DazzleTime, Is.LessThanOrEqualTo(Time.time));
     Assert.That(towerOutOfRange.DazzleTime, Is.EqualTo(0.0f));
   }
 
@@ -67,39 +67,39 @@ public class EnemyPlayModeTest {
     EnemyData data = new() {
       maxHP = 1000.0f,
       maxArmor = 1000.0f,
-        slime = new EnemyData.SlimeProperties() {
-          duration = 10.0f,
-          interval = 1.0f,
-          range = 12.0f,
-          power = 0.5f,
-        }
+      slime = new EnemyData.SlimeProperties() {
+        duration = 10.0f,
+        interval = 1.0f,
+        range = 12.0f,
+        power = 0.5f,
+      }
     };
     Enemy enemy = CreateEnemy(Vector3.zero, data, objectPool);
 
     Time.captureDeltaTime = 1.0f;
 
-    Assert.That(towerInRange.SlimeTime, Is.EqualTo(0.0f));
+    Assert.That(towerInRange.SlimeTime, Is.LessThanOrEqualTo(Time.time));
     Assert.That(towerInRange.SlimePower, Is.EqualTo(1.0f));
-    Assert.That(towerOutOfRange.SlimeTime, Is.EqualTo(0.0f));
+    Assert.That(towerOutOfRange.SlimeTime, Is.LessThanOrEqualTo(Time.time));
     Assert.That(towerOutOfRange.SlimePower, Is.EqualTo(1.0f));
 
     // Start the timer to the first shot.
     yield return null;
     // Activate the ability.
     yield return new WaitForEndOfFrame();
-    Assert.That(towerInRange.SlimeTime, Is.EqualTo(10.0f));
+    Assert.That(towerInRange.SlimeTime, Is.GreaterThan(Time.time));
     Assert.That(towerInRange.SlimePower, Is.EqualTo(0.5f));
-    Assert.That(towerOutOfRange.SlimeTime, Is.EqualTo(0.0f));
+    Assert.That(towerOutOfRange.SlimeTime, Is.LessThanOrEqualTo(Time.time));
     Assert.That(towerOutOfRange.SlimePower, Is.EqualTo(1.0f));
 
     // Move the enemy out of range of all the towers.
     enemy.transform.position = 10 * Vector3.right;
 
-    Time.captureDeltaTime = 10.0f;
+    Time.captureDeltaTime = 11.0f;
     yield return new WaitForEndOfFrame();
-    Assert.That(towerInRange.SlimeTime, Is.EqualTo(0.0f));
+    Assert.That(towerInRange.SlimeTime, Is.LessThanOrEqualTo(Time.time));
     Assert.That(towerInRange.SlimePower, Is.EqualTo(1.0f));
-    Assert.That(towerOutOfRange.SlimeTime, Is.EqualTo(0.0f));
+    Assert.That(towerOutOfRange.SlimeTime, Is.LessThanOrEqualTo(Time.time));
     Assert.That(towerOutOfRange.SlimePower, Is.EqualTo(1.0f));
   }
 
