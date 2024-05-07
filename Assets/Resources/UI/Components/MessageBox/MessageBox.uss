@@ -16,6 +16,7 @@
 
 .message-box-text {
     font-size: 22px;
+    white-space: normal;
     -unity-font-definition: url("/Assets/Font/TruetypewriterPolyglott-mELa SDF.asset");
 }
 
