@@ -144,7 +144,6 @@ public abstract class Tower : MonoBehaviour {
   }
 
   private MeshRenderer targetingIndicatorMeshRenderer;
-  private Transform rangeIndicatorTransform;
 
   // Get the ugprade path name corresponding to the given index. No value other than 0, 1, 2 should be passed in.
   public string GetUpgradePathName(int index) {
@@ -170,10 +169,6 @@ public abstract class Tower : MonoBehaviour {
     TowerStart();
     if (targetingIndicator != null) {
       targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
-    }
-    if (rangeIndicator != null) {
-      rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
-
     }
   }
 
@@ -331,10 +326,16 @@ public abstract class Tower : MonoBehaviour {
     }
   }
 
-  public void SetRangeIndicator(bool visible) {
+  public void SetRangeIndicatorVisible(bool visible) {
     if (rangeIndicator == null) return;
 
     rangeIndicator.gameObject.SetActive(visible);
+  }
+
+  public void SetRangeIndicatorScale() {
+    if (rangeIndicator != null) {
+      rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+    }
   }
 
   public override string ToString() {

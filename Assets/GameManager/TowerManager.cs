@@ -175,6 +175,7 @@ public class TowerManager : MonoBehaviour {
         Quaternion.identity);
     Tower tower = towerObj.GetComponent<Tower>();
     tower.SetTowerData(GetTowerData(type));
+    tower.SetRangeIndicatorScale();
     tower.CacheTowerRenderers();
     MakeTowerTransluscent(tower, towerPreviewTransparency);
     tower.gameObject.SetActive(false);
@@ -205,6 +206,7 @@ public class TowerManager : MonoBehaviour {
         Quaternion.identity);
     Tower tower = towerObj.GetComponent<Tower>();
     tower.SetTowerData(data);
+    tower.SetRangeIndicatorScale();
     tower.CacheTowerRenderers();
     tower.Tile = waypoint.GetComponent<Tile>();
     tower.enabled = false;
@@ -236,9 +238,9 @@ public class TowerManager : MonoBehaviour {
     while (true) {
       yield return new WaitUntil(() => SelectedTower != null);
       Tower cachedTower = SelectedTower;
-      SelectedTower.SetRangeIndicator(true);
+      SelectedTower.SetRangeIndicatorVisible(true);
       yield return new WaitUntil(() => !cachedTower.Equals(SelectedTower));
-      cachedTower.SetRangeIndicator(false);
+      cachedTower.SetRangeIndicatorVisible(false);
     }
   }
 }
