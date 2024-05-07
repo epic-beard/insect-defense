@@ -66,7 +66,6 @@ public class TowerSelector : MonoBehaviour {
 
     TowerManager.Instance.SetSelectedTowerType(button.TowerType);
     ContextPanel.Instance.SetTowerContextPanel();
-    //TowerDetail.Instance.SetContextTowerName(button.name);
     TowerDetail.Instance.SetContextForTower(TowerManager.Instance.previewTowers[button.TowerType]);
   }
 
