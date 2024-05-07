@@ -167,6 +167,10 @@ public class TowerDetail : MonoBehaviour {
       return;
     }
 
+    if (TowerManager.SelectedTower.IsPreviewTower) {
+      return; 
+    }
+
     // all checks passed, continue with upgrade
     SetRockerSwitchState(rockerSwitch, true);
     GameStateManager.Instance.Nu -= upgrade.cost;

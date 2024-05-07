@@ -85,6 +85,7 @@ public abstract class Tower : MonoBehaviour {
   public TowerData.Tooltip tooltip {
     get { return data.tooltip; }
   }
+  public bool IsPreviewTower = false;
 
   protected Dictionary<TowerAbility.Type, bool> towerAbilities = new() {
     { TowerAbility.Type.ANTI_AIR, false },
