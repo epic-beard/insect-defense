@@ -32,7 +32,7 @@ public class TowerManager : MonoBehaviour {
     { TowerData.Type.ASSASSIN_BUG_TOWER, "Towers/AssassinBugTower/Assassin Bug Tower" },
     { TowerData.Type.WEB_SHOOTING_SPIDER_TOWER, "Towers/WebShootingSpiderTower/Web Shooting Spider Tower" },
   };
-  private Dictionary<TowerData.Type, Tower> previewTowers = new();
+  public Dictionary<TowerData.Type, Tower> previewTowers = new();
 
   private void Awake() {
     Instance = this;
@@ -116,6 +116,7 @@ public class TowerManager : MonoBehaviour {
 
   // Set a new tower as the selected tower. Adjust the tile color to indicate selection as necessary.
   public void SetNewSelectedTower(Tower tower) {
+    SelectedTowerType = null;
     if (SelectedTower != null) {
       SelectedTower.Tile.SetUnselected();
     }
@@ -148,6 +149,7 @@ public class TowerManager : MonoBehaviour {
   }
 
   public void SetSelectedTowerType(TowerData.Type type) {
+    SelectedTower = null;
     if (SelectedTowerType != null) {
       previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
     }
@@ -178,6 +180,7 @@ public class TowerManager : MonoBehaviour {
     tower.CacheTowerRenderers();
     MakeTowerTransluscent(tower, towerPreviewTransparency);
     tower.gameObject.SetActive(false);
+    tower.IsPreviewTower = true;
     return tower;
   }
 
