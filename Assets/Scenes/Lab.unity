@@ -452,6 +452,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3518396239006241698, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
+      propertyPath: sounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518396239006241698, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
+      propertyPath: sounds.Array.data[0].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e3a4e328e1b970468e7c5635a54a369, type: 3}
+    - target: {fileID: 3518396239006241698, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
+      propertyPath: sounds.Array.data[0].Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518396239006241698, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
+      propertyPath: sounds.Array.data[0].Name
+      value: lab_bg_sfx_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518396239006241698, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
+      propertyPath: sounds.Array.data[0].Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518396239006241698, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
+      propertyPath: sounds.Array.data[0].Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518396239006241698, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
+      propertyPath: sounds.Array.data[0].PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4714318083524940496, guid: 5b45182f1ce3a8b44a47258ee8790fcc, type: 3}
       propertyPath: m_Name
       value: AudioManager

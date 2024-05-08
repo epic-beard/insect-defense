@@ -48,10 +48,15 @@ public class BottomBar : MonoBehaviour {
       gameSpeedButton3VE.RegisterCallback<ClickEvent>(
           (ClickEvent) => { SetGameSpeedFromDial(4); });
       settingsButtonVE.RegisterCallback<ClickEvent>(
-          (ClickEvent) => { TerrariumInputManager.Instance.ToggleSettings(); });
+          (ClickEvent) => {
+              UiSfx.PlaySfx(UiSfx.settings_open);
+              TerrariumInputManager.Instance.ToggleSettings();
+          });
   }
 
   private void SetGameSpeedFromDial(float speed) {
+    UiSfx.PlaySfx(UiSfx.speed_dial_click);
+
     if (speed == 0) {
         GameSpeedManager.Instance.HandlePause();
     } else {

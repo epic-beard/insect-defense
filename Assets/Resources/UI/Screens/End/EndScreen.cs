@@ -54,6 +54,7 @@ public class EndScreen : MonoBehaviour {
   }
 
   private void OnGameOver() {
+    UiSfx.PlaySfx(UiSfx.died);
     GameSpeedManager.Instance.HandlePause(PauseToken.END);
     TerrariumScreen.Instance.HideUI();
     endScreenLabel.text = "You Died";

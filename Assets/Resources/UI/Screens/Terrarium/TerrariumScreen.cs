@@ -9,6 +9,8 @@ public class TerrariumScreen : MonoBehaviour {
   readonly private string sidebarVEName = "sidebar";
   readonly private string bottomBarVEName = "bottom-bar-parent";
   readonly private string messageBoxVEName = "message-box-container";
+  readonly private string towerSelectorVEName = "tower-selector";
+  readonly private string contextPanelVEName = "context-panel-parent";
 
   public VisualElement TooltipVE { get; private set; }
   public Label TooltipLabel { get; private set; }
@@ -17,6 +19,8 @@ public class TerrariumScreen : MonoBehaviour {
   private VisualElement sidebarVE;
   private VisualElement bottomBarVE;
   private VisualElement messageBoxVE;
+  private VisualElement towerSelectorVE;
+  private VisualElement contextPanelVE;
 
   private void Awake() {
     Instance = this;
@@ -31,6 +35,8 @@ public class TerrariumScreen : MonoBehaviour {
     sidebarVE = rootElement.Q<VisualElement>(sidebarVEName);
     bottomBarVE = rootElement.Q<VisualElement>(bottomBarVEName);
     messageBoxVE = rootElement.Q<VisualElement>(messageBoxVEName);
+    towerSelectorVE = rootElement.Q<VisualElement>(className: towerSelectorVEName);
+    contextPanelVE = rootElement.Q<VisualElement>(className: contextPanelVEName);
 
     TooltipVE = rootElement.Q<VisualElement>(tooltipContainerVEName);
     TooltipLabel = rootElement.Q<Label>(tooltipLabelVEName);
@@ -44,6 +50,18 @@ public class TerrariumScreen : MonoBehaviour {
     sidebarVE.RegisterCallback<MouseLeaveEvent>(OnMouseLeaveUI);
     bottomBarVE.RegisterCallback<MouseLeaveEvent>(OnMouseLeaveUI);
     messageBoxVE.RegisterCallback<MouseLeaveEvent>(OnMouseLeaveUI);
+
+    towerSelectorVE.RegisterCallback<TransitionStartEvent>(evt => {
+        if (towerSelectorVE.ClassListContains("tower-selector-collapsed")) {
+            UiSfx.PlaySfx(UiSfx.tower_select_list_collapse);
+        }
+    });
+
+    contextPanelVE.RegisterCallback<TransitionStartEvent>(evt => {
+        if (evt.target == contextPanelVE && contextPanelVE.ClassListContains("context-panel-parent-collapsed")) {
+            UiSfx.PlaySfx(UiSfx.context_panel_collapse);
+        }
+    });
   }
 
   private void OnMouseOverUI(MouseEnterEvent evt) {

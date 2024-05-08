@@ -72,6 +72,7 @@ public class SettingsScreen : MonoBehaviour {
   }
 
   public void OpenSoundSettings() {
+    UiSfx.PlaySfx(UiSfx.settings_tab_active);
     soundSettingsPanelVE.style.display = DisplayStyle.Flex;
     loadOptionsPanelVE.style.display = DisplayStyle.None;
     soundSettingsButtonVE.AddToClassList("button-array-button-active");
@@ -81,6 +82,7 @@ public class SettingsScreen : MonoBehaviour {
   }
 
   public void OpenLoadOptions() {
+    UiSfx.PlaySfx(UiSfx.settings_tab_active);
     soundSettingsPanelVE.style.display = DisplayStyle.None;
     loadOptionsPanelVE.style.display = DisplayStyle.Flex;
     loadOptionsButtonVE.AddToClassList("button-array-button-active");

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -17,6 +16,8 @@ public class AudioManager : MonoBehaviour {
     foreach (var sound in sounds) {
       sources.Add(GetAudioSource(sound));
     }
+
+    LoadSfxForUi();
   }
 
   private void Start() {
@@ -77,4 +78,31 @@ public class AudioManager : MonoBehaviour {
       mixer.SetFloat(volumeSetting, -80);
     }
   }
+
+    private void LoadSfxForUi() {
+        sources.Add(CreateSfxAudioSource(UiSfx.tower_select_list_collapse));
+        sources.Add(CreateSfxAudioSource(UiSfx.context_panel_collapse));
+        sources.Add(CreateSfxAudioSource(UiSfx.rocker_switch));
+        sources.Add(CreateSfxAudioSource(UiSfx.rocker_switch_fail));
+        sources.Add(CreateSfxAudioSource(UiSfx.dropdown_active));
+        sources.Add(CreateSfxAudioSource(UiSfx.dropdown_event_changed));
+        sources.Add(CreateSfxAudioSource(UiSfx.settings_open));
+        sources.Add(CreateSfxAudioSource(UiSfx.settings_tab_active));
+        sources.Add(CreateSfxAudioSource(UiSfx.speed_dial_click));
+        sources.Add(CreateSfxAudioSource(UiSfx.game_start));
+        sources.Add(CreateSfxAudioSource(UiSfx.died));
+    }
+
+    private AudioSource CreateSfxAudioSource(string filename) {
+        AudioSource source = new GameObject().AddComponent<AudioSource>();
+
+        source.name = filename;
+        source.clip = Resources.Load<AudioClip>("UI/sounds/" + filename);
+        source.loop = false;
+        source.playOnAwake = false;
+        source.volume = 1f;
+        source.outputAudioMixerGroup = sfxGroup;
+
+        return source;
+    }
 }
