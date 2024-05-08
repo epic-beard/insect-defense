@@ -89,6 +89,7 @@ public class AudioManager : MonoBehaviour {
         sources.Add(CreateSfxAudioSource(UiSfx.settings_open));
         sources.Add(CreateSfxAudioSource(UiSfx.settings_tab_active));
         sources.Add(CreateSfxAudioSource(UiSfx.speed_dial_click));
+        sources.Add(CreateSfxAudioSource(UiSfx.sell_click));
         sources.Add(CreateSfxAudioSource(UiSfx.game_start));
         sources.Add(CreateSfxAudioSource(UiSfx.died));
     }

@@ -8,6 +8,7 @@ public static class UiSfx {
     public static readonly string settings_open = "settings_open_sfx_0";
     public static readonly string settings_tab_active = "settings_tab_active_sfx_0";
     public static readonly string speed_dial_click = "speed_dial_click_sfx_0";
+    public static readonly string sell_click = "sell_click_sfx_0";
     public static readonly string game_start = "game_start_sfx_0";
     public static readonly string died = "died_sfx_0";
 

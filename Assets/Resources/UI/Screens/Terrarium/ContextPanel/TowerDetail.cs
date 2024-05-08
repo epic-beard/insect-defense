@@ -185,6 +185,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void OnSellTowerClick(ClickEvent evt) {
+    UiSfx.PlaySfx(UiSfx.sell_click);
     TowerManager.Instance.RefundSelectedTower();
   }
 
