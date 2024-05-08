@@ -45,6 +45,7 @@ public class StartScreen : MonoBehaviour {
   }
 
   private void Start() {
+    UiSfx.PlaySfx(UiSfx.game_start);
     RegisterCallbacks();
     SetContinueButtion();
   }

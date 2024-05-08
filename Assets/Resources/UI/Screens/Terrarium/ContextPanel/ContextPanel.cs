@@ -38,7 +38,7 @@ public class ContextPanel : MonoBehaviour {
 
     contextPanelParentVE = rootElement.Q<TemplateContainer>(className: contextPanelParentClassName);
     towerSelectorVE = rootElement.Q<TemplateContainer>(className: towerSelectorClassName);
-    }
+  }
 
   public void SetNoContextPanel() {
     enemyDetailVE.RemoveFromClassList("context-sub-panel-expanded");

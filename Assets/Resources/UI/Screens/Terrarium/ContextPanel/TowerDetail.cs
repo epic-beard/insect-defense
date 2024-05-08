@@ -87,6 +87,12 @@ public class TowerDetail : MonoBehaviour {
   private void RegisterCallbacks() {
     towerBehaviorDropdown.RegisterCallback<ChangeEvent<string>>(BehaviorCallback);
     towerPriorityDropdown.RegisterCallback<ChangeEvent<string>>(PriorityCallback);
+    towerBehaviorDropdown.RegisterCallback<MouseDownEvent>(evt => {
+        UiSfx.PlaySfx(UiSfx.dropdown_active);
+    });
+    towerPriorityDropdown.RegisterCallback<MouseDownEvent>(evt => {
+        UiSfx.PlaySfx(UiSfx.dropdown_active);
+    });
 
     sellTowerButton.RegisterCallback<ClickEvent>(OnSellTowerClick);
 
@@ -158,12 +164,14 @@ public class TowerDetail : MonoBehaviour {
 
     // check that previous upgrade is owned
     if (tower.UpgradeLevels[upgradePath] != upgradeNum - 1) {
+        UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
         return;
     }
 
     // check that player can afford the upgrade
     TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[upgradeNum];
     if (GameStateManager.Instance.Nu < upgrade.cost) {
+      UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
       return;
     }
 
@@ -172,6 +180,7 @@ public class TowerDetail : MonoBehaviour {
     }
 
     // all checks passed, continue with upgrade
+    UiSfx.PlaySfx(UiSfx.rocker_switch);
     SetRockerSwitchState(rockerSwitch, true);
     GameStateManager.Instance.Nu -= upgrade.cost;
     tower.Upgrade(upgrade);
@@ -180,6 +189,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void OnSellTowerClick(ClickEvent evt) {
+    UiSfx.PlaySfx(UiSfx.sell_click);
     TowerManager.Instance.RefundSelectedTower();
   }
 
@@ -189,6 +199,7 @@ public class TowerDetail : MonoBehaviour {
       Debug.Log("[ERROR] No tower selected, but behavior change attempted.");
       return;
     }
+    UiSfx.PlaySfx(UiSfx.dropdown_event_changed);
     Targeting.Behavior behavior =
         (Targeting.Behavior)System.Enum.Parse(
             typeof(Targeting.Behavior), towerBehaviorDropdown.value.ToUpper());
@@ -201,6 +212,7 @@ public class TowerDetail : MonoBehaviour {
       Debug.Log("[ERROR] No tower selected, but priority change attempted.");
       return;
     }
+    UiSfx.PlaySfx(UiSfx.dropdown_event_changed);
     Targeting.Priority priority =
         (Targeting.Priority)System.Enum.Parse(
             typeof(Targeting.Priority), towerPriorityDropdown.value.ToUpper().Replace(" ", "_"));
