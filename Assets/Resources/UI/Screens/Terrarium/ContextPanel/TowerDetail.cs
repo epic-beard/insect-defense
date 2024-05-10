@@ -56,6 +56,7 @@ public class TowerDetail : MonoBehaviour {
     RegisterCallbacks();
     ConstructDropdownChoices();
     Instance = this;
+    GameStateManager.OnNuChanged += UpdateAffordableTowerUpgrades;
   }
 
   private void SetVisualElements() {
@@ -241,18 +242,22 @@ public class TowerDetail : MonoBehaviour {
     towerStatAreaOfEffect.text = tower.AreaOfEffect.ToString();
     towerStatDotStacks.text = tower.DamageOverTime.ToString();
 
-    // TODO (agaber): Set the correct rocker switches to on and off depending on owned upgrades
-
     for (int i = 0; i < 3; i++) {
       string upgradePathName = tower.GetUpgradePathName(i);
       towerUpgradeTreeLabels[i].text = upgradePathName;
-    for (int j = 0; j < 5; j++) {
+      for (int j = 0; j < 5; j++) {
         bool isOwned = j <= tower.UpgradeLevels[i];
         SetRockerSwitchState(towerUpgradeSwitches[i, j], isOwned);
 
-        towerUpgradeIcons[i, j].TooltipText = tower.GetUpgradePath(i)[j].description;
+        ButtonWithTooltip icon = towerUpgradeIcons[i, j];
+        TowerAbility towerUpgrade = tower.GetUpgradePath(i)[j];
+
+        icon.TooltipText = towerUpgrade.description;
+
         string imgPath = "UI/images/tower upgrades/" + tower.Name + "/" + upgradePathName.ToLower() + " " + j;
-        towerUpgradeIcons[i, j].style.backgroundImage = Resources.Load<Texture2D>(imgPath);
+        icon.style.backgroundImage = Resources.Load<Texture2D>(imgPath);
+
+        UpdateUpgradeIconState(icon, i, j, GameStateManager.Instance.Nu);
       }
     }
   }
@@ -264,6 +269,42 @@ public class TowerDetail : MonoBehaviour {
       } else {
           rockerSwitch.AddToClassList("rocker-switch-off");
           rockerSwitch.RemoveFromClassList("rocker-switch-on");
+      }
+  }
+
+  private void UpdateUpgradeIconState(ButtonWithTooltip icon, int path, int level, int nu) {
+      Tower tower = TowerManager.SelectedTower;
+      if (tower == null) return;
+
+      bool isOwned = level <= tower.UpgradeLevels[path];
+
+      bool isPreviousUpgradeOwned = level - 1 == tower.UpgradeLevels[path];
+      bool isAffordable = nu >= tower.GetUpgradePath(path)[level].cost;
+      bool isPurchasable = isPreviousUpgradeOwned && isAffordable;
+
+      SetUpgradeIconState(icon, isOwned, isPurchasable);
+  }
+
+  private void SetUpgradeIconState(ButtonWithTooltip icon, bool isOwned, bool isPurchasable) {
+      icon.RemoveFromClassList("tower-upgrade-icon-purchased");
+      icon.RemoveFromClassList("tower-upgrade-icon-purchasable");
+      icon.RemoveFromClassList("tower-upgrade-icon-not-purchasable");
+
+      if (isOwned) {
+          icon.AddToClassList("tower-upgrade-icon-purchased");
+      } else if (isPurchasable) {
+          icon.AddToClassList("tower-upgrade-icon-purchasable");
+      } else {
+          icon.AddToClassList("tower-upgrade-icon-not-purchasable");
+      }
+  }
+
+  private void UpdateAffordableTowerUpgrades(int nu) {
+      for (int i = 0; i < 3; i++) {
+          for (int j = 0; j < 5; j++) {
+              ButtonWithTooltip icon = towerUpgradeIcons[i, j];
+              UpdateUpgradeIconState(icon, i, j, nu);
+          }
       }
   }
 
