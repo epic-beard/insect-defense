@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using EnemyKey = System.Tuple<EnemyData.Type, int>;
+
 public class ObjectPool : MonoBehaviour {
 #pragma warning disable 8618
   static public ObjectPool Instance;
 #pragma warning restore 8618
 
   [SerializeField] private int startingSize = 20;
-  readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
+  [SerializeField] private int infectionLevels = 3;
+  //readonly private Dictionary<EnemyData.Type, Queue<GameObject>> objectPools = new();
+  readonly private Dictionary<EnemyKey, Queue<GameObject>> objectPools = new();
   readonly private HashSet<Enemy> activeEnemies = new();
   readonly private Dictionary<EnemyData.Type, string> enemyMap = new() {
     { EnemyData.Type.ANT, "Enemies/Ant/Ant" },
@@ -34,12 +38,17 @@ public class ObjectPool : MonoBehaviour {
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
   public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Transform? parent = null) {
-    if (!objectPools.ContainsKey(data.type)) {
-      prefabMap.Add(data.type, Resources.Load<GameObject>(enemyMap[data.type]));
-      objectPools.Add(data.type, new Queue<GameObject>());
+    // TODO(emonzon): Adjust the resource load to include adding different prefabs depending on
+    //                infection level. Something like:
+    //                Resources.Load<GameObject>(string.Concat(enemyMap[data.type], data.infectionLevel)
+    EnemyKey enemyKey = new(data.type, data.infectionLevel);
+    if (!objectPools.ContainsKey(enemyKey)) {
+      //prefabMap.Add(data.type, Resources.Load<GameObject>(enemyMap[data.type]));
+      prefabMap.Add(data.type, Resources.Load<GameObject>(GetResourceLoadPath(data)));
+      objectPools.Add(enemyKey, new Queue<GameObject>());
       Debug.Log("WARNING: missing object pool for type: " + data.type.ToString());
     }
-    var pool = objectPools[data.type];
+    var pool = objectPools[enemyKey];
 
     GameObject gameObject;
     if (pool.Count != 0) {
@@ -79,13 +88,13 @@ public class ObjectPool : MonoBehaviour {
     gameObject.SetActive(false);
     Enemy enemy = gameObject.GetComponent<Enemy>();
     activeEnemies.Remove(enemy);
-    EnemyData.Type type = enemy.Type;
-    if (!objectPools.ContainsKey(type)) {
-      prefabMap.Add(type, Resources.Load<GameObject>(enemyMap[type]));
-      objectPools.Add(type, new Queue<GameObject>());
+    EnemyKey enemyKey = new(enemy.Type, enemy.InfectionLevel);
+    if (!objectPools.ContainsKey(enemyKey)) {
+      prefabMap.Add(enemy.Type, Resources.Load<GameObject>(GetResourceLoadPath(enemy.Data)));
+      objectPools.Add(enemyKey, new Queue<GameObject>());
       Debug.Log("WARNING: Missing type from ObjectPool.");
     }
-    objectPools[type].Enqueue(gameObject);
+    objectPools[enemyKey].Enqueue(gameObject);
   }
 
   // Deactivates all enemies and enqueues them back on the correct objectPool.
@@ -93,12 +102,13 @@ public class ObjectPool : MonoBehaviour {
     foreach (Enemy enemy in activeEnemies) {
       GameObject enemyObject = enemy.gameObject;
       enemyObject.SetActive(false);
-      if (!objectPools.ContainsKey(enemy.Type)) {
-        prefabMap.Add(enemy.Type, Resources.Load<GameObject>(enemyMap[enemy.Type]));
-        objectPools.Add(enemy.Type, new Queue<GameObject>());
+      EnemyKey enemyKey = new(enemy.Type, enemy.InfectionLevel);
+      if (!objectPools.ContainsKey(enemyKey)) {
+        prefabMap.Add(enemy.Type, Resources.Load<GameObject>(GetResourceLoadPath(enemy.Data)));
+        objectPools.Add(enemyKey, new Queue<GameObject>());
         Debug.Log("WARNING: Missing type from ObjectPool.");
       }
-      objectPools[enemy.Type].Enqueue(enemyObject);
+      objectPools[enemyKey].Enqueue(enemyObject);
     }
     activeEnemies.Clear();
   }
@@ -116,13 +126,21 @@ public class ObjectPool : MonoBehaviour {
     }
 
     foreach (var type in enemyTypes) {
-      objectPools[type] = new Queue<GameObject>();
-      for (int i = 0; i < startingSize; i++) {
-        GameObject gameObject = Instantiate(prefabMap[type]);
-        gameObject.SetActive(false);
+      for (int infection = 0; infection < infectionLevels; infection++) {
+        EnemyKey key = new(type, infection);
+        objectPools[key] = new Queue<GameObject>();
+        for (int i = 0; i < startingSize; i++) {
+          GameObject gameObject = Instantiate(prefabMap[type]);
+          gameObject.SetActive(false);
         
-        objectPools[type].Enqueue(gameObject);
+          objectPools[key].Enqueue(gameObject);
+        }
+
       }
     }
+  }
+
+  private string GetResourceLoadPath(EnemyData data) {
+    return string.Concat(enemyMap[data.type], "_", data.infectionLevel);
   }
 }
