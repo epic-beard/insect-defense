@@ -252,7 +252,7 @@ public class TowerDetail : MonoBehaviour {
         ButtonWithTooltip icon = towerUpgradeIcons[i, j];
         TowerAbility towerUpgrade = tower.GetUpgradePath(i)[j];
 
-        icon.TooltipText = towerUpgrade.description;
+        icon.TooltipText = Constants.nu + towerUpgrade.cost + " \u21d2 " + towerUpgrade.description;
 
         string imgPath = "UI/images/tower upgrades/" + tower.Name + "/" + upgradePathName.ToLower() + " " + j;
         icon.style.backgroundImage = Resources.Load<Texture2D>(imgPath);
