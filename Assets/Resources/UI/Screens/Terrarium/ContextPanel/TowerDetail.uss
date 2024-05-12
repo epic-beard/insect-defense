@@ -236,8 +236,36 @@
     width: 40px;
     height: 40px;
     margin-bottom: 8px;
-    border-radius: 4px;
     background-color: #000000;
+    border-radius: 4px;
+    border-width: 1px;
+    transition-property: all;
+    transition-duration: var(--animation-duration-short);
+    transition-timing-function: linear;
+}
+
+.tower-upgrade-icon-not-purchasable {
+    border-width: 1px;
+    border-color: #000000;
+    -unity-background-image-tint-color: #555555;
+}
+
+.tower-upgrade-icon-not-purchasable:hover {
+    border-width: 1px;
+    border-color: #777777;
+    -unity-background-image-tint-color: #999999;
+}
+
+.tower-upgrade-icon-purchasable {
+    border-width: 1px;
+    border-color: #999999;
+    -unity-background-image-tint-color: #dddddd;
+}
+
+.tower-upgrade-icon-purchased {
+    border-width: 2px;
+    border-color: #ffffff;
+    -unity-background-image-tint-color: #ffffff;
 }
 
 .rocker-switch-button {
