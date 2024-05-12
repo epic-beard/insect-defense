@@ -20,7 +20,7 @@
     padding-left: 5px;
 }
 
-.volume-slider Label:hover {
+.volume-slider:hover Label {
     -unity-text-outline: 1px #ffc300;
 }
 
