@@ -2,7 +2,7 @@
 <SerializableDictionaryOfStringEnemyData>
   <KeyValuePair>
     <Key>
-      <string>Ant</string>
+      <string>Ant_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -15,6 +15,7 @@
         <nu>5</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -26,7 +27,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Aphid</string>
+      <string>Aphid_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -39,6 +40,7 @@
         <nu>1</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -50,7 +52,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>SlowAphid</string>
+      <string>SlowAphid_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -63,6 +65,7 @@
         <nu>1</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -74,7 +77,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Beetle</string>
+      <string>Beetle_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -87,6 +90,7 @@
         <nu>10</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -98,7 +102,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Tarantula</string>
+      <string>Tarantula_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -111,6 +115,7 @@
         <nu>50</nu>
         <coagulationModifier>0.5</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -122,7 +127,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Leaf Bug</string>
+      <string>Leaf Bug_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -135,6 +140,7 @@
         <nu>6</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>CAMO</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />

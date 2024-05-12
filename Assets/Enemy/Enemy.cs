@@ -129,6 +129,7 @@ public class Enemy : MonoBehaviour {
       }
     }
   }
+  public int InfectionLevel { get { return data.infectionLevel; } }
   public float MaxArmor { get { return data.maxArmor; } }
   public float MaxHp { get { return data.maxHP; } }
   public float Nu {

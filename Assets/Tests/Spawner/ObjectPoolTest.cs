@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 [TestFixture]
 public class ObjectPoolTest {
@@ -34,7 +32,7 @@ public class ObjectPoolTest {
     objectPool.InitializeObjectPool(types);
     var objectPools = objectPool.GetObjectPools();
 
-    Assert.That(objectPools.Count, Is.EqualTo(1));
+    Assert.That(objectPools.Count, Is.EqualTo(objectPool.NumInfectionLevels));
     foreach (var (_, pool) in objectPools) {
       Assert.That(pool.Count, Is.EqualTo(startingSize));
     }
@@ -88,8 +86,8 @@ public static class ObjectPoolUtils {
         .SetValue(objectPool, enemies);
   }
 
-  public static Dictionary<EnemyData.Type, Queue<GameObject>> GetObjectPools(this ObjectPool objectPool) {
-    return (Dictionary<EnemyData.Type, Queue<GameObject>>)typeof(ObjectPool)
+  public static Dictionary<Tuple<EnemyData.Type, int>, Queue<GameObject>> GetObjectPools(this ObjectPool objectPool) {
+    return (Dictionary<Tuple<EnemyData.Type, int>, Queue<GameObject>>)typeof(ObjectPool)
       .GetField("objectPools", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(objectPool);
   }
