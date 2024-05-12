@@ -13,16 +13,16 @@ public class EnemyDataGenerator {
 
   private void GenerateEnemyData() {
     EnemyDictionary dictionary = new();
-    dictionary["Ant"] = GetAntEnemyData();
-    dictionary["Aphid"] = GetAphidEnemyData();
-    dictionary["SlowAphid"] = GetSlowAphidEnemyData();
-    dictionary["Beetle"] = GetBeetleEnemyData();
-    dictionary["Tarantula"] = GetTarantulaEnemyData();
-    dictionary["Leaf Bug"] = GetLeafBugEnemyData();
+    dictionary["Ant_IL0"] = GetAntIL0EnemyData();
+    dictionary["Aphid_IL0"] = GetAphidIL0EnemyData();
+    dictionary["SlowAphid_IL0"] = GetSlowAphidIL0EnemyData();
+    dictionary["Beetle_IL0"] = GetBeetleLowInfectionEnemyData();
+    dictionary["Tarantula_IL0"] = GetTarantulaIL0EnemyData();
+    dictionary["Leaf Bug_IL0"] = GetLeafBugIL0EnemyData();
     Serialize<EnemyDictionary>(dictionary, "data.enemies");
   }
 
-  private EnemyData GetAntEnemyData() {
+  private EnemyData GetAntIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.ANT,
       size = EnemyData.Size.SMALL,
@@ -33,12 +33,13 @@ public class EnemyDataGenerator {
       nu = 5,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
+      infectionLevel = 0,
     };
 
     return data;
   }
 
-  private EnemyData GetAphidEnemyData() {
+  private EnemyData GetAphidIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.APHID,
       size = EnemyData.Size.TINY,
@@ -49,13 +50,14 @@ public class EnemyDataGenerator {
       nu = 1,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
+      infectionLevel = 0,
     };
 
     return data;
   }
 
   // TODO(nnewsom): Handle this with overrides.
-  private EnemyData GetSlowAphidEnemyData() {
+  private EnemyData GetSlowAphidIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.APHID,
       size = EnemyData.Size.TINY,
@@ -66,12 +68,13 @@ public class EnemyDataGenerator {
       nu = 1,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
+      infectionLevel = 0,
     };
 
     return data;
   }
 
-  private EnemyData GetBeetleEnemyData() {
+  private EnemyData GetBeetleLowInfectionEnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.BEETLE,
       size = EnemyData.Size.SMALL,
@@ -82,12 +85,13 @@ public class EnemyDataGenerator {
       nu = 10,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
+      infectionLevel = 0,
     };
 
     return data;
   }
 
-  private EnemyData GetTarantulaEnemyData() {
+  private EnemyData GetTarantulaIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.TARANTULA,
       size = EnemyData.Size.LARGE,
@@ -99,12 +103,13 @@ public class EnemyDataGenerator {
       properties = EnemyData.Properties.NONE,
       spawnVariance = 1.0f,
       coagulationModifier = 0.5f,
+      infectionLevel = 0,
     };
 
     return data;
   }
 
-  private EnemyData GetLeafBugEnemyData() {
+  private EnemyData GetLeafBugIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.LEAF_BUG,
       size = EnemyData.Size.NORMAL,
@@ -115,6 +120,7 @@ public class EnemyDataGenerator {
       nu = 6,
       properties = EnemyData.Properties.CAMO,
       spawnVariance = 2.5f,
+      infectionLevel = 0,
     };
 
     return data;

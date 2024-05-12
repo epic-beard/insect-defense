@@ -111,6 +111,9 @@ public struct EnemyData {
   public float coagulationModifier;
   public float acidExplosionStackModifier;
 
+  // Generally runs from 0-2 inclusive.
+  public int infectionLevel;
+
   [XmlIgnore]
   public float slowPower;
   [XmlIgnore]
