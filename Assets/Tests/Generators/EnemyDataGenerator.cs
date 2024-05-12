@@ -13,16 +13,16 @@ public class EnemyDataGenerator {
 
   private void GenerateEnemyData() {
     EnemyDictionary dictionary = new();
-    dictionary["Ant"] = GetAntLowInfectionEnemyData();
-    dictionary["Aphid"] = GetAphidLowInfectionEnemyData();
-    dictionary["SlowAphid"] = GetSlowAphidLowInfectionEnemyData();
-    dictionary["Beetle"] = GetBeetleLowInfectionEnemyData();
-    dictionary["Tarantula"] = GetTarantulaLowInfectionEnemyData();
-    dictionary["Leaf Bug"] = GetLeafBugLowInfectionEnemyData();
+    dictionary["Ant_IL0"] = GetAntIL0EnemyData();
+    dictionary["Aphid_IL0"] = GetAphidIL0EnemyData();
+    dictionary["SlowAphid_IL0"] = GetSlowAphidIL0EnemyData();
+    dictionary["Beetle_IL0"] = GetBeetleLowInfectionEnemyData();
+    dictionary["Tarantula_IL0"] = GetTarantulaIL0EnemyData();
+    dictionary["Leaf Bug_IL0"] = GetLeafBugIL0EnemyData();
     Serialize<EnemyDictionary>(dictionary, "data.enemies");
   }
 
-  private EnemyData GetAntLowInfectionEnemyData() {
+  private EnemyData GetAntIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.ANT,
       size = EnemyData.Size.SMALL,
@@ -39,7 +39,7 @@ public class EnemyDataGenerator {
     return data;
   }
 
-  private EnemyData GetAphidLowInfectionEnemyData() {
+  private EnemyData GetAphidIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.APHID,
       size = EnemyData.Size.TINY,
@@ -57,7 +57,7 @@ public class EnemyDataGenerator {
   }
 
   // TODO(nnewsom): Handle this with overrides.
-  private EnemyData GetSlowAphidLowInfectionEnemyData() {
+  private EnemyData GetSlowAphidIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.APHID,
       size = EnemyData.Size.TINY,
@@ -91,7 +91,7 @@ public class EnemyDataGenerator {
     return data;
   }
 
-  private EnemyData GetTarantulaLowInfectionEnemyData() {
+  private EnemyData GetTarantulaIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.TARANTULA,
       size = EnemyData.Size.LARGE,
@@ -109,7 +109,7 @@ public class EnemyDataGenerator {
     return data;
   }
 
-  private EnemyData GetLeafBugLowInfectionEnemyData() {
+  private EnemyData GetLeafBugIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.LEAF_BUG,
       size = EnemyData.Size.NORMAL,

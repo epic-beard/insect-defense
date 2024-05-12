@@ -2,7 +2,7 @@
 <SerializableDictionaryOfStringEnemyData>
   <KeyValuePair>
     <Key>
-      <string>Ant</string>
+      <string>Ant_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -27,7 +27,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Aphid</string>
+      <string>Aphid_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -52,7 +52,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>SlowAphid</string>
+      <string>SlowAphid_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -77,7 +77,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Beetle</string>
+      <string>Beetle_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -102,7 +102,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Tarantula</string>
+      <string>Tarantula_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -127,7 +127,7 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Leaf Bug</string>
+      <string>Leaf Bug_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
