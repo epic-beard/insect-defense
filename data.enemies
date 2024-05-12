@@ -15,6 +15,7 @@
         <nu>5</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -39,6 +40,7 @@
         <nu>1</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -63,6 +65,7 @@
         <nu>1</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -87,6 +90,7 @@
         <nu>10</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -111,6 +115,7 @@
         <nu>50</nu>
         <coagulationModifier>0.5</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -135,6 +140,7 @@
         <nu>6</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
         <properties>CAMO</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
