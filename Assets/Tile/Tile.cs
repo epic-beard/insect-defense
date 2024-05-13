@@ -33,8 +33,10 @@ public class Tile : MonoBehaviour {
   private void Start() {
     webLineRenderer = GetComponentInChildren<LineRenderer>();
     waypoint = GetComponent<Waypoint>();
-    mat = this.transform.GetChild(1).GetComponent<Renderer>().material;
-    basic = mat.color;
+    if (isTowerPlaceable) {
+      mat = this.transform.Find("Grass").GetComponent<Renderer>().material;
+      basic = mat.color;
+    }
   }
 
   // Add a lingering web to this tile. It can support multiple different towers adding a lingering web

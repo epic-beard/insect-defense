@@ -3,9 +3,9 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
 
 public class Level1WaveGenerator {
-  public string aphid = "Aphid";
-  public string ant = "Ant";
-  public string beetle = "Beetle";
+  public string aphid = "Aphid_IL0";
+  public string ant = "Ant_IL0";
+  public string beetle = "Beetle_IL0";
   public string filename = "Waves/level1.waves";
 
   [Test]
