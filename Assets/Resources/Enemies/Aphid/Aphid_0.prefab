@@ -41,7 +41,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2166917792933380144, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
       propertyPath: m_Name
-      value: Aphid
+      value: Aphid_0
       objectReference: {fileID: 0}
     - target: {fileID: 2166917792933380144, guid: 80fde975d7174794f8de293a77ba28bf, type: 3}
       propertyPath: m_IsActive
@@ -139,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b6394994a70fecb4da86920c5ce3a942, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.8
+      value: 2.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b6394994a70fecb4da86920c5ce3a942, type: 3}
       propertyPath: m_LocalPosition.z

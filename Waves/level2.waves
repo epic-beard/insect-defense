@@ -14,14 +14,14 @@
           <repeatDelay>3.5</repeatDelay>
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Ant</enemyDataKey>
+          <enemyDataKey>Ant_IL0</enemyDataKey>
         </Wave>
         <Wave xsi:type="CannedEnemyWave">
           <repetitions>2</repetitions>
           <repeatDelay>1</repeatDelay>
           <spawnLocation>0</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Ant</enemyDataKey>
+          <enemyDataKey>Ant_IL0</enemyDataKey>
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
@@ -38,7 +38,7 @@
           <repeatDelay>3.5</repeatDelay>
           <spawnLocation>1</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Ant</enemyDataKey>
+          <enemyDataKey>Ant_IL0</enemyDataKey>
         </Wave>
         <Wave xsi:type="SpacerWave">
           <delay>3</delay>
@@ -48,7 +48,7 @@
           <repeatDelay>5</repeatDelay>
           <spawnLocation>1</spawnLocation>
           <spawnAmmount>2</spawnAmmount>
-          <enemyDataKey>Ant</enemyDataKey>
+          <enemyDataKey>Ant_IL0</enemyDataKey>
         </Wave>
         <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="DialogueBoxWave">
@@ -65,7 +65,7 @@
               <repeatDelay>2.25</repeatDelay>
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
-              <enemyDataKey>Aphid</enemyDataKey>
+              <enemyDataKey>Aphid_IL0</enemyDataKey>
             </Wave>
           </Subwaves>
         </Wave>
@@ -80,14 +80,14 @@
               <repeatDelay>5</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Ant</enemyDataKey>
+              <enemyDataKey>Ant_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>4</repetitions>
               <repeatDelay>5</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>4</spawnAmmount>
-              <enemyDataKey>Aphid</enemyDataKey>
+              <enemyDataKey>Aphid_IL0</enemyDataKey>
             </Wave>
           </Subwaves>
         </Wave>
@@ -101,14 +101,14 @@
               <repeatDelay>1</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Ant</enemyDataKey>
+              <enemyDataKey>Ant_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>2</repetitions>
               <repeatDelay>1</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
-              <enemyDataKey>Aphid</enemyDataKey>
+              <enemyDataKey>Aphid_IL0</enemyDataKey>
             </Wave>
           </Subwaves>
         </Wave>
@@ -122,7 +122,7 @@
               <repeatDelay>15</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Beetle</enemyDataKey>
+              <enemyDataKey>Beetle_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="DelayedWave">
               <warmup>45</warmup>
@@ -131,7 +131,7 @@
                 <repeatDelay>8</repeatDelay>
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>1</spawnAmmount>
-                <enemyDataKey>Beetle</enemyDataKey>
+                <enemyDataKey>Beetle_IL0</enemyDataKey>
               </wave>
               <cooldown>0</cooldown>
             </Wave>
@@ -140,7 +140,7 @@
               <repeatDelay>1</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Aphid</enemyDataKey>
+              <enemyDataKey>Aphid_IL0</enemyDataKey>
               <Overrides>
                 <KeyValuePair>
                   <Key>
@@ -159,7 +159,7 @@
                 <repeatDelay>2.6</repeatDelay>
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>2</spawnAmmount>
-                <enemyDataKey>Aphid</enemyDataKey>
+                <enemyDataKey>Aphid_IL0</enemyDataKey>
                 <Overrides>
                   <KeyValuePair>
                     <Key>
@@ -188,21 +188,21 @@
                   <repeatDelay>3.5</repeatDelay>
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Aphid</enemyDataKey>
+                  <enemyDataKey>Aphid_IL0</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>4</repetitions>
                   <repeatDelay>2.5</repeatDelay>
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Aphid</enemyDataKey>
+                  <enemyDataKey>Aphid_IL0</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>10</repetitions>
                   <repeatDelay>2.5</repeatDelay>
                   <spawnLocation>1</spawnLocation>
                   <spawnAmmount>2</spawnAmmount>
-                  <enemyDataKey>Aphid</enemyDataKey>
+                  <enemyDataKey>Aphid_IL0</enemyDataKey>
                 </Wave>
               </Subwaves>
             </Wave>
@@ -213,21 +213,21 @@
                   <repeatDelay>3.5</repeatDelay>
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Aphid</enemyDataKey>
+                  <enemyDataKey>Aphid_IL0</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>3</repetitions>
                   <repeatDelay>2.5</repeatDelay>
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Aphid</enemyDataKey>
+                  <enemyDataKey>Aphid_IL0</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="CannedEnemyWave">
                   <repetitions>8</repetitions>
                   <repeatDelay>4</repeatDelay>
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Ant</enemyDataKey>
+                  <enemyDataKey>Ant_IL0</enemyDataKey>
                 </Wave>
               </Subwaves>
             </Wave>
@@ -243,14 +243,14 @@
               <repeatDelay>2.5</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>3</spawnAmmount>
-              <enemyDataKey>Aphid</enemyDataKey>
+              <enemyDataKey>Aphid_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>9</repetitions>
               <repeatDelay>2.5</repeatDelay>
               <spawnLocation>0</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Ant</enemyDataKey>
+              <enemyDataKey>Ant_IL0</enemyDataKey>
             </Wave>
           </Subwaves>
         </Wave>
@@ -268,14 +268,14 @@
                         <repeatDelay>12</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>2</spawnAmmount>
-                        <enemyDataKey>Beetle</enemyDataKey>
+                        <enemyDataKey>Beetle_IL0</enemyDataKey>
                       </Wave>
                       <Wave xsi:type="CannedEnemyWave">
                         <repetitions>4</repetitions>
                         <repeatDelay>12</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>3</spawnAmmount>
-                        <enemyDataKey>Beetle</enemyDataKey>
+                        <enemyDataKey>Beetle_IL0</enemyDataKey>
                       </Wave>
                     </Subwaves>
                   </Wave>
@@ -289,7 +289,7 @@
                         <repeatDelay>0.6</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>1</spawnAmmount>
-                        <enemyDataKey>Aphid</enemyDataKey>
+                        <enemyDataKey>Aphid_IL0</enemyDataKey>
                       </Wave>
                       <Wave xsi:type="SpacerWave">
                         <delay>10</delay>
@@ -299,7 +299,7 @@
                         <repeatDelay>0.6</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>1</spawnAmmount>
-                        <enemyDataKey>Aphid</enemyDataKey>
+                        <enemyDataKey>Aphid_IL0</enemyDataKey>
                       </Wave>
                       <Wave xsi:type="SpacerWave">
                         <delay>10</delay>
@@ -309,7 +309,7 @@
                         <repeatDelay>0.6</repeatDelay>
                         <spawnLocation>1</spawnLocation>
                         <spawnAmmount>1</spawnAmmount>
-                        <enemyDataKey>Aphid</enemyDataKey>
+                        <enemyDataKey>Aphid_IL0</enemyDataKey>
                       </Wave>
                     </Subwaves>
                   </Wave>
@@ -324,7 +324,7 @@
                   <repeatDelay>3</repeatDelay>
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Ant</enemyDataKey>
+                  <enemyDataKey>Ant_IL0</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="SpacerWave">
                   <delay>15</delay>
@@ -351,21 +351,21 @@
               <repeatDelay>8</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>2</spawnAmmount>
-              <enemyDataKey>Ant</enemyDataKey>
+              <enemyDataKey>Ant_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>5</repetitions>
               <repeatDelay>16</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Beetle</enemyDataKey>
+              <enemyDataKey>Beetle_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="CannedEnemyWave">
               <repetitions>8</repetitions>
               <repeatDelay>10</repeatDelay>
               <spawnLocation>1</spawnLocation>
               <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Beetle</enemyDataKey>
+              <enemyDataKey>Beetle_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="SequentialWave">
               <Subwaves>
@@ -377,7 +377,7 @@
                   <repeatDelay>1</repeatDelay>
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Leaf Bug</enemyDataKey>
+                  <enemyDataKey>Leaf Bug_IL0</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="SpacerWave">
                   <delay>6</delay>
@@ -401,14 +401,14 @@
                           <repeatDelay>3</repeatDelay>
                           <spawnLocation>0</spawnLocation>
                           <spawnAmmount>2</spawnAmmount>
-                          <enemyDataKey>Aphid</enemyDataKey>
+                          <enemyDataKey>Aphid_IL0</enemyDataKey>
                         </Wave>
                         <Wave xsi:type="CannedEnemyWave">
                           <repetitions>12</repetitions>
                           <repeatDelay>1.5</repeatDelay>
                           <spawnLocation>0</spawnLocation>
                           <spawnAmmount>1</spawnAmmount>
-                          <enemyDataKey>Aphid</enemyDataKey>
+                          <enemyDataKey>Aphid_IL0</enemyDataKey>
                         </Wave>
                       </Subwaves>
                     </Wave>
@@ -417,7 +417,7 @@
                       <repeatDelay>8</repeatDelay>
                       <spawnLocation>0</spawnLocation>
                       <spawnAmmount>1</spawnAmmount>
-                      <enemyDataKey>Leaf Bug</enemyDataKey>
+                      <enemyDataKey>Leaf Bug_IL0</enemyDataKey>
                     </Wave>
                   </Subwaves>
                 </Wave>
@@ -441,7 +441,7 @@
           <repeatDelay>5</repeatDelay>
           <spawnLocation>1</spawnLocation>
           <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Tarantula</enemyDataKey>
+          <enemyDataKey>Tarantula_IL0</enemyDataKey>
         </Wave>
       </Subwaves>
     </Wave>

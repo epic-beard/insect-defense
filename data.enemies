@@ -52,31 +52,6 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>SlowAphid_IL0</string>
-    </Key>
-    <Value>
-      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <type>APHID</type>
-        <size>TINY</size>
-        <maxHP>5</maxHP>
-        <maxArmor>0</maxArmor>
-        <speed>0.25</speed>
-        <damage>1</damage>
-        <nu>1</nu>
-        <coagulationModifier>0</coagulationModifier>
-        <acidExplosionStackModifier>0</acidExplosionStackModifier>
-        <infectionLevel>0</infectionLevel>
-        <properties>NONE</properties>
-        <spawner xsi:nil="true" />
-        <carrier xsi:nil="true" />
-        <dazzle xsi:nil="true" />
-        <slime xsi:nil="true" />
-        <spawnVariance>3</spawnVariance>
-      </EnemyData>
-    </Value>
-  </KeyValuePair>
-  <KeyValuePair>
-    <Key>
       <string>Beetle_IL0</string>
     </Key>
     <Value>
