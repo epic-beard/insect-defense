@@ -4,6 +4,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+using EnemyKey = System.Tuple<EnemyData.Type, int>;
+
 public class SpittingAntTowerPlayModeTest {
 
   SpittingAntTower spittingAntTower;
@@ -42,8 +44,8 @@ public class SpittingAntTowerPlayModeTest {
     // Setup the Object Pool
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     ObjectPool.Instance = objectPool;
-    var types = new HashSet<EnemyData.Type>() { EnemyData.Type.ANT};
-    objectPool.InitializeObjectPool(types);
+    var keys = new HashSet<EnemyKey>() { new(EnemyData.Type.ANT, 0) };
+    objectPool.InitializeObjectPool(keys);
   }
 
   [SetUp]

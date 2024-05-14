@@ -4,6 +4,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+using EnemyKey = System.Tuple<EnemyData.Type, int>;
+
 public class SpawnerTest {
 
   [UnityTest]
@@ -78,8 +80,8 @@ public class EnemySubwaveTest {
     prefab.AddComponent<Enemy>();
 
     objectPool = CreateObjectPool();
-    var types = new HashSet<EnemyData.Type>() { EnemyData.Type.BEETLE };
-    objectPool.InitializeObjectPool(types);
+    var keys = new HashSet<EnemyKey>() { new(EnemyData.Type.BEETLE, 0) };
+    objectPool.InitializeObjectPool(keys);
 
     spawner = new GameObject().AddComponent<Spawner>();
     Waypoint spawnLocation = new GameObject().AddComponent<Waypoint>();
