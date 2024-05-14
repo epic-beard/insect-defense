@@ -1,4 +1,5 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -106,7 +107,15 @@ public class ObjectPool : MonoBehaviour {
   // Creates startingSize enemies for each prefab, populating the objectPools map.
   public void InitializeObjectPool(HashSet<EnemyKey> enemyKeys) {
     foreach (var key in enemyKeys) {
-      prefabMap.Add(key, Resources.Load<GameObject>(string.Concat(key.Item1, "_", key.Item2)));
+      int il = key.Item2;
+      for (int i = il; i >= 0; i--) {
+        var prefab = Resources.Load<GameObject>(string.Concat(enemyMap[key.Item1], "_", i));
+        if (prefab != null) {
+          prefabMap.Add(key, prefab);
+          break;
+        }
+      }
+      if (!prefabMap.ContainsKey(key)) { throw new ArgumentNullException(); }
     }
 
     foreach (var key in enemyKeys) {

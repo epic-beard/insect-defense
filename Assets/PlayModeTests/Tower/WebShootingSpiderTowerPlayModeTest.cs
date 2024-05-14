@@ -4,6 +4,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+using EnemyKey = System.Tuple<EnemyData.Type, int>;
+
 public class WebShootingSpiderTowerPlayModeTest {
   Waypoint targetWaypoint;
   Waypoint enemyInRangeWaypoint;
@@ -46,8 +48,8 @@ public class WebShootingSpiderTowerPlayModeTest {
     // Setup the Object Pool
     objectPool = new GameObject().AddComponent<ObjectPool>();
     ObjectPool.Instance = objectPool;
-    var types = new HashSet<EnemyData.Type>() { EnemyData.Type.ANT };
-    objectPool.InitializeObjectPool(types);
+    var keys = new HashSet<EnemyKey>() { new(EnemyData.Type.ANT, 0) };
+    objectPool.InitializeObjectPool(keys);
 
     Time.captureDeltaTime = 0;
   }
