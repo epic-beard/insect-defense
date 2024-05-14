@@ -124,6 +124,14 @@ public class TowerManager : MonoBehaviour {
     SelectedTower = tower;
   }
 
+  public void DeSelectTower() {
+    SelectedTowerType = null;
+    if (SelectedTower != null) {
+      SelectedTower.Tile.SetUnselected();
+      SelectedTower = null;
+    }
+  }
+
   public string GetTowerPrefabPath(TowerData.Type type) { return prefabMap[type]; }
 
   public void RefundSelectedTower() {
