@@ -10,8 +10,6 @@ public class DebugSpawner : MonoBehaviour {
   private void Start() {
     Enum.GetValues(typeof(EnemyData.Type));
 
-    //HashSet<EnemyKey> allEnemyTypes =
-    //  new HashSet<EnemyKey>(Enum.GetValues(typeof(EnemyData.Type)).OfType<EnemyData.Type>().ToList());
     ObjectPool.Instance.InitializeObjectPool(new HashSet<Tuple<EnemyData.Type, int>> { });
   }
 
