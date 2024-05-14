@@ -4,16 +4,18 @@ using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 
+using EnemyKey = System.Tuple<EnemyData.Type, int>;
+
 [TestFixture]
 public class ObjectPoolTest {
   private ObjectPool objectPool;
   private EnemyData enemyData;
   private Waypoint waypoint;
-  private HashSet<EnemyData.Type> types;
+  private HashSet<EnemyKey> types;
   [SetUp]
   public void SetUp() {
     objectPool = new GameObject().AddComponent<ObjectPool>();
-    types = new HashSet<EnemyData.Type>() { EnemyData.Type.BEETLE };
+    types = new HashSet<EnemyKey>() { new(EnemyData.Type.BEETLE, 0) };
     objectPool.SetStartingSize(1);
 
     enemyData = new EnemyData() {

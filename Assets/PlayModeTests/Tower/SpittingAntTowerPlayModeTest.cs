@@ -42,7 +42,7 @@ public class SpittingAntTowerPlayModeTest {
     // Setup the Object Pool
     ObjectPool objectPool = new GameObject().AddComponent<ObjectPool>();
     ObjectPool.Instance = objectPool;
-    var types = new HashSet<EnemyData.Type>() { EnemyData.Type.ANT};
+    var types = new HashSet<EnemyKey>() { new(EnemyData.Type.ANT, 0) };
     objectPool.InitializeObjectPool(types);
   }
 
