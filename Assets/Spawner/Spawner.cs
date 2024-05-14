@@ -11,6 +11,7 @@ using static EpicBeardLib.XmlSerializationHelpers;
 
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
 using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.IntegerField>;
+using EnemyKey = System.Tuple<EnemyData.Type, int>;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -33,7 +34,7 @@ public class Spawner : MonoBehaviour {
     if (filename.Length == 0) return;
     Waves? waves = Deserialize<Waves>(filename);
     if (waves != null) {
-      ObjectPool.Instance.InitializeObjectPool(waves.GetEnemyTypes());
+      ObjectPool.Instance.InitializeObjectPool(waves.GetEnemyKeys());
       SpawnWaves(waves);
     } else {
       // TODO: Make this an error.
@@ -94,7 +95,7 @@ public class Spawner : MonoBehaviour {
     [XmlIgnore]
     public bool Finished { get; set; }
 
-    public abstract HashSet<EnemyData.Type> GetEnemyTypes();
+    public abstract HashSet<EnemyKey> GetEnemyKeys();
 
     public abstract void BindData(VisualElement ve);
 
@@ -195,10 +196,10 @@ public class Spawner : MonoBehaviour {
       return "Waves\n" + string.Join("\n", waves.ConvertAll(x => x.ToString().TabMultiLine()));
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      HashSet<EnemyData.Type> types = new();
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      HashSet<EnemyKey> types = new();
       foreach (var wave in waves) {
-        types.UnionWith(wave.GetEnemyTypes());
+        types.UnionWith(wave.GetEnemyKeys());
       }
       return types;
     }
@@ -234,8 +235,8 @@ public class Spawner : MonoBehaviour {
       Finished = true;
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      return wave.GetEnemyTypes();
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      return wave.GetEnemyKeys();
     }
 
     public override void BindData(VisualElement ve) {
@@ -275,10 +276,10 @@ public class Spawner : MonoBehaviour {
           + string.Join("\n", Subwaves.ConvertAll(x => x.ToString().TabMultiLine()));
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      HashSet<EnemyData.Type> types = new();
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      HashSet<EnemyKey> types = new();
       foreach (var wave in Subwaves) {
-        types.UnionWith(wave.GetEnemyTypes());
+        types.UnionWith(wave.GetEnemyKeys());
       }
       return types;
     }
@@ -316,10 +317,10 @@ public class Spawner : MonoBehaviour {
           + string.Join("\n", Subwaves.ConvertAll(x => x.ToString().TabMultiLine()));
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      HashSet<EnemyData.Type> types = new();
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      HashSet<EnemyKey> types = new();
       foreach (var wave in Subwaves) {
-        types.UnionWith(wave.GetEnemyTypes());
+        types.UnionWith(wave.GetEnemyKeys());
       }
       return types;
     }
@@ -371,8 +372,8 @@ public class Spawner : MonoBehaviour {
         + "\n\tEnemy Data: " + data;
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      return new HashSet<EnemyData.Type>() { data.type };
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      return new HashSet<EnemyKey>() { new (data.type, data.infectionLevel) };
     }
 
     public override void BindData(VisualElement ve) {
@@ -473,10 +474,10 @@ public class Spawner : MonoBehaviour {
         + "\n\tEnemy Data Key: " + enemyDataKey;
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
+    public override HashSet<EnemyKey> GetEnemyKeys() {
       EnemyData data = EnemyDataManager.Instance.GetEnemyData(enemyDataKey);
 
-      return new HashSet<EnemyData.Type>() { data.type };
+      return new HashSet<EnemyKey>() { new(data.type, data.infectionLevel) };
     }
 
     public override void BindData(VisualElement ve) {
@@ -546,8 +547,8 @@ public class Spawner : MonoBehaviour {
       return "SpacerWave\n\tDelay: " + delay;
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      return new HashSet<EnemyData.Type>();
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      return new HashSet<EnemyKey>();
     }
 
     public override void BindData(VisualElement ve) {
@@ -585,8 +586,8 @@ public class Spawner : MonoBehaviour {
       return "DialogueBoxWave\n\t" + string.Join("\n\t", messages);
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      return new HashSet<EnemyData.Type>();
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      return new HashSet<EnemyKey>();
     }
 
     public override void BindData(VisualElement ve) {
@@ -630,8 +631,8 @@ public class Spawner : MonoBehaviour {
       return "WaitUntilDeadWave\n";
     }
 
-    public override HashSet<EnemyData.Type> GetEnemyTypes() {
-      return new HashSet<EnemyData.Type>();
+    public override HashSet<EnemyKey> GetEnemyKeys() {
+      return new HashSet<EnemyKey>();
     }
 
     public override void BindData(VisualElement ve) {

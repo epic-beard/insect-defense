@@ -1,4 +1,5 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -104,23 +105,26 @@ public class ObjectPool : MonoBehaviour {
   }
 
   // Creates startingSize enemies for each prefab, populating the objectPools map.
-  public void InitializeObjectPool(HashSet<EnemyData.Type> enemyTypes) {
-    foreach (var kvp in enemyMap) {
-      for (int i = 0; i < NumInfectionLevels;  i++) {
-        prefabMap.Add(new EnemyKey(kvp.Key, i), Resources.Load<GameObject>(string.Concat(kvp.Value, "_", i)));
+  public void InitializeObjectPool(HashSet<EnemyKey> enemyKeys) {
+    foreach (var key in enemyKeys) {
+      int il = key.Item2;
+      for (int i = il; i >= 0; i--) {
+        var prefab = Resources.Load<GameObject>(string.Concat(enemyMap[key.Item1], "_", i));
+        if (prefab != null) {
+          prefabMap.Add(key, prefab);
+          break;
+        }
       }
+      if (!prefabMap.ContainsKey(key)) { throw new ArgumentNullException(); }
     }
 
-    foreach (var type in enemyTypes) {
-      for (int infection = 0; infection < NumInfectionLevels; infection++) {
-        EnemyKey enemyKey = new(type, infection);
-        objectPools[enemyKey] = new Queue<GameObject>();
-        for (int i = 0; i < startingSize; i++) {
-          GameObject gameObject = Instantiate(prefabMap[enemyKey]);
-          gameObject.SetActive(false);
+    foreach (var key in enemyKeys) {
+      objectPools[key] = new Queue<GameObject>();
+      for (int i = 0; i < startingSize; i++) {
+        GameObject gameObject = Instantiate(prefabMap[key]);
+        gameObject.SetActive(false);
         
-          objectPools[enemyKey].Enqueue(gameObject);
-        }
+        objectPools[key].Enqueue(gameObject);
       }
     }
   }

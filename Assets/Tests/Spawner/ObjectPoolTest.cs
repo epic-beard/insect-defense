@@ -4,21 +4,22 @@ using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 
+using EnemyKey = System.Tuple<EnemyData.Type, int>;
+
 [TestFixture]
 public class ObjectPoolTest {
   private ObjectPool objectPool;
   private EnemyData enemyData;
   private Waypoint waypoint;
-  private HashSet<EnemyData.Type> types;
+  private HashSet<EnemyKey> keys;
   [SetUp]
   public void SetUp() {
-    objectPool = new GameObject().AddComponent<ObjectPool>();
-    types = new HashSet<EnemyData.Type>() { EnemyData.Type.BEETLE };
-    objectPool.SetStartingSize(1);
+    keys = new HashSet<EnemyKey>() { new(EnemyData.Type.BEETLE, 0) };
 
     enemyData = new EnemyData() {
       maxHP = 10,
-      type = EnemyData.Type.BEETLE
+      type = EnemyData.Type.BEETLE, 
+      infectionLevel = 0,
     };
 
     waypoint = new GameObject().AddComponent<Waypoint>();
@@ -28,8 +29,9 @@ public class ObjectPoolTest {
   // the ObjectPool has Count == n.
   [Test]
   public void InitializeObjectPoolWorks([Values(0, 1, 10)] int startingSize) {
+    objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetStartingSize(startingSize);
-    objectPool.InitializeObjectPool(types);
+    objectPool.InitializeObjectPool(keys);
     var objectPools = objectPool.GetObjectPools();
 
     Assert.That(objectPools.Count, Is.EqualTo(objectPool.NumInfectionLevels));
@@ -42,7 +44,9 @@ public class ObjectPoolTest {
   // enemy data.
   [Test]
   public void InstantiateEnemyWorks() {
-    objectPool.InitializeObjectPool(types);
+    objectPool = new GameObject().AddComponent<ObjectPool>();
+    objectPool.SetStartingSize(1);
+    objectPool.InitializeObjectPool(keys);
     GameObject gameObject = objectPool.InstantiateEnemy(enemyData, waypoint);
 
     Assert.That(gameObject.activeSelf);
@@ -55,8 +59,9 @@ public class ObjectPoolTest {
   // Both references should point to the same GameObject. 
   [Test]
   public void DestroyEnemyWorks() {
+    objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetStartingSize(1);
-    objectPool.InitializeObjectPool(types);
+    objectPool.InitializeObjectPool(keys);
     GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     objectPool.DestroyEnemy(gameObject1);
     GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
@@ -68,8 +73,9 @@ public class ObjectPoolTest {
   // return a new enemy for each all.
   [Test]
   public void ObjectPoolResizeWorks() {
+    objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetStartingSize(1);
-    objectPool.InitializeObjectPool(types);
+    objectPool.InitializeObjectPool(keys);
     GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
 
@@ -86,8 +92,8 @@ public static class ObjectPoolUtils {
         .SetValue(objectPool, enemies);
   }
 
-  public static Dictionary<Tuple<EnemyData.Type, int>, Queue<GameObject>> GetObjectPools(this ObjectPool objectPool) {
-    return (Dictionary<Tuple<EnemyData.Type, int>, Queue<GameObject>>)typeof(ObjectPool)
+  public static Dictionary<EnemyKey, Queue<GameObject>> GetObjectPools(this ObjectPool objectPool) {
+    return (Dictionary<EnemyKey, Queue<GameObject>>)typeof(ObjectPool)
       .GetField("objectPools", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(objectPool);
   }
