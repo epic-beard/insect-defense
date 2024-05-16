@@ -59,7 +59,7 @@ public class MessageBox : MonoBehaviour {
       messages = new();
       index = 0;
       Hide();
-      GameSpeedManager.Instance.HandlePause(PauseToken.MESSAGE_BOX);
+      GameSpeedManager.Instance.Unpause(PauseToken.MESSAGE_BOX);
       TerrariumInputManager.Instance.EnablePlayerActionMap();
     } else {
       labelVE.text = messages[index++].ToString();
@@ -72,7 +72,7 @@ public class MessageBox : MonoBehaviour {
     index = 0;
 
     TerrariumInputManager.Instance.EnableMessageBoxActionMap();
-    GameSpeedManager.Instance.HandlePause(PauseToken.MESSAGE_BOX);
+    GameSpeedManager.Instance.Pause(PauseToken.MESSAGE_BOX);
     labelVE.text = messages[index++];
     buttonVE.text = GetAdvanceButtonText();
     Show();

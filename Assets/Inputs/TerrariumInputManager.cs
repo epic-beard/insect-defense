@@ -75,7 +75,7 @@ public class TerrariumInputManager : MonoBehaviour {
     OpenSettings();
   }
   public void OpenSettings() {
-    GameSpeedManager.Instance.HandlePause(PauseToken.SETTINGS);
+    GameSpeedManager.Instance.Pause(PauseToken.SETTINGS);
     TerrariumScreen.Instance.HideUI();
     SettingsScreen.Instance.OpenSettings(inGame: true);
     UpdateActions(actions.SettingsScreen);
@@ -85,7 +85,7 @@ public class TerrariumInputManager : MonoBehaviour {
     CloseSettings();
   }
   public void CloseSettings() {
-    GameSpeedManager.Instance.HandlePause(PauseToken.SETTINGS);
+    GameSpeedManager.Instance.Unpause(PauseToken.SETTINGS);
     TerrariumScreen.Instance.ShowUI();
     SettingsScreen.Instance.CloseSettings();
     UpdateActions(oldMap);
