@@ -55,7 +55,7 @@ public class EndScreen : MonoBehaviour {
 
   private void OnGameOver() {
     UiSfx.PlaySfx(UiSfx.died);
-    GameSpeedManager.Instance.HandlePause(PauseToken.END);
+    GameSpeedManager.Instance.Pause(PauseToken.END);
     TerrariumScreen.Instance.HideUI();
     endScreenLabel.text = "You Died";
     labButtonVE.text = "Give Up";
@@ -65,7 +65,7 @@ public class EndScreen : MonoBehaviour {
   // TODO(nnewsom): Conduct necessary checks, metadata tracking, and save the player state.
   private void OnLevelComplete() {
     AudioManager.Instance.Play(fanfare);
-    GameSpeedManager.Instance.HandlePause(PauseToken.END);
+    GameSpeedManager.Instance.Pause(PauseToken.END);
     TerrariumScreen.Instance.HideUI();
     endScreenLabel.text = "You Won!";
     labButtonVE.text = "Return";

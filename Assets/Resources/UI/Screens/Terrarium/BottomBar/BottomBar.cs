@@ -52,20 +52,21 @@ public class BottomBar : MonoBehaviour {
               UiSfx.PlaySfx(UiSfx.settings_open);
               TerrariumInputManager.Instance.ToggleSettings();
           });
+
+    GameSpeedManager.OnTimeScaleChanged += HandleOnGameSpeedChanged;
   }
 
   private void SetGameSpeedFromDial(float speed) {
+    GameSpeedManager.Instance.SetGameSpeed(speed);
+    SetDialRotation(speed);
+  }
+
+  public void HandleOnGameSpeedChanged(float speed) {
+    SetDialRotation(speed);
+  }
+
+  private void SetDialRotation(float speed) {
     UiSfx.PlaySfx(UiSfx.speed_dial_click);
-
-    if (speed == 0) {
-        GameSpeedManager.Instance.HandlePause();
-    } else {
-        if (GameSpeedManager.Instance.IsPaused()) {
-            GameSpeedManager.Instance.HandlePause();
-        }
-        GameSpeedManager.Instance.SetGameSpeed(speed);
-    }
-
     gameSpeedDialPointerVE.RemoveFromClassList(pointerRotationClass);
     pointerRotationClass = "game-speed-dial-pointer-" + speed.ToString();
     gameSpeedDialPointerVE.AddToClassList(pointerRotationClass);
