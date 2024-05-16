@@ -116,6 +116,7 @@ public class TowerManager : MonoBehaviour {
 
   // Set a new tower as the selected tower. Adjust the tile color to indicate selection as necessary.
   public void SetNewSelectedTower(Tower tower) {
+    ClearTowerPreview();
     SelectedTowerType = null;
     if (SelectedTower != null) {
       SelectedTower.Tile.SetUnselected();
