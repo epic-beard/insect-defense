@@ -35,7 +35,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 2.0f),
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.ADDITIVE, 1.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "More Armor Tear",
@@ -52,7 +52,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 5.0f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.ADDITIVE, 3.0f)
         },
         name = "Max Armor Tear",
         description = "Increases armor tear to 5.",
@@ -80,7 +80,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10.0f),
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "More Acid",
@@ -97,7 +97,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15.0f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f)
         },
         name = "Spray that acid",
         description = "Acid inflicted is raised to 15",
@@ -199,7 +199,7 @@ public class TowerDataGenerator {
       new() {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.SET, 0.4f)
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
         name = "Improved Slow",
         description = "Increasses slow power to 40% and duration to 6 seconds.",
@@ -209,7 +209,7 @@ public class TowerDataGenerator {
       new() {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.SET, 0.5f)
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
         name = "Improved Slow",
         description = "Increase slow power to 50% and duration to 8 seconds.",
@@ -226,7 +226,7 @@ public class TowerDataGenerator {
       new() {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.SET, 0.6f)
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
         name = "Improved Slow",
         description = "Increase slow power to 60% and duration to 10 seconds.",
@@ -597,7 +597,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 30),
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 15),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Microstructures",
@@ -615,7 +615,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 60),
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 30),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Chemicals",
@@ -625,7 +625,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 80)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 20)
         },
         specialAbility = SpecialAbility.M_2_5_BLOODY_EXECUTION,
         name = "Bloody Execution",
