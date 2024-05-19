@@ -23,9 +23,14 @@
                   <mode>SET</mode>
                   <mod>1</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.15</mod>
+                </AttributeModifier>
               </attributeModifiers>
               <name>Armor Tear!</name>
-              <description>Adds 1 point of armor tear.</description>
+              <description>Adds 1 point of armor tear and grant 15% extra damage.</description>
               <upgradePath>0</upgradePath>
               <cost>50</cost>
             </TowerAbility>
@@ -37,9 +42,14 @@
                   <mode>SET</mode>
                   <mod>2</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.25</mod>
+                </AttributeModifier>
               </attributeModifiers>
               <name>More Armor Tear</name>
-              <description>Increases armor tear to 2.</description>
+              <description>Increases armor tear to 2 and grant 25% extra damage.</description>
               <upgradePath>0</upgradePath>
               <cost>200</cost>
             </TowerAbility>
@@ -81,9 +91,14 @@
                   <mode>SET</mode>
                   <mod>5</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.15</mod>
+                </AttributeModifier>
               </attributeModifiers>
               <name>Acid!</name>
-              <description>Attacks inflict 5 stacks of acid.</description>
+              <description>Attacks inflict 5 stacks of acid and grants a 15% bonus to damage.</description>
               <upgradePath>1</upgradePath>
               <cost>50</cost>
             </TowerAbility>
@@ -95,9 +110,14 @@
                   <mode>SET</mode>
                   <mod>10</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.25</mod>
+                </AttributeModifier>
               </attributeModifiers>
               <name>More Acid</name>
-              <description>Acid stacks inflicted is raised to 10.</description>
+              <description>Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.</description>
               <upgradePath>1</upgradePath>
               <cost>200</cost>
             </TowerAbility>
@@ -234,17 +254,17 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>SLOW_DURATION</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>2</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mode>SET</mode>
+                  <mod>0.4</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
-              <description>Increasses slow effectiveness and duration by 10%.</description>
+              <description>Increasses slow power to 40% and duration to 6 seconds.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -253,17 +273,17 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>SLOW_DURATION</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>2</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>SET</mode>
+                  <mod>0.5</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
-              <description>Increase slow effectiveness and duration by 20%.</description>
+              <description>Increase slow power to 50% and duration to 8 seconds.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -279,17 +299,17 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>SLOW_DURATION</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>2</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mode>SET</mode>
+                  <mod>0.6</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
-              <description>Increase slow effectiveness and duration by 30%.</description>
+              <description>Increase slow power to 60% and duration to 10 seconds.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -377,12 +397,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.1</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Faster Spinnerets</name>
-              <description>Increases Attack Speed by 10%.</description>
+              <description>Increase attack speed by 10.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -391,12 +411,22 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.15</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>RANGE</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>PROJECTILE_SPEED</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Faster Spinnerets</name>
-              <description>Increases attack speed by 20%.</description>
+              <description>Increases attack speed by 15 and range by 5.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -412,12 +442,17 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>RANGE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>10</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>PROJECTILE_SPEED</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>10</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Trajectory Analysis</name>
-              <description>Increases range by 20%.</description>
+              <description>Increases range by 10.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -436,16 +471,16 @@
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
-        <attack_speed>0.5</attack_speed>
+        <attack_speed>0.75</attack_speed>
         <cost>50</cost>
         <damage>0</damage>
         <damage_over_time>0</damage_over_time>
         <projectile_speed>20</projectile_speed>
-        <range>20</range>
+        <range>25</range>
         <secondary_slow_potency>0.5</secondary_slow_potency>
         <secondary_slow_targets>0</secondary_slow_targets>
-        <slow_duration>2</slow_duration>
-        <slow_power>0.4</slow_power>
+        <slow_duration>4</slow_duration>
+        <slow_power>0.3</slow_power>
         <stun_time>0</stun_time>
       </TowerData>
     </Value>
@@ -748,9 +783,14 @@
                   <mode>SET</mode>
                   <mod>15</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.25</mod>
+                </AttributeModifier>
               </attributeModifiers>
               <name>Vicious Claws</name>
-              <description>Attacks now inflict 15 bleed.</description>
+              <description>Attacks now inflict 15 bleed and gain 25% bonus damage.</description>
               <upgradePath>1</upgradePath>
               <cost>50</cost>
             </TowerAbility>
@@ -762,9 +802,14 @@
                   <mode>SET</mode>
                   <mod>30</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.25</mod>
+                </AttributeModifier>
               </attributeModifiers>
               <name>Anticoagulant Microstructures</name>
-              <description>Bleed inflicted is 30.</description>
+              <description>Bleed inflicted is 30. and gain 25% bonus damage</description>
               <upgradePath>1</upgradePath>
               <cost>200</cost>
             </TowerAbility>
@@ -783,9 +828,14 @@
                   <mode>SET</mode>
                   <mod>60</mod>
                 </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.25</mod>
+                </AttributeModifier>
               </attributeModifiers>
               <name>Anticoagulant Chemicals</name>
-              <description>Bleed inflicted is 60.</description>
+              <description>Bleed inflicted is 60 and gain 25% bonus damage.</description>
               <upgradePath>1</upgradePath>
               <cost>1600</cost>
             </TowerAbility>
@@ -811,11 +861,11 @@
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.5</mod>
+                  <mod>1.6</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Attack Speed</name>
-              <description>Increases attack speed by 50%.</description>
+              <description>Increases attack speed by 60%.</description>
               <upgradePath>2</upgradePath>
               <cost>50</cost>
             </TowerAbility>
