@@ -115,20 +115,20 @@ public class TowerDataGenerator {
     var utilityUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.3f),
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.1f)
         },
         name = "Nozzle Control",
-        description = "Attacks gain 30% more range and 20% faster attacks.",
+        description = "Attacks gain 5 range and 10 attack speed.",
         upgradePath = 2,
         cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.2f)
         },
         name = "Shot Production Speed",
-        description = "Increases attack speed by 50%.",
+        description = "Increases attack speed by 20.",
         upgradePath = 2,
         cost = 200,
       },

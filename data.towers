@@ -39,8 +39,8 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ARMOR_TEAR</attribute>
-                  <mode>SET</mode>
-                  <mod>2</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>1</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>DAMAGE</attribute>
@@ -65,8 +65,8 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ARMOR_TEAR</attribute>
-                  <mode>SET</mode>
-                  <mod>5</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>3</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Max Armor Tear</name>
@@ -107,8 +107,8 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>SET</mode>
-                  <mod>10</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>DAMAGE</attribute>
@@ -133,8 +133,8 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>SET</mode>
-                  <mod>15</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Spray that acid</name>
@@ -156,17 +156,17 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>RANGE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.1</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Nozzle Control</name>
-              <description>Attacks gain 30% more range and 20% faster attacks.</description>
+              <description>Attacks gain 5 range and 10 attack speed.</description>
               <upgradePath>2</upgradePath>
               <cost>50</cost>
             </TowerAbility>
@@ -175,12 +175,12 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>ATTACK_SPEED</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.5</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.2</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Shot Production Speed</name>
-              <description>Increases attack speed by 50%.</description>
+              <description>Increases attack speed by 20.</description>
               <upgradePath>2</upgradePath>
               <cost>200</cost>
             </TowerAbility>
@@ -259,8 +259,8 @@
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>SET</mode>
-                  <mod>0.4</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.1</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
@@ -278,8 +278,8 @@
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>SET</mode>
-                  <mod>0.5</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.1</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
@@ -304,8 +304,8 @@
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>SET</mode>
-                  <mod>0.6</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.1</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Improved Slow</name>
@@ -799,8 +799,8 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>SET</mode>
-                  <mod>30</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>15</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>DAMAGE</attribute>
@@ -825,8 +825,8 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>SET</mode>
-                  <mod>60</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>30</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>DAMAGE</attribute>
@@ -844,8 +844,8 @@
               <attributeModifiers>
                 <AttributeModifier>
                   <attribute>DAMAGE_OVER_TIME</attribute>
-                  <mode>SET</mode>
-                  <mod>80</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>20</mod>
                 </AttributeModifier>
               </attributeModifiers>
               <name>Bloody Execution</name>
