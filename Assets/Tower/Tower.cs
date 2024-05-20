@@ -115,8 +115,8 @@ public abstract class Tower : MonoBehaviour {
     get {
       int value = TowerManager.Instance.GetPreviousTowerCost(Type);
 
-      foreach (var level in UpgradeLevels) {
-        for (int i = 0; i < level; i++) {
+      foreach (var level in UpgradeIndex) {
+        for (int i = 0; i <= level; i++) {
           value += GetUpgradePath(level)[i].cost;
         }
       }
@@ -128,8 +128,8 @@ public abstract class Tower : MonoBehaviour {
   public string IconPath { get { return data.icon_path; } set { data.icon_path = value; } }
   #endregion
 
-  protected int[] upgradeLevels = new int[] { -1, -1, -1 };  // Each entry in this array should be -1-4.
-  public int[] UpgradeLevels { get { return upgradeLevels; } }
+  protected int[] upgradeIndex = new int[] { -1, -1, -1 };  // Each entry in this array should be -1-4.
+  public int[] UpgradeIndex { get { return upgradeIndex; } }
 
   // How close a particle needs to get to consider it a hit.
   public readonly static float hitRange = 0.1f;
@@ -207,12 +207,6 @@ public abstract class Tower : MonoBehaviour {
         switch (modifier.mode) {
           case TowerAbility.Mode.MULTIPLICATIVE:
             data[modifier.attribute] *= modifier.mod;
-            if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
-              UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
-            }
-            if (modifier.attribute == TowerData.Stat.RANGE) {
-              rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
-            }
             break;
           case TowerAbility.Mode.ADDITIVE:
             data[modifier.attribute] += modifier.mod;
@@ -221,10 +215,16 @@ public abstract class Tower : MonoBehaviour {
             data[modifier.attribute] = modifier.mod;
             break;
         }
+        if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
+          UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
+        }
+        if (modifier.attribute == TowerData.Stat.RANGE) {
+          rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+        }
       }
     }
 
-    upgradeLevels[ability.upgradePath]++;
+    upgradeIndex[ability.upgradePath]++;
   }
 
   // Fetch enemies in explosionRange of target. This excludes target itself.

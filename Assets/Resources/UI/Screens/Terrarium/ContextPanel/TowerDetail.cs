@@ -159,12 +159,12 @@ public class TowerDetail : MonoBehaviour {
     int upgradeNum = (int)Char.GetNumericValue(rockerSwitch.name[15]);
 
     // check that current upgrade is not already owned
-    if (tower.UpgradeLevels[upgradePath] == upgradeNum) {
+    if (tower.UpgradeIndex[upgradePath] == upgradeNum) {
         return;
     }
 
     // check that previous upgrade is owned
-    if (tower.UpgradeLevels[upgradePath] != upgradeNum - 1) {
+    if (tower.UpgradeIndex[upgradePath] != upgradeNum - 1) {
         UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
         return;
     }
@@ -246,7 +246,7 @@ public class TowerDetail : MonoBehaviour {
       string upgradePathName = tower.GetUpgradePathName(i);
       towerUpgradeTreeLabels[i].text = upgradePathName;
       for (int j = 0; j < 5; j++) {
-        bool isOwned = j <= tower.UpgradeLevels[i];
+        bool isOwned = j <= tower.UpgradeIndex[i];
         SetRockerSwitchState(towerUpgradeSwitches[i, j], isOwned);
 
         ButtonWithTooltip icon = towerUpgradeIcons[i, j];
@@ -276,9 +276,9 @@ public class TowerDetail : MonoBehaviour {
       Tower tower = TowerManager.SelectedTower;
       if (tower == null) return;
 
-      bool isOwned = level <= tower.UpgradeLevels[path];
+      bool isOwned = level <= tower.UpgradeIndex[path];
 
-      bool isPreviousUpgradeOwned = level - 1 == tower.UpgradeLevels[path];
+      bool isPreviousUpgradeOwned = level - 1 == tower.UpgradeIndex[path];
       bool isAffordable = nu >= tower.GetUpgradePath(path)[level].cost;
       bool isPurchasable = isPreviousUpgradeOwned && isAffordable;
 
