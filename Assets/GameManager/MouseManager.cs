@@ -61,6 +61,7 @@ public class MouseManager : MonoBehaviour {
     EnemyDetail.Instance.SubscribeToEnemyStateBroadcast(enemy);
     EnemyDetail.Instance.SetContextForEnemy(enemy);
     ContextPanel.Instance.SetEnemyContextPanel();
+    TowerManager.Instance.DeSelectTower();
   }
 
   private void SetSelectedTower(Tower tower) {

@@ -22,22 +22,24 @@ public class TowerDataGenerator {
   }
 
   private TowerData GetSpittingAntTowerData() {
-    var firstPathUpgrades = new TowerAbility[] {
+    var armorTearUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 1.0f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 1.0f),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
         },
         name = "Armor Tear!",
-        description = "Adds 1 point of armor tear.",
+        description = "Adds 1 point of armor tear and grant 15% extra damage.",
         upgradePath = 0,
         cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 2.0f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.ADDITIVE, 1.0f),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "More Armor Tear",
-        description = "Increases armor tear to 2.",
+        description = "Increases armor tear to 2 and grant 25% extra damage.",
         upgradePath = 0,
         cost = 200,
       },
@@ -50,7 +52,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 5.0f)
+          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.ADDITIVE, 3.0f)
         },
         name = "Max Armor Tear",
         description = "Increases armor tear to 5.",
@@ -65,22 +67,24 @@ public class TowerDataGenerator {
         cost = 10,
       }
     };
-    var secondPathUpgrades = new TowerAbility[] {
+    var acidUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 5.0f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 5.0f),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
         },
         name = "Acid!",
-        description = "Attacks inflict 5 stacks of acid.",
+        description = "Attacks inflict 5 stacks of acid and grants a 15% bonus to damage.",
         upgradePath = 1,
         cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 10.0f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "More Acid",
-        description = "Acid stacks inflicted is raised to 10.",
+        description = "Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.",
         upgradePath = 1,
         cost = 200,
       },
@@ -93,7 +97,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15.0f)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f)
         },
         name = "Spray that acid",
         description = "Acid inflicted is raised to 15",
@@ -108,23 +112,23 @@ public class TowerDataGenerator {
         cost = 10,
       }
     };
-    var thirdPathUpgrades = new TowerAbility[] {
+    var utilityUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.3f),
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.1f)
         },
         name = "Nozzle Control",
-        description = "Attacks gain 30% more range and 20% faster attacks.",
+        description = "Attacks gain 5 range and 10 attack speed.",
         upgradePath = 2,
         cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.2f)
         },
         name = "Shot Production Speed",
-        description = "Increases attack speed by 50%.",
+        description = "Increases attack speed by 20.",
         upgradePath = 2,
         cost = 200,
       },
@@ -159,9 +163,9 @@ public class TowerDataGenerator {
         first = "Armor Tear",
         second = "Acid Power",
         third = "Utility",
-        firstPathUpgrades = firstPathUpgrades,
-        secondPathUpgrades = secondPathUpgrades,
-        thirdPathUpgrades = thirdPathUpgrades,
+        firstPathUpgrades = armorTearUpgrades,
+        secondPathUpgrades = acidUpgrades,
+        thirdPathUpgrades = utilityUpgrades,
       },
 
       tooltip = new() {
@@ -191,24 +195,24 @@ public class TowerDataGenerator {
   }
 
   private TowerData GetWebShootingSpiderTowerData() {
-    var firstPathUpgrades = new TowerAbility[] {
+    var slowUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.SLOW_DURATION, Mode.MULTIPLICATIVE, 1.1f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
         name = "Improved Slow",
-        description = "Increasses slow effectiveness and duration by 10%.",
+        description = "Increasses slow power to 40% and duration to 6 seconds.",
         upgradePath = 0,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.SLOW_DURATION, Mode.MULTIPLICATIVE, 1.2f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
         name = "Improved Slow",
-        description = "Increase slow effectiveness and duration by 20%.",
+        description = "Increase slow power to 50% and duration to 8 seconds.",
         upgradePath = 0,
         cost = 10,
       },
@@ -221,11 +225,11 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.SLOW_DURATION, Mode.MULTIPLICATIVE, 1.3f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.MULTIPLICATIVE, 1.3f)
+          GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
         name = "Improved Slow",
-        description = "Increase slow effectiveness and duration by 30%.",
+        description = "Increase slow power to 60% and duration to 10 seconds.",
         upgradePath = 0,
         cost = 10,
       },
@@ -237,7 +241,7 @@ public class TowerDataGenerator {
         cost = 10,
       }
     };
-    var secondPathUpgrades = new TowerAbility[] {
+    var secondarySlowUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.SECONDARY_SLOW_TARGETS, Mode.ADDITIVE, 1)
@@ -283,22 +287,24 @@ public class TowerDataGenerator {
         cost = 10,
       }
     };
-    var thirdPathUpgrades = new TowerAbility[] {
+    var utilityUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.1f)
         },
         name = "Faster Spinnerets",
-        description = "Increases Attack Speed by 10%.",
+        description = "Increase attack speed by 10.",
         upgradePath = 2,
         cost = 10,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.15f),
+          GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 5.0f)
         },
         name = "Faster Spinnerets",
-        description = "Increases attack speed by 20%.",
+        description = "Increases attack speed by 15 and range by 5.",
         upgradePath = 2,
         cost = 10,
       },
@@ -311,10 +317,11 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 10.0f),
+          GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 10.0f)
         },
         name = "Improved Trajectory Analysis",
-        description = "Increases range by 20%.",
+        description = "Increases range by 10.",
         upgradePath = 2,
         cost = 10,
       },
@@ -333,9 +340,9 @@ public class TowerDataGenerator {
         first = "Improved Slow",
         second = "AoE Slow",
         third = "Utility",
-        firstPathUpgrades = firstPathUpgrades,
-        secondPathUpgrades = secondPathUpgrades,
-        thirdPathUpgrades = thirdPathUpgrades,
+        firstPathUpgrades = slowUpgrades,
+        secondPathUpgrades = secondarySlowUpgrades,
+        thirdPathUpgrades = utilityUpgrades,
       },
 
       tooltip = new() {
@@ -347,17 +354,17 @@ public class TowerDataGenerator {
       area_of_effect = 10,
       armor_pierce = 0,
       armor_tear = 0,
-      attack_speed = 0.5f,
+      attack_speed = 0.75f,
       cost = 50,
       damage = 0,
       damage_over_time = 0,
       enemies_hit = 0,
       projectile_speed = 20,
-      range = 20,
+      range = 25,
       secondary_slow_potency = 0.5f,
       secondary_slow_targets = 0,
-      slow_duration = 2,
-      slow_power = 0.4f,
+      slow_duration = 4,
+      slow_power = 0.3f,
       stun_time = 0,
     };
 
@@ -531,7 +538,7 @@ public class TowerDataGenerator {
   }
 
   private TowerData GetMantisTowerData() {
-    var firstPathUpgrades = new TowerAbility[] {
+    var damageUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
@@ -577,22 +584,24 @@ public class TowerDataGenerator {
         cost = 10,
       }
     };
-    var secondPathUpgrades = new TowerAbility[] {
+    var bleedUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Vicious Claws",
-        description = "Attacks now inflict 15 bleed.",
+        description = "Attacks now inflict 15 bleed and gain 25% bonus damage.",
         upgradePath = 1,
         cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 30)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 15),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Microstructures",
-        description = "Bleed inflicted is 30.",
+        description = "Bleed inflicted is 30. and gain 25% bonus damage",
         upgradePath = 1,
         cost = 200,
       },
@@ -606,16 +615,17 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 60)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 30),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Chemicals",
-        description = "Bleed inflicted is 60.",
+        description = "Bleed inflicted is 60 and gain 25% bonus damage.",
         upgradePath = 1,
         cost = 1600,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 80)
+          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 20)
         },
         specialAbility = SpecialAbility.M_2_5_BLOODY_EXECUTION,
         name = "Bloody Execution",
@@ -624,13 +634,13 @@ public class TowerDataGenerator {
         cost = 3200,
       },
     };
-    var thirdPathUpgrades = new TowerAbility[] {
+    var utilityUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.6f)
         },
         name = "Improved Attack Speed",
-        description = "Increases attack speed by 50%.",
+        description = "Increases attack speed by 60%.",
         upgradePath = 2,
         cost = 50,
       },
@@ -674,9 +684,9 @@ public class TowerDataGenerator {
         first = "Damage",
         second = "Debilitation",
         third = "Utility",
-        firstPathUpgrades = firstPathUpgrades,
-        secondPathUpgrades = secondPathUpgrades,
-        thirdPathUpgrades = thirdPathUpgrades,
+        firstPathUpgrades = damageUpgrades,
+        secondPathUpgrades = bleedUpgrades,
+        thirdPathUpgrades = utilityUpgrades,
       },
 
       tooltip = new() {
