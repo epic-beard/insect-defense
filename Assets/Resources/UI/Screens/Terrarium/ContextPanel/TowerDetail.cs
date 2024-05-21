@@ -197,24 +197,30 @@ public class TowerDetail : MonoBehaviour {
   private void SellUpgrades(Tower tower, int  upgradePath, int upgradeNum) {
     UiSfx.PlaySfx(UiSfx.rocker_switch);
 
-    while (tower.UpgradeLevels[upgradePath] >= upgradeNum) {
-      TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[upgradeNum];
+    int level = tower.UpgradeIndex[upgradePath];
+    while (level >= upgradeNum) {
+      TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[level];
       GameStateManager.Instance.Nu += upgrade.cost;
-      Button rockerSwitch = towerUpgradeSwitches[upgradePath, upgradeNum];
+      Button rockerSwitch = towerUpgradeSwitches[upgradePath, level];
       SetRockerSwitchState(rockerSwitch, false);
-      tower.UpgradeLevels[upgradePath]--;
+      level--;
     }
-    List<int> levels = tower.UpgradeLevels.ToList();
+
+    List<int> levels = tower.UpgradeIndex.ToList();
+    levels[upgradePath] = level;
     tower.SetTowerData(TowerManager.Instance.GetTowerData(tower.Type));
-    
-    for (int i = 0; i < 3; i++) {
-      while (tower.UpgradeLevels[i] < levels[i]) {
-        tower.UpgradeLevels[i]++;
-        TowerAbility upgrade = tower.GetUpgradePath(i)[tower.UpgradeLevels[i]];
+    tower.ResetTransientState();
+
+    for (int path = 0; path < 3; path++) {
+      level = -1;
+      while (level < levels[path]) {
+        level++;
+        TowerAbility upgrade = tower.GetUpgradePath(path)[level];
         tower.Upgrade(upgrade);
       }
     }
-    
+
+    SetContextForTower(tower);
   }
 
   private void OnSellTowerClick(ClickEvent evt) {
