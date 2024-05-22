@@ -1,5 +1,9 @@
 using Assets;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Targeting;
@@ -159,14 +163,15 @@ public class TowerDetail : MonoBehaviour {
     int upgradeNum = (int)Char.GetNumericValue(rockerSwitch.name[15]);
 
     // check that current upgrade is not already owned
-    if (tower.UpgradeIndex[upgradePath] == upgradeNum) {
-        return;
+    if (tower.UpgradeIndex[upgradePath] >= upgradeNum) {
+      SellUpgrades(tower, upgradePath, upgradeNum);
+      return;
     }
 
     // check that previous upgrade is owned
     if (tower.UpgradeIndex[upgradePath] != upgradeNum - 1) {
-        UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
-        return;
+      UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
+      return;
     }
 
     // check that player can afford the upgrade
@@ -187,6 +192,29 @@ public class TowerDetail : MonoBehaviour {
     tower.Upgrade(upgrade);
 
     SetContextForTower(tower);
+  }
+
+  private void SellUpgrades(Tower tower, int  upgradePath, int upgradeNum) {
+    UiSfx.PlaySfx(UiSfx.rocker_switch);
+
+    while (tower.UpgradeLevels[upgradePath] >= upgradeNum) {
+      TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[upgradeNum];
+      GameStateManager.Instance.Nu += upgrade.cost;
+      Button rockerSwitch = towerUpgradeSwitches[upgradePath, upgradeNum];
+      SetRockerSwitchState(rockerSwitch, false);
+      tower.UpgradeLevels[upgradePath]--;
+    }
+    List<int> levels = tower.UpgradeLevels.ToList();
+    tower.SetTowerData(TowerManager.Instance.GetTowerData(tower.Type));
+    
+    for (int i = 0; i < 3; i++) {
+      while (tower.UpgradeLevels[i] < levels[i]) {
+        tower.UpgradeLevels[i]++;
+        TowerAbility upgrade = tower.GetUpgradePath(i)[tower.UpgradeLevels[i]];
+        tower.Upgrade(upgrade);
+      }
+    }
+    
   }
 
   private void OnSellTowerClick(ClickEvent evt) {
