@@ -264,6 +264,17 @@ public abstract class Tower : MonoBehaviour {
     }
   }
 
+  public void ResetTransientState() {
+    SlimePower = 1.0f;
+    SlimeTime = Time.time;
+
+    DazzleTime = Time.time;
+
+    BaseAttackSpeed = 0;
+    Target = null;
+    upgradeIndex = new int[] { -1, -1, -1 };
+  }
+
   private IEnumerator HandleDazzle() {
     float time = Time.time;
     while (DazzleTime > time) {
