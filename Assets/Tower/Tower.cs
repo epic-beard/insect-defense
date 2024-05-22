@@ -29,7 +29,6 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.ARMOR_TEAR]; }
     set { data[TowerData.Stat.ARMOR_TEAR] = value; }
   }
-
   public float BaseAttackSpeed { get; private set; }
   public float Cost {
     get { return data[TowerData.Stat.COST]; }
@@ -238,7 +237,7 @@ public abstract class Tower : MonoBehaviour {
 
   public void SetTowerData(TowerData data) {
     this.data = data;
-   
+    BaseAttackSpeed = data[TowerData.Stat.ATTACK_SPEED];
   }
 
   public void CacheTowerRenderers() {
@@ -263,17 +262,6 @@ public abstract class Tower : MonoBehaviour {
       DazzleTime = time;
       StartCoroutine(HandleDazzle());
     }
-  }
-
-  public void ResetTransientState() {
-    SlimePower = 1.0f;
-    SlimeTime = Time.time;
-
-    DazzleTime = Time.time;
-
-    BaseAttackSpeed = 0;
-    Target = null;
-    upgradeIndex = new int[] { -1, -1, -1 };
   }
 
   private IEnumerator HandleDazzle() {
