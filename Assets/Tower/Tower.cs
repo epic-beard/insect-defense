@@ -47,6 +47,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data.enemies_hit; }
     set { data.enemies_hit = value; }
   }
+  public bool IsMutatingUpgrades { get; set; }
   public string Name {
     get { return data.name; }
     set { data.name = value; }
