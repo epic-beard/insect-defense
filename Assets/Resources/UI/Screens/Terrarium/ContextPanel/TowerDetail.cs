@@ -165,6 +165,10 @@ public class TowerDetail : MonoBehaviour {
     // check that current upgrade is not already owned
     if (tower.UpgradeIndex[upgradePath] >= upgradeNum) {
       SellUpgrades(tower, upgradePath, upgradeNum);
+      if (!tower.IsMutatingUpgrades) {
+        tower.IsMutatingUpgrades = true;
+        TowerManager.Instance.DisableTowerAfterSellingUpgrade(tower);
+      }
       return;
     }
 

@@ -90,21 +90,48 @@ public class TowerManager : MonoBehaviour {
   public bool BuildTower(Waypoint waypoint) {
     if (SelectedTowerType == null) { return false; }
 
-    TowerData data = GetTowerData(SelectedTowerType??TowerData.Type.NONE);
+    TowerData data = GetTowerData(SelectedTowerType ?? TowerData.Type.NONE);
     int cost = GetTowerCost(data);
     if (GameStateManager.Instance.Nu < cost) { return false; }
     GameStateManager.Instance.Nu -= cost;
     AddTowerPrice(data.type, cost);
-    StartCoroutine(BuildTower(waypoint, data));
+    Tower tower = ConstructTower(waypoint, data);
+    StartCoroutine(DisableTower(tower, buildDelay,
+        () => {
+          MakeTowerOpaque(tower);
+          tower.enabled = true;
+        }));
     return true;
   }
 
-  public IEnumerator BuildTower(Waypoint waypoint, TowerData data) {
-    Tower tower = ConstructTower(waypoint, data);
+  public void DisableTowerAfterSellingUpgrade(Tower tower) {
+    StartCoroutine(DisableTower(tower, buildDelay + sellDelay,
+        () => {
+          MakeTowerOpaque(tower);
+          tower.enabled = true;
+          tower.IsMutatingUpgrades = false;
+        }));
+  }
+
+  // Refund the tower's full cost (including upgrades) and remove the tower from the map.
+  public void RefundTower(Tower tower) {
+    if (tower == null) return;
+    ActiveTowerMap.Remove(tower.Tile.GetCoordinates());
+    int cost = tower.Value;
+    TowerPrices[tower.Type].Pop();
+    GameStateManager.Instance.Nu += cost;
+    StartCoroutine(DisableTower(tower, sellDelay,
+        () => {
+          Destroy(tower.gameObject);
+        }));
+    ClearSelection();
+  }
+
+  private IEnumerator DisableTower(Tower tower, float duration, Action continuation) {
+    tower.enabled = false;
     MakeTowerTransluscent(tower, buildSellTransparency);
-    yield return new WaitForSeconds(buildDelay);
-    MakeTowerOpaque(tower);
-    tower.enabled = true;
+    yield return new WaitForSeconds(duration);
+    continuation();
   }
 
   public List<Tower> GetTowersInRange(float range, Vector3 pos) {
@@ -137,24 +164,6 @@ public class TowerManager : MonoBehaviour {
 
   public void RefundSelectedTower() {
     RefundTower(SelectedTower);
-  }
-
-  // Refund the tower's full cost (including upgrades) and remove the tower from the map.
-  public void RefundTower(Tower tower) {
-    if (tower == null) return;
-    ActiveTowerMap.Remove(tower.Tile.GetCoordinates());
-    MakeTowerTransluscent(tower, buildSellTransparency);
-    StartCoroutine(DestroyTower(tower));
-    ClearSelection();
-  }
-
-  private IEnumerator DestroyTower(Tower tower) {
-    tower.enabled = false;
-    yield return new WaitForSeconds(sellDelay);
-    Destroy(tower.gameObject);
-    int cost = tower.Value;
-    TowerPrices[tower.Type].Pop();
-    GameStateManager.Instance.Nu += cost;
   }
 
   public void SetSelectedTowerType(TowerData.Type type) {
