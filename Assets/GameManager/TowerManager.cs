@@ -90,25 +90,27 @@ public class TowerManager : MonoBehaviour {
   public bool BuildTower(Waypoint waypoint) {
     if (SelectedTowerType == null) { return false; }
 
-    TowerData data = GetTowerData(SelectedTowerType??TowerData.Type.NONE);
+    TowerData data = GetTowerData(SelectedTowerType ?? TowerData.Type.NONE);
     int cost = GetTowerCost(data);
     if (GameStateManager.Instance.Nu < cost) { return false; }
     GameStateManager.Instance.Nu -= cost;
     AddTowerPrice(data.type, cost);
     Tower tower = ConstructTower(waypoint, data);
-    StartCoroutine(DisableTower(tower, buildDelay, () => {
-      MakeTowerOpaque(tower);
-      tower.enabled = true;
-    }));
+    StartCoroutine(DisableTower(tower, buildDelay,
+        () => {
+          MakeTowerOpaque(tower);
+          tower.enabled = true;
+        }));
     return true;
   }
 
   public void DisableTowerAfterSellingUpgrade(Tower tower) {
-    StartCoroutine(DisableTower(tower, buildDelay + sellDelay, () => {
-      MakeTowerOpaque(tower);
-      tower.enabled = true;
-      tower.IsMutatingUpgrades = false;
-    }));
+    StartCoroutine(DisableTower(tower, buildDelay + sellDelay,
+        () => {
+          MakeTowerOpaque(tower);
+          tower.enabled = true;
+          tower.IsMutatingUpgrades = false;
+        }));
   }
 
   // Refund the tower's full cost (including upgrades) and remove the tower from the map.
@@ -118,9 +120,10 @@ public class TowerManager : MonoBehaviour {
     int cost = tower.Value;
     TowerPrices[tower.Type].Pop();
     GameStateManager.Instance.Nu += cost;
-    StartCoroutine(DisableTower(tower, sellDelay, () => {
-      Destroy(tower.gameObject);
-    }));
+    StartCoroutine(DisableTower(tower, sellDelay,
+        () => {
+          Destroy(tower.gameObject);
+        }));
     ClearSelection();
   }
 
