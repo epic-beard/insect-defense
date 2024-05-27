@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
+    <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/ConfirmationWindow/ConfirmationWindow.uss?fileID=7433441132597879392&amp;guid=0714f5cb911b6a746a239feefbabf6b7&amp;type=3#ConfirmationWindow" />
+    <ui:VisualElement name="confirmation_window" class="confirmation-window-container" style="background-color: rgba(255, 255, 255, 0); align-items: center;">
+        <ui:Label text="Confirm:" name="confirmation_window_label" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center; width: 175px; height: auto;">
+            <ui:Button text="Yes" name="yes_button" class="primary-button button-base" style="width: 75px; height: 25px;" />
+            <ui:Button text="No" name="no_button" class="button-base secondary-button" style="width: 75px; height: 25px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

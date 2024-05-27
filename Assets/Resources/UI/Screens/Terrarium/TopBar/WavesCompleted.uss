@@ -12,3 +12,7 @@
     -unity-font-style: bold;
     color: rgba(0, 0, 0, 0);
 }
+
+.wave-completed-label {
+    color: #ffffff;
+}

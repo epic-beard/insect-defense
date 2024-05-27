@@ -17,7 +17,7 @@ namespace Assets {
     public static void SetSelectedTower(Tower tower) {
       TowerManager.Instance.SetNewSelectedTower(tower);
       ContextPanel.Instance.SetTowerContextPanel();
-      TowerDetail.Instance.SetContextForTower(TowerManager.SelectedTower);
+      TowerDetail.Instance.SetContextForTower(tower);
     }
   }
 

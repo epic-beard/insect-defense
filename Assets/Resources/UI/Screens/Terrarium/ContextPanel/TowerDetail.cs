@@ -164,11 +164,15 @@ public class TowerDetail : MonoBehaviour {
 
     // check that current upgrade is not already owned
     if (tower.UpgradeIndex[upgradePath] >= upgradeNum) {
-      SellUpgrades(tower, upgradePath, upgradeNum);
-      if (!tower.IsMutatingUpgrades) {
-        tower.IsMutatingUpgrades = true;
-        TowerManager.Instance.DisableTowerAfterSellingUpgrade(tower);
-      }
+      ConfirmationWindow.Instance.ShowWindow(
+        "Sell Upgrades?",
+        () => {
+          SellUpgrades(tower, upgradePath, upgradeNum);
+          if (!tower.IsMutatingUpgrades) {
+            tower.IsMutatingUpgrades = true;
+            TowerManager.Instance.DisableTowerAfterSellingUpgrade(tower);
+          }
+        });
       return;
     }
 
@@ -229,7 +233,10 @@ public class TowerDetail : MonoBehaviour {
 
   private void OnSellTowerClick(ClickEvent evt) {
     UiSfx.PlaySfx(UiSfx.sell_click);
-    TowerManager.Instance.RefundSelectedTower();
+    ConfirmationWindow.Instance.ShowWindow("Sell Tower?",
+      () => {
+        TowerManager.Instance.RefundSelectedTower();
+      });
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {

@@ -152,26 +152,20 @@ public class TowerManager : MonoBehaviour {
     SelectedTower = tower;
   }
 
-  public void DeSelectTower() {
-    SelectedTowerType = null;
-    if (SelectedTower != null) {
-      SelectedTower.Tile.SetUnselected();
-      SelectedTower = null;
-    }
-  }
-
-  public string GetTowerPrefabPath(TowerData.Type type) { return prefabMap[type]; }
-
-  public void RefundSelectedTower() {
-    RefundTower(SelectedTower);
-  }
-
   public void SetSelectedTowerType(TowerData.Type type) {
     SelectedTower = null;
     if (SelectedTowerType != null) {
       previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
     }
     SelectedTowerType = type;
+  }
+
+  public void DeSelectTower() {
+    SelectedTowerType = null;
+    if (SelectedTower != null) {
+      SelectedTower.Tile.SetUnselected();
+      SelectedTower = null;
+    }
   }
 
   public void ClearSelection() {
@@ -184,6 +178,12 @@ public class TowerManager : MonoBehaviour {
     }
     SelectedTower = null;
     ContextPanel.Instance.SetNoContextPanel();
+  }
+
+  public string GetTowerPrefabPath(TowerData.Type type) { return prefabMap[type]; }
+
+  public void RefundSelectedTower() {
+    RefundTower(SelectedTower);
   }
 
   public Tower CreatePreviewTower(TowerData.Type type) {
