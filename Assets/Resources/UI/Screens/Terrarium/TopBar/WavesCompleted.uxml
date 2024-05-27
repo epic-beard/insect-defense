@@ -1,8 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Styles/InsectDefenseTheme.uss?fileID=7433441132597879392&amp;guid=c9e02b978ce278f4690561b1733f07b0&amp;type=3#InsectDefenseTheme" />
     <Style src="project://database/Assets/Resources/UI/Screens/Terrarium/TopBar/WavesCompleted.uss?fileID=7433441132597879392&amp;guid=1bb5ec0725bf15640b74a24fa7468b7e&amp;type=3#WavesCompleted" />
-    
-    <ui:VisualElement class="wave-completed-container">
-        <ui:Label name="wave-completed-label" class="wave-completed" text="Wave Complete!" tabindex="-1" />
+    <ui:VisualElement name="wave-completed-panel" class="wave-completed-container">
+        <ui:Label name="wave-completed-label" text="Wave Complete!" tabindex="-1" class="wave-completed" />
     </ui:VisualElement>
 </ui:UXML>

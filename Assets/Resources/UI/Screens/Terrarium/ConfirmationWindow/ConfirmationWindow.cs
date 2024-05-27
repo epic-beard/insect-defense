@@ -10,11 +10,13 @@ public class ConfirmationWindow : MonoBehaviour {
   private static readonly string textLabelName = "confirmation_window_label";
   private static readonly string yesButtonName = "yes_button";
   private static readonly string noButtonName = "no_button";
+  private static readonly string windowName = "confirmation_window";
 
   private UIDocument uiDocument;
   private Label textLabel;
   private Button yesButton;
   private Button noButton;
+  private VisualElement window;
 
   private Action action;
   private bool hasRun;
@@ -23,29 +25,40 @@ public class ConfirmationWindow : MonoBehaviour {
     Instance = this;
     SetVisualElements();
     RegisterCallbacks();
-    uiDocument.rootVisualElement.style.display = DisplayStyle.None;
+    window.style.display = DisplayStyle.None;
   }
 
   private void SetVisualElements() {
     uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
-
+    
     textLabel = rootElement.Q<Label>(textLabelName);
     yesButton = rootElement.Q<Button>(yesButtonName);
     noButton = rootElement.Q<Button>(noButtonName);
+    window = rootElement.Q<VisualElement>(windowName);
   }
 
   private void RegisterCallbacks() {
     yesButton.RegisterCallback<ClickEvent>(
       (evt) => {
-        if (hasRun) return;
-        action();
-        hasRun = true;
+        if (!hasRun) {
+          action();
+          hasRun = true;
+        }
         CloseWindow();
       });
     noButton.RegisterCallback<ClickEvent>(
       (evt) => {
         CloseWindow(); 
+      });
+    window.RegisterCallback<MouseEnterEvent>(
+      (evt) => {
+        GameStateManager.Instance.IsMouseOverUI = true;
+      });
+
+    window.RegisterCallback<MouseLeaveEvent>(
+      (evt) => {
+        GameStateManager.Instance.IsMouseOverUI = false;
       });
   }
 
@@ -53,14 +66,13 @@ public class ConfirmationWindow : MonoBehaviour {
     textLabel.text = text;
     this.action = action;
     hasRun = false;
-    uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-    uiDocument.rootVisualElement.MarkDirtyRepaint();
+    window.style.display = DisplayStyle.Flex;
   }
 
   public void CloseWindow() {
     textLabel.text = "";
     this.action = () => { };
-    uiDocument.rootVisualElement.style.display = DisplayStyle.None;
-    uiDocument.rootVisualElement.MarkDirtyRepaint();
+    window.style.display = DisplayStyle.None;
+    window.MarkDirtyRepaint();
   }
 }

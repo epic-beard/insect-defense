@@ -32,6 +32,7 @@ public class MouseManager : MonoBehaviour {
       if (Input.GetMouseButtonUp(0)) {
         // The player selected an area of the map instead of an enemy or tower. Check to see if building
         // a tower is appropriate.
+        if (GameStateManager.Instance.IsMouseOverUI) return;
         if (hitObject.name.Equals("Map")) {
           tile.BuildTowerIfPossible();
           TowerManager.Instance.ClearSelection();
