@@ -271,9 +271,10 @@ public abstract class Tower : MonoBehaviour {
 
     DazzleTime = Time.time;
 
-    BaseAttackSpeed = 0;
+    RemoveTargetMark(Target);
     Target = null;
     upgradeIndex = new int[] { -1, -1, -1 };
+    SetRangeIndicatorScale();
   }
 
   private IEnumerator HandleDazzle() {
@@ -282,6 +283,10 @@ public abstract class Tower : MonoBehaviour {
       yield return new WaitForSeconds(DazzleTime - time);
     }
     yield return null;
+  }
+
+  protected bool IsDazzled() {
+    return DazzleTime > Time.time;
   }
 
   public void ApplySlime(float duration, float power) {
@@ -304,6 +309,10 @@ public abstract class Tower : MonoBehaviour {
     SlimePower = 1.0f;
     UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     yield return null;
+  }
+
+  protected bool IsSlimed() {
+    return SlimeTime > Time.time;
   }
 
   // Sets a targeting texture beneath the given enemy.
@@ -357,9 +366,11 @@ public abstract class Tower : MonoBehaviour {
         + "  Armor piercing: " + ArmorPierce + "\n"
         + "  Armor tear: " + ArmorTear + "\n"
         + "  Attack speed: " + AttackSpeed + "\n"
+        + "  Base attack speed: " + BaseAttackSpeed + "\n"
         + "  Cost: " + Cost + "\n"
         + "  Damage: " + Damage + "\n"
         + "  Damage over time: " + DamageOverTime + "\n"
+        + "  Effective attack speed: " + EffectiveAttackSpeed + "\n"
         + "  Projectile speed: " + ProjectileSpeed + "\n"
         + "  Range: " + Range + "\n"
         + "  Secondary slow potency: " + SecondarySlowPotency + "\n"

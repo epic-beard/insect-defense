@@ -195,7 +195,7 @@ public class MantisTower : Tower {
 
   private IEnumerator Attack() {
     while (true) {
-      while (firing && DazzleTime <= 0.0f) {
+      while (firing && !IsDazzled()) {
         Stab();
         FreezeTarget();
 
