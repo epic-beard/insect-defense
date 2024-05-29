@@ -25,32 +25,67 @@ public class Level1WaveGenerator {
         },
         new CannedEnemyWave() {
           enemyDataKey = aphid,
-          repetitions = 4,
+          repetitions = 5,
           repeatDelay = 3.0f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
-        new CannedEnemyWave() {
-          enemyDataKey = aphid,
-          repetitions = 4,
-          repeatDelay = 2.0f,
-          spawnLocation = 0,
-          spawnAmmount = 1,
+        new ConcurrentWave() {
+          Subwaves = {
+            new CannedEnemyWave() {
+              enemyDataKey = aphid,
+              repetitions = 5,
+              repeatDelay = 3.0f,
+              spawnLocation = 0,
+              spawnAmmount = 1,
+            },
+            new CannedEnemyWave() {
+              enemyDataKey = aphid,
+              repetitions = 3,
+              repeatDelay = 5.0f,
+              spawnLocation = 0,
+              spawnAmmount = 1,
+            },
+          },
         },
-        new CannedEnemyWave() {
-          enemyDataKey = aphid,
-          repetitions = 4,
-          repeatDelay = 2.0f,
-          spawnLocation = 0,
-          spawnAmmount = 2,
-        },
-        new WaitUntilDeadWave() {},
-        new CannedEnemyWave() {
-          enemyDataKey = ant,
-          repetitions = 7,
-          repeatDelay = 4.0f,
-          spawnLocation = 0,
-          spawnAmmount = 1,
+        new ConcurrentWave() {
+          Subwaves = {
+            new SequentialWave() {
+              Subwaves = {
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 4,
+                  repeatDelay = 4.0f,
+                  spawnLocation = 0,
+                  spawnAmmount = 1,
+                },
+                new SpacerWave() {
+                  delay = 4.0f,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = aphid,
+                  repetitions = 4,
+                  repeatDelay = 5.0f,
+                  spawnLocation = 0,
+                  spawnAmmount = 2,
+                },
+              },
+            },
+            new SequentialWave() {
+              Subwaves = {
+                new SpacerWave() {
+                  delay = 3.0f,
+                },
+                new CannedEnemyWave() {
+                  enemyDataKey = ant,
+                  repetitions = 3,
+                  repeatDelay = 10.0f,
+                  spawnLocation = 0,
+                  spawnAmmount = 1,
+                },
+              },
+            },
+          },
         },
         new WaitUntilDeadWave() {},
         new DialogueBoxWave() {
@@ -61,34 +96,56 @@ public class Level1WaveGenerator {
         },
         new CannedEnemyWave() {
           enemyDataKey = ant,
-          repetitions = 4,
+          repetitions = 5,
           repeatDelay = 6.0f,
           spawnLocation = 0,
-          spawnAmmount = 2,
+          spawnAmmount = 1,
+        },
+        new WaitUntilDeadWave() {},
+        new ConcurrentWave() {
+          Subwaves = {
+            new DelayedWave() {
+              warmup = 2.0f,
+              wave = new CannedEnemyWave() {
+                enemyDataKey = ant,
+                repetitions = 3,
+                repeatDelay = 9.0f,
+                spawnLocation = 0,
+                spawnAmmount = 1,
+              },
+            },
+            new CannedEnemyWave() {
+              enemyDataKey = ant,
+              repetitions = 4,
+              repeatDelay = 7.0f,
+              spawnLocation = 0,
+              spawnAmmount = 1,
+            },
+          },
         },
       },
     };
-    // Nu: 191
+    // Nu: 255
 
     SequentialWave secondWave = new() {
       Subwaves = {
         new CannedEnemyWave() {
           enemyDataKey = ant,
-          repetitions = 6,
+          repetitions = 7,
           repeatDelay = 3.0f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
-        new WaitUntilDeadWave() {},
-        new DialogueBoxWave() {
-          messages = { "Now try selling the upgrade you bought and build a new tower!" },
+        //new WaitUntilDeadWave() {},
+        new SpacerWave() {
+          delay = 3.0f,
         },
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
               enemyDataKey = ant,
-              repetitions = 8,
-              repeatDelay = 3.0f,
+              repetitions = 4,
+              repeatDelay = 6.0f,
               spawnLocation = 0,
               spawnAmmount = 1,
             },
@@ -101,19 +158,9 @@ public class Level1WaveGenerator {
             },
           },
         },
-        new SpacerWave() {
-          delay = 6.0f,
-        },
-        new CannedEnemyWave {
-          enemyDataKey = ant,
-          repetitions = 3,
-          repeatDelay = 1.0f,
-          spawnLocation = 0,
-          spawnAmmount = 1,
-        }
       },
     };
-    // Nu: 288
+    // Nu: 356
 
     SequentialWave thirdWave = new() {
       Subwaves = {
@@ -161,7 +208,7 @@ public class Level1WaveGenerator {
     };
 
     Waves waves = new() {
-      waves = { firstWave, secondWave, thirdWave },
+      waves = { secondWave, thirdWave },
     };
 
     Serialize<Waves>(waves, filename);
