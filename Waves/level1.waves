@@ -3,36 +3,6 @@
   <waves>
     <Wave xsi:type="SequentialWave">
       <Subwaves>
-        <Wave xsi:type="CannedEnemyWave">
-          <repetitions>7</repetitions>
-          <repeatDelay>3</repeatDelay>
-          <spawnLocation>0</spawnLocation>
-          <spawnAmmount>1</spawnAmmount>
-          <enemyDataKey>Ant_IL0</enemyDataKey>
-        </Wave>
-        <Wave xsi:type="WaitUntilDeadWave" />
-        <Wave xsi:type="ConcurrentWave">
-          <Subwaves>
-            <Wave xsi:type="CannedEnemyWave">
-              <repetitions>4</repetitions>
-              <repeatDelay>6</repeatDelay>
-              <spawnLocation>0</spawnLocation>
-              <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Ant_IL0</enemyDataKey>
-            </Wave>
-            <Wave xsi:type="CannedEnemyWave">
-              <repetitions>12</repetitions>
-              <repeatDelay>2</repeatDelay>
-              <spawnLocation>0</spawnLocation>
-              <spawnAmmount>1</spawnAmmount>
-              <enemyDataKey>Aphid_IL0</enemyDataKey>
-            </Wave>
-          </Subwaves>
-        </Wave>
-      </Subwaves>
-    </Wave>
-    <Wave xsi:type="SequentialWave">
-      <Subwaves>
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
             <Wave xsi:type="CannedEnemyWave">
