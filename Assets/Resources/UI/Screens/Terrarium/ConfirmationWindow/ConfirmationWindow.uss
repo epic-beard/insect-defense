@@ -1,5 +1,6 @@
 .confirmation-window-container {
 	flex-grow: 1;
+	align-items: center;
 	background-image: resource('UI/images/bgs/metal_frame_texture_1');
 	position: absolute;
 	left: 45%;
@@ -7,4 +8,24 @@
 	width: 250px;
 	height: 125px;
 	padding: 25px;
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.confirmation-window-label {
+	color: rgb(255, 255, 255);
+	-unity-text-align: upper-center;
+	-unity-font-style: bold;
+}
+
+.confirmation-window-button-container {
+	flex-grow: 1;
+	flex-direction: row;
+	justify-content: center;
+	width: 175px;
+	height: auto;
+}
+
+.confirmation-window-button {
+	width: 75px;
+	height: 25px;
 }
