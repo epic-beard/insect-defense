@@ -5,8 +5,8 @@
     <ui:VisualElement name="confirmation-window" class="confirmation-window-container">
         <ui:Label text="Confirm:" name="confirmation-window-label" class="confirmation-window-label" />
         <ui:VisualElement class="confirmation-window-button-container">
-            <ui:Button text="Yes" name="yes-button" class="primary-button button-base" class="confirmation-window-button" />
-            <ui:Button text="No" name="no-button" class="button-base secondary-button" class="confirmation-window-button" />
+            <ui:Button text="Yes" name="yes-button" class="primary-button button-base confirmation-window-button" />
+            <ui:Button text="No" name="no-button" class="button-base secondary-button confirmation-window-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
