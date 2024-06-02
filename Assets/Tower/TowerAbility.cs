@@ -55,13 +55,6 @@ public struct TowerAbility {
     public float mod;
   }
 
-  [Serializable]
-  public struct TowerSpecificAttributeModifier {
-    public ST_DATA.Stat attribute;
-    public Mode mode;
-    public float mod;
-  }
-
   public SpecialAbility specialAbility;
   public AttributeModifier[] attributeModifiers;
   public string name;
