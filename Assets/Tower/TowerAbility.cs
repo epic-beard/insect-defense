@@ -28,7 +28,7 @@ public struct TowerAbility {
     M_3_2_CAMO_SIGHT,  // Mantis Tower, Utility upgrade tree level 3.
     M_3_5_SHRIKE,  // Mantis Tower, Utility upgrade tree level 5.
     SA_1_3_ACIDIC_SYNERGY,  // Spitting Ant Tower, Armor Tear upgrade tree level 3.
-    SA_1_5_VENOM_CORSEPLOSION,  // Spitting Ant Tower, Armor Tear upgrade tree level 5.
+    SA_1_5_VENOM_CORPSEPLOSION,  // Spitting Ant Tower, Armor Tear upgrade tree level 5.
     SA_2_3_ACID_BUILDUP_BONUS,  // Spitting Ant Tower, Acid DoT upgrade tree level 3.
     SA_2_5_DOT_ENHANCEMENT,  // Spitting Ant Tower, Acid DoT upgrade tree level 5.
     SA_3_3_ANTI_AIR,  // Spitting Ant Tower, Utility upgrade tree level 3.

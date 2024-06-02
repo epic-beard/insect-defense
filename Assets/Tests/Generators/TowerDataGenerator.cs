@@ -60,7 +60,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_5_VENOM_CORSEPLOSION,
+        specialAbility = SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION,
         name = "Armor Tear Explosion",
         description = "Armor tear now applies to all enemies caught in the splash explosion.",
         upgradePath = 0,
@@ -751,7 +751,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_5_VENOM_CORSEPLOSION,
+        specialAbility = SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION,
         name = "",
         description = "",
         upgradePath = 0,

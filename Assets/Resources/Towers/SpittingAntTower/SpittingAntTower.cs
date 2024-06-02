@@ -14,7 +14,7 @@ public class SpittingAntTower : Tower {
   [SerializeField] float splashExplosionMultiplier = 1.0f;
 
   public bool AcidicSynergy { get; private set; } = false;
-  public bool ArmorTearExplosion { get; private set; } = false;
+  public bool VenomCorpseplosion { get; private set; } = false;
   public bool ContinuousAttack { get; private set; } = false;
   public bool AcidBuildupBonus { get; private set; } = false;
   public bool AcidEnhancement { get; private set; } = false;
@@ -42,8 +42,8 @@ public class SpittingAntTower : Tower {
       case SpecialAbility.SA_1_3_ACIDIC_SYNERGY:
         AcidicSynergy = true;
         break;
-      case SpecialAbility.SA_1_5_VENOM_CORSEPLOSION:
-        ArmorTearExplosion = true;
+      case SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION:
+        VenomCorpseplosion = true;
         break;
       case SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS:
         AcidBuildupBonus = true;
@@ -67,29 +67,12 @@ public class SpittingAntTower : Tower {
   private void ProcessDamageAndEffects(Enemy target) {
     float onHitDamage = Damage;
     float acidStacks = AcidStacks;
-    float armorTear = ArmorTear;
 
     if (ContinuousAttack) {
       // Calculate continuous damage, armor tear, etc. for application below.
       onHitDamage *= EffectiveAttackSpeed * Time.deltaTime;
       acidStacks *= EffectiveAttackSpeed * Time.deltaTime;
-      armorTear *= EffectiveAttackSpeed * Time.deltaTime;
     }
-
-    // Venom effects.
-    if (AcidicSynergy) {
-      // acid damage *= target.venompower
-    }
-
-
-    //if (AcidicSynergy && (target.AcidStackExplosionThreshold / 2) <= target.AcidStacks) {
-    //  target.TearArmor(armorTear * 1.5f);
-    //} else {
-    //  target.TearArmor(armorTear);
-    //}
-    //if (ArmorTearExplosion) {
-    //  HandleArmorTearExplosion(target, armorTear);
-    //}
 
     // Acid DoT effects.
     if (AcidBuildupBonus && target.Armor <= 0.0f) {

@@ -82,7 +82,7 @@ public class Targeting {
   }
 
   // Find and return all enemies within the given tower's range and given the twoer's limitations.
-  public List<Enemy> GetAllValidEnemiesInRange(
+  public static List<Enemy> GetAllValidEnemiesInRange(
       HashSet<Enemy> enemies,
       Vector3 towerPosition,
       float towerRange,

@@ -29,10 +29,6 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.ARMOR_PIERCE]; }
     set { data[TowerData.Stat.ARMOR_PIERCE] = value; }
   }
-  public float ArmorTear {
-    get { return data[TowerData.Stat.ARMOR_TEAR]; }
-    set { data[TowerData.Stat.ARMOR_TEAR] = value; }
-  }
   public float BaseAttackSpeed { get; private set; }
   public float BleedStacks {
     get { return data[TowerData.Stat.BLEED_STACKS]; }
@@ -377,7 +373,6 @@ public abstract class Tower : MonoBehaviour {
     return Name + "\n"
         + "  Area of effect: " + AreaOfEffect + "\n"
         + "  Armor piercing: " + ArmorPierce + "\n"
-        + "  Armor tear: " + ArmorTear + "\n"
         + "  Attack speed: " + AttackSpeed + "\n"
         + "  Base attack speed: " + BaseAttackSpeed + "\n"
         + "  Cost: " + Cost + "\n"

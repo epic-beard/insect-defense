@@ -7,6 +7,12 @@ public class EnemyTest {
 
   #region BasicAttributeAlterationTests
 
+  [SetUp]
+  public void Setup() {
+    TowerManager towerManager = new TowerManager();
+    TowerManager.Instance = towerManager;
+  }
+
   // Damage test for the enemy. Focuses on varying amounts of damage and armor piercing
   // to make sure that armor pierce cannot overflow and that damage is handled appropriately.
   [Test, Sequential]

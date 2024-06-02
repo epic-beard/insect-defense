@@ -14,7 +14,6 @@ public struct TowerData {
     ACID_STACKS,  // Number of acid stacks inflicted per attack.
     AREA_OF_EFFECT,  // The radius of area of effect effects.
     ARMOR_PIERCE,  // The amount of enemy armor each attack ignores.
-    ARMOR_TEAR,  // The amount by which this tower permanently reduces enemy armor.
     ATTACK_SPEED,  // The number of attacks per second.
     BLEED_STACKS,  // Number of bleed stacks inflicted per attack.
     COST, // Cost to build this tower.
@@ -86,7 +85,6 @@ public struct TowerData {
   public float acid_stacks;
   public float area_of_effect;
   public float armor_pierce;
-  public float armor_tear;
   public float attack_speed;
   public float bleed_stacks;
   public float cost;
@@ -108,7 +106,6 @@ public struct TowerData {
         Stat.ACID_STACKS => acid_stacks,
         Stat.AREA_OF_EFFECT => area_of_effect,
         Stat.ARMOR_PIERCE => armor_pierce,
-        Stat.ARMOR_TEAR => armor_tear,
         Stat.ATTACK_SPEED => attack_speed,
         Stat.BLEED_STACKS => bleed_stacks,
         Stat.COST => cost,
@@ -130,7 +127,6 @@ public struct TowerData {
         case Stat.ACID_STACKS: acid_stacks = value; break;
         case Stat.AREA_OF_EFFECT: area_of_effect = value; break;
         case Stat.ARMOR_PIERCE: armor_pierce = value; break;
-        case Stat.ARMOR_TEAR: armor_tear = value; break;
         case Stat.ATTACK_SPEED: attack_speed = value; break;
         case Stat.BLEED_STACKS: bleed_stacks = value; break;
         case Stat.COST: cost = value; break;

@@ -176,7 +176,7 @@ public class TowerDataManagerTest {
             },
             // Armor Tear path, upgrade 5
             new TowerAbility {
-              specialAbility = TowerAbility.SpecialAbility.SA_1_5_VENOM_CORSEPLOSION,
+              specialAbility = TowerAbility.SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION,
               attributeModifiers = new TowerAbility.AttributeModifier[0],
               name = "Armor Tear Explosion",
               description = "Armor tear now applies to all enemies caught in the splash explosion.",

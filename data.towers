@@ -54,7 +54,7 @@
               <cost>200</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_1_3_ARMOR_TEAR_ACID_BONUS</specialAbility>
+              <specialAbility>SA_1_3_ACIDIC_SYNERGY</specialAbility>
               <name>Acid Breakdown</name>
               <description>When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.</description>
               <upgradePath>0</upgradePath>
@@ -75,7 +75,7 @@
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_1_5_ARMOR_TEAR_EXPLOSION</specialAbility>
+              <specialAbility>SA_1_5_VENOM_CORPSEPLOSION</specialAbility>
               <name>Armor Tear Explosion</name>
               <description>Armor tear now applies to all enemies caught in the splash explosion.</description>
               <upgradePath>0</upgradePath>
@@ -232,6 +232,8 @@
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -484,6 +486,8 @@
         <slow_duration>4</slow_duration>
         <slow_power>0.3</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -687,6 +691,8 @@
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -934,6 +940,8 @@
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>

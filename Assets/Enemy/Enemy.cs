@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour {
   // Map of SpittingAntTowers to the duration of their acid decay delay.
   public Dictionary<Tower, float> AdvancedAcidDecayDelay = new();
 
+  public readonly float venomSpreadRange = 10.0f;
+
   private Animator animator;
 
   private Transform target;
@@ -127,6 +129,36 @@ public class Enemy : MonoBehaviour {
           var carrier = data.carrier.Value;
           SpawnChildren(carrier.childKey, carrier.num);
         }
+        // Do venom stack stuff
+        if (venomStacks.Count > 0) {
+          int venomSpreaders = TowerManager.Instance.ActiveTowerMap.Values.ToList()
+            .Where<Tower>((Tower tower) => tower.Type == TowerData.Type.SPITTING_ANT_TOWER)
+            .Select<Tower, SpittingAntTower>((Tower tower) => (SpittingAntTower)tower)
+            .Where<SpittingAntTower>((SpittingAntTower tower) => {
+              return tower.VenomCorpseplosion
+                && Vector2.Distance(tower.transform.position.DropY(),
+                                    transform.position.DropY())
+                   < SpittingAntTower.VenomRange;
+            })
+            .ToList().Count;
+
+          if (venomSpreaders > 0) {
+            var enemiesInRange = Targeting.GetAllValidEnemiesInRange(
+                enemies: ObjectPool.Instance.GetActiveEnemies(),
+                towerPosition: transform.position,
+                towerRange: venomSpreadRange,
+                camoSight: true,
+                antiAir: true);
+
+            // ei is the index of enemiesInRange, the advance statement of the for loop
+            // should produce a counting that goes up to but does not exceed meaningful
+            // elements of enemiesInRange.
+            for (int ei = 0; venomStacks.Count > 0; ei = (ei + 1) % enemiesInRange.Count) {
+              enemiesInRange[ei].AddVenomStacks(PopVenomStack(), 1);
+            }
+          }
+        }
+
         ConditionalContextReset();
         ObjectPool.Instance.DestroyEnemy(gameObject);
         GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);

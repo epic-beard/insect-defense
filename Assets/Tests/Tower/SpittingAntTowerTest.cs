@@ -21,6 +21,9 @@ public class SpittingAntTowerTest {
     ProjectileHandler projectileHandler = new(splash, spittingAntTower.ProjectileSpeed, Tower.hitRange);
     spittingAntTower.SetProjectileHandler(projectileHandler);
     Time.captureDeltaTime = 1;
+
+    TowerManager towerManager = new TowerManager();
+    TowerManager.Instance = towerManager;
   }
 
   #region SpecialAbilityUpgradeTests
@@ -31,15 +34,15 @@ public class SpittingAntTowerTest {
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ACIDIC_SYNERGY);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.AcidicSynergy));
-    Assert.That(false, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
+    Assert.That(false, Is.EqualTo(spittingAntTower.VenomCorpseplosion));
   }
 
   // Test setting ArmorTearExplosion.
   [Test]
   public void SpecialAbilityUpgradeArmorTearExplosion() {
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_VENOM_CORSEPLOSION);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION);
 
-    Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
+    Assert.That(true, Is.EqualTo(spittingAntTower.VenomCorpseplosion));
     Assert.That(false, Is.EqualTo(spittingAntTower.AcidBuildupBonus));
   }
 
@@ -177,7 +180,7 @@ public class SpittingAntTowerTest {
 
     spittingAntTower.InvokeProcessDamageAndEffects(target);
 
-    Assert.That(target.HP, Is.EqualTo(expectedHp));
+    Assert.That(target.HP, Is.EqualTo(expectedHp).Within(0.01f));
     Assert.That(target.Armor, Is.EqualTo(expectedArmor));
 
     return null;
