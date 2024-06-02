@@ -4,6 +4,8 @@ using UnityEngine;
 using static TowerAbility;
 
 public class SpittingAntTower : Tower {
+  public readonly static int VenomRange = 30;
+
   [SerializeField] Transform upperMesh;
   [SerializeField] ParticleSystem splash;
   [SerializeField] ParticleSystem splashExplosion;
@@ -17,7 +19,6 @@ public class SpittingAntTower : Tower {
   public bool AcidBuildupBonus { get; private set; } = false;
   public bool AcidEnhancement { get; private set; } = false;
   public float AcidDecayDelay { get; private set; } = 10.0f;
-  public int VenomRange { get; private set; } = 0;
   public float SplashExplosionRange {
     get { return data[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
   }

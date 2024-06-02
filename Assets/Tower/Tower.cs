@@ -87,6 +87,15 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
+  public float VenomPower {
+    get { return data[TowerData.Stat.VENOM_POWER]; }
+    set { data[TowerData.Stat.VENOM_STACKS] = value; }
+  }
+  public float VenomStack {
+    get { return data[TowerData.Stat.VENOM_STACKS]; }
+    set { data[TowerData.Stat.VENOM_STACKS] = value; }
+  }
+
   public TowerData.Tooltip tooltip {
     get { return data.tooltip; }
   }

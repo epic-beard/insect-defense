@@ -98,6 +98,8 @@ public struct TowerData {
   public float slow_duration;
   public float slow_power;
   public float stun_time;
+  public float venom_power;
+  public float venom_stacks;
 
 
   public float this[Stat stat] {
@@ -118,6 +120,8 @@ public struct TowerData {
         Stat.SLOW_DURATION => slow_duration,
         Stat.SLOW_POWER => slow_power,
         Stat.STUN_TIME => stun_time,
+        Stat.VENOM_POWER => venom_power,
+        Stat.VENOM_STACKS => venom_stacks,
         _ => 0.0f,
       };
     }
@@ -138,6 +142,8 @@ public struct TowerData {
         case Stat.SLOW_DURATION: slow_duration = value; break;
         case Stat.SLOW_POWER: slow_power = value; break;
         case Stat.STUN_TIME: stun_time = value; break;
+        case Stat.VENOM_POWER: venom_power = value; break;
+        case Stat.VENOM_STACKS: venom_stacks = value; break;
       }
     }
   }

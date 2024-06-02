@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Assets;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +42,9 @@ public class Enemy : MonoBehaviour {
 
   [SerializeField] private float continuousDamagePollingDelay = 1.0f;
   [SerializeField] private float statusDamagePollingDelay = 1.0f;
+
+  private SortedDictionary<float, int> venomStacks = new();
+  private float continuousDamageWeakenPower = 0.0f;
 
   #region Properties
 
@@ -229,7 +233,17 @@ public class Enemy : MonoBehaviour {
     // Handle acid damage.
     if (AcidStacks > 0.0f) {
       float damage = StacksToDamage(AcidStacks);
-      accumulatedAcidDamage += damage;
+      float weakenFraction = TowerManager.Instance.ActiveTowerMap.Values.ToList()
+          .Where<Tower>((Tower tower) => tower.Type == TowerData.Type.SPITTING_ANT_TOWER)
+          .Select<Tower, SpittingAntTower>((Tower tower) => (SpittingAntTower)tower)
+          .Where<SpittingAntTower>((SpittingAntTower tower) => {
+            return tower.AcidicSynergy
+              && Vector2.Distance(tower.transform.position.DropY(),
+                                  transform.position.DropY())
+                 < SpittingAntTower.VenomRange;
+          })
+          .Sum((SpittingAntTower tower) => tower.VenomPower);
+      accumulatedAcidDamage += damage * (1 + weakenFraction);
       HP -= damage;
       AcidStacks -= Mathf.Max(0.0f, damage - (AdvancedAcidDecayDelay.Count * Time.deltaTime));
     }
@@ -257,10 +271,10 @@ public class Enemy : MonoBehaviour {
     damage *= (100.0f - effectiveArmor) / 100.0f;
 
     if (continuous) {
-      accumulatedContinuousDamage += damage;
+      accumulatedContinuousDamage += damage * (1 + continuousDamageWeakenPower);
       HP -= damage;
     } else {
-      DealDamage(damage, DamageText.DamageType.PHYSICAL);
+      DealDamage(damage * (1 + PopVenomStack()), DamageText.DamageType.PHYSICAL);
     }
 
     return HP;
@@ -295,6 +309,26 @@ public class Enemy : MonoBehaviour {
   public float TotalBleedDamage() {
     float k = Mathf.Floor(BleedStacks / 10);
     return (5 * k * (k + 1) + (BleedStacks % 10) * (k + 1)) / Coagulation;
+  }
+
+  public void AddVenomStacks(float power, int stacks) {
+    if (venomStacks.ContainsKey(power)) {
+      venomStacks[power] += stacks;
+    } else {
+      venomStacks.Add(power, stacks);
+    }
+  }
+
+  public float PopVenomStack() {
+    if (venomStacks.Count == 0) return 0.0f;
+    var stack = venomStacks.First();
+    venomStacks[stack.Key]--;
+    if (venomStacks[stack.Key] <= 0) venomStacks.Remove(stack.Key);
+    return stack.Value;
+  }
+
+  public bool IsVenomStacksEmpty() {
+    return venomStacks.Count == 0;
   }
 
   // To apply physical damage call DealPhysicalDamage, which will call this.
@@ -391,13 +425,13 @@ public class Enemy : MonoBehaviour {
 
   public void SetStat(EnemyData.Stat stat, float value) {
     switch (stat) {
-      case EnemyData.Stat.MAX_HP: data.maxHP = value; break;
-      case EnemyData.Stat.MAX_ARMOR: data.maxArmor = value; break;
-      case EnemyData.Stat.SPEED: data.speed = value; break;
-      case EnemyData.Stat.DAMAGE: data.damage = value; break;
-      case EnemyData.Stat.NU: data.nu = value; break;
-      case EnemyData.Stat.COAGULATION_MODIFIER: data.coagulationModifier = value; break;
-      case EnemyData.Stat.ACID_EXPLOSION_STACK_MODIFIER: data.acidExplosionStackModifier = value; break;
+    case EnemyData.Stat.MAX_HP: data.maxHP = value; break;
+    case EnemyData.Stat.MAX_ARMOR: data.maxArmor = value; break;
+    case EnemyData.Stat.SPEED: data.speed = value; break;
+    case EnemyData.Stat.DAMAGE: data.damage = value; break;
+    case EnemyData.Stat.NU: data.nu = value; break;
+    case EnemyData.Stat.COAGULATION_MODIFIER: data.coagulationModifier = value; break;
+    case EnemyData.Stat.ACID_EXPLOSION_STACK_MODIFIER: data.acidExplosionStackModifier = value; break;
     }
   }
 
@@ -505,9 +539,12 @@ public class Enemy : MonoBehaviour {
   private IEnumerator HandleContinuousDamage() {
     while (true) {
       if (accumulatedContinuousDamage > 1.0f) {
+
         ShowDamageText(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
         accumulatedContinuousDamage = 0.0f;
       }
+
+      continuousDamageWeakenPower = PopVenomStack();
 
       yield return new WaitForSeconds(continuousDamagePollingDelay);
     }
