@@ -87,7 +87,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>ACID_STACKS</attribute>
                   <mode>SET</mode>
                   <mod>5</mod>
                 </AttributeModifier>
@@ -106,7 +106,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>ACID_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
                 </AttributeModifier>
@@ -132,7 +132,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>ACID_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
                 </AttributeModifier>
@@ -217,13 +217,14 @@
         <name>Spitting Ant Tower</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>100</cost>
         <damage>10</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>100</projectile_speed>
         <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
@@ -468,13 +469,14 @@
         <name>Web Shooting Spider Tower</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>0.75</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>50</cost>
         <damage>0</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>20</projectile_speed>
         <range>25</range>
         <secondary_slow_potency>0.5</secondary_slow_potency>
@@ -670,13 +672,14 @@
         <name>Assassin Bug</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0.2</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>50</cost>
         <damage>30</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
         <range>40</range>
         <secondary_slow_potency>0</secondary_slow_potency>
@@ -779,7 +782,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>SET</mode>
                   <mod>15</mod>
                 </AttributeModifier>
@@ -798,7 +801,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>15</mod>
                 </AttributeModifier>
@@ -824,7 +827,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>30</mod>
                 </AttributeModifier>
@@ -843,7 +846,7 @@
               <specialAbility>M_2_5_BLOODY_EXECUTION</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>20</mod>
                 </AttributeModifier>
@@ -916,13 +919,14 @@
         <name>Mantis</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>3</area_of_effect>
         <armor_pierce>5</armor_pierce>
         <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>150</cost>
         <damage>7</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
         <range>15</range>
         <secondary_slow_potency>0</secondary_slow_potency>

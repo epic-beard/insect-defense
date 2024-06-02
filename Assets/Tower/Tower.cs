@@ -10,6 +10,10 @@ public abstract class Tower : MonoBehaviour {
   [SerializeField] protected Transform rangeIndicator;
 
   #region PublicProperties
+  public float AcidStacks {
+    get { return data[TowerData.Stat.ACID_STACKS]; }
+    set { data[TowerData.Stat.ACID_STACKS] = value; }
+  }
   public float AttackSpeed {
     get { return data[TowerData.Stat.ATTACK_SPEED]; }
     set { data[TowerData.Stat.ATTACK_SPEED] = value; }
@@ -30,6 +34,10 @@ public abstract class Tower : MonoBehaviour {
     set { data[TowerData.Stat.ARMOR_TEAR] = value; }
   }
   public float BaseAttackSpeed { get; private set; }
+  public float BleedStacks {
+    get { return data[TowerData.Stat.BLEED_STACKS]; }
+    set { data[TowerData.Stat.BLEED_STACKS] = value; }
+  }
   public float Cost {
     get { return data[TowerData.Stat.COST]; }
     set { data[TowerData.Stat.COST] = value; }
@@ -37,10 +45,6 @@ public abstract class Tower : MonoBehaviour {
   public float Damage {
     get { return data[TowerData.Stat.DAMAGE]; }
     set { data[TowerData.Stat.DAMAGE] = value; }
-  }
-  public float DamageOverTime {
-    get { return data[TowerData.Stat.DAMAGE_OVER_TIME]; }
-    set { data[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
   }
   public float DazzleTime { get; set; }
   public virtual int EnemiesHit {
@@ -369,7 +373,7 @@ public abstract class Tower : MonoBehaviour {
         + "  Base attack speed: " + BaseAttackSpeed + "\n"
         + "  Cost: " + Cost + "\n"
         + "  Damage: " + Damage + "\n"
-        + "  Damage over time: " + DamageOverTime + "\n"
+        + "  Damage over time: " + AcidStacks + "\n"
         + "  Effective attack speed: " + EffectiveAttackSpeed + "\n"
         + "  Projectile speed: " + ProjectileSpeed + "\n"
         + "  Range: " + Range + "\n"

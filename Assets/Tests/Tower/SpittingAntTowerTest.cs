@@ -28,16 +28,16 @@ public class SpittingAntTowerTest {
   // Test setting ArmorTearStun.
   [Test]
   public void SpecialAbilityUpgradeAcidStun() {
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_3_ACIDIC_SYNERGY);
 
-    Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearAcidBonus));
+    Assert.That(true, Is.EqualTo(spittingAntTower.AcidicSynergy));
     Assert.That(false, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
   }
 
   // Test setting ArmorTearExplosion.
   [Test]
   public void SpecialAbilityUpgradeArmorTearExplosion() {
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_VENOM_CORSEPLOSION);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.ArmorTearExplosion));
     Assert.That(false, Is.EqualTo(spittingAntTower.AcidBuildupBonus));

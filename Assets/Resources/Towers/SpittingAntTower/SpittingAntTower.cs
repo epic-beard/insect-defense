@@ -11,12 +11,13 @@ public class SpittingAntTower : Tower {
 
   [SerializeField] float splashExplosionMultiplier = 1.0f;
 
-  public bool ArmorTearAcidBonus { get; private set; } = false;
+  public bool AcidicSynergy { get; private set; } = false;
   public bool ArmorTearExplosion { get; private set; } = false;
   public bool ContinuousAttack { get; private set; } = false;
   public bool AcidBuildupBonus { get; private set; } = false;
   public bool AcidEnhancement { get; private set; } = false;
   public float AcidDecayDelay { get; private set; } = 10.0f;
+  public int VenomRange { get; private set; } = 0;
   public float SplashExplosionRange {
     get { return data[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
   }
@@ -37,10 +38,10 @@ public class SpittingAntTower : Tower {
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
     switch (ability) {
-      case SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS:
-        ArmorTearAcidBonus = true;
+      case SpecialAbility.SA_1_3_ACIDIC_SYNERGY:
+        AcidicSynergy = true;
         break;
-      case SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION:
+      case SpecialAbility.SA_1_5_VENOM_CORSEPLOSION:
         ArmorTearExplosion = true;
         break;
       case SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS:
@@ -64,7 +65,7 @@ public class SpittingAntTower : Tower {
 
   private void ProcessDamageAndEffects(Enemy target) {
     float onHitDamage = Damage;
-    float acidStacks = DamageOverTime;
+    float acidStacks = AcidStacks;
     float armorTear = ArmorTear;
 
     if (ContinuousAttack) {
@@ -74,15 +75,20 @@ public class SpittingAntTower : Tower {
       armorTear *= EffectiveAttackSpeed * Time.deltaTime;
     }
 
-    // Armor tear effects.
-    if (ArmorTearAcidBonus && (target.AcidStackExplosionThreshold / 2) <= target.AcidStacks) {
-      target.TearArmor(armorTear * 1.5f);
-    } else {
-      target.TearArmor(armorTear);
+    // Venom effects.
+    if (AcidicSynergy) {
+      // acid damage *= target.venompower
     }
-    if (ArmorTearExplosion) {
-      HandleArmorTearExplosion(target, armorTear);
-    }
+
+
+    //if (AcidicSynergy && (target.AcidStackExplosionThreshold / 2) <= target.AcidStacks) {
+    //  target.TearArmor(armorTear * 1.5f);
+    //} else {
+    //  target.TearArmor(armorTear);
+    //}
+    //if (ArmorTearExplosion) {
+    //  HandleArmorTearExplosion(target, armorTear);
+    //}
 
     // Acid DoT effects.
     if (AcidBuildupBonus && target.Armor <= 0.0f) {

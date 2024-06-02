@@ -285,7 +285,7 @@ public class TowerDetail : MonoBehaviour {
     towerStatRange.text = tower.Range.ToString();
     towerStatArmorPierce.text = tower.ArmorPierce.ToString();
     towerStatAreaOfEffect.text = tower.AreaOfEffect.ToString();
-    towerStatDotStacks.text = tower.DamageOverTime.ToString();
+    towerStatDotStacks.text = tower.AcidStacks.ToString();
 
     for (int i = 0; i < 3; i++) {
       string upgradePathName = tower.GetUpgradePathName(i);

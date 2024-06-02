@@ -30,7 +30,7 @@ public class TowerDataManagerTest {
       attack_speed = 4.0f,
       cost = 10.0f,
       damage = 5.0f,
-      damage_over_time = 6.0f,
+      acid_stacks = 6.0f,
       projectile_speed = 7.0f,
       range = 8.0f,
       slow_duration = 9.0f,
@@ -45,7 +45,7 @@ public class TowerDataManagerTest {
     };
 
     TowerAbility ability = new() {
-      specialAbility = TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
+      specialAbility = TowerAbility.SpecialAbility.SA_1_3_ACIDIC_SYNERGY,
       attributeModifiers = new TowerAbility.AttributeModifier[] {
         modifier,
       },
@@ -153,7 +153,7 @@ public class TowerDataManagerTest {
             },
             // Armor Tear path, upgrade 3
             new TowerAbility {
-              specialAbility = TowerAbility.SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
+              specialAbility = TowerAbility.SpecialAbility.SA_1_3_ACIDIC_SYNERGY,
               attributeModifiers = new TowerAbility.AttributeModifier[0],
               name = "Stunning Reveal",
               description = "If an enemy's armor is reduced to 0, it is briefly stunned.",
@@ -176,7 +176,7 @@ public class TowerDataManagerTest {
             },
             // Armor Tear path, upgrade 5
             new TowerAbility {
-              specialAbility = TowerAbility.SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION,
+              specialAbility = TowerAbility.SpecialAbility.SA_1_5_VENOM_CORSEPLOSION,
               attributeModifiers = new TowerAbility.AttributeModifier[0],
               name = "Armor Tear Explosion",
               description = "Armor tear now applies to all enemies caught in the splash explosion.",
@@ -190,7 +190,7 @@ public class TowerDataManagerTest {
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
                 new TowerAbility.AttributeModifier() {
-                  attribute = TowerData.Stat.DAMAGE_OVER_TIME,
+                  attribute = TowerData.Stat.ACID_STACKS,
                   mode = TowerAbility.Mode.MULTIPLICATIVE,
                   mod = 1.1f
                 }
@@ -204,7 +204,7 @@ public class TowerDataManagerTest {
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
                 new TowerAbility.AttributeModifier() {
-                  attribute = TowerData.Stat.DAMAGE_OVER_TIME,
+                  attribute = TowerData.Stat.ACID_STACKS,
                   mode = TowerAbility.Mode.MULTIPLICATIVE,
                   mod = 1.2f
                 }
@@ -227,7 +227,7 @@ public class TowerDataManagerTest {
             new TowerAbility {
               attributeModifiers = new TowerAbility.AttributeModifier[1] {
                 new TowerAbility.AttributeModifier() {
-                  attribute = TowerData.Stat.DAMAGE_OVER_TIME,
+                  attribute = TowerData.Stat.ACID_STACKS,
                   mode = TowerAbility.Mode.MULTIPLICATIVE,
                   mod = 1.3f
                 }
@@ -318,7 +318,7 @@ public class TowerDataManagerTest {
       armor_tear = 5.0f,
       attack_speed = 1.0f,  // Attacks per second.
       damage = 5.0f,
-      damage_over_time = 5.0f,  // Acid stacks per hit.
+      acid_stacks = 5.0f,  // Acid stacks per hit.
       projectile_speed = 20.0f,
       range = 20.0f,
       secondary_slow_potency = 0.0f,
@@ -555,7 +555,7 @@ public class TowerDataManagerTest {
       armor_tear = 0.0f,
       attack_speed = 1.0f,
       damage = 0.0f,
-      damage_over_time = 0.0f,
+      acid_stacks = 0.0f,
       projectile_speed = 20.0f,
       range = 20.0f,
       secondary_slow_potency = 0.5f,

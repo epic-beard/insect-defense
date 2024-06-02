@@ -92,7 +92,7 @@ public class MantisTower : Tower {
         Target.DealDamage(Target.HP, DamageText.DamageType.BLEED);
       } else {
         Target.DealPhysicalDamage(Damage, ArmorPierce, false);
-        Target.AddBleedStacks(DamageOverTime);
+        Target.AddBleedStacks(BleedStacks);
         if (CrippleAttack) {
           Target.ApplyCripple();
           CrippleAttack = false;

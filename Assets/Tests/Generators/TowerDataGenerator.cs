@@ -44,7 +44,7 @@ public class TowerDataGenerator {
         cost = 200,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
+        specialAbility = SpecialAbility.SA_1_3_ACIDIC_SYNERGY,
         name = "Acid Breakdown",
         description = "When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.",
         upgradePath = 0,
@@ -60,7 +60,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION,
+        specialAbility = SpecialAbility.SA_1_5_VENOM_CORSEPLOSION,
         name = "Armor Tear Explosion",
         description = "Armor tear now applies to all enemies caught in the splash explosion.",
         upgradePath = 0,
@@ -70,7 +70,7 @@ public class TowerDataGenerator {
     var acidUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 5.0f),
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 5.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
         },
         name = "Acid!",
@@ -80,7 +80,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "More Acid",
@@ -97,7 +97,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f)
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5.0f)
         },
         name = "Spray that acid",
         description = "Acid inflicted is raised to 15",
@@ -180,7 +180,7 @@ public class TowerDataGenerator {
       attack_speed = 0.5f,
       cost = 100,
       damage = 10,
-      damage_over_time = 0,
+      acid_stacks = 0,
       enemies_hit = 0,
       projectile_speed = 100,
       range = 20,
@@ -357,7 +357,7 @@ public class TowerDataGenerator {
       attack_speed = 0.75f,
       cost = 50,
       damage = 0,
-      damage_over_time = 0,
+      acid_stacks = 0,
       enemies_hit = 0,
       projectile_speed = 20,
       range = 25,
@@ -523,7 +523,7 @@ public class TowerDataGenerator {
       attack_speed = 0.5f,
       cost = 50,
       damage = 30,
-      damage_over_time = 0,
+      acid_stacks = 0,
       enemies_hit = 0,
       projectile_speed = 0,
       range = 40,
@@ -587,7 +587,7 @@ public class TowerDataGenerator {
     var bleedUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15),
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.SET, 15),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Vicious Claws",
@@ -597,7 +597,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 15),
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 15),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Microstructures",
@@ -615,7 +615,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 30),
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 30),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Chemicals",
@@ -625,7 +625,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 20)
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 20)
         },
         specialAbility = SpecialAbility.M_2_5_BLOODY_EXECUTION,
         name = "Bloody Execution",
@@ -701,7 +701,7 @@ public class TowerDataGenerator {
       attack_speed = 0.5f,
       cost = 150,
       damage = 7,
-      damage_over_time = 0,
+      acid_stacks = 0,
       projectile_speed = 0,
       range = 15.0f,
       secondary_slow_potency = 0,
@@ -735,7 +735,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
+        specialAbility = SpecialAbility.SA_1_3_ACIDIC_SYNERGY,
         name = "",
         description = "",
         upgradePath = 0,
@@ -751,7 +751,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION,
+        specialAbility = SpecialAbility.SA_1_5_VENOM_CORSEPLOSION,
         name = "",
         description = "",
         upgradePath = 0,
@@ -761,7 +761,7 @@ public class TowerDataGenerator {
     var secondPathUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.MULTIPLICATIVE, 1.1f)
         },
         name = "",
         description = "",
@@ -770,7 +770,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.MULTIPLICATIVE, 1.2f)
         },
         name = "",
         description = "",
@@ -786,7 +786,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.3f)
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.MULTIPLICATIVE, 1.3f)
         },
         name = "",
         description = "",
@@ -864,7 +864,7 @@ public class TowerDataGenerator {
       attack_speed = 1,
       cost = 50,
       damage = 0,
-      damage_over_time = 0,
+      acid_stacks = 0,
       projectile_speed = 20,
       range = 20,
       secondary_slow_potency = 0.5f,
