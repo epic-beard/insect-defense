@@ -56,13 +56,13 @@ MonoBehaviour:
     name: 
     icon_path: 
     enemies_hit: 0
+    acid_stacks: 0
     area_of_effect: 0
     armor_pierce: 0
-    armor_tear: 0
     attack_speed: 0
+    bleed_stacks: 0
     cost: 0
     damage: 0
-    damage_over_time: 0
     projectile_speed: 0
     range: 0
     secondary_slow_potency: 0
@@ -70,10 +70,13 @@ MonoBehaviour:
     slow_duration: 0
     slow_power: 0
     stun_time: 0
+    venom_power: 0
+    venom_stacks: 0
   targetingIndicator: {fileID: 601234435680318981}
   rangeIndicator: {fileID: 5129075295278649312}
+  IsPreviewTower: 0
   upperMesh: {fileID: 7756997695684524525}
-  splash: {fileID: 4902801243027200727}
+  projectile: {fileID: 4902801243027200727}
   splashExplosion: {fileID: 3317322654966219181}
   beam: {fileID: 3224845854375139996}
   splashExplosionMultiplier: 1
@@ -436,7 +439,7 @@ GameObject:
   - component: {fileID: 4902801243027200727}
   - component: {fileID: 1087779999959354433}
   m_Layer: 0
-  m_Name: Acid Splash
+  m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
