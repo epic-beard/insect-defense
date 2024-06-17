@@ -106,8 +106,7 @@ public class EnemyPlayModeTest {
   #region TestHelperMethods
 
   private Tower GetTower(Waypoint waypoint) {
-    SpittingAntTower tower =
-        (SpittingAntTower) towerManager.ConstructTower(waypoint, TowerData.Type.SPITTING_ANT_TOWER);
+    Tower tower = towerManager.ConstructTower(waypoint, TowerData.Type.SPITTING_ANT_TOWER);
     tower.enabled = true;
     tower.SetTargetingIndicator(null);
     return tower;

@@ -129,35 +129,7 @@ public class Enemy : MonoBehaviour {
           var carrier = data.carrier.Value;
           SpawnChildren(carrier.childKey, carrier.num);
         }
-        // Do venom stack stuff
-        if (venomStacks.Count > 0) {
-          int venomSpreaders = TowerManager.Instance.ActiveTowerMap.Values.ToList()
-            .Where<Tower>((Tower tower) => tower.Type == TowerData.Type.SPITTING_ANT_TOWER)
-            .Select<Tower, SpittingAntTower>((Tower tower) => (SpittingAntTower)tower)
-            .Where<SpittingAntTower>((SpittingAntTower tower) => {
-              return tower.VenomCorpseplosion
-                && Vector2.Distance(tower.transform.position.DropY(),
-                                    transform.position.DropY())
-                   < SpittingAntTower.VenomRange;
-            })
-            .ToList().Count;
-
-          if (venomSpreaders > 0) {
-            var enemiesInRange = Targeting.GetAllValidEnemiesInRange(
-                enemies: ObjectPool.Instance.GetActiveEnemies(),
-                towerPosition: transform.position,
-                towerRange: venomSpreadRange,
-                camoSight: true,
-                antiAir: true);
-
-            // ei is the index of enemiesInRange, the advance statement of the for loop
-            // should produce a counting that goes up to but does not exceed meaningful
-            // elements of enemiesInRange.
-            for (int ei = 0; venomStacks.Count > 0; ei = (ei + 1) % enemiesInRange.Count) {
-              enemiesInRange[ei].AddVenomStacks(PopVenomStack(), 1);
-            }
-          }
-        }
+        DistributeVenomStacksIfNecessary();
 
         ConditionalContextReset();
         ObjectPool.Instance.DestroyEnemy(gameObject);
@@ -457,13 +429,13 @@ public class Enemy : MonoBehaviour {
 
   public void SetStat(EnemyData.Stat stat, float value) {
     switch (stat) {
-    case EnemyData.Stat.MAX_HP: data.maxHP = value; break;
-    case EnemyData.Stat.MAX_ARMOR: data.maxArmor = value; break;
-    case EnemyData.Stat.SPEED: data.speed = value; break;
-    case EnemyData.Stat.DAMAGE: data.damage = value; break;
-    case EnemyData.Stat.NU: data.nu = value; break;
-    case EnemyData.Stat.COAGULATION_MODIFIER: data.coagulationModifier = value; break;
-    case EnemyData.Stat.ACID_EXPLOSION_STACK_MODIFIER: data.acidExplosionStackModifier = value; break;
+      case EnemyData.Stat.MAX_HP: data.maxHP = value; break;
+      case EnemyData.Stat.MAX_ARMOR: data.maxArmor = value; break;
+      case EnemyData.Stat.SPEED: data.speed = value; break;
+      case EnemyData.Stat.DAMAGE: data.damage = value; break;
+      case EnemyData.Stat.NU: data.nu = value; break;
+      case EnemyData.Stat.COAGULATION_MODIFIER: data.coagulationModifier = value; break;
+      case EnemyData.Stat.ACID_EXPLOSION_STACK_MODIFIER: data.acidExplosionStackModifier = value; break;
     }
   }
 
@@ -575,7 +547,6 @@ public class Enemy : MonoBehaviour {
         ShowDamageText(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
         accumulatedContinuousDamage = 0.0f;
       }
-
       continuousDamageWeakenPower = PopVenomStack();
 
       yield return new WaitForSeconds(continuousDamagePollingDelay);
@@ -616,6 +587,38 @@ public class Enemy : MonoBehaviour {
     ConditionalContextReset();
     GameStateManager.Instance.DealDamage(Mathf.RoundToInt(Damage));
     ObjectPool.Instance.DestroyEnemy(gameObject);
+  }
+
+  // On enemy death, check to see if there are venom stacks to be distributed.
+  private void DistributeVenomStacksIfNecessary() {
+    if (venomStacks.Count > 0) {
+      int venomSpreaders = TowerManager.Instance.ActiveTowerMap.Values.ToList()
+        .Where<Tower>((Tower tower) => tower.Type == TowerData.Type.SPITTING_ANT_TOWER)
+        .Select<Tower, SpittingAntTower>((Tower tower) => (SpittingAntTower)tower)
+        .Where<SpittingAntTower>((SpittingAntTower tower) => {
+          return tower.VenomCorpseplosion
+            && Vector2.Distance(tower.transform.position.DropY(),
+                                transform.position.DropY())
+               < SpittingAntTower.VenomRange;
+        })
+        .ToList().Count;
+
+      if (venomSpreaders > 0) {
+        var enemiesInRange = Targeting.GetAllValidEnemiesInRange(
+            enemies: ObjectPool.Instance.GetActiveEnemies(),
+            towerPosition: transform.position,
+            towerRange: venomSpreadRange,
+            camoSight: true,
+            antiAir: true);
+
+        // ei is the index of enemiesInRange, the advance statement of the for loop
+        // should produce a counting that goes up to but does not exceed meaningful
+        // elements of enemiesInRange.
+        for (int ei = 0; venomStacks.Count > 0; ei = (ei + 1) % enemiesInRange.Count) {
+          enemiesInRange[ei].AddVenomStacks(PopVenomStack(), 1);
+        }
+      }
+    }
   }
 
   private IEnumerator HandleAbility(Action<Tower> ability, float interval, float range) {
