@@ -77,7 +77,7 @@ public class SpittingAntTowerTest {
   [Test]
   public void SpecialAbilityUpgradeConstantFire() {
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetSplash(splash);
+    spittingAntTower.SetProjectile(splash);
 
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
 
@@ -112,87 +112,13 @@ public class SpittingAntTowerTest {
 
   #region ProcessDamageAndEffectsTests
 
-  // Test HandleArmorTearExplosion.
+  // Test the basic attack with varying levels of armor.
   [Test]
-  public void HandleArmorTearExplosion() {
-    float enemyArmor = 1000.0f;
-    Enemy target = CreateEnemy(Vector3.zero, hp: 10000.0f, armor: enemyArmor);
-    Enemy enemyInRange = CreateEnemy(Vector3.zero, hp: 10000.0f, armor: enemyArmor);
-    Enemy enemyOutOfRange = CreateEnemy(new Vector3(0, 100, 0), hp: 10000.0f, armor: enemyArmor);
-
-    spittingAntTower.SetAreaofEffect(10.0f);
-
-    ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetSplashExplosion(splashExplosion);
-
-    ObjectPool objectPool = CreateObjectPool();
-    ObjectPool.Instance = objectPool;
-    HashSet<Enemy> activeEnemies = new() { enemyInRange, enemyOutOfRange, target };
-    objectPool.SetActiveEnemies(activeEnemies);
-
-    float expectedArmorTear = 5.0f;
-    spittingAntTower.ArmorTear = expectedArmorTear;
-
-    spittingAntTower.InvokeHandleArmorTearExplosion(target, expectedArmorTear);
-
-    // Ensure that the splash damage is applied appropriately regardless of ArmorTearExplosion.
-    Assert.That(target.Armor, Is.EqualTo(enemyArmor));
-    Assert.That(enemyInRange.Armor, Is.EqualTo(enemyArmor - expectedArmorTear));
-    Assert.That(enemyOutOfRange.Armor, Is.EqualTo(enemyArmor));
-  }
-
-  // Test continuous fire on an unarmored target.
-  [UnityTest]
-  public IEnumerator ProcessDamageAndEffectsContinuousFireNoArmor() {
-    Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 10.0f);
-    ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetSplash(splash);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
-
-    spittingAntTower.Damage = 1.0f;
-    spittingAntTower.AttackSpeed = 1.0f;
-    spittingAntTower.ArmorTear = 1.0f;
-
-    float expectedHp = target.HP;
-
-    spittingAntTower.InvokeProcessDamageAndEffects(target);
-
-    Assert.That(target.HP, Is.LessThan(expectedHp));
-    Assert.That(target.Armor, Is.EqualTo(0.0f));
-
-    return null;
-  }
-
-  // Test continuous fire on an armored target.
-  [UnityTest]
-  public IEnumerator ProcessDamageAndEffectsContinuousFireWithArmor() {
-    Enemy target = CreateEnemy(Vector3.zero, armor: 2.0f, hp: 10.0f);
-    ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetSplash(splash);
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
-
-    spittingAntTower.Damage = 1.0f;
-    spittingAntTower.AttackSpeed = 1.0f;
-    spittingAntTower.ArmorTear = 1.0f;
-
-    float expectedArmor = target.Armor - spittingAntTower.ArmorTear;
-    float expectedHp = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - expectedArmor) / 100, 0.0f));
-
-    spittingAntTower.InvokeProcessDamageAndEffects(target);
-
-    Assert.That(target.HP, Is.EqualTo(expectedHp).Within(0.01f));
-    Assert.That(target.Armor, Is.EqualTo(expectedArmor));
-
-    return null;
-  }
-
-  // Test with splash fire on targets of varying armor.
-  [Test]
-  public void ProcessDamageAndEffectsSplashShot([Values(1.0f, 10.0f)] float enemyArmor) {
+  public void ProcessDamageAndEffects([Values(1.0f, 10.0f)] float enemyArmor) {
     Enemy target = CreateEnemy(Vector3.zero, armor: enemyArmor, hp: 10.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
 
-    spittingAntTower.SetSplash(splash);
+    spittingAntTower.SetProjectile(splash);
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplashExplosion(splashExplosion);
 
@@ -203,16 +129,57 @@ public class SpittingAntTowerTest {
 
     spittingAntTower.Damage = 1.0f;
     spittingAntTower.AttackSpeed = 1.0f;
-    spittingAntTower.ArmorTear = 1.0f;
+    spittingAntTower.VenomPower = 0.25f;
+    spittingAntTower.VenomStacks = 1.0f;
 
-    float expectedArmor = target.Armor - spittingAntTower.ArmorTear;
-    float expectedHP = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - expectedArmor) / 100, 0.0f));
+    float expectedHP = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - target.Armor) / 100, 0.0f));
 
     spittingAntTower.InvokeProcessDamageAndEffects(target);
 
     Assert.That(target.HP, Is.EqualTo(expectedHP));
-    Assert.That(target.Armor, Is.EqualTo(expectedArmor));
   }
+
+  // Test continuous fire on an unarmored target.
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffectsContinuousFireNoArmor() {
+    Enemy target = CreateEnemy(Vector3.zero, armor: 0.0f, hp: 10.0f);
+    ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
+    spittingAntTower.SetProjectile(splash);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
+
+    spittingAntTower.Damage = 1.0f;
+    spittingAntTower.AttackSpeed = 1.0f;
+
+    float expectedHp = target.HP;
+
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
+
+    Assert.That(target.HP, Is.LessThan(expectedHp));
+
+    return null;
+  }
+
+  // Test continuous fire on an armored target.
+  [UnityTest]
+  public IEnumerator ProcessDamageAndEffectsContinuousFireWithArmor() {
+    Enemy target = CreateEnemy(Vector3.zero, armor: 2.0f, hp: 10.0f);
+    ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
+    spittingAntTower.SetProjectile(splash);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
+
+    spittingAntTower.Damage = 1.0f;
+    spittingAntTower.AttackSpeed = 1.0f;
+
+    float expectedHp = target.HP
+      - (Mathf.Max(spittingAntTower.Damage * (100 - target.Armor) / 100, 0.0f));
+
+    spittingAntTower.InvokeProcessDamageAndEffects(target);
+
+    Assert.That(target.HP, Is.EqualTo(expectedHp).Within(0.01f));
+
+    return null;
+  }
+
 
   #endregion
 
@@ -252,9 +219,9 @@ public class SpittingAntTowerTest {
 // SpittingAntTower.
 public static class SpittingAntTowerUtils {
 
-  public static void SetSplash(this SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
+  public static void SetProjectile(this SpittingAntTower spittingAntTower, ParticleSystem particleSystem) {
     typeof(SpittingAntTower)
-        .GetField("splash", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("projectile", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(spittingAntTower, particleSystem);
   }
 

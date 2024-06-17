@@ -7,7 +7,7 @@ public class SpittingAntTower : Tower {
   public readonly static int VenomRange = 30;
 
   [SerializeField] Transform upperMesh;
-  [SerializeField] ParticleSystem splash;
+  [SerializeField] ParticleSystem projectile;
   [SerializeField] ParticleSystem splashExplosion;
   [SerializeField] LineRenderer beam;
 
@@ -32,9 +32,10 @@ public class SpittingAntTower : Tower {
   }
 
   protected override void TowerStart() {
-    projectileHandler = new(splash, ProjectileSpeed, hitRange);
+    projectileHandler = new(projectile, ProjectileSpeed, hitRange);
 
-    StartCoroutine(SplashShoot());
+    StartCoroutine(ProjectileFiringHandler());
+    StartCoroutine(ContinuousFireVenomStackHandler());
   }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
@@ -55,7 +56,7 @@ public class SpittingAntTower : Tower {
         AntiAir = true;
         break;
       case SpecialAbility.SA_3_5_CONSTANT_FIRE:
-        var splashEmission = splash.emission;
+        var splashEmission = projectile.emission;
         splashEmission.enabled = false;
         ContinuousAttack = true;
         break;
@@ -86,24 +87,6 @@ public class SpittingAntTower : Tower {
     }
 
     target.DealPhysicalDamage(onHitDamage, ArmorPierce, ContinuousAttack);
-  }
-
-  private void HandleArmorTearExplosion(Enemy target, float armorTear) {
-    splashExplosion.transform.position = target.AimPoint;
-    splashExplosion.Play();
-
-    // Get a list of enemies caught in the AoE that are not the enemy targeted.
-    List<Enemy> enemiesInAoe = GetEnemiesInExplosionRange(
-        ObjectPool.Instance.GetActiveEnemies(), target, SplashExplosionRange);
-
-    foreach (Enemy enemy in enemiesInAoe) {
-      // Any tower that has armor tear explosion, also has armor tear acid bonus.
-      if ((enemy.AcidStackExplosionThreshold / 2) <= enemy.AcidStacks) {
-        enemy.TearArmor(armorTear * 1.5f);
-      } else {
-        enemy.TearArmor(armorTear);
-      }
-    }
   }
 
   protected override void TowerUpdate() {
@@ -138,14 +121,31 @@ public class SpittingAntTower : Tower {
 
   protected override void UpdateAnimationSpeed(float newAttackSpeed) { }
 
-  // Handle the splash shot outside of the Update method, so it won't interrupt the program flow.
-  private IEnumerator SplashShoot() {
-    while (!ContinuousAttack) {
-      while (canFire && !IsDazzled()) {
-        splash.Emit(1);
-        yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
+  // Handle firing the projectile out of the way of the main program path. This should be robust
+  // enough to handle update selling without restarting the coroutine.
+  private IEnumerator ProjectileFiringHandler() {
+    while (true) {
+      yield return new WaitUntil(() => !ContinuousAttack);
+      while (!ContinuousAttack) {
+        while (canFire && !IsDazzled()) {
+          projectile.Emit(1);
+          yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
+        }
+        yield return new WaitUntil(() => canFire);
       }
-      yield return new WaitUntil(() => canFire);
+    }
+  }
+
+  // Handle the application of venom stacks during continuous fire. This should be robust enough
+  // to handle update selling without restarting the coroutine.
+  private IEnumerator ContinuousFireVenomStackHandler() {
+    while (true) {
+      yield return new WaitUntil(() => ContinuousAttack);
+      while (ContinuousAttack) {
+        Enemy target = Target;
+        float time = Time.time;
+        yield return new WaitUntil(() => target != Target || Time.time - time > 1);
+      }
     }
   }
 }

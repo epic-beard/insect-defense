@@ -56,7 +56,7 @@ public class GameStateManagerPlaymodeTest {
     spittingAntTower.SetUpperMesh(upperMesh);
 
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetSplash(splash);
+    spittingAntTower.SetProjectile(splash);
 
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplashExplosion(splashExplosion);

@@ -87,7 +87,7 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.VENOM_POWER]; }
     set { data[TowerData.Stat.VENOM_STACKS] = value; }
   }
-  public float VenomStack {
+  public float VenomStacks {
     get { return data[TowerData.Stat.VENOM_STACKS]; }
     set { data[TowerData.Stat.VENOM_STACKS] = value; }
   }

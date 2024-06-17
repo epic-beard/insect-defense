@@ -295,23 +295,6 @@ public class Enemy : MonoBehaviour {
     return (tenStacks + 1) * Time.deltaTime;
   }
 
-  // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
-  // No other method should try to handle Enemy death.
-  public float DealPhysicalDamage(float damage, float armorPierce, bool continuous = false) {
-    float effectiveArmor = Mathf.Clamp(Armor - armorPierce, 0.0f, 100.0f);
-
-    damage *= (100.0f - effectiveArmor) / 100.0f;
-
-    if (continuous) {
-      accumulatedContinuousDamage += damage * (1 + continuousDamageWeakenPower);
-      HP -= damage;
-    } else {
-      DealDamage(damage * (1 + PopVenomStack()), DamageText.DamageType.PHYSICAL);
-    }
-
-    return HP;
-  }
-
   // Return the new armor total after the tear is applied.
   public float TearArmor(float armorTear) {
     Armor = Mathf.Max(Armor - armorTear, 0.0f);
@@ -361,6 +344,23 @@ public class Enemy : MonoBehaviour {
 
   public bool IsVenomStacksEmpty() {
     return venomStacks.Count == 0;
+  }
+
+  // Damage this enemy while taking armor piercing into account. This method is responsible for initiating death.
+  // No other method should try to handle Enemy death.
+  public float DealPhysicalDamage(float damage, float armorPierce, bool continuous = false) {
+    float effectiveArmor = Mathf.Clamp(Armor - armorPierce, 0.0f, 100.0f);
+
+    damage *= (100.0f - effectiveArmor) / 100.0f;
+
+    if (continuous) {
+      accumulatedContinuousDamage += damage * (1 + continuousDamageWeakenPower);
+      HP -= damage;
+    } else {
+      DealDamage(damage * (1 + PopVenomStack()), DamageText.DamageType.PHYSICAL);
+    }
+
+    return HP;
   }
 
   // To apply physical damage call DealPhysicalDamage, which will call this.

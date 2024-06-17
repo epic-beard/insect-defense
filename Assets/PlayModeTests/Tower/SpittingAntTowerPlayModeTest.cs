@@ -57,7 +57,7 @@ public class SpittingAntTowerPlayModeTest {
     spittingAntTower.SetUpperMesh(upperMesh);
 
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
-    spittingAntTower.SetSplash(splash);
+    spittingAntTower.SetProjectile(splash);
 
     ParticleSystem splashExplosion = new GameObject().AddComponent<ParticleSystem>();
     spittingAntTower.SetSplashExplosion(splashExplosion);
@@ -82,7 +82,6 @@ public class SpittingAntTowerPlayModeTest {
         acidStacks: 50.0f,
         attackSpeed: 1.0f,
         areaOfEffect: 10.0f,
-        armorTear: enemyArmor,
         damage: 100.0f,
         range: 1.0f,
         slowDuration: 10.0f,
@@ -132,21 +131,23 @@ public class SpittingAntTowerPlayModeTest {
       float acidStacks = 0.0f,
       float attackSpeed = 0.0f,
       float areaOfEffect = 0.0f,
-      float armorTear = 0.0f,
       float damage = 0.0f,
       float range = 0.0f,
       float slowDuration = 0.0f,
       float slowPower = 0.0f,
-      float stunTime = 0.0f) {
+      float stunTime = 0.0f,
+      float venomPower = 0.0f,
+      float venomStacks = 0.0f) {
     spittingAntTower.AttackSpeed = attackSpeed;
     spittingAntTower.AreaOfEffect = areaOfEffect;
-    spittingAntTower.ArmorTear = armorTear;
     spittingAntTower.Damage = damage;
     spittingAntTower.AcidStacks = acidStacks;
     spittingAntTower.Range = range;
     spittingAntTower.SlowDuration = slowDuration;
     spittingAntTower.SlowPower = slowPower;
     spittingAntTower.StunTime = stunTime;
+    spittingAntTower.VenomPower = venomPower;
+    spittingAntTower.VenomStacks = venomStacks;
   }
 
   // Create an enemy prefab.
