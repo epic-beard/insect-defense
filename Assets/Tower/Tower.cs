@@ -10,6 +10,10 @@ public abstract class Tower : MonoBehaviour {
   [SerializeField] protected Transform rangeIndicator;
 
   #region PublicProperties
+  public float AcidStacks {
+    get { return data[TowerData.Stat.ACID_STACKS]; }
+    set { data[TowerData.Stat.ACID_STACKS] = value; }
+  }
   public float AttackSpeed {
     get { return data[TowerData.Stat.ATTACK_SPEED]; }
     set { data[TowerData.Stat.ATTACK_SPEED] = value; }
@@ -25,11 +29,11 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.ARMOR_PIERCE]; }
     set { data[TowerData.Stat.ARMOR_PIERCE] = value; }
   }
-  public float ArmorTear {
-    get { return data[TowerData.Stat.ARMOR_TEAR]; }
-    set { data[TowerData.Stat.ARMOR_TEAR] = value; }
-  }
   public float BaseAttackSpeed { get; private set; }
+  public float BleedStacks {
+    get { return data[TowerData.Stat.BLEED_STACKS]; }
+    set { data[TowerData.Stat.BLEED_STACKS] = value; }
+  }
   public float Cost {
     get { return data[TowerData.Stat.COST]; }
     set { data[TowerData.Stat.COST] = value; }
@@ -37,10 +41,6 @@ public abstract class Tower : MonoBehaviour {
   public float Damage {
     get { return data[TowerData.Stat.DAMAGE]; }
     set { data[TowerData.Stat.DAMAGE] = value; }
-  }
-  public float DamageOverTime {
-    get { return data[TowerData.Stat.DAMAGE_OVER_TIME]; }
-    set { data[TowerData.Stat.DAMAGE_OVER_TIME] = value; }
   }
   public float DazzleTime { get; set; }
   public virtual int EnemiesHit {
@@ -83,6 +83,15 @@ public abstract class Tower : MonoBehaviour {
     get { return data[TowerData.Stat.STUN_TIME]; }
     set { data[TowerData.Stat.STUN_TIME] = value; }
   }
+  public float VenomPower {
+    get { return data[TowerData.Stat.VENOM_POWER]; }
+    set { data[TowerData.Stat.VENOM_STACKS] = value; }
+  }
+  public float VenomStacks {
+    get { return data[TowerData.Stat.VENOM_STACKS]; }
+    set { data[TowerData.Stat.VENOM_STACKS] = value; }
+  }
+
   public TowerData.Tooltip tooltip {
     get { return data.tooltip; }
   }
@@ -364,12 +373,11 @@ public abstract class Tower : MonoBehaviour {
     return Name + "\n"
         + "  Area of effect: " + AreaOfEffect + "\n"
         + "  Armor piercing: " + ArmorPierce + "\n"
-        + "  Armor tear: " + ArmorTear + "\n"
         + "  Attack speed: " + AttackSpeed + "\n"
         + "  Base attack speed: " + BaseAttackSpeed + "\n"
         + "  Cost: " + Cost + "\n"
         + "  Damage: " + Damage + "\n"
-        + "  Damage over time: " + DamageOverTime + "\n"
+        + "  Damage over time: " + AcidStacks + "\n"
         + "  Effective attack speed: " + EffectiveAttackSpeed + "\n"
         + "  Projectile speed: " + ProjectileSpeed + "\n"
         + "  Range: " + Range + "\n"

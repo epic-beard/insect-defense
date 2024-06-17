@@ -59,13 +59,13 @@ public class EnemyDataGenerator {
     EnemyData data = new() {
       type = EnemyData.Type.BEETLE,
       size = EnemyData.Size.SMALL,
-      maxHP = 30.0f,
-      maxArmor = 10.0f,
+      maxHP = 65.0f,
+      maxArmor = 25.0f,
       speed = 0.25f,
       damage = 10,
-      nu = 10,
+      nu = 20,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 2.5f,
+      spawnVariance = 2.0f,
       infectionLevel = 0,
     };
 

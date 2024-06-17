@@ -19,7 +19,12 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>ARMOR_TEAR</attribute>
+                  <attribute>VENOM_POWER</attribute>
+                  <mode>SET</mode>
+                  <mod>0.25</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>VENOM_STACKS</attribute>
                   <mode>SET</mode>
                   <mod>1</mod>
                 </AttributeModifier>
@@ -29,8 +34,8 @@
                   <mod>1.15</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>Armor Tear!</name>
-              <description>Adds 1 point of armor tear and grant 15% extra damage.</description>
+              <name>Venom!</name>
+              <description>Attacks apply 1 stack of 25% venom and inflict 15% extra damage.</description>
               <upgradePath>0</upgradePath>
               <cost>50</cost>
             </TowerAbility>
@@ -38,9 +43,14 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>ARMOR_TEAR</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>1</mod>
+                  <attribute>VENOM_POWER</attribute>
+                  <mode>SET</mode>
+                  <mod>0.4</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>VENOM_STACKS</attribute>
+                  <mode>SET</mode>
+                  <mod>2</mod>
                 </AttributeModifier>
                 <AttributeModifier>
                   <attribute>DAMAGE</attribute>
@@ -48,13 +58,13 @@
                   <mod>1.25</mod>
                 </AttributeModifier>
               </attributeModifiers>
-              <name>More Armor Tear</name>
-              <description>Increases armor tear to 2 and grant 25% extra damage.</description>
+              <name>More venom</name>
+              <description>Attacks apply 2 stacks of 40% venom and inflict 25% extra damage.</description>
               <upgradePath>0</upgradePath>
               <cost>200</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_1_3_ARMOR_TEAR_ACID_BONUS</specialAbility>
+              <specialAbility>SA_1_3_ACIDIC_SYNERGY</specialAbility>
               <name>Acid Breakdown</name>
               <description>When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.</description>
               <upgradePath>0</upgradePath>
@@ -64,8 +74,13 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>ARMOR_TEAR</attribute>
-                  <mode>ADDITIVE</mode>
+                  <attribute>VENOM_POWER</attribute>
+                  <mode>SET</mode>
+                  <mod>0.6</mod>
+                </AttributeModifier>
+                <AttributeModifier>
+                  <attribute>VENOM_STACKS</attribute>
+                  <mode>SET</mode>
                   <mod>3</mod>
                 </AttributeModifier>
               </attributeModifiers>
@@ -75,7 +90,7 @@
               <cost>10</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_1_5_ARMOR_TEAR_EXPLOSION</specialAbility>
+              <specialAbility>SA_1_5_VENOM_CORPSEPLOSION</specialAbility>
               <name>Armor Tear Explosion</name>
               <description>Armor tear now applies to all enemies caught in the splash explosion.</description>
               <upgradePath>0</upgradePath>
@@ -87,7 +102,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>ACID_STACKS</attribute>
                   <mode>SET</mode>
                   <mod>5</mod>
                 </AttributeModifier>
@@ -106,7 +121,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>ACID_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
                 </AttributeModifier>
@@ -132,7 +147,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>ACID_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
                 </AttributeModifier>
@@ -217,13 +232,13 @@
         <name>Spitting Ant Tower</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
-        <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>100</cost>
         <damage>10</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>100</projectile_speed>
         <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
@@ -231,6 +246,8 @@
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -468,13 +485,13 @@
         <name>Web Shooting Spider Tower</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
-        <armor_tear>0</armor_tear>
         <attack_speed>0.75</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>50</cost>
         <damage>0</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>20</projectile_speed>
         <range>25</range>
         <secondary_slow_potency>0.5</secondary_slow_potency>
@@ -482,6 +499,8 @@
         <slow_duration>4</slow_duration>
         <slow_power>0.3</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -537,15 +556,9 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>ARMOR_TEAR</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
-                </AttributeModifier>
-              </attributeModifiers>
-              <name>Armor Tear</name>
-              <description>Increases armor tear by 30%.</description>
+              <attributeModifiers />
+              <name>&lt;UPGRADE NAME&gt;</name>
+              <description>&lt;UPGRADE DESCRIPTION&gt;</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -670,13 +683,13 @@
         <name>Assassin Bug</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0.2</armor_pierce>
-        <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>50</cost>
         <damage>30</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
         <range>40</range>
         <secondary_slow_potency>0</secondary_slow_potency>
@@ -684,6 +697,8 @@
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -779,7 +794,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>SET</mode>
                   <mod>15</mod>
                 </AttributeModifier>
@@ -798,7 +813,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>15</mod>
                 </AttributeModifier>
@@ -824,7 +839,7 @@
               <specialAbility>NONE</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>30</mod>
                 </AttributeModifier>
@@ -843,7 +858,7 @@
               <specialAbility>M_2_5_BLOODY_EXECUTION</specialAbility>
               <attributeModifiers>
                 <AttributeModifier>
-                  <attribute>DAMAGE_OVER_TIME</attribute>
+                  <attribute>BLEED_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>20</mod>
                 </AttributeModifier>
@@ -916,13 +931,13 @@
         <name>Mantis</name>
         <icon_path>Icons/test</icon_path>
         <enemies_hit>0</enemies_hit>
+        <acid_stacks>0</acid_stacks>
         <area_of_effect>3</area_of_effect>
         <armor_pierce>5</armor_pierce>
-        <armor_tear>0</armor_tear>
         <attack_speed>0.5</attack_speed>
+        <bleed_stacks>0</bleed_stacks>
         <cost>150</cost>
         <damage>7</damage>
-        <damage_over_time>0</damage_over_time>
         <projectile_speed>0</projectile_speed>
         <range>15</range>
         <secondary_slow_potency>0</secondary_slow_potency>
@@ -930,6 +945,8 @@
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
+        <venom_power>0</venom_power>
+        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>

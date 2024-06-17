@@ -22,29 +22,31 @@ public class TowerDataGenerator {
   }
 
   private TowerData GetSpittingAntTowerData() {
-    var armorTearUpgrades = new TowerAbility[] {
+    var venomUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.SET, 1.0f),
+          GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.25f),
+          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 1.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
         },
-        name = "Armor Tear!",
-        description = "Adds 1 point of armor tear and grant 15% extra damage.",
+        name = "Venom!",
+        description = "Attacks apply 1 stack of 25% venom and inflict 15% extra damage.",
         upgradePath = 0,
         cost = 50,
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.ADDITIVE, 1.0f),
+          GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.4f),
+          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 2.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
-        name = "More Armor Tear",
-        description = "Increases armor tear to 2 and grant 25% extra damage.",
+        name = "More venom",
+        description = "Attacks apply 2 stacks of 40% venom and inflict 25% extra damage.",
         upgradePath = 0,
         cost = 200,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
+        specialAbility = SpecialAbility.SA_1_3_ACIDIC_SYNERGY,
         name = "Acid Breakdown",
         description = "When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.",
         upgradePath = 0,
@@ -52,7 +54,8 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.ADDITIVE, 3.0f)
+          GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.6f),
+          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 3.0f),
         },
         name = "Max Armor Tear",
         description = "Increases armor tear to 5.",
@@ -60,7 +63,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        specialAbility = SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION,
+        specialAbility = SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION,
         name = "Armor Tear Explosion",
         description = "Armor tear now applies to all enemies caught in the splash explosion.",
         upgradePath = 0,
@@ -70,7 +73,7 @@ public class TowerDataGenerator {
     var acidUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 5.0f),
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 5.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
         },
         name = "Acid!",
@@ -80,7 +83,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "More Acid",
@@ -97,7 +100,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 5.0f)
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5.0f)
         },
         name = "Spray that acid",
         description = "Acid inflicted is raised to 15",
@@ -163,7 +166,7 @@ public class TowerDataGenerator {
         first = "Armor Tear",
         second = "Acid Power",
         third = "Utility",
-        firstPathUpgrades = armorTearUpgrades,
+        firstPathUpgrades = venomUpgrades,
         secondPathUpgrades = acidUpgrades,
         thirdPathUpgrades = utilityUpgrades,
       },
@@ -176,11 +179,10 @@ public class TowerDataGenerator {
       icon_path = "Icons/test",
       area_of_effect = 10,
       armor_pierce = 0,
-      armor_tear = 0,
       attack_speed = 0.5f,
       cost = 100,
       damage = 10,
-      damage_over_time = 0,
+      acid_stacks = 0,
       enemies_hit = 0,
       projectile_speed = 100,
       range = 20,
@@ -189,6 +191,8 @@ public class TowerDataGenerator {
       slow_duration = 0,
       slow_power = 0.0f,
       stun_time = 0,
+      venom_power = 0,
+      venom_stacks = 0,
     };
 
     return data;
@@ -353,11 +357,10 @@ public class TowerDataGenerator {
       icon_path = "Icons/test",
       area_of_effect = 10,
       armor_pierce = 0,
-      armor_tear = 0,
       attack_speed = 0.75f,
       cost = 50,
       damage = 0,
-      damage_over_time = 0,
+      acid_stacks = 0,
       enemies_hit = 0,
       projectile_speed = 20,
       range = 25,
@@ -366,6 +369,8 @@ public class TowerDataGenerator {
       slow_duration = 4,
       slow_power = 0.3f,
       stun_time = 0,
+      venom_power = 0,
+      venom_stacks = 0,
     };
 
     return data;
@@ -400,10 +405,9 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.MULTIPLICATIVE, 1.3f)
         },
-        name = "Armor Tear",
-        description = "Increases armor tear by 30%.",
+        name = "<UPGRADE NAME>",
+        description = "<UPGRADE DESCRIPTION>",
         upgradePath = 0,
         cost = 10,
       },
@@ -519,11 +523,10 @@ public class TowerDataGenerator {
       icon_path = "Icons/test",
       area_of_effect = 0,
       armor_pierce = 0.2f,
-      armor_tear = 0,
       attack_speed = 0.5f,
       cost = 50,
       damage = 30,
-      damage_over_time = 0,
+      acid_stacks = 0,
       enemies_hit = 0,
       projectile_speed = 0,
       range = 40,
@@ -532,6 +535,8 @@ public class TowerDataGenerator {
       slow_duration = 0,
       slow_power = 0,
       stun_time = 0,
+      venom_power = 0,
+      venom_stacks = 0,
     };
 
     return data;
@@ -587,7 +592,7 @@ public class TowerDataGenerator {
     var bleedUpgrades = new TowerAbility[] {
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.SET, 15),
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.SET, 15),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Vicious Claws",
@@ -597,7 +602,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 15),
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 15),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Microstructures",
@@ -615,7 +620,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 30),
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 30),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Anticoagulant Chemicals",
@@ -625,7 +630,7 @@ public class TowerDataGenerator {
       },
       new() {
         attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.ADDITIVE, 20)
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 20)
         },
         specialAbility = SpecialAbility.M_2_5_BLOODY_EXECUTION,
         name = "Bloody Execution",
@@ -697,11 +702,10 @@ public class TowerDataGenerator {
       icon_path = "Icons/test",
       area_of_effect = 3.0f,
       armor_pierce = 5.0f,
-      armor_tear = 0,
       attack_speed = 0.5f,
       cost = 150,
       damage = 7,
-      damage_over_time = 0,
+      acid_stacks = 0,
       projectile_speed = 0,
       range = 15.0f,
       secondary_slow_potency = 0,
@@ -709,169 +713,8 @@ public class TowerDataGenerator {
       slow_duration = 0,
       slow_power = 0,
       stun_time = 0,
-    };
-
-    return data;
-  }
-
-  private TowerData GetTowerData() {
-    var firstPathUpgrades = new TowerAbility[] {
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.MULTIPLICATIVE, 1.1f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 0,
-        cost = 10,
-      },
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.MULTIPLICATIVE, 1.2f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 0,
-        cost = 10,
-      },
-      new() {
-        specialAbility = SpecialAbility.SA_1_3_ARMOR_TEAR_ACID_BONUS,
-        name = "",
-        description = "",
-        upgradePath = 0,
-        cost = 10,
-      },
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ARMOR_TEAR, Mode.MULTIPLICATIVE, 1.3f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 0,
-        cost = 10,
-      },
-      new() {
-        specialAbility = SpecialAbility.SA_1_5_ARMOR_TEAR_EXPLOSION,
-        name = "",
-        description = "",
-        upgradePath = 0,
-        cost = 10,
-      }
-    };
-    var secondPathUpgrades = new TowerAbility[] {
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.1f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 1,
-        cost = 10,
-      },
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.2f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 1,
-        cost = 10,
-      },
-      new() {
-        specialAbility = SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
-        name = "",
-        description = "",
-        upgradePath = 1,
-        cost = 10,
-      },
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.DAMAGE_OVER_TIME, Mode.MULTIPLICATIVE, 1.3f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 1,
-        cost = 10,
-      },
-      new() {
-        specialAbility = SpecialAbility.SA_2_5_DOT_ENHANCEMENT,
-        name = "",
-        description = "",
-        upgradePath = 1,
-        cost = 10,
-      }
-    };
-    var thirdPathUpgrades = new TowerAbility[] {
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.AREA_OF_EFFECT, Mode.MULTIPLICATIVE, 1.1f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 2,
-        cost = 10,
-      },
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.RANGE, Mode.MULTIPLICATIVE, 1.1f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 2,
-        cost = 10,
-      },
-      new() {
-        specialAbility = SpecialAbility.SA_3_3_ANTI_AIR,
-        name = "",
-        description = "",
-        upgradePath = 2,
-        cost = 10,
-      },
-      new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.2f)
-        },
-        name = "",
-        description = "",
-        upgradePath = 2,
-        cost = 10,
-      },
-      new() {
-        specialAbility = SpecialAbility.SA_3_5_CONSTANT_FIRE,
-        name = "",
-        description = "",
-        upgradePath = 2,
-        cost = 10,
-      }
-    };
-
-    TowerData data = new() {
-      type = TowerData.Type.SPITTING_ANT_TOWER,
-      upgradeTreeData = new() {
-        first = "",
-        second = "",
-        third = "",
-        firstPathUpgrades = firstPathUpgrades,
-        secondPathUpgrades = secondPathUpgrades,
-        thirdPathUpgrades = thirdPathUpgrades,
-      },
-
-      name = "",
-      icon_path = "",
-      area_of_effect = 10,
-      armor_pierce = 0,
-      armor_tear = 0,
-      attack_speed = 1,
-      cost = 50,
-      damage = 0,
-      damage_over_time = 0,
-      projectile_speed = 20,
-      range = 20,
-      secondary_slow_potency = 0.5f,
-      secondary_slow_targets = 0,
-      slow_duration = 2,
-      slow_power = 0.4f,
-      stun_time = 0,
+      venom_power = 0,
+      venom_stacks = 0,
     };
 
     return data;

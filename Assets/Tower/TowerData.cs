@@ -11,14 +11,13 @@ public struct TowerData {
     WEB_SHOOTING_SPIDER_TOWER,
   }
   public enum Stat {
+    ACID_STACKS,  // Number of acid stacks inflicted per attack.
     AREA_OF_EFFECT,  // The radius of area of effect effects.
     ARMOR_PIERCE,  // The amount of enemy armor each attack ignores.
-    ARMOR_TEAR,  // The amount by which this tower permanently reduces enemy armor.
     ATTACK_SPEED,  // The number of attacks per second.
+    BLEED_STACKS,  // Number of bleed stacks inflicted per attack.
     COST, // Cost to build this tower.
     DAMAGE,  // The raw damage this tower inflicts per attack.
-    DAMAGE_OVER_TIME,  // Damage per second.
-    ENEMIES_HIT,  // How many enemies can be hit
     PROJECTILE_SPEED,  // How quickly the projectile this tower fires will move towards the targeted enemy.
     RANGE,  // The maximum range of a tower's attacks.
     SECONDARY_SLOW_POTENCY,  // The percentage of the regular slow to apply.
@@ -26,6 +25,8 @@ public struct TowerData {
     SLOW_DURATION,  // Slow duration in seconds.
     SLOW_POWER,  // This is a percentage slow from 0.0 - 1.0.
     STUN_TIME,  // Stun duration in seconds.
+    VENOM_POWER,  // Amount of extra damage the tower's target takes.
+    VENOM_STACKS,  // Number of venom stacks this tower inflicts per attack.
   }
 
   public class Tooltip {
@@ -81,13 +82,13 @@ public struct TowerData {
   public string name;
   public string icon_path;
   public int enemies_hit;
+  public float acid_stacks;
   public float area_of_effect;
   public float armor_pierce;
-  public float armor_tear;
   public float attack_speed;
+  public float bleed_stacks;
   public float cost;
   public float damage;
-  public float damage_over_time;
   public float projectile_speed;
   public float range;
   public float secondary_slow_potency;
@@ -95,18 +96,20 @@ public struct TowerData {
   public float slow_duration;
   public float slow_power;
   public float stun_time;
+  public float venom_power;
+  public float venom_stacks;
 
 
   public float this[Stat stat] {
     get {
       return stat switch {
+        Stat.ACID_STACKS => acid_stacks,
         Stat.AREA_OF_EFFECT => area_of_effect,
         Stat.ARMOR_PIERCE => armor_pierce,
-        Stat.ARMOR_TEAR => armor_tear,
         Stat.ATTACK_SPEED => attack_speed,
+        Stat.BLEED_STACKS => bleed_stacks,
         Stat.COST => cost,
         Stat.DAMAGE => damage,
-        Stat.DAMAGE_OVER_TIME => damage_over_time,
         Stat.PROJECTILE_SPEED => projectile_speed,
         Stat.RANGE => range,
         Stat.SECONDARY_SLOW_POTENCY => secondary_slow_potency,
@@ -114,18 +117,20 @@ public struct TowerData {
         Stat.SLOW_DURATION => slow_duration,
         Stat.SLOW_POWER => slow_power,
         Stat.STUN_TIME => stun_time,
+        Stat.VENOM_POWER => venom_power,
+        Stat.VENOM_STACKS => venom_stacks,
         _ => 0.0f,
       };
     }
     set {
       switch (stat) {
+        case Stat.ACID_STACKS: acid_stacks = value; break;
         case Stat.AREA_OF_EFFECT: area_of_effect = value; break;
         case Stat.ARMOR_PIERCE: armor_pierce = value; break;
-        case Stat.ARMOR_TEAR: armor_tear = value; break;
         case Stat.ATTACK_SPEED: attack_speed = value; break;
+        case Stat.BLEED_STACKS: bleed_stacks = value; break;
         case Stat.COST: cost = value; break;
         case Stat.DAMAGE: damage = value; break;
-        case Stat.DAMAGE_OVER_TIME: damage_over_time = value; break;
         case Stat.PROJECTILE_SPEED: projectile_speed = value; break;
         case Stat.RANGE: range = value; break;
         case Stat.SECONDARY_SLOW_POTENCY: secondary_slow_potency = value; break;
@@ -133,6 +138,8 @@ public struct TowerData {
         case Stat.SLOW_DURATION: slow_duration = value; break;
         case Stat.SLOW_POWER: slow_power = value; break;
         case Stat.STUN_TIME: stun_time = value; break;
+        case Stat.VENOM_POWER: venom_power = value; break;
+        case Stat.VENOM_STACKS: venom_stacks = value; break;
       }
     }
   }
