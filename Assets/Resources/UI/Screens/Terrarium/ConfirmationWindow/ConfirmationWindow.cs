@@ -7,16 +7,16 @@ using UnityEngine.UIElements;
 public class ConfirmationWindow : MonoBehaviour {
   public static ConfirmationWindow Instance;
 
-  private static readonly string textLabelName = "confirmation_window_label";
-  private static readonly string yesButtonName = "yes_button";
-  private static readonly string noButtonName = "no_button";
-  private static readonly string windowName = "confirmation_window";
+  private static readonly string windowName = "confirmation-window";
+  private static readonly string textLabelName = "confirmation-window-label";
+  private static readonly string yesButtonName = "yes-button";
+  private static readonly string noButtonName = "no-button";
 
   private UIDocument uiDocument;
+  private VisualElement window;
   private Label textLabel;
   private Button yesButton;
   private Button noButton;
-  private VisualElement window;
 
   private Action action;
   private bool hasRun;
@@ -32,13 +32,23 @@ public class ConfirmationWindow : MonoBehaviour {
     uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
     
+    window = rootElement.Q<VisualElement>(windowName);
     textLabel = rootElement.Q<Label>(textLabelName);
     yesButton = rootElement.Q<Button>(yesButtonName);
     noButton = rootElement.Q<Button>(noButtonName);
-    window = rootElement.Q<VisualElement>(windowName);
   }
 
   private void RegisterCallbacks() {
+    window.RegisterCallback<MouseLeaveEvent>(
+      (evt) => {
+        GameStateManager.Instance.IsMouseOverUI = false;
+      });
+
+    window.RegisterCallback<MouseEnterEvent>(
+      (evt) => {
+        GameStateManager.Instance.IsMouseOverUI = true;
+      });
+
     yesButton.RegisterCallback<ClickEvent>(
       (evt) => {
         if (!hasRun) {
@@ -47,18 +57,10 @@ public class ConfirmationWindow : MonoBehaviour {
         }
         CloseWindow();
       });
+
     noButton.RegisterCallback<ClickEvent>(
       (evt) => {
         CloseWindow(); 
-      });
-    window.RegisterCallback<MouseEnterEvent>(
-      (evt) => {
-        GameStateManager.Instance.IsMouseOverUI = true;
-      });
-
-    window.RegisterCallback<MouseLeaveEvent>(
-      (evt) => {
-        GameStateManager.Instance.IsMouseOverUI = false;
       });
   }
 
