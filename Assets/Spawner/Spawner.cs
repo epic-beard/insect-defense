@@ -12,6 +12,7 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
 using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.IntegerField>;
 using EnemyKey = System.Tuple<EnemyData.Type, int>;
+using UnityEngine.InputSystem.HID;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -649,5 +650,28 @@ public class Spawner : MonoBehaviour {
     public override bool AddWave(int index, Wave wave) {
       return false;
     }
+  }
+
+  // Used to break up patterns when sending single enemy waves.  Concurently spawns enemies at the given delays.
+  // relatively prime delays give best results.
+  public Wave GetOffsetWave(string enemyDataKey, float duration, List<float> delays, int spawnLocation = 1) {
+    ConcurrentWave wave = new();
+
+    foreach (float delay in delays) {
+      wave.Subwaves.Add(new CannedEnemyWave() {
+        enemyDataKey = enemyDataKey,
+        repetitions = (int) (duration / delay),
+        repeatDelay = delay,
+        spawnLocation = spawnLocation,
+        spawnAmmount = 1,
+      });
+    }
+    return wave;
+  }
+
+  public Wave GetConcurrentWave(params Wave[] waves) {
+    ConcurrentWave wave = new();
+    wave.Subwaves.AddRange(waves);
+    return wave;
   }
 }
