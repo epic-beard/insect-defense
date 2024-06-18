@@ -198,35 +198,73 @@ public class Level1WaveGenerator {
               "Check the Spitting Ant Tower upgrades."
           },
         },
-        new CannedEnemyWave {
-          enemyDataKey = beetle,
-          repetitions = 3,
-          repeatDelay = 4.0f,
-          spawnLocation = 0,
-          spawnAmmount = 1,
-        },
-        new WaitUntilDeadWave {},
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
-              enemyDataKey = ant,
+              enemyDataKey = beetle,
               repetitions = 3,
-              repeatDelay = 5.0f,
-              spawnLocation = 0,
-              spawnAmmount = 2,
-            },
-            new CannedEnemyWave() {
-              enemyDataKey = aphid,
-              repetitions = 8,
-              repeatDelay = 2.0f,
+              repeatDelay = 8.0f,
               spawnLocation = 0,
               spawnAmmount = 1,
+            },
+            new SequentialWave() {
+              Subwaves = {
+                new SpacerWave() {
+                  delay = 2.0f,
+                },
+                new ConcurrentWave {
+                  Subwaves = {
+                    new CannedEnemyWave() {
+                      enemyDataKey = aphid,
+                      repetitions = 8,
+                      repeatDelay = 2.2f,
+                      spawnLocation = 0,
+                      spawnAmmount = 1,
+                    },
+                    new CannedEnemyWave() {
+                      enemyDataKey = aphid,
+                      repetitions = 6,
+                      repeatDelay = 3.3f,
+                      spawnLocation = 0,
+                      spawnAmmount = 1,
+                    },
+                  },
+                },
+              },
             },
           },
         },
         new SpacerWave() {
-          delay = 1.0f,
+          delay = 8.0f,
         },
+        new CannedEnemyWave() {
+          enemyDataKey = aphid,
+          repetitions = 1,
+          repeatDelay = 8.0f,
+          spawnLocation = 0,
+          spawnAmmount = 3,
+        },
+        new SpacerWave() {
+          delay = 3.0f,
+        },
+        new CannedEnemyWave() {
+          enemyDataKey = ant,
+          repetitions = 1,
+          repeatDelay = 8.0f,
+          spawnLocation = 0,
+          spawnAmmount = 3,
+        },
+        new SpacerWave() {
+          delay = 2.0f,
+        },
+        new CannedEnemyWave() {
+          enemyDataKey = beetle,
+          repetitions = 1,
+          repeatDelay = 8.0f,
+          spawnLocation = 0,
+          spawnAmmount = 3,
+        },
+        new WaitUntilDeadWave {},
         new DialogueBoxWave {
           messages = {
               "Congratulations! You beat the first level. Time to return to the lab and plan your next steps."
@@ -236,7 +274,7 @@ public class Level1WaveGenerator {
     };
 
     Waves waves = new() {
-      waves = { thirdWave },
+      waves = { firstWave, secondWave, thirdWave },
     };
 
     Serialize<Waves>(waves, filename);

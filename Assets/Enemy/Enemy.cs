@@ -311,7 +311,7 @@ public class Enemy : MonoBehaviour {
     var stack = venomStacks.First();
     venomStacks[stack.Key]--;
     if (venomStacks[stack.Key] <= 0) venomStacks.Remove(stack.Key);
-    return stack.Value;
+    return stack.Key;
   }
 
   public bool IsVenomStacksEmpty() {
