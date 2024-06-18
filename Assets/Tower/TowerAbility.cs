@@ -49,14 +49,15 @@ public struct TowerAbility {
 
   // This describes a single change to an attribute.
   [Serializable]
-  public struct AttributeModifier {
+  public struct AttributeModifier<T> {
     public TowerData.Stat attribute;
     public Mode mode;
-    public float mod;
+    public T mod;
   }
 
   public SpecialAbility specialAbility;
-  public AttributeModifier[] attributeModifiers;
+  public AttributeModifier<float>[] floatAttributeModifiers;
+  public AttributeModifier<int>[] intAttributeModifiers;
   public string name;
   public string description;
   public int upgradePath;

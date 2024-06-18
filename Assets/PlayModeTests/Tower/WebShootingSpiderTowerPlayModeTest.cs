@@ -210,7 +210,7 @@ public class WebShootingSpiderTowerPlayModeTest {
         range: 1.0f,
         slowDuration: 10.0f,
         slowPower: slowPower);
-    TowerAbility ability = CreateTowerAbility(secondarySlowPower, 2.0f);
+    TowerAbility ability = CreateTowerAbility(secondarySlowPower, 2);
     wssTower.Upgrade(ability);
     var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
     target.Initialize(targetWaypoint);
@@ -384,15 +384,16 @@ public class WebShootingSpiderTowerPlayModeTest {
     return waypoint;
   }
 
-  private TowerAbility CreateTowerAbility(float secondarySlow, float secondaryTargets) {
+  private TowerAbility CreateTowerAbility(float secondarySlow, int secondaryTargets) {
     TowerAbility ability = new();
-    ability.attributeModifiers = new TowerAbility.AttributeModifier[2];
-    ability.attributeModifiers[0].attribute = TowerData.Stat.SECONDARY_SLOW_POTENCY;
-    ability.attributeModifiers[0].mode = TowerAbility.Mode.SET;
-    ability.attributeModifiers[0].mod = secondarySlow;
-    ability.attributeModifiers[1].attribute = TowerData.Stat.SECONDARY_SLOW_TARGETS;
-    ability.attributeModifiers[1].mode = TowerAbility.Mode.SET;
-    ability.attributeModifiers[1].mod = secondaryTargets;
+    ability.floatAttributeModifiers = new TowerAbility.AttributeModifier<float>[1];
+    ability.floatAttributeModifiers[0].attribute = TowerData.Stat.SECONDARY_SLOW_POTENCY;
+    ability.floatAttributeModifiers[0].mode = TowerAbility.Mode.SET;
+    ability.floatAttributeModifiers[0].mod = secondarySlow;
+    ability.intAttributeModifiers = new TowerAbility.AttributeModifier<int>[1];
+    ability.intAttributeModifiers[0].attribute = TowerData.Stat.SECONDARY_SLOW_TARGETS;
+    ability.intAttributeModifiers[0].mode = TowerAbility.Mode.SET;
+    ability.intAttributeModifiers[0].mod = secondaryTargets;
     ability.upgradePath = 1;
 
     return ability;

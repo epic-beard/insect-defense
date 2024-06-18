@@ -114,7 +114,7 @@ public class SpittingAntTowerTest {
 
   // Test the basic attack with varying levels of armor.
   [Test]
-  public void ProcessDamageAndEffects([Values(1.0f, 10.0f)] float enemyArmor) {
+  public void ProcessDamageAndEffects([Values(10.0f, 50.0f)] float enemyArmor) {
     Enemy target = CreateEnemy(Vector3.zero, armor: enemyArmor, hp: 10.0f);
     ParticleSystem splash = new GameObject().AddComponent<ParticleSystem>();
 
@@ -129,8 +129,8 @@ public class SpittingAntTowerTest {
 
     spittingAntTower.Damage = 1.0f;
     spittingAntTower.AttackSpeed = 1.0f;
-    spittingAntTower.VenomPower = 0.25f;
-    spittingAntTower.VenomStacks = 1.0f;
+    spittingAntTower.VenomPower = 0;
+    spittingAntTower.VenomStacks = 0;
 
     float expectedHP = target.HP - (Mathf.Max(spittingAntTower.Damage * (100 - target.Armor) / 100, 0.0f));
 

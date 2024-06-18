@@ -20,7 +20,7 @@ public class SpittingAntTower : Tower {
   public bool AcidEnhancement { get; private set; } = false;
   public float AcidDecayDelay { get; private set; } = 10.0f;
   public float SplashExplosionRange {
-    get { return data[TowerData.Stat.AREA_OF_EFFECT] * splashExplosionMultiplier; }
+    get { return data.area_of_effect * splashExplosionMultiplier; }
   }
   public override TowerData.Type Type { get; set; } = TowerData.Type.SPITTING_ANT_TOWER;
 
@@ -73,6 +73,11 @@ public class SpittingAntTower : Tower {
       // Calculate continuous damage, armor tear, etc. for application below.
       onHitDamage *= EffectiveAttackSpeed * Time.deltaTime;
       acidStacks *= EffectiveAttackSpeed * Time.deltaTime;
+    }
+
+    // Venom effects.
+    if (VenomStacks > 0) {
+      target.AddVenomStacks(VenomPower, (int) VenomStacks);
     }
 
     // Acid DoT effects.

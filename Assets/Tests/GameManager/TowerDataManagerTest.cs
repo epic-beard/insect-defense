@@ -27,9 +27,9 @@ public class TowerDataManagerTest {
       area_of_effect = 1.0f,
       armor_pierce = 2.0f,
       attack_speed = 4.0f,
-      cost = 10.0f,
+      cost = 10,
       damage = 5.0f,
-      acid_stacks = 6.0f,
+      acid_stacks = 6,
       projectile_speed = 7.0f,
       range = 8.0f,
       slow_duration = 9.0f,
@@ -38,7 +38,7 @@ public class TowerDataManagerTest {
 
     };
 
-    TowerAbility.AttributeModifier modifier = new() {
+    TowerAbility.AttributeModifier<float> modifier = new() {
       attribute = TowerData.Stat.RANGE,
       mode = TowerAbility.Mode.MULTIPLICATIVE,
       mod = 2.0f,
@@ -46,7 +46,7 @@ public class TowerDataManagerTest {
 
     TowerAbility ability = new() {
       specialAbility = TowerAbility.SpecialAbility.SA_1_3_ACIDIC_SYNERGY,
-      attributeModifiers = new TowerAbility.AttributeModifier[] {
+      floatAttributeModifiers = new TowerAbility.AttributeModifier<float>[] {
         modifier,
       },
       upgradePath = 3,
@@ -59,7 +59,6 @@ public class TowerDataManagerTest {
 
   [Test]
   public void GetTowerCostWorks() {
-    var comparer = new FloatEqualityComparer(10e-6f);
     Assert.That(tm.GetTowerCost(towerData), Is.EqualTo(10));
     tm.IncrementTowerCounts(towerData);
     Assert.That(tm.GetTowerCost(towerData), Is.EqualTo(12));
@@ -105,7 +104,8 @@ public class TowerDataManagerTest {
     TowerAbility actual = actualDictionary[TowerData.Type.SPITTING_ANT_TOWER][0][0];
 
     Assert.That(expected.specialAbility, Is.EqualTo(actual.specialAbility));
-    Assert.That(expected.attributeModifiers, Is.EqualTo(actual.attributeModifiers));
+    Assert.That(expected.floatAttributeModifiers, Is.EqualTo(actual.floatAttributeModifiers));
+    Assert.That(expected.intAttributeModifiers, Is.EqualTo(actual.intAttributeModifiers));
     Assert.That(expected.upgradePath, Is.EqualTo(actual.upgradePath));
     Assert.That(expected.name, Is.EqualTo(actual.name));
     Assert.That(expected.description, Is.EqualTo(actual.description));
