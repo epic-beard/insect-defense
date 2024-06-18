@@ -29,6 +29,7 @@ public struct TowerData {
     VENOM_STACKS,  // Number of venom stacks this tower inflicts per attack.
   }
 
+
   public class Tooltip {
     public string tooltipText = "";
 
@@ -81,66 +82,77 @@ public struct TowerData {
   public UpgradeTreeData upgradeTreeData;
   public string name;
   public string icon_path;
-  public int enemies_hit;
-  public float acid_stacks;
+
+  public int acid_stacks;
+  public int bleed_stacks;
+  public int cost;
+  public int secondary_slow_targets;
+  public int venom_stacks;
   public float area_of_effect;
   public float armor_pierce;
   public float attack_speed;
-  public float bleed_stacks;
-  public float cost;
   public float damage;
   public float projectile_speed;
   public float range;
   public float secondary_slow_potency;
-  public float secondary_slow_targets;
   public float slow_duration;
   public float slow_power;
   public float stun_time;
   public float venom_power;
-  public float venom_stacks;
 
 
-  public float this[Stat stat] {
-    get {
-      return stat switch {
-        Stat.ACID_STACKS => acid_stacks,
-        Stat.AREA_OF_EFFECT => area_of_effect,
-        Stat.ARMOR_PIERCE => armor_pierce,
-        Stat.ATTACK_SPEED => attack_speed,
-        Stat.BLEED_STACKS => bleed_stacks,
-        Stat.COST => cost,
-        Stat.DAMAGE => damage,
-        Stat.PROJECTILE_SPEED => projectile_speed,
-        Stat.RANGE => range,
-        Stat.SECONDARY_SLOW_POTENCY => secondary_slow_potency,
-        Stat.SECONDARY_SLOW_TARGETS => secondary_slow_targets,
-        Stat.SLOW_DURATION => slow_duration,
-        Stat.SLOW_POWER => slow_power,
-        Stat.STUN_TIME => stun_time,
-        Stat.VENOM_POWER => venom_power,
-        Stat.VENOM_STACKS => venom_stacks,
-        _ => 0.0f,
-      };
+
+  public int GetStat(Stat stat, int unused) {
+    return stat switch {
+      Stat.ACID_STACKS => acid_stacks,
+      Stat.BLEED_STACKS => bleed_stacks,
+      Stat.COST => cost,
+      Stat.SECONDARY_SLOW_TARGETS => secondary_slow_targets,
+      Stat.VENOM_STACKS => venom_stacks,
+      _ => throw new NotSupportedException(),
+    };
+  }
+
+  public float GetStat(Stat stat, float unused) {
+    return stat switch {
+      Stat.AREA_OF_EFFECT => area_of_effect,
+      Stat.ARMOR_PIERCE => armor_pierce,
+      Stat.ATTACK_SPEED => attack_speed,
+      Stat.DAMAGE => damage,
+      Stat.PROJECTILE_SPEED => projectile_speed,
+      Stat.RANGE => range,
+      Stat.SECONDARY_SLOW_POTENCY => secondary_slow_potency,
+      Stat.SLOW_DURATION => slow_duration,
+      Stat.SLOW_POWER => slow_power,
+      Stat.STUN_TIME => stun_time,
+      Stat.VENOM_POWER => venom_power,
+      _ => throw new NotSupportedException(),
+    };
+  }
+
+  public void SetStat(Stat stat, int newStat) {
+    switch(stat) {
+      case Stat.ACID_STACKS: acid_stacks = newStat; break;
+      case Stat.BLEED_STACKS: bleed_stacks = newStat; break;
+      case Stat.COST: cost = newStat; break;
+      case Stat.SECONDARY_SLOW_TARGETS: secondary_slow_targets = newStat; break;
+      case Stat.VENOM_STACKS: venom_stacks = newStat; break;
     }
-    set {
-      switch (stat) {
-        case Stat.ACID_STACKS: acid_stacks = value; break;
-        case Stat.AREA_OF_EFFECT: area_of_effect = value; break;
-        case Stat.ARMOR_PIERCE: armor_pierce = value; break;
-        case Stat.ATTACK_SPEED: attack_speed = value; break;
-        case Stat.BLEED_STACKS: bleed_stacks = value; break;
-        case Stat.COST: cost = value; break;
-        case Stat.DAMAGE: damage = value; break;
-        case Stat.PROJECTILE_SPEED: projectile_speed = value; break;
-        case Stat.RANGE: range = value; break;
-        case Stat.SECONDARY_SLOW_POTENCY: secondary_slow_potency = value; break;
-        case Stat.SECONDARY_SLOW_TARGETS: secondary_slow_targets = value; break;
-        case Stat.SLOW_DURATION: slow_duration = value; break;
-        case Stat.SLOW_POWER: slow_power = value; break;
-        case Stat.STUN_TIME: stun_time = value; break;
-        case Stat.VENOM_POWER: venom_power = value; break;
-        case Stat.VENOM_STACKS: venom_stacks = value; break;
-      }
+  }
+
+  public void SetStat(Stat stat, float newStat) {
+    switch (stat) {
+      case Stat.AREA_OF_EFFECT: area_of_effect = newStat; break;
+      case Stat.ARMOR_PIERCE: armor_pierce = newStat; break;
+      case Stat.ATTACK_SPEED: attack_speed = newStat; break;
+      case Stat.DAMAGE: damage = newStat; break;
+      case Stat.PROJECTILE_SPEED: projectile_speed = newStat; break;
+      case Stat.RANGE: range = newStat; break;
+      case Stat.SECONDARY_SLOW_POTENCY: secondary_slow_potency = newStat; break;
+      case Stat.SLOW_DURATION: slow_duration = newStat; break;
+      case Stat.SLOW_POWER: slow_power = newStat; break;
+      case Stat.STUN_TIME: stun_time = newStat; break;
+      case Stat.VENOM_POWER: venom_power = newStat; break;
     }
   }
  }

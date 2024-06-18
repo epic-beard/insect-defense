@@ -9,10 +9,13 @@ public abstract class Tower : MonoBehaviour {
   [SerializeField] protected Transform targetingIndicator;
   [SerializeField] protected Transform rangeIndicator;
 
+  private readonly int UnusedInteger = 1;
+  private readonly float UnusedFloat = 1.0f;
+
   #region PublicProperties
   public float AcidStacks {
-    get { return data[TowerData.Stat.ACID_STACKS]; }
-    set { data[TowerData.Stat.ACID_STACKS] = value; }
+    get { return data.GetStat(TowerData.Stat.ACID_STACKS, UnusedInteger); }
+    set { data.SetStat(TowerData.Stat.ACID_STACKS, value); }
   }
   public float AttackSpeed {
     get { return data[TowerData.Stat.ATTACK_SPEED]; }
@@ -211,30 +214,37 @@ public abstract class Tower : MonoBehaviour {
     if (ability.specialAbility != TowerAbility.SpecialAbility.NONE) {
       SpecialAbilityUpgrade(ability.specialAbility);
     }
-
-    if (ability.attributeModifiers != null) {
-      foreach (TowerAbility.AttributeModifier modifier in ability.attributeModifiers) {
-        switch (modifier.mode) {
-          case TowerAbility.Mode.MULTIPLICATIVE:
-            data[modifier.attribute] *= modifier.mod;
-            break;
-          case TowerAbility.Mode.ADDITIVE:
-            data[modifier.attribute] += modifier.mod;
-            break;
-          case TowerAbility.Mode.SET:
-            data[modifier.attribute] = modifier.mod;
-            break;
-        }
-        if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
-          UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
-        }
-        if (modifier.attribute == TowerData.Stat.RANGE) {
-          rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
-        }
-      }
+    if (ability.floatAttributeModifiers != null) {
+      AttributeUpgrade(ability.floatAttributeModifiers);
+    }
+    if (ability.intAttributeModifiers != null) {
+      AttributeUpgrade(ability.intAttributeModifiers);
     }
 
     upgradeIndex[ability.upgradePath]++;
+  }
+
+  private void AttributeUpgrade<T,S>(TowerAbility.AttributeModifier<T>[] mods) {
+    foreach (TowerAbility.AttributeModifier<T> modifier in mods) {
+      switch (modifier.mode) {
+        case TowerAbility.Mode.MULTIPLICATIVE:
+          data.SetStat<T>(data.GetStat<T>(modifier.attribute) * modifier.mod);
+          data[modifier.attribute] *= modifier.mod;
+          break;
+        case TowerAbility.Mode.ADDITIVE:
+          data[modifier.attribute] += modifier.mod;
+          break;
+        case TowerAbility.Mode.SET:
+          data[modifier.attribute] = modifier.mod;
+          break;
+      }
+      if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
+        UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
+      }
+      if (modifier.attribute == TowerData.Stat.RANGE) {
+        rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+      }
+    }
   }
 
   // Fetch enemies in explosionRange of target. This excludes target itself.
