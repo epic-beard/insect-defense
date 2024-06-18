@@ -61,7 +61,7 @@ public class EnemyDataGenerator {
       size = EnemyData.Size.SMALL,
       maxHP = 65.0f,
       maxArmor = 25.0f,
-      speed = 0.25f,
+      speed = 0.35f,
       damage = 10,
       nu = 20,
       properties = EnemyData.Properties.NONE,

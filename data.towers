@@ -144,7 +144,7 @@
               <name>More Acid</name>
               <description>Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.</description>
               <upgradePath>1</upgradePath>
-              <cost>200</cost>
+              <cost>150</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_2_3_ACID_BUILDUP_BONUS</specialAbility>
@@ -199,15 +199,20 @@
               <specialAbility>NONE</specialAbility>
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
+                  <attribute>RANGE</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>0.2</mod>
+                  <mod>0.15</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Shot Production Speed</name>
-              <description>Increases attack speed by 20.</description>
+              <description>Attacks gain 5 more range and 15 more attack speed.</description>
               <upgradePath>2</upgradePath>
-              <cost>200</cost>
+              <cost>250</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_3_3_ANTI_AIR</specialAbility>

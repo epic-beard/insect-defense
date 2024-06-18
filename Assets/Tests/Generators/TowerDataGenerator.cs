@@ -99,7 +99,7 @@ public class TowerDataGenerator {
         name = "More Acid",
         description = "Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.",
         upgradePath = 1,
-        cost = 200,
+        cost = 150,
       },
       new() {
         specialAbility = SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
@@ -138,12 +138,13 @@ public class TowerDataGenerator {
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.2f)
+          GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.15f)
         },
         name = "Shot Production Speed",
-        description = "Increases attack speed by 20.",
+        description = "Attacks gain 5 more range and 15 more attack speed.",
         upgradePath = 2,
-        cost = 200,
+        cost = 250,
       },
       new() {
         specialAbility = SpecialAbility.SA_3_3_ANTI_AIR,

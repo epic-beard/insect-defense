@@ -60,7 +60,7 @@
         <size>SMALL</size>
         <maxHP>65</maxHP>
         <maxArmor>25</maxArmor>
-        <speed>0.25</speed>
+        <speed>0.35</speed>
         <damage>10</damage>
         <nu>20</nu>
         <coagulationModifier>0</coagulationModifier>

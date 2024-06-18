@@ -75,11 +75,6 @@ public class SpittingAntTower : Tower {
       acidStacks *= EffectiveAttackSpeed * Time.deltaTime;
     }
 
-    // Venom effects.
-    if (VenomStacks > 0) {
-      target.AddVenomStacks(VenomPower, (int) VenomStacks);
-    }
-
     // Acid DoT effects.
     if (AcidBuildupBonus && target.Armor <= 0.0f) {
       target.AddAcidStacks(acidStacks * 1.5f, AcidEnhancement);
@@ -92,6 +87,11 @@ public class SpittingAntTower : Tower {
     }
 
     target.DealPhysicalDamage(onHitDamage, ArmorPierce, ContinuousAttack);
+
+    // Venom effects.
+    if (VenomStacks > 0) {
+      target.AddVenomStacks(VenomPower, VenomStacks);
+    }
   }
 
   protected override void TowerUpdate() {
