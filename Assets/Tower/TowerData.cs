@@ -102,7 +102,7 @@ public struct TowerData {
 
 
 
-  public int GetStat(Stat stat, int unused) {
+  public int GetIntStat(Stat stat) {
     return stat switch {
       Stat.ACID_STACKS => acid_stacks,
       Stat.BLEED_STACKS => bleed_stacks,
@@ -113,7 +113,7 @@ public struct TowerData {
     };
   }
 
-  public float GetStat(Stat stat, float unused) {
+  public float GetFloatStat(Stat stat) {
     return stat switch {
       Stat.AREA_OF_EFFECT => area_of_effect,
       Stat.ARMOR_PIERCE => armor_pierce,
@@ -130,7 +130,7 @@ public struct TowerData {
     };
   }
 
-  public void SetStat(Stat stat, int newStat) {
+  public void SetIntStat(Stat stat, int newStat) {
     switch(stat) {
       case Stat.ACID_STACKS: acid_stacks = newStat; break;
       case Stat.BLEED_STACKS: bleed_stacks = newStat; break;
@@ -140,7 +140,7 @@ public struct TowerData {
     }
   }
 
-  public void SetStat(Stat stat, float newStat) {
+  public void SetFloatStat(Stat stat, float newStat) {
     switch (stat) {
       case Stat.AREA_OF_EFFECT: area_of_effect = newStat; break;
       case Stat.ARMOR_PIERCE: armor_pierce = newStat; break;

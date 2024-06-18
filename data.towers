@@ -17,23 +17,25 @@
           <firstPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>VENOM_POWER</attribute>
                   <mode>SET</mode>
                   <mod>0.25</mod>
-                </AttributeModifier>
-                <AttributeModifier>
-                  <attribute>VENOM_STACKS</attribute>
-                  <mode>SET</mode>
-                  <mod>1</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.15</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>VENOM_STACKS</attribute>
+                  <mode>SET</mode>
+                  <mod>1</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Venom!</name>
               <description>Attacks apply 1 stack of 25% venom and inflict 15% extra damage.</description>
               <upgradePath>0</upgradePath>
@@ -41,23 +43,25 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>VENOM_POWER</attribute>
                   <mode>SET</mode>
                   <mod>0.4</mod>
-                </AttributeModifier>
-                <AttributeModifier>
-                  <attribute>VENOM_STACKS</attribute>
-                  <mode>SET</mode>
-                  <mod>2</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.25</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>VENOM_STACKS</attribute>
+                  <mode>SET</mode>
+                  <mod>2</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>More venom</name>
               <description>Attacks apply 2 stacks of 40% venom and inflict 25% extra damage.</description>
               <upgradePath>0</upgradePath>
@@ -72,18 +76,20 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>VENOM_POWER</attribute>
                   <mode>SET</mode>
                   <mod>0.6</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
                   <attribute>VENOM_STACKS</attribute>
                   <mode>SET</mode>
                   <mod>3</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Max Armor Tear</name>
               <description>Increases armor tear to 5.</description>
               <upgradePath>0</upgradePath>
@@ -100,18 +106,20 @@
           <secondPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>ACID_STACKS</attribute>
-                  <mode>SET</mode>
-                  <mod>5</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.15</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>ACID_STACKS</attribute>
+                  <mode>SET</mode>
+                  <mod>5</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Acid!</name>
               <description>Attacks inflict 5 stacks of acid and grants a 15% bonus to damage.</description>
               <upgradePath>1</upgradePath>
@@ -119,18 +127,20 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>ACID_STACKS</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>5</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.25</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>ACID_STACKS</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>More Acid</name>
               <description>Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.</description>
               <upgradePath>1</upgradePath>
@@ -145,13 +155,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
                   <attribute>ACID_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Spray that acid</name>
               <description>Acid inflicted is raised to 15</description>
               <upgradePath>1</upgradePath>
@@ -168,18 +178,18 @@
           <thirdPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>RANGE</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>0.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Nozzle Control</name>
               <description>Attacks gain 5 range and 10 attack speed.</description>
               <upgradePath>2</upgradePath>
@@ -187,13 +197,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>0.2</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Shot Production Speed</name>
               <description>Increases attack speed by 20.</description>
               <upgradePath>2</upgradePath>
@@ -208,13 +218,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Even Faster Production</name>
               <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
@@ -231,23 +241,22 @@
         </upgradeTreeData>
         <name>Spitting Ant Tower</name>
         <icon_path>Icons/test</icon_path>
-        <enemies_hit>0</enemies_hit>
         <acid_stacks>0</acid_stacks>
+        <bleed_stacks>0</bleed_stacks>
+        <cost>100</cost>
+        <secondary_slow_targets>0</secondary_slow_targets>
+        <venom_stacks>0</venom_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <attack_speed>0.5</attack_speed>
-        <bleed_stacks>0</bleed_stacks>
-        <cost>100</cost>
         <damage>10</damage>
         <projectile_speed>100</projectile_speed>
         <range>20</range>
         <secondary_slow_potency>0</secondary_slow_potency>
-        <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
         <venom_power>0</venom_power>
-        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -268,18 +277,18 @@
           <firstPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>SLOW_DURATION</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>2</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>SLOW_POWER</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>0.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Improved Slow</name>
               <description>Increasses slow power to 40% and duration to 6 seconds.</description>
               <upgradePath>0</upgradePath>
@@ -287,18 +296,18 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>SLOW_DURATION</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>2</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>SLOW_POWER</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>0.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Improved Slow</name>
               <description>Increase slow power to 50% and duration to 8 seconds.</description>
               <upgradePath>0</upgradePath>
@@ -313,18 +322,18 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>SLOW_DURATION</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>2</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>SLOW_POWER</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>0.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Improved Slow</name>
               <description>Increase slow power to 60% and duration to 10 seconds.</description>
               <upgradePath>0</upgradePath>
@@ -341,13 +350,13 @@
           <secondPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
                   <attribute>SECONDARY_SLOW_TARGETS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>AoE Slow</name>
               <description>1/2 slow also hits the enemy nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
@@ -355,13 +364,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
                   <attribute>SECONDARY_SLOW_TARGETS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>AoE Slow</name>
               <description>1/2 slow also hits the 2 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
@@ -369,18 +378,20 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>SECONDARY_SLOW_TARGETS</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>1</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>SECONDARY_SLOW_POTENCY</attribute>
                   <mode>SET</mode>
                   <mod>0.75</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>SECONDARY_SLOW_TARGETS</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>1</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Superior Secondary Threads</name>
               <description>3/4 slow also hits the 3 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
@@ -388,13 +399,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>SECONDARY_SLOW_POTENCY</attribute>
                   <mode>SET</mode>
                   <mod>1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Perfect Secondary Threads</name>
               <description>100% slow also hits the 3 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
@@ -411,13 +422,13 @@
           <thirdPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>0.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Faster Spinnerets</name>
               <description>Increase attack speed by 10.</description>
               <upgradePath>2</upgradePath>
@@ -425,23 +436,23 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>0.15</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>RANGE</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>5</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Faster Spinnerets</name>
               <description>Increases attack speed by 15 and range by 5.</description>
               <upgradePath>2</upgradePath>
@@ -456,18 +467,18 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>RANGE</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>10</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>10</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Improved Trajectory Analysis</name>
               <description>Increases range by 10.</description>
               <upgradePath>2</upgradePath>
@@ -484,23 +495,22 @@
         </upgradeTreeData>
         <name>Web Shooting Spider Tower</name>
         <icon_path>Icons/test</icon_path>
-        <enemies_hit>0</enemies_hit>
         <acid_stacks>0</acid_stacks>
+        <bleed_stacks>0</bleed_stacks>
+        <cost>50</cost>
+        <secondary_slow_targets>0</secondary_slow_targets>
+        <venom_stacks>0</venom_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <attack_speed>0.75</attack_speed>
-        <bleed_stacks>0</bleed_stacks>
-        <cost>50</cost>
         <damage>0</damage>
         <projectile_speed>20</projectile_speed>
         <range>25</range>
         <secondary_slow_potency>0.5</secondary_slow_potency>
-        <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>4</slow_duration>
         <slow_power>0.3</slow_power>
         <stun_time>0</stun_time>
         <venom_power>0</venom_power>
-        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -521,13 +531,13 @@
           <firstPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Armor Penetration</name>
               <description>Increases armor penetration by 10%.</description>
               <upgradePath>0</upgradePath>
@@ -535,13 +545,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.2</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Armor Penetration</name>
               <description>Increases armor penetration by 20%.</description>
               <upgradePath>0</upgradePath>
@@ -556,7 +566,6 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers />
               <name>&lt;UPGRADE NAME&gt;</name>
               <description>&lt;UPGRADE DESCRIPTION&gt;</description>
               <upgradePath>0</upgradePath>
@@ -573,13 +582,13 @@
           <secondPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Flight Speed</name>
               <description>Increases movement speed by 10%.</description>
               <upgradePath>1</upgradePath>
@@ -587,13 +596,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.2</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Flight Speed</name>
               <description>Increases movement speed by 20%.</description>
               <upgradePath>1</upgradePath>
@@ -624,13 +633,13 @@
           <thirdPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.1</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Damage Increase</name>
               <description>Increases damage by 10%.</description>
               <upgradePath>2</upgradePath>
@@ -638,13 +647,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.2</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Damage Increase</name>
               <description>Increases damage by 20%.</description>
               <upgradePath>2</upgradePath>
@@ -659,13 +668,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.3</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Damage Increase</name>
               <description>Increase damage by 10%.</description>
               <upgradePath>2</upgradePath>
@@ -682,23 +691,22 @@
         </upgradeTreeData>
         <name>Assassin Bug</name>
         <icon_path>Icons/test</icon_path>
-        <enemies_hit>0</enemies_hit>
         <acid_stacks>0</acid_stacks>
+        <bleed_stacks>0</bleed_stacks>
+        <cost>50</cost>
+        <secondary_slow_targets>0</secondary_slow_targets>
+        <venom_stacks>0</venom_stacks>
         <area_of_effect>0</area_of_effect>
         <armor_pierce>0.2</armor_pierce>
         <attack_speed>0.5</attack_speed>
-        <bleed_stacks>0</bleed_stacks>
-        <cost>50</cost>
         <damage>30</damage>
         <projectile_speed>0</projectile_speed>
         <range>40</range>
         <secondary_slow_potency>0</secondary_slow_potency>
-        <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
         <venom_power>0</venom_power>
-        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>
@@ -719,18 +727,18 @@
           <firstPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Damage and Armor Pen</name>
               <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
@@ -738,18 +746,18 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Damage and Armor Pen</name>
               <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
@@ -764,18 +772,18 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.3</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.3</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Damage and Armor Pen</name>
               <description>Increases damage and armor penetration by 30%.</description>
               <upgradePath>0</upgradePath>
@@ -792,18 +800,20 @@
           <secondPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>BLEED_STACKS</attribute>
-                  <mode>SET</mode>
-                  <mod>15</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.25</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>BLEED_STACKS</attribute>
+                  <mode>SET</mode>
+                  <mod>15</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Vicious Claws</name>
               <description>Attacks now inflict 15 bleed and gain 25% bonus damage.</description>
               <upgradePath>1</upgradePath>
@@ -811,18 +821,20 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>BLEED_STACKS</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>15</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.25</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>BLEED_STACKS</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>15</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Anticoagulant Microstructures</name>
               <description>Bleed inflicted is 30. and gain 25% bonus damage</description>
               <upgradePath>1</upgradePath>
@@ -837,18 +849,20 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
-                  <attribute>BLEED_STACKS</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>30</mod>
-                </AttributeModifier>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.25</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
+                  <attribute>BLEED_STACKS</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>30</mod>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Anticoagulant Chemicals</name>
               <description>Bleed inflicted is 60 and gain 25% bonus damage.</description>
               <upgradePath>1</upgradePath>
@@ -856,13 +870,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_2_5_BLOODY_EXECUTION</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <intAttributeModifiers>
+                <AttributeModifierOfInt32>
                   <attribute>BLEED_STACKS</attribute>
                   <mode>ADDITIVE</mode>
                   <mod>20</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfInt32>
+              </intAttributeModifiers>
               <name>Bloody Execution</name>
               <description>Execute doomed (too much bleed to survive) enemies. Bleed is now 80.</description>
               <upgradePath>1</upgradePath>
@@ -872,13 +886,13 @@
           <thirdPathUpgrades>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.6</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Improved Attack Speed</name>
               <description>Increases attack speed by 60%.</description>
               <upgradePath>2</upgradePath>
@@ -893,13 +907,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>AREA_OF_EFFECT</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Enhanced Spines</name>
               <description>Mantis attack spines are reformed to fly further, increasing the AoE range by 50%.</description>
               <upgradePath>2</upgradePath>
@@ -907,13 +921,13 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <attributeModifiers>
-                <AttributeModifier>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
                   <mod>1.5</mod>
-                </AttributeModifier>
-              </attributeModifiers>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <name>Synergetic Claws</name>
               <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
@@ -930,23 +944,22 @@
         </upgradeTreeData>
         <name>Mantis</name>
         <icon_path>Icons/test</icon_path>
-        <enemies_hit>0</enemies_hit>
         <acid_stacks>0</acid_stacks>
+        <bleed_stacks>0</bleed_stacks>
+        <cost>150</cost>
+        <secondary_slow_targets>0</secondary_slow_targets>
+        <venom_stacks>0</venom_stacks>
         <area_of_effect>3</area_of_effect>
         <armor_pierce>5</armor_pierce>
         <attack_speed>0.5</attack_speed>
-        <bleed_stacks>0</bleed_stacks>
-        <cost>150</cost>
         <damage>7</damage>
         <projectile_speed>0</projectile_speed>
         <range>15</range>
         <secondary_slow_potency>0</secondary_slow_potency>
-        <secondary_slow_targets>0</secondary_slow_targets>
         <slow_duration>0</slow_duration>
         <slow_power>0</slow_power>
         <stun_time>0</stun_time>
         <venom_power>0</venom_power>
-        <venom_stacks>0</venom_stacks>
       </TowerData>
     </Value>
   </KeyValuePair>

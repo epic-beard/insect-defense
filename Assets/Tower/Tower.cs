@@ -13,86 +13,82 @@ public abstract class Tower : MonoBehaviour {
   private readonly float UnusedFloat = 1.0f;
 
   #region PublicProperties
-  public float AcidStacks {
-    get { return data.GetStat(TowerData.Stat.ACID_STACKS, UnusedInteger); }
-    set { data.SetStat(TowerData.Stat.ACID_STACKS, value); }
+  public int AcidStacks {
+    get { return data.acid_stacks; }
+    set { data.acid_stacks = value; }
   }
   public float AttackSpeed {
-    get { return data[TowerData.Stat.ATTACK_SPEED]; }
-    set { data[TowerData.Stat.ATTACK_SPEED] = value; }
+    get { return data.attack_speed; }
+    set { data.attack_speed = value; }
   }
   public float EffectiveAttackSpeed {
     get { return AttackSpeed * SlimePower; }
   }
   public float AreaOfEffect {
-    get { return data[TowerData.Stat.AREA_OF_EFFECT]; }
-    set { data[TowerData.Stat.AREA_OF_EFFECT] = value; }
+    get { return data.area_of_effect; }
+    set { data.area_of_effect = value; }
   }
   public float ArmorPierce {
-    get { return data[TowerData.Stat.ARMOR_PIERCE]; }
-    set { data[TowerData.Stat.ARMOR_PIERCE] = value; }
+    get { return data.armor_pierce; }
+    set { data.armor_pierce = value; }
   }
   public float BaseAttackSpeed { get; private set; }
-  public float BleedStacks {
-    get { return data[TowerData.Stat.BLEED_STACKS]; }
-    set { data[TowerData.Stat.BLEED_STACKS] = value; }
+  public int BleedStacks {
+    get { return data.bleed_stacks; }
+    set { data.bleed_stacks = value; }
   }
-  public float Cost {
-    get { return data[TowerData.Stat.COST]; }
-    set { data[TowerData.Stat.COST] = value; }
+  public int Cost {
+    get { return data.cost; }
+    set { data.cost = value; }
   }
   public float Damage {
-    get { return data[TowerData.Stat.DAMAGE]; }
-    set { data[TowerData.Stat.DAMAGE] = value; }
+    get { return data.damage; }
+    set { data.damage = value; }
   }
   public float DazzleTime { get; set; }
-  public virtual int EnemiesHit {
-    get { return data.enemies_hit; }
-    set { data.enemies_hit = value; }
-  }
   public bool IsMutatingUpgrades { get; set; }
   public string Name {
     get { return data.name; }
     set { data.name = value; }
   }
   public float Range {
-    get { return data[TowerData.Stat.RANGE]; }
-    set { data[TowerData.Stat.RANGE] = value; }
+    get { return data.range; }
+    set { data.range = value; }
   }
   public HashSet<Renderer> Renderers { get; private set; }
   public float ProjectileSpeed {
-    get { return data[TowerData.Stat.PROJECTILE_SPEED]; }
-    set { data[TowerData.Stat.PROJECTILE_SPEED] = value; }
+    get { return data.projectile_speed; }
+    set { data.projectile_speed = value; }
   }
   public float SecondarySlowPotency {
-    get { return data[TowerData.Stat.SECONDARY_SLOW_POTENCY]; }
-    set { data[TowerData.Stat.SECONDARY_SLOW_POTENCY] = value; }
+    get { return data.secondary_slow_potency; }
+    set { data.secondary_slow_potency = value; }
   }
   public int SecondarySlowTargets {
-    get { return (int)data[TowerData.Stat.SECONDARY_SLOW_TARGETS]; }
-    set { data[TowerData.Stat.SECONDARY_SLOW_TARGETS] = value; }
+    get { return data.secondary_slow_targets; }
+    set { data.secondary_slow_targets = value; }
   }
   public float SlimeTime { get; set; }
   public float SlimePower { get; set; } = 1.0f;
   public float SlowDuration {
-    get { return data[TowerData.Stat.SLOW_DURATION]; }
-    set { data[TowerData.Stat.SLOW_DURATION] = value; }
+    get { return data.slow_duration; }
+    set { data.slow_duration = value; }
   }
   public float SlowPower {
-    get { return data[TowerData.Stat.SLOW_POWER]; }
-    set { data[TowerData.Stat.SLOW_POWER] = value; }
+    get { return data.slow_power; }
+    set { data.slow_power = value; }
   }
   public float StunTime {
-    get { return data[TowerData.Stat.STUN_TIME]; }
-    set { data[TowerData.Stat.STUN_TIME] = value; }
+    get { return data.stun_time; }
+    set { data.stun_time = value; }
   }
   public float VenomPower {
-    get { return data[TowerData.Stat.VENOM_POWER]; }
-    set { data[TowerData.Stat.VENOM_STACKS] = value; }
+    get { return data.venom_power; }
+    set { data.venom_power = value; }
   }
-  public float VenomStacks {
-    get { return data[TowerData.Stat.VENOM_STACKS]; }
-    set { data[TowerData.Stat.VENOM_STACKS] = value; }
+  public int VenomStacks {
+    get { return data.venom_stacks; }
+    set { data.venom_stacks = value; }
   }
 
   public TowerData.Tooltip tooltip {
@@ -224,19 +220,40 @@ public abstract class Tower : MonoBehaviour {
     upgradeIndex[ability.upgradePath]++;
   }
 
-  private void AttributeUpgrade<T,S>(TowerAbility.AttributeModifier<T>[] mods) {
-    foreach (TowerAbility.AttributeModifier<T> modifier in mods) {
+  private void AttributeUpgrade(TowerAbility.AttributeModifier<int>[] mods) {
+    foreach (TowerAbility.AttributeModifier<int> modifier in mods) {
       switch (modifier.mode) {
-        case TowerAbility.Mode.MULTIPLICATIVE:
-          data.SetStat<T>(data.GetStat<T>(modifier.attribute) * modifier.mod);
-          data[modifier.attribute] *= modifier.mod;
-          break;
-        case TowerAbility.Mode.ADDITIVE:
-          data[modifier.attribute] += modifier.mod;
-          break;
-        case TowerAbility.Mode.SET:
-          data[modifier.attribute] = modifier.mod;
-          break;
+      case TowerAbility.Mode.MULTIPLICATIVE:
+        data.SetIntStat(modifier.attribute, data.GetIntStat(modifier.attribute) * modifier.mod);
+        break;
+      case TowerAbility.Mode.ADDITIVE:
+        data.SetIntStat(modifier.attribute, data.GetIntStat(modifier.attribute) + modifier.mod);
+        break;
+      case TowerAbility.Mode.SET:
+        data.SetIntStat(modifier.attribute, modifier.mod);
+        break;
+      }
+      if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
+        UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
+      }
+      if (modifier.attribute == TowerData.Stat.RANGE) {
+        rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+      }
+    }
+  }
+
+  private void AttributeUpgrade(TowerAbility.AttributeModifier<float>[] mods) {
+    foreach (TowerAbility.AttributeModifier<float> modifier in mods) {
+      switch (modifier.mode) {
+      case TowerAbility.Mode.MULTIPLICATIVE:
+        data.SetFloatStat(modifier.attribute, data.GetFloatStat(modifier.attribute) * modifier.mod);
+        break;
+      case TowerAbility.Mode.ADDITIVE:
+        data.SetFloatStat(modifier.attribute, data.GetFloatStat(modifier.attribute) + modifier.mod);
+        break;
+      case TowerAbility.Mode.SET:
+        data.SetFloatStat(modifier.attribute, modifier.mod);
+        break;
       }
       if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
         UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
@@ -257,7 +274,7 @@ public abstract class Tower : MonoBehaviour {
 
   public void SetTowerData(TowerData data) {
     this.data = data;
-    BaseAttackSpeed = data[TowerData.Stat.ATTACK_SPEED];
+    BaseAttackSpeed = data.attack_speed;
   }
 
   public void CacheTowerRenderers() {

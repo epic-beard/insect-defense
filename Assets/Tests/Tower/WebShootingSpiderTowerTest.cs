@@ -78,15 +78,15 @@ public class WebShootingSpiderTowerTest {
   public void EnemieshitBySlow() {
     Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(0));
 
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 1.0f));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 1));
 
     Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(1));
 
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 2.0f));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 2));
 
     Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(2));
 
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 3.0f));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.0f, 3));
 
     Assert.That(wssTower.SecondarySlowTargets, Is.EqualTo(3));
   }
@@ -95,15 +95,15 @@ public class WebShootingSpiderTowerTest {
   public void SlowAppliedToSecondaryTargets() {
     Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(0.0f));
 
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 0.0f));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 0));
 
     Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(0.5f));
 
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.75f, 0.0f));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.75f, 0));
 
     Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(0.75f));
 
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(1.0f, 0.0f));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(1.0f, 0));
 
     Assert.That(wssTower.SecondarySlowPotency, Is.EqualTo(1.0f));
   }
@@ -114,7 +114,7 @@ public class WebShootingSpiderTowerTest {
   // enemies out of range.
   [Test]
   public void SlowNearbyEnemiesOutOfAoERange() {
-    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 1.0f));
+    wssTower.Upgrade(CreateTowerAbilityForAoESlowTests(0.5f, 1));
     wssTower.AreaOfEffect = 10.0f;
 
     Enemy target = CreateEnemy(Vector3.zero);
@@ -160,15 +160,16 @@ public class WebShootingSpiderTowerTest {
   }
 
   // Create a TowerAbility for use in testing the secondary slow numbers and duration.
-  private TowerAbility CreateTowerAbilityForAoESlowTests(float secondarySlow, float secondaryTargets) {
+  private TowerAbility CreateTowerAbilityForAoESlowTests(float secondarySlow, int secondaryTargets) {
     TowerAbility ability = new();
-    ability.attributeModifiers = new TowerAbility.AttributeModifier[2];
-    ability.attributeModifiers[0].attribute = TowerData.Stat.SECONDARY_SLOW_POTENCY;
-    ability.attributeModifiers[0].mode = TowerAbility.Mode.SET;
-    ability.attributeModifiers[0].mod = secondarySlow;
-    ability.attributeModifiers[1].attribute = TowerData.Stat.SECONDARY_SLOW_TARGETS;
-    ability.attributeModifiers[1].mode = TowerAbility.Mode.SET;
-    ability.attributeModifiers[1].mod = secondaryTargets;
+    ability.floatAttributeModifiers = new TowerAbility.AttributeModifier<float>[1];
+    ability.floatAttributeModifiers[0].attribute = TowerData.Stat.SECONDARY_SLOW_POTENCY;
+    ability.floatAttributeModifiers[0].mode = TowerAbility.Mode.SET;
+    ability.floatAttributeModifiers[0].mod = secondarySlow;
+    ability.intAttributeModifiers = new TowerAbility.AttributeModifier<int>[1];
+    ability.intAttributeModifiers[0].attribute = TowerData.Stat.SECONDARY_SLOW_TARGETS;
+    ability.intAttributeModifiers[0].mode = TowerAbility.Mode.SET;
+    ability.intAttributeModifiers[0].mod = secondaryTargets;
     ability.upgradePath = 1;
 
     return ability;

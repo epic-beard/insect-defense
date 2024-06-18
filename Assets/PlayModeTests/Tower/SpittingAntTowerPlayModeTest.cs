@@ -79,7 +79,7 @@ public class SpittingAntTowerPlayModeTest {
   public IEnumerator BeamAttackTest() {
     SetSpittingAntTowerProperties(
         spittingAntTower,
-        acidStacks: 50.0f,
+        acidStacks: 50,
         attackSpeed: 1.0f,
         areaOfEffect: 10.0f,
         damage: 100.0f,
@@ -128,7 +128,7 @@ public class SpittingAntTowerPlayModeTest {
 
   private void SetSpittingAntTowerProperties(
       SpittingAntTower spittingAntTower,
-      float acidStacks = 0.0f,
+      int acidStacks = 0,
       float attackSpeed = 0.0f,
       float areaOfEffect = 0.0f,
       float damage = 0.0f,
@@ -137,7 +137,7 @@ public class SpittingAntTowerPlayModeTest {
       float slowPower = 0.0f,
       float stunTime = 0.0f,
       float venomPower = 0.0f,
-      float venomStacks = 0.0f) {
+      int venomStacks = 0) {
     spittingAntTower.AttackSpeed = attackSpeed;
     spittingAntTower.AreaOfEffect = areaOfEffect;
     spittingAntTower.Damage = damage;

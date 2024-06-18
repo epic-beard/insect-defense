@@ -24,10 +24,12 @@ public class TowerDataGenerator {
   private TowerData GetSpittingAntTowerData() {
     var venomUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.25f),
-          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 1.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 1),
         },
         name = "Venom!",
         description = "Attacks apply 1 stack of 25% venom and inflict 15% extra damage.",
@@ -35,10 +37,12 @@ public class TowerDataGenerator {
         cost = 50,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.4f),
-          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 2.0f),
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 2),
         },
         name = "More venom",
         description = "Attacks apply 2 stacks of 40% venom and inflict 25% extra damage.",
@@ -53,9 +57,11 @@ public class TowerDataGenerator {
         cost = 800,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.6f),
-          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 3.0f),
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 3),
         },
         name = "Max Armor Tear",
         description = "Increases armor tear to 5.",
@@ -72,9 +78,11 @@ public class TowerDataGenerator {
     };
     var acidUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 5.0f),
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 5),
         },
         name = "Acid!",
         description = "Attacks inflict 5 stacks of acid and grants a 15% bonus to damage.",
@@ -82,9 +90,11 @@ public class TowerDataGenerator {
         cost = 50,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5.0f),
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5),
         },
         name = "More Acid",
         description = "Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.",
@@ -99,8 +109,8 @@ public class TowerDataGenerator {
         cost = 800,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5.0f)
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5)
         },
         name = "Spray that acid",
         description = "Acid inflicted is raised to 15",
@@ -117,7 +127,7 @@ public class TowerDataGenerator {
     };
     var utilityUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.1f)
         },
@@ -127,7 +137,7 @@ public class TowerDataGenerator {
         cost = 50,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.2f)
         },
         name = "Shot Production Speed",
@@ -143,7 +153,7 @@ public class TowerDataGenerator {
         cost = 800,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Even Faster Production",
@@ -183,7 +193,6 @@ public class TowerDataGenerator {
       cost = 100,
       damage = 10,
       acid_stacks = 0,
-      enemies_hit = 0,
       projectile_speed = 100,
       range = 20,
       secondary_slow_potency = 0,
@@ -201,7 +210,7 @@ public class TowerDataGenerator {
   private TowerData GetWebShootingSpiderTowerData() {
     var slowUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
           GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
@@ -211,7 +220,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
           GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
@@ -228,7 +237,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
           GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
         },
@@ -247,7 +256,7 @@ public class TowerDataGenerator {
     };
     var secondarySlowUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        intAttributeModifiers = new AttributeModifier<int>[] {
           GetAttributeModifier(Stat.SECONDARY_SLOW_TARGETS, Mode.ADDITIVE, 1)
         },
         name = "AoE Slow",
@@ -256,7 +265,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        intAttributeModifiers = new AttributeModifier<int>[] {
           GetAttributeModifier(Stat.SECONDARY_SLOW_TARGETS, Mode.ADDITIVE, 1)
         },
         name = "AoE Slow",
@@ -265,9 +274,11 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.SECONDARY_SLOW_TARGETS, Mode.ADDITIVE, 1),
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.SECONDARY_SLOW_POTENCY, Mode.SET, 0.75f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.SECONDARY_SLOW_TARGETS, Mode.ADDITIVE, 1),
         },
         name = "Superior Secondary Threads",
         description = "3/4 slow also hits the 3 enemies nearest the target within its AoE.",
@@ -275,7 +286,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.SECONDARY_SLOW_POTENCY, Mode.SET, 1.0f)
         },
         name = "Perfect Secondary Threads",
@@ -293,7 +304,7 @@ public class TowerDataGenerator {
     };
     var utilityUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.1f)
         },
         name = "Faster Spinnerets",
@@ -302,7 +313,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.15f),
           GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
           GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 5.0f)
@@ -320,7 +331,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 10.0f),
           GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 10.0f)
         },
@@ -361,7 +372,6 @@ public class TowerDataGenerator {
       cost = 50,
       damage = 0,
       acid_stacks = 0,
-      enemies_hit = 0,
       projectile_speed = 20,
       range = 25,
       secondary_slow_potency = 0.5f,
@@ -379,7 +389,7 @@ public class TowerDataGenerator {
   private TowerData GetAssassinBugTowerData() {
     var firstPathUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.1f)
         },
         name = "Armor Penetration",
@@ -388,7 +398,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.2f)
         },
         name = "Armor Penetration",
@@ -404,8 +414,6 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
-        },
         name = "<UPGRADE NAME>",
         description = "<UPGRADE DESCRIPTION>",
         upgradePath = 0,
@@ -421,7 +429,7 @@ public class TowerDataGenerator {
     };
     var secondPathUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.MULTIPLICATIVE, 1.1f)
         },
         name = "Flight Speed",
@@ -430,7 +438,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.MULTIPLICATIVE, 1.2f)
         },
         name = "Flight Speed",
@@ -462,7 +470,7 @@ public class TowerDataGenerator {
     };
     var thirdPathUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.1f)
         },
         name = "Damage Increase",
@@ -471,7 +479,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.2f)
         },
         name = "Damage Increase",
@@ -487,7 +495,7 @@ public class TowerDataGenerator {
         cost = 10,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.3f)
         },
         name = "Damage Increase",
@@ -527,7 +535,6 @@ public class TowerDataGenerator {
       cost = 50,
       damage = 30,
       acid_stacks = 0,
-      enemies_hit = 0,
       projectile_speed = 0,
       range = 40,
       secondary_slow_potency = 0,
@@ -545,7 +552,7 @@ public class TowerDataGenerator {
   private TowerData GetMantisTowerData() {
     var damageUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
           GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
         },
@@ -555,7 +562,7 @@ public class TowerDataGenerator {
         cost = 50,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
           GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
         },
@@ -572,7 +579,7 @@ public class TowerDataGenerator {
         cost = 800,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.3f),
           GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.3f)
         },
@@ -591,9 +598,11 @@ public class TowerDataGenerator {
     };
     var bleedUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.BLEED_STACKS, Mode.SET, 15),
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.SET, 15),
         },
         name = "Vicious Claws",
         description = "Attacks now inflict 15 bleed and gain 25% bonus damage.",
@@ -601,9 +610,11 @@ public class TowerDataGenerator {
         cost = 50,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 15),
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 15),
         },
         name = "Anticoagulant Microstructures",
         description = "Bleed inflicted is 30. and gain 25% bonus damage",
@@ -619,9 +630,11 @@ public class TowerDataGenerator {
         cost = 800,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
-          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 30),
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
+        },
+        intAttributeModifiers = new AttributeModifier<int>[] {
+          GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 30),
         },
         name = "Anticoagulant Chemicals",
         description = "Bleed inflicted is 60 and gain 25% bonus damage.",
@@ -629,7 +642,7 @@ public class TowerDataGenerator {
         cost = 1600,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        intAttributeModifiers = new AttributeModifier<int>[] {
           GetAttributeModifier(Stat.BLEED_STACKS, Mode.ADDITIVE, 20)
         },
         specialAbility = SpecialAbility.M_2_5_BLOODY_EXECUTION,
@@ -641,7 +654,7 @@ public class TowerDataGenerator {
     };
     var utilityUpgrades = new TowerAbility[] {
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.6f)
         },
         name = "Improved Attack Speed",
@@ -657,7 +670,7 @@ public class TowerDataGenerator {
         cost = 150,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.AREA_OF_EFFECT, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Enhanced Spines",
@@ -666,7 +679,7 @@ public class TowerDataGenerator {
         cost = 800,
       },
       new() {
-        attributeModifiers = new AttributeModifier[] {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f),
         },
         name = "Synergetic Claws",
@@ -720,8 +733,15 @@ public class TowerDataGenerator {
     return data;
   }
 
-  private AttributeModifier GetAttributeModifier(Stat stat, Mode mode, float mod) {
-    return new AttributeModifier() {
+  private AttributeModifier<float> GetAttributeModifier(Stat stat, Mode mode, float mod) {
+    return new AttributeModifier<float>() {
+      attribute = stat,
+      mode = mode,
+      mod = mod
+    };
+  }
+  private AttributeModifier<int> GetAttributeModifier(Stat stat, Mode mode, int mod) {
+    return new AttributeModifier<int>() {
       attribute = stat,
       mode = mode,
       mod = mod
