@@ -606,8 +606,8 @@ public class Enemy : MonoBehaviour {
       if (venomSpreaders > 0) {
         var enemiesInRange = Targeting.GetAllValidEnemiesInRange(
             enemies: ObjectPool.Instance.GetActiveEnemies(),
-            towerPosition: transform.position,
-            towerRange: venomSpreadRange,
+            origin: transform.position,
+            range: venomSpreadRange,
             camoSight: true,
             antiAir: true);
 

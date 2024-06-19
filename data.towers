@@ -11,8 +11,8 @@
           <tooltipText>A ranged tower with moderate damage, armor tear, and acid DoTs.</tooltipText>
         </tooltip>
         <upgradeTreeData>
-          <first>Armor Tear</first>
-          <second>Acid Power</second>
+          <first>Venom</first>
+          <second>Acid</second>
           <third>Utility</third>
           <firstPathUpgrades>
             <TowerAbility>
@@ -70,7 +70,7 @@
             <TowerAbility>
               <specialAbility>SA_1_3_ACIDIC_SYNERGY</specialAbility>
               <name>Acid Breakdown</name>
-              <description>When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.</description>
+              <description>Within 30 radius of the tower, acid benefits from venom without consuming stacks.</description>
               <upgradePath>0</upgradePath>
               <cost>800</cost>
             </TowerAbility>
@@ -90,8 +90,8 @@
                   <mod>3</mod>
                 </AttributeModifierOfInt32>
               </intAttributeModifiers>
-              <name>Max Armor Tear</name>
-              <description>Increases armor tear to 5.</description>
+              <name>Max Venom</name>
+              <description>Attacks apply 3 stacks of 60% venom.</description>
               <upgradePath>0</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -147,9 +147,16 @@
               <cost>150</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>SA_2_3_ACID_BUILDUP_BONUS</specialAbility>
-              <name>Armorless Acid</name>
-              <description>If an enemy has no armor, they gain 50% more acid stacks from this tower.</description>
+              <specialAbility>SA_2_3_AOE_ACID</specialAbility>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
+                  <attribute>AREA_OF_EFFECT</attribute>
+                  <mode>SET</mode>
+                  <mod>5</mod>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <name>AoE Acid</name>
+              <description>Attacks inflict 1/2 (rounded down, min 1) acid stacks within 5 of the target.</description>
               <upgradePath>1</upgradePath>
               <cost>800</cost>
             </TowerAbility>
@@ -251,7 +258,7 @@
         <cost>100</cost>
         <secondary_slow_targets>0</secondary_slow_targets>
         <venom_stacks>0</venom_stacks>
-        <area_of_effect>10</area_of_effect>
+        <area_of_effect>0</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <attack_speed>0.5</attack_speed>
         <damage>10</damage>

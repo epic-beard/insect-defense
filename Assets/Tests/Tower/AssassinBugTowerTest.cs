@@ -20,6 +20,7 @@ public class AssassinBugTowerTest {
     GameStateManager.Instance = gsm;
 
     Time.captureDeltaTime = 1;
+    TowerManager.Instance = new TowerManager();
   }
 
   #region SpecialAbilityUpgradeTests

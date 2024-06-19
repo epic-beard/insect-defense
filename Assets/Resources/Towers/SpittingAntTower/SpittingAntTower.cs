@@ -16,7 +16,7 @@ public class SpittingAntTower : Tower {
   public bool AcidicSynergy { get; private set; } = false;
   public bool VenomCorpseplosion { get; private set; } = false;
   public bool ContinuousAttack { get; private set; } = false;
-  public bool AcidBuildupBonus { get; private set; } = false;
+  public bool AoEAcid { get; private set; } = false;
   public bool AcidEnhancement { get; private set; } = false;
   public float AcidDecayDelay { get; private set; } = 10.0f;
   public float SplashExplosionRange {
@@ -46,8 +46,8 @@ public class SpittingAntTower : Tower {
       case SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION:
         VenomCorpseplosion = true;
         break;
-      case SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS:
-        AcidBuildupBonus = true;
+      case SpecialAbility.SA_2_3_AOE_ACID:
+        AoEAcid = true;
         break;
       case SpecialAbility.SA_2_5_DOT_ENHANCEMENT:
         AcidEnhancement = true;
@@ -76,11 +76,21 @@ public class SpittingAntTower : Tower {
     }
 
     // Acid DoT effects.
-    if (AcidBuildupBonus && target.Armor <= 0.0f) {
-      target.AddAcidStacks(acidStacks * 1.5f, AcidEnhancement);
-    } else {
-      target.AddAcidStacks(acidStacks, AcidEnhancement);
+    if (AoEAcid) {
+      var enemiesForAcid = Targeting.GetAllValidEnemiesInRange(
+          enemies: ObjectPool.Instance.GetActiveEnemies(),
+          origin: target.AimPoint,
+          range: AreaOfEffect,
+          camoSight: true,
+          antiAir: AntiAir);
+      foreach (Enemy enemy in enemiesForAcid) {
+        if (enemy == target) continue;
+        enemy.AddAcidStacks(AcidStacks / 2, AcidEnhancement);
+      }
+      splashExplosion.transform.position = target.transform.position;
+      splashExplosion.Play();
     }
+    target.AddAcidStacks(acidStacks, AcidEnhancement);
 
     if (AcidEnhancement) {
       target.AddAdvancedAcidDecayDelay(this, AcidDecayDelay);

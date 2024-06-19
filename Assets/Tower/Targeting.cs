@@ -84,13 +84,13 @@ public class Targeting {
   // Find and return all enemies within the given tower's range and given the twoer's limitations.
   public static List<Enemy> GetAllValidEnemiesInRange(
       HashSet<Enemy> enemies,
-      Vector3 towerPosition,
-      float towerRange,
+      Vector3 origin,
+      float range,
       bool camoSight,
       bool antiAir) {
     return enemies
         .Where(e => e.enabled)
-        .Where(e => Vector2.Distance(towerPosition.DropY(), e.transform.position.DropY()) <= towerRange)
+        .Where(e => Vector2.Distance(origin.DropY(), e.transform.position.DropY()) <= range)
         .Where(e => !e.Flying || antiAir)
         .Where(e => !e.Camo || camoSight)
         .ToList();

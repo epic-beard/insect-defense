@@ -52,7 +52,7 @@ public class TowerDataGenerator {
       new() {
         specialAbility = SpecialAbility.SA_1_3_ACIDIC_SYNERGY,
         name = "Acid Breakdown",
-        description = "When an enemy is more than halfway to an acid explosion, they take 50% bonus armor tear from this tower.",
+        description = "Within 30 radius of the tower, acid benefits from venom without consuming stacks.",
         upgradePath = 0,
         cost = 800,
       },
@@ -63,8 +63,8 @@ public class TowerDataGenerator {
         intAttributeModifiers = new AttributeModifier<int>[] {
           GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 3),
         },
-        name = "Max Armor Tear",
-        description = "Increases armor tear to 5.",
+        name = "Max Venom",
+        description = "Attacks apply 3 stacks of 60% venom.",
         upgradePath = 0,
         cost = 10,
       },
@@ -102,9 +102,12 @@ public class TowerDataGenerator {
         cost = 150,
       },
       new() {
-        specialAbility = SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS,
-        name = "Armorless Acid",
-        description = "If an enemy has no armor, they gain 50% more acid stacks from this tower.",
+        floatAttributeModifiers = new AttributeModifier<float>[] {
+          GetAttributeModifier(Stat.AREA_OF_EFFECT, Mode.SET, 5.0f)
+        },
+        specialAbility = SpecialAbility.SA_2_3_AOE_ACID,
+        name = "AoE Acid",
+        description = "Attacks inflict 1/2 (rounded down, min 1) acid stacks within 5 of the target.",
         upgradePath = 1,
         cost = 800,
       },
@@ -174,8 +177,8 @@ public class TowerDataGenerator {
     TowerData data = new() {
       type = TowerData.Type.SPITTING_ANT_TOWER,
       upgradeTreeData = new() {
-        first = "Armor Tear",
-        second = "Acid Power",
+        first = "Venom",
+        second = "Acid",
         third = "Utility",
         firstPathUpgrades = venomUpgrades,
         secondPathUpgrades = acidUpgrades,
@@ -188,7 +191,7 @@ public class TowerDataGenerator {
 
       name = "Spitting Ant Tower",
       icon_path = "Icons/test",
-      area_of_effect = 10,
+      area_of_effect = 0,
       armor_pierce = 0,
       attack_speed = 0.5f,
       cost = 100,
