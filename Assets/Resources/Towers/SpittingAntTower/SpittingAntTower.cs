@@ -78,11 +78,11 @@ public class SpittingAntTower : Tower {
     // Acid DoT effects.
     if (AoEAcid) {
       var enemiesForAcid = Targeting.GetAllValidEnemiesInRange(
-        enemies: ObjectPool.Instance.GetActiveEnemies(),
-        origin: target.AimPoint,
-        range: AreaOfEffect,
-        camoSight: true,
-        antiAir: AntiAir);
+          enemies: ObjectPool.Instance.GetActiveEnemies(),
+          origin: target.AimPoint,
+          range: AreaOfEffect,
+          camoSight: true,
+          antiAir: AntiAir);
       foreach (Enemy enemy in enemiesForAcid) {
         if (enemy == target) continue;
         enemy.AddAcidStacks(AcidStacks / 2, AcidEnhancement);
