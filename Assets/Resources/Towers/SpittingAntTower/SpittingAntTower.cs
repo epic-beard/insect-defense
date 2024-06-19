@@ -87,7 +87,6 @@ public class SpittingAntTower : Tower {
         if (enemy == target) continue;
         enemy.AddAcidStacks(AcidStacks / 2, AcidEnhancement);
       }
-      // TODO(emonzon): Trigger an acid splash.
       splashExplosion.transform.position = target.transform.position;
       splashExplosion.Play();
     }
