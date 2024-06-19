@@ -43,15 +43,15 @@ public class SpittingAntTowerTest {
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION);
 
     Assert.That(true, Is.EqualTo(spittingAntTower.VenomCorpseplosion));
-    Assert.That(false, Is.EqualTo(spittingAntTower.AcidBuildupBonus));
+    Assert.That(false, Is.EqualTo(spittingAntTower.AoEAcid));
   }
 
   // Test setting DotSlow.
   [Test]
   public void SpecialAbilityUpgradeDotSlow() {
-    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_3_ACID_BUILDUP_BONUS);
+    spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_2_3_AOE_ACID);
 
-    Assert.That(true, Is.EqualTo(spittingAntTower.AcidBuildupBonus));
+    Assert.That(true, Is.EqualTo(spittingAntTower.AoEAcid));
     Assert.That(false, Is.EqualTo(spittingAntTower.AcidEnhancement));
   }
 

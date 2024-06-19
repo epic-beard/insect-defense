@@ -55,23 +55,22 @@ MonoBehaviour:
     type: 0
     name: 
     icon_path: 
-    enemies_hit: 0
     acid_stacks: 0
+    bleed_stacks: 0
+    cost: 0
+    secondary_slow_targets: 0
+    venom_stacks: 0
     area_of_effect: 0
     armor_pierce: 0
     attack_speed: 0
-    bleed_stacks: 0
-    cost: 0
     damage: 0
     projectile_speed: 0
     range: 0
     secondary_slow_potency: 0
-    secondary_slow_targets: 0
     slow_duration: 0
     slow_power: 0
     stun_time: 0
     venom_power: 0
-    venom_stacks: 0
   targetingIndicator: {fileID: 601234435680318981}
   rangeIndicator: {fileID: 5129075295278649312}
   IsPreviewTower: 0
@@ -10310,7 +10309,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
