@@ -653,7 +653,7 @@ public class Enemy : MonoBehaviour {
 
   private void SpawnChildren(string childKey, int num) {
     for (int i = 0; i < num; i++) {
-      Spawner.Instance.Spawn(childKey, NextWaypoint, transform);
+      Spawner.Instance.Spawn(childKey, NextWaypoint, null, transform);
     }
   }
 

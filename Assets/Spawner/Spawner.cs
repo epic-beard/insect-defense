@@ -13,6 +13,7 @@ using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyD
 using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.IntegerField>;
 using EnemyKey = System.Tuple<EnemyData.Type, int>;
 using UnityEngine.InputSystem.HID;
+using static UnityEditor.PlayerSettings;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -60,21 +61,21 @@ public class Spawner : MonoBehaviour {
 
   // A thin wrapper around InstantiateEnemy, using spawnLocation as an
   // index into spawnLocations.
-  public GameObject Spawn(EnemyData data, int spawnLocation) {
-    return Spawn(data, spawnLocations[spawnLocation]);
+  public GameObject Spawn(EnemyData data, int spawnLocation, Vector2? pos = null) {
+    return Spawn(data, spawnLocations[spawnLocation], pos);
   }
   // Same as above but looks up the enemy stats in the EnemyManager.
-  public GameObject Spawn(string enemyDataKey, int spawnLocation) {
-    return Spawn(enemyDataKey, spawnLocations[spawnLocation]);
+  public GameObject Spawn(string enemyDataKey, int spawnLocation, Vector2? pos = null) {
+    return Spawn(enemyDataKey, spawnLocations[spawnLocation], pos);
   }
   // Same as above but includes a Transform at which to spawn the enemy.
-  public GameObject Spawn(string enemyDataKey, Waypoint startWaypoint, Transform? parent = null) {
+  public GameObject Spawn(string enemyDataKey, Waypoint startWaypoint, Vector2? pos = null, Transform? parent = null) {
     EnemyData data = EnemyDataManager.Instance.GetEnemyData(enemyDataKey);
-    return Spawn(data, startWaypoint, parent);
+    return Spawn(data, startWaypoint, pos, parent);
   }
 
-  public GameObject Spawn(EnemyData data, Waypoint startWaypoint, Transform? parent = null) {
-    return ObjectPool.Instance.InstantiateEnemy(data, startWaypoint, parent);
+  public GameObject Spawn(EnemyData data, Waypoint startWaypoint, Vector2? pos = null, Transform? parent = null) {
+    return ObjectPool.Instance.InstantiateEnemy(data, startWaypoint, pos, parent);
   }
 
   // The interface for the Waves system.
@@ -349,21 +350,33 @@ public class Spawner : MonoBehaviour {
     public int spawnLocation;
     public int spawnAmmount;
     public int? WaveTag;
+    public List<Vector2> Positions = new();
     public EnemyData data;
 
     public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {
-        for (int j = 0; j < spawnAmmount; j++) {
-          // Create the enemy.
-          GameObject obj = Spawner.Instance.Spawn(data, spawnLocation);
-          Enemy enemy = obj.GetComponent<Enemy>();
-          enemy.WaveTag = WaveTag;
+        if (Positions.Count > 0) {
+          foreach (Vector2 pos in Positions) {
+            SpawnEnemy(data, spawnLocation, pos);
+          }
+        } else {
+          for (int j = 0; j < spawnAmmount; j++) {
+            SpawnEnemy(data, spawnLocation);
+          }
         }
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
       }
       Finished = true;
     }
+
+    private Enemy SpawnEnemy(EnemyData data, int spawnLocation, Vector2? pos = null) {
+      GameObject obj = Spawner.Instance.Spawn(data, spawnLocation, pos);
+      Enemy enemy = obj.GetComponent<Enemy>();
+      enemy.WaveTag = WaveTag;
+      return enemy;
+    }
+
     public override string ToString() {
       return "EnemyWave"
         + "\n\tRepetitions " + repetitions
@@ -413,6 +426,7 @@ public class Spawner : MonoBehaviour {
 
     // The following method keeps waveTag from serializing when null.
     public bool ShouldSerializeWaveTag() { return WaveTag.HasValue; }
+    public bool ShouldSerializePositions() { return Positions.Count > 0; }
   }
 
   // Same as the EnemyWave but used canned stats looked up by a
@@ -423,6 +437,7 @@ public class Spawner : MonoBehaviour {
     public int spawnLocation;
     public int spawnAmmount;
     public string enemyDataKey = "";
+    public List<Vector2> Positions = new();
     public int? WaveTag;
     public EnemyStatOverrides Overrides = new();
     public EnemyData.Properties? Properties;
@@ -433,37 +448,49 @@ public class Spawner : MonoBehaviour {
 
     public override IEnumerator Start() {
       for (int i = 0; i < repetitions; i++) {
-        for (int j = 0; j < spawnAmmount; j++) {
-          // Create the enemy.
-          GameObject obj = Spawner.Instance.Spawn(enemyDataKey, spawnLocation);
-          Enemy enemy = obj.GetComponent<Enemy>();
-          if (Overrides != null) {
-            foreach (var kvp in Overrides) {
-              enemy.SetStat(kvp.Key, kvp.Value);
-            }
-          }
-          if (Properties.HasValue) {
-            enemy.SetProperties(Properties.Value);
-          }
-          if (CarrierOverride.HasValue) {
-            enemy.SetCarrier(CarrierOverride.Value);
-          }
-          if (SpawnerOverride.HasValue) {
-            enemy.SetSpawner(SpawnerOverride.Value);
-          }
-          if (DazzleOverride.HasValue) {
-            enemy.SetDazzle(DazzleOverride.Value);
-          }
-          if (SlimeOverride.HasValue) {
-            enemy.SetSlime(SlimeOverride.Value);
-          }
+        if (Positions.Count > 0) {
+          foreach (Vector2 pos in Positions) {
+            SpawnEnemy(enemyDataKey, spawnLocation, pos);
 
-          enemy.WaveTag = WaveTag;
+          }
+        } else {
+          for (int j = 0; j < spawnAmmount; j++) {
+            SpawnEnemy(enemyDataKey, spawnLocation);
+          }
         }
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
       }
       Finished = true;
+    }
+
+    private Enemy SpawnEnemy(string key, int spawnLocation, Vector2? pos = null) {
+      GameObject obj = Spawner.Instance.Spawn(key, spawnLocation, pos);
+      Enemy enemy = obj.GetComponent<Enemy>();
+      if (Overrides != null) {
+        foreach (var kvp in Overrides) {
+          enemy.SetStat(kvp.Key, kvp.Value);
+        }
+      }
+      if (Properties.HasValue) {
+        enemy.SetProperties(Properties.Value);
+      }
+      if (CarrierOverride.HasValue) {
+        enemy.SetCarrier(CarrierOverride.Value);
+      }
+      if (SpawnerOverride.HasValue) {
+        enemy.SetSpawner(SpawnerOverride.Value);
+      }
+      if (DazzleOverride.HasValue) {
+        enemy.SetDazzle(DazzleOverride.Value);
+      }
+      if (SlimeOverride.HasValue) {
+        enemy.SetSlime(SlimeOverride.Value);
+      }
+
+      enemy.WaveTag = WaveTag;
+
+      return enemy;
     }
 
     public override string ToString() {
@@ -513,7 +540,6 @@ public class Spawner : MonoBehaviour {
       // EnemyData.SpawnerProperties? SpawnerOverride;
       // EnemyData.DazzleProperties? DazzleOverride;
       // EnemyData.SlimeProperties? SlimeOverride;
-      // WaveTag: we dont have a solution for nullables yet.
     }
 
     public override IList<Wave> GetChildren() {
@@ -532,6 +558,8 @@ public class Spawner : MonoBehaviour {
     public bool ShouldSerializeDazzleOverride() { return DazzleOverride.HasValue; }
     public bool ShouldSerializeSlimeOverride() { return SlimeOverride.HasValue; }
     public bool ShouldSerializeWaveTag() { return WaveTag.HasValue; }
+
+    public bool ShouldSerializePositions() { return Positions.Count > 0; }
   }
 
   // A wave that just waits for a given delay then finishes.
@@ -671,6 +699,12 @@ public class Spawner : MonoBehaviour {
 
   public Wave GetConcurrentWave(params Wave[] waves) {
     ConcurrentWave wave = new();
+    wave.Subwaves.AddRange(waves);
+    return wave;
+  }
+
+  public Wave GetSequentialWave(params Wave[] waves) {
+    SequentialWave wave = new();
     wave.Subwaves.AddRange(waves);
     return wave;
   }
