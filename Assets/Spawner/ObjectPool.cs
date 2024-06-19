@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UIElements;
 using EnemyKey = System.Tuple<EnemyData.Type, int>;
 
 public class ObjectPool : MonoBehaviour {
@@ -38,7 +38,7 @@ public class ObjectPool : MonoBehaviour {
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
-  public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Transform? parent = null) {
+  public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Vector2? pos = null, Transform? parent = null) {
     EnemyKey enemyKey = new(data.type, data.infectionLevel);
     CheckForExistence(data, enemyKey);
     var pool = objectPools[enemyKey];
@@ -60,14 +60,21 @@ public class ObjectPool : MonoBehaviour {
     enemy.Data = data;
     enemy.PrevWaypoint = start;
 
-    float variance = enemy.Data.spawnVariance;
+    float xDelta;
+    float zDelta;
+    if (pos != null) {
+      xDelta = pos.Value.x;
+      zDelta = pos.Value.y;
+    } else {
+      float variance = enemy.Data.spawnVariance;
+      xDelta = UnityEngine.Random.Range(-variance, variance);
+      zDelta = UnityEngine.Random.Range(-variance, variance);
+    }
     Vector3 position = gameObject.transform.position;
-    float xVariance = UnityEngine.Random.Range(-variance, variance);
-    float zVariance = UnityEngine.Random.Range(-variance, variance);
-    position.x += xVariance;
-    position.z += zVariance;
+    position.x += xDelta;
+    position.z += zDelta;
     enemy.transform.position = position;
-    enemy.SetVariance(xVariance, zVariance);
+    enemy.SetVariance(xDelta, zDelta);
 
     enemy.Initialize(start);
 
