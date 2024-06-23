@@ -265,6 +265,13 @@ public class Spawner : MonoBehaviour {
   // A wave that calls its subwaves sequentially.
   public class SequentialWave : Wave {
     readonly public List<Wave> Subwaves = new();
+
+    public SequentialWave() {}
+
+    public SequentialWave(params Wave[] waves) {
+      Subwaves.AddRange(waves);
+    }
+
     public override IEnumerator Start() {
       foreach (var subwave in Subwaves) {
         // Start the subwave and wait till it's finished.
@@ -304,6 +311,13 @@ public class Spawner : MonoBehaviour {
   // A wave that calls its subwaves concurrently.
   public class ConcurrentWave : Wave {
     readonly public List<Wave> Subwaves = new();
+
+    public ConcurrentWave() { }
+
+    public ConcurrentWave(params Wave[] waves) {
+      Subwaves.AddRange(waves);
+    }
+
     public override IEnumerator Start() {
       // Start all the subwaves.
       foreach (var subwave in Subwaves) {
@@ -681,31 +695,23 @@ public class Spawner : MonoBehaviour {
   }
 
   // Used to break up patterns when sending single enemy waves.  Concurently spawns enemies at the given delays.
-  // relatively prime delays give best results.
-  public Wave GetOffsetWave(string enemyDataKey, float duration, List<float> delays, int spawnLocation = 1) {
+  // relatively prime delays give best results. The List of Tuples is expected to be in this order:
+  // <Warmup delay, repition depay>.
+  public static Wave GetOffsetWave(string enemyDataKey, float duration, List<Tuple<float, float>> delays, int spawnLocation = 0) {
     ConcurrentWave wave = new();
 
-    foreach (float delay in delays) {
-      wave.Subwaves.Add(new CannedEnemyWave() {
-        enemyDataKey = enemyDataKey,
-        repetitions = (int) (duration / delay),
-        repeatDelay = delay,
-        spawnLocation = spawnLocation,
-        spawnAmmount = 1,
+    foreach (Tuple<float, float> delay in delays) {
+      wave.Subwaves.Add(new DelayedWave() {
+        warmup = delay.Item1,
+        wave = new CannedEnemyWave() {
+            enemyDataKey = enemyDataKey,
+            repetitions = (int)((duration - delay.Item1 ) / delay.Item2),
+            repeatDelay = delay.Item2,
+            spawnLocation = spawnLocation,
+            spawnAmmount = 1,
+        },
       });
     }
-    return wave;
-  }
-
-  public Wave GetConcurrentWave(params Wave[] waves) {
-    ConcurrentWave wave = new();
-    wave.Subwaves.AddRange(waves);
-    return wave;
-  }
-
-  public Wave GetSequentialWave(params Wave[] waves) {
-    SequentialWave wave = new();
-    wave.Subwaves.AddRange(waves);
     return wave;
   }
 }

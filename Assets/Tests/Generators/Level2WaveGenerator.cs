@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
 
@@ -26,14 +27,14 @@ public class Level2WaveGenerator {
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 6,
-          repeatDelay = 3.5f,
+          repeatDelay = 4.0f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 2,
-          repeatDelay = 1.0f,
+          repeatDelay = 1.5f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
@@ -41,7 +42,7 @@ public class Level2WaveGenerator {
         new DialogueBoxWave() {
           delay = 2.0f,
           messages =
-              { "You don't have enough money for a new tower, but...",
+              { "Enemies will now spawn on the left. You don't have enough money for a new tower, but...",
                 "You can sell this tower and build a new tower for the other track.",
                 "When you sell a tower, you get back all the Nu you spent on it (upgrades included).",
                 "Keep in mind: It takes a little time to tear down and then build a tower" }
@@ -49,7 +50,7 @@ public class Level2WaveGenerator {
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 6,
-          repeatDelay = 3.5f,
+          repeatDelay = 2.5f,
           spawnLocation = 1,
           spawnAmmount = 1,
         },
@@ -59,9 +60,10 @@ public class Level2WaveGenerator {
         new CannedEnemyWave() {
           enemyDataKey = ant,
           repetitions = 2,
-          repeatDelay = 5.0f,
+          repeatDelay = 4.0f,
           spawnLocation = 1,
-          spawnAmmount = 2,
+          spawnAmmount = 0,
+          Positions = new() { new(-2, 0), new(2, 0) }
         },
         new WaitUntilDeadWave() {},
         new DialogueBoxWave() {
@@ -69,16 +71,12 @@ public class Level2WaveGenerator {
               { "The next few waves will have clustered enemies, against whom the Mantis tower excels.",
                 "It does damage in an area around its punch and its damage upgrades very well." }
         },
-        new ConcurrentWave() {
-          Subwaves = {
-            new CannedEnemyWave() {
-              enemyDataKey = aphid,
-              repetitions = 12,
-              repeatDelay = 2.25f,
-              spawnLocation = 0,
-              spawnAmmount = 2,
-            },
-          },
+        new CannedEnemyWave() {
+          enemyDataKey = aphid,
+          repetitions = 12,
+          repeatDelay = 2.25f,
+          spawnLocation = 0,
+          spawnAmmount = 2,
         },
         new WaitUntilDeadWave() {},
         new SpacerWave() {
@@ -126,46 +124,18 @@ public class Level2WaveGenerator {
         new SpacerWave() {
           delay = 5.0f,
         },
-        new ConcurrentWave() {
-          Subwaves = {
-            new CannedEnemyWave() {
-              enemyDataKey = beetle,
-              repetitions = 3,
-              repeatDelay = 15.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-            },
-            new DelayedWave() {
-              warmup = 45.0f,
-              wave = new CannedEnemyWave() {
-                enemyDataKey = beetle,
-                repetitions = 3,
-                repeatDelay = 8.0f,
-                spawnLocation = 1,
-                spawnAmmount = 1,
-              },
-            },
-            new CannedEnemyWave() {
-              enemyDataKey = aphid,
-              repetitions = 70,
-              repeatDelay = 1.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-              Overrides = { { EnemyData.Stat.SPEED, 0.25f } },
-            },
-            new DelayedWave() {
-              warmup = 1.0f,
-              wave = new CannedEnemyWave() {
-                enemyDataKey = aphid,
-                repetitions = 28,
-                repeatDelay = 2.6f,
-                spawnLocation = 1,
-                spawnAmmount = 2,
-                Overrides = { { EnemyData.Stat.SPEED, 0.25f } },
-              },
-            },
-          },
-        },
+        new ConcurrentWave(
+            GetOffsetWave(
+              enemyDataKey: beetle,
+              duration: 70.0f,
+              delays: new() { new(0.0f, 15.0f), new(45.0f, 8.0f) },
+              spawnLocation: 1),
+            GetOffsetWave(
+              enemyDataKey: aphid,
+              duration: 70.0f,
+              delays: new() { new(0.0f, 1.0f), new(1.0f, 2.6f) },
+              spawnLocation: 1)
+          ),
       },
     };
     // Nu: 490
@@ -445,7 +415,7 @@ public class Level2WaveGenerator {
     // Nu: 1256
 
     Waves waves = new() {
-      waves = { firstWave, secondWave, thirdWave, fourthWave },
+      waves = { firstWave },
     };
 
     Serialize<Waves>(waves, filename);

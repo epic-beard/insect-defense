@@ -469,6 +469,22 @@ public class Enemy : MonoBehaviour {
     }
   }
 
+  private void ResetTransientState() {
+    StatChangedEvent = delegate{ };
+    spittingAntTowerSlows.Clear();
+    webShootingTowerStuns.Clear();
+    webShootingTowerPermSlow.Clear();
+    AdvancedAcidDecayDelay.Clear();
+    accumulatedAcidDamage = 0;
+    accumulatedBleedDamage = 0;
+    accumulatedContinuousDamage = 0;
+    accumulatedPoisonDamage = 0;
+    venomStacks.Clear();
+    Crippled = false;
+    GroundedTime = 0;
+    WaveTag = null;
+  }
+
   // Handle ensuring that the advanced acid decay delay decays at the appropriate pace.
   private IEnumerator HandleAdvancedAcidDecay() {
     while (true) {

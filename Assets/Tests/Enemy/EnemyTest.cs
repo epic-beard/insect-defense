@@ -9,7 +9,7 @@ public class EnemyTest {
 
   [SetUp]
   public void Setup() {
-    TowerManager towerManager = new TowerManager();
+    TowerManager towerManager = new GameObject().AddComponent<TowerManager>();
     TowerManager.Instance = towerManager;
   }
 
