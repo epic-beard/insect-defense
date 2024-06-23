@@ -22,7 +22,7 @@ public class SpittingAntTowerTest {
     spittingAntTower.SetProjectileHandler(projectileHandler);
     Time.captureDeltaTime = 1;
 
-    TowerManager.Instance = new TowerManager();
+    TowerManager.Instance = gameObject.AddComponent<TowerManager>();
   }
 
   #region SpecialAbilityUpgradeTests
