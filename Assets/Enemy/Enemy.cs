@@ -132,6 +132,7 @@ public class Enemy : MonoBehaviour {
         DistributeVenomStacksIfNecessary();
 
         ConditionalContextReset();
+        ResetTransientState();
         ObjectPool.Instance.DestroyEnemy(gameObject);
         GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);
       }
