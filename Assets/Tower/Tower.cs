@@ -9,9 +9,6 @@ public abstract class Tower : MonoBehaviour {
   [SerializeField] protected Transform targetingIndicator;
   [SerializeField] protected Transform rangeIndicator;
 
-  private readonly int UnusedInteger = 1;
-  private readonly float UnusedFloat = 1.0f;
-
   #region PublicProperties
   public int AcidStacks {
     get { return data.acid_stacks; }

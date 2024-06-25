@@ -328,6 +328,9 @@ public class Enemy : MonoBehaviour {
 
     if (continuous) {
       accumulatedContinuousDamage += damage * (1 + continuousDamageWeakenPower);
+      if (continuousDamageWeakenPower == 0.0f) {
+        continuousDamageWeakenPower = PopVenomStack();
+      }
       HP -= damage;
     } else {
       DealDamage(damage * (1 + PopVenomStack()), DamageText.DamageType.PHYSICAL);
@@ -564,7 +567,7 @@ public class Enemy : MonoBehaviour {
         ShowDamageText(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
         accumulatedContinuousDamage = 0.0f;
       }
-      continuousDamageWeakenPower = PopVenomStack();
+      continuousDamageWeakenPower = 0;
 
       yield return new WaitForSeconds(continuousDamagePollingDelay);
     }
