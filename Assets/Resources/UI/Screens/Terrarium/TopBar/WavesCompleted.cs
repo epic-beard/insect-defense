@@ -20,6 +20,10 @@ public class WavesCompleted : MonoBehaviour {
     waveCompletePanelVE.style.display = DisplayStyle.None;
   }
 
+  private void OnDestroy() {
+    Spawner.WaveComplete -= OnWaveComplete;
+  }
+
   private void SetVisualElements() {
     uiDocument = GetComponent<UIDocument>();
     VisualElement rootElement = uiDocument.rootVisualElement;
@@ -34,7 +38,7 @@ public class WavesCompleted : MonoBehaviour {
     waveCompletePanelVE.style.display = DisplayStyle.Flex;
     float opacity = 0.0f;
     while (opacity < 1.0f) {
-      opacity += Time.deltaTime * fadeSpeed;
+      opacity += Time.unscaledDeltaTime * fadeSpeed;
       labelColor.a = opacity;
       waveCompleteLabelVE.style.color = labelColor;
       yield return null;
@@ -46,7 +50,7 @@ public class WavesCompleted : MonoBehaviour {
   private IEnumerator HideWaveComplete() {
     float opacity = 1.0f;
     while (opacity > 0.0f) {
-      opacity -= Time.deltaTime * fadeSpeed;
+      opacity -= Time.unscaledDeltaTime * fadeSpeed;
       labelColor.a = opacity;
       waveCompleteLabelVE.style.color = labelColor;
       yield return null;

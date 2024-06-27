@@ -563,7 +563,7 @@ public class TowerDataGenerator {
         name = "Damage and Armor Pen",
         description = "Increases damage and armor penetration by 50%.",
         upgradePath = 0,
-        cost = 50,
+        cost = 80,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
@@ -573,7 +573,7 @@ public class TowerDataGenerator {
         name = "Damage and Armor Pen",
         description = "Increases damage and armor penetration by 50%.",
         upgradePath = 0,
-        cost = 200,
+        cost = 300,
       },
       new() {
         specialAbility = SpecialAbility.M_1_3_DOUBLE_SLASH,
@@ -664,7 +664,7 @@ public class TowerDataGenerator {
         name = "Improved Attack Speed",
         description = "Increases attack speed by 60%.",
         upgradePath = 2,
-        cost = 50,
+        cost = 60,
       },
       new() {
         specialAbility = SpecialAbility.M_3_2_CAMO_SIGHT,

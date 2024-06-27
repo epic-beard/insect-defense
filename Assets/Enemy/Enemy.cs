@@ -328,6 +328,9 @@ public class Enemy : MonoBehaviour {
 
     if (continuous) {
       accumulatedContinuousDamage += damage * (1 + continuousDamageWeakenPower);
+      if (continuousDamageWeakenPower == 0.0f) {
+        continuousDamageWeakenPower = PopVenomStack();
+      }
       HP -= damage;
     } else {
       DealDamage(damage * (1 + PopVenomStack()), DamageText.DamageType.PHYSICAL);
@@ -540,12 +543,13 @@ public class Enemy : MonoBehaviour {
       Vector3 startPosition = transform.position;
       Vector3 endPosition = NextWaypoint.transform.position;
       endPosition += new Vector3(xVariance, 0, zVariance);
+      float distance = Vector3.Distance(startPosition, endPosition);
       float travelPercent = 0.0f;
 
       transform.LookAt(endPosition);
 
       while (travelPercent < 1.0f) {
-        travelPercent += Time.deltaTime * Speed;
+        travelPercent += 10 * Time.deltaTime * Speed / distance;
         transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
         yield return null;
       }
@@ -564,7 +568,7 @@ public class Enemy : MonoBehaviour {
         ShowDamageText(accumulatedContinuousDamage, DamageText.DamageType.PHYSICAL);
         accumulatedContinuousDamage = 0.0f;
       }
-      continuousDamageWeakenPower = PopVenomStack();
+      continuousDamageWeakenPower = 0;
 
       yield return new WaitForSeconds(continuousDamagePollingDelay);
     }

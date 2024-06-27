@@ -754,7 +754,7 @@
               <name>Damage and Armor Pen</name>
               <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
-              <cost>50</cost>
+              <cost>80</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -773,7 +773,7 @@
               <name>Damage and Armor Pen</name>
               <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
-              <cost>200</cost>
+              <cost>300</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_1_3_DOUBLE_SLASH</specialAbility>
@@ -908,7 +908,7 @@
               <name>Improved Attack Speed</name>
               <description>Increases attack speed by 60%.</description>
               <upgradePath>2</upgradePath>
-              <cost>50</cost>
+              <cost>60</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_3_2_CAMO_SIGHT</specialAbility>

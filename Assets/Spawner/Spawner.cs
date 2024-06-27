@@ -14,6 +14,7 @@ using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.Integer
 using EnemyKey = System.Tuple<EnemyData.Type, int>;
 using UnityEngine.InputSystem.HID;
 using static UnityEditor.PlayerSettings;
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -694,23 +695,90 @@ public class Spawner : MonoBehaviour {
     }
   }
 
+  public class WaveMetrics {
+    public float? warmup = null;
+    public float? repeatDelay = null;
+    public float? cooldown = null;
+    public float? duration = null;
+    public int? repetitions = null;
+    public int? spawnLocation = null;
+    public int? spawnAmount = null;
+    public string? enemyDataKey = null;
+    public List<Vector2>? Positions = null;
+    public int? WaveTag = null;
+    public EnemyStatOverrides? Overrides = null;
+    public EnemyData.Properties? Properties = null;
+    public EnemyData.CarrierProperties? CarrierOverride = null;
+    public EnemyData.SpawnerProperties? SpawnerOverride = null;
+    public EnemyData.DazzleProperties? DazzleOverride = null;
+    public EnemyData.SlimeProperties? SlimeOverride = null;
+
+    public WaveMetrics() { }
+  }
+
   // Used to break up patterns when sending single enemy waves.  Concurently spawns enemies at the given delays.
   // relatively prime delays give best results. The List of Tuples is expected to be in this order:
   // <Warmup delay, repition depay>.
-  public static Wave GetOffsetWave(string enemyDataKey, float duration, List<Tuple<float, float>> delays, int spawnLocation = 0) {
-    ConcurrentWave wave = new();
+  public static Wave GetConcurrentWaveWithDefaults(string defaultEnemyDataKey, List<WaveMetrics> metrics, int defaultSpawnLocation = 0) {
+    WaveMetrics defaults = new() { 
+      enemyDataKey = defaultEnemyDataKey,
+      spawnLocation = defaultSpawnLocation,
+    };
+    return GetConcurrentWaveWithDefaults(defaults, metrics.ToArray());
+  }
 
-    foreach (Tuple<float, float> delay in delays) {
-      wave.Subwaves.Add(new DelayedWave() {
-        warmup = delay.Item1,
-        wave = new CannedEnemyWave() {
-            enemyDataKey = enemyDataKey,
-            repetitions = (int)((duration - delay.Item1 ) / delay.Item2),
-            repeatDelay = delay.Item2,
-            spawnLocation = spawnLocation,
-            spawnAmmount = 1,
-        },
-      });
+  // Creates an enemy wave from a metric, defaulting to the values in defaults.
+  // Throws if default, metric combination does not result in a valid wave.
+  private static CannedEnemyWave GetWaveWithDefaults(WaveMetrics defaults, WaveMetrics metric) {
+    // Throws if any two of the following are null:
+    // repetitions, duration, repeatDelay.
+    int? repetitions = metric.repetitions ?? defaults.repetitions;
+    float? duration = metric.duration ?? defaults.duration;
+    float? repeatDelay = metric.repeatDelay ?? defaults.repeatDelay;
+    if (repetitions == null) {
+      if (duration == null || repeatDelay == null) {
+        throw new ArgumentNullException(nameof(repetitions) + " " + nameof(duration) + " " + nameof(repeatDelay));
+      }
+      repetitions = (int)Math.Floor(duration / repeatDelay ?? 1);
+    } else if (repeatDelay == null) {
+      if (duration == null || repetitions == null) {
+        throw new ArgumentNullException(nameof(repetitions) + " " + nameof(duration) + " " + nameof(repeatDelay));
+      }
+      repeatDelay = duration / repetitions ?? 1;
+    }
+
+    // Set the fields while performing the defaulting.
+    // SpawnAmount defaults to 1.
+    // SpawnLocation and EnemyDataKey throw if left unset as this is likely uninentional.
+    // Repetitions and repeatDelay should be non-null after the above logic so that exception is just a sanity check.
+    return new CannedEnemyWave() {
+      repetitions = repetitions ?? throw new ArgumentNullException(nameof(repetitions)),
+      repeatDelay = repeatDelay ?? throw new ArgumentNullException(nameof(repeatDelay)),
+      spawnLocation = metric.spawnLocation ?? defaults.spawnLocation ?? throw new ArgumentNullException("spawnLocation null"),
+      spawnAmmount = metric.spawnAmount ?? defaults.spawnAmount ?? 1,
+      enemyDataKey = metric.enemyDataKey ?? defaults.enemyDataKey ?? throw new ArgumentNullException("enemyDataKey null"),
+      WaveTag = metric.WaveTag ?? defaults.WaveTag,
+      Overrides = metric.Overrides ?? defaults.Overrides ?? new(),
+      Properties = metric.Properties ?? defaults.Properties,
+      CarrierOverride = metric.CarrierOverride ?? defaults.CarrierOverride,
+      SpawnerOverride = metric.SpawnerOverride ?? defaults.SpawnerOverride,
+      DazzleOverride = metric.DazzleOverride ?? defaults.DazzleOverride,
+      SlimeOverride = metric.SlimeOverride ?? defaults.SlimeOverride,
+    };
+  }
+
+  public static SequentialWave GetSequentialWaveWithDefaults(WaveMetrics defaults, params WaveMetrics[] metrics) {
+    SequentialWave wave = new();
+    foreach (WaveMetrics metric in metrics) {
+      wave.Subwaves.Add(GetWaveWithDefaults(defaults, metric));
+    }
+    return wave;
+  }
+
+  public static ConcurrentWave GetConcurrentWaveWithDefaults(WaveMetrics defaults, params WaveMetrics[] metrics) {
+    ConcurrentWave wave = new();
+    foreach (WaveMetrics metric in metrics) {
+      wave.Subwaves.Add(GetWaveWithDefaults(defaults, metric));
     }
     return wave;
   }
