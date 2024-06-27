@@ -63,8 +63,8 @@ public class Level2WaveGenerator {
                 "You can sell your Spitting Ant tower for enough Nu to afford a Mantis.",
                 "Don't worry! All Nu spent on a tower is refunded when sold."}
         },
-        GetCompositeEnemyWave(
-          enemyDataKey: aphid,
+        GetConcurrentWaveWithDefaults(
+          defaultEnemyDataKey: aphid,
           metrics: new() {
             new() {
               repeatDelay = 2.0f,
@@ -76,7 +76,7 @@ public class Level2WaveGenerator {
               duration = 25.0f,
             }
           },
-          spawnLocation: 1
+          defaultSpawnLocation: 1
         ),
         new SpacerWave() {
           delay = 6.0f,
@@ -123,8 +123,8 @@ public class Level2WaveGenerator {
           delay = 5.0f,
         },
         new ConcurrentWave(
-            GetCompositeEnemyWave(
-              enemyDataKey: beetle,
+            GetConcurrentWaveWithDefaults(
+              defaultEnemyDataKey: beetle,
               metrics: new() {
                 new() {
                   repeatDelay = 16.0f,
@@ -136,9 +136,9 @@ public class Level2WaveGenerator {
                   duration = 50.0f
                 },
               },
-              spawnLocation: 1),
-            GetCompositeEnemyWave(
-              enemyDataKey: aphid,
+              defaultSpawnLocation: 1),
+            GetConcurrentWaveWithDefaults(
+              defaultEnemyDataKey: aphid,
               metrics: new() {
                 new() {
                   repeatDelay = 1.5f,
@@ -150,7 +150,7 @@ public class Level2WaveGenerator {
                   duration = 50.0f
                 },
               },
-              spawnLocation: 1)
+              defaultSpawnLocation: 1)
           ),
       },
     };
