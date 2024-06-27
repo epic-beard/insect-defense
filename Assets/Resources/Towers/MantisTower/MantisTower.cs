@@ -31,7 +31,6 @@ public class MantisTower : Tower {
   }
 
   private Animator animator;
-  private bool firing = false;
   private Dictionary<MantisAttackType, Transform> attackOriginMap = new();
   private float secondaryDamageModifier = 0.5f;
 
@@ -84,6 +83,12 @@ public class MantisTower : Tower {
     }
   }
 
+  protected override void TowerUpdate() {
+    if (Target != null) {
+      bodyMesh.LookAt(Target.AimPoint - (Vector3.up * 4));
+    }
+  }
+
   // This method is called by an AnimationEvent embedded within the Mantis' attack animations.
   public void ProcessDamageAndEffects(MantisAttackType attackType) {
     if (Target == null) return;
@@ -130,39 +135,6 @@ public class MantisTower : Tower {
     }
   }
 
-  // These methods are intended to be called through AnimationEvents.
-  public void FreezeTarget() {
-    FrozenTarget = true;
-  }
-
-  public void UnFreezeTarget() {
-    FrozenTarget = false;
-  }
-
-  protected override void TowerUpdate() {
-    if (!FrozenTarget) {
-
-      Target = targeting.FindTarget(
-      oldTarget: Target,
-      enemies: ObjectPool.Instance.GetActiveEnemies(),
-      towerPosition: transform.position,
-      towerRange: Range,
-      camoSight: CamoSight,
-      antiAir: AntiAir);
-
-      if (Target == null) {
-        firing = false;
-      } else {
-        bodyMesh.LookAt(Target.AimPoint - (Vector3.up * 4));
-        firing = true;
-      }
-    } else if (Target != null) {
-      bodyMesh.LookAt(Target.AimPoint - (Vector3.up * 4));
-    } else if (Target == null) {
-      firing = false;
-    }
-  }
-
   protected override void UpdateAnimationSpeed(float newAttackSpeed) {
     if (animator != null) {
       animator.SetFloat("Speed", newAttackSpeed);
@@ -195,13 +167,22 @@ public class MantisTower : Tower {
 
   private IEnumerator Attack() {
     while (true) {
-      while (firing && !IsDazzled()) {
-        Stab();
-        FreezeTarget();
+      yield return null;
 
+      if (IsDazzled()) continue;
+
+      Target = targeting.FindTarget(
+      oldTarget: Target,
+      enemies: ObjectPool.Instance.GetActiveEnemies(),
+      towerPosition: transform.position,
+      towerRange: Range,
+      camoSight: CamoSight,
+      antiAir: AntiAir);
+
+      if (Target != null) {
+        Stab();
         yield return new WaitForSeconds(1 / EffectiveAttackSpeed);
       }
-      yield return new WaitUntil(() => firing);
     }
   }
 
