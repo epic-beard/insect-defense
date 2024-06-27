@@ -63,7 +63,7 @@ public class Level2WaveGenerator {
                 "You can sell your Spitting Ant tower for enough Nu to afford a Mantis.",
                 "Don't worry! All Nu spent on a tower is refunded when sold."}
         },
-        GetOffsetWave(
+        GetCompositeEnemyWave(
           enemyDataKey: aphid,
           metrics: new() {
             new() {
@@ -123,7 +123,7 @@ public class Level2WaveGenerator {
           delay = 5.0f,
         },
         new ConcurrentWave(
-            GetOffsetWave(
+            GetCompositeEnemyWave(
               enemyDataKey: beetle,
               metrics: new() {
                 new() {
@@ -137,7 +137,7 @@ public class Level2WaveGenerator {
                 },
               },
               spawnLocation: 1),
-            GetOffsetWave(
+            GetCompositeEnemyWave(
               enemyDataKey: aphid,
               metrics: new() {
                 new() {

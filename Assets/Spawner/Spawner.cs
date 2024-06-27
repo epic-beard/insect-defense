@@ -702,7 +702,7 @@ public class Spawner : MonoBehaviour {
     public float? duration = null;
     public int? repetitions = null;
     public int? spawnLocation = null;
-    public int? spawnAmmount = null;
+    public int? spawnAmount = null;
     public string? enemyDataKey = null;
     public List<Vector2>? Positions = null;
     public int? WaveTag = null;
@@ -719,16 +719,19 @@ public class Spawner : MonoBehaviour {
   // Used to break up patterns when sending single enemy waves.  Concurently spawns enemies at the given delays.
   // relatively prime delays give best results. The List of Tuples is expected to be in this order:
   // <Warmup delay, repition depay>.
-  //public static Wave GetOffsetWave(string enemyDataKey, float duration, List<Tuple<float, float>> delays, int spawnLocation = 0) {
-  public static Wave GetOffsetWave(string enemyDataKey, List<WaveMetrics> metrics, int spawnLocation = 0) {
+  public static Wave GetConcurrentWaveWithDefaults(string defaultEnemyDataKey, List<WaveMetrics> metrics, int defaultSpawnLocation = 0) {
     WaveMetrics defaults = new() { 
-      enemyDataKey = enemyDataKey,
-      spawnLocation = spawnLocation,
+      enemyDataKey = defaultEnemyDataKey,
+      spawnLocation = defaultSpawnLocation,
     };
     return GetConcurrentWaveWithDefaults(defaults, metrics.ToArray());
   }
 
+  // Creates an enemy wave from a metric, defaulting to the values in defaults.
+  // Throws if default, metric combination does not result in a valid wave.
   private static CannedEnemyWave GetWaveWithDefaults(WaveMetrics defaults, WaveMetrics metric) {
+    // Throws if any two of the following are null:
+    // repetitions, duration, repeatDelay.
     int? repetitions = metric.repetitions ?? defaults.repetitions;
     float? duration = metric.duration ?? defaults.duration;
     float? repeatDelay = metric.repeatDelay ?? defaults.repeatDelay;
@@ -743,11 +746,16 @@ public class Spawner : MonoBehaviour {
       }
       repeatDelay = duration / repetitions ?? 1;
     }
+
+    // Set the fields while performing the defaulting.
+    // SpawnAmount defaults to 1.
+    // SpawnLocation and EnemyDataKey throw if left unset as this is likely uninentional.
+    // Repetitions and repeatDelay should be non-null after the above logic so that exception is just a sanity check.
     return new CannedEnemyWave() {
       repetitions = repetitions ?? throw new ArgumentNullException(nameof(repetitions)),
       repeatDelay = repeatDelay ?? throw new ArgumentNullException(nameof(repeatDelay)),
       spawnLocation = metric.spawnLocation ?? defaults.spawnLocation ?? throw new ArgumentNullException("spawnLocation null"),
-      spawnAmmount = metric.spawnAmmount ?? defaults.spawnAmmount ?? 1,
+      spawnAmmount = metric.spawnAmount ?? defaults.spawnAmount ?? 1,
       enemyDataKey = metric.enemyDataKey ?? defaults.enemyDataKey ?? throw new ArgumentNullException("enemyDataKey null"),
       WaveTag = metric.WaveTag ?? defaults.WaveTag,
       Overrides = metric.Overrides ?? defaults.Overrides ?? new(),
