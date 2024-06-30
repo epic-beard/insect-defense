@@ -247,7 +247,6 @@ public class TargetingTest {
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
     enemy.Data = data;
-    gameObject.SetActive(false);
     return enemy;
   }
 

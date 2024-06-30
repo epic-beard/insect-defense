@@ -158,7 +158,6 @@ public class Level2WaveGenerator {
     // Nu: 564
 
     SequentialWave secondWave = new(
-      /*
       new ConcurrentWave(
         // Left side wave
         GetConcurrentWaveWithDefaults(
@@ -229,7 +228,6 @@ public class Level2WaveGenerator {
           }
         }
       ),
-      */
       // nu 789
       // ConcurrentWave -- End of subwave 1
       new WaitUntilDeadWave(),
@@ -244,13 +242,13 @@ public class Level2WaveGenerator {
           metrics: new WaveMetrics[] {
             new() {
               warmup = 2.0f,
-              repeatDelay = 10.0f
+              repeatDelay = 14.0f
             },
             new() {
               warmup = 37.0f,
-              repeatDelay = 10.0f,
+              repeatDelay = 14.0f,
             }
-          } 
+          }
         ),
         GetSequentialWaveWithDefaults(
           defaults: new() {
@@ -270,6 +268,7 @@ public class Level2WaveGenerator {
         // Right side wave
         GetConcurrentWaveWithDefaults(
           defaults: new() {
+            enemyDataKey = ant,
             duration = 80.0f,
             spawnAmount = 1,
             spawnLocation = 0,
@@ -280,17 +279,18 @@ public class Level2WaveGenerator {
             },
             new () {
               warmup = 24.0f,
-              repeatDelay = 5.0f,
+              repeatDelay = 10.0f,
+              cooldown = 30.0f,
             },
-            new () {
-              warmup = 56.0f,
+            new() {
+              warmup = 50.0f,
               repeatDelay = 5.0f,
-            },
+            }
           }
         )
       )  // ConcurrentWave  End of subwave 2
     );  // SequentialWave End of wave 2
-    // Nu: 956
+    // Nu: 1248
 
     SequentialWave thirdWave = new() {
       Subwaves = {
@@ -418,7 +418,7 @@ public class Level2WaveGenerator {
     );
 
     Waves waves = new() {
-      waves = { secondWave },
+      waves = { thirdWave },
     };
 
     Serialize<Waves>(waves, filename);
