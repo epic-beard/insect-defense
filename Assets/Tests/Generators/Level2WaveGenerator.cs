@@ -269,7 +269,7 @@ public class Level2WaveGenerator {
         GetConcurrentWaveWithDefaults(
           defaults: new() {
             enemyDataKey = ant,
-            duration = 80.0f,
+            duration = 100.0f,
             spawnAmount = 1,
             spawnLocation = 0,
           },
@@ -296,89 +296,118 @@ public class Level2WaveGenerator {
       Subwaves = {
         new ConcurrentWave() {
           Subwaves = {
-            // Left side waves
-            new CannedEnemyWave() {
-              enemyDataKey = ant,
-              repetitions = 10,
-              repeatDelay = 8.0f,
-              spawnLocation = 1,
-              spawnAmmount = 2,
-            },
-            new CannedEnemyWave() {
-              enemyDataKey = beetle,
-              repetitions = 5,
-              repeatDelay = 16.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-            },
-            new CannedEnemyWave() {
-              enemyDataKey = beetle,
-              repetitions = 8,
-              repeatDelay = 10.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-            },
-            // Right side wave
+            // Left side wave
             new SequentialWave {
-              Subwaves = {
-                new SpacerWave() {
-                  delay = 10.0f,
-                },
-                new CannedEnemyWave() {
-                  enemyDataKey = leafBug,
-                  repetitions = 1,
-                  repeatDelay = 1.0f,
-                  spawnLocation = 0,
-                  spawnAmmount = 1,
-                },
-                new SpacerWave() {
-                  delay = 6.0f,
-                },
-                new DialogueBoxWave() {
-                  messages =
-                    { "The insect on the right path has the Camoflauge special ability. Only towers with the Camo Sight ability can target them.",
-                      "Fortunately, the Mantis tower's second Utility upgrade grants it Camo Sight." },
-                  delay = 6.0f,
-                },
-                new ConcurrentWave {
-                  Subwaves = {
-                    new SequentialWave() {
-                      Subwaves = {
-                        new SpacerWave() {
-                          delay = 10.0f,
-                        },
-                        new CannedEnemyWave() {
-                          enemyDataKey = aphid,
-                          repetitions = 8,
-                          repeatDelay = 3.0f,
-                          spawnLocation = 0,
-                          spawnAmmount = 2,
-                        },
-                        new CannedEnemyWave() {
-                          enemyDataKey = aphid,
-                          repetitions = 12,
-                          repeatDelay = 1.5f,
-                          spawnLocation = 0,
-                          spawnAmmount = 1,
-                        }
+                Subwaves = {
+                  new SpacerWave() {
+                    delay = 8.0f,
+                  },
+                  new CannedEnemyWave() {
+                    enemyDataKey = leafBug,
+                    repetitions = 1,
+                    repeatDelay = 1.0f,
+                    spawnAmmount = 1,
+                    spawnLocation = 1,
+                  },
+                  new SpacerWave() {
+                    delay = 2.0f,
+                  },
+                  new DialogueBoxWave() {
+                    messages =
+                      { "The insect on the left path has the Camoflauge special ability. Only towers with the Camo Sight ability can target them.",
+                        "Fortunately, the Mantis tower's second Utility upgrade grants it Camo Sight." },
+                    delay = 6.0f,
+                  },
+                  GetConcurrentWaveWithDefaults(
+                    defaults: new() {
+                      enemyDataKey = aphid,
+                      duration = 50.0f,
+                      spawnAmount = 1,
+                      spawnLocation = 1,
+                      WaveTag = 1,
+                    },
+                    metrics: new WaveMetrics[] {
+                      new() {
+                        repeatDelay = 3.0f,
+                        spawnAmount = 2,
                       },
-                    },
-                    new CannedEnemyWave() {
-                      enemyDataKey = leafBug,
-                      repetitions = 7,
-                      repeatDelay = 8.0f,
-                      spawnLocation = 0,
-                      spawnAmmount = 1,
-                    },
-                  },  // Subwaves
-                },  // ConcurrentWave
-              },  // Subwaves
-            },  // SequentialWave
+                      new() {
+                        warmup = 25.0f,
+                        repeatDelay = 2.0f,
+                        spawnAmount = 2,
+                      },
+                      new() {
+                        enemyDataKey = leafBug,
+                        repeatDelay = 8.0f,
+                      },
+                    }
+                  ),
+                  new WaitUntilDeadWave() {
+                    WaveTag = 1,
+                  },
+                  new DialogueBoxWave() {
+                    messages =
+                      { "The left side has run out of enemies, you can sell those towers and reinforce the right."},
+                    delay = 6.0f,
+                  },
+                },  // Subwaves
+              },  // SequentialWave
+            // Right side wave
+            GetConcurrentWaveWithDefaults(
+              defaults: new() {
+                enemyDataKey = beetle,
+                duration = 80.0f,
+                spawnAmount = 1,
+                spawnLocation = 0,
+              },
+              metrics: new WaveMetrics[] {
+                new() {
+                  enemyDataKey = ant,
+                  repeatDelay = 8.0f,
+                  spawnAmount = 2,
+                },
+                new() {
+                  repeatDelay = 18.0f,
+                },
+                new() {
+                  warmup = 24.0f,
+                  repeatDelay = 10.0f,
+                },
+              }
+            ),
           },  // Subwaves
         },  // ConcurrentWave
+        GetConcurrentWaveWithDefaults(
+          defaults: new() {
+            enemyDataKey = aphid,
+            duration = 25.0f,
+            Overrides = new() { { EnemyData.Stat.SPEED, 0.4f } },
+            spawnAmount = 1,
+            repeatDelay = 8.0f,
+            spawnLocation = 0,
+          },
+          metrics: new WaveMetrics[] {
+            new() {
+              spawnAmount = 2,
+            },
+            new() {
+              enemyDataKey = leafBug,
+              Positions = new() { new(-3, 3), new(3, 3) }
+            },
+            new() {
+              enemyDataKey = beetle,
+              Positions = new() { new(0, 0) },
+            },
+            new() {
+              enemyDataKey = leafBug,
+              warmup = 10.0f,
+              Positions = new() { new(0, -3) }
+            }
+          }
+        ),
       },  // Subwaves
     };  // SequentialWave
-    // Nu: 1156
+    // Nu: 1754
 
     SequentialWave fourthWave = new() {
       Subwaves = {
@@ -398,27 +427,8 @@ public class Level2WaveGenerator {
     };
     // Nu: 1256
 
-    SequentialWave poop = new(
-      GetConcurrentWaveWithDefaults(
-        defaults: new WaveMetrics {
-          enemyDataKey = aphid,
-          spawnLocation = 0,
-          duration = 10
-        },
-        metrics: new WaveMetrics[] { 
-          new() {
-            repetitions = 2,
-          },
-          new() {
-            enemyDataKey = ant,
-            repetitions = 1,
-          }
-        }
-      )
-    );
-
     Waves waves = new() {
-      waves = { thirdWave },
+      waves = { fourthWave },
     };
 
     Serialize<Waves>(waves, filename);
