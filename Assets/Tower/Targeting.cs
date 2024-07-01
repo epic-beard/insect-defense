@@ -89,11 +89,16 @@ public class Targeting {
       bool camoSight,
       bool antiAir) {
     return enemies
-        .Where(e => e.enabled)
-        .Where(e => Vector2.Distance(origin.DropY(), e.transform.position.DropY()) <= range)
-        .Where(e => !e.Flying || antiAir)
-        .Where(e => !e.Camo || camoSight)
-        .ToList();
+        .Where(e => IsTargetValidAndInRange(e, origin, range, camoSight, antiAir)).ToList();
+  }
+
+  // Check an individual enemy for validity.
+  public static bool IsTargetValidAndInRange(Enemy target, Vector3 origin, float range, bool camoSight, bool antiAir) {
+    return target != null
+        && target.isActiveAndEnabled
+        && Vector2.Distance(origin.DropY(), target.AimPoint.DropY()) <= range
+        && (!target.Flying || antiAir)
+        && (!target.Camo || camoSight);
   }
 
   // Compare two floats in the following manner:

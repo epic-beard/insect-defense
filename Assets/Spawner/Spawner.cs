@@ -729,12 +729,16 @@ public class Spawner : MonoBehaviour {
 
   // Creates an enemy wave from a metric, defaulting to the values in defaults.
   // Throws if default, metric combination does not result in a valid wave.
-  private static CannedEnemyWave GetWaveWithDefaults(WaveMetrics defaults, WaveMetrics metric) {
+  // The resulting enemy wave will wait for cooldown seconds and spawn for duration - cooldown - warmup.
+  private static Wave GetWaveWithDefaults(WaveMetrics defaults, WaveMetrics metric) {
     // Throws if any two of the following are null:
     // repetitions, duration, repeatDelay.
     int? repetitions = metric.repetitions ?? defaults.repetitions;
     float? duration = metric.duration ?? defaults.duration;
     float? repeatDelay = metric.repeatDelay ?? defaults.repeatDelay;
+    float? warmup = metric.warmup ?? defaults.warmup ?? 0.0f;
+    float? cooldown = metric.cooldown ?? defaults.cooldown ?? 0.0f;
+    duration -= warmup + cooldown;
     if (repetitions == null) {
       if (duration == null || repeatDelay == null) {
         throw new ArgumentNullException(nameof(repetitions) + " " + nameof(duration) + " " + nameof(repeatDelay));
@@ -751,7 +755,7 @@ public class Spawner : MonoBehaviour {
     // SpawnAmount defaults to 1.
     // SpawnLocation and EnemyDataKey throw if left unset as this is likely uninentional.
     // Repetitions and repeatDelay should be non-null after the above logic so that exception is just a sanity check.
-    return new CannedEnemyWave() {
+    CannedEnemyWave enemy = new CannedEnemyWave() {
       repetitions = repetitions ?? throw new ArgumentNullException(nameof(repetitions)),
       repeatDelay = repeatDelay ?? throw new ArgumentNullException(nameof(repeatDelay)),
       spawnLocation = metric.spawnLocation ?? defaults.spawnLocation ?? throw new ArgumentNullException("spawnLocation null"),
@@ -764,6 +768,10 @@ public class Spawner : MonoBehaviour {
       SpawnerOverride = metric.SpawnerOverride ?? defaults.SpawnerOverride,
       DazzleOverride = metric.DazzleOverride ?? defaults.DazzleOverride,
       SlimeOverride = metric.SlimeOverride ?? defaults.SlimeOverride,
+    };
+    return new DelayedWave() {
+      wave = enemy,
+      warmup = metric.warmup ?? defaults.warmup ?? 0.0f,
     };
   }
 

@@ -350,7 +350,8 @@ public abstract class Tower : MonoBehaviour {
 
   // Sets a targeting texture beneath the given enemy.
   private void MarkTarget(Enemy enemy) {
-    if (targetingIndicator != null && enemy != null) {
+    if (targetingIndicator != null
+        && Targeting.IsTargetValidAndInRange(enemy, this.transform.position, Range, CamoSight, AntiAir)) {
       targetingIndicatorMeshRenderer.enabled = true;
 
       Bounds enemyBound = new();

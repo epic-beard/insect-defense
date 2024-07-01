@@ -3,87 +3,82 @@
   <waves>
     <Wave xsi:type="SequentialWave">
       <Subwaves>
-        <Wave xsi:type="WaitUntilDeadWave" />
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
-            <Wave xsi:type="DelayedWave">
-              <warmup>2</warmup>
-              <wave xsi:type="ConcurrentWave">
-                <Subwaves>
-                  <Wave xsi:type="SequentialWave">
-                    <Subwaves>
-                      <Wave xsi:type="CannedEnemyWave">
-                        <repetitions>5</repetitions>
-                        <repeatDelay>12</repeatDelay>
-                        <spawnLocation>1</spawnLocation>
-                        <spawnAmmount>2</spawnAmmount>
-                        <enemyDataKey>Beetle_IL0</enemyDataKey>
-                      </Wave>
-                      <Wave xsi:type="CannedEnemyWave">
-                        <repetitions>4</repetitions>
-                        <repeatDelay>12</repeatDelay>
-                        <spawnLocation>1</spawnLocation>
-                        <spawnAmmount>3</spawnAmmount>
-                        <enemyDataKey>Beetle_IL0</enemyDataKey>
-                      </Wave>
-                    </Subwaves>
-                  </Wave>
-                  <Wave xsi:type="SequentialWave">
-                    <Subwaves>
-                      <Wave xsi:type="SpacerWave">
-                        <delay>12</delay>
-                      </Wave>
-                      <Wave xsi:type="CannedEnemyWave">
-                        <repetitions>40</repetitions>
-                        <repeatDelay>0.6</repeatDelay>
-                        <spawnLocation>1</spawnLocation>
-                        <spawnAmmount>1</spawnAmmount>
-                        <enemyDataKey>Aphid_IL0</enemyDataKey>
-                      </Wave>
-                      <Wave xsi:type="SpacerWave">
-                        <delay>10</delay>
-                      </Wave>
-                      <Wave xsi:type="CannedEnemyWave">
-                        <repetitions>30</repetitions>
-                        <repeatDelay>0.6</repeatDelay>
-                        <spawnLocation>1</spawnLocation>
-                        <spawnAmmount>1</spawnAmmount>
-                        <enemyDataKey>Aphid_IL0</enemyDataKey>
-                      </Wave>
-                      <Wave xsi:type="SpacerWave">
-                        <delay>10</delay>
-                      </Wave>
-                      <Wave xsi:type="CannedEnemyWave">
-                        <repetitions>30</repetitions>
-                        <repeatDelay>0.6</repeatDelay>
-                        <spawnLocation>1</spawnLocation>
-                        <spawnAmmount>1</spawnAmmount>
-                        <enemyDataKey>Aphid_IL0</enemyDataKey>
-                      </Wave>
-                    </Subwaves>
-                  </Wave>
-                </Subwaves>
-              </wave>
-              <cooldown>0</cooldown>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>10</repetitions>
+              <repeatDelay>8</repeatDelay>
+              <spawnLocation>1</spawnLocation>
+              <spawnAmmount>2</spawnAmmount>
+              <enemyDataKey>Ant_IL0</enemyDataKey>
+            </Wave>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>5</repetitions>
+              <repeatDelay>16</repeatDelay>
+              <spawnLocation>1</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Beetle_IL0</enemyDataKey>
+            </Wave>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>8</repetitions>
+              <repeatDelay>10</repeatDelay>
+              <spawnLocation>1</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Beetle_IL0</enemyDataKey>
             </Wave>
             <Wave xsi:type="SequentialWave">
               <Subwaves>
+                <Wave xsi:type="SpacerWave">
+                  <delay>10</delay>
+                </Wave>
                 <Wave xsi:type="CannedEnemyWave">
-                  <repetitions>10</repetitions>
-                  <repeatDelay>3</repeatDelay>
+                  <repetitions>1</repetitions>
+                  <repeatDelay>1</repeatDelay>
                   <spawnLocation>0</spawnLocation>
                   <spawnAmmount>1</spawnAmmount>
-                  <enemyDataKey>Ant_IL0</enemyDataKey>
+                  <enemyDataKey>Leaf Bug_IL0</enemyDataKey>
                 </Wave>
                 <Wave xsi:type="SpacerWave">
-                  <delay>15</delay>
+                  <delay>6</delay>
                 </Wave>
                 <Wave xsi:type="DialogueBoxWave">
                   <messages>
-                    <string>It looks like the right side is nearly out of enemies...</string>
-                    <string>This should free you up to sell some towers and reinforce the left.</string>
+                    <string>The insect on the right path has the Camoflauge special ability. Only towers with the Camo Sight ability can target them.</string>
+                    <string>Fortunately, the Mantis tower's second Utility upgrade grants it Camo Sight.</string>
                   </messages>
-                  <delay>0.5</delay>
+                  <delay>6</delay>
+                </Wave>
+                <Wave xsi:type="ConcurrentWave">
+                  <Subwaves>
+                    <Wave xsi:type="SequentialWave">
+                      <Subwaves>
+                        <Wave xsi:type="SpacerWave">
+                          <delay>10</delay>
+                        </Wave>
+                        <Wave xsi:type="CannedEnemyWave">
+                          <repetitions>8</repetitions>
+                          <repeatDelay>3</repeatDelay>
+                          <spawnLocation>0</spawnLocation>
+                          <spawnAmmount>2</spawnAmmount>
+                          <enemyDataKey>Aphid_IL0</enemyDataKey>
+                        </Wave>
+                        <Wave xsi:type="CannedEnemyWave">
+                          <repetitions>12</repetitions>
+                          <repeatDelay>1.5</repeatDelay>
+                          <spawnLocation>0</spawnLocation>
+                          <spawnAmmount>1</spawnAmmount>
+                          <enemyDataKey>Aphid_IL0</enemyDataKey>
+                        </Wave>
+                      </Subwaves>
+                    </Wave>
+                    <Wave xsi:type="CannedEnemyWave">
+                      <repetitions>7</repetitions>
+                      <repeatDelay>8</repeatDelay>
+                      <spawnLocation>0</spawnLocation>
+                      <spawnAmmount>1</spawnAmmount>
+                      <enemyDataKey>Leaf Bug_IL0</enemyDataKey>
+                    </Wave>
+                  </Subwaves>
                 </Wave>
               </Subwaves>
             </Wave>
