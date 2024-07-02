@@ -768,6 +768,7 @@ public class Spawner : MonoBehaviour {
       SpawnerOverride = metric.SpawnerOverride ?? defaults.SpawnerOverride,
       DazzleOverride = metric.DazzleOverride ?? defaults.DazzleOverride,
       SlimeOverride = metric.SlimeOverride ?? defaults.SlimeOverride,
+      Positions = metric.Positions ?? defaults.Positions ?? new(),
     };
     return new DelayedWave() {
       wave = enemy,

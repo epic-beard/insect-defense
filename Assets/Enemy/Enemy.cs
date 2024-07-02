@@ -540,17 +540,17 @@ public class Enemy : MonoBehaviour {
 
   private IEnumerator FollowPath() {
     while (NextWaypoint != null) {
-      Vector3 startPosition = transform.position;
+      Vector3 startPosition = PrevWaypoint.transform.position;
       Vector3 endPosition = NextWaypoint.transform.position;
-      endPosition += new Vector3(xVariance, 0, zVariance);
+      Vector3 variance = new Vector3(xVariance, 0, zVariance);
       float distance = Vector3.Distance(startPosition, endPosition);
       float travelPercent = 0.0f;
 
-      transform.LookAt(endPosition);
+      transform.LookAt(endPosition + variance);
 
       while (travelPercent < 1.0f) {
         travelPercent += 10 * Time.deltaTime * Speed / distance;
-        transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+        transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent) + variance;
         yield return null;
       }
 

@@ -78,9 +78,6 @@ public class Level2WaveGenerator {
           },
           defaultSpawnLocation: 1
         ),
-        new SpacerWave() {
-          delay = 6.0f,
-        },
         new ConcurrentWave() {
           Subwaves = {
             new CannedEnemyWave() {
@@ -99,9 +96,6 @@ public class Level2WaveGenerator {
             },
           },
         },
-        new SpacerWave() {
-          delay = 6.0f,
-        },
         new ConcurrentWave(
           new CannedEnemyWave() {
             enemyDataKey = ant,
@@ -118,7 +112,6 @@ public class Level2WaveGenerator {
             spawnAmmount = 2,
           }
         ),
-        new WaitUntilDeadWave() {},
         new SpacerWave() {
           delay = 5.0f,
         },
@@ -140,6 +133,7 @@ public class Level2WaveGenerator {
           ),
           GetConcurrentWaveWithDefaults(
             defaultEnemyDataKey: aphid,
+            defaultSpawnLocation: 1,
             metrics: new() {
               new() {
                 repeatDelay = 1.5f,
@@ -150,8 +144,8 @@ public class Level2WaveGenerator {
                 repeatDelay = 3.0f,
                 duration = 50.0f
               },
-            },
-            defaultSpawnLocation: 1)
+            }
+          )
         ),
       },
     };
@@ -269,7 +263,7 @@ public class Level2WaveGenerator {
         GetConcurrentWaveWithDefaults(
           defaults: new() {
             enemyDataKey = ant,
-            duration = 80.0f,
+            duration = 100.0f,
             spawnAmount = 1,
             spawnLocation = 0,
           },
@@ -296,129 +290,190 @@ public class Level2WaveGenerator {
       Subwaves = {
         new ConcurrentWave() {
           Subwaves = {
-            // Left side waves
-            new CannedEnemyWave() {
-              enemyDataKey = ant,
-              repetitions = 10,
-              repeatDelay = 8.0f,
-              spawnLocation = 1,
-              spawnAmmount = 2,
-            },
-            new CannedEnemyWave() {
-              enemyDataKey = beetle,
-              repetitions = 5,
-              repeatDelay = 16.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-            },
-            new CannedEnemyWave() {
-              enemyDataKey = beetle,
-              repetitions = 8,
-              repeatDelay = 10.0f,
-              spawnLocation = 1,
-              spawnAmmount = 1,
-            },
-            // Right side wave
+            // Left side wave
             new SequentialWave {
               Subwaves = {
                 new SpacerWave() {
-                  delay = 10.0f,
+                  delay = 8.0f,
                 },
                 new CannedEnemyWave() {
                   enemyDataKey = leafBug,
                   repetitions = 1,
                   repeatDelay = 1.0f,
-                  spawnLocation = 0,
                   spawnAmmount = 1,
+                  spawnLocation = 1,
                 },
                 new SpacerWave() {
-                  delay = 6.0f,
+                  delay = 2.0f,
                 },
                 new DialogueBoxWave() {
                   messages =
-                    { "The insect on the right path has the Camoflauge special ability. Only towers with the Camo Sight ability can target them.",
+                    { "The insect on the left path has the Camoflauge special ability. Only towers with the Camo Sight ability can target them.",
                       "Fortunately, the Mantis tower's second Utility upgrade grants it Camo Sight." },
                   delay = 6.0f,
                 },
-                new ConcurrentWave {
-                  Subwaves = {
-                    new SequentialWave() {
-                      Subwaves = {
-                        new SpacerWave() {
-                          delay = 10.0f,
-                        },
-                        new CannedEnemyWave() {
-                          enemyDataKey = aphid,
-                          repetitions = 8,
-                          repeatDelay = 3.0f,
-                          spawnLocation = 0,
-                          spawnAmmount = 2,
-                        },
-                        new CannedEnemyWave() {
-                          enemyDataKey = aphid,
-                          repetitions = 12,
-                          repeatDelay = 1.5f,
-                          spawnLocation = 0,
-                          spawnAmmount = 1,
-                        }
-                      },
+                GetConcurrentWaveWithDefaults(
+                  defaults: new() {
+                    enemyDataKey = aphid,
+                    duration = 50.0f,
+                    spawnAmount = 1,
+                    spawnLocation = 1,
+                  },
+                  metrics: new WaveMetrics[] {
+                    new() {
+                      repeatDelay = 3.0f,
+                      spawnAmount = 2,
                     },
-                    new CannedEnemyWave() {
+                    new() {
+                      warmup = 25.0f,
+                      repeatDelay = 2.0f,
+                      spawnAmount = 2,
+                    },
+                    new() {
                       enemyDataKey = leafBug,
-                      repetitions = 7,
                       repeatDelay = 8.0f,
-                      spawnLocation = 0,
-                      spawnAmmount = 1,
                     },
-                  },  // Subwaves
-                },  // ConcurrentWave
+                  }
+                ),
               },  // Subwaves
             },  // SequentialWave
+            // Right side wave
+            GetConcurrentWaveWithDefaults(
+              defaults: new() {
+                enemyDataKey = beetle,
+                duration = 78.0f,
+                spawnAmount = 1,
+                spawnLocation = 0,
+              },
+              metrics: new WaveMetrics[] {
+                new() {
+                  enemyDataKey = ant,
+                  repeatDelay = 8.0f,
+                  spawnAmount = 2,
+                },
+                new() {
+                  repeatDelay = 18.0f,
+                },
+                new() {
+                  warmup = 24.0f,
+                  repeatDelay = 10.0f,
+                },
+              }
+            ),
           },  // Subwaves
         },  // ConcurrentWave
+        new ConcurrentWave(
+          // Left
+          GetConcurrentWaveWithDefaults(
+            defaults: new() {
+              enemyDataKey = leafBug,
+              duration = 40.0f,
+              spawnAmount = 1,
+              repeatDelay = 5.0f,
+              spawnLocation = 1,
+            },
+            metrics: new WaveMetrics[] {
+              new() {
+                Positions = new() { new(-3, 3), new(0, 0), new(3, 3) }
+              },
+              new() {
+                warmup = 15.0f,
+                Positions = new() { new(0, -3) }
+              }
+            }
+          ),
+          // Right
+          GetConcurrentWaveWithDefaults(
+            defaults: new() {
+              enemyDataKey = beetle,
+              duration = 40.0f,
+              spawnAmount = 1,
+              repeatDelay = 8.0f,
+              spawnLocation = 0,
+            },
+            metrics: new WaveMetrics[] {
+              new() {
+                Positions = new() { new(-3, 3), new(0, 0), new(3, 3) }
+              },
+              new() {
+                warmup = 16.0f,
+                Positions = new() { new(0, -3) }
+              }
+            }
+          )
+        )
       },  // Subwaves
     };  // SequentialWave
-    // Nu: 1156
+    // Nu: 2487
 
+    // message about targeting priority
+    // aphid + tarantula on one side
+    // ant swarm on the other.
     SequentialWave fourthWave = new() {
       Subwaves = {
-        new DialogueBoxWave {
-          messages =
-            { "Something new is coming, it's much bigger than a beetle!",
-              "Consider using a mix of towers to take it on." },
+        new DialogueBoxWave() {
+          messages = {"A tough new enemy is approaching on the left.",
+                      "Try setting targeting priority to Max HP on some towers to focus attacks.",
+                      "Set behavior to Stubborn to target one enemy until it is dead or out of range."
+          },
         },
-        new CannedEnemyWave() {
-          enemyDataKey = tarantula,
-          repetitions = 2,
-          repeatDelay = 5.0f,
-          spawnLocation = 1,
-          spawnAmmount = 1,
-        },  // CannedEnemyWave
+        new ConcurrentWave(
+          // Left
+          GetConcurrentWaveWithDefaults(
+            defaults: new() {
+              enemyDataKey = aphid,
+              duration = 60.0f,
+              spawnAmount = 1,
+              spawnLocation = 1,
+            },
+            metrics: new WaveMetrics[] {
+              new() {
+                repeatDelay = 0.7f,
+              },
+              new() {
+                repeatDelay = 0.8f,
+              },
+              new() {
+                repeatDelay = 1.0f,
+              },
+              new() {
+                enemyDataKey = tarantula,
+                repeatDelay = 10.0f,
+              }
+            }
+          ),
+          // Right
+          GetConcurrentWaveWithDefaults(
+            defaults: new() {
+              enemyDataKey = ant,
+              duration = 60.0f,
+              spawnAmount = 1,
+              spawnLocation = 0,
+            },
+            metrics: new WaveMetrics[] {
+              new() {
+                repeatDelay = 3.0f,
+              },
+              new() {
+                repeatDelay = 5.0f,
+              },
+              new() {
+                warmup = 30.0f,
+                repeatDelay = 4.0f,
+              },
+              new() {
+                warmup = 30.0f,
+                repeatDelay = 7.0f,
+              },
+            }
+          )
+        ),
       },  // Subwaves - overall
     };
-    // Nu: 1256
-
-    SequentialWave poop = new(
-      GetConcurrentWaveWithDefaults(
-        defaults: new WaveMetrics {
-          enemyDataKey = aphid,
-          spawnLocation = 0,
-          duration = 10
-        },
-        metrics: new WaveMetrics[] { 
-          new() {
-            repetitions = 2,
-          },
-          new() {
-            enemyDataKey = ant,
-            repetitions = 1,
-          }
-        }
-      )
-    );
+    // Nu: 3737
 
     Waves waves = new() {
-      waves = { thirdWave },
+      waves = { firstWave, secondWave, thirdWave, fourthWave },
     };
 
     Serialize<Waves>(waves, filename);
