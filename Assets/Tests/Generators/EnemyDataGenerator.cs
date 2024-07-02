@@ -82,7 +82,7 @@ public class EnemyDataGenerator {
       damage = 25,
       nu = 100,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 1.0f,
+      spawnVariance = 1.0f, 
       coagulationModifier = 0.5f,
       infectionLevel = 0,
     };

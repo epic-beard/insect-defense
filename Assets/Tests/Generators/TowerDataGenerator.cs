@@ -578,9 +578,9 @@ public class TowerDataGenerator {
       new() {
         specialAbility = SpecialAbility.M_1_3_DOUBLE_SLASH,
         name = "Double Slash",
-        description = "The Mantis attacks with both its scythe claws, from both sides.",
+        description = "The Mantis simultaneously attacks with both its scythe claws.",
         upgradePath = 0,
-        cost = 800,
+        cost = 1000,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {

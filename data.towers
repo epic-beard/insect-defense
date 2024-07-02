@@ -778,9 +778,9 @@
             <TowerAbility>
               <specialAbility>M_1_3_DOUBLE_SLASH</specialAbility>
               <name>Double Slash</name>
-              <description>The Mantis attacks with both its scythe claws, from both sides.</description>
+              <description>The Mantis simultaneously attacks with both its scythe claws.</description>
               <upgradePath>0</upgradePath>
-              <cost>800</cost>
+              <cost>1000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
