@@ -509,7 +509,7 @@
         <icon_path>Icons/test</icon_path>
         <acid_stacks>0</acid_stacks>
         <bleed_stacks>0</bleed_stacks>
-        <cost>50</cost>
+        <cost>100</cost>
         <secondary_slow_targets>0</secondary_slow_targets>
         <venom_stacks>0</venom_stacks>
         <area_of_effect>10</area_of_effect>

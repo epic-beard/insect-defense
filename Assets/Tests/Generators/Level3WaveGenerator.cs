@@ -23,26 +23,20 @@ public class Level3WaveGenerator : MonoBehaviour {
 
   private void GenerateWave() {
     SequentialWave firstWave = new() {
-    };
-
-    ConcurrentWave testWave = new() {
-      GetConcurrentWaveWithDefaults(
-        defaults: new() {
-          enemyDataKey = beetle,
-          spawnLocation = 1,
-          duration = 80.0f,
-        },
-        metrics: new WaveMetrics[] {
-          new() {
-            warmup = 2.0f,
-            repeatDelay = 14.0f
+      Subwaves = {
+        GetSequentialWaveWithDefaults(
+          defaults: new() {
+            enemyDataKey = ant,
+            spawnLocation = 1,
+            duration = 80.0f,
           },
-          new() {
-            warmup = 37.0f,
-            repeatDelay = 14.0f,
+          metrics: new WaveMetrics[] {
+            new() {
+              repeatDelay = 5.0f
+            },
           }
-        }
-      )
+        ),
+      }
     };
 
     Waves waves = new() {
