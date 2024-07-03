@@ -264,8 +264,20 @@ public class Spawner : MonoBehaviour {
   }
 
   // A wave that calls its subwaves sequentially.
-  public class SequentialWave : Wave {
+  public class SequentialWave : Wave, IEnumerable<Wave> {
     readonly public List<Wave> Subwaves = new();
+
+    public IEnumerator<Wave> GetEnumerator() {
+      return Subwaves.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+      return Subwaves.GetEnumerator();
+    }
+
+    public void Add(Wave wave) {
+      Subwaves.Add(wave);
+    }
 
     public SequentialWave() {}
 
@@ -310,8 +322,20 @@ public class Spawner : MonoBehaviour {
   }
 
   // A wave that calls its subwaves concurrently.
-  public class ConcurrentWave : Wave {
+  public class ConcurrentWave : Wave, IEnumerable<Wave> {
     readonly public List<Wave> Subwaves = new();
+
+    public IEnumerator<Wave> GetEnumerator() {
+      return Subwaves.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+      return Subwaves.GetEnumerator();
+    }
+
+    public void Add(Wave wave) {
+      Subwaves.Add(wave);
+    }
 
     public ConcurrentWave() { }
 
