@@ -3,16 +3,34 @@
   <waves>
     <Wave xsi:type="SequentialWave">
       <Subwaves>
-        <Wave xsi:type="SequentialWave">
+        <Wave xsi:type="ConcurrentWave">
           <Subwaves>
+            <Wave xsi:type="CannedEnemyWave">
+              <repetitions>8</repetitions>
+              <repeatDelay>5</repeatDelay>
+              <spawnLocation>1</spawnLocation>
+              <spawnAmmount>1</spawnAmmount>
+              <enemyDataKey>Ant_IL0</enemyDataKey>
+            </Wave>
             <Wave xsi:type="DelayedWave">
-              <warmup>0</warmup>
+              <warmup>20</warmup>
               <wave xsi:type="CannedEnemyWave">
-                <repetitions>40</repetitions>
-                <repeatDelay>2</repeatDelay>
+                <repetitions>3</repetitions>
+                <repeatDelay>7</repeatDelay>
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>1</spawnAmmount>
-                <enemyDataKey>Ant_IL0</enemyDataKey>
+                <enemyDataKey>Ant_IL1</enemyDataKey>
+              </wave>
+              <cooldown>0</cooldown>
+            </Wave>
+            <Wave xsi:type="DelayedWave">
+              <warmup>22</warmup>
+              <wave xsi:type="DialogueBoxWave">
+                <messages>
+                  <string>The infection looks stronger in some of those ants.</string>
+                  <string>Look out for enhanced attributes!</string>
+                </messages>
+                <delay>0.5</delay>
               </wave>
               <cooldown>0</cooldown>
             </Wave>

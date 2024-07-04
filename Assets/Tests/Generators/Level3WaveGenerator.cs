@@ -1,20 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using NUnit.Framework;
-using System;
+using UnityEngine;
+using static LevelGeneratorStatics;
 using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
 
 public class Level3WaveGenerator : MonoBehaviour {
-  public string aphid = "Aphid_IL0";
-  public string aphid2 = "Aphid_IL1";
-  public string ant = "Ant_IL0";
-  public string ant2 = "Ant_IL1";
-  public string beetle = "Beetle_IL0";
-  public string tarantula = "Tarantula_IL0";
-  public string leafBug = "Leaf Bug_IL0";
-  public string filename = "Waves/level3.waves";
+  public string filename = directory + "level3.waves";
 
   [Test]
   public void WaveGeneratorTest() {
@@ -24,18 +15,50 @@ public class Level3WaveGenerator : MonoBehaviour {
   private void GenerateWave() {
     SequentialWave firstWave = new() {
       Subwaves = {
-        GetSequentialWaveWithDefaults(
-          defaults: new() {
-            enemyDataKey = ant,
+        new ConcurrentWave(
+          new CannedEnemyWave() {
+            enemyDataKey = ant0,
+            repetitions = 8,
+            repeatDelay = 5.0f,
             spawnLocation = 1,
-            duration = 80.0f,
+            spawnAmmount = 1,
           },
-          metrics: new WaveMetrics[] {
-            new() {
-              repeatDelay = 2.0f
+          new DelayedWave() {
+            warmup = 20.0f,
+            wave = new CannedEnemyWave() {
+              enemyDataKey = ant1,
+              repetitions = 3,
+              repeatDelay = 7.0f,
+              spawnLocation = 1,
+              spawnAmmount = 1,
             },
+          },
+          new DelayedWave() {
+            warmup = 22.0f,
+            wave = new DialogueBoxWave() {
+              messages =
+                  { "The infection looks stronger in some of those ants.",
+                    "Look out for enhanced attributes!" },
+            }
           }
         ),
+        //GetConcurrentWaveWithDefaults(
+        //  defaults: new() {
+        //    enemyDataKey = ant0,
+        //    spawnLocation = 1,
+        //    duration = 40.0f,
+        //  },
+        //  metrics: new WaveMetrics[] {
+        //    new() {
+        //      repeatDelay = 5.0f,
+        //    },
+        //    new() {
+        //      warmup = 20.0f,
+        //      enemyDataKey = ant1,
+        //      repetitions = 3,
+        //    },
+        //  }
+        //),
       }
     };
 

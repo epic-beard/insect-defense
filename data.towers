@@ -308,13 +308,13 @@
               <specialAbility>NONE</specialAbility>
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
-                  <attribute>SLOW_POWER</attribute>
+                  <attribute>SLOW_DURATION</attribute>
                   <mode>SET</mode>
-                  <mod>0.7</mod>
+                  <mod>6</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
-              <name>Improved Slow</name>
-              <description>Increasses slow power to 70%.</description>
+              <name>Enduring Webs</name>
+              <description>Increase slow duration to 6 seconds.</description>
               <upgradePath>0</upgradePath>
               <cost>100</cost>
             </TowerAbility>
@@ -322,13 +322,13 @@
               <specialAbility>NONE</specialAbility>
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
-                  <attribute>SLOW_DURATION</attribute>
+                  <attribute>SLOW_POWER</attribute>
                   <mode>SET</mode>
-                  <mod>6</mod>
+                  <mod>0.7</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
-              <name>Improved Slow</name>
-              <description>Increase slow duration to 6 seconds.</description>
+              <name>Stickier Webs</name>
+              <description>Increasses slow power to 70%.</description>
               <upgradePath>0</upgradePath>
               <cost>300</cost>
             </TowerAbility>
@@ -511,7 +511,7 @@
         <icon_path>Icons/test</icon_path>
         <acid_stacks>0</acid_stacks>
         <bleed_stacks>0</bleed_stacks>
-        <cost>100</cost>
+        <cost>200</cost>
         <secondary_slow_targets>0</secondary_slow_targets>
         <venom_stacks>0</venom_stacks>
         <area_of_effect>10</area_of_effect>

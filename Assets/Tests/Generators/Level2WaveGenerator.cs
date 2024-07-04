@@ -1,15 +1,10 @@
 using NUnit.Framework;
-using System;
+using static LevelGeneratorStatics;
 using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
 
 public class Level2WaveGenerator {
-  public string aphid = "Aphid_IL0";
-  public string ant = "Ant_IL0";
-  public string beetle = "Beetle_IL0";
-  public string tarantula = "Tarantula_IL0";
-  public string leafBug = "Leaf Bug_IL0";
-  public string filename = "Waves/level2.waves";
+  public string filename = directory + "level2.waves";
 
   [Test]
   public void WaveGeneratorTest() {
@@ -25,21 +20,21 @@ public class Level2WaveGenerator {
           messages = { "Enemies will spawn on the right, be ready!" }
         },
         new CannedEnemyWave() {
-          enemyDataKey = ant,
+          enemyDataKey = ant0,
           repetitions = 3,
           repeatDelay = 6.0f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
         new CannedEnemyWave() {
-          enemyDataKey = ant,
+          enemyDataKey = ant0,
           repetitions = 3,
           repeatDelay = 4.0f,
           spawnLocation = 0,
           spawnAmmount = 1,
         },
         new CannedEnemyWave() {
-          enemyDataKey = ant,
+          enemyDataKey = ant0,
           repetitions = 3,
           repeatDelay = 2.0f,
           spawnLocation = 0,
@@ -49,7 +44,7 @@ public class Level2WaveGenerator {
           delay = 6.0f,
         },
         new CannedEnemyWave() {
-          enemyDataKey = ant,
+          enemyDataKey = ant0,
           repetitions = 3,
           repeatDelay = 8.0f,
           spawnLocation = 0,
@@ -64,7 +59,7 @@ public class Level2WaveGenerator {
                 "Don't worry! All Nu spent on a tower is refunded when sold."}
         },
         GetConcurrentWaveWithDefaults(
-          defaultEnemyDataKey: aphid,
+          defaultEnemyDataKey: aphid0,
           metrics: new() {
             new() {
               repeatDelay = 2.0f,
@@ -81,14 +76,14 @@ public class Level2WaveGenerator {
         new ConcurrentWave() {
           Subwaves = {
             new CannedEnemyWave() {
-              enemyDataKey = ant,
+              enemyDataKey = ant0,
               repetitions = 3,
               repeatDelay = 6.0f,
               spawnLocation = 1,
               spawnAmmount = 1,
             },
             new CannedEnemyWave() {
-              enemyDataKey = aphid,
+              enemyDataKey = aphid0,
               repetitions = 3,
               repeatDelay = 6.0f,
               spawnLocation = 1,
@@ -98,14 +93,14 @@ public class Level2WaveGenerator {
         },
         new ConcurrentWave(
           new CannedEnemyWave() {
-            enemyDataKey = ant,
+            enemyDataKey = ant0,
             repetitions = 2,
             repeatDelay = 1.5f,
             spawnLocation = 1,
             spawnAmmount = 1,
           },
           new CannedEnemyWave() {
-            enemyDataKey = aphid,
+            enemyDataKey = aphid0,
             repetitions = 2,
             repeatDelay = 1.5f,
             spawnLocation = 1,
@@ -118,7 +113,7 @@ public class Level2WaveGenerator {
         new ConcurrentWave(
           GetSequentialWaveWithDefaults(
             defaults: new() {
-              enemyDataKey = beetle,
+              enemyDataKey = beetle0,
               duration = 50.0f,
               spawnLocation = 1,
             },
@@ -132,7 +127,7 @@ public class Level2WaveGenerator {
             }
           ),
           GetConcurrentWaveWithDefaults(
-            defaultEnemyDataKey: aphid,
+            defaultEnemyDataKey: aphid0,
             defaultSpawnLocation: 1,
             metrics: new() {
               new() {
@@ -155,7 +150,7 @@ public class Level2WaveGenerator {
       new ConcurrentWave(
         // Left side wave
         GetConcurrentWaveWithDefaults(
-          defaultEnemyDataKey: aphid,
+          defaultEnemyDataKey: aphid0,
           defaultSpawnLocation: 1,
           metrics: new() {
             new() {
@@ -177,7 +172,7 @@ public class Level2WaveGenerator {
         // Right side wave
         GetConcurrentWaveWithDefaults(
           defaults: new() {
-            enemyDataKey = ant,
+            enemyDataKey = ant0,
             duration = 35.0f,
             spawnLocation = 0,
           },
@@ -199,7 +194,7 @@ public class Level2WaveGenerator {
       },
       GetConcurrentWaveWithDefaults(
         defaults: new() {
-          enemyDataKey = aphid,
+          enemyDataKey = aphid0,
           spawnLocation = 1,
           duration = 25.0f,
         },
@@ -216,7 +211,7 @@ public class Level2WaveGenerator {
             repeatDelay = 2.5f,
           },
           new() {
-            enemyDataKey = ant,
+            enemyDataKey = ant0,
             repeatDelay = 2.5f,
             spawnLocation = 0,
           }
@@ -229,7 +224,7 @@ public class Level2WaveGenerator {
         // Left side wave
         GetConcurrentWaveWithDefaults(
           defaults: new() {
-            enemyDataKey = beetle,
+            enemyDataKey = beetle0,
             spawnLocation = 1,
             duration = 80.0f,
           },
@@ -246,7 +241,7 @@ public class Level2WaveGenerator {
         ),
         GetSequentialWaveWithDefaults(
           defaults: new() {
-            enemyDataKey = aphid,
+            enemyDataKey = aphid0,
             warmup = 10.0f,
             duration = 30.0f,
             repeatDelay = 0.7f,
@@ -262,7 +257,7 @@ public class Level2WaveGenerator {
         // Right side wave
         GetConcurrentWaveWithDefaults(
           defaults: new() {
-            enemyDataKey = ant,
+            enemyDataKey = ant0,
             duration = 100.0f,
             spawnAmount = 1,
             spawnLocation = 0,
@@ -297,7 +292,7 @@ public class Level2WaveGenerator {
                   delay = 8.0f,
                 },
                 new CannedEnemyWave() {
-                  enemyDataKey = leafBug,
+                  enemyDataKey = leafBug0,
                   repetitions = 1,
                   repeatDelay = 1.0f,
                   spawnAmmount = 1,
@@ -314,7 +309,7 @@ public class Level2WaveGenerator {
                 },
                 GetConcurrentWaveWithDefaults(
                   defaults: new() {
-                    enemyDataKey = aphid,
+                    enemyDataKey = aphid0,
                     duration = 50.0f,
                     spawnAmount = 1,
                     spawnLocation = 1,
@@ -330,7 +325,7 @@ public class Level2WaveGenerator {
                       spawnAmount = 2,
                     },
                     new() {
-                      enemyDataKey = leafBug,
+                      enemyDataKey = leafBug0,
                       repeatDelay = 8.0f,
                     },
                   }
@@ -340,14 +335,14 @@ public class Level2WaveGenerator {
             // Right side wave
             GetConcurrentWaveWithDefaults(
               defaults: new() {
-                enemyDataKey = beetle,
+                enemyDataKey = beetle0,
                 duration = 78.0f,
                 spawnAmount = 1,
                 spawnLocation = 0,
               },
               metrics: new WaveMetrics[] {
                 new() {
-                  enemyDataKey = ant,
+                  enemyDataKey = ant0,
                   repeatDelay = 8.0f,
                   spawnAmount = 2,
                 },
@@ -366,7 +361,7 @@ public class Level2WaveGenerator {
           // Left
           GetConcurrentWaveWithDefaults(
             defaults: new() {
-              enemyDataKey = leafBug,
+              enemyDataKey = leafBug0,
               duration = 40.0f,
               spawnAmount = 1,
               repeatDelay = 5.0f,
@@ -385,7 +380,7 @@ public class Level2WaveGenerator {
           // Right
           GetConcurrentWaveWithDefaults(
             defaults: new() {
-              enemyDataKey = beetle,
+              enemyDataKey = beetle0,
               duration = 40.0f,
               spawnAmount = 1,
               repeatDelay = 8.0f,
@@ -421,7 +416,7 @@ public class Level2WaveGenerator {
           // Left
           GetConcurrentWaveWithDefaults(
             defaults: new() {
-              enemyDataKey = aphid,
+              enemyDataKey = aphid0,
               duration = 60.0f,
               spawnAmount = 1,
               spawnLocation = 1,
@@ -437,7 +432,7 @@ public class Level2WaveGenerator {
                 repeatDelay = 1.0f,
               },
               new() {
-                enemyDataKey = tarantula,
+                enemyDataKey = tarantula0,
                 repeatDelay = 10.0f,
               }
             }
@@ -445,7 +440,7 @@ public class Level2WaveGenerator {
           // Right
           GetConcurrentWaveWithDefaults(
             defaults: new() {
-              enemyDataKey = ant,
+              enemyDataKey = ant0,
               duration = 60.0f,
               spawnAmount = 1,
               spawnLocation = 0,

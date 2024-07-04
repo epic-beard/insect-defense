@@ -184,7 +184,7 @@
       <Subwaves>
         <Wave xsi:type="DialogueBoxWave">
           <messages>
-            <string>Beetles are armored enemies, make sure you have some armor tear or peirce to damage them!</string>
+            <string>Beetles are armored enemies, do more damage to handle this.</string>
             <string>Check the Spitting Ant Tower upgrades.</string>
           </messages>
           <delay>0.5</delay>

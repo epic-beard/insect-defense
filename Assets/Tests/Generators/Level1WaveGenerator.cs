@@ -1,12 +1,10 @@
 using NUnit.Framework;
+using static LevelGeneratorStatics;
 using static EpicBeardLib.XmlSerializationHelpers;
 using static Spawner;
 
 public class Level1WaveGenerator {
-  public string aphid = "Aphid_IL0";
-  public string ant = "Ant_IL0";
-  public string beetle = "Beetle_IL0";
-  public string filename = "Waves/level1.waves";
+  public string filename = directory + "level1.waves";
 
   [Test]
   public void WaveGeneratorTest() {
@@ -24,7 +22,7 @@ public class Level1WaveGenerator {
                 "For now, just build one Spitting Ant Tower." }
         },
         new CannedEnemyWave() {
-          enemyDataKey = aphid,
+          enemyDataKey = aphid0,
           repetitions = 5,
           repeatDelay = 3.0f,
           spawnLocation = 0,
@@ -33,14 +31,14 @@ public class Level1WaveGenerator {
         new ConcurrentWave() {
           Subwaves = {
             new CannedEnemyWave() {
-              enemyDataKey = aphid,
+              enemyDataKey = aphid0,
               repetitions = 5,
               repeatDelay = 3.0f,
               spawnLocation = 0,
               spawnAmmount = 1,
             },
             new CannedEnemyWave() {
-              enemyDataKey = aphid,
+              enemyDataKey = aphid0,
               repetitions = 3,
               repeatDelay = 5.0f,
               spawnLocation = 0,
@@ -53,7 +51,7 @@ public class Level1WaveGenerator {
             new SequentialWave() {
               Subwaves = {
                 new CannedEnemyWave() {
-                  enemyDataKey = aphid,
+                  enemyDataKey = aphid0,
                   repetitions = 4,
                   repeatDelay = 4.0f,
                   spawnLocation = 0,
@@ -63,7 +61,7 @@ public class Level1WaveGenerator {
                   delay = 4.0f,
                 },
                 new CannedEnemyWave() {
-                  enemyDataKey = aphid,
+                  enemyDataKey = aphid0,
                   repetitions = 4,
                   repeatDelay = 5.0f,
                   spawnLocation = 0,
@@ -77,7 +75,7 @@ public class Level1WaveGenerator {
                   delay = 3.0f,
                 },
                 new CannedEnemyWave() {
-                  enemyDataKey = ant,
+                  enemyDataKey = ant0,
                   repetitions = 3,
                   repeatDelay = 10.0f,
                   spawnLocation = 0,
@@ -95,7 +93,7 @@ public class Level1WaveGenerator {
                        "I'll leave the next wave to you." }
         },
         new CannedEnemyWave() {
-          enemyDataKey = ant,
+          enemyDataKey = ant0,
           repetitions = 5,
           repeatDelay = 6.0f,
           spawnLocation = 0,
@@ -107,7 +105,7 @@ public class Level1WaveGenerator {
             new DelayedWave() {
               warmup = 2.0f,
               wave = new CannedEnemyWave() {
-                enemyDataKey = ant,
+                enemyDataKey = ant0,
                 repetitions = 3,
                 repeatDelay = 9.0f,
                 spawnLocation = 0,
@@ -115,7 +113,7 @@ public class Level1WaveGenerator {
               },
             },
             new CannedEnemyWave() {
-              enemyDataKey = ant,
+              enemyDataKey = ant0,
               repetitions = 4,
               repeatDelay = 7.0f,
               spawnLocation = 0,
@@ -130,7 +128,7 @@ public class Level1WaveGenerator {
     SequentialWave secondWave = new() {
       Subwaves = {
         new CannedEnemyWave() {
-          enemyDataKey = ant,
+          enemyDataKey = ant0,
           repetitions = 5,
           repeatDelay = 3.0f,
           spawnLocation = 0,
@@ -142,14 +140,14 @@ public class Level1WaveGenerator {
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
-              enemyDataKey = ant,
+              enemyDataKey = ant0,
               repetitions = 4,
               repeatDelay = 6.0f,
               spawnLocation = 0,
               spawnAmmount = 1,
             },
             new CannedEnemyWave() {
-              enemyDataKey = aphid,
+              enemyDataKey = aphid0,
               repetitions = 12,
               repeatDelay = 2.0f,
               spawnLocation = 0,
@@ -163,7 +161,7 @@ public class Level1WaveGenerator {
             new DelayedWave {
               warmup = 4.0f,
               wave = new CannedEnemyWave() {
-                enemyDataKey = ant,
+                enemyDataKey = ant0,
                 repetitions = 3,
                 repeatDelay = 7.0f,
                 spawnLocation = 0,
@@ -171,14 +169,14 @@ public class Level1WaveGenerator {
               },
             },
             new CannedEnemyWave() {
-              enemyDataKey = ant,
+              enemyDataKey = ant0,
               repetitions = 3,
               repeatDelay = 9.0f,
               spawnLocation = 0,
               spawnAmmount = 1,
             },
             new CannedEnemyWave() {
-              enemyDataKey = aphid,
+              enemyDataKey = aphid0,
               repetitions = 20,
               repeatDelay = 1.5f,
               spawnLocation = 0,
@@ -201,7 +199,7 @@ public class Level1WaveGenerator {
         new ConcurrentWave {
           Subwaves = {
             new CannedEnemyWave() {
-              enemyDataKey = beetle,
+              enemyDataKey = beetle0,
               repetitions = 3,
               repeatDelay = 8.0f,
               spawnLocation = 0,
@@ -215,14 +213,14 @@ public class Level1WaveGenerator {
                 new ConcurrentWave {
                   Subwaves = {
                     new CannedEnemyWave() {
-                      enemyDataKey = aphid,
+                      enemyDataKey = aphid0,
                       repetitions = 8,
                       repeatDelay = 2.2f,
                       spawnLocation = 0,
                       spawnAmmount = 1,
                     },
                     new CannedEnemyWave() {
-                      enemyDataKey = aphid,
+                      enemyDataKey = aphid0,
                       repetitions = 6,
                       repeatDelay = 3.3f,
                       spawnLocation = 0,
@@ -238,7 +236,7 @@ public class Level1WaveGenerator {
           delay = 8.0f,
         },
         new CannedEnemyWave() {
-          enemyDataKey = aphid,
+          enemyDataKey = aphid0,
           repetitions = 1,
           repeatDelay = 8.0f,
           spawnLocation = 0,
@@ -248,7 +246,7 @@ public class Level1WaveGenerator {
           delay = 3.0f,
         },
         new CannedEnemyWave() {
-          enemyDataKey = ant,
+          enemyDataKey = ant0,
           repetitions = 1,
           repeatDelay = 8.0f,
           spawnLocation = 0,
@@ -258,7 +256,7 @@ public class Level1WaveGenerator {
           delay = 2.0f,
         },
         new CannedEnemyWave() {
-          enemyDataKey = beetle,
+          enemyDataKey = beetle0,
           repetitions = 1,
           repeatDelay = 8.0f,
           spawnLocation = 0,

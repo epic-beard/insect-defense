@@ -14,6 +14,7 @@ public class EnemyDataGenerator {
   private void GenerateEnemyData() {
     EnemyDictionary dictionary = new();
     dictionary["Ant_IL0"] = GetAntIL0EnemyData();
+    dictionary["Ant_IL1"] = GetAntIL1EnemyData();
     dictionary["Aphid_IL0"] = GetAphidIL0EnemyData();
     dictionary["Beetle_IL0"] = GetBeetleLowInfectionEnemyData();
     dictionary["Tarantula_IL0"] = GetTarantulaIL0EnemyData();
@@ -33,6 +34,23 @@ public class EnemyDataGenerator {
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.5f,
       infectionLevel = 0,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetAntIL1EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.ANT,
+      size = EnemyData.Size.SMALL,
+      maxHP = 65.0f,
+      maxArmor = 0.0f,
+      speed = 0.65f,
+      damage = 8,
+      nu = 15,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.5f,
+      infectionLevel = 1,
     };
 
     return data;

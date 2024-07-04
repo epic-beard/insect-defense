@@ -220,19 +220,19 @@ public class TowerDataGenerator {
     var slowUpgrades = new TowerAbility[] {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.SET, 0.7f)
+          GetAttributeModifier(Stat.SLOW_DURATION, Mode.SET, 6.0f),
         },
-        name = "Improved Slow",
-        description = "Increasses slow power to 70%.",
+        name = "Enduring Webs",
+        description = "Increase slow duration to 6 seconds.",
         upgradePath = 0,
         cost = 100,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.SLOW_DURATION, Mode.SET, 6.0f),
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.SET, 0.7f)
         },
-        name = "Improved Slow",
-        description = "Increase slow duration to 6 seconds.",
+        name = "Stickier Webs",
+        description = "Increasses slow power to 70%.",
         upgradePath = 0,
         cost = 300,
       },
@@ -375,7 +375,7 @@ public class TowerDataGenerator {
       area_of_effect = 10,
       armor_pierce = 0,
       attack_speed = 0.75f,
-      cost = 100,
+      cost = 200,
       damage = 0,
       acid_stacks = 0,
       projectile_speed = 20,

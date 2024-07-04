@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 4321471610920082953}
   - component: {fileID: 4638345346127034721}
   - component: {fileID: 8068837161833344109}
+  - component: {fileID: 6373493279696074367}
+  - component: {fileID: -525329270359283789}
   m_Layer: 5
   m_Name: TerrariumScreen
   m_TagString: Untagged
@@ -155,5 +157,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4ad23a04e0a41a40aef463a8940be6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6373493279696074367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871690005817048725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a272bfa3dd4b447a0ea23b52904094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-525329270359283789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871690005817048725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13193e0fc7839f24f810fc42e4a69cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -27,6 +27,31 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
+      <string>Ant_IL1</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>ANT</type>
+        <size>SMALL</size>
+        <maxHP>65</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.65</speed>
+        <damage>8</damage>
+        <nu>15</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>1</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
       <string>Aphid_IL0</string>
     </Key>
     <Value>
