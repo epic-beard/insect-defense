@@ -194,7 +194,7 @@ public class Level1WaveGenerator {
       Subwaves = {
         new DialogueBoxWave() {
           messages = {
-              "Beetles are armored enemies, make sure you have some armor tear or peirce to damage them!",
+              "Beetles are armored enemies, do more damage to handle this.",
               "Check the Spitting Ant Tower upgrades."
           },
         },
