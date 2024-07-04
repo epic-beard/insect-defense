@@ -58,22 +58,23 @@ public class TowerDataGenerator {
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.6f),
+          GetAttributeModifier(Stat.VENOM_POWER, Mode.SET, 0.75f),
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f)
         },
         intAttributeModifiers = new AttributeModifier<int>[] {
           GetAttributeModifier(Stat.VENOM_STACKS, Mode.SET, 3),
         },
         name = "Max Venom",
-        description = "Attacks apply 3 stacks of 60% venom.",
+        description = "Attacks apply 3 stacks of 75% venom and inflict 50% extra damage.",
         upgradePath = 0,
-        cost = 10,
+        cost = 2000,
       },
       new() {
         specialAbility = SpecialAbility.SA_1_5_VENOM_CORPSEPLOSION,
         name = "Armor Tear Explosion",
         description = "Armor tear now applies to all enemies caught in the splash explosion.",
         upgradePath = 0,
-        cost = 10,
+        cost = 10000,
       }
     };
     var acidUpgrades = new TowerAbility[] {
@@ -82,10 +83,10 @@ public class TowerDataGenerator {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.15f)
         },
         intAttributeModifiers = new AttributeModifier<int>[] {
-          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 5),
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 10),
         },
         name = "Acid!",
-        description = "Attacks inflict 5 stacks of acid and grants a 15% bonus to damage.",
+        description = "Attacks inflict 10 stacks of acid and grants 15% extra damage.",
         upgradePath = 1,
         cost = 50,
       },
@@ -94,10 +95,10 @@ public class TowerDataGenerator {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         intAttributeModifiers = new AttributeModifier<int>[] {
-          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5),
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 20),
         },
         name = "More Acid",
-        description = "Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.",
+        description = "Acid stacks inflicted is raised to 20 and grants 25% extra damage.",
         upgradePath = 1,
         cost = 150,
       },
@@ -112,20 +113,23 @@ public class TowerDataGenerator {
         cost = 800,
       },
       new() {
+        floatAttributeModifiers = new AttributeModifier<float>[] {
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f)
+        },
         intAttributeModifiers = new AttributeModifier<int>[] {
-          GetAttributeModifier(Stat.ACID_STACKS, Mode.ADDITIVE, 5)
+          GetAttributeModifier(Stat.ACID_STACKS, Mode.SET, 30)
         },
         name = "Spray that acid",
-        description = "Acid inflicted is raised to 15",
+        description = "Acid inflicted is raised to 30 and grants 50% extra damage",
         upgradePath = 1,
-        cost = 10,
+        cost = 2000,
       },
       new() {
         specialAbility = SpecialAbility.SA_2_5_DOT_ENHANCEMENT,
         name = "Acid Explosion",
         description = "When acid stacks reach max, an explosion of acid is triggered, applying all acid stacks instantly and clearing them.",
         upgradePath = 1,
-        cost = 10,
+        cost = 10000,
       }
     };
     var utilityUpgrades = new TowerAbility[] {
@@ -158,19 +162,20 @@ public class TowerDataGenerator {
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.2f)
         },
         name = "Even Faster Production",
-        description = "Increases attack speed by 50%.",
+        description = "Attacks gain yet 5 more range and 20 more attack speed.",
         upgradePath = 2,
-        cost = 10,
+        cost = 2000,
       },
       new() {
         specialAbility = SpecialAbility.SA_3_5_CONSTANT_FIRE,
         name = "Continuous Stream",
         description = "This tower's attack becomes single-target and constantly fires",
         upgradePath = 2,
-        cost = 10,
+        cost = 10000,
       }
     };
 
@@ -215,47 +220,44 @@ public class TowerDataGenerator {
     var slowUpgrades = new TowerAbility[] {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.SET, 0.7f)
         },
         name = "Improved Slow",
-        description = "Increasses slow power to 40% and duration to 6 seconds.",
+        description = "Increasses slow power to 70%.",
         upgradePath = 0,
-        cost = 10,
+        cost = 100,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
+          GetAttributeModifier(Stat.SLOW_DURATION, Mode.SET, 6.0f),
         },
         name = "Improved Slow",
-        description = "Increase slow power to 50% and duration to 8 seconds.",
+        description = "Increase slow duration to 6 seconds.",
         upgradePath = 0,
-        cost = 10,
+        cost = 300,
       },
       new() {
         specialAbility = SpecialAbility.WSS_1_3_SLOW_STUN,
         name = "Stunning Slow",
         description = "Stuns an enemy the first time it is hit by this tower.",
         upgradePath = 0,
-        cost = 10,
+        cost = 1000,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.SLOW_DURATION, Mode.ADDITIVE, 2.0f),
-          GetAttributeModifier(Stat.SLOW_POWER, Mode.ADDITIVE, 0.1f)
+          GetAttributeModifier(Stat.SLOW_POWER, Mode.SET, 0.80f)
         },
         name = "Improved Slow",
-        description = "Increase slow power to 60% and duration to 10 seconds.",
+        description = "Increase slow power to 80%.",
         upgradePath = 0,
-        cost = 10,
+        cost = 3000,
       },
       new() {
         specialAbility = SpecialAbility.WSS_1_5_PERMANENT_SLOW,
         name = "Enduring Webs",
-        description = "Permanently reduces enemy speed the first time it is slowed.  This effect is applied once per enemy per tower.",
+        description = "Permanently reduces enemy speed the first time it is slowed. This effect is applied once per enemy per tower.",
         upgradePath = 0,
-        cost = 10,
+        cost = 10000,
       }
     };
     var secondarySlowUpgrades = new TowerAbility[] {
@@ -266,7 +268,7 @@ public class TowerDataGenerator {
         name = "AoE Slow",
         description = "1/2 slow also hits the enemy nearest the target within its AoE.",
         upgradePath = 1,
-        cost = 10,
+        cost = 100,
       },
       new() {
         intAttributeModifiers = new AttributeModifier<int>[] {
@@ -275,7 +277,7 @@ public class TowerDataGenerator {
         name = "AoE Slow",
         description = "1/2 slow also hits the 2 enemies nearest the target within its AoE.",
         upgradePath = 1,
-        cost = 10,
+        cost = 300,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
@@ -287,7 +289,7 @@ public class TowerDataGenerator {
         name = "Superior Secondary Threads",
         description = "3/4 slow also hits the 3 enemies nearest the target within its AoE.",
         upgradePath = 1,
-        cost = 10,
+        cost = 1000,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
@@ -296,43 +298,43 @@ public class TowerDataGenerator {
         name = "Perfect Secondary Threads",
         description = "100% slow also hits the 3 enemies nearest the target within its AoE.",
         upgradePath = 1,
-        cost = 10,
+        cost = 3000,
       },
       new() {
         specialAbility = SpecialAbility.WSS_2_5_LINGERING_SLOW,
         name = "Enduring Threads",
         description = "Tower shots leave behind webs that slow the next enemy entering them.",
         upgradePath = 1,
-        cost = 10,
+        cost = 10000,
       }
     };
     var utilityUpgrades = new TowerAbility[] {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.1f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.3f)
         },
         name = "Faster Spinnerets",
-        description = "Increase attack speed by 10.",
+        description = "Increase attack speed by 30.",
         upgradePath = 2,
-        cost = 10,
+        cost = 100,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.15f),
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.2f),
           GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
           GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 5.0f)
         },
         name = "Faster Spinnerets",
-        description = "Increases attack speed by 15 and range by 5.",
+        description = "Increases attack speed by 20 and range by 5.",
         upgradePath = 2,
-        cost = 10,
+        cost = 300,
       },
       new() {
         specialAbility = SpecialAbility.WSS_3_3_ANTI_AIR,
         name = "Elevated Shots",
         description = "This tower gains the anti air ability.",
         upgradePath = 2,
-        cost = 10,
+        cost = 750,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
@@ -342,14 +344,14 @@ public class TowerDataGenerator {
         name = "Improved Trajectory Analysis",
         description = "Increases range by 10.",
         upgradePath = 2,
-        cost = 10,
+        cost = 2000,
       },
       new() {
         specialAbility = SpecialAbility.WSS_3_5_GROUNDING_SHOT,
         name = "Grounding Shot",
         description = "Any enemy hit by this tower briefly loses the flying ability.",
         upgradePath = 2,
-        cost = 10,
+        cost = 10000,
       }
     };
 
@@ -380,8 +382,8 @@ public class TowerDataGenerator {
       range = 25,
       secondary_slow_potency = 0.5f,
       secondary_slow_targets = 0,
-      slow_duration = 4,
-      slow_power = 0.3f,
+      slow_duration = 3,
+      slow_power = 0.5f,
       stun_time = 0,
       venom_power = 0,
       venom_stacks = 0,
@@ -584,20 +586,20 @@ public class TowerDataGenerator {
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.3f),
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.3f)
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Damage and Armor Pen",
-        description = "Increases damage and armor penetration by 30%.",
+        description = "Increases damage and armor penetration by 50%.",
         upgradePath = 0,
-        cost = 10,
+        cost = 3500,
       },
       new() {
         specialAbility = SpecialAbility.M_1_5_FOUR_ARMS,
         name = "Make it Double!",
         description = "The Mantis grows a second pair of scythe arms, each of which attacks normally.",
         upgradePath = 0,
-        cost = 10,
+        cost = 15000,
       }
     };
     var bleedUpgrades = new TowerAbility[] {
@@ -643,7 +645,7 @@ public class TowerDataGenerator {
         name = "Anticoagulant Chemicals",
         description = "Bleed inflicted is 60 and gain 25% bonus damage.",
         upgradePath = 1,
-        cost = 1600,
+        cost = 2500,
       },
       new() {
         intAttributeModifiers = new AttributeModifier<int>[] {
@@ -653,16 +655,16 @@ public class TowerDataGenerator {
         name = "Bloody Execution",
         description = "Execute doomed (too much bleed to survive) enemies. Bleed is now 80.",
         upgradePath = 1,
-        cost = 3200,
+        cost = 10000,
       },
     };
     var utilityUpgrades = new TowerAbility[] {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.6f)
+          GetAttributeModifier(Stat.ATTACK_SPEED, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Improved Attack Speed",
-        description = "Increases attack speed by 60%.",
+        description = "Increases attack speed by 50%.",
         upgradePath = 2,
         cost = 60,
       },
@@ -689,14 +691,14 @@ public class TowerDataGenerator {
         name = "Synergetic Claws",
         description = "Increases attack speed by 50%.",
         upgradePath = 2,
-        cost = 10,
+        cost = 2000,
       },
       new() {
         specialAbility = SpecialAbility.M_3_5_SHRIKE,
         name = "Shrike",
         description = "Mantis attacks shed vicious spines, AoE damage equals main attack damage.",
         upgradePath = 2,
-        cost = 10,
+        cost = 10000,
       },
     };
 

@@ -21,6 +21,7 @@ public class Targeting {
     LEAST_HP,
     MOST_ARMOR,
     MOST_HP,
+    SLOW_EFFICIENCY,  // For the Web Shooting Tower.
   }
 
   public delegate bool BehaviorPredicate(Enemy enemy);
@@ -37,6 +38,7 @@ public class Targeting {
     { Priority.LEAST_HP, (enemy1, enemy2) => CompareFloats(enemy1.HP, enemy2.HP) },
     { Priority.MOST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy2.Armor, enemy1.Armor) },
     { Priority.MOST_HP, (enemy1, enemy2) => CompareFloats(enemy2.HP, enemy1.HP) },
+    { Priority.SLOW_EFFICIENCY, (enemy1, enemy2) => CompareFloats(enemy1.SlowPower, enemy2.SlowPower) },
   };
 
   public Priority priority;

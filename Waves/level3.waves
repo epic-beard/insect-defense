@@ -8,8 +8,8 @@
             <Wave xsi:type="DelayedWave">
               <warmup>0</warmup>
               <wave xsi:type="CannedEnemyWave">
-                <repetitions>16</repetitions>
-                <repeatDelay>5</repeatDelay>
+                <repetitions>40</repetitions>
+                <repeatDelay>2</repeatDelay>
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>1</spawnAmmount>
                 <enemyDataKey>Ant_IL0</enemyDataKey>

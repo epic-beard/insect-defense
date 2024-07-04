@@ -32,7 +32,7 @@ public class Level3WaveGenerator : MonoBehaviour {
           },
           metrics: new WaveMetrics[] {
             new() {
-              repeatDelay = 5.0f
+              repeatDelay = 2.0f
             },
           }
         ),

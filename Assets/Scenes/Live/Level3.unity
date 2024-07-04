@@ -1347,6 +1347,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1693289339214695213, guid: 576507d059c5de845b7a4d4634405793, type: 3}
+      propertyPath: filename
+      value: waves/level3.waves
+      objectReference: {fileID: 0}
+    - target: {fileID: 1693289339214695213, guid: 576507d059c5de845b7a4d4634405793, type: 3}
       propertyPath: spawnLocations.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -10942,6 +10946,10 @@ PrefabInstance:
     - target: {fileID: 3770796850854829353, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167615392457572297, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4167615392457572297, guid: 4bb31f7c039f28b46a67a2657baa04ed, type: 3}
       propertyPath: startingNu
