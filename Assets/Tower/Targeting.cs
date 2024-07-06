@@ -9,8 +9,9 @@ public class Targeting {
 
   public enum Behavior {
     ALL,
-    CAMO,  // Always prioritize camo enemies
+    CAMO,  // Always prioritize camo enemies.
     FLIER,  // Always prioritize flying enemies.
+    SLOW_EM_ALL,  // Try to make sure all enemies are slowed. For Web Shooting Tower.
     STUBBORN,  // Don't change targets until the target dies or moves out of range.
   }
 
@@ -21,7 +22,6 @@ public class Targeting {
     LEAST_HP,
     MOST_ARMOR,
     MOST_HP,
-    SLOW_EFFICIENCY,  // For the Web Shooting Tower.
   }
 
   public delegate bool BehaviorPredicate(Enemy enemy);
@@ -29,6 +29,7 @@ public class Targeting {
     { Behavior.ALL, (enemy => true) },
     { Behavior.CAMO, (enemy) => enemy.Camo },
     { Behavior.FLIER, (enemy) => enemy.Flying },
+    { Behavior.SLOW_EM_ALL, (enemy) => enemy.SlowPower == 0.0f },
     { Behavior.STUBBORN, (enemy) => true },  // This has an entry in case of stubborn fail-through.
   };
   readonly Dictionary<Priority, Comparison<Enemy>> priorityPredicates = new() {
@@ -38,7 +39,6 @@ public class Targeting {
     { Priority.LEAST_HP, (enemy1, enemy2) => CompareFloats(enemy1.HP, enemy2.HP) },
     { Priority.MOST_ARMOR, (enemy1, enemy2) => CompareFloats(enemy2.Armor, enemy1.Armor) },
     { Priority.MOST_HP, (enemy1, enemy2) => CompareFloats(enemy2.HP, enemy1.HP) },
-    { Priority.SLOW_EFFICIENCY, (enemy1, enemy2) => CompareFloats(enemy1.SlowPower, enemy2.SlowPower) },
   };
 
   public Priority priority;

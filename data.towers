@@ -316,7 +316,7 @@
               <name>Enduring Webs</name>
               <description>Increase slow duration to 6 seconds.</description>
               <upgradePath>0</upgradePath>
-              <cost>100</cost>
+              <cost>75</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -374,7 +374,7 @@
               <name>AoE Slow</name>
               <description>1/2 slow also hits the enemy nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
-              <cost>100</cost>
+              <cost>75</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -446,7 +446,7 @@
               <name>Faster Spinnerets</name>
               <description>Increase attack speed by 30.</description>
               <upgradePath>2</upgradePath>
-              <cost>100</cost>
+              <cost>75</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -464,7 +464,7 @@
                 <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>5</mod>
+                  <mod>10</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Faster Spinnerets</name>
@@ -490,7 +490,7 @@
                 <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>10</mod>
+                  <mod>20</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Improved Trajectory Analysis</name>
@@ -511,14 +511,14 @@
         <icon_path>Icons/test</icon_path>
         <acid_stacks>0</acid_stacks>
         <bleed_stacks>0</bleed_stacks>
-        <cost>200</cost>
+        <cost>125</cost>
         <secondary_slow_targets>0</secondary_slow_targets>
         <venom_stacks>0</venom_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <attack_speed>0.75</attack_speed>
         <damage>0</damage>
-        <projectile_speed>20</projectile_speed>
+        <projectile_speed>50</projectile_speed>
         <range>25</range>
         <secondary_slow_potency>0.5</secondary_slow_potency>
         <slow_duration>3</slow_duration>

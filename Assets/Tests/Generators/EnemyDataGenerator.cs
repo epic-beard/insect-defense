@@ -16,6 +16,7 @@ public class EnemyDataGenerator {
     dictionary["Ant_IL0"] = GetAntIL0EnemyData();
     dictionary["Ant_IL1"] = GetAntIL1EnemyData();
     dictionary["Aphid_IL0"] = GetAphidIL0EnemyData();
+    dictionary["Aphid_IL1"] = GetAphidIL1EnemyData();
     dictionary["Beetle_IL0"] = GetBeetleLowInfectionEnemyData();
     dictionary["Tarantula_IL0"] = GetTarantulaIL0EnemyData();
     dictionary["Leaf Bug_IL0"] = GetLeafBugIL0EnemyData();
@@ -62,12 +63,29 @@ public class EnemyDataGenerator {
       size = EnemyData.Size.TINY,
       maxHP = 5.0f,
       maxArmor = 0.0f,
-      speed = 0.5f,
+      speed = 0.65f,
       damage = 1,
       nu = 2,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
       infectionLevel = 0,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetAphidIL1EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.APHID,
+      size = EnemyData.Size.TINY,
+      maxHP = 13.0f,
+      maxArmor = 0.0f,
+      speed = 0.65f,
+      damage = 2,
+      nu = 4,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 3.0f,
+      infectionLevel = 1,
     };
 
     return data;

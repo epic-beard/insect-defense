@@ -16,9 +16,9 @@ public static class LevelGeneratorStatics {
   public static string tarantula0 = "Tarantula_IL0";
   //public static string tarantula1 = "Tarantula_IL1";
   //public static string tarantula2 = "Tarantula_IL2";
-  public static string wolfSpider0 = "Wolf Spider_0";
-  //public static string wolfSpider1 = "Wolf Spider_1";
-  //public static string wolfSpider2 = "Wolf Spider_2";
+  public static string wolfSpider0 = "Wolf Spider_IL0";
+  //public static string wolfSpider1 = "Wolf Spider_IL1";
+  //public static string wolfSpider2 = "Wolf Spider_IL2";
 
   public static string directory = "Waves/";
 }

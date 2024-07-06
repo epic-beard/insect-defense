@@ -487,6 +487,7 @@ public class Enemy : MonoBehaviour {
     Crippled = false;
     GroundedTime = 0;
     WaveTag = null;
+    StopAllCoroutines();
   }
 
   // Handle ensuring that the advanced acid decay delay decays at the appropriate pace.
@@ -539,18 +540,18 @@ public class Enemy : MonoBehaviour {
   }
 
   private IEnumerator FollowPath() {
+    Vector3 variance = new(xVariance, 0, zVariance);
     while (NextWaypoint != null) {
-      Vector3 startPosition = PrevWaypoint.transform.position;
-      Vector3 endPosition = NextWaypoint.transform.position;
-      Vector3 variance = new Vector3(xVariance, 0, zVariance);
+      Vector3 startPosition = PrevWaypoint.transform.position + variance;
+      Vector3 endPosition = NextWaypoint.transform.position + variance;
       float distance = Vector3.Distance(startPosition, endPosition);
       float travelPercent = 0.0f;
 
-      transform.LookAt(endPosition + variance);
+      transform.LookAt(endPosition);
 
       while (travelPercent < 1.0f) {
         travelPercent += 10 * Time.deltaTime * Speed / distance;
-        transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent) + variance;
+        transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
         yield return null;
       }
 

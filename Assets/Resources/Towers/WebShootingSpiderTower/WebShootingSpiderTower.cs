@@ -27,7 +27,7 @@ public class WebShootingSpiderTower : Tower {
     secondaryProjectileHandler = new(secondaryWebShot, ProjectileSpeed, hitRange);
     StartCoroutine(WebShoot());
 
-    targeting.priority = (Targeting.Priority.SLOW_EFFICIENCY);
+    targeting.behavior = Targeting.Behavior.SLOW_EM_ALL;
   }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {

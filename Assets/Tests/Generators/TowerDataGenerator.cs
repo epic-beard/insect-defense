@@ -225,7 +225,7 @@ public class TowerDataGenerator {
         name = "Enduring Webs",
         description = "Increase slow duration to 6 seconds.",
         upgradePath = 0,
-        cost = 100,
+        cost = 75,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
@@ -268,7 +268,7 @@ public class TowerDataGenerator {
         name = "AoE Slow",
         description = "1/2 slow also hits the enemy nearest the target within its AoE.",
         upgradePath = 1,
-        cost = 100,
+        cost = 75,
       },
       new() {
         intAttributeModifiers = new AttributeModifier<int>[] {
@@ -316,13 +316,13 @@ public class TowerDataGenerator {
         name = "Faster Spinnerets",
         description = "Increase attack speed by 30.",
         upgradePath = 2,
-        cost = 100,
+        cost = 75,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.ATTACK_SPEED, Mode.ADDITIVE, 0.2f),
           GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 5.0f),
-          GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 5.0f)
+          GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 10.0f)
         },
         name = "Faster Spinnerets",
         description = "Increases attack speed by 20 and range by 5.",
@@ -339,7 +339,7 @@ public class TowerDataGenerator {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.RANGE, Mode.ADDITIVE, 10.0f),
-          GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 10.0f)
+          GetAttributeModifier(Stat.PROJECTILE_SPEED, Mode.ADDITIVE, 20.0f)
         },
         name = "Improved Trajectory Analysis",
         description = "Increases range by 10.",
@@ -375,10 +375,10 @@ public class TowerDataGenerator {
       area_of_effect = 10,
       armor_pierce = 0,
       attack_speed = 0.75f,
-      cost = 200,
+      cost = 125,
       damage = 0,
       acid_stacks = 0,
-      projectile_speed = 20,
+      projectile_speed = 50,
       range = 25,
       secondary_slow_potency = 0.5f,
       secondary_slow_targets = 0,
