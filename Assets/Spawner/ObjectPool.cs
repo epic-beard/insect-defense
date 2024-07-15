@@ -57,8 +57,9 @@ public class ObjectPool : MonoBehaviour {
     }
 
     Enemy enemy = gameObject.GetComponent<Enemy>();
-    Destroy(enemy);
+    DestroyImmediate(enemy);
     enemy = gameObject.AddComponent<Enemy>();
+
     enemy.Data = data;
     enemy.PrevWaypoint = start;
 
