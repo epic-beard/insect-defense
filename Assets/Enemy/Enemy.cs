@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-  [SerializeField] private EnemyData data;
+  private EnemyData data;
   public EnemyData Data {
     get { return data; }
     set {
@@ -20,8 +20,8 @@ public class Enemy : MonoBehaviour {
   // The Event to update the context panel in the Terrarium UI.
   public event Action<Enemy> StatChangedEvent;
 
-  [SerializeField] public Waypoint PrevWaypoint;
-  [SerializeField] public Waypoint NextWaypoint;
+  public Waypoint PrevWaypoint;
+  public Waypoint NextWaypoint;
 
   public HashSet<Tower> spittingAntTowerSlows = new();
   public HashSet<Tower> webShootingTowerStuns = new();
@@ -33,9 +33,9 @@ public class Enemy : MonoBehaviour {
 
   private Animator animator;
 
-  private Transform aimPoint;
-  [SerializeField] private float xVariance;
-  [SerializeField] private float zVariance;
+  private Transform target;
+  private float xVariance;
+  private float zVariance;
 
   private float accumulatedAcidDamage = 0.0f;
   private float accumulatedPoisonDamage = 0.0f;
@@ -64,8 +64,8 @@ public class Enemy : MonoBehaviour {
   }
   public Vector3 AimPoint {
     get {
-      if (aimPoint != null) {
-        return aimPoint.transform.position;
+      if (target != null) {
+        return target.transform.position;
       } else {
         return transform.position;
       }
@@ -132,7 +132,6 @@ public class Enemy : MonoBehaviour {
         DistributeVenomStacksIfNecessary();
 
         ConditionalContextReset();
-        ResetTransientState();
         ObjectPool.Instance.DestroyEnemy(gameObject);
         GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);
       }
@@ -177,11 +176,10 @@ public class Enemy : MonoBehaviour {
   #endregion
 
   public void Initialize(Waypoint start) {
-    //Debug.Log("Initialize has been called");
     PrevWaypoint = start;
     NextWaypoint = start.GetNextWaypoint();
     if (transform.childCount > 0) {
-      aimPoint = transform.GetChild(0).Find("target");
+      target = transform.GetChild(0).Find("target");
     }
     animator = this.GetComponentInChildren<Animator>();
     Renderers = this.GetComponentsInChildren<Renderer>();
@@ -474,23 +472,6 @@ public class Enemy : MonoBehaviour {
     }
   }
 
-  private void ResetTransientState() {
-    StatChangedEvent = delegate{ };
-    spittingAntTowerSlows.Clear();
-    webShootingTowerStuns.Clear();
-    webShootingTowerPermSlow.Clear();
-    AdvancedAcidDecayDelay.Clear();
-    accumulatedAcidDamage = 0;
-    accumulatedBleedDamage = 0;
-    accumulatedContinuousDamage = 0;
-    accumulatedPoisonDamage = 0;
-    venomStacks.Clear();
-    Crippled = false;
-    GroundedTime = 0;
-    WaveTag = null;
-    StopAllCoroutines();
-  }
-
   // Handle ensuring that the advanced acid decay delay decays at the appropriate pace.
   private IEnumerator HandleAdvancedAcidDecay() {
     while (true) {
@@ -541,26 +522,23 @@ public class Enemy : MonoBehaviour {
   }
 
   private IEnumerator FollowPath() {
-    Vector3 variance = new(xVariance, 0, zVariance);
     while (NextWaypoint != null) {
-      Vector3 startPosition = PrevWaypoint.transform.position + variance;
-      Vector3 endPosition = NextWaypoint.transform.position + variance;
+      Vector3 startPosition = PrevWaypoint.transform.position;
+      Vector3 endPosition = NextWaypoint.transform.position;
+      Vector3 variance = new Vector3(xVariance, 0, zVariance);
       float distance = Vector3.Distance(startPosition, endPosition);
       float travelPercent = 0.0f;
 
-      transform.LookAt(endPosition);
+      transform.LookAt(endPosition + variance);
 
       while (travelPercent < 1.0f) {
         travelPercent += 10 * Time.deltaTime * Speed / distance;
-        transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+        transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent) + variance;
         yield return null;
       }
 
       PrevWaypoint = NextWaypoint;
       NextWaypoint = PrevWaypoint.GetNextWaypoint();
-      //if (NextWaypoint != null) {
-      //  Debug.Log("Resetting the prev and next waypoint for this enemy: " + NextWaypoint.name);
-      //}
     }
 
     FinishPath();
