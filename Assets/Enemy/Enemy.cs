@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour {
 
   private Animator animator;
 
-  private Transform target;
+  private Transform aimPoint;
   private float xVariance;
   private float zVariance;
 
@@ -64,8 +64,8 @@ public class Enemy : MonoBehaviour {
   }
   public Vector3 AimPoint {
     get {
-      if (target != null) {
-        return target.transform.position;
+      if (aimPoint != null) {
+        return aimPoint.transform.position;
       } else {
         return transform.position;
       }
@@ -179,7 +179,7 @@ public class Enemy : MonoBehaviour {
     PrevWaypoint = start;
     NextWaypoint = start.GetNextWaypoint();
     if (transform.childCount > 0) {
-      target = transform.GetChild(0).Find("target");
+      aimPoint = transform.GetChild(0).Find("target");
     }
     animator = this.GetComponentInChildren<Animator>();
     Renderers = this.GetComponentsInChildren<Renderer>();

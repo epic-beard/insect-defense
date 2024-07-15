@@ -127,6 +127,31 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
+      <string>Beetle_IL1</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>BEETLE</type>
+        <size>SMALL</size>
+        <maxHP>65</maxHP>
+        <maxArmor>25</maxArmor>
+        <speed>0.35</speed>
+        <damage>10</damage>
+        <nu>20</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>2</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
       <string>Tarantula_IL0</string>
     </Key>
     <Value>
