@@ -215,7 +215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.type
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.maxHP
@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.speed
-      value: 0.25
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.damage
@@ -239,7 +239,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.infectionLevel
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179988103622298021, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
+      propertyPath: startingSize
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3179988103622298021, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: entries.Array.data[0].type

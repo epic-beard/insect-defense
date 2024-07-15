@@ -27,7 +27,7 @@ public class ProjectileHandlerTest {
 
     Enemy enemy = new GameObject().AddComponent<Enemy>();
     enemy.transform.position = Vector3.right * 100;
-    enemy.SetTarget(enemy.transform);
+    enemy.SetAimPoint(enemy.transform);
 
     Vector3 directionOfTravel = enemy.AimPoint - particles[0].position;
     Vector3 normalizedDirectionOfTravel = directionOfTravel.normalized;
@@ -50,7 +50,7 @@ public class ProjectileHandlerTest {
 
     Enemy enemy = new GameObject().AddComponent<Enemy>();
     enemy.transform.position = Vector3.right;
-    enemy.SetTarget(enemy.transform);
+    enemy.SetAimPoint(enemy.transform);
 
     projectileHandler.UpdateParticles(enemy, FakeProcessParticleCollision);
 

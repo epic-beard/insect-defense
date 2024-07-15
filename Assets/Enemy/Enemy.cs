@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-  private EnemyData data;
+  [SerializeField] private EnemyData data;
   public EnemyData Data {
     get { return data; }
     set {
@@ -20,8 +20,8 @@ public class Enemy : MonoBehaviour {
   // The Event to update the context panel in the Terrarium UI.
   public event Action<Enemy> StatChangedEvent;
 
-  public Waypoint PrevWaypoint;
-  public Waypoint NextWaypoint;
+  [SerializeField] public Waypoint PrevWaypoint;
+  [SerializeField] public Waypoint NextWaypoint;
 
   public HashSet<Tower> spittingAntTowerSlows = new();
   public HashSet<Tower> webShootingTowerStuns = new();
@@ -33,9 +33,9 @@ public class Enemy : MonoBehaviour {
 
   private Animator animator;
 
-  private Transform target;
-  private float xVariance;
-  private float zVariance;
+  private Transform aimPoint;
+  [SerializeField] private float xVariance;
+  [SerializeField] private float zVariance;
 
   private float accumulatedAcidDamage = 0.0f;
   private float accumulatedPoisonDamage = 0.0f;
@@ -64,8 +64,8 @@ public class Enemy : MonoBehaviour {
   }
   public Vector3 AimPoint {
     get {
-      if (target != null) {
-        return target.transform.position;
+      if (aimPoint != null) {
+        return aimPoint.transform.position;
       } else {
         return transform.position;
       }
@@ -177,10 +177,11 @@ public class Enemy : MonoBehaviour {
   #endregion
 
   public void Initialize(Waypoint start) {
+    //Debug.Log("Initialize has been called");
     PrevWaypoint = start;
     NextWaypoint = start.GetNextWaypoint();
     if (transform.childCount > 0) {
-      target = transform.GetChild(0).Find("target");
+      aimPoint = transform.GetChild(0).Find("target");
     }
     animator = this.GetComponentInChildren<Animator>();
     Renderers = this.GetComponentsInChildren<Renderer>();
@@ -557,6 +558,9 @@ public class Enemy : MonoBehaviour {
 
       PrevWaypoint = NextWaypoint;
       NextWaypoint = PrevWaypoint.GetNextWaypoint();
+      //if (NextWaypoint != null) {
+      //  Debug.Log("Resetting the prev and next waypoint for this enemy: " + NextWaypoint.name);
+      //}
     }
 
     FinishPath();

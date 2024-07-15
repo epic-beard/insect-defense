@@ -175,4 +175,29 @@
       </EnemyData>
     </Value>
   </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Wolf Spider_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>WOLF_SPIDER</type>
+        <size>NORMAL</size>
+        <maxHP>120</maxHP>
+        <maxArmor>25</maxArmor>
+        <speed>0.7</speed>
+        <damage>10</damage>
+        <nu>65</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>1.5</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
 </SerializableDictionaryOfStringEnemyData>

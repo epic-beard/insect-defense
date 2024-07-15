@@ -199,7 +199,7 @@ public class SpittingAntTowerTest {
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.SetTarget(enemy.transform);
+    enemy.SetAimPoint(enemy.transform);
     enemy.Data = data;
     gameObject.SetActive(true);
     return enemy;

@@ -12,6 +12,8 @@ public class Level3WaveGenerator {
   }
 
   private void GenerateWave() {
+    // Side differences: Slow things on the left, fast on the right.
+    // Nu: 500
     SequentialWave firstWave = new(
       new ConcurrentWave(
         new CannedEnemyWave() {
@@ -112,9 +114,56 @@ public class Level3WaveGenerator {
         }
       )  // GetConcurrentWaveWithDefaults
     );
+    // Nu: 1482
+
+    SequentialWave secondWave = new(
+      GetConcurrentWaveWithDefaults(
+        defaults: new() {
+          duration = 105.0f,
+        },
+        metrics: new WaveMetrics[] {
+          new() {
+            enemyDataKey = ant0,
+            spawnLocation = 0,
+            repeatDelay = 5.0f,
+            warmup = 15.0f,  // 20 sec duration
+            cooldown = 70.0f,
+          },
+          new() {
+            enemyDataKey = beetle0,
+            spawnLocation = 0,
+            repeatDelay = 7.0f,
+            warmup = 35.0f,  // 40 sec duration
+            cooldown = 30.0f,
+          },
+          new() {
+            enemyDataKey = tarantula0,
+            spawnLocation = 0,
+            repeatDelay = 10.0f,
+            warmup = 75.0f,  // 30 seconds
+          },
+          new() {
+            enemyDataKey = aphid1,
+            spawnLocation = 1,
+            repeatDelay = 1.0f,
+          },
+          new() {
+            enemyDataKey = ant1,
+            spawnLocation = 1,
+            repeatDelay = 7.0f,
+          },
+          new() {
+            enemyDataKey = wolfSpider0,
+            spawnLocation = 1,
+            warmup = 65.0f,
+            repeatDelay = 10.0f,
+          }
+        }
+      )  // Nu: 3530
+    );
 
     Waves waves = new() {
-      waves = { firstWave },
+      waves = { secondWave },
     };
 
     Serialize<Waves>(waves, filename);
