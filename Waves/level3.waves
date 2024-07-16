@@ -6,68 +6,72 @@
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
             <Wave xsi:type="DelayedWave">
-              <warmup>15</warmup>
+              <warmup>0</warmup>
               <wave xsi:type="CannedEnemyWave">
-                <repetitions>4</repetitions>
-                <repeatDelay>5</repeatDelay>
-                <spawnLocation>0</spawnLocation>
-                <spawnAmmount>1</spawnAmmount>
-                <enemyDataKey>Ant_IL0</enemyDataKey>
-              </wave>
-              <cooldown>0</cooldown>
-            </Wave>
-            <Wave xsi:type="DelayedWave">
-              <warmup>35</warmup>
-              <wave xsi:type="CannedEnemyWave">
-                <repetitions>5</repetitions>
-                <repeatDelay>7</repeatDelay>
-                <spawnLocation>0</spawnLocation>
-                <spawnAmmount>1</spawnAmmount>
-                <enemyDataKey>Beetle_IL0</enemyDataKey>
-              </wave>
-              <cooldown>0</cooldown>
-            </Wave>
-            <Wave xsi:type="DelayedWave">
-              <warmup>75</warmup>
-              <wave xsi:type="CannedEnemyWave">
-                <repetitions>3</repetitions>
-                <repeatDelay>10</repeatDelay>
+                <repetitions>13</repetitions>
+                <repeatDelay>8</repeatDelay>
                 <spawnLocation>0</spawnLocation>
                 <spawnAmmount>1</spawnAmmount>
                 <enemyDataKey>Tarantula_IL0</enemyDataKey>
+                <Positions>
+                  <Vector2>
+                    <x>0</x>
+                    <y>0</y>
+                  </Vector2>
+                </Positions>
+              </wave>
+              <cooldown>0</cooldown>
+            </Wave>
+            <Wave xsi:type="DelayedWave">
+              <warmup>30</warmup>
+              <wave xsi:type="CannedEnemyWave">
+                <repetitions>9</repetitions>
+                <repeatDelay>8</repeatDelay>
+                <spawnLocation>0</spawnLocation>
+                <spawnAmmount>1</spawnAmmount>
+                <enemyDataKey>Beetle_IL0</enemyDataKey>
+                <Positions>
+                  <Vector2>
+                    <x>0</x>
+                    <y>2</y>
+                  </Vector2>
+                </Positions>
+              </wave>
+              <cooldown>0</cooldown>
+            </Wave>
+            <Wave xsi:type="DelayedWave">
+              <warmup>60</warmup>
+              <wave xsi:type="CannedEnemyWave">
+                <repetitions>5</repetitions>
+                <repeatDelay>8</repeatDelay>
+                <spawnLocation>0</spawnLocation>
+                <spawnAmmount>1</spawnAmmount>
+                <enemyDataKey>Beetle_IL0</enemyDataKey>
+                <Positions>
+                  <Vector2>
+                    <x>1</x>
+                    <y>2</y>
+                  </Vector2>
+                  <Vector2>
+                    <x>-1</x>
+                    <y>2</y>
+                  </Vector2>
+                </Positions>
               </wave>
               <cooldown>0</cooldown>
             </Wave>
             <Wave xsi:type="DelayedWave">
               <warmup>0</warmup>
               <wave xsi:type="CannedEnemyWave">
-                <repetitions>105</repetitions>
-                <repeatDelay>1</repeatDelay>
-                <spawnLocation>1</spawnLocation>
-                <spawnAmmount>1</spawnAmmount>
-                <enemyDataKey>Aphid_IL1</enemyDataKey>
-              </wave>
-              <cooldown>0</cooldown>
-            </Wave>
-            <Wave xsi:type="DelayedWave">
-              <warmup>0</warmup>
-              <wave xsi:type="CannedEnemyWave">
-                <repetitions>15</repetitions>
-                <repeatDelay>7</repeatDelay>
-                <spawnLocation>1</spawnLocation>
-                <spawnAmmount>1</spawnAmmount>
-                <enemyDataKey>Ant_IL1</enemyDataKey>
-              </wave>
-              <cooldown>0</cooldown>
-            </Wave>
-            <Wave xsi:type="DelayedWave">
-              <warmup>65</warmup>
-              <wave xsi:type="CannedEnemyWave">
-                <repetitions>4</repetitions>
-                <repeatDelay>10</repeatDelay>
+                <repetitions>17</repetitions>
+                <repeatDelay>6</repeatDelay>
                 <spawnLocation>1</spawnLocation>
                 <spawnAmmount>1</spawnAmmount>
                 <enemyDataKey>Wolf Spider_IL0</enemyDataKey>
+                <CarrierOverride>
+                  <num>5</num>
+                  <childKey>Aphid_IL1</childKey>
+                </CarrierOverride>
               </wave>
               <cooldown>0</cooldown>
             </Wave>

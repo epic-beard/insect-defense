@@ -8,7 +8,7 @@ public static class LevelGeneratorStatics {
   public static string ant1 = "Ant_IL1";
   //public static string ant2 = "Ant_IL2";
   public static string beetle0 = "Beetle_IL0";
-  //public static string beetle1 = "Beetle_IL1";
+  public static string beetle1 = "Beetle_IL1";
   //public static string beetle2 = "Beetle_IL2";
   public static string leafBug0 = "Leaf Bug_IL0";
   //public static string leafBug1 = "Leaf Bug_IL1";

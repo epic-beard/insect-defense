@@ -122,11 +122,11 @@ public class Enemy : MonoBehaviour {
   public float HP {
     get { return hp; }
     set {
-      hp = value;
       StatChangedEvent?.Invoke(this);
-      if (hp <= 0.0f) {
+      if (hp > 0.0f && value <= 0.0f) {
         if (data.carrier != null) {
           var carrier = data.carrier.Value;
+          Debug.Log("Spawning " + carrier.num + " of " + carrier.childKey);
           SpawnChildren(carrier.childKey, carrier.num);
         }
         DistributeVenomStacksIfNecessary();
@@ -135,6 +135,7 @@ public class Enemy : MonoBehaviour {
         ObjectPool.Instance.DestroyEnemy(gameObject);
         GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);
       }
+      hp = value;
     }
   }
   public int InfectionLevel { get { return data.infectionLevel; } }
