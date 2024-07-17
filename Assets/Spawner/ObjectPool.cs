@@ -25,6 +25,7 @@ public class ObjectPool : MonoBehaviour {
     { EnemyData.Type.TARANTULA, "Enemies/Tarantula/Tarantula" },
     { EnemyData.Type.TERMITE, "Enemies/Termite/Termite" },
     { EnemyData.Type.WOLF_SPIDER, "Enemies/Wolf Spider/Wolf Spider" },
+    { EnemyData.Type.WOLF_SPIDER_MOTHER, "Enemies/Wolf Spider/Wolf Spider Mother" },
   };
   readonly private Dictionary<EnemyKey, GameObject> prefabMap = new();
 
