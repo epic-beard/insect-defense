@@ -115,6 +115,7 @@ public class Level3WaveGenerator {
       )  // GetConcurrentWaveWithDefaults
     );
     // Nu: 1482
+    // Sec~: 240
 
     SequentialWave secondWave = new(
       GetConcurrentWaveWithDefaults(
@@ -207,9 +208,12 @@ public class Level3WaveGenerator {
         }
       )
     );
-    //  Nu: 
+    // Nu: 5240
+    // Sec~: 510
 
     SequentialWave thirdWave = new();
+    // Nu: 
+    // Sec~: 
 
     Waves waves = new() {
       waves = { secondWave },
