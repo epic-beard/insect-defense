@@ -783,7 +783,7 @@ public class Spawner : MonoBehaviour {
 
   public static SequentialWave GetSequentialWaveWithDefaults(WaveMetrics defaults, params IWaveOrMetric[] waveOrMetrics) {
     SequentialWave wave = new();
-    foreach (WaveMetrics waveOrMetric in waveOrMetrics) {
+    foreach (IWaveOrMetric waveOrMetric in waveOrMetrics) {
       wave.Subwaves.Add(waveOrMetric.GetWaveWithDefaults(defaults));
     }
     return wave;
@@ -791,7 +791,7 @@ public class Spawner : MonoBehaviour {
 
   public static ConcurrentWave GetConcurrentWaveWithDefaults(WaveMetrics defaults, params IWaveOrMetric[] waveOrMetrics) {
     ConcurrentWave wave = new();
-    foreach (WaveMetrics waveOrMetric in waveOrMetrics) {
+    foreach (IWaveOrMetric waveOrMetric in waveOrMetrics) {
       wave.Subwaves.Add(waveOrMetric.GetWaveWithDefaults(defaults));
     }
     return wave;

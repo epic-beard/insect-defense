@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using static LevelGeneratorStatics;
 using static EpicBeardLib.XmlSerializationHelpers;
 
 using EnemyDictionary = EpicBeardLib.Containers.SerializableDictionary<string, EnemyData>;
@@ -13,17 +14,18 @@ public class EnemyDataGenerator {
 
   private void GenerateEnemyData() {
     EnemyDictionary dictionary = new();
-    dictionary["Ant_IL0"] = GetAntIL0EnemyData();
-    dictionary["Ant_IL1"] = GetAntIL1EnemyData();
-    dictionary["Aphid_IL0"] = GetAphidIL0EnemyData();
-    dictionary["Aphid_IL1"] = GetAphidIL1EnemyData();
-    dictionary["Beetle_IL0"] = GetBeetleIL0EnemyData();
-    dictionary["Beetle_IL1"] = GetBeetleIL1EnemyData();
-    dictionary["Spiderling_IL0"] = GetSpiderlingIL0EnemyData();
-    dictionary["Tarantula_IL0"] = GetTarantulaIL0EnemyData();
-    dictionary["Leaf Bug_IL0"] = GetLeafBugIL0EnemyData();
-    dictionary["Wolf Spider_IL0"] = GetWolfSpiderIL0EnemyData();
-    dictionary["Wolf Spider Mother_IL0"] = GetWolfSpiderMotherIL0EnemyData();
+    dictionary[ant0] = GetAntIL0EnemyData();
+    dictionary[ant1] = GetAntIL1EnemyData();
+    dictionary[aphid0] = GetAphidIL0EnemyData();
+    dictionary[aphid1] = GetAphidIL1EnemyData();
+    dictionary[beetle0] = GetBeetleIL0EnemyData();
+    dictionary[beetle1] = GetBeetleIL1EnemyData();
+    dictionary[fly0] = GetFlyIL0EnemyData();
+    dictionary[leafBug0] = GetLeafBugIL0EnemyData();
+    dictionary[spiderling0] = GetSpiderlingIL0EnemyData();
+    dictionary[tarantula0] = GetTarantulaIL0EnemyData();
+    dictionary[wolfSpider0] = GetWolfSpiderIL0EnemyData();
+    dictionary[wolfSpiderMother0] = GetWolfSpiderMotherIL0EnemyData();
     Serialize<EnemyDictionary>(dictionary, "data.enemies");
   }
 
@@ -116,14 +118,14 @@ public class EnemyDataGenerator {
     EnemyData data = new() {
       type = EnemyData.Type.BEETLE,
       size = EnemyData.Size.SMALL,
-      maxHP = 65.0f,
+      maxHP = 200.0f,
       maxArmor = 25.0f,
-      speed = 0.35f,
-      damage = 10,
-      nu = 20,
+      speed = 0.45f,
+      damage = 15,
+      nu = 50,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 2.0f,
-      infectionLevel = 0,
+      infectionLevel = 1,
     };
 
     return data;
@@ -133,12 +135,12 @@ public class EnemyDataGenerator {
     EnemyData data = new() {
       type = EnemyData.Type.FLY,
       size = EnemyData.Size.SMALL,
-      maxHP = 70.0f,
+      maxHP = 45.0f,
       maxArmor = 0.0f,
       speed = 0.75f,
       damage = 10,
-      nu = 30,
-      properties = EnemyData.Properties.NONE,
+      nu = 20,
+      properties = EnemyData.Properties.FLYING,
       spawnVariance = 2.0f,
       infectionLevel = 0,
     };
@@ -209,7 +211,7 @@ public class EnemyDataGenerator {
       nu = 65,
       properties = EnemyData.Properties.NONE,
       carrier = new() {
-        childKey = LevelGeneratorStatics.spiderling,
+        childKey = LevelGeneratorStatics.spiderling0,
         num = 5,
       },
       spawnVariance = 1.5f,
@@ -222,7 +224,7 @@ public class EnemyDataGenerator {
   // TODO(emonzon): Replace the enemy type and model with appropriate spiderling data once it is made.
   private EnemyData GetSpiderlingIL0EnemyData() {
     EnemyData data = new() {
-      type = EnemyData.Type.APHID,
+      type = EnemyData.Type.SPIDERLING,
       size = EnemyData.Size.TINY,
       maxHP = 10.0f,
       maxArmor = 0.0f,

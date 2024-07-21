@@ -14,6 +14,7 @@ public struct EnemyData {
     LEAF_BUG,
     SLUG,
     SNAIL,
+    SPIDERLING,
     STINK_BUG,
     TARANTULA,
     TERMITE,

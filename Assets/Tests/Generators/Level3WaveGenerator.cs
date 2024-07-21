@@ -51,7 +51,7 @@ public class Level3WaveGenerator {
           duration = 60.0f,
           repeatDelay = 7.0f,
         },
-        metrics: new WaveMetrics[] {
+        waveOrMetrics: new WaveMetrics[] {
           new() {
             enemyDataKey = ant1,
           },
@@ -81,7 +81,7 @@ public class Level3WaveGenerator {
           spawnLocation = 1,
           repeatDelay = 6.0f,
         },
-        metrics: new WaveMetrics[] {
+        waveOrMetrics: new WaveMetrics[] {
           new() {
             enemyDataKey = ant1,
           },
@@ -101,7 +101,7 @@ public class Level3WaveGenerator {
           duration = 40.0f,
           spawnLocation = 1,
         },
-        metrics: new WaveMetrics[] {
+        waveOrMetrics: new WaveMetrics[] {
           new() {
             enemyDataKey = ant1,
             repeatDelay = 5.0f,
@@ -122,7 +122,7 @@ public class Level3WaveGenerator {
         defaults: new() {
           duration = 105.0f,
         },
-        metrics: new WaveMetrics[] {
+        waveOrMetrics: new WaveMetrics[] {
           new() {
             enemyDataKey = ant0,
             spawnLocation = 0,
@@ -168,7 +168,7 @@ public class Level3WaveGenerator {
         defaults: new() {
           duration = 105.0f,
         },
-        metrics: new WaveMetrics[] {
+        waveOrMetrics: new WaveMetrics[] {
           new() {
             enemyDataKey = tarantula0,
             spawnLocation = 0,
@@ -212,68 +212,50 @@ public class Level3WaveGenerator {
     // Sec~: 510
 
     SequentialWave thirdWave = new(
-      // Wave structure:
-      //  on the left: ants/beetles/tarantulas
-      //  on the right: wolf spiders/wolf spider mothers/flies
-      // We'll need a warning to the player that a flier is coming.
-      // Time goal for this wave is 2 minutes
-      new ConcurrentWave(
-        // Left subwave 1
-        new CannedEnemyWave() {
-          enemyDataKey = beetle0,
-          repetitions = 10,
-          repeatDelay = 6.0f,
-          spawnLocation = 0,
-          spawnAmmount = 1,
+      GetConcurrentWaveWithDefaults(
+        defaults: new() {
+          duration = 60.0f,
         },
-        new DelayedWave() {
-          warmup = 19.0f,
-          wave = new CannedEnemyWave() {
-            enemyDataKey = ant0,
-            repetitions = 6,
-            repeatDelay = 6.0f,
-            spawnLocation = 0,
-            spawnAmmount = 3,
-          },
-        },
-        new DelayedWave() {
-          warmup = 40.0f,
-          wave = new CannedEnemyWave() {
+        waveOrMetrics: new IWaveOrMetric[] {
+          // Left side
+          new WaveMetrics() {
             enemyDataKey = tarantula0,
-            repetitions = 3,
-            repeatDelay = 7.0f,
+            repetitions = 8,
             spawnLocation = 0,
-            spawnAmmount = 1,
           },
-        },
-        // End Left subwave 1
-        // Right subwave 1
-        new CannedEnemyWave() {
-          enemyDataKey = wolfSpider0,
-          repetitions = 12,
-          repeatDelay = 5.0f,
-          spawnLocation = 1,
-          spawnAmmount = 1,
-        },
-        new DelayedWave() {
-          warmup = 5.0f,
-          wave = new DialogueBoxWave() {
-            messages =
-                { "Flies escaped containment on the right side feeder, they're coming!", },
-          }
-        },
-        new DelayedWave() {
-          warmup = 8.0f,
-          wave = new CannedEnemyWave() {
+          new WaveMetrics() {
+            enemyDataKey = beetle0,
+            repetitions = 20,
+            spawnLocation = 0,
+          },
+          new WaveMetrics() {
+            warmup = 19.0f,
+            enemyDataKey = ant1,
+            repetitions = 18,
+            spawnLocation = 0,
+          },
+          // Right side
+          new WaveMetrics() {
+            enemyDataKey = wolfSpider0,
+            repetitions = 10,
+            spawnLocation = 1,
+          },
+          new DelayedWave() {
+            warmup = 5.0f,
+            wave = new DialogueBoxWave() {
+              messages =
+                  { "Flies escaped containment on the right side feeder, they're coming!",
+                    "You can't hit airborne enemies without anti-air. Luckily, the Web Shooting Spider and Spitting Ant towers have just that upgrade." },
+            }
+          },
+          new WaveMetrics() {
+            warmup = 8.0f,
             enemyDataKey = fly0,
             repetitions = 5,
-            repeatDelay = 10.0f,
-            spawnLocation = 0,
-            spawnAmmount = 1,
+            spawnLocation = 1,
           },
-        }
-        // End Right subwave 1
-      )  // ConcurrentWave
+        }  // IWaveOrMetrics
+      )
     );
     // Nu: 
     // Sec~: 

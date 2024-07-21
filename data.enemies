@@ -133,14 +133,14 @@
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <type>BEETLE</type>
         <size>SMALL</size>
-        <maxHP>65</maxHP>
+        <maxHP>200</maxHP>
         <maxArmor>25</maxArmor>
-        <speed>0.35</speed>
-        <damage>10</damage>
-        <nu>20</nu>
+        <speed>0.45</speed>
+        <damage>15</damage>
+        <nu>50</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
-        <infectionLevel>0</infectionLevel>
+        <infectionLevel>1</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -152,11 +152,61 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
+      <string>Fly_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>FLY</type>
+        <size>SMALL</size>
+        <maxHP>45</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.75</speed>
+        <damage>10</damage>
+        <nu>20</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>FLYING</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>2</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Leaf Bug_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>LEAF_BUG</type>
+        <size>NORMAL</size>
+        <maxHP>35</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.45</speed>
+        <damage>8</damage>
+        <nu>10</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>CAMO</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
       <string>Spiderling_IL0</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <type>APHID</type>
+        <type>SPIDERLING</type>
         <size>TINY</size>
         <maxHP>10</maxHP>
         <maxArmor>0</maxArmor>
@@ -197,31 +247,6 @@
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
         <spawnVariance>1</spawnVariance>
-      </EnemyData>
-    </Value>
-  </KeyValuePair>
-  <KeyValuePair>
-    <Key>
-      <string>Leaf Bug_IL0</string>
-    </Key>
-    <Value>
-      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <type>LEAF_BUG</type>
-        <size>NORMAL</size>
-        <maxHP>35</maxHP>
-        <maxArmor>0</maxArmor>
-        <speed>0.45</speed>
-        <damage>8</damage>
-        <nu>10</nu>
-        <coagulationModifier>0</coagulationModifier>
-        <acidExplosionStackModifier>0</acidExplosionStackModifier>
-        <infectionLevel>0</infectionLevel>
-        <properties>CAMO</properties>
-        <spawner xsi:nil="true" />
-        <carrier xsi:nil="true" />
-        <dazzle xsi:nil="true" />
-        <slime xsi:nil="true" />
-        <spawnVariance>2.5</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>
@@ -269,8 +294,8 @@
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier>
-          <num>4</num>
-          <childKey>Aphid_IL1</childKey>
+          <num>5</num>
+          <childKey>Spiderling_IL0</childKey>
         </carrier>
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />

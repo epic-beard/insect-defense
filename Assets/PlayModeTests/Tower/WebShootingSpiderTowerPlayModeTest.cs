@@ -70,9 +70,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         range: 1.0f,
         slowDuration: 10.0f,
         slowPower: slowPower);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint);
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint);
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint);
 
     // Yield once to target enemy.
     yield return null;
@@ -108,9 +108,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowPower: 0.8f,
         stunTime: stunTime);
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_1_3_SLOW_STUN);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint);
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint);
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint);
 
     Assert.That(target.StunTime, Is.EqualTo(0.0f));
     Assert.That(enemyInRange.StunTime, Is.EqualTo(0.0f));
@@ -159,9 +159,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowDuration: 10.0f,
         slowPower: slowPower);
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_1_5_PERMANENT_SLOW);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint);
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint);
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint);
 
     Assert.That(target.OriginalSpeed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyInRange.OriginalSpeed, Is.EqualTo(baseEnemySpeed));
@@ -200,9 +200,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowPower: slowPower);
     TowerAbility ability = CreateTowerAbility(secondarySlowPower, 2);
     wssTower.Upgrade(ability);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint);
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint);
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint);
 
     Assert.That(target.Speed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyInRange.Speed, Is.EqualTo(baseEnemySpeed));
@@ -237,10 +237,10 @@ public class WebShootingSpiderTowerPlayModeTest {
         range: 1.0f,
         slowDuration: 10.0f,
         slowPower: 0.8f);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
-
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint);
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint);
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint);
+    
     wssTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.WSS_3_5_GROUNDING_SHOT);
 
     Assert.That(target.Flying, Is.EqualTo(true));
@@ -279,9 +279,9 @@ public class WebShootingSpiderTowerPlayModeTest {
         slowDuration: 10.0f,
         slowPower: 0.8f);
     float secondarySlowDuration = wssTower.SlowDuration * wssTower.SecondarySlowPotency;
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint);
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint);
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint);
 
     Assert.That(target.SlowPower, Is.EqualTo(0.0f));
     Assert.That(target.SlowDuration, Is.EqualTo(0.0f));

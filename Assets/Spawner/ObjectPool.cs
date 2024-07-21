@@ -17,6 +17,7 @@ public class ObjectPool : MonoBehaviour {
     { EnemyData.Type.ANT, "Enemies/Ant/Ant" },
     { EnemyData.Type.APHID, "Enemies/Aphid/Aphid" },
     { EnemyData.Type.BEETLE, "Enemies/Beetle/Beetle" },
+    { EnemyData.Type.FLY, "Enemies/Fly/Fly" },
     { EnemyData.Type.HERCULES_BEETLE, "Enemies/Hercules Beetle/Hercules Beetle" },
     { EnemyData.Type.LEAF_BUG, "Enemies/Leaf Bug/Leaf Bug" },
     { EnemyData.Type.SLUG, "Enemies/Slug/Slug" },
@@ -26,6 +27,7 @@ public class ObjectPool : MonoBehaviour {
     { EnemyData.Type.TERMITE, "Enemies/Termite/Termite" },
     { EnemyData.Type.WOLF_SPIDER, "Enemies/Wolf Spider/Wolf Spider" },
     { EnemyData.Type.WOLF_SPIDER_MOTHER, "Enemies/Wolf Spider/Wolf Spider Mother" },
+    { EnemyData.Type.SPIDERLING, "Enemies/Aphid/Aphid" }
   };
   readonly private Dictionary<EnemyKey, GameObject> prefabMap = new();
 

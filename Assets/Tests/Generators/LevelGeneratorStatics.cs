@@ -25,7 +25,7 @@ public static class LevelGeneratorStatics {
   //public static string wolfSpider2 = "Wolf Spider_IL2";
 
   // Implement actual spiderling
-  public static string spiderling = aphid1;
+  public static string spiderling0 = "Spiderling_IL0";
 
   public static string directory = "Waves/";
 }
