@@ -10,6 +10,9 @@ public static class LevelGeneratorStatics {
   public static string beetle0 = "Beetle_IL0";
   public static string beetle1 = "Beetle_IL1";
   //public static string beetle2 = "Beetle_IL2";
+  public static string fly0 = "Fly_IL0";
+  //public static string fly1 = "Fly_IL1";
+  //public static string fly2 = "Fly_IL2";
   public static string leafBug0 = "Leaf Bug_IL0";
   //public static string leafBug1 = "Leaf Bug_IL1";
   //public static string leafBug2 = "Leaf Bug_IL2";

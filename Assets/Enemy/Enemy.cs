@@ -44,6 +44,8 @@ public class Enemy : MonoBehaviour {
 
   [SerializeField] private float continuousDamagePollingDelay = 1.0f;
   [SerializeField] private float statusDamagePollingDelay = 1.0f;
+  [SerializeField] private float groundHeight = 0.0f;
+  [SerializeField] private float flyingHeight = 0.0f;
 
   public SortedDictionary<float, int> venomStacks = new();
   private float continuousDamageWeakenPower = 0.0f;

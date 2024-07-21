@@ -128,19 +128,18 @@ public class EnemyDataGenerator {
 
     return data;
   }
-
-  private EnemyData GetTarantulaIL0EnemyData() {
+  
+  private EnemyData GetFlyIL0EnemyData() {
     EnemyData data = new() {
-      type = EnemyData.Type.TARANTULA,
-      size = EnemyData.Size.LARGE,
-      maxHP = 250.0f,
-      maxArmor = 30.0f,
-      speed = 0.3f,
-      damage = 25,
-      nu = 100,
+      type = EnemyData.Type.FLY,
+      size = EnemyData.Size.SMALL,
+      maxHP = 70.0f,
+      maxArmor = 0.0f,
+      speed = 0.75f,
+      damage = 10,
+      nu = 30,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 1.0f, 
-      coagulationModifier = 0.5f,
+      spawnVariance = 2.0f,
       infectionLevel = 0,
     };
 
@@ -158,6 +157,24 @@ public class EnemyDataGenerator {
       nu = 10,
       properties = EnemyData.Properties.CAMO,
       spawnVariance = 2.5f,
+      infectionLevel = 0,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetTarantulaIL0EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.TARANTULA,
+      size = EnemyData.Size.LARGE,
+      maxHP = 250.0f,
+      maxArmor = 30.0f,
+      speed = 0.3f,
+      damage = 25,
+      nu = 100,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 1.0f, 
+      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
@@ -193,7 +210,7 @@ public class EnemyDataGenerator {
       properties = EnemyData.Properties.NONE,
       carrier = new() {
         childKey = LevelGeneratorStatics.spiderling,
-        num = 4,
+        num = 5,
       },
       spawnVariance = 1.5f,
       infectionLevel = 0,

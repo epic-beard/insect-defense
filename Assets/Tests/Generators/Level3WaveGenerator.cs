@@ -43,7 +43,7 @@ public class Level3WaveGenerator {
         }
       ),  // ConcurrentWave
       new SpacerWave() {
-        delay = 12.0f,
+        delay = 10.0f,
       },
       GetConcurrentWaveWithDefaults(
         defaults: new() {
@@ -198,7 +198,7 @@ public class Level3WaveGenerator {
             enemyDataKey = wolfSpiderMother0,
             spawnLocation = 1,
             repeatDelay = 7.0f,
-          },  // Wolf spider mother.
+          },
           new() {
             enemyDataKey = wolfSpider0,
             spawnLocation = 1,
@@ -206,17 +206,80 @@ public class Level3WaveGenerator {
             warmup = 50.0f,
           },
         }
-      )
+      )  // GetConcurrentWaveWithDefaults
     );
     // Nu: 5240
     // Sec~: 510
 
-    SequentialWave thirdWave = new();
+    SequentialWave thirdWave = new(
+      // Wave structure:
+      //  on the left: ants/beetles/tarantulas
+      //  on the right: wolf spiders/wolf spider mothers/flies
+      // We'll need a warning to the player that a flier is coming.
+      // Time goal for this wave is 2 minutes
+      new ConcurrentWave(
+        // Left subwave 1
+        new CannedEnemyWave() {
+          enemyDataKey = beetle0,
+          repetitions = 10,
+          repeatDelay = 6.0f,
+          spawnLocation = 0,
+          spawnAmmount = 1,
+        },
+        new DelayedWave() {
+          warmup = 19.0f,
+          wave = new CannedEnemyWave() {
+            enemyDataKey = ant0,
+            repetitions = 6,
+            repeatDelay = 6.0f,
+            spawnLocation = 0,
+            spawnAmmount = 3,
+          },
+        },
+        new DelayedWave() {
+          warmup = 40.0f,
+          wave = new CannedEnemyWave() {
+            enemyDataKey = tarantula0,
+            repetitions = 3,
+            repeatDelay = 7.0f,
+            spawnLocation = 0,
+            spawnAmmount = 1,
+          },
+        },
+        // End Left subwave 1
+        // Right subwave 1
+        new CannedEnemyWave() {
+          enemyDataKey = wolfSpider0,
+          repetitions = 12,
+          repeatDelay = 5.0f,
+          spawnLocation = 1,
+          spawnAmmount = 1,
+        },
+        new DelayedWave() {
+          warmup = 5.0f,
+          wave = new DialogueBoxWave() {
+            messages =
+                { "Flies escaped containment on the right side feeder, they're coming!", },
+          }
+        },
+        new DelayedWave() {
+          warmup = 8.0f,
+          wave = new CannedEnemyWave() {
+            enemyDataKey = fly0,
+            repetitions = 5,
+            repeatDelay = 10.0f,
+            spawnLocation = 0,
+            spawnAmmount = 1,
+          },
+        }
+        // End Right subwave 1
+      )  // ConcurrentWave
+    );
     // Nu: 
     // Sec~: 
 
     Waves waves = new() {
-      waves = { secondWave },
+      waves = { thirdWave },
     };
 
     Serialize<Waves>(waves, filename);
