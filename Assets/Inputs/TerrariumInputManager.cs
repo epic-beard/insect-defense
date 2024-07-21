@@ -20,7 +20,7 @@ public class TerrariumInputManager : MonoBehaviour {
     HandleCameraMovement();
   }
 
-  private void OnEnable() {
+  private void Start() {
     actions.Player.Enable();
     currMap = actions.Player;
     actions.Player.Player_Pause.started += PauseGame;

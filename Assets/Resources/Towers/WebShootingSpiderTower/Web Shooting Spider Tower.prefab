@@ -52,23 +52,25 @@ MonoBehaviour:
     type: 0
     name: 
     icon_path: 
-    enemies_hit: 0
+    acid_stacks: 0
+    bleed_stacks: 0
+    cost: 0
+    secondary_slow_targets: 0
+    venom_stacks: 0
     area_of_effect: 0
     armor_pierce: 0
-    armor_tear: 0
     attack_speed: 0
-    cost: 0
     damage: 0
-    damage_over_time: 0
     projectile_speed: 0
     range: 0
     secondary_slow_potency: 0
-    secondary_slow_targets: 0
     slow_duration: 0
     slow_power: 0
     stun_time: 0
+    venom_power: 0
   targetingIndicator: {fileID: 3483742088080053100}
   rangeIndicator: {fileID: 2258083620855440072}
+  IsPreviewTower: 0
   mesh: {fileID: 8378345006578987892}
   primaryWebShot: {fileID: 6440254613249286852}
   secondaryWebShot: {fileID: 4019824567988487369}
@@ -5124,7 +5126,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.53207546, g: 0.61765975, b: 1, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5188,7 +5190,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8836,12 +8838,12 @@ ParticleSystem:
     maxLights: 20
   TrailModule:
     enabled: 0
-    mode: 0
+    mode: 1
     ratio: 1
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.01
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8897,7 +8899,7 @@ ParticleSystem:
     ribbonCount: 1
     shadowBias: 0.5
     worldSpace: 0
-    dieWithParticles: 1
+    dieWithParticles: 0
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1

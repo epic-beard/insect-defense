@@ -280,9 +280,9 @@ public static class EnemyUtils {
         .GetProperty("CrippleImmunity")
         .SetValue(enemy, isImmunity);
   }
-  public static void SetTarget(this Enemy enemy, Transform target) {
+  public static void SetAimPoint(this Enemy enemy, Transform target) {
     typeof(Enemy)
-        .GetField("target", BindingFlags.Instance | BindingFlags.NonPublic)
+        .GetField("aimPoint", BindingFlags.Instance | BindingFlags.NonPublic)
         .SetValue(enemy, target);
   }
 

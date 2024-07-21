@@ -85,9 +85,6 @@
             </Wave>
           </Subwaves>
         </Wave>
-        <Wave xsi:type="SpacerWave">
-          <delay>6</delay>
-        </Wave>
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
             <Wave xsi:type="CannedEnemyWave">
@@ -105,9 +102,6 @@
               <enemyDataKey>Aphid_IL0</enemyDataKey>
             </Wave>
           </Subwaves>
-        </Wave>
-        <Wave xsi:type="SpacerWave">
-          <delay>6</delay>
         </Wave>
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>

@@ -160,7 +160,7 @@ public class AssassinBugTowerTest {
     };
 
     Enemy enemy = gameObject.AddComponent<Enemy>();
-    enemy.SetTarget(enemy.transform);
+    enemy.SetAimPoint(enemy.transform);
     enemy.Data = data;
 
     Waypoint start = new GameObject().AddComponent<Waypoint>();

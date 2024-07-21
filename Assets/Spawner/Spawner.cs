@@ -76,7 +76,7 @@ public class Spawner : MonoBehaviour {
   }
 
   public GameObject Spawn(EnemyData data, Waypoint startWaypoint, Vector2? pos = null, Transform? parent = null) {
-    return ObjectPool.Instance.InstantiateEnemy(data, startWaypoint, pos, parent);
+    return ObjectPool.Instance.InstantiateEnemy(data, startWaypoint, pos, parent).gameObject;
   }
 
   public interface IWaveOrMetric {

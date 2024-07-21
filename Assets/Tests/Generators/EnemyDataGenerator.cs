@@ -14,10 +14,16 @@ public class EnemyDataGenerator {
   private void GenerateEnemyData() {
     EnemyDictionary dictionary = new();
     dictionary["Ant_IL0"] = GetAntIL0EnemyData();
+    dictionary["Ant_IL1"] = GetAntIL1EnemyData();
     dictionary["Aphid_IL0"] = GetAphidIL0EnemyData();
-    dictionary["Beetle_IL0"] = GetBeetleLowInfectionEnemyData();
+    dictionary["Aphid_IL1"] = GetAphidIL1EnemyData();
+    dictionary["Beetle_IL0"] = GetBeetleIL0EnemyData();
+    dictionary["Beetle_IL1"] = GetBeetleIL1EnemyData();
+    dictionary["Spiderling_IL0"] = GetSpiderlingIL0EnemyData();
     dictionary["Tarantula_IL0"] = GetTarantulaIL0EnemyData();
     dictionary["Leaf Bug_IL0"] = GetLeafBugIL0EnemyData();
+    dictionary["Wolf Spider_IL0"] = GetWolfSpiderIL0EnemyData();
+    dictionary["Wolf Spider Mother_IL0"] = GetWolfSpiderMotherIL0EnemyData();
     Serialize<EnemyDictionary>(dictionary, "data.enemies");
   }
 
@@ -38,13 +44,30 @@ public class EnemyDataGenerator {
     return data;
   }
 
+  private EnemyData GetAntIL1EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.ANT,
+      size = EnemyData.Size.SMALL,
+      maxHP = 65.0f,
+      maxArmor = 0.0f,
+      speed = 0.65f,
+      damage = 8,
+      nu = 15,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.5f,
+      infectionLevel = 1,
+    };
+
+    return data;
+  }
+
   private EnemyData GetAphidIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.APHID,
       size = EnemyData.Size.TINY,
       maxHP = 5.0f,
       maxArmor = 0.0f,
-      speed = 0.5f,
+      speed = 0.65f,
       damage = 1,
       nu = 2,
       properties = EnemyData.Properties.NONE,
@@ -55,7 +78,41 @@ public class EnemyDataGenerator {
     return data;
   }
 
-  private EnemyData GetBeetleLowInfectionEnemyData() {
+  private EnemyData GetAphidIL1EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.APHID,
+      size = EnemyData.Size.TINY,
+      maxHP = 13.0f,
+      maxArmor = 0.0f,
+      speed = 0.65f,
+      damage = 2,
+      nu = 4,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 3.0f,
+      infectionLevel = 1,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetBeetleIL0EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.BEETLE,
+      size = EnemyData.Size.SMALL,
+      maxHP = 65.0f,
+      maxArmor = 25.0f,
+      speed = 0.35f,
+      damage = 10,
+      nu = 20,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 2.0f,
+      infectionLevel = 0,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetBeetleIL1EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.BEETLE,
       size = EnemyData.Size.SMALL,
@@ -101,6 +158,62 @@ public class EnemyDataGenerator {
       nu = 10,
       properties = EnemyData.Properties.CAMO,
       spawnVariance = 2.5f,
+      infectionLevel = 0,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetWolfSpiderIL0EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.WOLF_SPIDER,
+      size = EnemyData.Size.NORMAL,
+      maxHP = 120.0f,
+      maxArmor = 25.0f,
+      speed = 0.7f,
+      damage = 10,
+      nu = 65,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 1.5f,
+      infectionLevel = 0,
+    };
+
+    return data;
+  }
+
+  private EnemyData GetWolfSpiderMotherIL0EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.WOLF_SPIDER_MOTHER,
+      size = EnemyData.Size.NORMAL,
+      maxHP = 120.0f,
+      maxArmor = 25.0f,
+      speed = 0.7f,
+      damage = 10,
+      nu = 65,
+      properties = EnemyData.Properties.NONE,
+      carrier = new() {
+        childKey = LevelGeneratorStatics.spiderling,
+        num = 4,
+      },
+      spawnVariance = 1.5f,
+      infectionLevel = 0,
+    };
+
+    return data;
+  }
+
+  // TODO(emonzon): Replace the enemy type and model with appropriate spiderling data once it is made.
+  private EnemyData GetSpiderlingIL0EnemyData() {
+    EnemyData data = new() {
+      type = EnemyData.Type.APHID,
+      size = EnemyData.Size.TINY,
+      maxHP = 10.0f,
+      maxArmor = 0.0f,
+      speed = 0.7f,
+      damage = 2,
+      nu = 4,
+      properties = EnemyData.Properties.NONE,
+      spawnVariance = 3.0f,
       infectionLevel = 0,
     };
 

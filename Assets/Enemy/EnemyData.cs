@@ -17,6 +17,7 @@ public struct EnemyData {
     TARANTULA,
     TERMITE,
     WOLF_SPIDER,
+    WOLF_SPIDER_MOTHER,
   }
 
   public enum Size {

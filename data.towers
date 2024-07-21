@@ -80,7 +80,12 @@
                 <AttributeModifierOfSingle>
                   <attribute>VENOM_POWER</attribute>
                   <mode>SET</mode>
-                  <mod>0.6</mod>
+                  <mod>0.75</mod>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.5</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <intAttributeModifiers>
@@ -91,16 +96,16 @@
                 </AttributeModifierOfInt32>
               </intAttributeModifiers>
               <name>Max Venom</name>
-              <description>Attacks apply 3 stacks of 60% venom.</description>
+              <description>Attacks apply 3 stacks of 75% venom and inflict 50% extra damage.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>2000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_1_5_VENOM_CORPSEPLOSION</specialAbility>
               <name>Armor Tear Explosion</name>
               <description>Armor tear now applies to all enemies caught in the splash explosion.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </firstPathUpgrades>
           <secondPathUpgrades>
@@ -117,11 +122,11 @@
                 <AttributeModifierOfInt32>
                   <attribute>ACID_STACKS</attribute>
                   <mode>SET</mode>
-                  <mod>5</mod>
+                  <mod>10</mod>
                 </AttributeModifierOfInt32>
               </intAttributeModifiers>
               <name>Acid!</name>
-              <description>Attacks inflict 5 stacks of acid and grants a 15% bonus to damage.</description>
+              <description>Attacks inflict 10 stacks of acid and grants 15% extra damage.</description>
               <upgradePath>1</upgradePath>
               <cost>50</cost>
             </TowerAbility>
@@ -137,12 +142,12 @@
               <intAttributeModifiers>
                 <AttributeModifierOfInt32>
                   <attribute>ACID_STACKS</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>5</mod>
+                  <mode>SET</mode>
+                  <mod>20</mod>
                 </AttributeModifierOfInt32>
               </intAttributeModifiers>
               <name>More Acid</name>
-              <description>Acid stacks inflicted is raised to 10 and grants a 25% bonus to damage.</description>
+              <description>Acid stacks inflicted is raised to 20 and grants 25% extra damage.</description>
               <upgradePath>1</upgradePath>
               <cost>150</cost>
             </TowerAbility>
@@ -162,24 +167,31 @@
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
+                  <attribute>DAMAGE</attribute>
+                  <mode>MULTIPLICATIVE</mode>
+                  <mod>1.5</mod>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
               <intAttributeModifiers>
                 <AttributeModifierOfInt32>
                   <attribute>ACID_STACKS</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>5</mod>
+                  <mode>SET</mode>
+                  <mod>30</mod>
                 </AttributeModifierOfInt32>
               </intAttributeModifiers>
               <name>Spray that acid</name>
-              <description>Acid inflicted is raised to 15</description>
+              <description>Acid inflicted is raised to 30 and grants 50% extra damage</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>2000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_2_5_DOT_ENHANCEMENT</specialAbility>
               <name>Acid Explosion</name>
               <description>When acid stacks reach max, an explosion of acid is triggered, applying all acid stacks instantly and clearing them.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </secondPathUpgrades>
           <thirdPathUpgrades>
@@ -232,22 +244,27 @@
               <specialAbility>NONE</specialAbility>
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
+                  <attribute>RANGE</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
+                </AttributeModifierOfSingle>
+                <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.5</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>0.2</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Even Faster Production</name>
-              <description>Increases attack speed by 50%.</description>
+              <description>Attacks gain yet 5 more range and 20 more attack speed.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>2000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>SA_3_5_CONSTANT_FIRE</specialAbility>
               <name>Continuous Stream</name>
               <description>This tower's attack becomes single-target and constantly fires</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </thirdPathUpgrades>
         </upgradeTreeData>
@@ -292,71 +309,56 @@
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
                   <attribute>SLOW_DURATION</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>2</mod>
-                </AttributeModifierOfSingle>
-                <AttributeModifierOfSingle>
-                  <attribute>SLOW_POWER</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>0.1</mod>
+                  <mode>SET</mode>
+                  <mod>6</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
-              <name>Improved Slow</name>
-              <description>Increasses slow power to 40% and duration to 6 seconds.</description>
+              <name>Enduring Webs</name>
+              <description>Increase slow duration to 6 seconds.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>75</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
-                  <attribute>SLOW_DURATION</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>2</mod>
-                </AttributeModifierOfSingle>
-                <AttributeModifierOfSingle>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>0.1</mod>
+                  <mode>SET</mode>
+                  <mod>0.7</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
-              <name>Improved Slow</name>
-              <description>Increase slow power to 50% and duration to 8 seconds.</description>
+              <name>Stickier Webs</name>
+              <description>Increasses slow power to 70%.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>300</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_1_3_SLOW_STUN</specialAbility>
               <name>Stunning Slow</name>
               <description>Stuns an enemy the first time it is hit by this tower.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>1000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
-                  <attribute>SLOW_DURATION</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>2</mod>
-                </AttributeModifierOfSingle>
-                <AttributeModifierOfSingle>
                   <attribute>SLOW_POWER</attribute>
-                  <mode>ADDITIVE</mode>
-                  <mod>0.1</mod>
+                  <mode>SET</mode>
+                  <mod>0.8</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Improved Slow</name>
-              <description>Increase slow power to 60% and duration to 10 seconds.</description>
+              <description>Increase slow power to 80%.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>3000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_1_5_PERMANENT_SLOW</specialAbility>
               <name>Enduring Webs</name>
-              <description>Permanently reduces enemy speed the first time it is slowed.  This effect is applied once per enemy per tower.</description>
+              <description>Permanently reduces enemy speed the first time it is slowed. This effect is applied once per enemy per tower.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </firstPathUpgrades>
           <secondPathUpgrades>
@@ -372,7 +374,7 @@
               <name>AoE Slow</name>
               <description>1/2 slow also hits the enemy nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>75</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -386,7 +388,7 @@
               <name>AoE Slow</name>
               <description>1/2 slow also hits the 2 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>300</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -407,7 +409,7 @@
               <name>Superior Secondary Threads</name>
               <description>3/4 slow also hits the 3 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>1000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -421,14 +423,14 @@
               <name>Perfect Secondary Threads</name>
               <description>100% slow also hits the 3 enemies nearest the target within its AoE.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>3000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_2_5_LINGERING_SLOW</specialAbility>
               <name>Enduring Threads</name>
               <description>Tower shots leave behind webs that slow the next enemy entering them.</description>
               <upgradePath>1</upgradePath>
-              <cost>10</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </secondPathUpgrades>
           <thirdPathUpgrades>
@@ -438,13 +440,13 @@
                 <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>0.1</mod>
+                  <mod>0.3</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Faster Spinnerets</name>
-              <description>Increase attack speed by 10.</description>
+              <description>Increase attack speed by 30.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>75</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -452,7 +454,7 @@
                 <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>0.15</mod>
+                  <mod>0.2</mod>
                 </AttributeModifierOfSingle>
                 <AttributeModifierOfSingle>
                   <attribute>RANGE</attribute>
@@ -462,20 +464,20 @@
                 <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>5</mod>
+                  <mod>10</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Faster Spinnerets</name>
-              <description>Increases attack speed by 15 and range by 5.</description>
+              <description>Increases attack speed by 20 and range by 5.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>300</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_3_3_ANTI_AIR</specialAbility>
               <name>Elevated Shots</name>
               <description>This tower gains the anti air ability.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>750</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
@@ -488,20 +490,20 @@
                 <AttributeModifierOfSingle>
                   <attribute>PROJECTILE_SPEED</attribute>
                   <mode>ADDITIVE</mode>
-                  <mod>10</mod>
+                  <mod>20</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Improved Trajectory Analysis</name>
               <description>Increases range by 10.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>2000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>WSS_3_5_GROUNDING_SHOT</specialAbility>
               <name>Grounding Shot</name>
               <description>Any enemy hit by this tower briefly loses the flying ability.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </thirdPathUpgrades>
         </upgradeTreeData>
@@ -509,18 +511,18 @@
         <icon_path>Icons/test</icon_path>
         <acid_stacks>0</acid_stacks>
         <bleed_stacks>0</bleed_stacks>
-        <cost>50</cost>
+        <cost>125</cost>
         <secondary_slow_targets>0</secondary_slow_targets>
         <venom_stacks>0</venom_stacks>
         <area_of_effect>10</area_of_effect>
         <armor_pierce>0</armor_pierce>
         <attack_speed>0.75</attack_speed>
         <damage>0</damage>
-        <projectile_speed>20</projectile_speed>
+        <projectile_speed>50</projectile_speed>
         <range>25</range>
         <secondary_slow_potency>0.5</secondary_slow_potency>
-        <slow_duration>4</slow_duration>
-        <slow_power>0.3</slow_power>
+        <slow_duration>3</slow_duration>
+        <slow_power>0.5</slow_power>
         <stun_time>0</stun_time>
         <venom_power>0</venom_power>
       </TowerData>
@@ -788,25 +790,25 @@
                 <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mod>1.5</mod>
                 </AttributeModifierOfSingle>
                 <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mod>1.5</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Damage and Armor Pen</name>
-              <description>Increases damage and armor penetration by 30%.</description>
+              <description>Increases damage and armor penetration by 50%.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>3500</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_1_5_FOUR_ARMS</specialAbility>
               <name>Make it Double!</name>
               <description>The Mantis grows a second pair of scythe arms, each of which attacks normally.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>15000</cost>
             </TowerAbility>
           </firstPathUpgrades>
           <secondPathUpgrades>
@@ -878,7 +880,7 @@
               <name>Anticoagulant Chemicals</name>
               <description>Bleed inflicted is 60 and gain 25% bonus damage.</description>
               <upgradePath>1</upgradePath>
-              <cost>1600</cost>
+              <cost>2500</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_2_5_BLOODY_EXECUTION</specialAbility>
@@ -892,7 +894,7 @@
               <name>Bloody Execution</name>
               <description>Execute doomed (too much bleed to survive) enemies. Bleed is now 80.</description>
               <upgradePath>1</upgradePath>
-              <cost>3200</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </secondPathUpgrades>
           <thirdPathUpgrades>
@@ -902,11 +904,11 @@
                 <AttributeModifierOfSingle>
                   <attribute>ATTACK_SPEED</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.6</mod>
+                  <mod>1.5</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Improved Attack Speed</name>
-              <description>Increases attack speed by 60%.</description>
+              <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
               <cost>60</cost>
             </TowerAbility>
@@ -943,14 +945,14 @@
               <name>Synergetic Claws</name>
               <description>Increases attack speed by 50%.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>2000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>M_3_5_SHRIKE</specialAbility>
               <name>Shrike</name>
               <description>Mantis attacks shed vicious spines, AoE damage equals main attack damage.</description>
               <upgradePath>2</upgradePath>
-              <cost>10</cost>
+              <cost>10000</cost>
             </TowerAbility>
           </thirdPathUpgrades>
         </upgradeTreeData>

@@ -47,11 +47,11 @@ public class ObjectPoolTest {
     objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetStartingSize(1);
     objectPool.InitializeObjectPool(keys);
-    GameObject gameObject = objectPool.InstantiateEnemy(enemyData, waypoint);
+    Enemy enemy = objectPool.InstantiateEnemy(enemyData, waypoint);
 
-    Assert.That(gameObject.activeSelf);
-    Assert.That(gameObject.GetComponent<Enemy>().PrevWaypoint, Is.SameAs(waypoint));
-    Assert.That(gameObject.GetComponent<Enemy>().Data, Is.EqualTo(enemyData));
+    Assert.That(enemy.enabled);
+    Assert.That(enemy.PrevWaypoint, Is.SameAs(waypoint));
+    Assert.That(enemy.Data, Is.EqualTo(enemyData));
   }
 
   // Set starting size to 1 so there is exactly one enemey of each type.  Create an enemy
@@ -62,9 +62,11 @@ public class ObjectPoolTest {
     objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetStartingSize(1);
     objectPool.InitializeObjectPool(keys);
-    GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
+    Enemy enemy1 = objectPool.InstantiateEnemy(enemyData, waypoint);
+    GameObject gameObject1 = enemy1.gameObject;
     objectPool.DestroyEnemy(gameObject1);
-    GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
+    Enemy enemy2 = objectPool.InstantiateEnemy(enemyData, waypoint);
+    GameObject gameObject2 = enemy2.gameObject;
 
     Assert.That(gameObject1, Is.SameAs(gameObject2));
   }
@@ -76,10 +78,10 @@ public class ObjectPoolTest {
     objectPool = new GameObject().AddComponent<ObjectPool>();
     objectPool.SetStartingSize(1);
     objectPool.InitializeObjectPool(keys);
-    GameObject gameObject1 = objectPool.InstantiateEnemy(enemyData, waypoint);
-    GameObject gameObject2 = objectPool.InstantiateEnemy(enemyData, waypoint);
+    Enemy enemy1 = objectPool.InstantiateEnemy(enemyData, waypoint);
+    Enemy enemy2 = objectPool.InstantiateEnemy(enemyData, waypoint);
 
-    Assert.That(gameObject1, Is.Not.SameAs(gameObject2));
+    Assert.That(enemy1, Is.Not.SameAs(enemy2));
   }
 }
 
@@ -92,8 +94,8 @@ public static class ObjectPoolUtils {
         .SetValue(objectPool, enemies);
   }
 
-  public static Dictionary<EnemyKey, Queue<GameObject>> GetObjectPools(this ObjectPool objectPool) {
-    return (Dictionary<EnemyKey, Queue<GameObject>>)typeof(ObjectPool)
+  public static Dictionary<EnemyKey, Queue<Enemy>> GetObjectPools(this ObjectPool objectPool) {
+    return (Dictionary<EnemyKey, Queue<Enemy>>)typeof(ObjectPool)
       .GetField("objectPools", BindingFlags.Instance | BindingFlags.NonPublic)
       .GetValue(objectPool);
   }
