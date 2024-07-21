@@ -117,7 +117,7 @@ public class Level2WaveGenerator {
               duration = 50.0f,
               spawnLocation = 1,
             },
-            metrics: new WaveMetrics[] {
+            waveOrMetrics: new WaveMetrics[] {
               new() {
                 repeatDelay = 16.0f,
               },
@@ -176,7 +176,7 @@ public class Level2WaveGenerator {
             duration = 35.0f,
             spawnLocation = 0,
           },
-          metrics: new WaveMetrics[] {
+          waveOrMetrics: new WaveMetrics[] {
             new() {
               repeatDelay = 5.0f,
               repetitions = 7,
@@ -198,7 +198,7 @@ public class Level2WaveGenerator {
           spawnLocation = 1,
           duration = 25.0f,
         },
-        metrics: new WaveMetrics[] {
+        waveOrMetrics: new WaveMetrics[] {
           new() {
             repeatDelay = 1.5f,
           },
@@ -228,7 +228,7 @@ public class Level2WaveGenerator {
             spawnLocation = 1,
             duration = 80.0f,
           },
-          metrics: new WaveMetrics[] {
+          waveOrMetrics: new WaveMetrics[] {
             new() {
               warmup = 2.0f,
               repeatDelay = 14.0f
@@ -248,10 +248,10 @@ public class Level2WaveGenerator {
             spawnLocation = 1,
             spawnAmount = 1,
           },
-          metrics: new WaveMetrics[] {
-            new() { warmup = 0.0f },
-            new(),
-            new(),
+          waveOrMetrics: new IWaveOrMetric[] {
+            new WaveMetrics() { warmup = 0.0f },
+            new WaveMetrics(),
+            new WaveMetrics(),
           }
         ),
         // Right side wave
@@ -262,7 +262,7 @@ public class Level2WaveGenerator {
             spawnAmount = 1,
             spawnLocation = 0,
           },
-          metrics: new WaveMetrics[] {
+          waveOrMetrics: new WaveMetrics[] {
             new () {
               repeatDelay = 5.0f,
             },
@@ -314,7 +314,7 @@ public class Level2WaveGenerator {
                     spawnAmount = 1,
                     spawnLocation = 1,
                   },
-                  metrics: new WaveMetrics[] {
+                  waveOrMetrics: new WaveMetrics[] {
                     new() {
                       repeatDelay = 3.0f,
                       spawnAmount = 2,
@@ -340,7 +340,7 @@ public class Level2WaveGenerator {
                 spawnAmount = 1,
                 spawnLocation = 0,
               },
-              metrics: new WaveMetrics[] {
+              waveOrMetrics: new WaveMetrics[] {
                 new() {
                   enemyDataKey = ant0,
                   repeatDelay = 8.0f,
@@ -367,7 +367,7 @@ public class Level2WaveGenerator {
               repeatDelay = 5.0f,
               spawnLocation = 1,
             },
-            metrics: new WaveMetrics[] {
+            waveOrMetrics: new WaveMetrics[] {
               new() {
                 Positions = new() { new(-3, 3), new(0, 0), new(3, 3) }
               },
@@ -386,7 +386,7 @@ public class Level2WaveGenerator {
               repeatDelay = 8.0f,
               spawnLocation = 0,
             },
-            metrics: new WaveMetrics[] {
+            waveOrMetrics: new WaveMetrics[] {
               new() {
                 Positions = new() { new(-3, 3), new(0, 0), new(3, 3) }
               },
@@ -421,7 +421,7 @@ public class Level2WaveGenerator {
               spawnAmount = 1,
               spawnLocation = 1,
             },
-            metrics: new WaveMetrics[] {
+            waveOrMetrics: new WaveMetrics[] {
               new() {
                 repeatDelay = 0.7f,
               },
@@ -445,7 +445,7 @@ public class Level2WaveGenerator {
               spawnAmount = 1,
               spawnLocation = 0,
             },
-            metrics: new WaveMetrics[] {
+            waveOrMetrics: new WaveMetrics[] {
               new() {
                 repeatDelay = 3.0f,
               },
