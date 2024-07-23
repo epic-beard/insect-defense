@@ -46,6 +46,8 @@ public class SpittingAntTowerPlayModeTest {
     ObjectPool.Instance = objectPool;
     var keys = new HashSet<EnemyKey>() { new(EnemyData.Type.ANT, 0) };
     objectPool.InitializeObjectPool(keys);
+
+    TowerManager.Instance = new GameObject().AddComponent<TowerManager>();
   }
 
   [SetUp]
@@ -87,9 +89,9 @@ public class SpittingAntTowerPlayModeTest {
         slowDuration: 10.0f,
         slowPower: 0.5f);
     spittingAntTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.SA_3_5_CONSTANT_FIRE);
-    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint).GetComponent<Enemy>();
-    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint).GetComponent<Enemy>();
-    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint).GetComponent<Enemy>();
+    var target = ObjectPool.Instance.InstantiateEnemy(targetData, targetWaypoint);
+    var enemyInRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyInRangeWaypoint);
+    var enemyOutOfRange = ObjectPool.Instance.InstantiateEnemy(normalData, enemyOutOfRangeWaypoint);
 
     Time.captureDeltaTime = 0.001f;
     // Yield once to target enemy.

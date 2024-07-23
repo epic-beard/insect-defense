@@ -10,13 +10,16 @@ public struct EnemyData {
     APHID,
     BEETLE,
     HERCULES_BEETLE,
+    FLY,
     LEAF_BUG,
     SLUG,
     SNAIL,
+    SPIDERLING,
     STINK_BUG,
     TARANTULA,
     TERMITE,
     WOLF_SPIDER,
+    WOLF_SPIDER_MOTHER,
   }
 
   public enum Size {

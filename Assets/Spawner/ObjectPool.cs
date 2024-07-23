@@ -11,12 +11,13 @@ public class ObjectPool : MonoBehaviour {
 #pragma warning restore 8618
 
   [SerializeField] private int startingSize = 20;
-  readonly private Dictionary<EnemyKey, Queue<GameObject>> objectPools = new();
+  readonly private Dictionary<EnemyKey, Queue<Enemy>> objectPools = new();
   readonly private HashSet<Enemy> activeEnemies = new();
   readonly private Dictionary<EnemyData.Type, string> enemyMap = new() {
     { EnemyData.Type.ANT, "Enemies/Ant/Ant" },
     { EnemyData.Type.APHID, "Enemies/Aphid/Aphid" },
     { EnemyData.Type.BEETLE, "Enemies/Beetle/Beetle" },
+    { EnemyData.Type.FLY, "Enemies/Fly/Fly" },
     { EnemyData.Type.HERCULES_BEETLE, "Enemies/Hercules Beetle/Hercules Beetle" },
     { EnemyData.Type.LEAF_BUG, "Enemies/Leaf Bug/Leaf Bug" },
     { EnemyData.Type.SLUG, "Enemies/Slug/Slug" },
@@ -25,6 +26,8 @@ public class ObjectPool : MonoBehaviour {
     { EnemyData.Type.TARANTULA, "Enemies/Tarantula/Tarantula" },
     { EnemyData.Type.TERMITE, "Enemies/Termite/Termite" },
     { EnemyData.Type.WOLF_SPIDER, "Enemies/Wolf Spider/Wolf Spider" },
+    { EnemyData.Type.WOLF_SPIDER_MOTHER, "Enemies/Wolf Spider/Wolf Spider Mother" },
+    { EnemyData.Type.SPIDERLING, "Enemies/Aphid/Aphid" }
   };
   readonly private Dictionary<EnemyKey, GameObject> prefabMap = new();
 
@@ -38,14 +41,14 @@ public class ObjectPool : MonoBehaviour {
 
   // Returns an enemy with the given data and position.  If the cooresponding pool is
   // not empty then a pre-created gameObject is returned, otherwise a new one is instantiated.
-  public GameObject InstantiateEnemy(EnemyData data, Waypoint start, Vector2? pos = null, Transform? parent = null) {
+  public Enemy InstantiateEnemy(EnemyData data, Waypoint start, Vector2? pos = null, Transform? parent = null) {
     EnemyKey enemyKey = new(data.type, data.infectionLevel);
     CheckForExistence(data, enemyKey);
     var pool = objectPools[enemyKey];
 
     GameObject gameObject;
     if (pool.Count != 0) {
-      gameObject = pool.Dequeue();
+      gameObject = pool.Dequeue().gameObject;
       gameObject.SetActive(true);
     } else {
       gameObject = Instantiate(prefabMap[enemyKey]);
@@ -57,7 +60,13 @@ public class ObjectPool : MonoBehaviour {
     }
 
     Enemy enemy = gameObject.GetComponent<Enemy>();
-    DestroyImmediate(enemy);
+    // This is required because Destroy is not allowed during edit mode tests and
+    // DestroyImmediate is not allowed during physics changes.
+    if (Application.isPlaying) {
+      Destroy(enemy);
+    } else {
+      DestroyImmediate(enemy);
+    }
     enemy = gameObject.AddComponent<Enemy>();
 
     enemy.Data = data;
@@ -83,17 +92,16 @@ public class ObjectPool : MonoBehaviour {
 
     activeEnemies.Add(enemy);
 
-    return gameObject;
+    return enemy;
   }
 
   // Deactivates an enemy and enqueues it back on the correct objectPool.
-  public void DestroyEnemy(GameObject gameObject) {
-    gameObject.SetActive(false);
-    Enemy enemy = gameObject.GetComponent<Enemy>();
+  public void DestroyEnemy(Enemy enemy) {
+    enemy.gameObject.SetActive(false);
     activeEnemies.Remove(enemy);
     EnemyKey enemyKey = new(enemy.Type, enemy.InfectionLevel);
     CheckForExistence(enemy.Data, enemyKey);
-    objectPools[enemyKey].Enqueue(gameObject);
+    objectPools[enemyKey].Enqueue(enemy);
   }
 
   // Deactivates all enemies and enqueues them back on the correct objectPool.
@@ -103,7 +111,7 @@ public class ObjectPool : MonoBehaviour {
       enemyObject.SetActive(false);
       EnemyKey enemyKey = new(enemy.Type, enemy.InfectionLevel);
       CheckForExistence(enemy.Data, enemyKey);
-      objectPools[enemyKey].Enqueue(enemyObject);
+      objectPools[enemyKey].Enqueue(enemy);
     }
     activeEnemies.Clear();
   }
@@ -129,12 +137,12 @@ public class ObjectPool : MonoBehaviour {
     }
 
     foreach (var key in enemyKeys) {
-      objectPools[key] = new Queue<GameObject>();
+      objectPools[key] = new Queue<Enemy>();
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefabMap[key]);
         gameObject.SetActive(false);
         
-        objectPools[key].Enqueue(gameObject);
+        objectPools[key].Enqueue(gameObject.GetComponent<Enemy>());
       }
     }
   }
@@ -142,7 +150,7 @@ public class ObjectPool : MonoBehaviour {
   private void CheckForExistence(EnemyData data, EnemyKey enemyKey) {
     if (!objectPools.ContainsKey(enemyKey)) {
       prefabMap.Add(enemyKey, Resources.Load<GameObject>(GetResourceLoadPath(data)));
-      objectPools.Add(enemyKey, new Queue<GameObject>());
+      objectPools.Add(enemyKey, new Queue<Enemy>());
       Debug.Log("WARNING: missing object pool for type: " + data.type.ToString()
           + " infection level: " + enemyKey.Item2);
     }

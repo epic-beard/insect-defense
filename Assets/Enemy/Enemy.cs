@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour {
 
   private Animator animator;
 
-  private Transform target;
+  private Transform aimPoint;
   private float xVariance;
   private float zVariance;
 
@@ -44,6 +44,8 @@ public class Enemy : MonoBehaviour {
 
   [SerializeField] private float continuousDamagePollingDelay = 1.0f;
   [SerializeField] private float statusDamagePollingDelay = 1.0f;
+  [SerializeField] private float groundHeight = 0.0f;
+  [SerializeField] private float flyingHeight = 0.0f;
 
   public SortedDictionary<float, int> venomStacks = new();
   private float continuousDamageWeakenPower = 0.0f;
@@ -64,8 +66,8 @@ public class Enemy : MonoBehaviour {
   }
   public Vector3 AimPoint {
     get {
-      if (target != null) {
-        return target.transform.position;
+      if (aimPoint != null) {
+        return aimPoint.transform.position;
       } else {
         return transform.position;
       }
@@ -122,19 +124,20 @@ public class Enemy : MonoBehaviour {
   public float HP {
     get { return hp; }
     set {
-      hp = value;
       StatChangedEvent?.Invoke(this);
-      if (hp <= 0.0f) {
+      if (hp > 0.0f && value <= 0.0f) {
         if (data.carrier != null) {
           var carrier = data.carrier.Value;
+          Debug.Log("Spawning " + carrier.num + " of " + carrier.childKey);
           SpawnChildren(carrier.childKey, carrier.num);
         }
         DistributeVenomStacksIfNecessary();
 
         ConditionalContextReset();
-        ObjectPool.Instance.DestroyEnemy(gameObject);
+        ObjectPool.Instance.DestroyEnemy(this);
         GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);
       }
+      hp = value;
     }
   }
   public int InfectionLevel { get { return data.infectionLevel; } }
@@ -179,7 +182,7 @@ public class Enemy : MonoBehaviour {
     PrevWaypoint = start;
     NextWaypoint = start.GetNextWaypoint();
     if (transform.childCount > 0) {
-      target = transform.GetChild(0).Find("target");
+      aimPoint = transform.GetChild(0).Find("target");
     }
     animator = this.GetComponentInChildren<Animator>();
     Renderers = this.GetComponentsInChildren<Renderer>();
@@ -590,7 +593,7 @@ public class Enemy : MonoBehaviour {
   private void FinishPath() {
     ConditionalContextReset();
     GameStateManager.Instance.DealDamage(Mathf.RoundToInt(Damage));
-    ObjectPool.Instance.DestroyEnemy(gameObject);
+    ObjectPool.Instance.DestroyEnemy(this);
   }
 
   // On enemy death, check to see if there are venom stacks to be distributed.

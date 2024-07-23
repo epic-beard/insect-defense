@@ -9,8 +9,9 @@ public class Targeting {
 
   public enum Behavior {
     ALL,
-    CAMO,  // Always prioritize camo enemies
+    CAMO,  // Always prioritize camo enemies.
     FLIER,  // Always prioritize flying enemies.
+    SLOW_EM_ALL,  // Try to make sure all enemies are slowed. For Web Shooting Tower.
     STUBBORN,  // Don't change targets until the target dies or moves out of range.
   }
 
@@ -28,6 +29,7 @@ public class Targeting {
     { Behavior.ALL, (enemy => true) },
     { Behavior.CAMO, (enemy) => enemy.Camo },
     { Behavior.FLIER, (enemy) => enemy.Flying },
+    { Behavior.SLOW_EM_ALL, (enemy) => enemy.SlowPower == 0.0f },
     { Behavior.STUBBORN, (enemy) => true },  // This has an entry in case of stubborn fail-through.
   };
   readonly Dictionary<Priority, Comparison<Enemy>> priorityPredicates = new() {

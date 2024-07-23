@@ -27,6 +27,31 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
+      <string>Ant_IL1</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>ANT</type>
+        <size>SMALL</size>
+        <maxHP>65</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.65</speed>
+        <damage>8</damage>
+        <nu>15</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>1</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>2.5</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
       <string>Aphid_IL0</string>
     </Key>
     <Value>
@@ -35,12 +60,37 @@
         <size>TINY</size>
         <maxHP>5</maxHP>
         <maxArmor>0</maxArmor>
-        <speed>0.5</speed>
+        <speed>0.65</speed>
         <damage>1</damage>
         <nu>2</nu>
         <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <infectionLevel>0</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>3</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Aphid_IL1</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>APHID</type>
+        <size>TINY</size>
+        <maxHP>13</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.65</speed>
+        <damage>2</damage>
+        <nu>4</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>1</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
@@ -77,26 +127,51 @@
   </KeyValuePair>
   <KeyValuePair>
     <Key>
-      <string>Tarantula_IL0</string>
+      <string>Beetle_IL1</string>
     </Key>
     <Value>
       <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <type>TARANTULA</type>
-        <size>LARGE</size>
-        <maxHP>250</maxHP>
-        <maxArmor>30</maxArmor>
-        <speed>0.3</speed>
-        <damage>25</damage>
-        <nu>100</nu>
-        <coagulationModifier>0.5</coagulationModifier>
+        <type>BEETLE</type>
+        <size>SMALL</size>
+        <maxHP>200</maxHP>
+        <maxArmor>25</maxArmor>
+        <speed>0.45</speed>
+        <damage>15</damage>
+        <nu>50</nu>
+        <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
-        <infectionLevel>0</infectionLevel>
+        <infectionLevel>1</infectionLevel>
         <properties>NONE</properties>
         <spawner xsi:nil="true" />
         <carrier xsi:nil="true" />
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
-        <spawnVariance>1</spawnVariance>
+        <spawnVariance>2</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Fly_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>FLY</type>
+        <size>SMALL</size>
+        <maxHP>45</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.75</speed>
+        <damage>10</damage>
+        <nu>20</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>FLYING</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>2</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>
@@ -122,6 +197,109 @@
         <dazzle xsi:nil="true" />
         <slime xsi:nil="true" />
         <spawnVariance>2.5</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Spiderling_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>SPIDERLING</type>
+        <size>TINY</size>
+        <maxHP>10</maxHP>
+        <maxArmor>0</maxArmor>
+        <speed>0.7</speed>
+        <damage>2</damage>
+        <nu>4</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>3</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Tarantula_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>TARANTULA</type>
+        <size>LARGE</size>
+        <maxHP>250</maxHP>
+        <maxArmor>30</maxArmor>
+        <speed>0.3</speed>
+        <damage>25</damage>
+        <nu>100</nu>
+        <coagulationModifier>0.5</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>1</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Wolf Spider_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>WOLF_SPIDER</type>
+        <size>NORMAL</size>
+        <maxHP>120</maxHP>
+        <maxArmor>25</maxArmor>
+        <speed>0.7</speed>
+        <damage>10</damage>
+        <nu>65</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier xsi:nil="true" />
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>1.5</spawnVariance>
+      </EnemyData>
+    </Value>
+  </KeyValuePair>
+  <KeyValuePair>
+    <Key>
+      <string>Wolf Spider Mother_IL0</string>
+    </Key>
+    <Value>
+      <EnemyData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <type>WOLF_SPIDER_MOTHER</type>
+        <size>NORMAL</size>
+        <maxHP>120</maxHP>
+        <maxArmor>25</maxArmor>
+        <speed>0.7</speed>
+        <damage>10</damage>
+        <nu>65</nu>
+        <coagulationModifier>0</coagulationModifier>
+        <acidExplosionStackModifier>0</acidExplosionStackModifier>
+        <infectionLevel>0</infectionLevel>
+        <properties>NONE</properties>
+        <spawner xsi:nil="true" />
+        <carrier>
+          <num>5</num>
+          <childKey>Spiderling_IL0</childKey>
+        </carrier>
+        <dazzle xsi:nil="true" />
+        <slime xsi:nil="true" />
+        <spawnVariance>1.5</spawnVariance>
       </EnemyData>
     </Value>
   </KeyValuePair>
