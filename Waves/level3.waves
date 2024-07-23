@@ -37,7 +37,7 @@
           </Subwaves>
         </Wave>
         <Wave xsi:type="SpacerWave">
-          <delay>10</delay>
+          <delay>8</delay>
         </Wave>
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>
@@ -98,7 +98,7 @@
           </Subwaves>
         </Wave>
         <Wave xsi:type="SpacerWave">
-          <delay>5</delay>
+          <delay>4</delay>
         </Wave>
         <Wave xsi:type="ConcurrentWave">
           <Subwaves>

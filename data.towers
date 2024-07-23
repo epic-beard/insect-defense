@@ -268,7 +268,7 @@
             </TowerAbility>
           </thirdPathUpgrades>
         </upgradeTreeData>
-        <name>Spitting Ant Tower</name>
+        <name>Spitting Ant</name>
         <icon_path>Icons/test</icon_path>
         <acid_stacks>0</acid_stacks>
         <bleed_stacks>0</bleed_stacks>
@@ -507,7 +507,7 @@
             </TowerAbility>
           </thirdPathUpgrades>
         </upgradeTreeData>
-        <name>Web Shooting Spider Tower</name>
+        <name>Web Shooting Spider</name>
         <icon_path>Icons/test</icon_path>
         <acid_stacks>0</acid_stacks>
         <bleed_stacks>0</bleed_stacks>
