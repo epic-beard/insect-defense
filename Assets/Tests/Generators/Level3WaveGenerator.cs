@@ -43,7 +43,7 @@ public class Level3WaveGenerator {
         }
       ),  // ConcurrentWave
       new SpacerWave() {
-        delay = 10.0f,
+        delay = 8.0f,
       },
       GetConcurrentWaveWithDefaults(
         defaults: new() {
@@ -73,7 +73,7 @@ public class Level3WaveGenerator {
         }
       ),  // GetConcurrentWaveWithDefaults
       new SpacerWave() {
-        delay = 5.0f,
+        delay = 4.0f,
       },
       GetConcurrentWaveWithDefaults(
         defaults: new() {
@@ -115,7 +115,7 @@ public class Level3WaveGenerator {
       )  // GetConcurrentWaveWithDefaults
     );
     // Nu: 1482
-    // Sec~: 240
+    // Sec~: 4m
 
     SequentialWave secondWave = new(
       GetConcurrentWaveWithDefaults(
@@ -209,18 +209,85 @@ public class Level3WaveGenerator {
       )  // GetConcurrentWaveWithDefaults
     );
     // Nu: 5240
-    // Sec~: 510
+    // Sec~: 8 min 30 sec
 
     SequentialWave thirdWave = new(
       GetConcurrentWaveWithDefaults(
         defaults: new() {
-          duration = 60.0f,
+          duration = 120.0f,
         },
         waveOrMetrics: new IWaveOrMetric[] {
           // Left side
           new WaveMetrics() {
             enemyDataKey = tarantula0,
-            repetitions = 8,
+            repetitions = 7,
+            spawnLocation = 0,
+            cooldown = 60.0f,
+          },
+          new WaveMetrics() {
+            enemyDataKey = beetle0,
+            repetitions = 20,
+            spawnLocation = 0,
+          },
+          new WaveMetrics() {
+            warmup = 60.0f,
+            enemyDataKey = ant1,
+            repetitions = 20,
+            spawnLocation = 0,
+          },
+          new WaveMetrics() {
+            warmup = 60.0f,
+            enemyDataKey = tarantula0,
+            repetitions = 12,
+            spawnLocation = 0,
+          },
+          // Right side
+          new WaveMetrics() {
+            enemyDataKey = wolfSpider0,
+            repetitions = 30,
+            spawnLocation = 1,
+          },
+          new DelayedWave() {
+            warmup = 25.0f,
+            wave = new DialogueBoxWave() {
+              messages =
+                  { "Flies escaped containment on the right side feeder, they're coming!",
+                    "You can't hit airborne enemies without anti-air. Luckily, the Web Shooting Spider and Spitting Ant towers have just that upgrade." },
+            }
+          },
+          new WaveMetrics() {
+            warmup = 30.0f,
+            enemyDataKey = fly0,
+            repetitions = 25,
+            spawnLocation = 1,
+          },
+          new WaveMetrics() {
+            warmup = 62.0f,
+            enemyDataKey = fly0,
+            repetitions = 10,
+            spawnLocation = 1,
+          },
+          new WaveMetrics() {
+            warmup = 90.0f,
+            enemyDataKey = wolfSpiderMother0,
+            repetitions = 6,
+            spawnLocation = 1,
+          },
+        }  // IWaveOrMetrics
+      )
+    );
+    // Nu: 10170
+    // Sec~: 4m
+
+    SequentialWave fourthWave = new(
+      GetConcurrentWaveWithDefaults(
+        defaults: new() {
+          duration = 40.0f,
+        },
+        waveOrMetrics: new IWaveOrMetric[] {
+          new WaveMetrics() {
+            enemyDataKey = beetle1,
+            repetitions = 5,
             spawnLocation = 0,
           },
           new WaveMetrics() {
@@ -229,39 +296,48 @@ public class Level3WaveGenerator {
             spawnLocation = 0,
           },
           new WaveMetrics() {
-            warmup = 19.0f,
-            enemyDataKey = ant1,
-            repetitions = 18,
+            enemyDataKey = fly0,
+            repetitions = 20,
+            spawnLocation = 1,
+          },
+          new WaveMetrics() {
+            enemyDataKey = wolfSpiderMother0,
+            repetitions = 12,
+            spawnLocation = 1,
+          },
+        }
+      ),
+      GetConcurrentWaveWithDefaults(
+        defaults: new() {
+          duration = 40.0f,
+        },
+        waveOrMetrics: new IWaveOrMetric[] {
+          new WaveMetrics() {
+            enemyDataKey = beetle1,
+            repetitions = 10,
             spawnLocation = 0,
           },
-          // Right side
           new WaveMetrics() {
-            enemyDataKey = wolfSpider0,
+            enemyDataKey = tarantula0,
+            repetitions = 6,
+            spawnLocation = 0,
+          },
+          new WaveMetrics() {
+            enemyDataKey = fly0,
+            repetitions = 30,
+            spawnLocation = 1,
+          },
+          new WaveMetrics() {
+            enemyDataKey = wolfSpiderMother0,
             repetitions = 10,
             spawnLocation = 1,
           },
-          new DelayedWave() {
-            warmup = 5.0f,
-            wave = new DialogueBoxWave() {
-              messages =
-                  { "Flies escaped containment on the right side feeder, they're coming!",
-                    "You can't hit airborne enemies without anti-air. Luckily, the Web Shooting Spider and Spitting Ant towers have just that upgrade." },
-            }
-          },
-          new WaveMetrics() {
-            warmup = 8.0f,
-            enemyDataKey = fly0,
-            repetitions = 5,
-            spawnLocation = 1,
-          },
-        }  // IWaveOrMetrics
+        }
       )
     );
-    // Nu: 
-    // Sec~: 
 
     Waves waves = new() {
-      waves = { thirdWave },
+      waves = { firstWave, secondWave, thirdWave, fourthWave },
     };
 
     Serialize<Waves>(waves, filename);

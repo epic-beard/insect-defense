@@ -64,7 +64,7 @@ public class ObjectPoolTest {
     objectPool.InitializeObjectPool(keys);
     Enemy enemy1 = objectPool.InstantiateEnemy(enemyData, waypoint);
     GameObject gameObject1 = enemy1.gameObject;
-    objectPool.DestroyEnemy(gameObject1);
+    objectPool.DestroyEnemy(enemy1);
     Enemy enemy2 = objectPool.InstantiateEnemy(enemyData, waypoint);
     GameObject gameObject2 = enemy2.gameObject;
 

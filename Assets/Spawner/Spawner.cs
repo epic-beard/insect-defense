@@ -56,7 +56,7 @@ public class Spawner : MonoBehaviour {
     StopAllCoroutines();
     var enemies = ObjectPool.Instance.GetActiveEnemies().ToList();
     foreach (var enemy in enemies) {
-      ObjectPool.Instance.DestroyEnemy(enemy.gameObject);
+      ObjectPool.Instance.DestroyEnemy(enemy);
     }
   }
 
@@ -766,6 +766,7 @@ public class Spawner : MonoBehaviour {
       return new DelayedWave() {
         wave = enemy,
         warmup = this.warmup ?? defaults.warmup ?? 0.0f,
+        cooldown = this.cooldown ?? defaults.cooldown ?? 0.0f,
       };
     }
   }

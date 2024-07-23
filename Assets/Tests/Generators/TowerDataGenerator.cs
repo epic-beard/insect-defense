@@ -194,7 +194,7 @@ public class TowerDataGenerator {
         tooltipText = "A ranged tower with moderate damage, armor tear, and acid DoTs.",
       },
 
-      name = "Spitting Ant Tower",
+      name = "Spitting Ant",
       icon_path = "Icons/test",
       area_of_effect = 0,
       armor_pierce = 0,
@@ -370,7 +370,7 @@ public class TowerDataGenerator {
         tooltipText = "Support tower that slows enemy movement.",
       },
 
-      name = "Web Shooting Spider Tower",
+      name = "Web Shooting Spider",
       icon_path = "Icons/test",
       area_of_effect = 10,
       armor_pierce = 0,

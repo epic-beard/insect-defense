@@ -96,9 +96,8 @@ public class ObjectPool : MonoBehaviour {
   }
 
   // Deactivates an enemy and enqueues it back on the correct objectPool.
-  public void DestroyEnemy(GameObject gameObject) {
-    gameObject.SetActive(false);
-    Enemy enemy = gameObject.GetComponent<Enemy>();
+  public void DestroyEnemy(Enemy enemy) {
+    enemy.gameObject.SetActive(false);
     activeEnemies.Remove(enemy);
     EnemyKey enemyKey = new(enemy.Type, enemy.InfectionLevel);
     CheckForExistence(enemy.Data, enemyKey);

@@ -390,7 +390,7 @@
                     <spawnAmmount>1</spawnAmmount>
                     <enemyDataKey>Ant_IL0</enemyDataKey>
                   </wave>
-                  <cooldown>0</cooldown>
+                  <cooldown>30</cooldown>
                 </Wave>
                 <Wave xsi:type="DelayedWave">
                   <warmup>50</warmup>

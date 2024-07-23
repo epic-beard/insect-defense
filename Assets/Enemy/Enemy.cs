@@ -134,7 +134,7 @@ public class Enemy : MonoBehaviour {
         DistributeVenomStacksIfNecessary();
 
         ConditionalContextReset();
-        ObjectPool.Instance.DestroyEnemy(gameObject);
+        ObjectPool.Instance.DestroyEnemy(this);
         GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);
       }
       hp = value;
@@ -593,7 +593,7 @@ public class Enemy : MonoBehaviour {
   private void FinishPath() {
     ConditionalContextReset();
     GameStateManager.Instance.DealDamage(Mathf.RoundToInt(Damage));
-    ObjectPool.Instance.DestroyEnemy(gameObject);
+    ObjectPool.Instance.DestroyEnemy(this);
   }
 
   // On enemy death, check to see if there are venom stacks to be distributed.
