@@ -90,12 +90,10 @@ public class Tile : MonoBehaviour {
     if (!isTowerPlaceable) { return; }
     if (!IsTowerPresent) {
       IsTowerPresent = TowerManager.Instance.BuildTower(waypoint);
-      if (!IsTowerPresent) { return; }
+      if (TowerManager.Instance.GetTower(GetCoordinates())) {
+        Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
+      }
     }
-    // This happens while a tower is in the prcocess of being sold.
-    if (IsTowerPresent && !TowerManager.Instance.HasTower(GetCoordinates())) { return; }
-
-    Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
   }
 
   public void ResetTile() {

@@ -34,11 +34,12 @@ public class MouseManager : MonoBehaviour {
         // a tower is appropriate.
         if (GameStateManager.Instance.IsMouseOverUI) return;
         if (hitObject.name.Equals("Map")) {
+          Debug.Log("We clicked on the map");
           tile.BuildTowerIfPossible();
-          TowerManager.Instance.ClearSelection();
-          if (tile.IsTowerPresent) {
-            SetSelectedTower(TowerManager.Instance.ActiveTowerMap[tile.GetCoordinates()]);
-          }
+          //TowerManager.Instance.ClearSelection();
+          //if (tile.IsTowerPresent) {
+          //  SetSelectedTower(TowerManager.Instance.ActiveTowerMap[tile.GetCoordinates()]);
+          //}
         } else {
           Enemy enemy = hitObject.GetComponent<Enemy>();
           if (enemy != null) {
@@ -47,6 +48,7 @@ public class MouseManager : MonoBehaviour {
 
           Tower tower = hitObject.GetComponent<Tower>();
           if (tower != null) {
+            Debug.Log("Fallthrough tower set");
             SetSelectedTower(tower);
           }
         }

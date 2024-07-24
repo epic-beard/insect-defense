@@ -1,3 +1,4 @@
+#nullable enable
 using Assets;
 using System;
 using System.Collections;
@@ -11,10 +12,10 @@ using TowerDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData
 public class TowerManager : MonoBehaviour {
   public static TowerManager Instance;
 
-  // The type of tower currently selected by the user for construction.
-  public static Tower? SelectedTower;
   // The specific tower the user clicked on in the map.
-  public static TowerData.Type? SelectedTowerType;
+  public Tower? SelectedTower = null;
+  // The type of tower currently selected by the user for construction.
+  public TowerData.Type? SelectedTowerType;
   public Dictionary<Vector2Int, Tower> ActiveTowerMap = new();
   // A First In Last Out container of historical prices of a tower.
   public Dictionary<TowerData.Type, Stack<int>> TowerPrices = new();
@@ -152,7 +153,10 @@ public class TowerManager : MonoBehaviour {
     SelectedTower = tower;
   }
 
+
+  // TODO(emonzon): This line will need to be added (or at least considered) in all places where SelectedTower is set to null.
   public void SetSelectedTowerType(TowerData.Type type) {
+    SelectedTower?.Tile.SetUnselected();
     SelectedTower = null;
     if (SelectedTowerType != null) {
       previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
