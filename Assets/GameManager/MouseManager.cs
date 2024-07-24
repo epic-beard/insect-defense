@@ -36,8 +36,9 @@ public class MouseManager : MonoBehaviour {
         if (hitObject.name.Equals("Map")) {
           tile.BuildTowerIfPossible();
           TowerManager.Instance.ClearSelection();
-          if (tile.IsTowerPresent) {
-            SetSelectedTower(TowerManager.Instance.ActiveTowerMap[tile.GetCoordinates()]);
+          if (TowerManager.Instance.ActiveTowerMap.ContainsKey(tile.GetCoordinates())) {
+            Tower tower = TowerManager.Instance.ActiveTowerMap[tile.GetCoordinates()];
+            SetSelectedTower(tower);
           }
         } else {
           Enemy enemy = hitObject.GetComponent<Enemy>();
@@ -46,7 +47,7 @@ public class MouseManager : MonoBehaviour {
           }
 
           Tower tower = hitObject.GetComponent<Tower>();
-          if (tower != null) {
+          if (tower != null && TowerManager.Instance.ActiveTowerMap.ContainsKey(tower.Tile.GetCoordinates())) {
             SetSelectedTower(tower);
           }
         }
