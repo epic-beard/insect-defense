@@ -21,7 +21,7 @@ public class MouseManager : MonoBehaviour {
       Tile tile = null;
       if (hitObject.name.Equals("Map")) {
         tile = hitInfo.transform.gameObject.GetComponentInParent<Tile>();
-        if (tile.isTowerPlaceable && !tile.IsTowerPresent) {
+        if (tile.isTowerPlaceable && !TowerManager.Instance.HasTower(tile.GetCoordinates())) {
           TowerManager.Instance.SetPreviewTowerPosition(tile);
         } else {
           TowerManager.Instance.ClearTowerPreview();

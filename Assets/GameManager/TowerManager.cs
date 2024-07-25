@@ -55,7 +55,11 @@ public class TowerManager : MonoBehaviour {
   }
 
   public Tower? GetTower(Vector2Int coordinates) {
-    return ActiveTowerMap.ContainsKey(coordinates) ? ActiveTowerMap[coordinates] : null;
+    return HasTower(coordinates) ? ActiveTowerMap[coordinates] : null;
+  }
+
+  public bool HasTower(Vector2Int coordinates) {
+    return ActiveTowerMap.ContainsKey(coordinates);
   }
 
   public int GetTowerCost(TowerData data) {

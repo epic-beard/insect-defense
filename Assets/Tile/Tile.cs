@@ -6,8 +6,6 @@ public class Tile : MonoBehaviour {
 
   [SerializeField] public bool isTowerPlaceable;
 
-  public bool IsTowerPresent { get; private set; } = false;
-
   private bool lingeringWebs = false;
   private Dictionary<Tower, LingeringSlow> lingeringSlows = new();
   private LineRenderer webLineRenderer;
@@ -88,16 +86,12 @@ public class Tile : MonoBehaviour {
 
   public void BuildTowerIfPossible() {
     if (!isTowerPlaceable) { return; }
-    if (!IsTowerPresent) {
-      IsTowerPresent = TowerManager.Instance.BuildTower(waypoint);
-      if (TowerManager.Instance.GetTower(GetCoordinates()) != null) {
+    if (TowerManager.Instance.HasTower(GetCoordinates())) {
+      TowerManager.Instance.BuildTower(waypoint);
+      if (TowerManager.Instance.HasTower(GetCoordinates())) {
         Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
       }
     }
-  }
-
-  public void ResetTile() {
-    IsTowerPresent = false;
   }
 
   public void SetUnselected() {
