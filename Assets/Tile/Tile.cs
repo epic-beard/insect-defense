@@ -90,7 +90,7 @@ public class Tile : MonoBehaviour {
     if (!isTowerPlaceable) { return; }
     if (!IsTowerPresent) {
       IsTowerPresent = TowerManager.Instance.BuildTower(waypoint);
-      if (TowerManager.Instance.GetTower(GetCoordinates())) {
+      if (TowerManager.Instance.GetTower(GetCoordinates()) != null) {
         Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
       }
     }

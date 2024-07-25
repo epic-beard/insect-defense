@@ -1,9 +1,7 @@
 using Assets;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Targeting;
@@ -154,7 +152,7 @@ public class TowerDetail : MonoBehaviour {
     ButtonWithTooltip icon = rootElement.Q<ButtonWithTooltip>(rockerSwitch.name);
     if (icon == null) return;
 
-    Tower tower = TowerManager.SelectedTower;
+    Tower tower = TowerManager.Instance.SelectedTower;
     if (tower == null) return;
 
     // tree_X_upgrade_Y__button
@@ -189,7 +187,7 @@ public class TowerDetail : MonoBehaviour {
       return;
     }
 
-    if (TowerManager.SelectedTower.IsPreviewTower) {
+    if (TowerManager.Instance.SelectedTower.IsPreviewTower) {
       return; 
     }
 
@@ -240,7 +238,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {
-    if (TowerManager.SelectedTower == null)
+    if (TowerManager.Instance.SelectedTower == null)
     {
       Debug.Log("[ERROR] No tower selected, but behavior change attempted.");
       return;
@@ -249,11 +247,11 @@ public class TowerDetail : MonoBehaviour {
     Targeting.Behavior behavior =
         (Targeting.Behavior)System.Enum.Parse(
             typeof(Targeting.Behavior), towerBehaviorDropdown.value.ToUpper());
-    TowerManager.SelectedTower.Behavior = behavior;
+    TowerManager.Instance.SelectedTower.Behavior = behavior;
   }
 
   private void PriorityCallback(ChangeEvent<string> evt) {
-    if (TowerManager.SelectedTower == null)
+    if (TowerManager.Instance.SelectedTower == null)
     {
       Debug.Log("[ERROR] No tower selected, but priority change attempted.");
       return;
@@ -262,7 +260,7 @@ public class TowerDetail : MonoBehaviour {
     Targeting.Priority priority =
         (Targeting.Priority)System.Enum.Parse(
             typeof(Targeting.Priority), towerPriorityDropdown.value.ToUpper().Replace(" ", "_"));
-    TowerManager.SelectedTower.Priority = priority;
+    TowerManager.Instance.SelectedTower.Priority = priority;
   }
 
   // Set all appropriate text, pictures, and miscellaneous information for a specific tower.
@@ -318,7 +316,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void UpdateUpgradeIconState(ButtonWithTooltip icon, int path, int level, int nu) {
-      Tower tower = TowerManager.SelectedTower;
+      Tower tower = TowerManager.Instance.SelectedTower;
       if (tower == null) return;
 
       bool isOwned = level <= tower.UpgradeIndex[path];

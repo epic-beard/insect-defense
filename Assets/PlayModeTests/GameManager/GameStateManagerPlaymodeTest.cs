@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -25,7 +24,7 @@ public class GameStateManagerPlaymodeTest {
 
     Assert.That(towerManager.BuildTower(waypoint), Is.False);
 
-    TowerManager.SelectedTowerType = TowerData.Type.SPITTING_ANT_TOWER;
+    TowerManager.Instance.SelectedTowerType = TowerData.Type.SPITTING_ANT_TOWER;
 
     Assert.That(towerManager.BuildTower(waypoint), Is.True);
 

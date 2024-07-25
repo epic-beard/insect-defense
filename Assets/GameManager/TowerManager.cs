@@ -54,12 +54,8 @@ public class TowerManager : MonoBehaviour {
     StartCoroutine(HandleRangeIndicator());
   }
 
-  public Tower GetTower(Vector2Int coordinates) {
-    return ActiveTowerMap[coordinates];
-  }
-
-  public bool HasTower(Vector2Int coordinates) {
-    return ActiveTowerMap.ContainsKey(coordinates);
+  public Tower? GetTower(Vector2Int coordinates) {
+    return ActiveTowerMap.ContainsKey(coordinates) ? ActiveTowerMap[coordinates] : null;
   }
 
   public int GetTowerCost(TowerData data) {
@@ -154,10 +150,8 @@ public class TowerManager : MonoBehaviour {
   }
 
 
-  // TODO(emonzon): This line will need to be added (or at least considered) in all places where SelectedTower is set to null.
   public void SetSelectedTowerType(TowerData.Type type) {
-    SelectedTower?.Tile.SetUnselected();
-    SelectedTower = null;
+    DeSelectTower();
     if (SelectedTowerType != null) {
       previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
     }
@@ -165,11 +159,13 @@ public class TowerManager : MonoBehaviour {
   }
 
   public void DeSelectTower() {
+    SelectedTower?.Tile.SetUnselected();
+    SelectedTower = null;
+  }
+
+  public void ClearTowerSelectionAndType() {
     SelectedTowerType = null;
-    if (SelectedTower != null) {
-      SelectedTower.Tile.SetUnselected();
-      SelectedTower = null;
-    }
+    DeSelectTower();
   }
 
   public void ClearSelection() {
@@ -177,10 +173,7 @@ public class TowerManager : MonoBehaviour {
       previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
       SelectedTowerType = null;
     }
-    if (SelectedTower != null) {
-      SelectedTower.Tile.SetUnselected();
-    }
-    SelectedTower = null;
+    DeSelectTower();
     ContextPanel.Instance.SetNoContextPanel();
   }
 
@@ -263,7 +256,7 @@ public class TowerManager : MonoBehaviour {
     while (true) {
       yield return new WaitUntil(() => SelectedTower != null);
       Tower cachedTower = SelectedTower;
-      SelectedTower.SetRangeIndicatorVisible(true);
+      SelectedTower?.SetRangeIndicatorVisible(true);
       yield return new WaitUntil(() => !cachedTower.Equals(SelectedTower));
       cachedTower.SetRangeIndicatorVisible(false);
     }
