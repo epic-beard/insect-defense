@@ -134,7 +134,7 @@ public class EnemyDataGenerator {
   private EnemyData GetFlyIL0EnemyData() {
     EnemyData data = new() {
       type = EnemyData.Type.FLY,
-      size = EnemyData.Size.SMALL,
+      size = EnemyData.Size.NORMAL,
       maxHP = 45.0f,
       maxArmor = 0.0f,
       speed = 0.75f,

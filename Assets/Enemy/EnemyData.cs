@@ -38,6 +38,14 @@ public struct EnemyData {
     {Size.HUGE, 120.0f},
   };
 
+  public static Dictionary<Size, float> SizeToScale = new() {
+    {Size.TINY, 1/2.0f },
+    {Size.SMALL, 2/3.0f },
+    {Size.NORMAL, 1.0f },
+    {Size.LARGE, 5/3.0f},
+    {Size.HUGE, 1.0f },
+  };
+
   public static Dictionary<Size, float> SizeToCoagulation = new() {
     {Size.TINY, 1.0f},
     {Size.SMALL, 3.0f},
