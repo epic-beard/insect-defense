@@ -134,7 +134,8 @@ public abstract class Tower : MonoBehaviour {
   public string IconPath { get { return data.icon_path; } set { data.icon_path = value; } }
   #endregion
 
-  protected int[] upgradeIndex = new int[] { -1, -1, -1 };  // Each entry in this array should be -1-4.
+  // The current state of this tower's upgrade paths.
+  protected int[] upgradeIndex = new int[] { -1, -1, -1 };  // Each entry in this array should be [-1 - 4].
   public int[] UpgradeIndex { get { return upgradeIndex; } }
 
   // How close a particle needs to get to consider it a hit.
@@ -230,12 +231,7 @@ public abstract class Tower : MonoBehaviour {
         data.SetIntStat(modifier.attribute, modifier.mod);
         break;
       }
-      if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
-        UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
-      }
-      if (modifier.attribute == TowerData.Stat.RANGE) {
-        rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
-      }
+      UpgradeQualityOfLifeChanges(modifier.attribute);
     }
   }
 
@@ -252,13 +248,48 @@ public abstract class Tower : MonoBehaviour {
         data.SetFloatStat(modifier.attribute, modifier.mod);
         break;
       }
-      if (modifier.attribute == TowerData.Stat.ATTACK_SPEED) {
-        UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
-      }
-      if (modifier.attribute == TowerData.Stat.RANGE) {
-        rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+      UpgradeQualityOfLifeChanges(modifier.attribute);
+    }
+  }
+
+  // Changes agnostic of float or int status of attribute modifier.
+  private void UpgradeQualityOfLifeChanges(TowerData.Stat attribute) {
+    if (attribute == TowerData.Stat.ATTACK_SPEED) {
+      UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
+    }
+    if (attribute == TowerData.Stat.RANGE) {
+      rangeIndicator.localScale = new Vector3(Range, normalRangeHeight, Range);
+    }
+  }
+
+  // Returns true if the specified upgrade is legal, which is defined as only being able to buy
+  // upgrades 2 and 3 with 2 upgrade paths, and upgrades 4 and 5 with 1 upgrade path.
+  public bool IsLegalUpgrade(int upgradePath, int upgradeNum) {
+    // The first upgrade is always legal.
+    if (upgradeNum == 0) { return true; }
+
+    // Set up a data structure containing the upgrade number of the other upgrade paths.
+    int[] otherTrees = new int[] { -1, -1 };
+    for (int i = 0; i < 3; i++) {
+      if (i == upgradePath) { continue; }
+      if (otherTrees[0] == -1) {
+        otherTrees[0] = UpgradeIndex[i];
+      } else {
+        otherTrees[1] = UpgradeIndex[i];
       }
     }
+
+    if ((upgradeNum == 1 || upgradeNum == 2)
+        && (otherTrees[0] < 1 || otherTrees[1] < 1)) {
+      return true;
+    }
+
+    if ((upgradeNum == 3 || upgradeNum == 4)
+        && otherTrees[0] < 3 && otherTrees[1] < 3) {
+      return true;
+    }
+
+    return false;
   }
 
   // Fetch enemies in explosionRange of target. This excludes target itself.
