@@ -86,7 +86,7 @@ public class Tile : MonoBehaviour {
 
   public void BuildTowerIfPossible() {
     if (!isTowerPlaceable) { return; }
-    if (TowerManager.Instance.HasTower(GetCoordinates())) {
+    if (!TowerManager.Instance.HasTower(GetCoordinates())) {
       TowerManager.Instance.BuildTower(waypoint);
       if (TowerManager.Instance.HasTower(GetCoordinates())) {
         Utilities.SetSelectedTower(TowerManager.Instance.GetTower(GetCoordinates()));
