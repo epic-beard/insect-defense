@@ -1,3 +1,4 @@
+#nullable enable
 using Assets;
 using System;
 using System.Collections;
@@ -11,10 +12,10 @@ using TowerDictionary = EpicBeardLib.Containers.SerializableDictionary<TowerData
 public class TowerManager : MonoBehaviour {
   public static TowerManager Instance;
 
-  // The type of tower currently selected by the user for construction.
-  public static Tower? SelectedTower;
   // The specific tower the user clicked on in the map.
-  public static TowerData.Type? SelectedTowerType;
+  public Tower? SelectedTower = null;
+  // The type of tower currently selected by the user for construction.
+  public TowerData.Type? SelectedTowerType;
   public Dictionary<Vector2Int, Tower> ActiveTowerMap = new();
   // A First In Last Out container of historical prices of a tower.
   public Dictionary<TowerData.Type, Stack<int>> TowerPrices = new();
@@ -53,8 +54,8 @@ public class TowerManager : MonoBehaviour {
     StartCoroutine(HandleRangeIndicator());
   }
 
-  public Tower GetTower(Vector2Int coordinates) {
-    return ActiveTowerMap[coordinates];
+  public Tower? GetTower(Vector2Int coordinates) {
+    return HasTower(coordinates) ? ActiveTowerMap[coordinates] : null;
   }
 
   public bool HasTower(Vector2Int coordinates) {
@@ -152,8 +153,9 @@ public class TowerManager : MonoBehaviour {
     SelectedTower = tower;
   }
 
+
   public void SetSelectedTowerType(TowerData.Type type) {
-    SelectedTower = null;
+    DeSelectTower();
     if (SelectedTowerType != null) {
       previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
     }
@@ -161,11 +163,13 @@ public class TowerManager : MonoBehaviour {
   }
 
   public void DeSelectTower() {
+    SelectedTower?.Tile.SetUnselected();
+    SelectedTower = null;
+  }
+
+  public void ClearTowerSelectionAndType() {
     SelectedTowerType = null;
-    if (SelectedTower != null) {
-      SelectedTower.Tile.SetUnselected();
-      SelectedTower = null;
-    }
+    DeSelectTower();
   }
 
   public void ClearSelection() {
@@ -173,10 +177,7 @@ public class TowerManager : MonoBehaviour {
       previewTowers[SelectedTowerType ?? TowerData.Type.NONE].gameObject.SetActive(false);
       SelectedTowerType = null;
     }
-    if (SelectedTower != null) {
-      SelectedTower.Tile.SetUnselected();
-    }
-    SelectedTower = null;
+    DeSelectTower();
     ContextPanel.Instance.SetNoContextPanel();
   }
 
@@ -259,7 +260,7 @@ public class TowerManager : MonoBehaviour {
     while (true) {
       yield return new WaitUntil(() => SelectedTower != null);
       Tower cachedTower = SelectedTower;
-      SelectedTower.SetRangeIndicatorVisible(true);
+      SelectedTower?.SetRangeIndicatorVisible(true);
       yield return new WaitUntil(() => !cachedTower.Equals(SelectedTower));
       cachedTower.SetRangeIndicatorVisible(false);
     }

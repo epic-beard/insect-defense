@@ -186,12 +186,6 @@ public abstract class Tower : MonoBehaviour {
     MarkTarget(Target);
   }
 
-  private void OnDestroy() {
-    if (Tile != null) {
-      Tile.ResetTile();
-    }
-  }
-
   // Abstract methods
   protected abstract void TowerUpdate();
   protected abstract void TowerStart();
