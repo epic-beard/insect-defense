@@ -88,8 +88,6 @@ public class ObjectPool : MonoBehaviour {
     enemy.transform.position = position;
     enemy.SetVariance(xDelta, zDelta);
 
-    ScaleEnemey(enemy, EnemyData.SizeToScale[enemy.Size]);
-
     enemy.Initialize(start);
 
     activeEnemies.Add(enemy);
@@ -160,13 +158,5 @@ public class ObjectPool : MonoBehaviour {
 
   private string GetResourceLoadPath(EnemyData data) {
     return string.Concat(enemyMap[data.type], "_", data.infectionLevel);
-  }
-
-  private void ScaleEnemey(Enemy enemy, float scale) {
-    Vector3 localScale = enemy.transform.localScale;
-    localScale.x *= scale;
-    localScale.y *= scale;
-    localScale.z *= scale;
-    enemy.transform.localScale = localScale;
   }
 }
