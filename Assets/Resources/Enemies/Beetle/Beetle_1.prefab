@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1234375269292176452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5017303415526021941}
@@ -49,6 +49,8 @@ MonoBehaviour:
   NextWaypoint: {fileID: 0}
   continuousDamagePollingDelay: 1
   statusDamagePollingDelay: 1
+  groundHeight: 0
+  flyingHeight: 0
 --- !u!1 &8276453327646436135
 GameObject:
   m_ObjectHideFlags: 0

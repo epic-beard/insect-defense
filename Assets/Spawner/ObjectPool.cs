@@ -59,18 +59,20 @@ public class ObjectPool : MonoBehaviour {
       gameObject.transform.position = parent.transform.position;
     }
 
-    Enemy enemy = gameObject.GetComponent<Enemy>();
+    Enemy oldEnemy = gameObject.GetComponent<Enemy>();
     // This is required because Destroy is not allowed during edit mode tests and
     // DestroyImmediate is not allowed during physics changes.
     if (Application.isPlaying) {
-      Destroy(enemy);
+      Destroy(oldEnemy);
     } else {
-      DestroyImmediate(enemy);
+      DestroyImmediate(oldEnemy);
     }
-    enemy = gameObject.AddComponent<Enemy>();
 
-    enemy.Data = data;
-    enemy.PrevWaypoint = start;
+    Enemy newEnemy = gameObject.AddComponent<Enemy>();
+
+    newEnemy.Data = data;
+    newEnemy.PrevWaypoint = start;
+    
 
     float xDelta;
     float zDelta;
@@ -78,21 +80,27 @@ public class ObjectPool : MonoBehaviour {
       xDelta = pos.Value.x;
       zDelta = pos.Value.y;
     } else {
-      float variance = enemy.Data.spawnVariance;
+      float variance = newEnemy.Data.spawnVariance;
       xDelta = UnityEngine.Random.Range(-variance, variance);
       zDelta = UnityEngine.Random.Range(-variance, variance);
     }
     Vector3 position = gameObject.transform.position;
     position.x += xDelta;
     position.z += zDelta;
-    enemy.transform.position = position;
-    enemy.SetVariance(xDelta, zDelta);
+    newEnemy.transform.position = position;
+    newEnemy.SetVariance(xDelta, zDelta);
 
-    enemy.Initialize(start);
+    float oldScale = EnemyData.SizeToScale[oldEnemy.Size];
+    float newScale = EnemyData.SizeToScale[newEnemy.Size];
+    Debug.Log("old scale: " + oldScale);
+    Debug.Log("new scale: " + newScale);
+    ScaleEnemy(newEnemy, newScale/oldScale);
 
-    activeEnemies.Add(enemy);
+    newEnemy.Initialize(start);
 
-    return enemy;
+    activeEnemies.Add(newEnemy);
+
+    return newEnemy;
   }
 
   // Deactivates an enemy and enqueues it back on the correct objectPool.
@@ -140,6 +148,7 @@ public class ObjectPool : MonoBehaviour {
       objectPools[key] = new Queue<Enemy>();
       for (int i = 0; i < startingSize; i++) {
         GameObject gameObject = Instantiate(prefabMap[key]);
+        gameObject.GetComponent<Enemy>();
         gameObject.SetActive(false);
         
         objectPools[key].Enqueue(gameObject.GetComponent<Enemy>());
@@ -158,5 +167,9 @@ public class ObjectPool : MonoBehaviour {
 
   private string GetResourceLoadPath(EnemyData data) {
     return string.Concat(enemyMap[data.type], "_", data.infectionLevel);
+  }
+
+  private void ScaleEnemy(Enemy enemy, float scale) {
+    enemy.transform.GetChild(0).localScale *= scale;
   }
 }
