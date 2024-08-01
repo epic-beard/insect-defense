@@ -92,9 +92,7 @@ public class ObjectPool : MonoBehaviour {
 
     float oldScale = EnemyData.SizeToScale[oldEnemy.Size];
     float newScale = EnemyData.SizeToScale[newEnemy.Size];
-    Debug.Log("old scale: " + oldScale);
-    Debug.Log("new scale: " + newScale);
-    ScaleEnemy(newEnemy, newScale/oldScale);
+    ScaleEnemy(newEnemy, oldScale, newScale);
 
     newEnemy.Initialize(start);
 
@@ -169,7 +167,16 @@ public class ObjectPool : MonoBehaviour {
     return string.Concat(enemyMap[data.type], "_", data.infectionLevel);
   }
 
-  private void ScaleEnemy(Enemy enemy, float scale) {
-    enemy.transform.GetChild(0).localScale *= scale;
+  private void ScaleEnemy(Enemy enemy, float oldScale, float newScale) {
+    Transform import = enemy.transform.GetChild(0);
+
+    Collider collider = import.GetComponent<Collider>();
+    
+    import.localScale *= newScale/oldScale;
+    
+    float originalHeight = collider.bounds.max.y - collider.bounds.min.y;
+    float oldHeight = originalHeight * oldScale;
+    float newHeight = originalHeight * newScale;
+    import.position += Vector3.up * (newHeight - oldHeight) / 2;
   }
 }
