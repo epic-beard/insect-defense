@@ -225,7 +225,7 @@ public abstract class Tower : MonoBehaviour {
         data.SetIntStat(modifier.attribute, modifier.mod);
         break;
       }
-      UpgradeQualityOfLifeChanges(modifier.attribute);
+      NonStatisticUpdates(modifier.attribute);
     }
   }
 
@@ -242,12 +242,12 @@ public abstract class Tower : MonoBehaviour {
         data.SetFloatStat(modifier.attribute, modifier.mod);
         break;
       }
-      UpgradeQualityOfLifeChanges(modifier.attribute);
+      NonStatisticUpdates(modifier.attribute);
     }
   }
 
   // Changes agnostic of float or int status of attribute modifier.
-  private void UpgradeQualityOfLifeChanges(TowerData.Stat attribute) {
+  private void NonStatisticUpdates(TowerData.Stat attribute) {
     if (attribute == TowerData.Stat.ATTACK_SPEED) {
       UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
     }
@@ -258,13 +258,13 @@ public abstract class Tower : MonoBehaviour {
 
   // Returns true if the specified upgrade is legal, which is defined as only being able to buy
   // upgrades 2 and 3 with 2 upgrade paths, and upgrades 4 and 5 with 1 upgrade path.
-  public bool IsLegalUpgrade(int upgradePath, int upgradeNum) {
+  public bool IsLegalUpgrade(int upgradePath, int purchaseLevel) {
     // The first upgrade is always legal.
-    if (upgradeNum == 0) { return true; }
+    if (purchaseLevel == 0) { return true; }
 
     // Set up a data structure containing the upgrade number of the other upgrade paths.
     int[] otherTrees = new int[] { -1, -1 };
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < UpgradeIndex.Length; i++) {
       if (i == upgradePath) { continue; }
       if (otherTrees[0] == -1) {
         otherTrees[0] = UpgradeIndex[i];
@@ -273,12 +273,12 @@ public abstract class Tower : MonoBehaviour {
       }
     }
 
-    if ((upgradeNum == 1 || upgradeNum == 2)
+    if ((purchaseLevel == 1 || purchaseLevel == 2)
         && (otherTrees[0] < 1 || otherTrees[1] < 1)) {
       return true;
     }
 
-    if ((upgradeNum == 3 || upgradeNum == 4)
+    if ((purchaseLevel == 3 || purchaseLevel == 4)
         && otherTrees[0] < 3 && otherTrees[1] < 3) {
       return true;
     }
