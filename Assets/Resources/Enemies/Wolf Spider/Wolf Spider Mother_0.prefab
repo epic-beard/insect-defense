@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 8488062812976216181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5441877701281880933}
@@ -49,6 +49,8 @@ MonoBehaviour:
   NextWaypoint: {fileID: 0}
   continuousDamagePollingDelay: 1
   statusDamagePollingDelay: 1
+  groundHeight: 0
+  flyingHeight: 0
 --- !u!1 &8764196598927680686
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92133144b13af774fa1d3c01d91d25bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92133144b13af774fa1d3c01d91d25bd, type: 3}
       propertyPath: m_LocalPosition.z

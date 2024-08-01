@@ -23,9 +23,9 @@ public struct EnemyData {
   }
 
   public enum Size {
+    NORMAL,
     TINY,
     SMALL,
-    NORMAL,
     LARGE,
     HUGE
   }
@@ -44,6 +44,14 @@ public struct EnemyData {
     {Size.NORMAL, 5.0f},
     {Size.LARGE, 8.0f},
     {Size.HUGE, 12.0f},
+  };
+
+  public static Dictionary<Size, float> SizeToScale = new() {
+    {Size.TINY, 0.5f },
+    {Size.SMALL, 0.66f },
+    {Size.NORMAL, 1.0f },
+    {Size.LARGE, 1.66f },
+    {Size.HUGE, 1.0f },
   };
 
   [Flags]
