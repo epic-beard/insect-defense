@@ -59,8 +59,7 @@ public class CameraManager : MonoBehaviour {
     r.y = 0;
     r = r.normalized;
     // Distance traveled.
-    float d =
-      Time.unscaledDeltaTime * speed * PlayerState.Instance.Settings.CameraSensitivity;
+    float d = Time.unscaledDeltaTime * speed * PlayerState.Instance.Settings.CameraSensitivity;
     // Move the position d * axis.y in the forward direction and d * axis.x in the right direction.
     Vector3 newPosition = transform.position + d * axis.y * f + d * axis.x * r;
 

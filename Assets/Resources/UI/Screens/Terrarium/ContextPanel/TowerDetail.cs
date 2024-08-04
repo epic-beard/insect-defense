@@ -174,6 +174,11 @@ public class TowerDetail : MonoBehaviour {
       return;
     }
 
+    // Enforce upgrade limits 1 - 3 - 5. That is, one tree at 1, one tree at 3, one tree at 5.
+    if (!tower.IsLegalUpgrade(upgradePath, upgradeNum)) {
+      return;
+    }
+
     // check that previous upgrade is owned
     if (tower.UpgradeIndex[upgradePath] != upgradeNum - 1) {
       UiSfx.PlaySfx(UiSfx.rocker_switch_fail);

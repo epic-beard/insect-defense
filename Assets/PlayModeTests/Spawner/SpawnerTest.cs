@@ -95,6 +95,7 @@ public class EnemySubwaveTest {
     enemyData = new EnemyData() {
       maxHP = 10,
       type = EnemyData.Type.BEETLE,
+      spawnVariance = 0.0f,
     };
   }
 

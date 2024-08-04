@@ -23,9 +23,9 @@ public struct EnemyData {
   }
 
   public enum Size {
+    NORMAL,
     TINY,
     SMALL,
-    NORMAL,
     LARGE,
     HUGE
   }
@@ -38,20 +38,28 @@ public struct EnemyData {
     {Size.HUGE, 120.0f},
   };
 
-  public static Dictionary<Size, float> SizeToScale = new() {
-    {Size.TINY, 1/2.0f },
-    {Size.SMALL, 2/3.0f },
-    {Size.NORMAL, 1.0f },
-    {Size.LARGE, 5/3.0f},
-    {Size.HUGE, 1.0f },
-  };
-
   public static Dictionary<Size, float> SizeToCoagulation = new() {
     {Size.TINY, 1.0f},
     {Size.SMALL, 3.0f},
     {Size.NORMAL, 5.0f},
     {Size.LARGE, 8.0f},
     {Size.HUGE, 12.0f},
+  };
+
+  public static Dictionary<Size, float> SizeToScale = new() {
+    {Size.TINY, 0.5f },
+    {Size.SMALL, 0.66f },
+    {Size.NORMAL, 1.0f },
+    {Size.LARGE, 1.66f },
+    {Size.HUGE, 1.0f },
+  };
+
+  public static Dictionary<Size, float> SizeToVariance = new() {
+    {Size.TINY, 2.5f },
+    {Size.SMALL, 2.0f },
+    {Size.NORMAL, 1.5f },
+    {Size.LARGE, 0.0f },
+    {Size.HUGE, 0.0f },
   };
 
   [Flags]
@@ -147,7 +155,7 @@ public struct EnemyData {
   public DazzleProperties? dazzle;
   public SlimeProperties? slime;
 
-  public float spawnVariance;
+  public float? spawnVariance;
   public override string ToString() {
     return "EnemyData:" + "\nType: " + type + "\nSize: " + size
       + "\nMax HP: " + maxHP + "\nMax Armor: " + maxArmor
