@@ -211,10 +211,10 @@
                 },
                 {
                     "name": "Mouse",
-                    "id": "dce7d389-d1bf-429a-b204-666b0f924eaa",
+                    "id": "3e663a09-59c1-4e1a-81a1-d6b8ba737230",
                     "path": "CustomMouse2DVector",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.25,y=0.25)",
                     "groups": "",
                     "action": "Player_Look",
                     "isComposite": true,
@@ -222,7 +222,7 @@
                 },
                 {
                     "name": "modifier1",
-                    "id": "e4b8d08b-efd0-4b4d-92dd-502164805541",
+                    "id": "4563fcd9-c00f-45fc-afea-c1c1f1d396e7",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
@@ -233,7 +233,7 @@
                 },
                 {
                     "name": "modifier2",
-                    "id": "4d9090af-3e1f-46a4-8743-5c71616f3566",
+                    "id": "968b0e0b-e22d-4066-a6c8-f2bf562b0e72",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -243,9 +243,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "up",
-                    "id": "cdee5279-c455-4865-81fb-e6272ceeb28b",
-                    "path": "<Mouse>/delta/down",
+                    "name": "x",
+                    "id": "3516348c-d6c4-454a-b407-28115be9daac",
+                    "path": "<Mouse>/delta/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -254,31 +254,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
-                    "id": "352c66d6-29f2-42b1-a093-7605f6d822e6",
-                    "path": "<Mouse>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "3132d456-97a0-480f-8d65-b20d4c9f0b15",
-                    "path": "<Mouse>/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "54a0edc6-1d8c-4946-9f9b-22d54501f3a0",
-                    "path": "<Mouse>/delta/left",
+                    "name": "y",
+                    "id": "ac28810f-0bbc-4b98-9d41-f57755d8870d",
+                    "path": "<Mouse>/delta/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -343,7 +321,7 @@
                 },
                 {
                     "name": "Mouse",
-                    "id": "b83543be-96e6-4940-8db2-83957ab52727",
+                    "id": "bdcb75f7-3e1e-4e7d-b8e4-2f4f562b7ee0",
                     "path": "CustomMouseFloat",
                     "interactions": "",
                     "processors": "",
@@ -354,18 +332,7 @@
                 },
                 {
                     "name": "modifier1",
-                    "id": "bda36323-c601-4e99-9d20-7268623d575d",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "modifier2",
-                    "id": "e9dc17c8-a8a6-4e68-af06-8ce124d1021a",
+                    "id": "cef15849-1f7b-42c3-9b80-d80a575865ac",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
@@ -375,9 +342,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "8b1bccb2-fd7a-4c7d-bd3f-d0b2810fb8e7",
-                    "path": "<Mouse>/delta/left",
+                    "name": "modifier2",
+                    "id": "6b2f3b9b-43a6-493e-b09d-a5c11221fdbd",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -386,9 +353,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "b0eaf5b3-7bba-4eab-85fc-466c225ec150",
-                    "path": "<Mouse>/delta/right",
+                    "name": "x",
+                    "id": "b3427c22-0a7f-4dd8-a598-2fa96ee14556",
+                    "path": "<Mouse>/delta/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

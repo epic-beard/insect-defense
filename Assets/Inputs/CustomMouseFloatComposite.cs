@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Composites;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.Utilities;
 
@@ -8,9 +9,10 @@ using UnityEngine.InputSystem.Utilities;
 #if UNITY_EDITOR
 [InitializeOnLoad]
 #endif
-[DisplayStringFormat("{modifier1}+{modifier2}+{negative}/{positive}")]
+[DisplayStringFormat("{modifier1}+{modifier2}+{x}")]
 
 public class CustomMouseFloatComposite : InputBindingComposite<float> {
+  ButtonWithTwoModifiers b = new();
   [InputControl(layout = "Button")]
   public int modifier1;
 
@@ -18,10 +20,7 @@ public class CustomMouseFloatComposite : InputBindingComposite<float> {
   public int modifier2;
 
   [InputControl(layout = "Axis")]
-  public int negative;
-
-  [InputControl(layout = "Axis")]
-  public int positive;
+  public int x;
 
   public bool overrideModifiersNeedToBePressedFirst;
 
@@ -29,14 +28,7 @@ public class CustomMouseFloatComposite : InputBindingComposite<float> {
   // on the input from its part bindings.
   public override float ReadValue(ref InputBindingCompositeContext context) {
     if (ModifiersArePressed(ref context)) {
-      var east = context.ReadValueAsButton(negative);
-      var west = context.ReadValueAsButton(positive);
-
-      if (east) {
-        return 1.0f;
-      } else if (west) {
-        return -1.0f;
-      }
+      return context.ReadValue<float>(x);
     }
     return 0.0f;
   }
