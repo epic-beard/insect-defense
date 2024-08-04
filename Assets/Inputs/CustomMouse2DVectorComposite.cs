@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.Utilities;
 
@@ -9,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 #if UNITY_EDITOR
 [InitializeOnLoad]
 #endif
-[DisplayStringFormat("{modifier1}+{modifier2}+{up}/{left}/{down}/{right}")]
+[DisplayStringFormat("{modifier1}+{modifier2}+{x}/{y}")]
 public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
   [InputControl(layout = "Button")]
   public int modifier1;

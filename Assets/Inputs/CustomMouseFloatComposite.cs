@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Composites;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.Utilities;
 
@@ -12,7 +11,6 @@ using UnityEngine.InputSystem.Utilities;
 [DisplayStringFormat("{modifier1}+{modifier2}+{x}")]
 
 public class CustomMouseFloatComposite : InputBindingComposite<float> {
-  ButtonWithTwoModifiers b = new();
   [InputControl(layout = "Button")]
   public int modifier1;
 
