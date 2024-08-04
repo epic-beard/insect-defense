@@ -35,6 +35,7 @@ public class WebShootingSpiderTowerPlayModeTest {
       properties = EnemyData.Properties.FLYING,
       size = EnemyData.Size.NORMAL,
       speed = baseEnemySpeed,
+      spawnVariance = 0.0f,
     };
     targetData = new() {
       type = EnemyData.Type.ANT,
@@ -43,6 +44,7 @@ public class WebShootingSpiderTowerPlayModeTest {
       properties = EnemyData.Properties.FLYING,
       size = EnemyData.Size.NORMAL,
       speed = baseEnemySpeed,
+      spawnVariance = 0.0f,
     };
 
     // Setup the Object Pool
@@ -208,7 +210,7 @@ public class WebShootingSpiderTowerPlayModeTest {
     Assert.That(enemyInRange.Speed, Is.EqualTo(baseEnemySpeed));
     Assert.That(enemyOutOfRange.Speed, Is.EqualTo(baseEnemySpeed));
 
-    Time.captureDeltaTime = 0.001f;
+    Time.captureDeltaTime = 0.0f;
     // Yield once to target enemy.
     yield return null;
     // Yield once to trigger a shot.

@@ -80,7 +80,7 @@ public class ObjectPool : MonoBehaviour {
       xDelta = pos.Value.x;
       zDelta = pos.Value.y;
     } else {
-      float variance = newEnemy.Data.spawnVariance;
+      float variance = data.spawnVariance ?? EnemyData.SizeToVariance[data.size];
       xDelta = UnityEngine.Random.Range(-variance, variance);
       zDelta = UnityEngine.Random.Range(-variance, variance);
     }
