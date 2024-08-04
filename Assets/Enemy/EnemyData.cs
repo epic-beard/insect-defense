@@ -54,6 +54,14 @@ public struct EnemyData {
     {Size.HUGE, 1.0f },
   };
 
+  public static Dictionary<Size, float> SizeToVariance = new() {
+    {Size.TINY, 2.5f },
+    {Size.SMALL, 2.0f },
+    {Size.NORMAL, 1.5f },
+    {Size.LARGE, 0.0f },
+    {Size.HUGE, 0.0f },
+  };
+
   [Flags]
   public enum Properties {
     NONE = 0,
@@ -147,7 +155,7 @@ public struct EnemyData {
   public DazzleProperties? dazzle;
   public SlimeProperties? slime;
 
-  public float spawnVariance;
+  public float? spawnVariance;
   public override string ToString() {
     return "EnemyData:" + "\nType: " + type + "\nSize: " + size
       + "\nMax HP: " + maxHP + "\nMax Armor: " + maxArmor
