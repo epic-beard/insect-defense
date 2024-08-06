@@ -194,6 +194,7 @@ public class EnemyDataGenerator {
       nu = 65,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 1.5f,
+      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
@@ -215,6 +216,7 @@ public class EnemyDataGenerator {
         num = 5,
       },
       spawnVariance = 1.5f,
+      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
@@ -233,6 +235,7 @@ public class EnemyDataGenerator {
       nu = 4,
       properties = EnemyData.Properties.NONE,
       spawnVariance = 3.0f,
+      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
