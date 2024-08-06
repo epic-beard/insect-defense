@@ -780,7 +780,7 @@
             <TowerAbility>
               <specialAbility>M_1_3_RENDING_CLAWS</specialAbility>
               <name>Rending Claws</name>
-              <description>If the enemy directly hit (not AoE hits) is affected by acid, its armor is temporarily reduced by the Mantis Tower's armor penetration.</description>
+              <description>If the enemy directly hit (not AoE hits) is affected by acid, its armor is reduced by the Mantis Tower's armor penetration for 3 seconds (This buff overlaps with itself).</description>
               <upgradePath>0</upgradePath>
               <cost>1000</cost>
             </TowerAbility>
