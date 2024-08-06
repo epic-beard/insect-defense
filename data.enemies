@@ -213,7 +213,7 @@
         <speed>0.7</speed>
         <damage>2</damage>
         <nu>4</nu>
-        <coagulationModifier>0.5</coagulationModifier>
+        <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
@@ -263,7 +263,7 @@
         <speed>0.7</speed>
         <damage>10</damage>
         <nu>65</nu>
-        <coagulationModifier>0.5</coagulationModifier>
+        <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
@@ -288,7 +288,7 @@
         <speed>0.7</speed>
         <damage>10</damage>
         <nu>65</nu>
-        <coagulationModifier>0.5</coagulationModifier>
+        <coagulationModifier>0</coagulationModifier>
         <acidExplosionStackModifier>0</acidExplosionStackModifier>
         <infectionLevel>0</infectionLevel>
         <properties>NONE</properties>
