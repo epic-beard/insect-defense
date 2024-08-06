@@ -39,7 +39,6 @@ public class EnemyDataGenerator {
       damage = 5,
       nu = 7,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 2.5f,
       infectionLevel = 0,
     };
 
@@ -56,7 +55,6 @@ public class EnemyDataGenerator {
       damage = 8,
       nu = 15,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 2.5f,
       infectionLevel = 1,
     };
 
@@ -73,7 +71,6 @@ public class EnemyDataGenerator {
       damage = 1,
       nu = 2,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 3.0f,
       infectionLevel = 0,
     };
 
@@ -90,7 +87,6 @@ public class EnemyDataGenerator {
       damage = 2,
       nu = 4,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 3.0f,
       infectionLevel = 1,
     };
 
@@ -107,7 +103,6 @@ public class EnemyDataGenerator {
       damage = 10,
       nu = 20,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 2.0f,
       infectionLevel = 0,
     };
 
@@ -124,7 +119,6 @@ public class EnemyDataGenerator {
       damage = 15,
       nu = 50,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 2.0f,
       infectionLevel = 1,
     };
 
@@ -141,7 +135,6 @@ public class EnemyDataGenerator {
       damage = 10,
       nu = 20,
       properties = EnemyData.Properties.FLYING,
-      spawnVariance = 2.0f,
       infectionLevel = 0,
     };
 
@@ -158,7 +151,6 @@ public class EnemyDataGenerator {
       damage = 8,
       nu = 10,
       properties = EnemyData.Properties.CAMO,
-      spawnVariance = 2.5f,
       infectionLevel = 0,
     };
 
@@ -175,7 +167,6 @@ public class EnemyDataGenerator {
       damage = 25,
       nu = 100,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 1.0f, 
       coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
@@ -193,8 +184,6 @@ public class EnemyDataGenerator {
       damage = 10,
       nu = 65,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 1.5f,
-      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
@@ -215,8 +204,6 @@ public class EnemyDataGenerator {
         childKey = LevelGeneratorStatics.spiderling0,
         num = 5,
       },
-      spawnVariance = 1.5f,
-      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
@@ -234,8 +221,6 @@ public class EnemyDataGenerator {
       damage = 2,
       nu = 4,
       properties = EnemyData.Properties.NONE,
-      spawnVariance = 3.0f,
-      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 

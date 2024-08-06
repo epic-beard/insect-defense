@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.Utilities;
 
@@ -9,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 #if UNITY_EDITOR
 [InitializeOnLoad]
 #endif
-[DisplayStringFormat("{modifier1}+{modifier2}+{up}/{left}/{down}/{right}")]
+[DisplayStringFormat("{modifier1}+{modifier2}+{x}/{y}")]
 public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
   [InputControl(layout = "Button")]
   public int modifier1;
@@ -18,16 +17,10 @@ public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
   public int modifier2;
 
   [InputControl(layout = "Axis")]
-  public int up;
+  public int x;
 
   [InputControl(layout = "Axis")]
-  public int down;
-
-  [InputControl(layout = "Axis")]
-  public int left;
-
-  [InputControl(layout = "Axis")]
-  public int right;
+  public int y;
 
   public bool overrideModifiersNeedToBePressedFirst;
 
@@ -35,12 +28,9 @@ public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
   // on the input from its part bindings.
   public override Vector2 ReadValue(ref InputBindingCompositeContext context) {
     if (ModifiersArePressed(ref context)) {
-      var north = context.ReadValueAsButton(up);
-      var south = context.ReadValueAsButton(down);
-      var east = context.ReadValueAsButton(left);
-      var west = context.ReadValueAsButton(right);
-
-      return DpadControl.MakeDpadVector(north, south, east, west, true);
+      float xValue = context.ReadValue<float>(x);
+      float yValue = context.ReadValue<float>(y);
+      return new Vector2(xValue, yValue);
     }
     return Vector2.zero;
   }
