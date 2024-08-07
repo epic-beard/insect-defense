@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
       Armor = value.maxArmor;
       data = value;
       OriginalSpeed = value.speed;
+      OriginalArmor = value.maxArmor;
     }
   }
 
@@ -149,6 +150,7 @@ public class Enemy : MonoBehaviour {
       StatChangedEvent?.Invoke(this);
     }
   }
+  public float OriginalArmor { get; private set; }
   public float OriginalSpeed { get; private set; }
   public Renderer[] Renderers { get; private set; }
   public EnemyData.Size Size { get { return data.size; } }
@@ -311,7 +313,8 @@ public class Enemy : MonoBehaviour {
       TempArmorReduceEndTime = Time.time + reductionDuration;
     }
     if (TempArmorReducePower < armorReduction) {
-      TempArmorReducePower = Armor < armorReduction ? Armor : armorReduction;
+      TempArmorReducePower = Math.Min(OriginalArmor, armorReduction);
+      Armor -= TempArmorReducePower;
     }
   }
 
@@ -538,16 +541,18 @@ public class Enemy : MonoBehaviour {
     }
   }
 
+  // This method only handles timing the Mantis' temporary armor reduction, it does not reduce armor
+  // or set the timer in any way.
   private IEnumerator HandleTemporaryArmorReduction() {
     while (true) {
       yield return new WaitUntil(() => TempArmorReduceEndTime > Time.time);
 
-      float interimArmor = Armor;
-      Armor -= TempArmorReducePower;
-
       yield return new WaitForSeconds(TempArmorReduceEndTime - Time.time);
 
-      Armor = interimArmor;
+      if (TempArmorReduceEndTime < Time.time) {
+        Armor = OriginalArmor;
+        TempArmorReducePower = 0.0f;
+      }
     }
   }
 
