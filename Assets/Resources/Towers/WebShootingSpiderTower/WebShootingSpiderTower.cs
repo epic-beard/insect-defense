@@ -94,12 +94,12 @@ public class WebShootingSpiderTower : Tower {
 
   protected override void TowerUpdate() {
     Target = targeting.FindTarget(
-      oldTarget: Target,
-      enemies: ObjectPool.Instance.GetActiveEnemies(),
-      towerPosition: transform.position,
-      towerRange: Range,
-      camoSight: CamoSight,
-      antiAir: AntiAir);
+        oldTarget: Target,
+        enemies: ObjectPool.Instance.GetActiveEnemies(),
+        towerPosition: transform.position,
+        towerRange: Range,
+        camoSight: CamoSight,
+        antiAir: AntiAir);
     if (Target == null) {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
