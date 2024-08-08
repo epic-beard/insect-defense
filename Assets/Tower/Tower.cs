@@ -174,17 +174,21 @@ public abstract class Tower : MonoBehaviour {
   }
 
   private void Start() {
-    TowerStart();
-    if (targetingIndicator != null) {
-      targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
+    if (!IsPreviewTower) {
+      TowerStart();
+      if (targetingIndicator != null) {
+        targetingIndicatorMeshRenderer = targetingIndicator.GetComponentInChildren<MeshRenderer>();
+      }
     }
   }
 
   private void Update() {
-    Enemy oldTarget = Target;
-    TowerUpdate();
-    RemoveTargetMark(oldTarget);
-    MarkTarget(Target);
+    if (!IsPreviewTower) {
+      Enemy oldTarget = Target;
+      TowerUpdate();
+      RemoveTargetMark(oldTarget);
+      MarkTarget(Target);
+    }
   }
 
   // Abstract methods
