@@ -314,7 +314,7 @@ public class Enemy : MonoBehaviour {
     }
     if (TempArmorReducePower < armorReduction) {
       TempArmorReducePower = Math.Min(OriginalArmor, armorReduction);
-      Armor -= TempArmorReducePower;
+      Armor = OriginalArmor - TempArmorReducePower;
     }
   }
 
@@ -545,14 +545,13 @@ public class Enemy : MonoBehaviour {
   // or set the timer in any way.
   private IEnumerator HandleTemporaryArmorReduction() {
     while (true) {
-      yield return new WaitUntil(() => TempArmorReduceEndTime > Time.time);
+      yield return new WaitUntil(() => Time.time < TempArmorReduceEndTime);
 
-      yield return new WaitForSeconds(TempArmorReduceEndTime - Time.time);
-
-      if (TempArmorReduceEndTime < Time.time) {
-        Armor = OriginalArmor;
-        TempArmorReducePower = 0.0f;
+      while (Time.time < TempArmorReduceEndTime) {
+        yield return new WaitForSeconds(TempArmorReduceEndTime - Time.time);
       }
+      Armor = OriginalArmor;
+      TempArmorReducePower = 0.0f;
     }
   }
 
