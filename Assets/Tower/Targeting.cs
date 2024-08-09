@@ -61,7 +61,7 @@ public class Targeting {
     // Ensure the old target is within range of the tower.
     if (behavior == Behavior.STUBBORN
         && oldTarget != null
-        && oldTarget.enabled
+        && oldTarget.isActiveAndEnabled
         && (Vector2.Distance(towerPosition.DropY(), oldTarget.transform.position.DropY()) <= towerRange)
         && (!oldTarget.Camo || camoSight)
         && (!oldTarget.Flying || antiAir)) {

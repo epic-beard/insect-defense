@@ -110,12 +110,12 @@ public class SpittingAntTower : Tower {
     }
 
     Target = targeting.FindTarget(
-      oldTarget: Target,
-      enemies: ObjectPool.Instance.GetActiveEnemies(),
-      towerPosition: transform.position,
-      towerRange: Range,
-      camoSight: CamoSight,
-      antiAir: AntiAir);
+        oldTarget: Target,
+        enemies: ObjectPool.Instance.GetActiveEnemies(),
+        towerPosition: transform.position,
+        towerRange: Range,
+        camoSight: CamoSight,
+        antiAir: AntiAir);
     // If there is no target, stop firing.
     if (Target == null) {
       beam.enabled = false;
