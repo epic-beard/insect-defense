@@ -12,9 +12,6 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
 using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.IntegerField>;
 using EnemyKey = System.Tuple<EnemyData.Type, int>;
-using UnityEngine.InputSystem.HID;
-using static UnityEditor.PlayerSettings;
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -82,6 +79,16 @@ public class Spawner : MonoBehaviour {
   public interface IWaveOrMetric {
     public abstract Wave GetWaveWithDefaults(WaveMetrics defaults);
   }
+
+  // TODO(emonzon): To enable the spawn indicator signal, here's what I need to do.
+  //    1. Add a method in Wave to get the spawn timing information.
+  //    2. Each implementing class can call it on subwaves (leaf waves will have concrete values).
+  //    3. This will likely mean processing all waves one more time, but maybe I can avoid that?
+  //    4. A new class to manage the timing of the spawn indicator signal (Not here).
+  //
+  //    This method can return something really useful. If possible, it should contain:
+  //        1. All enemy types divided by spawn location.
+  //        2. The start and end times of enemy type by spawn location.
 
   // The interface for the Waves system.
   [XmlInclude(typeof(Waves))]
@@ -170,9 +177,12 @@ public class Spawner : MonoBehaviour {
     public int NumWaves { get { return waves.Count(); } }
     // Each wave represents one round of combat.
     readonly public List<Wave> waves = new();
+
     // Starts the level logic.
     public override IEnumerator Start() {
       foreach (var wave in waves) {
+        // TODO(emonzon): Check to set the warning spawn indication signal.
+
         // Start the level immediately.
         GameSpeedManager.Instance.Pause();
         yield return new WaitForSeconds(0.1f);
