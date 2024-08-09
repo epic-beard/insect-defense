@@ -42,12 +42,19 @@ public class TerrariumInputManager : MonoBehaviour {
     if (move.sqrMagnitude >= 0.1) {
       CameraManager.Instance.MoveCamera(move);
     }
+    
+    Vector2 rotation2D = actions.Player.Player_Camera_Rotate.ReadValue<Vector2>();
+    if (!rotation2D.Equals(Vector2.zero)) {
+      CameraManager.Instance.RotateCamera(rotation2D);
+    }
 
-    float rotation = actions.Player.Player_Rotate.ReadValue<float>();
-    CameraManager.Instance.RotateCamera(rotation);
+    float elevationDelta = actions.Player.Player_Camera_Elevation.ReadValue<float>();
+    if (elevationDelta != 0) {
+      CameraManager.Instance.ChangeElevation(elevationDelta);
+    }
   }
 
-  void ZoomCamera(InputAction.CallbackContext context) {
+    void ZoomCamera(InputAction.CallbackContext context) {
     CameraManager.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
   }
 
