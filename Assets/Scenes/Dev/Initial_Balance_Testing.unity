@@ -219,7 +219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.maxHP
-      value: 20
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.speed
@@ -231,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.maxArmor
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2291719801530528003, guid: da18247df7c3153459dda46fb9cfb8f0, type: 3}
       propertyPath: data.properties

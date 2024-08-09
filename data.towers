@@ -778,9 +778,9 @@
               <cost>300</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>M_1_3_DOUBLE_SLASH</specialAbility>
-              <name>Double Slash</name>
-              <description>The Mantis simultaneously attacks with both its scythe claws.</description>
+              <specialAbility>M_1_3_RENDING_CLAWS</specialAbility>
+              <name>Rending Claws</name>
+              <description>If the enemy directly hit (not AoE hits) is affected by acid, its armor is reduced by the Mantis Tower's armor penetration for 3 seconds (This buff overlaps with itself).</description>
               <upgradePath>0</upgradePath>
               <cost>1000</cost>
             </TowerAbility>
@@ -804,9 +804,9 @@
               <cost>3500</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>M_1_5_FOUR_ARMS</specialAbility>
-              <name>Make it Double!</name>
-              <description>The Mantis grows a second pair of scythe arms, each of which attacks normally.</description>
+              <specialAbility>M_1_5_DOUBLE_SLASH</specialAbility>
+              <name>Double Slash</name>
+              <description>The Mantis simultaneously attacks with both its scythe claws.</description>
               <upgradePath>0</upgradePath>
               <cost>15000</cost>
             </TowerAbility>

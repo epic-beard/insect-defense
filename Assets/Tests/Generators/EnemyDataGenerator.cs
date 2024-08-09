@@ -184,6 +184,7 @@ public class EnemyDataGenerator {
       damage = 10,
       nu = 65,
       properties = EnemyData.Properties.NONE,
+      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
@@ -204,6 +205,7 @@ public class EnemyDataGenerator {
         childKey = LevelGeneratorStatics.spiderling0,
         num = 5,
       },
+      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 
@@ -221,6 +223,7 @@ public class EnemyDataGenerator {
       damage = 2,
       nu = 4,
       properties = EnemyData.Properties.NONE,
+      coagulationModifier = 0.5f,
       infectionLevel = 0,
     };
 

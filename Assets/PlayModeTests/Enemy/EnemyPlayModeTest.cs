@@ -103,10 +103,83 @@ public class EnemyPlayModeTest {
     Assert.That(towerOutOfRange.SlimePower, Is.EqualTo(1.0f));
   }
 
+  [UnityTest]
+  public IEnumerator RendTemporarilyReducingArmorWorks() {
+    ObjectPool objectPool = CreateObjectPool();
+    float towerArmorPierce = 50.0f;
+    float towerArmorReductionDuration = 1.0f;
+    EnemyData data = new() {
+      maxHP = 1000.0f,
+      maxArmor = 50.0f,
+    };
+    Enemy enemy = CreateEnemy(Vector3.zero, data, objectPool);
+    float reducedArmor = data.maxArmor - towerArmorPierce;
+    
+    enemy.TempReduceArmor(towerArmorPierce, towerArmorReductionDuration);
+
+    Time.captureDeltaTime = towerArmorReductionDuration * 0.6f;
+    yield return null;
+    yield return new WaitForEndOfFrame();
+
+    // Enemy armor should be reduced.
+    Assert.That(enemy.Armor, Is.EqualTo(reducedArmor));
+
+    yield return null;
+    yield return new WaitForEndOfFrame();
+
+    // Enemy armor should no longer be reduced.
+    Assert.That(enemy.Armor, Is.EqualTo(data.maxArmor));
+  }
+
+  [UnityTest]
+  public IEnumerator RendTemporarilyReducingArmorRepeatedApplicationWorks() {
+    ObjectPool objectPool = CreateObjectPool();
+    float towerArmorPierce = 50.0f;
+    float towerArmorReductionDuration = 1.0f;
+    EnemyData data = new() {
+      maxHP = 1000.0f,
+      maxArmor = 50.0f,
+    };
+    Enemy enemy = CreateEnemy(Vector3.zero, data, objectPool);
+    float expectedHp = data.maxHP;
+    float reducedArmor = data.maxArmor - towerArmorPierce;
+
+    enemy.TempReduceArmor(towerArmorPierce, towerArmorReductionDuration);
+    
+    Time.captureDeltaTime = towerArmorReductionDuration * 0.6f;
+    yield return null;
+    yield return new WaitForEndOfFrame();
+
+    Assert.That(enemy.Armor, Is.EqualTo(reducedArmor));
+    Assert.That(enemy.TempArmorReduceEndTime, Is.LessThan(Time.time + towerArmorReductionDuration));
+
+    enemy.TempReduceArmor(towerArmorPierce - 1, towerArmorReductionDuration);
+
+    // The reduced armor pierce value passed in should have been ignored.
+    Assert.That(enemy.TempArmorReducePower, Is.EqualTo(towerArmorPierce));
+    // The duration was updated but not added to.
+    Assert.That(enemy.TempArmorReduceEndTime, Is.EqualTo(Time.time + towerArmorReductionDuration));
+
+    // A second yield return null is required here because a second pass through the coroutine is
+    // needed to properly set the reduced armor value.
+    yield return null;
+    yield return null;
+    yield return new WaitForEndOfFrame();
+
+    // Enemy armor should still be reduced.
+    Assert.That(enemy.Armor, Is.EqualTo(reducedArmor));
+
+    yield return null;
+    yield return new WaitForEndOfFrame();
+
+    // Enemy armor should no longer be reduced.
+    Assert.That(enemy.Armor, Is.EqualTo(enemy.MaxArmor));
+  }
+
   #region TestHelperMethods
 
-  private Tower GetTower(Waypoint waypoint) {
-    Tower tower = towerManager.ConstructTower(waypoint, TowerData.Type.SPITTING_ANT_TOWER);
+  private Tower GetTower(Waypoint waypoint, TowerData.Type towerType = TowerData.Type.SPITTING_ANT_TOWER) {
+    Tower tower = towerManager.ConstructTower(waypoint, towerType);
     tower.enabled = true;
     tower.SetTargetingIndicator(null);
     return tower;
@@ -118,6 +191,12 @@ public class EnemyPlayModeTest {
 
   private TowerManager CreateTowerManager() {
     return new GameObject().AddComponent<TowerManager>();
+  }
+
+  private float CalculateDamageDone(float damage, float armor, float armorPierce) {
+    float effectiveArmor = Mathf.Clamp(armor - armorPierce, 0.0f, 100.0f);
+
+    return damage * (100.0f - effectiveArmor) / 100.0f;
   }
 
   private Enemy CreateEnemy(Vector3 position, EnemyData data, ObjectPool objectPool) {

@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
       Armor = value.maxArmor;
       data = value;
       OriginalSpeed = value.speed;
+      OriginalArmor = value.maxArmor;
     }
   }
 
@@ -124,11 +125,9 @@ public class Enemy : MonoBehaviour {
   public float HP {
     get { return hp; }
     set {
-      StatChangedEvent?.Invoke(this);
       if (hp > 0.0f && value <= 0.0f) {
         if (data.carrier != null) {
           var carrier = data.carrier.Value;
-          Debug.Log("Spawning " + carrier.num + " of " + carrier.childKey);
           SpawnChildren(carrier.childKey, carrier.num);
         }
         DistributeVenomStacksIfNecessary();
@@ -138,6 +137,7 @@ public class Enemy : MonoBehaviour {
         GameStateManager.Instance.Nu += Mathf.RoundToInt(data.nu);
       }
       hp = value;
+      StatChangedEvent?.Invoke(this);
     }
   }
   public int InfectionLevel { get { return data.infectionLevel; } }
@@ -150,6 +150,7 @@ public class Enemy : MonoBehaviour {
       StatChangedEvent?.Invoke(this);
     }
   }
+  public float OriginalArmor { get; private set; }
   public float OriginalSpeed { get; private set; }
   public Renderer[] Renderers { get; private set; }
   public EnemyData.Size Size { get { return data.size; } }
@@ -173,6 +174,8 @@ public class Enemy : MonoBehaviour {
     get { return data.stunTime; }
     private set { data.stunTime = value; }
   }
+  public float TempArmorReduceEndTime { get; private set; } = 0.0f;
+  public float TempArmorReducePower { get; private set; } = 0.0f;
   public EnemyData.Type Type { get { return data.type; } }
   public int? WaveTag { get; set; }
 
@@ -191,6 +194,7 @@ public class Enemy : MonoBehaviour {
     StartCoroutine(HandleAdvancedAcidDecay());
     StartCoroutine(HandleContinuousDamage());
     StartCoroutine(HandleStatusDamage());
+    StartCoroutine(HandleTemporaryArmorReduction());
     if (Flying) {
       StartCoroutine(GroundFlierForDuration());
     }
@@ -299,6 +303,19 @@ public class Enemy : MonoBehaviour {
   public float TotalBleedDamage() {
     float k = Mathf.Floor(BleedStacks / 10);
     return (5 * k * (k + 1) + (BleedStacks % 10) * (k + 1)) / Coagulation;
+  }
+
+  // Temporarily reduce the armor of this enemy by armorReduction amount. Repeated applications are
+  // handled thusly: duration can be refreshed, but does not stack. Armor power reduction does not
+  // stack either, but the greatest value is preserved.
+  public void TempReduceArmor(float armorReduction, float reductionDuration) {
+    if (TempArmorReduceEndTime < Time.time + reductionDuration) {
+      TempArmorReduceEndTime = Time.time + reductionDuration;
+    }
+    if (TempArmorReducePower < armorReduction) {
+      TempArmorReducePower = Math.Min(OriginalArmor, armorReduction);
+      Armor = OriginalArmor - TempArmorReducePower;
+    }
   }
 
   public void AddVenomStacks(float power, int stacks) {
@@ -521,6 +538,20 @@ public class Enemy : MonoBehaviour {
       StunTime -= interimStunTime;
       data.speed = originalSpeed;
       UpdateAnimationSpeed(GetAnimationSpeedMultiplier());
+    }
+  }
+
+  // This method only handles timing the Mantis' temporary armor reduction, it does not reduce armor
+  // or set the timer in any way.
+  private IEnumerator HandleTemporaryArmorReduction() {
+    while (true) {
+      yield return new WaitUntil(() => Time.time < TempArmorReduceEndTime);
+
+      while (Time.time < TempArmorReduceEndTime) {
+        yield return new WaitForSeconds(TempArmorReduceEndTime - Time.time);
+      }
+      Armor = OriginalArmor;
+      TempArmorReducePower = 0.0f;
     }
   }
 
