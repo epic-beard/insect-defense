@@ -51,7 +51,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Player_Rotate",
+                    "name": "Player_Camera_Elevation",
                     "type": "Value",
                     "id": "808ef93f-176f-4695-9cf2-dd26156b6f7b",
                     "expectedControlType": "Axis",
@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Player_Camera_Rotate",
+                    "type": "Value",
+                    "id": "43c5f99c-5c15-4188-917b-5721bdf5d3d6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -214,7 +223,7 @@
                     "id": "3e663a09-59c1-4e1a-81a1-d6b8ba737230",
                     "path": "CustomMouse2DVector",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=0.25,y=0.25)",
+                    "processors": "ScaleVector2(x=0.4,y=0.4)",
                     "groups": "",
                     "action": "Player_Look",
                     "isComposite": true,
@@ -293,7 +302,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Rotate",
+                    "action": "Player_Camera_Elevation",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -304,7 +313,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Rotate",
+                    "action": "Player_Camera_Elevation",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -315,51 +324,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Mouse",
-                    "id": "bdcb75f7-3e1e-4e7d-b8e4-2f4f562b7ee0",
-                    "path": "CustomMouseFloat",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Rotate",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier1",
-                    "id": "cef15849-1f7b-42c3-9b80-d80a575865ac",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "modifier2",
-                    "id": "6b2f3b9b-43a6-493e-b09d-a5c11221fdbd",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "x",
-                    "id": "b3427c22-0a7f-4dd8-a598-2fa96ee14556",
-                    "path": "<Mouse>/delta/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Player_Rotate",
+                    "action": "Player_Camera_Elevation",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -395,6 +360,50 @@
                     "action": "Player_Turbo_Boost",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Custom 2D Vector With Modifier",
+                    "id": "1c68a3ac-27fb-44ec-92ec-146e609e5bf6",
+                    "path": "Custom2DVectorWithModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Player_Camera_Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "b8e8f801-eaaf-477e-8acb-c2163ddefe89",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Player_Camera_Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "X",
+                    "id": "feb25e1a-caa8-4ce9-a4d1-e812f7cff1b3",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Player_Camera_Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Y",
+                    "id": "7e2b110d-287a-41fe-8941-323e34cebb34",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Player_Camera_Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
