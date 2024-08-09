@@ -60,7 +60,7 @@ public class MessageBox : MonoBehaviour {
       index = 0;
       Hide();
       GameSpeedManager.Instance.Unpause(PauseToken.MESSAGE_BOX);
-      TerrariumInputManager.Instance.EnablePlayerActionMap();
+      TerrariumInputManager.Instance.DisableMessageBoxActionMap();
     } else {
       labelVE.text = messages[index++].ToString();
       buttonVE.text = GetAdvanceButtonText();
