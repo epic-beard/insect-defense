@@ -6,21 +6,14 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour {
   public static CameraManager Instance;
 
-  [SerializeField]
   private float buffer = 20.0f;
-  [SerializeField]
-  private float speed = 200;
-  [SerializeField]
-  private float rotationSpeed = 0.5f;
-  [SerializeField]
-  private float elevationSpeed = 100.0f;
-  [SerializeField]
+  private float panSpeed = 300;
+  private float rotationSpeed = 0.2f;
+  private float elevationSpeed = 75.0f;
   private float zoomSpeed = 0.5f;
-  [SerializeField]
   private float minHeight = 5;
   [SerializeField]
   private float maxHeight = 200;
-  [SerializeField]
   private Vector2 turn;
 
   // These mark the extents of the map in each of the four directions.
@@ -74,7 +67,7 @@ public class CameraManager : MonoBehaviour {
     r.y = 0;
     r = r.normalized;
     // Distance traveled.
-    float d = Time.unscaledDeltaTime * speed * PlayerState.Instance.Settings.CameraSensitivity;
+    float d = Time.unscaledDeltaTime * panSpeed * PlayerState.Instance.Settings.CameraSensitivity;
     // Move the position d * axis.y in the forward direction and d * axis.x in the right direction.
     Vector3 newPosition = transform.position + d * axis.y * f + d * axis.x * r;
     // Clamp the new position to the min/max x/z modified by the buffer ammount.
