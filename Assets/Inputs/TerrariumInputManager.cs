@@ -32,7 +32,6 @@ public class TerrariumInputManager : MonoBehaviour {
     actions.Player.Player_Turbo_Boost.started += ToggleTurboBoost;
 
     actions.MessageBox.Advance.started += Advance;
-    actions.MessageBox.Settings.started += OpenSettings;
 
     actions.SettingsScreen.SettingsScreen_Close.started += OnCloseSettings;
   }
@@ -54,7 +53,7 @@ public class TerrariumInputManager : MonoBehaviour {
     }
   }
 
-    void ZoomCamera(InputAction.CallbackContext context) {
+  void ZoomCamera(InputAction.CallbackContext context) {
     CameraManager.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
   }
 
@@ -111,7 +110,11 @@ public class TerrariumInputManager : MonoBehaviour {
   }
 
   public void EnableMessageBoxActionMap() {
-    UpdateActions(actions.MessageBox);
+    actions.MessageBox.Enable();
+  }
+
+  public void DisableMessageBoxActionMap() {
+    actions.MessageBox.Disable();
   }
 
   public void EnablePlayerActionMap() {
