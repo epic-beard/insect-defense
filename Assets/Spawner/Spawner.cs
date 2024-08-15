@@ -12,6 +12,9 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
 using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.IntegerField>;
 using EnemyKey = System.Tuple<EnemyData.Type, int>;
+using EnemySpawnTimes = System.Collections.Generic.List<
+    System.Collections.Generic.Dictionary<
+        EnemyData.Type, System.Collections.Generic.List<System.Tuple<float, float>>>>;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -23,6 +26,8 @@ public class Spawner : MonoBehaviour {
   [SerializeField] private List<Waypoint> spawnLocations = new();
   [SerializeField] private string filename = "";
 
+  private Waves? waves;
+
   public int CurrWave { get; set; } = 1;
   public int NumWaves { get; set; }
 
@@ -32,7 +37,7 @@ public class Spawner : MonoBehaviour {
 
   void Start() {
     if (filename.Length == 0) return;
-    Waves? waves = Deserialize<Waves>(filename);
+    waves = Deserialize<Waves>(filename);
     if (waves != null) {
       ObjectPool.Instance.InitializeObjectPool(waves.GetEnemyKeys());
       SpawnWaves(waves);
@@ -40,6 +45,11 @@ public class Spawner : MonoBehaviour {
       // TODO: Make this an error.
       Debug.Log("ERROR: Waves is null.");
     }
+  }
+
+  // This can return null.
+  public EnemySpawnTimes GetSpawnTimes() {
+    return waves?.GetSpawnTimes();
   }
 
   public void SpawnWaves(Waves waves) {
@@ -88,6 +98,7 @@ public class Spawner : MonoBehaviour {
   //
   //    This method can return something really useful. If possible, it should contain:
   //        1. All enemy types divided by spawn location.
+  //          [Array Index/Spawn location]<EnemyType, List<Tuple<StartTime, EndTime>>>
   //        2. The start and end times of enemy type by spawn location.
 
   // The interface for the Waves system.
@@ -115,6 +126,11 @@ public class Spawner : MonoBehaviour {
     public abstract IList<Wave> GetChildren();
 
     public abstract bool AddWave(int index, Wave wave);
+
+    // This method should construct the data structure as it goes.
+    // It'll need an EnemySpawnTimes and a list of floats. The floats will be current delay times
+    // of all spawn points to represent things like delayed waves or waituntildead waves.
+    public abstract EnemySpawnTimes GetSpawnTimes();
 
     protected Foldout GetFoldout(string name) {
       Foldout foldout = new();
@@ -181,7 +197,8 @@ public class Spawner : MonoBehaviour {
     // Starts the level logic.
     public override IEnumerator Start() {
       foreach (var wave in waves) {
-        // TODO(emonzon): Check to set the warning spawn indication signal.
+
+        // TODO(emonzon): Get the time estimation for child waves.
 
         // Start the level immediately.
         GameSpeedManager.Instance.Pause();
@@ -235,6 +252,15 @@ public class Spawner : MonoBehaviour {
       waves.Insert(index, wave);
       WaveChanged.Invoke();
       return true;
+    }
+
+    public override EnemySpawnTimes GetSpawnTimes() {
+      EnemySpawnTimes spawnTimes = new();
+      foreach(var wave in waves) {
+        var waveSpawnTimes = wave.GetSpawnTimes();
+
+      }
+      return spawnTimes;
     }
   }
 
@@ -477,6 +503,12 @@ public class Spawner : MonoBehaviour {
     public EnemyData.SlimeProperties? SlimeOverride;
 
     public override IEnumerator Start() {
+      for (int i = 0; i < repetitions; i++) {
+        for (int j = 0; j < spawnLocation; j++) {
+          
+        }
+      }
+
       for (int i = 0; i < repetitions; i++) {
         if (Positions.Count > 0) {
           foreach (Vector2 pos in Positions) {

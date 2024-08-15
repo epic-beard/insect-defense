@@ -307,7 +307,7 @@ public class Enemy : MonoBehaviour {
 
   // Temporarily reduce the armor of this enemy by armorReduction amount. Repeated applications are
   // handled thusly: duration can be refreshed, but does not stack. Armor power reduction does not
-  // stack either, but the greatest value is preserved.
+  // stack either, but the greatest value is preserved. reductionDuration is in seconds.
   public void TempReduceArmor(float armorReduction, float reductionDuration) {
     if (TempArmorReduceEndTime < Time.time + reductionDuration) {
       TempArmorReduceEndTime = Time.time + reductionDuration;
