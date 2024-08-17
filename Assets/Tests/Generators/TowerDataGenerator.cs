@@ -578,9 +578,10 @@ public class TowerDataGenerator {
         cost = 300,
       },
       new() {
-        specialAbility = SpecialAbility.M_1_3_DOUBLE_SLASH,
-        name = "Double Slash",
-        description = "The Mantis simultaneously attacks with both its scythe claws.",
+        specialAbility = SpecialAbility.M_1_3_RENDING_CLAWS,
+        name = "Rending Claws",
+        description = "If the enemy directly hit (not AoE hits) is affected by acid, its armor is " +
+            "reduced by the Mantis Tower's armor penetration for 3 seconds (This buff overlaps with itself).",
         upgradePath = 0,
         cost = 1000,
       },
@@ -595,9 +596,9 @@ public class TowerDataGenerator {
         cost = 3500,
       },
       new() {
-        specialAbility = SpecialAbility.M_1_5_FOUR_ARMS,
-        name = "Make it Double!",
-        description = "The Mantis grows a second pair of scythe arms, each of which attacks normally.",
+        specialAbility = SpecialAbility.M_1_5_DOUBLE_SLASH,
+        name = "Double Slash",
+        description = "The Mantis simultaneously attacks with both its scythe claws.",
         upgradePath = 0,
         cost = 15000,
       }

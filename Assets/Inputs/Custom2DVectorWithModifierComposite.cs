@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
@@ -8,13 +8,10 @@ using UnityEngine.InputSystem.Utilities;
 #if UNITY_EDITOR
 [InitializeOnLoad]
 #endif
-[DisplayStringFormat("{modifier1}+{modifier2}+{x}/{y}")]
-public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
+[DisplayStringFormat("{modifier}+{x}/{y}")]
+public class Custom2DVectorWithModifierComposite : InputBindingComposite<Vector2> {
   [InputControl(layout = "Button")]
-  public int modifier1;
-
-  [InputControl(layout = "Button")]
-  public int modifier2;
+  public int modifier;
 
   [InputControl(layout = "Axis")]
   public int x;
@@ -27,7 +24,7 @@ public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
   // This method computes the resulting input value of the composite based
   // on the input from its part bindings.
   public override Vector2 ReadValue(ref InputBindingCompositeContext context) {
-    if (ModifiersArePressed(ref context)) {
+    if (ModifierIsPressed(ref context)) {
       float xValue = context.ReadValue<float>(x);
       float yValue = context.ReadValue<float>(y);
       return new Vector2(xValue, yValue);
@@ -35,8 +32,8 @@ public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
     return Vector2.zero;
   }
 
-  private bool ModifiersArePressed(ref InputBindingCompositeContext context) {
-    return context.ReadValueAsButton(modifier1) && context.ReadValueAsButton(modifier2);
+  private bool ModifierIsPressed(ref InputBindingCompositeContext context) {
+    return context.ReadValueAsButton(modifier);
   }
 
   // This method computes the current actuation of the binding as a whole.
@@ -50,8 +47,8 @@ public class CustomMouse2DVectorComposite : InputBindingComposite<Vector2> {
     }
   }
 
-  static CustomMouse2DVectorComposite() {
-    InputSystem.RegisterBindingComposite<CustomMouse2DVectorComposite>();
+  static Custom2DVectorWithModifierComposite() {
+    InputSystem.RegisterBindingComposite<Custom2DVectorWithModifierComposite>();
   }
 
   [RuntimeInitializeOnLoadMethod]

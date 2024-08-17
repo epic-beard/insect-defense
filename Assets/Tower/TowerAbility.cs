@@ -21,8 +21,8 @@ public struct TowerAbility {
     AB_2_5_ELASTIC_SPINERETTES, // Assassin Bug Tower, Utility upgrade tree level 5.
     AB_3_3_CONSECUTIVE_HITS, // Assassin Bug Tower, Damage upgrade tree level 3.
     AB_3_5_COMBO_FINISHER, // Assassin Bug Tower, Damage upgrade tree level 5.
-    M_1_3_DOUBLE_SLASH,  // Mantis Tower, Damage upgrade tree level 3.
-    M_1_5_FOUR_ARMS,  // Mantis Tower, Damage upgrade tree level 5.
+    M_1_3_RENDING_CLAWS, // Mantis Tower, Damage upgrade tree level 3.
+    M_1_5_DOUBLE_SLASH,  // Mantis Tower, Damage upgrade tree level 5.
     M_2_3_JAGGED_CLAWS,  // Mantis Tower, Debilitation upgrade tree level 3.
     M_2_5_BLOODY_EXECUTION, // Mantis Tower, Debilitation upgrade tree level 5.
     M_3_2_CAMO_SIGHT,  // Mantis Tower, Utility upgrade tree level 3.

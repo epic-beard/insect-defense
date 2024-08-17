@@ -1,7 +1,9 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.TestTools;
 using static MantisTower;
 
 public class MantisTowerTest {
@@ -25,8 +27,6 @@ public class MantisTowerTest {
 
     mantisTower.GetAttackOriginMap()[MantisAttackType.UPPER_RIGHT] = gameObject.transform;
     mantisTower.GetAttackOriginMap()[MantisAttackType.UPPER_LEFT] = gameObject.transform;
-    mantisTower.GetAttackOriginMap()[MantisAttackType.LOWER_RIGHT] = gameObject.transform;
-    mantisTower.GetAttackOriginMap()[MantisAttackType.LOWER_LEFT] = gameObject.transform;
 
     Time.captureDeltaTime = 1;
   }
@@ -34,21 +34,21 @@ public class MantisTowerTest {
   #region SpecialAbilityUpgradeTests
 
   [Test]
-  public void SpecialAbilityUpgradeDoubleSlash() {
-    Assert.That(false, Is.EqualTo(mantisTower.SecondAttack));
+  public void SpecialAbilityUpgradeRendingClaws() {
+    Assert.That(false, Is.EqualTo(mantisTower.RendingClaws));
 
-    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_1_3_DOUBLE_SLASH);
+    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_1_3_RENDING_CLAWS);
 
-    Assert.True(mantisTower.SecondAttack);
+    Assert.True(mantisTower.RendingClaws);
   }
 
   [Test]
-  public void SpecialAbilityUpgradeFourArms() {
-    Assert.That(false, Is.EqualTo(mantisTower.ApexAttack));
+  public void SpecialAbilityUpgradeDoubleSlash() {
+    Assert.That(false, Is.EqualTo(mantisTower.SecondAttack));
 
-    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_1_5_FOUR_ARMS);
+    mantisTower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.M_1_5_DOUBLE_SLASH);
 
-    Assert.True(mantisTower.ApexAttack);
+    Assert.True(mantisTower.SecondAttack);
   }
 
   [Test]

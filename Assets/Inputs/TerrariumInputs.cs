@@ -73,7 +73,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Player_Rotate"",
+                    ""name"": ""Player_Camera_Elevation"",
                     ""type"": ""Value"",
                     ""id"": ""808ef93f-176f-4695-9cf2-dd26156b6f7b"",
                     ""expectedControlType"": ""Axis"",
@@ -107,6 +107,15 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player_Camera_Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""43c5f99c-5c15-4188-917b-5721bdf5d3d6"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -233,10 +242,10 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Mouse"",
-                    ""id"": ""dce7d389-d1bf-429a-b204-666b0f924eaa"",
+                    ""id"": ""3e663a09-59c1-4e1a-81a1-d6b8ba737230"",
                     ""path"": ""CustomMouse2DVector"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=0.4,y=0.4)"",
                     ""groups"": """",
                     ""action"": ""Player_Look"",
                     ""isComposite"": true,
@@ -244,7 +253,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""modifier1"",
-                    ""id"": ""e4b8d08b-efd0-4b4d-92dd-502164805541"",
+                    ""id"": ""4563fcd9-c00f-45fc-afea-c1c1f1d396e7"",
                     ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -255,7 +264,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""modifier2"",
-                    ""id"": ""4d9090af-3e1f-46a4-8743-5c71616f3566"",
+                    ""id"": ""968b0e0b-e22d-4066-a6c8-f2bf562b0e72"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -265,9 +274,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""cdee5279-c455-4865-81fb-e6272ceeb28b"",
-                    ""path"": ""<Mouse>/delta/down"",
+                    ""name"": ""x"",
+                    ""id"": ""3516348c-d6c4-454a-b407-28115be9daac"",
+                    ""path"": ""<Mouse>/delta/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -276,31 +285,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""down"",
-                    ""id"": ""352c66d6-29f2-42b1-a093-7605f6d822e6"",
-                    ""path"": ""<Mouse>/delta/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""3132d456-97a0-480f-8d65-b20d4c9f0b15"",
-                    ""path"": ""<Mouse>/delta/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""54a0edc6-1d8c-4946-9f9b-22d54501f3a0"",
-                    ""path"": ""<Mouse>/delta/left"",
+                    ""name"": ""y"",
+                    ""id"": ""ac28810f-0bbc-4b98-9d41-f57755d8870d"",
+                    ""path"": ""<Mouse>/delta/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -337,7 +324,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player_Rotate"",
+                    ""action"": ""Player_Camera_Elevation"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -348,7 +335,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player_Rotate"",
+                    ""action"": ""Player_Camera_Elevation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -359,62 +346,7 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player_Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Mouse"",
-                    ""id"": ""b83543be-96e6-4940-8db2-83957ab52727"",
-                    ""path"": ""CustomMouseFloat"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Rotate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier1"",
-                    ""id"": ""bda36323-c601-4e99-9d20-7268623d575d"",
-                    ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""modifier2"",
-                    ""id"": ""e9dc17c8-a8a6-4e68-af06-8ce124d1021a"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""8b1bccb2-fd7a-4c7d-bd3f-d0b2810fb8e7"",
-                    ""path"": ""<Mouse>/delta/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""b0eaf5b3-7bba-4eab-85fc-466c225ec150"",
-                    ""path"": ""<Mouse>/delta/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player_Rotate"",
+                    ""action"": ""Player_Camera_Elevation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -450,6 +382,50 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Player_Turbo_Boost"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Custom 2D Vector With Modifier"",
+                    ""id"": ""1c68a3ac-27fb-44ec-92ec-146e609e5bf6"",
+                    ""path"": ""Custom2DVectorWithModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player_Camera_Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Modifier"",
+                    ""id"": ""b8e8f801-eaaf-477e-8acb-c2163ddefe89"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player_Camera_Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""X"",
+                    ""id"": ""feb25e1a-caa8-4ce9-a4d1-e812f7cff1b3"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player_Camera_Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Y"",
+                    ""id"": ""7e2b110d-287a-41fe-8941-323e34cebb34"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player_Camera_Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -561,10 +537,11 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         m_Player_Player_Settings = m_Player.FindAction("Player_Settings", throwIfNotFound: true);
         m_Player_Player_Deselect = m_Player.FindAction("Player_Deselect", throwIfNotFound: true);
         m_Player_Player_Zoom = m_Player.FindAction("Player_Zoom", throwIfNotFound: true);
-        m_Player_Player_Rotate = m_Player.FindAction("Player_Rotate", throwIfNotFound: true);
+        m_Player_Player_Camera_Elevation = m_Player.FindAction("Player_Camera_Elevation", throwIfNotFound: true);
         m_Player_Player_Camera_Home = m_Player.FindAction("Player_Camera_Home", throwIfNotFound: true);
         m_Player_Player_Delete_Tower = m_Player.FindAction("Player_Delete_Tower", throwIfNotFound: true);
         m_Player_Player_Turbo_Boost = m_Player.FindAction("Player_Turbo_Boost", throwIfNotFound: true);
+        m_Player_Player_Camera_Rotate = m_Player.FindAction("Player_Camera_Rotate", throwIfNotFound: true);
         // SettingsScreen
         m_SettingsScreen = asset.FindActionMap("SettingsScreen", throwIfNotFound: true);
         m_SettingsScreen_SettingsScreen_Close = m_SettingsScreen.FindAction("SettingsScreen_Close", throwIfNotFound: true);
@@ -638,10 +615,11 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Player_Settings;
     private readonly InputAction m_Player_Player_Deselect;
     private readonly InputAction m_Player_Player_Zoom;
-    private readonly InputAction m_Player_Player_Rotate;
+    private readonly InputAction m_Player_Player_Camera_Elevation;
     private readonly InputAction m_Player_Player_Camera_Home;
     private readonly InputAction m_Player_Player_Delete_Tower;
     private readonly InputAction m_Player_Player_Turbo_Boost;
+    private readonly InputAction m_Player_Player_Camera_Rotate;
     public struct PlayerActions
     {
         private @TerrariumInputs m_Wrapper;
@@ -651,10 +629,11 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         public InputAction @Player_Settings => m_Wrapper.m_Player_Player_Settings;
         public InputAction @Player_Deselect => m_Wrapper.m_Player_Player_Deselect;
         public InputAction @Player_Zoom => m_Wrapper.m_Player_Player_Zoom;
-        public InputAction @Player_Rotate => m_Wrapper.m_Player_Player_Rotate;
+        public InputAction @Player_Camera_Elevation => m_Wrapper.m_Player_Player_Camera_Elevation;
         public InputAction @Player_Camera_Home => m_Wrapper.m_Player_Player_Camera_Home;
         public InputAction @Player_Delete_Tower => m_Wrapper.m_Player_Player_Delete_Tower;
         public InputAction @Player_Turbo_Boost => m_Wrapper.m_Player_Player_Turbo_Boost;
+        public InputAction @Player_Camera_Rotate => m_Wrapper.m_Player_Player_Camera_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -679,9 +658,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Zoom.started += instance.OnPlayer_Zoom;
             @Player_Zoom.performed += instance.OnPlayer_Zoom;
             @Player_Zoom.canceled += instance.OnPlayer_Zoom;
-            @Player_Rotate.started += instance.OnPlayer_Rotate;
-            @Player_Rotate.performed += instance.OnPlayer_Rotate;
-            @Player_Rotate.canceled += instance.OnPlayer_Rotate;
+            @Player_Camera_Elevation.started += instance.OnPlayer_Camera_Elevation;
+            @Player_Camera_Elevation.performed += instance.OnPlayer_Camera_Elevation;
+            @Player_Camera_Elevation.canceled += instance.OnPlayer_Camera_Elevation;
             @Player_Camera_Home.started += instance.OnPlayer_Camera_Home;
             @Player_Camera_Home.performed += instance.OnPlayer_Camera_Home;
             @Player_Camera_Home.canceled += instance.OnPlayer_Camera_Home;
@@ -691,6 +670,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Turbo_Boost.started += instance.OnPlayer_Turbo_Boost;
             @Player_Turbo_Boost.performed += instance.OnPlayer_Turbo_Boost;
             @Player_Turbo_Boost.canceled += instance.OnPlayer_Turbo_Boost;
+            @Player_Camera_Rotate.started += instance.OnPlayer_Camera_Rotate;
+            @Player_Camera_Rotate.performed += instance.OnPlayer_Camera_Rotate;
+            @Player_Camera_Rotate.canceled += instance.OnPlayer_Camera_Rotate;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -710,9 +692,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Zoom.started -= instance.OnPlayer_Zoom;
             @Player_Zoom.performed -= instance.OnPlayer_Zoom;
             @Player_Zoom.canceled -= instance.OnPlayer_Zoom;
-            @Player_Rotate.started -= instance.OnPlayer_Rotate;
-            @Player_Rotate.performed -= instance.OnPlayer_Rotate;
-            @Player_Rotate.canceled -= instance.OnPlayer_Rotate;
+            @Player_Camera_Elevation.started -= instance.OnPlayer_Camera_Elevation;
+            @Player_Camera_Elevation.performed -= instance.OnPlayer_Camera_Elevation;
+            @Player_Camera_Elevation.canceled -= instance.OnPlayer_Camera_Elevation;
             @Player_Camera_Home.started -= instance.OnPlayer_Camera_Home;
             @Player_Camera_Home.performed -= instance.OnPlayer_Camera_Home;
             @Player_Camera_Home.canceled -= instance.OnPlayer_Camera_Home;
@@ -722,6 +704,9 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
             @Player_Turbo_Boost.started -= instance.OnPlayer_Turbo_Boost;
             @Player_Turbo_Boost.performed -= instance.OnPlayer_Turbo_Boost;
             @Player_Turbo_Boost.canceled -= instance.OnPlayer_Turbo_Boost;
+            @Player_Camera_Rotate.started -= instance.OnPlayer_Camera_Rotate;
+            @Player_Camera_Rotate.performed -= instance.OnPlayer_Camera_Rotate;
+            @Player_Camera_Rotate.canceled -= instance.OnPlayer_Camera_Rotate;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -846,10 +831,11 @@ public partial class @TerrariumInputs: IInputActionCollection2, IDisposable
         void OnPlayer_Settings(InputAction.CallbackContext context);
         void OnPlayer_Deselect(InputAction.CallbackContext context);
         void OnPlayer_Zoom(InputAction.CallbackContext context);
-        void OnPlayer_Rotate(InputAction.CallbackContext context);
+        void OnPlayer_Camera_Elevation(InputAction.CallbackContext context);
         void OnPlayer_Camera_Home(InputAction.CallbackContext context);
         void OnPlayer_Delete_Tower(InputAction.CallbackContext context);
         void OnPlayer_Turbo_Boost(InputAction.CallbackContext context);
+        void OnPlayer_Camera_Rotate(InputAction.CallbackContext context);
     }
     public interface ISettingsScreenActions
     {

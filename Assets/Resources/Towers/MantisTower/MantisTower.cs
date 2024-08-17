@@ -12,11 +12,12 @@ public class MantisTower : Tower {
   public override TowerData.Type Type { get; set; } = TowerData.Type.MANTIS_TOWER;
 
   public float AoECrippleCooldownSpeed { get { return (AttackSpeed * 2f); } }
-  public bool ApexAttack { get; private set; } = false;
   public bool BloodyExecution { get; private set; } = false;
   public bool CrippleAttack { get; private set; } = false;
   public float CrippleCooldownSpeed { get { return (AttackSpeed * 1.5f); } }
   public bool FrozenTarget { get; private set; } = false;
+  public bool RendingClaws { get; private set; } = false;
+  public float RendingClawsDuration { get; private set; } = 3.0f;
   public bool SecondAttack { get; private set; } = false;
   public float SecondaryDamage {
     get { return Damage * secondaryDamageModifier; }
@@ -26,8 +27,6 @@ public class MantisTower : Tower {
   public enum MantisAttackType {
     UPPER_RIGHT,
     UPPER_LEFT,
-    LOWER_RIGHT,
-    LOWER_LEFT,
   }
 
   private Animator animator;
@@ -38,31 +37,25 @@ public class MantisTower : Tower {
   // must include the path to that object within the heirarchy of the Mantis tower.
   private readonly string upperRightName = "Mantis Mesh/UR Arm Holder/UR Shoulder";
   private readonly string upperLeftName = "Mantis Mesh/UL Arm Holder/UL Shoulder";
-  private readonly string lowerRightName = "Mantis Mesh/LR Arm Holder/LR Shoulder";
-  private readonly string lowerLeftName = "Mantis Mesh/LL Arm Holder/LL Shoulder";
 
   protected override void TowerStart() {
     animator = GetComponent<Animator>();
 
     attackOriginMap = new() {
       { MantisAttackType.UPPER_RIGHT, this.transform.Find(upperRightName) },
-      { MantisAttackType.UPPER_LEFT, this.transform.Find(upperLeftName) },
-      { MantisAttackType.LOWER_RIGHT, this.transform.Find(lowerRightName) },
-      { MantisAttackType.LOWER_LEFT, this.transform.Find(lowerLeftName) }
+      { MantisAttackType.UPPER_LEFT, this.transform.Find(upperLeftName) }
     };
 
-    MakeLowerArmsVisible(false);
     StartCoroutine(Attack());
   }
 
   public override void SpecialAbilityUpgrade(TowerAbility.SpecialAbility ability) {
     switch (ability) {
-      case SpecialAbility.M_1_3_DOUBLE_SLASH:
-        SecondAttack = true;
+      case SpecialAbility.M_1_3_RENDING_CLAWS:
+        RendingClaws = true;
         break;
-      case SpecialAbility.M_1_5_FOUR_ARMS:
-        MakeLowerArmsVisible(true);
-        ApexAttack = true;
+      case SpecialAbility.M_1_5_DOUBLE_SLASH:
+        SecondAttack = true;
         break;
       case SpecialAbility.M_2_3_JAGGED_CLAWS:
         StartCoroutine(CrippleCooldown());
@@ -101,6 +94,9 @@ public class MantisTower : Tower {
         if (CrippleAttack) {
           Target.ApplyCripple();
           CrippleAttack = false;
+        }
+        if (RendingClaws && Target.AcidStacks > 0.0f) {
+          Target.TempReduceArmor(ArmorPierce, RendingClawsDuration);
         }
       }
     }
@@ -147,22 +143,6 @@ public class MantisTower : Tower {
     if (SecondAttack) {
       animator.Play("Second Attack Layer.UL Attack");
     }
-    if (ApexAttack) {
-      animator.Play("Third Attack Layer.LR Attack");
-      animator.Play("Fourth Attack Layer.LL Attack");
-    }
-  }
-
-  private void MakeLowerArmsVisible(bool visible) {
-    if (lowerLeftArm != null && lowerRightArm != null) {
-      if (visible) {
-        lowerLeftArm.localScale = new Vector3(1, 1, 1);
-        lowerRightArm.localScale = new Vector3(1, 1, 1);
-      } else {
-        lowerLeftArm.localScale = new Vector3(0, 0, 0);
-        lowerRightArm.localScale = new Vector3(0, 0, 0);
-      }
-    }
   }
 
   private IEnumerator Attack() {
@@ -172,12 +152,12 @@ public class MantisTower : Tower {
       if (IsDazzled()) continue;
 
       Target = targeting.FindTarget(
-      oldTarget: Target,
-      enemies: ObjectPool.Instance.GetActiveEnemies(),
-      towerPosition: transform.position,
-      towerRange: Range,
-      camoSight: CamoSight,
-      antiAir: AntiAir);
+          oldTarget: Target,
+          enemies: ObjectPool.Instance.GetActiveEnemies(),
+          towerPosition: transform.position,
+          towerRange: Range,
+          camoSight: CamoSight,
+          antiAir: AntiAir);
 
       if (Target != null) {
         Stab();
