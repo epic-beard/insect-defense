@@ -15,6 +15,7 @@ using EnemyKey = System.Tuple<EnemyData.Type, int>;
 using EnemySpawnTimes = System.Collections.Generic.List<
     System.Collections.Generic.Dictionary<
         EnemyData.Type, System.Collections.Generic.List<System.Tuple<float, float>>>>;
+using static Spawner;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
@@ -49,7 +50,7 @@ public class Spawner : MonoBehaviour {
 
   // This can return null.
   public EnemySpawnTimes GetSpawnTimes() {
-    return waves?.GetSpawnTimes();
+    return waves?.GetEnemySpawnTimes();
   }
 
   public void SpawnWaves(Waves waves) {
@@ -130,7 +131,7 @@ public class Spawner : MonoBehaviour {
     // This method should construct the data structure as it goes.
     // It'll need an EnemySpawnTimes and a list of floats. The floats will be current delay times
     // of all spawn points to represent things like delayed waves or waituntildead waves.
-    public abstract EnemySpawnTimes GetSpawnTimes();
+    public abstract EnemySpawnTimes GetSpawnTimes(ref float modifier);
 
     protected Foldout GetFoldout(string name) {
       Foldout foldout = new();
@@ -254,11 +255,18 @@ public class Spawner : MonoBehaviour {
       return true;
     }
 
-    public override EnemySpawnTimes GetSpawnTimes() {
+    // This is the method external classes should call to get EnemySpawnTimes.
+    public EnemySpawnTimes GetEnemySpawnTimes() {
+      float noDelay = 0.0f;
+      return GetSpawnTimes(ref noDelay);
+    }
+
+    public override EnemySpawnTimes GetSpawnTimes(ref float modifier) {
       EnemySpawnTimes spawnTimes = new();
       foreach(var wave in waves) {
-        var waveSpawnTimes = wave.GetSpawnTimes();
-
+        float tempModifier = modifier;
+        EnemySpawnTimes waveSpawnTimes = wave.GetSpawnTimes(ref tempModifier);
+        // Merge the EnemySpawnTimes.
       }
       return spawnTimes;
     }
@@ -301,6 +309,15 @@ public class Spawner : MonoBehaviour {
 
     public override bool AddWave(int index, Wave wave) {
       return false;
+    }
+
+    public override EnemySpawnTimes GetSpawnTimes(ref float modifier) {
+      if (Finished) return new EnemySpawnTimes();
+
+      float tempModifier = modifier + warmup;
+      EnemySpawnTimes waveSpawnTimes = wave.GetSpawnTimes(ref tempModifier);
+      modifier = tempModifier + cooldown;
+      return waveSpawnTimes;
     }
   }
 
@@ -347,6 +364,15 @@ public class Spawner : MonoBehaviour {
       Subwaves.Insert(index, wave);
       WaveChanged.Invoke();
       return true;
+    }
+
+    public override EnemySpawnTimes GetSpawnTimes(ref float modifier) {
+      EnemySpawnTimes spawnTimes = new();
+      foreach (var wave in Subwaves) {
+        EnemySpawnTimes waveSpawnTimes = wave.GetSpawnTimes(ref modifier);
+        // Merge with spawnTimes.
+      }
+      return spawnTimes;
     }
   }
 
@@ -396,6 +422,16 @@ public class Spawner : MonoBehaviour {
       Subwaves.Insert(index, wave);
       WaveChanged.Invoke();
       return true;
+    }
+
+    public override EnemySpawnTimes GetSpawnTimes(ref float modifier) {
+      EnemySpawnTimes spawnTimes = new();
+      foreach (var wave in Subwaves) {
+        float tempModifier = modifier;
+        EnemySpawnTimes waveSpawnTimes = wave.GetSpawnTimes(ref tempModifier);
+        // Merge with spawnTimes.
+      }
+      return spawnTimes;
     }
   }
 

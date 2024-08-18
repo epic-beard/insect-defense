@@ -16,8 +16,16 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-    List<Dictionary<EnemyData.Type, List<Tuple<float, float>>>> spawnTimes =
-        Spawner.Instance.GetSpawnTimes();
-    // TODO(emonzon): Write the code to process this data into warning lights.
   }
+
+  // TODO(emonzon): Current plan
+  //   For each wave's OnComplete method, call an update method in this class.
+  //   This class will require a merge tool for the EnemySpawnTimes. This class
+  //   will only remember present and future waves, it has no memory of the past.
+
+  private void SetWarningIndicator(int spawnPoint) { }
+
+  private void SetSpawningIndicator(int spawnPoint) { }
+
+  private void SetSafeIndicator(int spawnPoint) { }
 }
