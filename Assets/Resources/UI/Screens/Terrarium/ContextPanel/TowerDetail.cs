@@ -179,15 +179,12 @@ public class TowerDetail : MonoBehaviour {
       return;
     }
 
-    // check that previous upgrade is owned
-    if (tower.UpgradeIndex[upgradePath] != upgradeNum - 1) {
-      UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
-      return;
+    // check that player can afford the upgrades
+    int totalCost = 0;
+    for (int i = tower.UpgradeIndex[upgradePath] + 1; i <= upgradeNum; i++) {
+      totalCost += tower.GetUpgradePath(upgradePath)[i].cost;
     }
-
-    // check that player can afford the upgrade
-    TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[upgradeNum];
-    if (GameStateManager.Instance.Nu < upgrade.cost) {
+    if (GameStateManager.Instance.Nu < totalCost) {
       UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
       return;
     }
@@ -198,9 +195,12 @@ public class TowerDetail : MonoBehaviour {
 
     // all checks passed, continue with upgrade
     UiSfx.PlaySfx(UiSfx.rocker_switch);
-    SetRockerSwitchState(rockerSwitch, true);
-    GameStateManager.Instance.Nu -= upgrade.cost;
-    tower.Upgrade(upgrade);
+    for (int i = tower.UpgradeIndex[upgradePath] + 1; i <= upgradeNum; i++) {
+      SetRockerSwitchState(towerUpgradeSwitches[upgradePath, i], true);
+      TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[i];
+      GameStateManager.Instance.Nu -= upgrade.cost;
+      tower.Upgrade(upgrade);
+    }
 
     SetContextForTower(tower);
   }
