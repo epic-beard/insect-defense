@@ -10,12 +10,24 @@ using EnemySpawnTimes = System.Collections.Generic.List<
 public class EnemySpawnIndicatorManager : MonoBehaviour {
   public static EnemySpawnIndicatorManager Instance;
 
+  public EnemySpawnTimes EnemySpawnTimes;
+
   private void Awake() {
     Instance = this;
   }
 
+  private void Start() {
+    Spawner.Instance.UpdateSpawnIndicatorData += UpdateData;
+  }
+
+  public void UpdateData() {
+    EnemySpawnTimes = Spawner.Instance.GetSpawnTimes();
+  }
+
   // Update is called once per frame
   void Update() {
+    if (EnemySpawnTimes == null) return;
+    // Process EnemySpawnTimes and set indicator status appropriately.
   }
 
   // TODO(emonzon): Current plan
