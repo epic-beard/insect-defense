@@ -30,11 +30,6 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
     // Process EnemySpawnTimes and set indicator status appropriately.
   }
 
-  // TODO(emonzon): Current plan
-  //   For each wave's OnComplete method, call an update method in this class.
-  //   This class will require a merge tool for the EnemySpawnTimes. This class
-  //   will only remember present and future waves, it has no memory of the past.
-
   private void SetWarningIndicator(int spawnPoint) { }
 
   private void SetSpawningIndicator(int spawnPoint) { }

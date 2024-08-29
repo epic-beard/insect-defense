@@ -455,8 +455,6 @@ public class Spawner : MonoBehaviour {
     public List<Vector2> Positions = new();
     public EnemyData data;
 
-    private int remainingRepititions;
-
     public override IEnumerator Start() {
       WaveStartTime = Time.time;
       for (int i = 0; i < repetitions; i++) {
@@ -469,7 +467,6 @@ public class Spawner : MonoBehaviour {
             SpawnEnemy(data, spawnLocation);
           }
         }
-        remainingRepititions--;
         // Wait for repeat delay seconds.
         yield return new WaitForSeconds(repeatDelay);
       }
@@ -516,8 +513,6 @@ public class Spawner : MonoBehaviour {
         WaveTag = i; WaveChanged.Invoke(); }));
 
       ve.Add(foldout);
-
-      remainingRepititions = repetitions;
 
       // TODO(nnewsom) implement:
       // WaveTag: we dont have a solution for nullables yet.
@@ -572,19 +567,7 @@ public class Spawner : MonoBehaviour {
           }
         }
         spawnTimes[spawnLocation][data.type] = updatedSpawns;
-        // Cases:
-        //  modifier < pEndTime && pStartTime < endTime
-        //    
-
-
-        //  no pEndTime is after modifier. This means we can simply add this spawn window to the end of the list.
-        //  pEndTime after modifier found.
-        //    pStartTime before endTime. Means we add this spawn to the beginning of the list.
-        //    pEndTime is before endTime. No new tuple is needed. EndTime needs updating, pStartTime may need updating.
-        //    pEndTime is after endTime.
       }
-      // Check that dictionary for data.type
-      // Search through this list and see where we fit in timing-wise.
     }
 
     // The following method keeps waveTag from serializing when null.
@@ -768,6 +751,11 @@ public class Spawner : MonoBehaviour {
     public override bool AddWave(int index, Wave wave) {
       return false;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float modifier) {
+      if (Finished) return;
+      modifier += delay;
+    }
   }
 
   public class DialogueBoxWave : Wave {
@@ -811,6 +799,11 @@ public class Spawner : MonoBehaviour {
     public override bool AddWave(int index, Wave wave) {
       return false;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float modifier) {
+      if (Finished) return;
+      modifier += delay;
+    }
   }
 
   public class WaitUntilDeadWave : Wave {
@@ -824,6 +817,7 @@ public class Spawner : MonoBehaviour {
             !ObjectPool.Instance.GetActiveEnemies().Any(
                 (e) => e.WaveTag == WaveTag));
       }
+      // Fire event to get spawn times.
     }
 
     // The following method keeps waveTag from serializing when null.
@@ -850,6 +844,12 @@ public class Spawner : MonoBehaviour {
 
     public override bool AddWave(int index, Wave wave) {
       return false;
+    }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float modifier) {
+      if (Finished) return;
+      
+      // TODO(emonzon): Finish this.
     }
   }
 
