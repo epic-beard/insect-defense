@@ -99,7 +99,8 @@ public class WebShootingSpiderTower : Tower {
         towerPosition: transform.position,
         towerRange: Range,
         camoSight: CamoSight,
-        antiAir: AntiAir);
+        antiAir: AntiAir,
+        slowPower: SlowPower);
     if (Target == null) {
       firing = false;
       // TODO: Have the tower go back to an 'idle' animation or neutral pose.
