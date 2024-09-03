@@ -53,7 +53,9 @@ public class Targeting {
       Vector3 towerPosition,
       float towerRange,
       bool camoSight,
-      bool antiAir) {
+      bool antiAir,
+      float slowPower = 0.0f) {
+    behaviorPredicates[Behavior.SLOW_EM_ALL] = (enemy) => enemy.SlowPower < slowPower;
     // Ensure all enemies are viable targets.
     List<Enemy> targets =
         GetAllValidEnemiesInRange(enemies, towerPosition, towerRange, camoSight, antiAir);
