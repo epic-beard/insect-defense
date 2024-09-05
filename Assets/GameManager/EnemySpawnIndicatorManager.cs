@@ -24,10 +24,9 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
     EnemySpawnTimes = Spawner.Instance.GetSpawnTimes();
   }
 
-  // Update is called once per frame
+  // TODO(emonzon): Complete this class to realize the enemy spawn warning indicator.
   void Update() {
     if (EnemySpawnTimes == null) return;
-    // Process EnemySpawnTimes and set indicator status appropriately.
   }
 
   private void SetWarningIndicator(int spawnPoint) { }

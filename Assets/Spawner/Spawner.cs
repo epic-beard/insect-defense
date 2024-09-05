@@ -118,7 +118,6 @@ public class Spawner : MonoBehaviour {
     }
     float remainingDuration = repetitions * repeatDelay - (Time.time - waveStartTime);
     float endTime = projectedStartTime + remainingDuration;
-    Debug.Log("projectedStartTime: " + projectedStartTime + ". remainingDuration: " + remainingDuration + ". endTime: " + endTime);
     if (!spawnTimes[spawnLocation].ContainsKey(enemyType)) {
       spawnTimes[spawnLocation].Add(
           enemyType,
@@ -137,7 +136,6 @@ public class Spawner : MonoBehaviour {
         updatedSpawns.Add(Tuple.Create(projectedStartTime, endTime));
       } else {
         for (int i = 0; i < enemySpawns.Count; i++) {
-          Debug.Log("Looking for potential overlaps");
           // The is the first interval that will overlap with the one we are building.
           if (projectedStartTime < enemySpawns[i].Item2 && enemySpawns[i].Item1 < endTime) {
             float newStart = Math.Min(enemySpawns[i].Item1, projectedStartTime);
@@ -146,11 +144,9 @@ public class Spawner : MonoBehaviour {
             for (int j = i + 1; j < enemySpawns.Count; j++) {
               if (endTime <= enemySpawns[j].Item2) {  // Found the new endpoint.
                 newEnd = enemySpawns[j].Item2;
-                Debug.Log("End of consumption. i: " + i + " j: " + j);
                 i = j;
                 break;
               } else if (enemySpawns[j].Item2 < endTime) {  // Interval gets swallowed whole.
-                Debug.Log("Interval is swallowed whole.");
                 newEnd = endTime;
               }  // Existing interval(s) is/are after the new interval.
             }
@@ -488,8 +484,8 @@ public class Spawner : MonoBehaviour {
       if (Finished) return;
       projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
 
-      // We need to 'pass on' the furthest future modifier we can. Simultaneously, we need to ensure
-      // each wave gets a clean modifier to use.
+      // We need to 'pass on' the furthest future projectedStartTime we can. Simultaneously,
+      //  we need to ensure each wave gets a clean modifier to use.
       float longestModifier = 0.0f;
       foreach (var wave in Subwaves) {
         float tempModifier = projectedStartTime;
@@ -614,12 +610,6 @@ public class Spawner : MonoBehaviour {
 
     public override IEnumerator Start() {
       WaveStartTime = Time.time;
-      for (int i = 0; i < repetitions; i++) {
-        for (int j = 0; j < spawnLocation; j++) {
-          
-        }
-      }
-
       for (int i = 0; i < repetitions; i++) {
         if (Positions.Count > 0) {
           foreach (Vector2 pos in Positions) {
@@ -781,9 +771,9 @@ public class Spawner : MonoBehaviour {
       return false;
     }
 
-    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float modifier) {
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished) return;
-      modifier += delay;
+      projectedStartTime += delay;
     }
   }
 
@@ -829,9 +819,9 @@ public class Spawner : MonoBehaviour {
       return false;
     }
 
-    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float modifier) {
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished) return;
-      modifier += delay;
+      projectedStartTime += delay;
     }
   }
 
@@ -875,10 +865,10 @@ public class Spawner : MonoBehaviour {
       return false;
     }
 
-    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float modifier) {
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished) return;
 
-      modifier += 10000;  // Set delay time for future waves to far from now.
+      projectedStartTime += 10000;  // Set delay time for future waves to far from now.
     }
   }
 
