@@ -556,6 +556,7 @@ public class Enemy : MonoBehaviour {
   }
 
   private IEnumerator FollowPath() {
+    Vector3 position = Vector3.zero;
     while (NextWaypoint != null) {
       Vector3 startPosition = PrevWaypoint.transform.position;
       Vector3 endPosition = NextWaypoint.transform.position;
@@ -567,7 +568,8 @@ public class Enemy : MonoBehaviour {
 
       while (travelPercent < 1.0f) {
         travelPercent += 10 * Time.deltaTime * Speed / distance;
-        transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent) + variance;
+        position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+        transform.position = position + variance;
         yield return null;
       }
 
