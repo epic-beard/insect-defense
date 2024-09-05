@@ -52,11 +52,12 @@ public class TowerDetail : MonoBehaviour {
   private ButtonWithTooltip[,] towerUpgradeIcons = new ButtonWithTooltip[3, 5];
   private Button[,] towerUpgradeSwitches = new Button[3, 5];
   private Label[] towerUpgradeTreeLabels = new Label[3];
+  private Dictionary<Behavior, int> behaviorIndexMap;
+  private Dictionary<Priority, int> priorityIndexMap;
 
   private void Awake() {
     SetVisualElements();
     RegisterCallbacks();
-    ConstructDropdownChoices();
     Instance = this;
     GameStateManager.OnNuChanged += UpdateAffordableTowerUpgrades;
   }
@@ -91,18 +92,16 @@ public class TowerDetail : MonoBehaviour {
     towerBehaviorDropdown.RegisterCallback<ChangeEvent<string>>(BehaviorCallback);
     towerPriorityDropdown.RegisterCallback<ChangeEvent<string>>(PriorityCallback);
     towerBehaviorDropdown.RegisterCallback<MouseDownEvent>(evt => {
-        UiSfx.PlaySfx(UiSfx.dropdown_active);
+      UiSfx.PlaySfx(UiSfx.dropdown_active);
     });
     towerPriorityDropdown.RegisterCallback<MouseDownEvent>(evt => {
-        UiSfx.PlaySfx(UiSfx.dropdown_active);
+      UiSfx.PlaySfx(UiSfx.dropdown_active);
     });
 
     sellTowerButton.RegisterCallback<ClickEvent>(OnSellTowerClick);
 
-    for (int i = 0; i < 3; i++)
-    {
-      for (int j = 0; j < 5; j++)
-      {
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 5; j++) {
         string buttonName = towerUpgradeButtonNameTemplate.Replace("X", i.ToString()).Replace("Y", j.ToString());
 
         towerUpgradeIcons[i, j] = rootElement.Q<ButtonWithTooltip>(buttonName);
@@ -116,25 +115,37 @@ public class TowerDetail : MonoBehaviour {
     }
   }
 
+
+
   // Construct the dropdown choices for the Behavior and Priorty options.
-  private void ConstructDropdownChoices() {
-    towerBehaviorDropdown.choices.RemoveAt(0);
-    foreach (var behavior in Enum.GetValues(typeof(Targeting.Behavior)))
-    {
-      towerBehaviorDropdown.choices.Add(ToTitleCase(behavior.ToString()));
+  private void ConstructDropdownChoices(Tower tower) {
+    towerBehaviorDropdown.choices.Clear();
+    foreach (var obj in Enum.GetValues(typeof(Targeting.Behavior))) {
+      Behavior behavior = (Behavior)obj;
+      if (tower.Type != TowerData.Type.WEB_SHOOTING_SPIDER_TOWER && behavior == Behavior.SLOW_EM_ALL) {
+        continue;
+      }
+      String choice = ToTitleCase(behavior.ToString());
+      towerBehaviorDropdown.choices.Add(choice);
+      if (behavior == tower.Behavior) {
+        towerBehaviorDropdown.SetValueWithoutNotify(choice);
+      }
     }
 
-    towerPriorityDropdown.choices.RemoveAt(0);
-    foreach (var priority in Enum.GetValues(typeof(Targeting.Priority)))
-    {
-      towerPriorityDropdown.choices.Add(FormatPriorityEnumString(priority.ToString()));
+    towerPriorityDropdown.choices.Clear();
+    foreach (var obj in Enum.GetValues(typeof(Targeting.Priority))) {
+      Priority priority = (Priority)obj;
+      string choice = FormatPriorityEnumString(priority.ToString());
+      towerPriorityDropdown.choices.Add(choice);
+      if (priority == tower.Priority) {
+        towerPriorityDropdown.SetValueWithoutNotify(choice);
+      }
     }
   }
 
   private string FormatPriorityEnumString(string toModify) {
     string[] words = toModify.Split('_');
-    for (int i = 0; i < words.Length; i++)
-    {
+    for (int i = 0; i < words.Length; i++) {
       words[i] = ToTitleCase(words[i]);
     }
     return string.Join(" ", words);
@@ -179,33 +190,33 @@ public class TowerDetail : MonoBehaviour {
       return;
     }
 
-    // check that previous upgrade is owned
-    if (tower.UpgradeIndex[upgradePath] != upgradeNum - 1) {
-      UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
-      return;
+    // check that player can afford the upgrades
+    int totalCost = 0;
+    for (int i = tower.UpgradeIndex[upgradePath] + 1; i <= upgradeNum; i++) {
+      totalCost += tower.GetUpgradePath(upgradePath)[i].cost;
     }
-
-    // check that player can afford the upgrade
-    TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[upgradeNum];
-    if (GameStateManager.Instance.Nu < upgrade.cost) {
+    if (GameStateManager.Instance.Nu < totalCost) {
       UiSfx.PlaySfx(UiSfx.rocker_switch_fail);
       return;
     }
 
     if (TowerManager.Instance.SelectedTower.IsPreviewTower) {
-      return; 
+      return;
     }
 
     // all checks passed, continue with upgrade
     UiSfx.PlaySfx(UiSfx.rocker_switch);
-    SetRockerSwitchState(rockerSwitch, true);
-    GameStateManager.Instance.Nu -= upgrade.cost;
-    tower.Upgrade(upgrade);
+    for (int i = tower.UpgradeIndex[upgradePath] + 1; i <= upgradeNum; i++) {
+      SetRockerSwitchState(towerUpgradeSwitches[upgradePath, i], true);
+      TowerAbility upgrade = tower.GetUpgradePath(upgradePath)[i];
+      GameStateManager.Instance.Nu -= upgrade.cost;
+      tower.Upgrade(upgrade);
+    }
 
     SetContextForTower(tower);
   }
 
-  private void SellUpgrades(Tower tower, int  upgradePath, int upgradeNum) {
+  private void SellUpgrades(Tower tower, int upgradePath, int upgradeNum) {
     UiSfx.PlaySfx(UiSfx.rocker_switch);
 
     int level = tower.UpgradeIndex[upgradePath];
@@ -243,8 +254,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void BehaviorCallback(ChangeEvent<string> evt) {
-    if (TowerManager.Instance.SelectedTower == null)
-    {
+    if (TowerManager.Instance.SelectedTower == null) {
       Debug.Log("[ERROR] No tower selected, but behavior change attempted.");
       return;
     }
@@ -256,8 +266,7 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void PriorityCallback(ChangeEvent<string> evt) {
-    if (TowerManager.Instance.SelectedTower == null)
-    {
+    if (TowerManager.Instance.SelectedTower == null) {
       Debug.Log("[ERROR] No tower selected, but priority change attempted.");
       return;
     }
@@ -273,8 +282,7 @@ public class TowerDetail : MonoBehaviour {
     towerNameLabel.text = tower.Name;
     towerIconElement.style.backgroundImage = Resources.Load<Texture2D>("Icons/test");
 
-    towerBehaviorDropdown.index = ((int)tower.Behavior);
-    towerPriorityDropdown.index = ((int)tower.Priority);
+    ConstructDropdownChoices(tower);
 
     towerStatDamageIcon.TooltipText = "Damage";
     towerStatAttackSpeedIcon.TooltipText = "Attack Speed";
@@ -311,49 +319,49 @@ public class TowerDetail : MonoBehaviour {
   }
 
   private void SetRockerSwitchState(Button rockerSwitch, bool isOn) {
-      if (isOn) {
-          rockerSwitch.AddToClassList("rocker-switch-on");
-          rockerSwitch.RemoveFromClassList("rocker-switch-off");
-      } else {
-          rockerSwitch.AddToClassList("rocker-switch-off");
-          rockerSwitch.RemoveFromClassList("rocker-switch-on");
-      }
+    if (isOn) {
+      rockerSwitch.AddToClassList("rocker-switch-on");
+      rockerSwitch.RemoveFromClassList("rocker-switch-off");
+    } else {
+      rockerSwitch.AddToClassList("rocker-switch-off");
+      rockerSwitch.RemoveFromClassList("rocker-switch-on");
+    }
   }
 
   private void UpdateUpgradeIconState(ButtonWithTooltip icon, int path, int level, int nu) {
-      Tower tower = TowerManager.Instance.SelectedTower;
-      if (tower == null) return;
+    Tower tower = TowerManager.Instance.SelectedTower;
+    if (tower == null) return;
 
-      bool isOwned = level <= tower.UpgradeIndex[path];
+    bool isOwned = level <= tower.UpgradeIndex[path];
 
-      bool isPreviousUpgradeOwned = level - 1 == tower.UpgradeIndex[path];
-      bool isAffordable = nu >= tower.GetUpgradePath(path)[level].cost;
-      bool isPurchasable = isPreviousUpgradeOwned && isAffordable;
+    bool isPreviousUpgradeOwned = level - 1 == tower.UpgradeIndex[path];
+    bool isAffordable = nu >= tower.GetUpgradePath(path)[level].cost;
+    bool isPurchasable = isPreviousUpgradeOwned && isAffordable;
 
-      SetUpgradeIconState(icon, isOwned, isPurchasable);
+    SetUpgradeIconState(icon, isOwned, isPurchasable);
   }
 
   private void SetUpgradeIconState(ButtonWithTooltip icon, bool isOwned, bool isPurchasable) {
-      icon.RemoveFromClassList("tower-upgrade-icon-purchased");
-      icon.RemoveFromClassList("tower-upgrade-icon-purchasable");
-      icon.RemoveFromClassList("tower-upgrade-icon-not-purchasable");
+    icon.RemoveFromClassList("tower-upgrade-icon-purchased");
+    icon.RemoveFromClassList("tower-upgrade-icon-purchasable");
+    icon.RemoveFromClassList("tower-upgrade-icon-not-purchasable");
 
-      if (isOwned) {
-          icon.AddToClassList("tower-upgrade-icon-purchased");
-      } else if (isPurchasable) {
-          icon.AddToClassList("tower-upgrade-icon-purchasable");
-      } else {
-          icon.AddToClassList("tower-upgrade-icon-not-purchasable");
-      }
+    if (isOwned) {
+      icon.AddToClassList("tower-upgrade-icon-purchased");
+    } else if (isPurchasable) {
+      icon.AddToClassList("tower-upgrade-icon-purchasable");
+    } else {
+      icon.AddToClassList("tower-upgrade-icon-not-purchasable");
+    }
   }
 
   private void UpdateAffordableTowerUpgrades(int nu) {
-      for (int i = 0; i < 3; i++) {
-          for (int j = 0; j < 5; j++) {
-              ButtonWithTooltip icon = towerUpgradeIcons[i, j];
-              UpdateUpgradeIconState(icon, i, j, nu);
-          }
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 5; j++) {
+        ButtonWithTooltip icon = towerUpgradeIcons[i, j];
+        UpdateUpgradeIconState(icon, i, j, nu);
       }
+    }
   }
 
   public void SetContextTowerName(string name) {
