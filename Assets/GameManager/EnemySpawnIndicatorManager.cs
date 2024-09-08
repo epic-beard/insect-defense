@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+#nullable enable
 using UnityEngine;
 
 using EnemySpawnTimes = System.Collections.Generic.List<
@@ -10,18 +8,15 @@ using EnemySpawnTimes = System.Collections.Generic.List<
 public class EnemySpawnIndicatorManager : MonoBehaviour {
   public static EnemySpawnIndicatorManager Instance;
 
-  public EnemySpawnTimes EnemySpawnTimes;
+  public EnemySpawnTimes? EnemySpawnTimes;
 
   private void Awake() {
     Instance = this;
+    Spawner.SpawnIndicatorDataUpdated += UpdateData;
   }
 
-  private void Start() {
-    Spawner.Instance.UpdateSpawnIndicatorData += UpdateData;
-  }
-
-  public void UpdateData() {
-    EnemySpawnTimes = Spawner.Instance.GetSpawnTimes();
+  public void UpdateData(EnemySpawnTimes? spawnTimes) {
+    EnemySpawnTimes = spawnTimes;
   }
 
   // TODO(emonzon): Complete this class to realize the enemy spawn warning indicator.

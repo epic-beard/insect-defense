@@ -20,11 +20,11 @@ public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
   public static event Action<int, int> WaveComplete = delegate { };
   public static event Action LevelComplete = delegate { };
+  public static event Action<EnemySpawnTimes?> SpawnIndicatorDataUpdated = delegate { };
 #pragma warning disable 8618
   static public Spawner Instance;
 #pragma warning restore 8618
 
-  public event Action UpdateSpawnIndicatorData = delegate { };
 
   [SerializeField] private List<Waypoint> spawnLocations = new();
   [SerializeField] private string filename = "";
@@ -49,14 +49,14 @@ public class Spawner : MonoBehaviour {
       Debug.Log("ERROR: Waves is null.");
     }
     // Send initial timing data to EnemySpawnIndiciatorManager.
-    EnemySpawnIndicatorManager.Instance.EnemySpawnTimes = GetSpawnTimes();
+    SpawnIndicatorDataUpdated.Invoke(GetSpawnTimes());
   }
 
   // This can return null.
   public EnemySpawnTimes? GetSpawnTimes() {
     EnemySpawnTimes result = new();
-    float noDelay = Time.time;
-    waves?.GetSpawnTimes(ref result, ref noDelay);
+    float startTime = Time.time;
+    waves?.GetSpawnTimes(ref result, ref startTime);
     return result;
   }
 
@@ -490,7 +490,7 @@ public class Spawner : MonoBehaviour {
       foreach (var wave in Subwaves) {
         float tempModifier = projectedStartTime;
         wave.GetSpawnTimes(ref spawnTimes, ref tempModifier);
-        if (longestModifier < tempModifier) longestModifier = tempModifier;
+        longestModifier = Math.Max(longestModifier, tempModifier);
       }
       projectedStartTime = longestModifier;
     }
@@ -773,7 +773,7 @@ public class Spawner : MonoBehaviour {
 
     public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished) return;
-      projectedStartTime += delay;
+      projectedStartTime += WaveStartTime == 0.0f? delay : delay - (Time.time - WaveStartTime);
     }
   }
 
@@ -782,12 +782,12 @@ public class Spawner : MonoBehaviour {
     public float delay = 0.5f;
 
     public override IEnumerator Start() {
-      WaveStartTime = Time.time;
       TowerManager.Instance.ClearSelection();
       MessageBox.Instance.ShowDialogue(messages);
-      Finished = true;
       yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());
+      WaveStartTime = Time.time;
       yield return new WaitForSeconds(delay);
+      Finished = true;
     }
 
     public override string ToString() {
@@ -821,7 +821,7 @@ public class Spawner : MonoBehaviour {
 
     public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished) return;
-      projectedStartTime += delay;
+      projectedStartTime += WaveStartTime == 0.0f ? delay : delay - (Time.time - WaveStartTime);
     }
   }
 
@@ -836,7 +836,8 @@ public class Spawner : MonoBehaviour {
             !ObjectPool.Instance.GetActiveEnemies().Any(
                 (e) => e.WaveTag == WaveTag));
       }
-      // Fire event to get spawn times.
+      Finished = true;
+      Spawner.SpawnIndicatorDataUpdated.Invoke(Spawner.Instance.GetSpawnTimes());
     }
 
     // The following method keeps waveTag from serializing when null.
