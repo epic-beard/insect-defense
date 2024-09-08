@@ -183,6 +183,8 @@ public class Spawner : MonoBehaviour {
     public bool Finished { get; set; }
     [XmlIgnore]
     public float WaveStartTime { get; set; }
+    [XmlIgnore]
+    public float NondeterministicTimeAddition { get; } = 10000.0f;
 
     public abstract HashSet<EnemyKey> GetEnemyKeys();
 
@@ -785,6 +787,7 @@ public class Spawner : MonoBehaviour {
       TowerManager.Instance.ClearSelection();
       MessageBox.Instance.ShowDialogue(messages);
       yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());
+      // WaveStasrtTime is set here instead of earlier to make internal logic using WaveStartTime to function.
       WaveStartTime = Time.time;
       yield return new WaitForSeconds(delay);
       Finished = true;
@@ -821,7 +824,8 @@ public class Spawner : MonoBehaviour {
 
     public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished) return;
-      projectedStartTime += WaveStartTime == 0.0f ? delay : delay - (Time.time - WaveStartTime);
+      projectedStartTime += WaveStartTime == 0.0f ?
+          NondeterministicTimeAddition : delay - (Time.time - WaveStartTime);
     }
   }
 
@@ -869,7 +873,7 @@ public class Spawner : MonoBehaviour {
     public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished) return;
 
-      projectedStartTime += 10000;  // Set delay time for future waves to far from now.
+      projectedStartTime += NondeterministicTimeAddition;  // Set delay time for future waves to far from now.
     }
   }
 
