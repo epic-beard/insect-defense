@@ -11,7 +11,10 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
   public static EnemySpawnIndicatorManager Instance;
 
   public EnemySpawnTimes EnemySpawnTimes;
+
   private float leadWarnTime = 5.0f;
+  private List<Material> spawnMaterials = new();
+  private Color road;
 
   private void Awake() {
     Instance = this;
@@ -19,6 +22,11 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
 
   private void Start() {
     Spawner.Instance.UpdateSpawnIndicatorData += UpdateData;
+    road = new Color(0.7169812f, 0.4447915f, 0.3273763f);
+
+    foreach (Waypoint spawnPoint in Spawner.Instance.SpawnLocations) {
+      spawnMaterials.Add(spawnPoint.transform.Find("Cube").GetComponent<Renderer>().material);
+    }
   }
 
   public void UpdateData() {
@@ -32,7 +40,7 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
       var spawnPointSpawns = EnemySpawnTimes[i];
       bool warning = false;
       bool active = false;
-      // TODO(emonzon): Update this to fire per-enemy per-spawn point.
+      // TODO(emonzon): Upgrade this to fire per-enemy per-spawn point.
       foreach (var enemyType in spawnPointSpawns.Keys) {
 
         var spawnsAtPointAndType = spawnPointSpawns[enemyType];
@@ -68,9 +76,15 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
     }
   }
 
-  private void SetWarningIndicator(int spawnPoint) { }
+  private void SetWarningIndicator(int spawnPoint) {
+    spawnMaterials[spawnPoint].SetColor("_Color", Color.yellow);
+  }
 
-  private void SetSpawningIndicator(int spawnPoint) { }
+  private void SetSpawningIndicator(int spawnPoint) {
+    spawnMaterials[spawnPoint].SetColor("_Color", Color.yellow);
+  }
 
-  private void SetSafeIndicator(int spawnPoint) { }
+  private void SetSafeIndicator(int spawnPoint) {
+    spawnMaterials[spawnPoint].SetColor("_Color", road);
+  }
 }

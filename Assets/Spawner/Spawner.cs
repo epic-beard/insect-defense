@@ -33,6 +33,7 @@ public class Spawner : MonoBehaviour {
 
   public int CurrWave { get; set; } = 1;
   public int NumWaves { get; set; }
+  public List<Waypoint> SpawnLocations { get { return spawnLocations; } }
 
   private void Awake() {
     Instance = this;
