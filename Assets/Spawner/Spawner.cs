@@ -124,40 +124,53 @@ public class Spawner : MonoBehaviour {
           new List<Tuple<float, float>> { Tuple.Create(projectedStartTime, endTime) });
     } else {
       List<Tuple<float, float>> enemySpawns = spawnTimes[spawnLocation][enemyType];
-      List<Tuple<float, float>> updatedSpawns = new();
-
-      // The incoming interval is before all existing intervals
-      if (enemySpawns.Count > 0 && endTime < enemySpawns[0].Item1) {
-        updatedSpawns.Add(Tuple.Create(projectedStartTime, endTime));
-        updatedSpawns.AddRange(enemySpawns);
-      // The incoming interval is after all existing intervals
-      } else if (enemySpawns.Count > 0 && enemySpawns[enemySpawns.Count - 1].Item2 < projectedStartTime) {
-        updatedSpawns.AddRange(enemySpawns);
-        updatedSpawns.Add(Tuple.Create(projectedStartTime, endTime));
-      } else {
-        for (int i = 0; i < enemySpawns.Count; i++) {
-          // The is the first interval that will overlap with the one we are building.
-          if (projectedStartTime < enemySpawns[i].Item2 && enemySpawns[i].Item1 < endTime) {
-            float newStart = Math.Min(enemySpawns[i].Item1, projectedStartTime);
-            float newEnd = Math.Max(enemySpawns[i].Item2, endTime);
-            // All remaining intervals may overlap.
-            for (int j = i + 1; j < enemySpawns.Count; j++) {
-              if (endTime <= enemySpawns[j].Item2) {  // Found the new endpoint.
-                newEnd = enemySpawns[j].Item2;
-                i = j;
-                break;
-              } else if (enemySpawns[j].Item2 < endTime) {  // Interval gets swallowed whole.
-                newEnd = endTime;
-              }  // Existing interval(s) is/are after the new interval.
-            }
-            updatedSpawns.Add(Tuple.Create(newStart, newEnd));
-          } else {
-            updatedSpawns.Add(enemySpawns[i]);
-          }
+      // Make sure the new interval is inserted in the correct place.
+      for (int i = 0; i < enemySpawns.Count; i++) {
+        if (projectedStartTime < enemySpawns[i].Item1) {
+          enemySpawns.Insert(i, Tuple.Create(projectedStartTime, endTime));
+          break;
+        }
+        if (enemySpawns.Count == i + 1) {
+          enemySpawns.Add(Tuple.Create(projectedStartTime, endTime));
+          break;
         }
       }
-      spawnTimes[spawnLocation][enemyType] = updatedSpawns;
+      spawnTimes[spawnLocation][enemyType] = MergeEnemySpawnTimes(enemySpawns);
     }
+  }
+
+  // Assuming spawnTimes is ordered by start time, merge any overlapping intervals and return the result.
+  private static List<Tuple<float, float>> MergeEnemySpawnTimes(List<Tuple<float, float>> spawnTimes) {
+    if (spawnTimes.Count < 2) return spawnTimes;
+
+    List<Tuple<float, float>> updatedSpawns = new();
+
+    for (int i = 0; i < spawnTimes.Count; i++) {
+      // Check for overlap.
+      if (i + 1 < spawnTimes.Count && spawnTimes[i + 1].Item1 < spawnTimes[i].Item2) {
+
+        float startTime = spawnTimes[i].Item1;
+        float endTime = Math.Max(spawnTimes[i].Item2, spawnTimes[i + 1].Item2);
+        // If i + 1 is the last element in the list, this is necessary for proper function.
+        if (spawnTimes.Count <= i + 2) i++;
+
+        // We need to find out how far this match goes.
+        for (int j = i + 2; j < spawnTimes.Count; j++) {
+          // Check to see if the overlap is continuing.
+          if (spawnTimes[j].Item1 < endTime) {
+            endTime = Math.Max(endTime, spawnTimes[j].Item2);
+            // i needs to be adjusted so that index j is the next one examined by the outer loop.
+            i = j;
+          }
+        }
+
+        updatedSpawns.Add(Tuple.Create<float, float>(startTime, endTime));
+      } else {
+        updatedSpawns.Add(spawnTimes[i]);
+      }
+    }
+
+    return updatedSpawns;
   }
 
   public interface IWaveOrMetric {

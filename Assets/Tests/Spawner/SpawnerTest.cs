@@ -13,7 +13,7 @@ public class SpawnerTest {
   [Test]
   public void PopulateAndMergeSpawnTimesEmptyList() {
     EnemySpawnTimes spawnTimes = new();
-    float projectedStartTime = Time.time - 10.0f;
+    float projectedStartTime = Time.time + 10.0f;
     int spawnLocation = 0;
     int repetitions = 1;
     float repeatDelay = 5.0f;
@@ -33,7 +33,7 @@ public class SpawnerTest {
   [Test]
   public void PopulateAndMergeSpawnTimesNoOverlapList() {
     EnemySpawnTimes spawnTimes = new();
-    float projectedStartTime = Time.time - 10.0f;
+    float projectedStartTime = Time.time + 10.0f;
     int spawnLocation = 0;
     int repetitions = 1;
     float repeatDelay = 5.0f;
@@ -62,15 +62,15 @@ public class SpawnerTest {
   [Test]
   public void PopulateAndMergeSpawnTimesNoOverLapDifferentEnemyTypes() {
     EnemySpawnTimes spawnTimes = new();
-    float projectedStartTime = Time.time - 10.0f;
+    float projectedStartTime = Time.time + 10.0f;
     int spawnLocation = 0;
     int repetitions = 1;
     float repeatDelay = 5.0f;
     float waveStartTime = 0.0f;
     EnemyData.Type enemyType = EnemyData.Type.ANT;
 
-    float dummyStart = Time.time - 1000.0f;
-    float dummyEnd = Time.time - 1010.0f;
+    float dummyStart = Time.time + 1000.0f;
+    float dummyEnd = Time.time + 1010.0f;
     EnemyData.Type dummyEnemyType = EnemyData.Type.APHID;
 
     spawnTimes = CreateEnemySpawnTimes(dummyStart, dummyEnd, spawnLocation, dummyEnemyType);
@@ -90,25 +90,25 @@ public class SpawnerTest {
 
   [Test]
   public void PopulateAndMergeSpawnTimesNoIntersection() {
-    float projectedStartTime = Time.time - 10.0f;
+    float projectedStartTime = Time.time + 10.0f;
     int spawnLocation = 0;
     int repetitions = 1;
     float repeatDelay = 5.0f;
     float waveStartTime = projectedStartTime;
     EnemyData.Type enemyType = EnemyData.Type.ANT;
 
-    float dummyStart = Time.time - 1000.0f;
-    float dummyEnd = Time.time - 1010.0f;
+    float dummyStart = Time.time + 1000.0f;
+    float dummyEnd = Time.time + 1010.0f;
 
     EnemySpawnTimes spawnTimes = CreateEnemySpawnTimes(dummyStart, dummyEnd, spawnLocation, enemyType);
 
     Spawner.PopulateAndMergeSpawnTimes(
         ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, waveStartTime, enemyType);
 
-    EnemySpawnTimes expectedSpawnTimes =
-        CreateEnemySpawnTimes(dummyStart, dummyEnd, spawnLocation, enemyType);
     float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
-    expectedSpawnTimes[spawnLocation][enemyType].Add(Tuple.Create(projectedStartTime, endTime));
+    EnemySpawnTimes expectedSpawnTimes =
+        CreateEnemySpawnTimes(projectedStartTime, endTime, spawnLocation, enemyType);
+    expectedSpawnTimes[spawnLocation][enemyType].Add(Tuple.Create(dummyStart, dummyEnd));
 
     CollectionAssert.AreEqual(expectedSpawnTimes, spawnTimes);
   }
@@ -119,20 +119,19 @@ public class SpawnerTest {
     int spawnLocation = 0;
     int repetitions = 2;
     float repeatDelay = 3.0f;
-    float waveStartTime = projectedStartTime;
+    float waveStartTime = 0.0f;
     EnemyData.Type enemyType = EnemyData.Type.ANT;
 
     float dummyStart = Time.time + 10.0f;
     float dummyEnd = Time.time + 15.0f;
 
     EnemySpawnTimes spawnTimes = CreateEnemySpawnTimes(dummyStart, dummyEnd, spawnLocation, enemyType);
-
+    
     Spawner.PopulateAndMergeSpawnTimes(
         ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, waveStartTime, enemyType);
 
-    float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
     EnemySpawnTimes expectedSpawnTimes =
-        CreateEnemySpawnTimes(projectedStartTime, endTime, spawnLocation, enemyType);
+        CreateEnemySpawnTimes(projectedStartTime, dummyEnd, spawnLocation, enemyType);
 
     CollectionAssert.AreEqual(expectedSpawnTimes, spawnTimes);
   }
@@ -144,7 +143,7 @@ public class SpawnerTest {
     int spawnLocation = 0;
     int repetitions = 9;
     float repeatDelay = 3.0f;
-    float waveStartTime = projectedStartTime;
+    float waveStartTime = 0.0f;
     EnemyData.Type enemyType = EnemyData.Type.ANT;
 
     float dummyStart1 = Time.time + 5.0f;
@@ -174,7 +173,7 @@ public class SpawnerTest {
     int spawnLocation = 0;
     int repetitions = 7;
     float repeatDelay = 3.0f;
-    float waveStartTime = projectedStartTime;
+    float waveStartTime = 0.0f;
     EnemyData.Type enemyType = EnemyData.Type.ANT;
 
     float dummyStart1 = Time.time + 5.0f;
