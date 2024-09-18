@@ -12,22 +12,27 @@ using static EpicBeardLib.XmlSerializationHelpers;
 using EnemyStatOverrides = EpicBeardLib.Containers.SerializableDictionary<EnemyData.Stat, float>;
 using NullableIntegerField = WDNullableField<int, UnityEngine.UIElements.IntegerField>;
 using EnemyKey = System.Tuple<EnemyData.Type, int>;
-using UnityEngine.InputSystem.HID;
-using static UnityEditor.PlayerSettings;
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
+using EnemySpawnTimes = System.Collections.Generic.List<
+    System.Collections.Generic.Dictionary<
+        EnemyData.Type, System.Collections.Generic.List<System.Tuple<float, float>>>>;
 
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
   public static event Action<int, int> WaveComplete = delegate { };
   public static event Action LevelComplete = delegate { };
+  public static event Action<EnemySpawnTimes?> SpawnIndicatorDataUpdated = delegate { };
 #pragma warning disable 8618
   static public Spawner Instance;
 #pragma warning restore 8618
+
   [SerializeField] private List<Waypoint> spawnLocations = new();
   [SerializeField] private string filename = "";
 
+  private Waves? waves;
+
   public int CurrWave { get; set; } = 1;
   public int NumWaves { get; set; }
+  public List<Waypoint> SpawnLocations { get { return spawnLocations; } }
 
   private void Awake() {
     Instance = this;
@@ -35,7 +40,7 @@ public class Spawner : MonoBehaviour {
 
   void Start() {
     if (filename.Length == 0) return;
-    Waves? waves = Deserialize<Waves>(filename);
+    waves = Deserialize<Waves>(filename);
     if (waves != null) {
       ObjectPool.Instance.InitializeObjectPool(waves.GetEnemyKeys());
       SpawnWaves(waves);
@@ -43,6 +48,16 @@ public class Spawner : MonoBehaviour {
       // TODO: Make this an error.
       Debug.Log("ERROR: Waves is null.");
     }
+    // Send initial timing data to EnemySpawnIndiciatorManager.
+    SpawnIndicatorDataUpdated.Invoke(GetSpawnTimes());
+  }
+
+  // This can return null.
+  public EnemySpawnTimes? GetSpawnTimes() {
+    EnemySpawnTimes result = new();
+    float startTime = Time.time;
+    waves?.GetSpawnTimes(ref result, ref startTime);
+    return result;
   }
 
   public void SpawnWaves(Waves waves) {
@@ -79,6 +94,84 @@ public class Spawner : MonoBehaviour {
     return ObjectPool.Instance.InstantiateEnemy(data, startWaypoint, pos, parent).gameObject;
   }
 
+  // Merge an existing EnemySpawnTimes with new data derived from the other parameters.
+  // Params:
+  //   spawnTimes - Existing data about enemy spawn times to merge into.
+  //   projectedStartTime - When the current enemy will start spawning.
+  //                        If waveStartTime is nonzero, they should be equal.
+  //   spawnLocation - 0 based index of where the enemy will spawn.
+  //   repetitions - How many times the current enemy will spawn.
+  //   repeatDelay - The wait between spawn instances.
+  //   waveStartTime - When the current wave started, if it has.
+  //   enemyType - The type of enemy that will spawn.
+  public static void PopulateAndMergeSpawnTimes(
+      ref EnemySpawnTimes spawnTimes,
+      float projectedStartTime,
+      int spawnLocation,
+      int repetitions,
+      float repeatDelay,
+      float waveStartTime,
+      EnemyData.Type enemyType) {
+    // Ensure spawnTimes is big enough to reference the spawnlocation we are using.
+    while (spawnTimes.Count < (spawnLocation + 1)) {
+      spawnTimes.Add(new());
+    }
+    float remainingDuration = repetitions * repeatDelay - (Time.time - waveStartTime);
+    float endTime = projectedStartTime + remainingDuration;
+    if (!spawnTimes[spawnLocation].ContainsKey(enemyType)) {
+      spawnTimes[spawnLocation].Add(
+          enemyType,
+          new List<Tuple<float, float>> { Tuple.Create(projectedStartTime, endTime) });
+    } else {
+      List<Tuple<float, float>> enemySpawns = spawnTimes[spawnLocation][enemyType];
+      // Make sure the new interval is inserted in the correct place.
+      for (int i = 0; i < enemySpawns.Count; i++) {
+        if (projectedStartTime < enemySpawns[i].Item1) {
+          enemySpawns.Insert(i, Tuple.Create(projectedStartTime, endTime));
+          break;
+        }
+        if (enemySpawns.Count == i + 1) {
+          enemySpawns.Add(Tuple.Create(projectedStartTime, endTime));
+          break;
+        }
+      }
+      spawnTimes[spawnLocation][enemyType] = MergeEnemySpawnTimes(enemySpawns);
+    }
+  }
+
+  // Assuming spawnTimes is ordered by start time, merge any overlapping intervals and return the result.
+  private static List<Tuple<float, float>> MergeEnemySpawnTimes(List<Tuple<float, float>> spawnTimes) {
+    if (spawnTimes.Count < 2) return spawnTimes;
+
+    List<Tuple<float, float>> updatedSpawns = new();
+
+    for (int i = 0; i < spawnTimes.Count; i++) {
+      // Check for overlap.
+      if (i + 1 < spawnTimes.Count && spawnTimes[i + 1].Item1 < spawnTimes[i].Item2) {
+
+        float startTime = spawnTimes[i].Item1;
+        float endTime = Math.Max(spawnTimes[i].Item2, spawnTimes[i + 1].Item2);
+        i++;
+
+        // We need to find out how far this match goes.
+        for (int j = i + 1; j < spawnTimes.Count; j++) {
+          // Check to see if the overlap is continuing.
+          if (spawnTimes[j].Item1 < endTime) {
+            endTime = Math.Max(endTime, spawnTimes[j].Item2);
+            // i needs to be adjusted so that index j is the next one examined by the outer loop.
+            i = j;
+          }
+        }
+
+        updatedSpawns.Add(Tuple.Create<float, float>(startTime, endTime));
+      } else {
+        updatedSpawns.Add(spawnTimes[i]);
+      }
+    }
+
+    return updatedSpawns;
+  }
+
   public interface IWaveOrMetric {
     public abstract Wave GetWaveWithDefaults(WaveMetrics defaults);
   }
@@ -100,6 +193,10 @@ public class Spawner : MonoBehaviour {
     // Whether or not this wave has completed.
     [XmlIgnore]
     public bool Finished { get; set; }
+    [XmlIgnore]
+    public float WaveStartTime { get; set; }
+    [XmlIgnore]
+    public float NondeterministicTimeAddition { get; } = 10000.0f;
 
     public abstract HashSet<EnemyKey> GetEnemyKeys();
 
@@ -108,6 +205,11 @@ public class Spawner : MonoBehaviour {
     public abstract IList<Wave> GetChildren();
 
     public abstract bool AddWave(int index, Wave wave);
+
+    // Construct the appropriate spawnTimes during the method call and return it through spawnTimes.
+    // modifier is used as a way of passing data to child calls pertaining to any necessary delays;
+    // for example, a DelayedWave can have a cooldown, which can adjust the next wave's start time.
+    public abstract void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime);
 
     protected Foldout GetFoldout(string name) {
       Foldout foldout = new();
@@ -170,8 +272,10 @@ public class Spawner : MonoBehaviour {
     public int NumWaves { get { return waves.Count(); } }
     // Each wave represents one round of combat.
     readonly public List<Wave> waves = new();
+
     // Starts the level logic.
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       foreach (var wave in waves) {
         // Start the level immediately.
         GameSpeedManager.Instance.Pause();
@@ -226,6 +330,15 @@ public class Spawner : MonoBehaviour {
       WaveChanged.Invoke();
       return true;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
+
+      foreach (var wave in waves) {
+        wave.GetSpawnTimes(ref spawnTimes, ref projectedStartTime);
+      }
+    }
   }
 
   public class DelayedWave : Wave {
@@ -234,6 +347,7 @@ public class Spawner : MonoBehaviour {
     public float cooldown = 0.0f;
 
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       if (warmup > 0.0f) yield return new WaitForSeconds(warmup);
 
       Spawner.Instance.StartCoroutine(wave.Start());
@@ -266,6 +380,14 @@ public class Spawner : MonoBehaviour {
     public override bool AddWave(int index, Wave wave) {
       return false;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime + warmup : projectedStartTime + warmup;
+
+      wave.GetSpawnTimes(ref spawnTimes, ref projectedStartTime);
+      projectedStartTime += cooldown;
+    }
   }
 
   // A wave that calls its subwaves sequentially.
@@ -279,11 +401,11 @@ public class Spawner : MonoBehaviour {
     }
 
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       foreach (var subwave in Subwaves) {
         // Start the subwave and wait till it's finished.
         yield return Spawner.Instance.StartCoroutine(subwave.Start());
       }
-
       Finished = true;
     }
     public override string ToString() {
@@ -312,6 +434,15 @@ public class Spawner : MonoBehaviour {
       WaveChanged.Invoke();
       return true;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
+
+      foreach (var wave in Subwaves) {
+        wave.GetSpawnTimes(ref spawnTimes, ref projectedStartTime);
+      }
+    }
   }
 
   // A wave that calls its subwaves concurrently.
@@ -325,6 +456,7 @@ public class Spawner : MonoBehaviour {
     }
 
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       // Start all the subwaves.
       foreach (var subwave in Subwaves) {
         Spawner.Instance.StartCoroutine(subwave.Start());
@@ -361,6 +493,21 @@ public class Spawner : MonoBehaviour {
       WaveChanged.Invoke();
       return true;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
+
+      // We need to 'pass on' the furthest future projectedStartTime we can. Simultaneously,
+      //  we need to ensure each wave gets a clean modifier to use.
+      float longestModifier = 0.0f;
+      foreach (var wave in Subwaves) {
+        float tempModifier = projectedStartTime;
+        wave.GetSpawnTimes(ref spawnTimes, ref tempModifier);
+        longestModifier = Math.Max(longestModifier, tempModifier);
+      }
+      projectedStartTime = longestModifier;
+    }
   }
 
   // A wave that creates an enemy at regular intervals.
@@ -374,6 +521,7 @@ public class Spawner : MonoBehaviour {
     public EnemyData data;
 
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       for (int i = 0; i < repetitions; i++) {
         if (Positions.Count > 0) {
           foreach (Vector2 pos in Positions) {
@@ -444,6 +592,14 @@ public class Spawner : MonoBehaviour {
       return false;
     }
 
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
+
+      PopulateAndMergeSpawnTimes(
+          ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, WaveStartTime, data.type);
+    }
+
     // The following method keeps waveTag from serializing when null.
     public bool ShouldSerializeWaveTag() { return WaveTag.HasValue; }
     public bool ShouldSerializePositions() { return Positions.Count > 0; }
@@ -467,6 +623,7 @@ public class Spawner : MonoBehaviour {
     public EnemyData.SlimeProperties? SlimeOverride;
 
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       for (int i = 0; i < repetitions; i++) {
         if (Positions.Count > 0) {
           foreach (Vector2 pos in Positions) {
@@ -570,6 +727,15 @@ public class Spawner : MonoBehaviour {
       return false;
     }
 
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
+
+      PopulateAndMergeSpawnTimes(
+          ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, WaveStartTime,
+          EnemyDataManager.Instance.GetEnemyData(enemyDataKey).type);
+    }
+
     // The following methods keep the various overrides from serializing when they are unset.
     public bool ShouldSerializeOverrides() { return Overrides != null && Overrides.Count > 0; }
     public bool ShouldSerializeProperties() { return Properties.HasValue; }
@@ -588,6 +754,7 @@ public class Spawner : MonoBehaviour {
     public float delay;
 
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       // Wait for delay seconds.
       yield return new WaitForSeconds(delay);
       Finished = true;
@@ -617,6 +784,11 @@ public class Spawner : MonoBehaviour {
     public override bool AddWave(int index, Wave wave) {
       return false;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime += WaveStartTime == 0.0f? delay : delay - (Time.time - WaveStartTime);
+    }
   }
 
   public class DialogueBoxWave : Wave {
@@ -626,9 +798,12 @@ public class Spawner : MonoBehaviour {
     public override IEnumerator Start() {
       TowerManager.Instance.ClearSelection();
       MessageBox.Instance.ShowDialogue(messages);
-      Finished = true;
       yield return new WaitUntil(() => !MessageBox.Instance.IsOpen());
+      // WaveStasrtTime is set here instead of earlier to make internal logic using WaveStartTime to function.
+      WaveStartTime = Time.time;
       yield return new WaitForSeconds(delay);
+      Finished = true;
+      Spawner.SpawnIndicatorDataUpdated.Invoke(Spawner.Instance.GetSpawnTimes());
     }
 
     public override string ToString() {
@@ -659,11 +834,18 @@ public class Spawner : MonoBehaviour {
     public override bool AddWave(int index, Wave wave) {
       return false;
     }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+      projectedStartTime += WaveStartTime == 0.0f ?
+          NondeterministicTimeAddition : delay - (Time.time - WaveStartTime);
+    }
   }
 
   public class WaitUntilDeadWave : Wave {
     public int? WaveTag;
     public override IEnumerator Start() {
+      WaveStartTime = Time.time;
       if (WaveTag == null) {
         yield return new WaitUntil(() => ObjectPool.Instance.GetActiveEnemies().Count == 0);
       } else {
@@ -671,6 +853,8 @@ public class Spawner : MonoBehaviour {
             !ObjectPool.Instance.GetActiveEnemies().Any(
                 (e) => e.WaveTag == WaveTag));
       }
+      Finished = true;
+      Spawner.SpawnIndicatorDataUpdated.Invoke(Spawner.Instance.GetSpawnTimes());
     }
 
     // The following method keeps waveTag from serializing when null.
@@ -697,6 +881,12 @@ public class Spawner : MonoBehaviour {
 
     public override bool AddWave(int index, Wave wave) {
       return false;
+    }
+
+    public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
+      if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
+
+      projectedStartTime += NondeterministicTimeAddition;  // Set delay time for future waves to far from now.
     }
   }
 
