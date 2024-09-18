@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+#nullable enable
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ using EnemySpawnTimes = System.Collections.Generic.List<
 public class EnemySpawnIndicatorManager : MonoBehaviour {
   public static EnemySpawnIndicatorManager Instance;
 
-  public EnemySpawnTimes EnemySpawnTimes;
+  public EnemySpawnTimes? EnemySpawnTimes;
 
   private float leadWarnTime = 5.0f;
   private List<Material> spawnMaterials = new();
@@ -18,10 +17,10 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
 
   private void Awake() {
     Instance = this;
+    Spawner.UpdateSpawnIndicatorData += UpdateData;
   }
 
   private void Start() {
-    Spawner.Instance.UpdateSpawnIndicatorData += UpdateData;
     road = new Color(0.7169812f, 0.4447915f, 0.3273763f);
 
     foreach (Waypoint spawnPoint in Spawner.Instance.SpawnLocations) {
@@ -29,10 +28,11 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
     }
   }
 
-  public void UpdateData() {
-    EnemySpawnTimes = Spawner.Instance.GetSpawnTimes();
+  public void UpdateData(EnemySpawnTimes? spawnTimes) {
+    EnemySpawnTimes = spawnTimes;
   }
 
+  // TODO(emonzon): Complete this class to realize the enemy spawn warning indicator.
   void Update() {
     if (EnemySpawnTimes == null) return;
 
