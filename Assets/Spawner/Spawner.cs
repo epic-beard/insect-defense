@@ -19,7 +19,7 @@ using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
   public static event Action<int, int> WaveComplete = delegate { };
-  public static event Action LevelComplete = delegate { };
+  public static event Action<int> LevelComplete = delegate { };
 #pragma warning disable 8618
   static public Spawner Instance;
 #pragma warning restore 8618
@@ -168,6 +168,8 @@ public class Spawner : MonoBehaviour {
   // The top level of the subwave heirarchy, describing a level.
   public class Waves : Wave {
     public int NumWaves { get { return waves.Count(); } }
+
+    public int Level;
     // Each wave represents one round of combat.
     readonly public List<Wave> waves = new();
     // Starts the level logic.
@@ -195,8 +197,9 @@ public class Spawner : MonoBehaviour {
 
       // Make sure the players health didn't drop to zero getting rid of the last enemy.
       if (GameStateManager.Instance.Health > 0) {
-        LevelComplete.Invoke();
+        LevelComplete.Invoke(Level);
       }
+      
       Finished = true;
     }
 

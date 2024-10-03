@@ -21,6 +21,7 @@ public class SaveManager : MonoBehaviour {
     //-----------------------------------------
 
     Instance = this;
+    Spawner.LevelComplete += OnLevelComplete;
   }
 
   public List<PlayerState> GetSaves() {
@@ -42,5 +43,9 @@ public class SaveManager : MonoBehaviour {
     var dir = Path.GetDirectoryName(saveFile);
     Directory.CreateDirectory(dir);
     Serialize<PlayerState>(state, saveFile);
+  }
+
+  private void OnLevelComplete(int level) {
+    PlayerState.Instance.CurrentLevel = Math.Max(PlayerState.Instance.CurrentLevel, level);
   }
 }
