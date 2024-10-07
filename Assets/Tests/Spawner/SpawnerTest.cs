@@ -23,7 +23,7 @@ public class SpawnerTest {
     Spawner.PopulateAndMergeSpawnTimes(
         ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, waveStartTime, enemyType);
 
-    float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
+    float endTime = projectedStartTime + (repetitions * repeatDelay) - Math.Max((Time.time - waveStartTime), 0.0f);
     EnemySpawnTimes expectedSpawnTimes =
         CreateEnemySpawnTimes(projectedStartTime, endTime, spawnLocation, enemyType);
 
@@ -51,7 +51,7 @@ public class SpawnerTest {
 
     EnemySpawnTimes expectedSpawnTimes =
         CreateEnemySpawnTimes(dummyStart, dummyEnd, dummySpawnLocation, enemyType);
-    float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
+    float endTime = projectedStartTime + (repetitions * repeatDelay) - Math.Max((Time.time - waveStartTime), 0.0f);
     expectedSpawnTimes[spawnLocation].Add(
         enemyType,
         new List<Tuple<float, float>> { Tuple.Create(projectedStartTime, endTime) });
@@ -80,7 +80,7 @@ public class SpawnerTest {
 
     EnemySpawnTimes expectedSpawnTimes =
         CreateEnemySpawnTimes(dummyStart, dummyEnd, spawnLocation, dummyEnemyType);
-    float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
+    float endTime = projectedStartTime + (repetitions * repeatDelay) - Math.Max((Time.time - waveStartTime), 0.0f);
     expectedSpawnTimes[spawnLocation].Add(
         enemyType,
         new List<Tuple<float, float>> { Tuple.Create(projectedStartTime, endTime) });
@@ -105,10 +105,13 @@ public class SpawnerTest {
     Spawner.PopulateAndMergeSpawnTimes(
         ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, waveStartTime, enemyType);
 
-    float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
+    float endTime = projectedStartTime + (repetitions * repeatDelay) - Math.Max((Time.time - waveStartTime), 0.0f);
     EnemySpawnTimes expectedSpawnTimes =
         CreateEnemySpawnTimes(projectedStartTime, endTime, spawnLocation, enemyType);
     expectedSpawnTimes[spawnLocation][enemyType].Add(Tuple.Create(dummyStart, dummyEnd));
+
+    PrintEnemySpawnTimes("expected:", expectedSpawnTimes);
+    PrintEnemySpawnTimes("actual: ", spawnTimes);
 
     CollectionAssert.AreEqual(expectedSpawnTimes, spawnTimes);
   }
@@ -157,7 +160,7 @@ public class SpawnerTest {
     Spawner.PopulateAndMergeSpawnTimes(
         ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, waveStartTime, enemyType);
 
-    float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
+    float endTime = projectedStartTime + (repetitions * repeatDelay) - Math.Max((Time.time - waveStartTime), 0.0f);
     EnemySpawnTimes expectedSpawnTimes =
         CreateEnemySpawnTimes(dummyStart1, dummyEnd1, spawnLocation, enemyType);
     expectedSpawnTimes[spawnLocation][enemyType].Add(Tuple.Create(dummyStart2, endTime));
@@ -190,13 +193,18 @@ public class SpawnerTest {
     Spawner.PopulateAndMergeSpawnTimes(
         ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, waveStartTime, enemyType);
 
-    float endTime = projectedStartTime + (repetitions * repeatDelay) - (Time.time - waveStartTime);
+    float endTime = projectedStartTime + (repetitions * repeatDelay) - Math.Max((Time.time - waveStartTime), 0.0f);
     EnemySpawnTimes expectedSpawnTimes =
         CreateEnemySpawnTimes(projectedStartTime, dummyEnd2, spawnLocation, enemyType);
     expectedSpawnTimes[spawnLocation][enemyType].Add(Tuple.Create(dummyStart3, dummyEnd3));
 
     CollectionAssert.AreEqual(expectedSpawnTimes, spawnTimes);
   }
+
+  // Tests to add:
+  //   - For each subwave ensure GetSpawnTimes works as expected.
+  //   - Decouple PopualteAndMergeSpawnTimes from MergeEnemySpawnTimes.
+  //     - Do the merge once at the end.
 
   #region TestHelperMethods
 

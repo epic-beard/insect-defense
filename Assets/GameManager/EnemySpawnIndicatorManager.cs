@@ -1,4 +1,5 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,11 +31,13 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
 
   public void UpdateData(EnemySpawnTimes? spawnTimes) {
     EnemySpawnTimes = spawnTimes;
+    PrintEnemySpawnTimes("Updated EnemySpawnTimes at " + Time.time + ":\n" , EnemySpawnTimes);
   }
 
   // TODO(emonzon): Complete this class to realize the enemy spawn warning indicator.
   void Update() {
     if (EnemySpawnTimes == null) return;
+
 
     for (int i = 0; i < EnemySpawnTimes.Count; i++) {
       var spawnPointSpawns = EnemySpawnTimes[i];
@@ -42,14 +45,16 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
       bool active = false;
       // TODO(emonzon): Upgrade this to fire per-enemy per-spawn point.
       foreach (var enemyType in spawnPointSpawns.Keys) {
+        float now = Time.time;
 
         var spawnsAtPointAndType = spawnPointSpawns[enemyType];
         if (spawnsAtPointAndType.Count == 0) continue;
 
         var firstSpawnOfEnemyType = spawnsAtPointAndType[0];
         // Remove any old intervals.
-        while (firstSpawnOfEnemyType.Item2 < Time.time) {
+        while (firstSpawnOfEnemyType.Item2 < now) {
           spawnsAtPointAndType.RemoveAt(0);
+          PrintEnemySpawnTimes("Removed an old interval.\n", EnemySpawnTimes);
           if (spawnsAtPointAndType.Count > 0) {
             firstSpawnOfEnemyType = spawnsAtPointAndType[0];
           } else {
@@ -57,11 +62,13 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
           }
         }
         // Check for spawn indiciator changes.
-        if ((firstSpawnOfEnemyType.Item1 <= Time.time
-            && firstSpawnOfEnemyType.Item2 >= Time.time)) {
+        if (firstSpawnOfEnemyType.Item1 <= now
+            && firstSpawnOfEnemyType.Item2 >= now) {
+          //Debug.Log("Found an active interval");
           active = true;
-        } else if (firstSpawnOfEnemyType.Item1 < (Time.time + leadWarnTime)
-            && firstSpawnOfEnemyType.Item2 >= Time.time) {
+        } else if (firstSpawnOfEnemyType.Item1 < (now + leadWarnTime)
+            && firstSpawnOfEnemyType.Item2 >= now) {
+          //Debug.Log("Found a soon-to-be active interval");
           warning = true;
         }
         break;
@@ -76,12 +83,31 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
     }
   }
 
+  void PrintEnemySpawnTimes(String lead, EnemySpawnTimes? spawnTimes) {
+    string result = "";
+    if (spawnTimes == null) {
+      Debug.Log(lead + result);
+      return;
+    }
+    for (int i = 0; i < spawnTimes.Count; i++) {
+      result += "Spawn point: " + i + "\n";
+      foreach (var enemyType in spawnTimes[i].Keys) {
+        result += enemyType.ToString() + ": { ";
+        foreach (var spawnInterval in spawnTimes[i][enemyType]) {
+          result += "(" + spawnInterval.Item1 + ", " + spawnInterval.Item2 + " ), ";
+        }
+        result += "}\n";
+      }
+    }
+    Debug.Log(lead + result);
+  }
+
   private void SetWarningIndicator(int spawnPoint) {
     spawnMaterials[spawnPoint].SetColor("_Color", Color.yellow);
   }
 
   private void SetSpawningIndicator(int spawnPoint) {
-    spawnMaterials[spawnPoint].SetColor("_Color", Color.yellow);
+    spawnMaterials[spawnPoint].SetColor("_Color", Color.red);
   }
 
   private void SetSafeIndicator(int spawnPoint) {
