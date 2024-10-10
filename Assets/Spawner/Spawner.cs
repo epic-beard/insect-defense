@@ -58,6 +58,7 @@ public class Spawner : MonoBehaviour {
     float startTime = Time.time;
     Debug.Log("SHENANIGANS LOG, current time according to Time.time: " + startTime + "\n");
     waves?.GetSpawnTimes(ref result, ref startTime);
+    MergeSpawnTimes(ref result);
     PrintEnemySpawnTimes("Actual Spawn Times: ", result);
     return result;
   }
@@ -121,7 +122,7 @@ public class Spawner : MonoBehaviour {
   //   repeatDelay - The wait between spawn instances.
   //   waveStartTime - When the current wave started, if it has.
   //   enemyType - The type of enemy that will spawn.
-  public static void PopulateAndMergeSpawnTimes(
+  public static void PopulateSpawnTimes(
       ref EnemySpawnTimes spawnTimes,
       float projectedStartTime,
       int spawnLocation,
@@ -160,19 +161,57 @@ public class Spawner : MonoBehaviour {
         }
       }
 
-      string enemySpawnsString = "enemySpawns (" + Time.time + "):\n";
+      string enemySpawnsString = "enemySpawns " + enemyType + " (" + Time.time + " w/ projectedStartTime: " + projectedStartTime + " ):\n";
       foreach (var entry in enemySpawns) {
         enemySpawnsString += "( " + entry.Item1 + ", " + entry.Item2 + " ), ";
       }
       enemySpawnsString += "\n";
       Debug.Log(enemySpawnsString);
+    }
+  }
 
-      spawnTimes[spawnLocation][enemyType] = MergeEnemySpawnTimes(enemySpawns);
+  // Process spawnTimes and merge all overlapping intervals.
+  public static void MergeSpawnTimes(ref EnemySpawnTimes spawnTimes) {
+    foreach (var enemyTypeDict in spawnTimes) {
+      for (int index = 0; index < enemyTypeDict.Count; index++) {
+        var enemnyValueList = enemyTypeDict.ElementAt(index).Value;
+
+        // No need to process if there's 1 or 0 entries in enemnyValueList.
+        if (enemnyValueList.Count < 2) continue;
+
+        List<Tuple<float, float>> updatedSpawns = new();
+
+        for (int i = 0; i < enemnyValueList.Count; i++) {
+          // Check for overlap.
+          if (i + 1 < enemnyValueList.Count && enemnyValueList[i + 1].Item1 <= enemnyValueList[i].Item2) {
+
+            float startTime = enemnyValueList[i].Item1;
+            float endTime = Math.Max(enemnyValueList[i].Item2, enemnyValueList[i + 1].Item2);
+            i++;
+
+            // We need to find out how far this match goes.
+            for (int j = i + 1; j < enemnyValueList.Count; j++) {
+              // Check to see if the overlap is continuing.
+              if (enemnyValueList[j].Item1 <= endTime) {
+                endTime = Math.Max(endTime, enemnyValueList[j].Item2);
+                // i needs to be adjusted so that index j is the next one examined by the outer loop.
+                i = j;
+              }
+            }
+
+            updatedSpawns.Add(Tuple.Create<float, float>(startTime, endTime));
+          } else {
+            updatedSpawns.Add(enemnyValueList[i]);
+          }
+        }
+
+        enemyTypeDict[enemyTypeDict.ElementAt(index).Key] = updatedSpawns;
+      }
     }
   }
 
   // Assuming spawnTimes is ordered by start time, merge any overlapping intervals and return the result.
-  private static List<Tuple<float, float>> MergeEnemySpawnTimes(List<Tuple<float, float>> spawnTimes) {
+  private static List<Tuple<float, float>> MergeEnemySpawnTimesOld(List<Tuple<float, float>> spawnTimes) {
     if (spawnTimes.Count < 2) return spawnTimes;
 
     List<Tuple<float, float>> updatedSpawns = new();
@@ -536,16 +575,16 @@ public class Spawner : MonoBehaviour {
       // We need to 'pass on' the furthest future projectedStartTime we can. Simultaneously,
       //  we need to ensure each wave gets a clean modifier to use.
       string debugMessage = "In GetSpawnTimes for ConcurrentEnemyWave at time: " + Time.time + ". projectedStartTime: " + projectedStartTime + ".\n";
-      float longestModifier = 0.0f;
+      float largestModifier = 0.0f;
       foreach (var wave in Subwaves) {
         float tempModifier = projectedStartTime;
         wave.GetSpawnTimes(ref spawnTimes, ref tempModifier);
         debugMessage += "child wave tempModifier: " + tempModifier + "\n";
-        longestModifier = Math.Max(longestModifier, tempModifier);
+        largestModifier = Math.Max(largestModifier, tempModifier);
       }
       debugMessage += "Sanity check projectedStartTime: " + projectedStartTime + "\n";
-      debugMessage += "longestModifier: " + longestModifier + ".\n";
-      projectedStartTime = longestModifier;
+      debugMessage += "longestModifier: " + largestModifier + ".\n";
+      projectedStartTime = largestModifier;
       Debug.Log(debugMessage);
     }
   }
@@ -635,7 +674,7 @@ public class Spawner : MonoBehaviour {
     public override void GetSpawnTimes(ref EnemySpawnTimes spawnTimes, ref float projectedStartTime) {
       if (Finished || projectedStartTime >= NondeterministicTimeAddition) return;
 
-      PopulateAndMergeSpawnTimes(
+      PopulateSpawnTimes(
           ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, WaveStartTime, data.type);
     }
 
@@ -772,13 +811,14 @@ public class Spawner : MonoBehaviour {
       }
       Debug.Log("CannedEnemyWave at time: " + Time.time + ", initial projectedStartTime: " + projectedStartTime + ", WaveStartTime: " + WaveStartTime + "\n");
 
-      PopulateAndMergeSpawnTimes(
+      PopulateSpawnTimes(
           ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, WaveStartTime,
           EnemyDataManager.Instance.GetEnemyData(enemyDataKey).type);
 
-      projectedStartTime += repetitions * repeatDelay - Math.Max((Time.time - WaveStartTime), 0.0f);
+      projectedStartTime += repetitions * repeatDelay;
+
       Spawner.PrintEnemySpawnTimes(
-          "spawnTimes updated in CannedEnemyWave (at time: " + Time.time + "): ",
+          "spawnTimes updated in CannedEnemyWave (at time: " + Time.time + ", projectedStartTime: " + projectedStartTime + "): ",
           spawnTimes);
     }
 
