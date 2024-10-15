@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using static EpicBeardLib.XmlSerializationHelpers;
 
@@ -48,3 +50,24 @@ public class EnemyDataManagerTest {
     CollectionAssert.AreEquivalent(actual, expected);
   }
 }
+
+#region EnemyDataManagerUtils
+
+public static class EnemyDataManagerUtils {
+  public static void SetFileName(this EnemyDataManager manager, string fileName) {
+    typeof(EnemyDataManager)
+        .GetField("filename", BindingFlags.Instance | BindingFlags.NonPublic)
+        .SetValue(manager, fileName);
+  }
+
+  public static void InvokeAwake(this EnemyDataManager manager) {
+    Type[] argTypes = {};
+    MethodInfo awake = typeof(EnemyDataManager).GetMethod(
+        "Awake",
+        BindingFlags.NonPublic | BindingFlags.Instance,
+        null, CallingConventions.Standard, argTypes, null);
+    awake.Invoke(manager, null);
+  }
+}
+
+#endregion EnemyDataManagerUtils
