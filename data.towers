@@ -548,49 +548,56 @@
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>10</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Armor Penetration</name>
-              <description>Increases armor penetration by 10%.</description>
+              <description>Increases armor penetration by 10.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>150</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
               <floatAttributeModifiers>
                 <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>20</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Armor Penetration</name>
-              <description>Increases armor penetration by 20%.</description>
+              <description>Increases armor penetration by 20.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>500</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>AB_1_3_ARMORED_ENEMY_BONUS</specialAbility>
               <name>Wall Cracker</name>
               <description>Doubles damage to armored enemies.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>2000</cost>
             </TowerAbility>
             <TowerAbility>
               <specialAbility>NONE</specialAbility>
-              <name>&lt;UPGRADE NAME&gt;</name>
-              <description>&lt;UPGRADE DESCRIPTION&gt;</description>
+              <floatAttributeModifiers>
+                <AttributeModifierOfSingle>
+                  <attribute>ARMOR_PIERCE</attribute>
+                  <mode>ADDITIVE</mode>
+                  <mod>25</mod>
+                </AttributeModifierOfSingle>
+              </floatAttributeModifiers>
+              <name>Armor Penetration</name>
+              <description>Increases armor penetration by 25.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>8000</cost>
             </TowerAbility>
             <TowerAbility>
-              <specialAbility>AB_1_5_ARMOR_DEPLETION_BONUS</specialAbility>
-              <name>Depletion Bonus</name>
-              <description>Doubles damage to enemies which have lost their armor.</description>
+              <specialAbility>AB_1_5_OVER_PENETRATION_BONUS</specialAbility>
+              <name>Over-penetration Bonus</name>
+              <description>Doubles damage to armored enemies with less armor than your penetration.</description>
               <upgradePath>0</upgradePath>
-              <cost>10</cost>
+              <cost>15000</cost>
             </TowerAbility>
           </firstPathUpgrades>
           <secondPathUpgrades>
@@ -651,11 +658,11 @@
                 <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.1</mod>
+                  <mod>1.25</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Damage Increase</name>
-              <description>Increases damage by 10%.</description>
+              <description>Increases damage by 25%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -665,11 +672,11 @@
                 <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.2</mod>
+                  <mod>1.25</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Damage Increase</name>
-              <description>Increases damage by 20%.</description>
+              <description>Increases damage by 25%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -686,11 +693,11 @@
                 <AttributeModifierOfSingle>
                   <attribute>DAMAGE</attribute>
                   <mode>MULTIPLICATIVE</mode>
-                  <mod>1.3</mod>
+                  <mod>1.5</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Damage Increase</name>
-              <description>Increase damage by 10%.</description>
+              <description>Increase damage by 50%.</description>
               <upgradePath>2</upgradePath>
               <cost>10</cost>
             </TowerAbility>
@@ -711,9 +718,9 @@
         <secondary_slow_targets>0</secondary_slow_targets>
         <venom_stacks>0</venom_stacks>
         <area_of_effect>0</area_of_effect>
-        <armor_pierce>0.2</armor_pierce>
+        <armor_pierce>20</armor_pierce>
         <attack_speed>0.5</attack_speed>
-        <damage>30</damage>
+        <damage>20</damage>
         <projectile_speed>0</projectile_speed>
         <range>40</range>
         <secondary_slow_potency>0</secondary_slow_potency>
@@ -749,12 +756,12 @@
                 </AttributeModifierOfSingle>
                 <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.5</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Damage and Armor Pen</name>
-              <description>Increases damage and armor penetration by 50%.</description>
+              <description>Increases damage by 50% and armor penetration by 5.</description>
               <upgradePath>0</upgradePath>
               <cost>80</cost>
             </TowerAbility>
@@ -768,12 +775,12 @@
                 </AttributeModifierOfSingle>
                 <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.5</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Damage and Armor Pen</name>
-              <description>Increases damage and armor penetration by 50%.</description>
+              <description>Increases damage by 50% and armor penetration by 5.</description>
               <upgradePath>0</upgradePath>
               <cost>300</cost>
             </TowerAbility>
@@ -794,12 +801,12 @@
                 </AttributeModifierOfSingle>
                 <AttributeModifierOfSingle>
                   <attribute>ARMOR_PIERCE</attribute>
-                  <mode>MULTIPLICATIVE</mode>
-                  <mod>1.5</mod>
+                  <mode>ADDITIVE</mode>
+                  <mod>5</mod>
                 </AttributeModifierOfSingle>
               </floatAttributeModifiers>
               <name>Damage and Armor Pen</name>
-              <description>Increases damage and armor penetration by 50%.</description>
+              <description>Increases damage 50% and armor penetration by 5.</description>
               <upgradePath>0</upgradePath>
               <cost>3500</cost>
             </TowerAbility>
