@@ -19,8 +19,12 @@ using EnemySpawnTimes = System.Collections.Generic.List<
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
   public static event Action<int, int> WaveComplete = delegate { };
+<<<<<<< HEAD
   public static event Action<int> LevelComplete = delegate { };
+=======
+  public static event Action LevelComplete = delegate { };
   public static event Action<EnemySpawnTimes?> SpawnIndicatorDataUpdated = delegate { };
+>>>>>>> fa09aa77018659452a91bc2e8eee3f84ce99cc2e
 #pragma warning disable 8618
   static public Spawner Instance;
 #pragma warning restore 8618
