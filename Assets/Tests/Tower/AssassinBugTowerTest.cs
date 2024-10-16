@@ -54,7 +54,7 @@ public class AssassinBugTowerTest {
     Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage));
 
     Assert.False(tower.ArmorDepletionBonus);
-    tower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.AB_1_5_ARMOR_DEPLETION_BONUS);
+    tower.SpecialAbilityUpgrade(TowerAbility.SpecialAbility.AB_1_5_OVER_PENETRATION_BONUS);
     Assert.True(tower.ArmorDepletionBonus);
 
     Assert.That(tower.InvokeProcessDamageAndEffects(target), Is.EqualTo(tower.Damage * 2));

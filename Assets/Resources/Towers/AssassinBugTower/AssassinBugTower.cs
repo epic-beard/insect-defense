@@ -46,7 +46,7 @@ public class AssassinBugTower : Tower {
     switch (ability) {
       case SpecialAbility.AB_1_3_ARMORED_ENEMY_BONUS:
         ArmoredEnemyBonus = true; break;
-      case SpecialAbility.AB_1_5_ARMOR_DEPLETION_BONUS:
+      case SpecialAbility.AB_1_5_OVER_PENETRATION_BONUS:
         ArmorDepletionBonus = true; break;
       case SpecialAbility.AB_2_3_ANTI_AIR:
         AntiAir = true; break;

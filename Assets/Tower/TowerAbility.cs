@@ -15,7 +15,7 @@ public struct TowerAbility {
   public enum SpecialAbility {
     NONE,
     AB_1_3_ARMORED_ENEMY_BONUS, // Assassin Bug Tower, Armor Pen upgrade tree level 3.
-    AB_1_5_ARMOR_DEPLETION_BONUS, // Assassin Bug Tower, Armor Pen upgrade tree level 5.
+    AB_1_5_OVER_PENETRATION_BONUS, // Assassin Bug Tower, Armor Pen upgrade tree level 5.
     AB_2_3_ANTI_AIR, // Assassin Bug Tower, Utility upgrade tree level 3.
     AB_2_4_CAMO_SIGHT, // Assassin Bug Tower, Utility upgrade tree level 4.
     AB_2_5_ELASTIC_SPINERETTES, // Assassin Bug Tower, Utility upgrade tree level 5.
