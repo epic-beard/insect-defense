@@ -19,8 +19,12 @@ using EnemySpawnTimes = System.Collections.Generic.List<
 public class Spawner : MonoBehaviour {
   public static event Action<int> WavesStarted = delegate { };
   public static event Action<int, int> WaveComplete = delegate { };
+<<<<<<< HEAD
   public static event Action<int> LevelComplete = delegate { };
-  public static event Action<EnemySpawnTimes?> UpdateSpawnIndicatorData = delegate { };
+=======
+  public static event Action LevelComplete = delegate { };
+  public static event Action<EnemySpawnTimes?> SpawnIndicatorDataUpdated = delegate { };
+>>>>>>> fa09aa77018659452a91bc2e8eee3f84ce99cc2e
 #pragma warning disable 8618
   static public Spawner Instance;
 #pragma warning restore 8618
@@ -49,7 +53,7 @@ public class Spawner : MonoBehaviour {
       Debug.Log("ERROR: Waves is null.");
     }
     // Send initial timing data to EnemySpawnIndiciatorManager.
-    UpdateSpawnIndicatorData.Invoke(GetSpawnTimes());
+    SpawnIndicatorDataUpdated.Invoke(GetSpawnTimes());
   }
 
   // This can return null.
@@ -806,7 +810,7 @@ public class Spawner : MonoBehaviour {
       WaveStartTime = Time.time;
       yield return new WaitForSeconds(delay);
       Finished = true;
-      Spawner.UpdateSpawnIndicatorData.Invoke(Spawner.Instance.GetSpawnTimes());
+      Spawner.SpawnIndicatorDataUpdated.Invoke(Spawner.Instance.GetSpawnTimes());
     }
 
     public override string ToString() {
@@ -857,7 +861,7 @@ public class Spawner : MonoBehaviour {
                 (e) => e.WaveTag == WaveTag));
       }
       Finished = true;
-      Spawner.UpdateSpawnIndicatorData.Invoke(Spawner.Instance.GetSpawnTimes());
+      Spawner.SpawnIndicatorDataUpdated.Invoke(Spawner.Instance.GetSpawnTimes());
     }
 
     // The following method keeps waveTag from serializing when null.

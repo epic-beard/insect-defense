@@ -470,6 +470,7 @@ public class Level2WaveGenerator {
     Waves waves = new() {
       waves = { firstWave, secondWave, thirdWave, fourthWave },
     };
+    waves.Level = 2;
 
     Serialize<Waves>(waves, filename);
   }

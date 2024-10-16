@@ -339,6 +339,7 @@ public class Level3WaveGenerator {
     Waves waves = new() {
       waves = { firstWave, secondWave, thirdWave, fourthWave },
     };
+    waves.Level = 3;
 
     Serialize<Waves>(waves, filename);
   }

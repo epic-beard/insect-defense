@@ -8,9 +8,7 @@ public class PlayerState {
     Id = id;
   }
 
-  public PlayerState() {
-    Id = Guid.NewGuid().ToString();
-  }
+  public PlayerState() : this(Guid.NewGuid().ToString()) { }
 
   public string Id;
   public string SaveName;

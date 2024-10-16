@@ -274,6 +274,7 @@ public class Level1WaveGenerator {
     Waves waves = new() {
       waves = { firstWave, secondWave, thirdWave },
     };
+    waves.Level = 1;
 
     Serialize<Waves>(waves, filename);
   }
