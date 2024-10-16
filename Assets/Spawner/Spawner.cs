@@ -186,39 +186,6 @@ public class Spawner : MonoBehaviour {
     }
   }
 
-  // Assuming spawnTimes is ordered by start time, merge any overlapping intervals and return the result.
-  private static List<Tuple<float, float>> MergeEnemySpawnTimesOld(List<Tuple<float, float>> spawnTimes) {
-    if (spawnTimes.Count < 2) return spawnTimes;
-
-    List<Tuple<float, float>> updatedSpawns = new();
-
-    for (int i = 0; i < spawnTimes.Count; i++) {
-      // Check for overlap.
-      if (i + 1 < spawnTimes.Count && spawnTimes[i + 1].Item1 <= spawnTimes[i].Item2) {
-
-        float startTime = spawnTimes[i].Item1;
-        float endTime = Math.Max(spawnTimes[i].Item2, spawnTimes[i + 1].Item2);
-        i++;
-
-        // We need to find out how far this match goes.
-        for (int j = i + 1; j < spawnTimes.Count; j++) {
-          // Check to see if the overlap is continuing.
-          if (spawnTimes[j].Item1 <= endTime) {
-            endTime = Math.Max(endTime, spawnTimes[j].Item2);
-            // i needs to be adjusted so that index j is the next one examined by the outer loop.
-            i = j;
-          }
-        }
-
-        updatedSpawns.Add(Tuple.Create<float, float>(startTime, endTime));
-      } else {
-        updatedSpawns.Add(spawnTimes[i]);
-      }
-    }
-
-    return updatedSpawns;
-  }
-
   public interface IWaveOrMetric {
     public abstract Wave GetWaveWithDefaults(WaveMetrics defaults);
   }

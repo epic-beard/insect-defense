@@ -22,6 +22,7 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
   }
 
   private void Start() {
+    // TODO(emonzon): Get this from resources (move Tile to resources directory).
     road = new Color(0.7169812f, 0.4447915f, 0.3273763f);
 
     foreach (Waypoint spawnPoint in Spawner.Instance.SpawnLocations) {
