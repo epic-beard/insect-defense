@@ -396,41 +396,44 @@ public class TowerDataGenerator {
     var firstPathUpgrades = new TowerAbility[] {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.ADDITIVE, 10.0f)
         },
         name = "Armor Penetration",
-        description = "Increases armor penetration by 10%.",
+        description = "Increases armor penetration by 10.",
         upgradePath = 0,
-        cost = 10,
+        cost = 150,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.ADDITIVE, 20.0f)
         },
         name = "Armor Penetration",
-        description = "Increases armor penetration by 20%.",
+        description = "Increases armor penetration by 20.",
         upgradePath = 0,
-        cost = 10,
+        cost = 500,
       },
       new() {
         specialAbility = SpecialAbility.AB_1_3_ARMORED_ENEMY_BONUS,
         name = "Wall Cracker",
         description = "Doubles damage to armored enemies.",
         upgradePath = 0,
-        cost = 10,
+        cost = 2000,
       },
       new() {
-        name = "<UPGRADE NAME>",
-        description = "<UPGRADE DESCRIPTION>",
+        floatAttributeModifiers = new AttributeModifier<float>[] {
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.ADDITIVE, 25.0f)
+        },
+        name = "Armor Penetration",
+        description = "Increases armor penetration by 25.",
         upgradePath = 0,
-        cost = 10,
+        cost = 8000,
       },
       new() {
-        specialAbility = SpecialAbility.AB_1_5_ARMOR_DEPLETION_BONUS,
-        name = "Depletion Bonus",
-        description = "Doubles damage to enemies which have lost their armor.",
+        specialAbility = SpecialAbility.AB_1_5_OVER_PENETRATION_BONUS,
+        name = "Over-penetration Bonus",
+        description = "Doubles damage to armored enemies with less armor than your penetration.",
         upgradePath = 0,
-        cost = 10,
+        cost = 15000,
       }
     };
     var secondPathUpgrades = new TowerAbility[] {
@@ -477,19 +480,19 @@ public class TowerDataGenerator {
     var thirdPathUpgrades = new TowerAbility[] {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.1f)
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Damage Increase",
-        description = "Increases damage by 10%.",
+        description = "Increases damage by 25%.",
         upgradePath = 2,
         cost = 10,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.2f)
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.25f)
         },
         name = "Damage Increase",
-        description = "Increases damage by 20%.",
+        description = "Increases damage by 25%.",
         upgradePath = 2,
         cost = 10,
       },
@@ -502,10 +505,10 @@ public class TowerDataGenerator {
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
-          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.3f)
+          GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f)
         },
         name = "Damage Increase",
-        description = "Increase damage by 10%.",
+        description = "Increase damage by 50%.",
         upgradePath = 2,
         cost = 10,
       },
@@ -536,10 +539,10 @@ public class TowerDataGenerator {
       name = "Assassin Bug",
       icon_path = "Icons/test",
       area_of_effect = 0,
-      armor_pierce = 0.2f,
+      armor_pierce = 20.0f,
       attack_speed = 0.5f,
       cost = 50,
-      damage = 30,
+      damage = 20,
       acid_stacks = 0,
       projectile_speed = 0,
       range = 40,
@@ -560,20 +563,20 @@ public class TowerDataGenerator {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.ADDITIVE, 5.0f)
         },
         name = "Damage and Armor Pen",
-        description = "Increases damage and armor penetration by 50%.",
+        description = "Increases damage by 50% and armor penetration by 5.",
         upgradePath = 0,
         cost = 80,
       },
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.ADDITIVE, 5.0f)
         },
         name = "Damage and Armor Pen",
-        description = "Increases damage and armor penetration by 50%.",
+        description = "Increases damage by 50% and armor penetration by 5.",
         upgradePath = 0,
         cost = 300,
       },
@@ -588,10 +591,10 @@ public class TowerDataGenerator {
       new() {
         floatAttributeModifiers = new AttributeModifier<float>[] {
           GetAttributeModifier(Stat.DAMAGE, Mode.MULTIPLICATIVE, 1.5f),
-          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.MULTIPLICATIVE, 1.5f)
+          GetAttributeModifier(Stat.ARMOR_PIERCE, Mode.ADDITIVE, 5.0f)
         },
         name = "Damage and Armor Pen",
-        description = "Increases damage and armor penetration by 50%.",
+        description = "Increases damage 50% and armor penetration by 5.",
         upgradePath = 0,
         cost = 3500,
       },
