@@ -63,7 +63,7 @@ public class EndScreen : MonoBehaviour {
   }
 
   // TODO(nnewsom): Conduct necessary checks, metadata tracking, and save the player state.
-  private void OnLevelComplete() {
+  private void OnLevelComplete(int level) {
     AudioManager.Instance.Play(fanfare);
     GameSpeedManager.Instance.Pause(PauseToken.END);
     TerrariumScreen.Instance.HideUI();
