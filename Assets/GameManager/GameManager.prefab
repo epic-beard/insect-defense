@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1108349156654615366}
   - component: {fileID: -5136308199269468420}
   - component: {fileID: 3515865845595883114}
+  - component: {fileID: -809493487184691758}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -104,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a0010d9a30916418f2db3325332632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedTower: {fileID: 0}
   towerDataFilename: data.towers
 --- !u!114 &4758083784310599901
 MonoBehaviour:
@@ -170,5 +172,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95a19f74a1d40554d85581f2fc452c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-809493487184691758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770796850854829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d98d6455aa20b341a07f874ee082595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
