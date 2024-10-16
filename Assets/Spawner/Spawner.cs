@@ -104,7 +104,7 @@ public class Spawner : MonoBehaviour {
   //   repeatDelay - The wait between spawn instances.
   //   waveStartTime - When the current wave started, if it has.
   //   enemyType - The type of enemy that will spawn.
-  public static void PopulateAndMergeSpawnTimes(
+  public static void PopulateSpawnTimes(
       ref EnemySpawnTimes spawnTimes,
       float projectedStartTime,
       int spawnLocation,
@@ -135,12 +135,12 @@ public class Spawner : MonoBehaviour {
           break;
         }
       }
-      spawnTimes[spawnLocation][enemyType] = MergeEnemySpawnTimes(enemySpawns);
+      spawnTimes[spawnLocation][enemyType] = MergeSpawnTimes(enemySpawns);
     }
   }
 
   // Assuming spawnTimes is ordered by start time, merge any overlapping intervals and return the result.
-  private static List<Tuple<float, float>> MergeEnemySpawnTimes(List<Tuple<float, float>> spawnTimes) {
+  public static List<Tuple<float, float>> MergeSpawnTimes(List<Tuple<float, float>> spawnTimes) {
     if (spawnTimes.Count < 2) return spawnTimes;
 
     List<Tuple<float, float>> updatedSpawns = new();
@@ -599,7 +599,7 @@ public class Spawner : MonoBehaviour {
       if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
       projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
 
-      PopulateAndMergeSpawnTimes(
+      PopulateSpawnTimes(
           ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, WaveStartTime, data.type);
     }
 
@@ -734,7 +734,7 @@ public class Spawner : MonoBehaviour {
       if (Finished || projectedStartTime == NondeterministicTimeAddition) return;
       projectedStartTime = WaveStartTime != 0.0f ? WaveStartTime : projectedStartTime;
 
-      PopulateAndMergeSpawnTimes(
+      PopulateSpawnTimes(
           ref spawnTimes, projectedStartTime, spawnLocation, repetitions, repeatDelay, WaveStartTime,
           EnemyDataManager.Instance.GetEnemyData(enemyDataKey).type);
     }
