@@ -1,5 +1,3 @@
-using Codice.Client.BaseCommands;
-using System.IO;
 using UnityEngine;
 using static EpicBeardLib.XmlSerializationHelpers;
 
