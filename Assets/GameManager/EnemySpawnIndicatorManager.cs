@@ -31,7 +31,6 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
 
   public void UpdateData(EnemySpawnTimes? spawnTimes) {
     EnemySpawnTimes = spawnTimes;
-    PrintEnemySpawnTimes("Updated EnemySpawnTimes at " + Time.time + ":\n" , EnemySpawnTimes);
   }
 
   // TODO(emonzon): Complete this class to realize the enemy spawn warning indicator.
@@ -54,7 +53,6 @@ public class EnemySpawnIndicatorManager : MonoBehaviour {
         // Remove any old intervals.
         while (firstSpawnOfEnemyType.Item2 < now) {
           spawnsAtPointAndType.RemoveAt(0);
-          PrintEnemySpawnTimes("Removed an old interval.\n", EnemySpawnTimes);
           if (spawnsAtPointAndType.Count > 0) {
             firstSpawnOfEnemyType = spawnsAtPointAndType[0];
           } else {
